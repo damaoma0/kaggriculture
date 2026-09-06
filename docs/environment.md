@@ -140,7 +140,8 @@ episodeSteps 720, boardSize 10, startingMoney 3000, maxMarketOrdersPerTurn 10, t
 shedCapacity 100, weedSpawnChance 0.005, townShopUnlockInterval 3, townShopSellInterval 4,
 townCenterSellInterval 24, marketParams overrides allowed.
 
-## Open questions
-- Per-turn wall-clock time limit for the agent is not stated on the overview page; check the
-  environment's specification JSON (agentTimeout / actTimeout).
-- Confirm whether `agent` receives (obs) or (obs, config) by reading the package.
+## Confirmed from package (kaggle-environments 1.32.7)
+- actTimeout = 1 second per turn. Keep per-turn compute well under that.
+- Agent signature is `agent(obs)` (one argument). `obs["step"]` is the 0-indexed turn.
+- Full rules and tables ship inside the package: `envs/kaggriculture/README.md` and `AGENTS.md`.
+- Local baseline, starter vs random: starter finished with 3482 coins, random with 0.

@@ -14,4 +14,7 @@ https://www.kaggle.com/competitions/kaggriculture
   as they are discovered. The exact spec must be read from the competition's environment code, not guessed.
 
 ## Status
-- 2026-09-04: project scaffolded. Environment spec not yet inspected. Kaggle CLI not yet installed.
+- 2026-09-04: project scaffolded.
+- 2026-09-06: venv at `.venv` with kaggle-environments 1.32.7 and kaggle CLI 2.2.4 installed.
+  Environment spec captured in docs/environment.md. Kaggle API token not yet configured.
+  Always run Python via `.venv/Scripts/python.exe`.
