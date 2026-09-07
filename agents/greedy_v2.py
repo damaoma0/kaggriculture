@@ -148,7 +148,7 @@ PLAN = {
 
 class Controller:
     WEIGHT = {"W": 0.0, "F": 0.0, "H": 0.5, "C": 0.5, "CF": 2.0, "P": -2.0, "B": -2.0,
-              "PL": 0.0, "D": 4.0, "FZ": -1.0, "DR": -3.0}
+              "PL": 0.0, "D": 4.0, "FZ": -2.0, "DR": -3.0}
 
     def __init__(self):
         self.prev_job = {}
@@ -259,9 +259,11 @@ class Controller:
             return 0
         unmet = 0
         for a in ("COW", "SHEEP"):
+            if self.budget.get(ANIMALS[a]["product"], 0) < -10:
+                continue  # demand tilt will not buy these; do not hold tiles for them
             have = self.animal_count.get(a, 0) + self.shed.get(a, 0)
             unmet += max(0, PLAN["target_animals"][a] - have)
-        return max(0, unmet - len(self.structures))
+        return max(0, min(unmet, 4) - len(self.structures))
 
     def animal_targets_met(self):
         for a in ("COW", "SHEEP"):
@@ -439,17 +441,17 @@ class Controller:
                 continue
             best, best_score = None, None
             prev_key = self.prev_job.get(i)
-            if at_shed and hour <= 3 and not last_day and inv.get("FERTILIZER", 0) == 0 and inv.get("WHEAT", 0) > 0:
+            if at_shed and not last_day and inv.get("FERTILIZER", 0) == 0 and (inv.get("WHEAT", 0) > 0 or uncovered <= 0 or hour > 4):
                 fz_due = sum(1 for j in jobs if j["key"][0] == "FZ")
                 have_f = self.shed.get("FERTILIZER", 0)
                 if fz_due > 0 and have_f > 0:
-                    n = max(1, min(have_f, math.ceil(fz_due / expected_units)))
+                    n = max(1, min(have_f, math.ceil(fz_due / expected_units) + 1))
                     self.shed["FERTILIZER"] = have_f - n
                     inv["FERTILIZER"] = n
                     acts[i] = ["PICKUP", "FERTILIZER", n]
                     continue
             cands = list(jobs)
-            if carry_value >= (350 if day < 10 else 1200) or inv.get("MELON", 0) >= 6:
+            if carry_value >= (350 if day < 10 else 1200) or inv.get("MELON", 0) >= 5:
                 st = nearest_shed_tile(pos)
                 cands.append(dict(prio=1.0, pos=st, act=["DROP"], need=None, key=("DR", st[0], st[1])))
             held = by_key.get(prev_key) if u in holders else None
@@ -467,7 +469,7 @@ class Controller:
                     continue
                 w = self.WEIGHT[j["key"][0]]
                 if j["key"][0] == "DR":
-                    w = -8.0 if inv.get("MELON", 0) >= 6 else -5.0
+                    w = -8.0 if inv.get("MELON", 0) >= 5 else -5.0
                 if j["prio"] == 0.0:
                     w -= 50
                 elif j["prio"] <= 0.5:
@@ -584,7 +586,8 @@ class Controller:
                 want = P["max_hands"]
             self.want_hands = want
             have_hands = len(self.units) - 1
-            for _ in range(min(want - have_hands, 9 if self.melon_day else 7)):
+            cap = 9 if self.melon_day else (5 if hour == 0 else 7)
+            for _ in range(min(want - have_hands, cap)):
                 orders.append(["HIRE"])
 
         # feed shortfall first (cheap, critical)
@@ -687,6 +690,8 @@ class Controller:
             elif crop == "STRAWBERRY":
                 # do not starve the early animal build-up
                 floor = 350 if (day <= P["animal_cash_priority_day"] and not self.animal_targets_met()) else 250
+                if self.prices["STRAWBERRY"] >= MARKET_PARAMS["STRAWBERRY"]["base"]:
+                    floor = 120  # strawberries in scarcity pay as well as animals
                 buy = min(buy, int((money - floor) // cost), P["strawberry_per_day"])
             else:
                 buy = min(buy, int((money - 250) // cost), 10)
@@ -695,7 +700,8 @@ class Controller:
                 money -= buy * cost
             free_tiles -= n
 
-        orders = orders + sells
+        # cash from the two biggest sells first, then purchases, then the rest of the sells
+        orders = sells[:2] + orders + sells[2:]
         return orders[:MAX_ORDERS]
 
     # ------------------------------------------------------------ main
