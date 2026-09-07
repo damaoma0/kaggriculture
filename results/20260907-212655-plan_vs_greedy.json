@@ -1,0 +1,159 @@
+{
+ "candidate": "agents/plan_v1.py",
+ "args": {
+  "candidate": "agents/plan_v1.py",
+  "opponents": [
+   "agents/greedy_v2.py"
+  ],
+  "seeds": 6,
+  "seed_base": 1000,
+  "workers": 3,
+  "tag": "plan_vs_greedy"
+ },
+ "games": [
+  {
+   "opponent": "agents/greedy_v2.py",
+   "seed": 1000,
+   "seat": 0,
+   "result": "W",
+   "my_bank": 120338.0,
+   "opp_bank": 77706.0,
+   "margin": 42632.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 11.6
+  },
+  {
+   "opponent": "agents/greedy_v2.py",
+   "seed": 1001,
+   "seat": 0,
+   "result": "W",
+   "my_bank": 124605.0,
+   "opp_bank": 84228.0,
+   "margin": 40377.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 11.8
+  },
+  {
+   "opponent": "agents/greedy_v2.py",
+   "seed": 1000,
+   "seat": 1,
+   "result": "W",
+   "my_bank": 113365.0,
+   "opp_bank": 93389.0,
+   "margin": 19976.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 11.9
+  },
+  {
+   "opponent": "agents/greedy_v2.py",
+   "seed": 1002,
+   "seat": 0,
+   "result": "W",
+   "my_bank": 110191.0,
+   "opp_bank": 93510.0,
+   "margin": 16681.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 13.5
+  },
+  {
+   "opponent": "agents/greedy_v2.py",
+   "seed": 1001,
+   "seat": 1,
+   "result": "W",
+   "my_bank": 124605.0,
+   "opp_bank": 84228.0,
+   "margin": 40377.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 14.1
+  },
+  {
+   "opponent": "agents/greedy_v2.py",
+   "seed": 1002,
+   "seat": 1,
+   "result": "W",
+   "my_bank": 124460.0,
+   "opp_bank": 91667.0,
+   "margin": 32793.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 14.7
+  },
+  {
+   "opponent": "agents/greedy_v2.py",
+   "seed": 1003,
+   "seat": 0,
+   "result": "W",
+   "my_bank": 143511.0,
+   "opp_bank": 89422.0,
+   "margin": 54089.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 12.2
+  },
+  {
+   "opponent": "agents/greedy_v2.py",
+   "seed": 1003,
+   "seat": 1,
+   "result": "W",
+   "my_bank": 145415.0,
+   "opp_bank": 92609.0,
+   "margin": 52806.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 13.2
+  },
+  {
+   "opponent": "agents/greedy_v2.py",
+   "seed": 1004,
+   "seat": 0,
+   "result": "L",
+   "my_bank": 39170.0,
+   "opp_bank": 43503.0,
+   "margin": -4333.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 13.5
+  },
+  {
+   "opponent": "agents/greedy_v2.py",
+   "seed": 1004,
+   "seat": 1,
+   "result": "L",
+   "my_bank": 39170.0,
+   "opp_bank": 43503.0,
+   "margin": -4333.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 14.6
+  },
+  {
+   "opponent": "agents/greedy_v2.py",
+   "seed": 1005,
+   "seat": 0,
+   "result": "L",
+   "my_bank": 93132.0,
+   "opp_bank": 93938.0,
+   "margin": -806.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 14.8
+  },
+  {
+   "opponent": "agents/greedy_v2.py",
+   "seed": 1005,
+   "seat": 1,
+   "result": "W",
+   "my_bank": 95447.0,
+   "opp_bank": 77084.0,
+   "margin": 18363.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 15.1
+  }
+ ]
+}
