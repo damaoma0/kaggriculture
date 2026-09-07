@@ -138,7 +138,9 @@ BUILD = {
     "melon": 12,                                   # planted on day 0
     "cows":   {0: 2, 2: 3, 3: 4, 6: 6, 7: 8, 8: 9},
     "sheep":  {0: 2, 8: 4, 11: 5},
-    "geese":  {9: 1, 10: 3},
+    "geese":  {},
+    "melon_rolling": 10,     # melon tiles kept planted from day 1 to melon_last_plant_day
+    "melon_last_plant_day": 19,
     "straw":  {4: 4, 5: 8, 6: 12, 7: 16, 8: 20, 11: 33},
     "land":   {6: 1, 11: 2},                       # extra quadrants unlocked by day
     "hands":  [5, 4, 4, 5, 4, 5, 8, 8, 10, 9, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
@@ -282,8 +284,11 @@ class Planner:
     def planting_wanted(self, day):
         """[(crop, n)] to plant today, in priority order."""
         out = []
+        melons = self.crop_count.get("MELON", 0)
         if day == 0:
-            out.append(("MELON", BUILD["melon"] - self.crop_count.get("MELON", 0)))
+            out.append(("MELON", BUILD["melon"] - melons))
+        elif day <= BUILD["melon_last_plant_day"] and melons < BUILD["melon_rolling"]:
+            out.append(("MELON", min(BUILD["melon_rolling"] - melons, 4 if day < 10 else 8)))
         straw_have = self.crop_count.get("STRAWBERRY", 0)
         if day <= BUILD["straw_last_plant_day"]:
             n = self.targets(day)["straw"] - straw_have
@@ -291,7 +296,7 @@ class Planner:
                 out.append(("STRAWBERRY", n))
         wheat = self.crop_count.get("WHEAT", 0)
         if day <= BUILD["wheat_last_day"]:
-            target = BUILD["wheat_opening"] if day < 6 else BUILD["wheat_cap"]
+            target = BUILD["wheat_opening"] if day < 10 else BUILD["wheat_cap"]
             if wheat < target:
                 out.append(("WHEAT", target - wheat))
         if BUILD["carrot_from_day"] <= day <= BUILD["carrot_last_day"]:
@@ -376,7 +381,7 @@ class Planner:
                 k = min(n, seeds_left.get(crop, 0), len(free))
                 if k <= 0:
                     continue
-                if crop == "WHEAT":
+                if crop in ("WHEAT", "CARROT"):
                     chosen, free = free[-k:], free[:-k]
                 else:
                     chosen, free = free[:k], free[k:]
@@ -666,6 +671,10 @@ class Planner:
             have = self.seeds.get(crop, 0)
             buy = n - have
             cost = CROPS[crop]["seed"]
+            if crop == "MELON" and day > 0:
+                buy = min(buy, 4)
+                if any(T[a] - self.owned(a) > 0 for a in ("COW", "SHEEP")) and day < 9:
+                    buy = min(buy, int((money - 400) // cost))
             if crop == "STRAWBERRY":
                 buy = min(buy, 5)
                 animals_due = sum(max(0, T[a] - self.owned(a)) for a in ("COW", "SHEEP"))
