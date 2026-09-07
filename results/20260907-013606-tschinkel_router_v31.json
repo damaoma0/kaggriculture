@@ -1,0 +1,63 @@
+{
+ "candidate": "agents/public/tschinkel_router_v31.py",
+ "args": {
+  "candidate": "agents/public/tschinkel_router_v31.py",
+  "opponents": [
+   "starter"
+  ],
+  "seeds": 2,
+  "seed_base": 1000,
+  "workers": 4,
+  "tag": null
+ },
+ "games": [
+  {
+   "opponent": "starter",
+   "seed": 1001,
+   "seat": 0,
+   "result": "W",
+   "my_bank": 139214.0,
+   "opp_bank": 3622.0,
+   "margin": 135592.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 2.5
+  },
+  {
+   "opponent": "starter",
+   "seed": 1000,
+   "seat": 0,
+   "result": "W",
+   "my_bank": 138471.0,
+   "opp_bank": 3564.0,
+   "margin": 134907.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 2.5
+  },
+  {
+   "opponent": "starter",
+   "seed": 1000,
+   "seat": 1,
+   "result": "W",
+   "my_bank": 138471.0,
+   "opp_bank": 3564.0,
+   "margin": 134907.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 2.6
+  },
+  {
+   "opponent": "starter",
+   "seed": 1001,
+   "seat": 1,
+   "result": "W",
+   "my_bank": 139214.0,
+   "opp_bank": 3622.0,
+   "margin": 135592.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 2.6
+  }
+ ]
+}
