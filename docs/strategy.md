@@ -81,3 +81,17 @@ the notebooks studied live in `data/public_notebooks/` (git-ignored; other peopl
    of whichever field route we use.
 4. **Evaluation harness first**: paired seeds, both seats, per-opponent records, veto on losing to
    the incumbent. Without it every "improvement" is noise.
+
+## Learnings from building greedy_v2 (2026-09-07)
+- Walking is the dominant labor cost. Scoring jobs by distance + small class weights, letting a
+  unit finish every job on the tile it stands on, and sticky tile claims cut moves from 75% to ~50%.
+- The public router's crew is not more efficient (40-50% moves, plenty of PASS); its edge is
+  sequencing: 4 animals on day 0, a cow the moment 400 coins exist, 4 strawberry seeds/day from day 4,
+  land on day 6, fertilizer sold the same day it is collected, and fertilized strawberries (8 units
+  per tile instead of 4).
+- Melon race: tapes dump at day 10 hour 9. Harvesting at 5 units without watering from hour 1 and
+  carrying straight to the shed sells first. 20 melons did not beat 12 (cash and labor early).
+- Demand model: town drain + shops + expected future shop draws (one every 3 days from a known
+  table) + opponent's visible animals/plants. It correctly avoids milk when the opponent runs 9 cows
+  and no milk shop exists, but must not hold tiles or cash for products it will not buy.
+- Cash flow early: put the two largest SELL orders before purchases so same-turn proceeds fund buys.
