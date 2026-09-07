@@ -287,20 +287,31 @@ class Planner:
         melons = self.crop_count.get("MELON", 0)
         if day == 0:
             out.append(("MELON", BUILD["melon"] - melons))
-        elif day <= BUILD["melon_last_plant_day"] and melons < BUILD["melon_rolling"]:
-            out.append(("MELON", min(BUILD["melon_rolling"] - melons, 4 if day < 10 else 8)))
+        elif day <= BUILD["melon_last_plant_day"] and melons < BUILD["melon_rolling"] and day < 10:
+            out.append(("MELON", min(BUILD["melon_rolling"] - melons, 4)))
         straw_have = self.crop_count.get("STRAWBERRY", 0)
         if day <= BUILD["straw_last_plant_day"]:
             n = self.targets(day)["straw"] - straw_have
             if n > 0:
                 out.append(("STRAWBERRY", n))
         wheat = self.crop_count.get("WHEAT", 0)
+        if day < 10:
+            if wheat < BUILD["wheat_opening"]:
+                out.append(("WHEAT", BUILD["wheat_opening"] - wheat))
+            return out
+        # filler for remaining tiles: rank by expected coins per tile-day at current prices,
+        # only crops that can still finish before the season ends
+        pr = self.prices
+        cands = []
+        if day <= BUILD["melon_last_plant_day"] and melons < BUILD["melon_rolling"] + 6:
+            cands.append((6 * market_price("MELON", self.market_inv["MELON"] + 30) / 10, "MELON", 8))
         if day <= BUILD["wheat_last_day"]:
-            target = BUILD["wheat_opening"] if day < 10 else BUILD["wheat_cap"]
-            if wheat < target:
-                out.append(("WHEAT", target - wheat))
-        if BUILD["carrot_from_day"] <= day <= BUILD["carrot_last_day"]:
-            out.insert(0, ("CARROT", 30))
+            cands.append((4.5 * pr["WHEAT"] / 5, "WHEAT", 12))
+        if day <= BUILD["carrot_last_day"]:
+            cands.append((3 * market_price("CARROT", self.market_inv["CARROT"] + 20) / 3, "CARROT", 12))
+        cands.sort(reverse=True)
+        for _, crop, n in cands:
+            out.append((crop, n))
         return out
 
     # ------------------------------------------------------------ tasks per tile
@@ -325,6 +336,10 @@ class Planner:
                         L.append(("WATER", [], None))
                 if (t["crop"] == "STRAWBERRY" and age in (9, 10, 13, 14) and t.get("fertilized_until_day", -1) < day
                         and fert_available > 0 and day <= 27):
+                    L.append(("FERTILIZE", [], "FERTILIZER"))
+                    fert_available -= 1
+                elif (t["crop"] == "WHEAT" and age == 2 and t.get("fertilized_until_day", -1) < day
+                        and fert_available > self.straw_fert_need(day) and self.prices["FERTILIZER"] < 1.6 * self.prices["WHEAT"]):
                     L.append(("FERTILIZE", [], "FERTILIZER"))
                     fert_available -= 1
                 if cd["ongoing"]:
@@ -532,6 +547,10 @@ class Planner:
                 acts[i] = step_toward(pos, target)
         return acts
 
+    def straw_fert_need(self, day):
+        return sum(1 for _, _, t in self.plants if t["crop"] == "STRAWBERRY"
+                   and (day - t["planted_day"]) in (7, 8, 9, 11, 12, 13))
+
     def tile_prio(self, p):
         t = self.tiles[p[1]][p[0]]
         if isinstance(t, dict):
@@ -555,7 +574,7 @@ class Planner:
         last_day = day == 29
         final = last_day and hour >= 16
         days_left = max(1, 29 - day)
-        wheat_reserve = 0 if last_day else self.n_animals + 3
+        wheat_reserve = 0 if last_day else self.n_animals * (4 if 9 <= day <= 22 and self.prices["WHEAT"] <= 44 else 1) + 3
         upcoming = sum(1 for _, _, t in self.plants if t["crop"] == "STRAWBERRY"
                        and (day - t["planted_day"]) in (7, 8, 9, 11, 12, 13))
         fert_reserve = 0 if day >= 27 else min(upcoming, 16)
@@ -633,7 +652,12 @@ class Planner:
 
         # feed for today
         pending = sum(self.shed.get(a, 0) for a in ANIMALS)
-        need_feed = self.n_animals + pending + (3 if day == 0 else 2)
+        wheat_now = market_price("WHEAT", self.market_inv["WHEAT"] - 1)
+        days_ahead = 1
+        if 6 <= day <= 22 and wheat_now <= 40:
+            days_ahead = 4 if day >= 9 else 2
+        shed_room = SHED_CAP - sum(self.shed.values()) - 20
+        need_feed = min((self.n_animals + pending) * days_ahead, max(self.n_animals + pending, shed_room)) + (3 if day == 0 else 2)
         have_wheat = self.shed.get("WHEAT", 0) + sum(u["inv"].get("WHEAT", 0) for u in self.units)
         if not last_day and have_wheat < need_feed:
             price = market_price("WHEAT", self.market_inv["WHEAT"] - 1)
