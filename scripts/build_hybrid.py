@@ -1,7 +1,7 @@
 """Build agents/hybrid_v1.py: a replayed meta opening followed by the plan_v1 planner.
 
-The opening tape is the public router's main route (agents/public/tschinkel_router_v31.py,
-Kaggle notebook by Thomas Tschinkel; behavioural provenance, see docs/strategy.md). Its actions
+The default opening tape is ladder episode 106870999 (team yuto083), reconstructed by
+scripts/make_tapes.py; the public router's main route also works (--tape). Its actions
 for steps [0, HANDOVER) are embedded verbatim with two repairs: a unit told to work a tile that
 holds a weed digs it instead. (Sells are not clamped: same-turn PLACE/DROP feeds them.)
 
@@ -67,14 +67,17 @@ def agent(obs):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--handover", type=int, default=264)
-    ap.add_argument("--tape", default=str(ROOT / "agents" / "public" / "tschinkel_router_v31.py"))
+    ap.add_argument("--tape", default=str(ROOT / "agents" / "tapes" / "yuto083_106870999.py"))
     ap.add_argument("--out", default=str(ROOT / "agents" / "hybrid_v1.py"))
     args = ap.parse_args()
 
     spec = importlib.util.spec_from_file_location("tape", args.tape)
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
-    route = mod.routes()[mod.MAIN][:args.handover]
+    if hasattr(mod, "routes"):
+        route = mod.routes()[mod.MAIN][:args.handover]
+    else:
+        route = mod._ACTIONS[:args.handover]          # a ladder tape from scripts/make_tapes.py
     actions = [{"farmer": a.get("farmer") or ["PASS"], "hands": a.get("hands") or [],
                 "market": a.get("market") or []} for a in route]
     blob = base64.b64encode(zlib.compress(json.dumps(actions).encode(), 9)).decode()

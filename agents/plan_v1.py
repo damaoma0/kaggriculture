@@ -140,8 +140,8 @@ BUILD = {
     "sheep":  {0: 2, 8: 4, 11: 5},
     "geese":  {},
     "melon_rolling": 10,     # melon tiles kept planted from day 1 to melon_last_plant_day
-    "melon_last_plant_day": 19,
-    "straw":  {4: 4, 5: 8, 6: 12, 7: 16, 8: 20, 11: 33},
+    "melon_last_plant_day": 11,   # one second wave right after the day-10 harvest, then wheat
+    "straw":  {4: 4, 5: 8, 6: 12, 7: 16, 8: 20, 11: 36},
     "land":   {6: 1, 11: 2},                       # extra quadrants unlocked by day
     "hands":  [5, 4, 4, 5, 4, 5, 8, 8, 10, 9, 12, 12, 12, 12, 12, 12, 12, 12, 12, 12,
                12, 12, 12, 12, 12, 12, 12, 12, 12, 9],
@@ -151,7 +151,7 @@ BUILD = {
     "carrot_from_day": 22,
     "carrot_last_day": 26,
     "wheat_last_day": 25,
-    "animal_last_day": 20,
+    "animal_last_day": 10,        # after the replayed opening, keep the herd it built
     "sell_frac": 0.5,
     "hold_days": 4,
 }
@@ -439,6 +439,8 @@ class Planner:
             free = [p for p in near_empty if p not in used]
             seeds_left = dict(self.seeds)
             for crop, n in self.planting_wanted(day):
+                if day + CROPS[crop]["max_yield_day"] > 29 and crop != "STRAWBERRY":
+                    continue   # cannot ripen before the season ends
                 k = min(n, seeds_left.get(crop, 0), len(free))
                 if k <= 0:
                     continue
@@ -517,6 +519,16 @@ class Planner:
             carrying = sum(v for k, v in inv.items() if k in PRODUCTS)
             if last_day and carrying and hour >= 16:
                 acts[i] = ["DROP"] if at_shed else step_toward(pos, nearest_shed_tile(pos))
+                continue
+            # a plant under our feet that dies tonight without water comes before any errand
+            here = self.tiles[pos[1]][pos[0]]
+            if (pos in pending_tiles and isinstance(here, dict) and here.get("kind") == "PLANT"
+                    and here["consecutive_unwatered"] >= 1 and not here["watered_today"]
+                    and any(op == "WATER" for op, _, _ in tasks[pos])):
+                claimed.add(pos)
+                tasks[pos] = [t for t in tasks[pos] if t[0] != "WATER"]
+                self.target[i] = pos
+                acts[i] = ["WATER"]
                 continue
             if inv.get("MELON", 0) >= 5 or (carrying and self.carry_value(inv) >= (350 if day < 10 else 3000)):
                 acts[i] = ["DROP"] if at_shed else step_toward(pos, nearest_shed_tile(pos))
