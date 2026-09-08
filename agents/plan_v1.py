@@ -166,6 +166,12 @@ class Planner:
         self.zone_final = False  # partition done with the full crew present
         self.prev_target = {}
         self.melon_rush = False
+        # opponent trade inference from public market inventory
+        self.prev_inv = None
+        self.prev_step = None
+        self.last_orders = []
+        self.opp_sold = {}     # day -> {product: units the opponent sold}
+        self.opp_bought = {}   # day -> {product: units the opponent bought}
 
     # ------------------------------------------------------------ scan
     def scan(self, obs):
@@ -226,6 +232,46 @@ class Planner:
                         sup[c] += {"STRAWBERRY": 0.35, "TOMATO": 0.33, "WHEAT": 0.8, "CARROT": 1.0}[c]
         return sup, melons
 
+    def infer_opponent(self, step):
+        """Opponent sells/buys at the previous step = inventory change - town drain - our own trades."""
+        inv = dict(self.market_inv)
+        if self.prev_inv is not None and self.prev_step == step - 1:
+            s = step - 1
+            day = s // TURNS_PER_DAY
+            drain = {p: 0 for p in PRODUCTS}
+            if s % 4 == 0:
+                for shop in self.shops:
+                    prods = SHOPS[shop]
+                    for q in prods:
+                        drain[q] += 2 if len(prods) == 1 else 1
+            if s % 24 == 0:
+                for q in PRODUCTS:
+                    if q != "FERTILIZER":
+                        drain[q] += 1
+            mine = {p: 0 for p in PRODUCTS}
+            for o in self.last_orders:
+                if o and o[0] == "SELL" and o[1] in mine:
+                    mine[o[1]] += int(o[2])
+                elif o and o[0] == "BUY_PRODUCT" and o[1] in mine:
+                    mine[o[1]] -= int(o[2])
+            sold = self.opp_sold.setdefault(day, {p: 0 for p in PRODUCTS})
+            bought = self.opp_bought.setdefault(day, {p: 0 for p in PRODUCTS})
+            for p in PRODUCTS:
+                net = inv[p] - self.prev_inv[p] + drain[p] - mine[p]
+                if net > 0:
+                    sold[p] += net
+                elif net < 0:
+                    bought[p] += -net
+        self.prev_inv = inv
+        self.prev_step = step
+
+    def opp_rate(self, product, day, window=3):
+        """Observed opponent sales per day over the last `window` complete days (None if unknown)."""
+        days = [d for d in range(day - window, day) if d >= 0 and d in self.opp_sold]
+        if len(days) < 2:
+            return None
+        return sum(self.opp_sold[d][product] for d in days) / len(days)
+
     def economics(self, day):
         days_left = max(1, 29 - day)
         drain = {p: (0.0 if p == "FERTILIZER" else 1.0) for p in PRODUCTS}
@@ -235,6 +281,11 @@ class Planner:
             for p in prods:
                 drain[p] += 6 * mult
         opp_sup, self.opp_melons = self.farm_supply(self.opp["tiles"])
+        if day >= 10:
+            for p in PRODUCTS:
+                r = self.opp_rate(p, day)
+                if r is not None and p != "MELON":
+                    opp_sup[p] = 0.5 * opp_sup[p] + 0.5 * r   # blend the tile estimate with what they actually sell
         my_sup, self.my_melons = self.farm_supply(self.tiles)
         for a in ANIMALS:
             my_sup[ANIMALS[a]["product"]] += self.shed.get(a, 0) * ANIMAL_RATE[a]
@@ -338,10 +389,7 @@ class Planner:
                         and fert_available > 0 and day <= 27):
                     L.append(("FERTILIZE", [], "FERTILIZER"))
                     fert_available -= 1
-                elif (t["crop"] == "WHEAT" and age == 2 and t.get("fertilized_until_day", -1) < day
-                        and fert_available > self.straw_fert_need(day) and self.prices["FERTILIZER"] < 1.6 * self.prices["WHEAT"]):
-                    L.append(("FERTILIZE", [], "FERTILIZER"))
-                    fert_available -= 1
+
                 if cd["ongoing"]:
                     if yu > 0:
                         L.append(("HARVEST", [], None))
@@ -356,7 +404,7 @@ class Planner:
                         L.append(("HARVEST", [], None))
             if L:
                 tasks[(x, y)] = L
-        skip_collect = self.prices["FERTILIZER"] < 12 and day >= 20
+        skip_collect = False
         for x, y, t in self.animals:
             L = []
             if not last_day and day > 0 and not t["fed_today"]:
@@ -547,6 +595,10 @@ class Planner:
                 acts[i] = step_toward(pos, target)
         return acts
 
+    def straw_fert_due(self, day):
+        return sum(1 for _, _, t in self.plants if t["crop"] == "STRAWBERRY"
+                   and (day - t["planted_day"]) in (9, 10, 13, 14) and t.get("fertilized_until_day", -1) < day)
+
     def straw_fert_need(self, day):
         return sum(1 for _, _, t in self.plants if t["crop"] == "STRAWBERRY"
                    and (day - t["planted_day"]) in (7, 8, 9, 11, 12, 13))
@@ -629,7 +681,8 @@ class Planner:
     def market_orders(self, day, hour):
         last_day = day == 29
         if last_day and hour >= 16:
-            return self.sell_orders(day, hour)[:MAX_ORDERS]
+            self.last_orders = self.sell_orders(day, hour)[:MAX_ORDERS]
+            return self.last_orders
         sells = self.sell_orders(day, hour)
         money = self.money + sum(self.prices[o[1]] * o[2] * 0.7 for o in sells[:2])
         buys = []
@@ -715,22 +768,26 @@ class Planner:
         # fertilizer for strawberries due today
         due = sum(1 for _, _, t in self.plants if t["crop"] == "STRAWBERRY"
                   and (day - t["planted_day"]) in (9, 13) and t.get("fertilized_until_day", -1) < day)
+        fp = market_price("FERTILIZER", self.market_inv["FERTILIZER"] - 1)
+        wheat_due = sum(1 for _, _, t in self.plants if t["crop"] == "WHEAT"
+                        and (day - t["planted_day"]) == 2 and t.get("fertilized_until_day", -1) < day)
         if due and day <= 27:
             have = self.shed.get("FERTILIZER", 0) + sum(u["inv"].get("FERTILIZER", 0) for u in self.units)
-            fp = market_price("FERTILIZER", self.market_inv["FERTILIZER"] - 1)
             if fp <= 0.7 * self.prices["STRAWBERRY"]:
-                n = min(due - have, int((money - 100) // (fp + 3)), 10)
+                n = min(due - have, int((money - 100) // (fp + 3)), 12)
                 if n > 0:
                     buys.append(["BUY_PRODUCT", "FERTILIZER", n])
 
-        orders = sells[:2] + buys + sells[2:]
-        return orders[:MAX_ORDERS]
+        orders = (sells[:2] + buys + sells[2:])[:MAX_ORDERS]
+        self.last_orders = orders
+        return orders
 
     # ------------------------------------------------------------ main
     def act(self, obs):
         step = int(obs.get("step", obs["day"] * TURNS_PER_DAY + obs["hour"]))
         day, hour = step // TURNS_PER_DAY, step % TURNS_PER_DAY
         self.scan(obs)
+        self.infer_opponent(step)
         self.economics(day)
         self.melon_day = any(day - d >= 10 for d in self.my_melons)
         if hour == 0:
