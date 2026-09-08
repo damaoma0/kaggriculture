@@ -434,7 +434,7 @@ class Planner:
                     tasks[p] = [("BUILD_" + struct, [], None), ("PLACE", [a], a)]
                     used.add(p)
         # plantings: strawberries near the shed, wheat farther out
-        if not last_day:
+        if not last_day and hour <= 21:
             free = [p for p in near_empty if p not in used]
             seeds_left = dict(self.seeds)
             for crop, n in self.planting_wanted(day):
@@ -623,6 +623,13 @@ class Planner:
     def tile_prio(self, p):
         t = self.tiles[p[1]][p[0]]
         if isinstance(t, dict):
+            if t.get("kind") == "PLANT":
+                cd = CROPS[t["crop"]]
+                age = self.day - t["planted_day"]
+                if t["consecutive_unwatered"] >= 1:
+                    return -1                     # dies tonight without water
+                if not cd["ongoing"] and age >= cd["max_yield_day"]:
+                    return -1                     # ripe; starts decaying tomorrow
             if "animal" in t or t.get("crop") in ("STRAWBERRY", "MELON"):
                 return 0
             if t.get("kind") in ("COOP", "PASTURE"):
@@ -804,6 +811,7 @@ class Planner:
         step = int(obs.get("step", obs["day"] * TURNS_PER_DAY + obs["hour"]))
         day, hour = step // TURNS_PER_DAY, step % TURNS_PER_DAY
         self.scan(obs)
+        self.day = day
         self.infer_opponent(step)
         self.economics(day)
         self.melon_day = any(day - d >= 10 for d in self.my_melons)
