@@ -26,8 +26,15 @@ https://www.kaggle.com/competitions/kaggriculture
   `agents/plan_v1.py` (edit plan_v1, then rebuild). It replays the public router's opening for steps
   0-263 (weed repair only), then the plan_v1 planner. Local: router gate 0-12 (-25k), 8 ladder tapes
   29-3, starter +126k. Ladder tapes come from `scripts/make_tapes.py` over `data/replays/`.
-  Kaggle submissions: plan_v1 56084442 (~756), plan_v1b 56085654 (~797), hybrid_v1 56102841,
-  hybrid_v1b 56103113 (latest). Account identity-verified; `kaggle competitions submit` works.
+  Kaggle submissions (only latest 2 active): hybrid_v2 56105759 (yuto083 opening; 9-3, ~930 after
+  14 games) and hybrid_v1b 56103113 (~975). Retired: hybrid_v1 56102841 (~1013), plan_v1b, plan_v1.
+  Account identity-verified; `kaggle competitions submit` works. Public router author sits ~2470,
+  top of ladder ~2930, median ~790 (8244 teams).
+- Default opening tape is now `agents/tapes/yuto083_106870999.py` (an ~1850-rated team's episode);
+  `scripts/build_hybrid.py --tape` swaps it. Local reference for hybrid_v2: router gate 0-12 (-24k),
+  strong ~1000-tier family panel 16-16, original 8-tape panel 31-1, starter +129k.
+- Next work: the ~24k late-game gap to the router (units, not prices: strawberries and wheat
+  cycles), and the planner still loses to yuto083's own late game by ~8k.
 
 ## Working notes
 - Same seed does NOT give the same shops across code changes: the shop draw shares the RNG stream
