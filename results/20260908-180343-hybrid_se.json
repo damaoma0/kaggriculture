@@ -1,0 +1,159 @@
+{
+ "candidate": "agents/_opt/hybrid_se.py",
+ "args": {
+  "candidate": "agents/_opt/hybrid_se.py",
+  "opponents": [
+   "agents/public/tschinkel_router_v31.py"
+  ],
+  "seeds": 6,
+  "seed_base": 1000,
+  "workers": 6,
+  "tag": "hybrid_se"
+ },
+ "games": [
+  {
+   "opponent": "agents/public/tschinkel_router_v31.py",
+   "seed": 1002,
+   "seat": 1,
+   "result": "L",
+   "my_bank": 66039.0,
+   "opp_bank": 94546.0,
+   "margin": -28507.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 6.0
+  },
+  {
+   "opponent": "agents/public/tschinkel_router_v31.py",
+   "seed": 1000,
+   "seat": 0,
+   "result": "L",
+   "my_bank": 47054.0,
+   "opp_bank": 84434.0,
+   "margin": -37380.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 6.1
+  },
+  {
+   "opponent": "agents/public/tschinkel_router_v31.py",
+   "seed": 1001,
+   "seat": 1,
+   "result": "L",
+   "my_bank": 76028.0,
+   "opp_bank": 108308.0,
+   "margin": -32280.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 6.1
+  },
+  {
+   "opponent": "agents/public/tschinkel_router_v31.py",
+   "seed": 1000,
+   "seat": 1,
+   "result": "L",
+   "my_bank": 47054.0,
+   "opp_bank": 84434.0,
+   "margin": -37380.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 6.1
+  },
+  {
+   "opponent": "agents/public/tschinkel_router_v31.py",
+   "seed": 1002,
+   "seat": 0,
+   "result": "L",
+   "my_bank": 66039.0,
+   "opp_bank": 94546.0,
+   "margin": -28507.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 6.1
+  },
+  {
+   "opponent": "agents/public/tschinkel_router_v31.py",
+   "seed": 1001,
+   "seat": 0,
+   "result": "L",
+   "my_bank": 76028.0,
+   "opp_bank": 108308.0,
+   "margin": -32280.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 6.2
+  },
+  {
+   "opponent": "agents/public/tschinkel_router_v31.py",
+   "seed": 1004,
+   "seat": 0,
+   "result": "L",
+   "my_bank": 63400.0,
+   "opp_bank": 98105.0,
+   "margin": -34705.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 5.9
+  },
+  {
+   "opponent": "agents/public/tschinkel_router_v31.py",
+   "seed": 1005,
+   "seat": 1,
+   "result": "L",
+   "my_bank": 53946.0,
+   "opp_bank": 78315.0,
+   "margin": -24369.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 6.0
+  },
+  {
+   "opponent": "agents/public/tschinkel_router_v31.py",
+   "seed": 1003,
+   "seat": 0,
+   "result": "L",
+   "my_bank": 88315.0,
+   "opp_bank": 118423.0,
+   "margin": -30108.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 6.1
+  },
+  {
+   "opponent": "agents/public/tschinkel_router_v31.py",
+   "seed": 1003,
+   "seat": 1,
+   "result": "L",
+   "my_bank": 88399.0,
+   "opp_bank": 118341.0,
+   "margin": -29942.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 6.1
+  },
+  {
+   "opponent": "agents/public/tschinkel_router_v31.py",
+   "seed": 1005,
+   "seat": 0,
+   "result": "L",
+   "my_bank": 53946.0,
+   "opp_bank": 78315.0,
+   "margin": -24369.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 6.1
+  },
+  {
+   "opponent": "agents/public/tschinkel_router_v31.py",
+   "seed": 1004,
+   "seat": 1,
+   "result": "L",
+   "my_bank": 63400.0,
+   "opp_bank": 98105.0,
+   "margin": -34705.0,
+   "my_status": "DONE",
+   "opp_status": "DONE",
+   "secs": 6.2
+  }
+ ]
+}

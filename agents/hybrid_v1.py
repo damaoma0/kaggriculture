@@ -384,14 +384,11 @@ class Planner:
             if melon_rush:
                 L.append(("HARVEST", [], None))
             else:
-                if not t["watered_today"]:
-                    if not last_day:
-                        L.append(("WATER", [], None))
-                    elif not cd["ongoing"] and (cd["max_yield_day"] + 1) // 2 <= age < cd["max_yield_day"] and yu < cd["max_yield"]:
-                        L.append(("WATER", [], None))
+                if not t["watered_today"] and self.water_matters(t, cd, age, day, last_day):
+                    L.append(("WATER", [], None))
                 if (t["crop"] == "STRAWBERRY" and age in (9, 10, 13, 14) and t.get("fertilized_until_day", -1) < day
                         and fert_available > 0 and day <= 27):
-                    L.append(("FERTILIZE", [], "FERTILIZER"))
+                    L.insert(0, ("FERTILIZE", [], "FERTILIZER"))
                     fert_available -= 1
 
                 if cd["ongoing"]:
@@ -598,6 +595,26 @@ class Planner:
             else:
                 acts[i] = step_toward(pos, target)
         return acts
+
+    def water_matters(self, t, cd, age, day, last_day):
+        """Water only when it changes something: survival (a second miss kills), a one-time
+        crop's bonus window, or a fertilized ongoing crop's production day."""
+        if t["consecutive_unwatered"] >= 1 and not last_day:
+            return True                      # skipped yesterday (or planted today): must water
+        if not cd["ongoing"]:
+            lo = (cd["max_yield_day"] + 1) // 2
+            return lo <= age <= cd["max_yield_day"] and t.get("yield_units", 0) < cd["max_yield"]
+        if last_day:
+            return False
+        # ongoing: production happens at the end of today when (day+1 - planted - first) % interval == 0
+        k = day + 1 - t["planted_day"] - cd["first_yield_day"]
+        if k < 0 or k % cd["interval"] != 0 or k // cd["interval"] + 1 > cd["max_yield"]:
+            return False
+        fertilized = t.get("fertilized_until_day", -1) >= day
+        return fertilized or (t["crop"] == "STRAWBERRY" and self.will_fertilize_today(t, age, day))
+
+    def will_fertilize_today(self, t, age, day):
+        return age in (9, 13) and (self.shed.get("FERTILIZER", 0) + sum(u["inv"].get("FERTILIZER", 0) for u in self.units)) > 0
 
     def straw_fert_due(self, day):
         return sum(1 for _, _, t in self.plants if t["crop"] == "STRAWBERRY"
