@@ -95,3 +95,13 @@ the notebooks studied live in `data/public_notebooks/` (git-ignored; other peopl
   table) + opponent's visible animals/plants. It correctly avoids milk when the opponent runs 9 cows
   and no milk shop exists, but must not hold tiles or cash for products it will not buy.
 - Cash flow early: put the two largest SELL orders before purchases so same-turn proceeds fund buys.
+
+## Hybrid and late-game findings (2026-09-08)
+- Replaying the router's opening verbatim (264 steps) put the farm at parity with it on day 11;
+  everything after is the planner's. The remaining gap (~25k) is units produced, not sell prices:
+  after handover our per-unit prices equal the router's.
+- Conditional watering (see CLAUDE.md working notes) was worth more than any market change.
+- Ladder tapes reveal strategies the public router lacks: ~10 rolling melon tiles all season and
+  wheat trading. Both are now in plan_v1 (melon rolling, feed stockpiling).
+- Opponent trades can be inferred exactly from public market inventory minus town drain minus our
+  own orders (`Planner.infer_opponent`).
