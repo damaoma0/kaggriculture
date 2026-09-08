@@ -354,12 +354,13 @@ class Planner:
         # only crops that can still finish before the season ends
         pr = self.prices
         cands = []
-        if day <= BUILD["melon_last_plant_day"] and melons < BUILD["melon_rolling"] + 6:
+        if day <= BUILD["melon_last_plant_day"] and melons < BUILD["melon_rolling"] + 2:
             cands.append((6 * market_price("MELON", self.market_inv["MELON"] + 30) / 10, "MELON", 8))
         if day <= BUILD["wheat_last_day"]:
-            cands.append((4.5 * pr["WHEAT"] / 5, "WHEAT", 12))
+            # wheat needs ~4 visits per 5-day cycle vs 5 per 3 days for carrots: weight it up
+            cands.append((1.15 * 4.5 * pr["WHEAT"] / 5, "WHEAT", 14))
         if day <= BUILD["carrot_last_day"]:
-            cands.append((3 * market_price("CARROT", self.market_inv["CARROT"] + 20) / 3, "CARROT", 12))
+            cands.append((0.85 * 3 * market_price("CARROT", self.market_inv["CARROT"] + 20) / 3, "CARROT", 8))
         cands.sort(reverse=True)
         for _, crop, n in cands:
             out.append((crop, n))
