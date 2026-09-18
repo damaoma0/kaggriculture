@@ -14,7 +14,8 @@ GAMES = ROOT / 'results/fresh/selfplay/games'
 
 def load(cand, rival, lo, hi):
     out = {}
-    for p in glob.glob(str(GAMES / f'{cand}-*-vs-{rival}.json')):
+    pattern = f'{cand}-*-vs-{rival}.json' if rival != 'benchmark_frozen_56280048' else f'{cand}-[0-9]*-[01].json'
+    for p in glob.glob(str(GAMES / pattern)):
         r = json.loads(open(p, encoding='utf-8').read())
         if lo <= r['seed'] <= hi:
             out[(r['seed'], r['seat'])] = r
