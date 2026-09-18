@@ -1,0 +1,4 @@
+cand_v1_nash5: frozen benchmark 56280048 + Mother-Goose-policy slot layer, submitted at explicit user request.
+Source: agents/cand_v1_nash5.py (built by scripts/build_mg_agent.py; SHA-256 prefix 3a38d019fb92).
+Layers: demand-keyed strawberry allocation from an engine-economics market model (calibrated sale spread), model-chosen second-wave melons, sheep->geese while no Yarn Store is visible, geese->sheep once one appears, equilibrium opening (buy 5 feed wheat on turn 0 and keep).
+Panel (seeds 174000-174031, both seats, 64 games per opponent): vs frozen benchmark 42-0-22, margin -24 (neutral); vs V48 20-0-44, margin -1,242, i.e. +1,283 (CI +567 to +2,023) over the benchmark on the same games; vs her reimplemented policy +4 over benchmark; vs her recorded moves 0-30, +792 over benchmark. Report: docs/mg_build.md.
