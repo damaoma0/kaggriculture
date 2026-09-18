@@ -266,6 +266,12 @@ Seeds 174000-174031 vs V48: **28-0-36, −767 (−1,618 to +25)**, median −528
 −501 (−821 to −207) with V48's cash −976: the gain over v1 comes from depressing V48's strawberry and
 tomato lines by more than our wages cost.
 
+Seeds 174000-174031 vs the frozen benchmark: **48-0-16 (75%), +491 (−293 to +1,224)**, median +890; paired
+with v1 **+515 (+230 to +851)** margin, own −477, benchmark −992. v3 is the first candidate significantly
+better than the submitted v1 on natural seeds against both opponents; the gain is margin (the clone's
+strawberry and tomato lines fall by ~1k) at a small own-cash cost (wages and fertilizer). Peak call 0.48 s
+against the 1 s limit. Not submitted at the time of writing.
+
 ## Built but not evaluated when paused
 
 `mg6_herd_mg`, `mg6_herd_noyarn`, `mg6_herd_v48` (herd, decided per purchase), `mg6_flip5`, and `mg_live`
