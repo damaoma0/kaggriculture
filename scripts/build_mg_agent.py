@@ -138,6 +138,11 @@ VARIANTS = {
                        'directions, equilibrium opening, owned hands.',
                        {'hands': dict(HANDS), 'opening': 'nash5',
                         'swaps': [dict(ECON, max_melons=2, tomato_units_per_plant=7.5), HERD_NOYARN, HERD_V48]}),
+    'mg10_hands_t11': ('Owned hands v2 (tape-coverage subtraction, midnight dump, up to 3 hands): all 13 slots -> tomatoes.',
+                       {'hands': dict(HANDS, max_hands=3), 'swaps': [STRAW11]}),
+    'mg10_hands_econ': ('Candidate v2b: as mg9_hands_econ with owned hands v2.',
+                        {'hands': dict(HANDS, max_hands=3), 'opening': 'nash5',
+                         'swaps': [dict(ECON, max_melons=2, tomato_units_per_plant=7.5), HERD_NOYARN, HERD_V48]}),
     # step 5 opponent
     'mg_live': ('Mother-Goose policy reimplemented on our chassis (opponent for the panel).', MG_LIVE),
     'mg_live_crops': ('Her reimplemented policy without her herd rule (R8 was a misreading and costs money).',

@@ -562,7 +562,7 @@ def _mgs_select_econ(state, obs, rule, step):
         if t and hands.get('enabled'):
             # owned hands on the three window days the tape does not cover (ages 7, 8, 10): one hand per
             # ~6 tiles, priced at the 12th/13th hire of the day, plus bought fertilizer (2 per plant)
-            k = min(int(hands.get('max_hands', 2)), max(1, -(-(3 * t + 2) // 20)))
+            k = min(int(hands.get('max_hands', 3)), max(1, -(-(3 * t + 2) // 20)))
             cost += 3.0 * sum(_MGH_FIB[11 + j] for j in range(k)) + 2.0 * t * (fert_price + 10.0)
         # fertilizer the tape would have spent on dropped strawberries is sold instead, except what a
         # fertilized tomato uses (cfg 'fertilize_swaps')

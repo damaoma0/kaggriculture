@@ -69,7 +69,16 @@ def _mgh_plan(state, obs, step):
         if 'FERTILIZE' in ops and int(cell.get('fertilized_until_day', -1) or -1) >= day + 1:
             ops.remove('FERTILIZE')
         tape_turns = len(_mgs_turns(state, tile, day * 24, (day + 1) * 24))
-        if 'FERTILIZE' not in ops and tape_turns >= len(ops):
+        # the tape's own turns on the tile today are rewritten by the slot layer (harvest when yield stands,
+        # otherwise water): leave those ops to it and give the hand only the remainder
+        cover = tape_turns
+        while cover > 0:
+            pick = 'HARVEST' if ('HARVEST' in ops and age >= 8) else ('WATER' if 'WATER' in ops else None)
+            if pick is None:
+                break
+            ops.remove(pick)
+            cover -= 1
+        if not ops:
             continue
         plan[tile] = ops
     return plan
@@ -108,12 +117,14 @@ def _mgh_request(state, obs, action, step):
         h['requested'] = (step, 0)
         return action
     farm = obs['farms'][player]
-    per_hand = 23 - hour - 1                       # acts from hour+1 to 23, last turn kept for DROP
+    per_hand = 23 - hour                           # acts from hour+1 through 23; cargo rides the midnight dump
+    if _MGH_CFG.get('drop_cargo'):
+        per_hand -= 4
     n_fert = sum(1 for ops in plan.values() if 'FERTILIZE' in ops)
     work = sum(len(ops) for ops in plan.values())
     _, travel = _mgh_chain((4, 5), list(plan))
-    need = work + travel + (1 if n_fert else 0) + 2
-    k = min(int(_MGH_CFG.get('max_hands', 2)), max(1, -(-need // max(1, per_hand))))
+    need = work + travel + (1 if n_fert else 0) + 1
+    k = min(int(_MGH_CFG.get('max_hands', 3)), max(1, -(-need // max(1, per_hand))))
     hires_today = int(farm.get('hires_today', 0))
     parent_hires = sum(1 for o in (action.get('market') or []) if o and o[0] == 'HIRE')
     cost = sum(_mgh_fib(hires_today + parent_hires + i) for i in range(k))
@@ -175,8 +186,9 @@ def _mgh_step(state, obs, h, idx, step):
     cargo = sum(int(v or 0) for k_, v in inv.items() if k_ != 'FERTILIZER')
     home = _mgh_home(pos)
     turns_left = 24 - hour
-    # end of day: get the cargo into the shed before midnight (the tape's hour-23 storage guard then sees it)
-    if cargo and turns_left <= _mgh_dist(pos, home) + 1:
+    # cargo rides the midnight dump into the shed (the chassis's hour-23 storage guard counts carried stock);
+    # cfg 'drop_cargo' instead walks it back before midnight
+    if _MGH_CFG.get('drop_cargo') and cargo and turns_left <= _mgh_dist(pos, home) + 1:
         return _mgh_walk(pos, home) or ['DROP']
     if h['pickup'].get(idx, 0) > 0 and not h['picked'].get(idx):
         if pos in _MGH_SHED:
@@ -218,7 +230,7 @@ def _mgh_step(state, obs, h, idx, step):
                     _mgs_count('hands_harvest_units', units)
                     return ['HARVEST']
         queue.pop(0)
-    if cargo or int(inv.get('FERTILIZER', 0) or 0) > 0:
+    if _MGH_CFG.get('drop_cargo') and (cargo or int(inv.get('FERTILIZER', 0) or 0) > 0):
         return _mgh_walk(pos, home) or ['DROP']
     return ['PASS']
 
