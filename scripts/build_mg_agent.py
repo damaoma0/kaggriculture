@@ -149,6 +149,10 @@ VARIANTS = {
     'mg11_econ2': ('Candidate v3: econ2 rule with hands v1, melons, both herd directions, equilibrium opening.',
                    {'hands': dict(HANDS), 'opening': 'nash5',
                     'swaps': [dict(ECON, kind='econ2', name='econ2', max_melons=2, tomato_units_per_plant=7.5), HERD_NOYARN, HERD_V48]}),
+    'mg11_econ2_fast': ('Candidate v3 with a coarser option grid (keep 0/4/8/13, adds 0/3/6) for timing headroom.',
+                        {'hands': dict(HANDS), 'opening': 'nash5',
+                         'swaps': [dict(ECON, kind='econ2', name='econ2', max_melons=2, tomato_units_per_plant=7.5,
+                                        keep_grid=(0, 4, 8, 13), add_grid=(0, 3, 6)), HERD_NOYARN, HERD_V48]}),
     # step 5 opponent
     'mg_live': ('Mother-Goose policy reimplemented on our chassis (opponent for the panel).', MG_LIVE),
     'mg_live_crops': ('Her reimplemented policy without her herd rule (R8 was a misreading and costs money).',
