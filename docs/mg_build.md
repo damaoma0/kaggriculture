@@ -160,6 +160,47 @@ are tested in her 30 worlds with the 40-coin cushion taken back out of her score
   margin (+792). Against production clones (the benchmark and V48) only about 15-20% is kept, because
   the shared-price lift flows to the clone.
 
+## Executor stage (2026-09-18 night): owned hands, derived from her replays
+
+Submitted `cand_v1_nash5` as 56341683 first. Then three extraction passes over her 30 replays
+(`scripts/mg_servicing.py`, `mg_routing.py`, `mg_fertilizer.py`; outputs in `results/fresh/mg_executor/`).
+
+**Her tomato schedule (285 plants).** Water at ages 0, 2, 4, 6 (survival), then fertilize+water at 7,
+water+harvest at 8 and 9, fertilize+water+harvest at 10, harvest+dig at 11. 52% of plants carry exactly
+this signature; the rest are one-element perturbations. Full-lived plants average 7.18 units, those with
+both fertilizations 7.60 (81% take all 8). All 883 doubled productions had fertilizer active and water
+that day; all 111 single ones lacked one. One unit services a tile per day, fertilize → water → harvest in
+consecutive steps. The engine check (`scripts/tomato_schedule_test.py`) agrees: fertilize at 7 and 10 with
+water on 7-10 gives 8 units, in 12 actions; daily harvest is her habit, not a requirement (two harvests at
+9 and 11 avoid the cap). The tape's strawberry calendar gives a swapped tomato exactly 5.
+
+**Her other crops yield what ours do** (strawberry 7.58 vs our ~7.5 with fertilizer at 9 and 13; wheat
+4.22; carrot 3.36), so tomatoes are the whole yield gap.
+
+**Routing and labour.** Same 11 hands a day as ours; she does fewer work actions (3,411 vs 3,492) and
+idles 300 more unit-hours. She pays for tomatoes, carrots and geese with 140 fewer wheat waterings (3.08
+per harvest vs our 3.45), ~90 fewer CARE actions and less strawberry work. Each unit walks a lane out of
+the shed and finishes a tile before moving; animals early in the day, fields later. Her tomato bed is the SW
+quadrant, rows 6-9, where our day-11 strawberry batch goes.
+
+**Fertilizer.** Our placement equals hers (the earlier "she fertilizes earlier" was a board-inference
+artefact). Gaps are volume: wheat 64% fertilized vs our 23% (+1.95 units per application, net +39 each,
+~2k/game) and tomato plant count. Melons are never fertilized (6 units without). Her programme nets ~23.7k
+of produce against 7.4k of forgone sales; ours ~20k.
+
+**Our tape's slack** (`scripts/tape_slack.py`): ~132 redundant waterings and ~15 idle turns a day, scattered,
+so an executor cannot run on freed tape labour; it needs its own hand (12th hire of the day: 89-144).
+
+**Design: owned hands on owned tiles** (`scripts/fragments/mg_hands.py`). The tape keeps the farm; the slot
+layer keeps its tomato tiles; on each tile's window days that the tape's calendar does not cover (ages 7,
+8, 10 for a day-11 planting) one or two hands are hired after every other layer's hire window (tape by hour
+2, V219/V233 by hour 6), buy fertilizer with the hire order, pick it up at the shed, walk the bed
+nearest-first doing fertilize → water → harvest, and drop cargo before midnight. A failed hire leaves the
+tape's 5 units. The market rule values tomatoes at 7.5 units and charges the hands.
+
+Smoke test (her world 0, all 13 slots swapped): 94 tomato units (7.2 per plant) against 52 tape-only and 65
+with fertilizer on the tape visit; 7 hand-days, 1,131 wages, 11 fertilizer bought, no failed commands.
+
 ## Built but not evaluated when paused
 
 `mg6_herd_mg`, `mg6_herd_noyarn`, `mg6_herd_v48` (herd, decided per purchase), `mg6_flip5`, and `mg_live`

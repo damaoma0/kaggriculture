@@ -67,6 +67,7 @@ HERD_V48 = dict(HERD, name='herd_v48', convert=('GOOSE',), to='SHEEP', condition
 # the first four: her 34-41 plants at 3, 43-49 at 4, against the tape's 33), R9 one melon, R6, R8.
 MG_LIVE = {'opening': 'nash5', 'swaps': [dict(MG_BATCH, wheat_days=(11, 13), add_table=[(0, 0), (2.5, 0), (3, 4), (4, 12)]),
                                       MG_R6, HERD]}
+HANDS = dict(enabled=True, max_hands=2, first_day=12, latest_hour=9, cash_margin=500)
 VARIANTS = {
     'mgs_null': ('Null control: calendar and seed logic active, no swaps.', {'swaps': []}),
     'mgs_t11': ('Every day-11 tape strawberry planting that the calendar can service becomes a tomato.',
@@ -130,6 +131,13 @@ VARIANTS = {
     'cand_v1_flip5': ('Candidate: same, turn-0 flip 5.', {'flip': 5, 'swaps': [dict(ECON, max_melons=2), HERD_NOYARN, HERD_V48]}),
     'cand_v1_nash5': ('Candidate: same, equilibrium opening (buy 5 feed wheat on turn 0 and keep them).',
                       {'opening': 'nash5', 'swaps': [dict(ECON, max_melons=2), HERD_NOYARN, HERD_V48]}),
+    # owned hands (production-window servicing of swapped tomatoes)
+    'mg9_hands_t11': ('Owned-hand isolation: every day-11 strawberry becomes a tomato; hands service ages 7-10.',
+                      {'hands': dict(HANDS), 'swaps': [STRAW11]}),
+    'mg9_hands_econ': ('Candidate v2: calibrated rule valuing tomatoes at 7.5 units with hand cost, melons, both herd '
+                       'directions, equilibrium opening, owned hands.',
+                       {'hands': dict(HANDS), 'opening': 'nash5',
+                        'swaps': [dict(ECON, max_melons=2, tomato_units_per_plant=7.5), HERD_NOYARN, HERD_V48]}),
     # step 5 opponent
     'mg_live': ('Mother-Goose policy reimplemented on our chassis (opponent for the panel).', MG_LIVE),
     'mg_live_crops': ('Her reimplemented policy without her herd rule (R8 was a misreading and costs money).',
@@ -144,6 +152,7 @@ def build(name):
     block = HEADER.format(name=name, sha=BASE_SHA, description=description)
     block += (FRAG / 'tape_calendar.py').read_text(encoding='utf-8') + '\n\n'
     block += (FRAG / 'mg_slots.py').read_text(encoding='utf-8').replace('__MGS_CFG__', pprint.pformat(cfg, width=110))
+    block += '\n\n' + (FRAG / 'mg_hands.py').read_text(encoding='utf-8')
     block += FOOTER
     out = ROOT / 'agents' / f'{name}.py'
     out.write_bytes(base + block.encode('utf-8'))

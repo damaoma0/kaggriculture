@@ -558,6 +558,12 @@ def _mgs_select_econ(state, obs, rule, step):
         rm_o, rm_p = _mgs_market('MELON', inv.get('MELON', 10000), day0, shops, mo, m_base_p)
         dropped = (tomato_ok[:t] + melon_ok[:m])
         cost = 50.0 * t + 80.0 * m + 100.0 * a - 100.0 * drop
+        hands = _MGS_CFG.get('hands') or {}
+        if t and hands.get('enabled'):
+            # owned hands on the three window days the tape does not cover (ages 7, 8, 10): one hand per
+            # ~6 tiles, priced at the 12th/13th hire of the day, plus bought fertilizer (2 per plant)
+            k = min(int(hands.get('max_hands', 2)), max(1, -(-(3 * t + 2) // 20)))
+            cost += 3.0 * sum(_MGH_FIB[11 + j] for j in range(k)) + 2.0 * t * (fert_price + 10.0)
         # fertilizer the tape would have spent on dropped strawberries is sold instead, except what a
         # fertilized tomato uses (cfg 'fertilize_swaps')
         used = sum(min(1, s['fe_tw']) for s in tomato_ok[:t]) if _MGS_CFG.get('fertilize_swaps') else 0
@@ -1101,6 +1107,9 @@ def agent(observation, configuration=None):
         _mgs_select(state, observation, step)
         action = _mgs_rewrite(state, observation, action, step)
         action = _mgs_herd_rewrite(state, observation, action, step)
+        _hands = globals().get('_mgh_service')
+        if _hands is not None:
+            action = _hands(state, observation, action, step)
         action = _mgs_seeds(state, observation, action, step)
         action = _mgs_sell(state, observation, action)
     except Exception as exc:
