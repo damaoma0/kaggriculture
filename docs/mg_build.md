@@ -240,6 +240,20 @@ with fertilizer on the tape visit; 7 hand-days, 1,131 wages, 11 fertilizer bough
   cargo ride the midnight dump (the chassis's hour-23 guard counts carried stock; hands are never hired
   after day 28) and allows a third hand: world 0 went from 7.2 to 7.7 units per plant at the same wages.
 
+### Scenario-weighted rule (econ2, candidate v3 `mg11_econ2`)
+
+The tomato price below neutral inventory is a hinge that explodes with scarcity, so the value of the
+late tomato sales depends steeply on how many of the five undrawn shops demand tomatoes, and valuing
+at the expected demand misprices both tails (glut worlds and scarce worlds). econ2 values every option
+across six demand scenarios (tomato-demanding undrawn shops: 0.4 with p 0.633 or 2.4 with p 0.367, from
+Binomial(5, 2/8); strawberry-demanding: 1, 2.5 or 4.5 with p 0.19/0.62/0.19, from Binomial(5, 4/8)) and
+maximises the expected margin. To fit the 1 s step budget the strawberry, tomato and melon markets are
+simulated once per option per scenario and combined additively, and the option grid is coarse (keep
+0/2/4/6/8/10/13, melons 0-2, adds 0/3/6/9/12). Decision step 0.35-0.40 s.
+
+First smoke: her world 0 goes from "swap all 13" to 6 tomatoes + 1 melon + 6 strawberries, margin
++2.0k → +9.9k; the strawberry-rich world 5 keeps all 13 and adds 3, unchanged.
+
 ## Built but not evaluated when paused
 
 `mg6_herd_mg`, `mg6_herd_noyarn`, `mg6_herd_v48` (herd, decided per purchase), `mg6_flip5`, and `mg_live`
