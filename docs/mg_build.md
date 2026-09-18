@@ -269,7 +269,9 @@ tomato lines by more than our wages cost.
 Seeds 174000-174031 vs the frozen benchmark: **48-0-16 (75%), +491 (−293 to +1,224)**, median +890; paired
 with v1 **+515 (+230 to +851)** margin, own −477, benchmark −992. v3 is the first candidate significantly
 better than the submitted v1 on natural seeds against both opponents; the gain is margin (the clone's
-strawberry and tomato lines fall by ~1k) at a small own-cash cost (wages and fertilizer). Peak call 0.48 s
+strawberry and tomato lines fall by ~1k) at a small own-cash cost (wages and fertilizer). Against her
+recorded moves (30 worlds, cushion removed): 0-30, −11,434, but +1,147 over the benchmark (+263 to +2,076),
+with our cash +904 and hers −243, so against a non-clone the gain is mostly our own. Peak call 0.48 s
 against the 1 s limit. Not submitted at the time of writing.
 
 ## Built but not evaluated when paused
