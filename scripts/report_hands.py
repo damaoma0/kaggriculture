@@ -46,9 +46,11 @@ def pair(name, a, b, label_b):
     print(f"  hands: requested {tel['hands_requested']}, hired {tel['hands_hired']}, shortfalls {tel['hands_shortfall']}, "
           f"declined cash {tel['hands_declined_cash']}, wages {tel['hands_hire_cost']:,.0f}, fertilizer bought {tel['hands_fert_bought']}, "
           f"fertilize {tel['hands_fertilize']}, water {tel['hands_water']}, harvest units {tel['hands_harvest_units']}; errors {tel['errors']}")
-    ta = sum(tomatoes(a[k]) for k in keys); tb = sum(tomatoes(b[k]) for k in keys)
-    pa = plants; pb = sum(b[k]['telemetry'].get('plantings_confirmed', 0) for k in keys)
-    print(f'  tomatoes (engine): {ta} on {pa} plants = {ta / max(1, pa):.2f}/plant; {label_b}: {tb} on {pb} = {tb / max(1, pb):.2f}/plant')
+    own = lambda r: r['telemetry'].get('harvest_issued_tomato', 0) + r['telemetry'].get('harvest_issued_units', 0) + r['telemetry'].get('hands_harvest_units', 0)
+    ta = sum(own(a[k]) for k in keys); tb = sum(own(b[k]) for k in keys)
+    pa = sum(1 for k in keys for _ in range(a[k]['telemetry'].get('swaps_tomato', a[k]['telemetry'].get('swaps_committed', 0))))
+    pb = sum(1 for k in keys for _ in range(b[k]['telemetry'].get('swaps_tomato', b[k]['telemetry'].get('swaps_committed', 0))))
+    print(f'  own tomatoes (layer harvests): {ta} on {pa} swapped plants = {ta / max(1, pa):.2f}/plant; {label_b}: {tb} on {pb} = {tb / max(1, pb):.2f}/plant')
     dry = sum(1 for k in keys for d in a[k]['dry'] if d[3] == 'TOMATO'); dec = sum(a[k]['decay'].get('TOMATO', 0) for k in keys)
     miss = sum(a[k]['physical'].get('missing_worker_commands', 0) for k in keys)
     print(f'  tomato drought deaths {dry}, decay units {dec}, missing-worker commands {miss}')
@@ -68,14 +70,18 @@ def pair(name, a, b, label_b):
 
 
 def main():
-    null, t11v, fert, hands_t11 = load('mgs_null'), load('mg3_t11v'), load('mg7_fert_t11'), load('mg9_hands_t11')
-    econ_v1, hands_econ = load('mg5_econ_m'), load('mg9_hands_econ')
+    import sys
+    tag = sys.argv[1] if len(sys.argv) > 1 else 'mg9'
+    null, t11v, fert = load('mgs_null'), load('mg3_t11v'), load('mg7_fert_t11')
+    hands_t11, econ_v1, hands_econ = load(f'{tag}_hands_t11'), load('mg5_econ_m'), load(f'{tag}_hands_econ')
     if hands_t11:
-        pair('mg9_hands_t11', hands_t11, t11v, 'mg3_t11v (tape visits only)')
-        pair('mg9_hands_t11', hands_t11, fert, 'mg7_fert_t11 (fertilizer on tape visit)')
+        pair(f'{tag}_hands_t11', hands_t11, t11v, 'mg3_t11v (tape visits only)')
+        pair(f'{tag}_hands_t11', hands_t11, fert, 'mg7_fert_t11 (fertilizer on tape visit)')
     if hands_econ:
-        pair('mg9_hands_econ', hands_econ, null, 'mgs_null')
-        pair('mg9_hands_econ', hands_econ, econ_v1, 'mg5_econ_m (v1 crop rule)')
+        pair(f'{tag}_hands_econ', hands_econ, null, 'mgs_null')
+        pair(f'{tag}_hands_econ', hands_econ, econ_v1, 'mg5_econ_m (v1 crop rule)')
+        if tag != 'mg9' and load('mg9_hands_econ'):
+            pair(f'{tag}_hands_econ', hands_econ, load('mg9_hands_econ'), 'mg9_hands_econ (hands v1)')
         dec = Counter()
         for r in hands_econ.values():
             d = r['telemetry'].get('econ_decision') or {}

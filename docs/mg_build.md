@@ -201,6 +201,35 @@ tape's 5 units. The market rule values tomatoes at 7.5 units and charges the han
 Smoke test (her world 0, all 13 slots swapped): 94 tomato units (7.2 per plant) against 52 tape-only and 65
 with fertilizer on the tape visit; 7 hand-days, 1,131 wages, 11 fertilizer bought, no failed commands.
 
+### Owned hands, measured (her 30 worlds; seeds 174000-174031 vs V48)
+
+| Test | Tomatoes per swapped plant | Own cash | Margin |
+|---|---|---|---|
+| Isolation, all 13 slots, tape visits only (`mg3_t11v`) | 4.0 | — | −10,480 |
+| Isolation, fertilizer on the tape visit (`mg7_fert_t11`) | 5.0 | −112 vs hands | |
+| **Isolation, owned hands v1** (`mg9_hands_t11`) | **6.97** (her 7.18) | −196 vs tape-only (−909 to +432) | +208 (−101 to +542) |
+| Candidate v2 (`mg9_hands_econ`) vs null, 30 worlds | | **+1,527 (+382 to +2,802)** | **+1,203 (+191 to +2,247)**, 24-0-6 |
+| Candidate v2 vs v1's crop rule (`mg5_econ_m`) | | +848 (+42 to +1,674) | +895 (+250 to +1,682) |
+| Candidate v2 vs V48, paired with benchmark | | +6,996 | **+1,348 (+583 to +2,127)**; v1 was +1,283 |
+
+- Hands hired 202/202 in the isolation and 72/72 in the candidate: no shortfalls, no failed commands, no
+  drought or decay losses. Wages ~1,500 per swap world (6.7 hand-days), fertilizer bought ~14.
+- Swapping all 13 slots everywhere breaks even: the extra 39 units per world sell into a glutted tomato
+  market. Where the rule deploys them (10 of her 30 worlds) the hands add **+1,235 own cash and +912
+  margin per swap world** over v1. On natural seeds against V48 the swap fires in half the games and the
+  hands add only +65 margin.
+- The tomato price is not the problem (ours 88 vs her 96). Volume is: 13 tiles at 8 units each into a
+  market consuming 7-13 a day, plus the benchmark's own day-18 programme in some worlds; the marginal
+  unit fetched ~29. She averages 9.6 tomato tiles, staggered over days 12-18.
+- Per-world variance is large (−6.9k to +10.8k). The three losing swap worlds had no tomato-demanding
+  shop visible at day 10; the model missed the opponent's gain from the withdrawn strawberries (+4.2k to
+  +8.6k against a predicted +1.2k), a forecast error on the undrawn shops rather than a bug. Not fitted
+  away at n=3.
+- v1 hands lost 29% of second fertilizations to the turn budget (two hands, four turns reserved for the
+  cargo drop, both ops planned even where the tape covered one). v2 subtracts the tape's coverage, lets
+  cargo ride the midnight dump (the chassis's hour-23 guard counts carried stock; hands are never hired
+  after day 28) and allows a third hand: world 0 went from 7.2 to 7.7 units per plant at the same wages.
+
 ## Built but not evaluated when paused
 
 `mg6_herd_mg`, `mg6_herd_noyarn`, `mg6_herd_v48` (herd, decided per purchase), `mg6_flip5`, and `mg_live`
