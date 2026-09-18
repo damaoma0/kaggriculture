@@ -235,6 +235,8 @@ with fertilizer on the tape visit; 7 hand-days, 1,131 wages, 11 fertilizer bough
 - Hands v2b (`mg10_*`: coverage subtraction, midnight dump, third hand): 7.55 units per plant in
   isolation, 7.02 in the candidate, but 219 hand-days against 202, so own cash −148 (−328 to +19) against
   hands v1. Candidate v2b on her worlds: 24-0-6, +1,045 (+20 to +2,078) vs null.
+- Candidate v2b on natural seeds, paired with v1: vs V48 own −430, margin −85 (20-0-44, −1,326); vs the
+  benchmark own −463, margin −160 (42-0-22, −184). Same conclusion at the old bed size.
 - v1 hands lost 29% of second fertilizations to the turn budget (two hands, four turns reserved for the
   cargo drop, both ops planned even where the tape covered one). v2 subtracts the tape's coverage, lets
   cargo ride the midnight dump (the chassis's hour-23 guard counts carried stock; hands are never hired
