@@ -261,6 +261,11 @@ benchmark cash +9 (v2: +320). Paired with v2: margin +201 (−165 to +714), own 
 19 worlds, 6 tomatoes in 4, 12 in 5, 13 in 1, 5 in 1; 61 hand-days (v2: 72). The two-strawberry-shop cell
 went from −239 to +2,091 by planting 6 instead of 13. Planted 125/126, no errors.
 
+Seeds 174000-174031 vs V48: **28-0-36, −767 (−1,618 to +25)**, median −528; paired with the benchmark
+**+1,758 (+1,089 to +2,453)**; paired with the submitted v1 **+475 (+216 to +772)** margin, but own cash
+−501 (−821 to −207) with V48's cash −976: the gain over v1 comes from depressing V48's strawberry and
+tomato lines by more than our wages cost.
+
 ## Built but not evaluated when paused
 
 `mg6_herd_mg`, `mg6_herd_noyarn`, `mg6_herd_v48` (herd, decided per purchase), `mg6_flip5`, and `mg_live`
