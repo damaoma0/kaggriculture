@@ -107,6 +107,8 @@ VARIANTS = {
     'mg6_herd_noyarn': ('Step 4: sheep -> geese at purchase while no Yarn Store is visible.', {'swaps': [HERD_NOYARN]}),
     'mg6_herd_v48': ('Step 4: V48 direction - geese -> sheep at purchase once a Yarn Store is visible.', {'swaps': [HERD_V48]}),
     'mg6_flip5': ('Step 4: turn-0 wheat flip 5 instead of 70.', {'flip': 5, 'swaps': []}),
+    'mg6_nash5': ('Step 4: equilibrium opening - buy the 5 feed wheat on turn 0 and keep them; no turn-1 feed purchase '
+                  'for the V48 index-1 attack to hit.', {'opening': 'nash5', 'swaps': []}),
     'mg4_r6_only': ('Isolation: her R6 wheat-to-tomato share only.', {'swaps': [MG_R6]}),
     # steps 2-3 with the calibrated market model (sales spread over 4 days; V219 tomato supply)
     'mg5_econ': ('Step 2 (calibrated model): demand-keyed strawberry allocation, both directions, margin.',
@@ -116,8 +118,22 @@ VARIANTS = {
                    {'swaps': [dict(ECON, max_melons=2)]}),
     'mg5_econ_m1': ('Step 3: her rule - exactly one second-wave melon; the calibrated model sets the rest.',
                     {'swaps': [dict(ECON, max_melons=1, force_melons=1)]}),
+    # fertilized-tomato fix: swapped tomatoes use the fertilizer the tape brings to the slot on its own visit
+    'mg7_fert_t11': ('Fix isolation: every day-11 strawberry becomes a tomato, fertilized on the tape visit.',
+                     {'fertilize_swaps': True, 'swaps': [STRAW11]}),
+    # step 4 combined herd: sheep -> geese while no Yarn Store is visible, geese -> sheep once one is
+    'mg8_herd_both': ('Step 4: both herd directions, each decided at purchase from the visible shops.',
+                      {'swaps': [HERD_NOYARN, HERD_V48]}),
+    # step 5 candidates: strawberry rule + model-chosen melons + both herd directions, per opening
+    'cand_v1_flip70': ('Candidate: calibrated strawberry rule with melons, both herd directions, V45 opening (flip 70).',
+                       {'swaps': [dict(ECON, max_melons=2), HERD_NOYARN, HERD_V48]}),
+    'cand_v1_flip5': ('Candidate: same, turn-0 flip 5.', {'flip': 5, 'swaps': [dict(ECON, max_melons=2), HERD_NOYARN, HERD_V48]}),
+    'cand_v1_nash5': ('Candidate: same, equilibrium opening (buy 5 feed wheat on turn 0 and keep them).',
+                      {'opening': 'nash5', 'swaps': [dict(ECON, max_melons=2), HERD_NOYARN, HERD_V48]}),
     # step 5 opponent
     'mg_live': ('Mother-Goose policy reimplemented on our chassis (opponent for the panel).', MG_LIVE),
+    'mg_live_crops': ('Her reimplemented policy without her herd rule (R8 was a misreading and costs money).',
+                      dict(MG_LIVE, swaps=[r for r in MG_LIVE['swaps'] if r.get('kind') != 'herd'])),
 }
 
 

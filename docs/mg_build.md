@@ -80,6 +80,86 @@ The null control (the layer active with no swaps) reproduces the benchmark: marg
 5. **Her exact opening orders break on our budget-exact chassis against a 70-flipper**, the same failure
    as her tape. The opponent build `mg_live` uses the equilibrium opening instead (buy 5, keep).
 
+## Resumed 2026-09-18 evening: V48, fertilizer, geese, flip
+
+**Her policy vs V48 (the premise for continuing).** Seeds 174000-174031, both seats, 64 games per row,
+against live V48 (`scripts/selfplay_gate.py` with `GATE_RIVAL=v48_public`). Margin is paired with the
+frozen benchmark on the same seeds.
+
+| Our side | W-T-L vs V48 | Margin (95% CI) | Margin vs benchmark (95% CI) |
+|---|---|---|---|
+| Frozen benchmark | 1-0-63 | −2,525 (−3,088 to −2,028) | — |
+| Her reimplemented policy (`mg_live`) | 18-0-46 | −3,669 (−6,165 to −1,416) | −1,144 (−2,930 to +588) |
+| Same, without her herd rule (`mg_live_crops`) | 22-0-42 | −1,580 (−2,621 to −524) | +945 (+84 to +1,800) |
+| Our build at step 3 (`mg5_econ_m`) | 13-0-51 | −2,180 (−3,245 to −1,213) | +345 (−327 to +983) |
+| Flip 5 | 2-0-62 | −2,070 | +455 (+4 to +966) |
+| Equilibrium opening (buy 5 on turn 0, keep) | 2-0-62 | −1,709 | +816 (+353 to +1,318) |
+
+- **Our reimplementation of her policy loses to V48.** Her actual moves beat V48 30-0 by +12.2k in her
+  own worlds (tape, 40-coin cushion), and her ladder record against the 2700-2900 band was 10-4. So the
+  gap is fidelity: we capture her crop choices, not her yields.
+- **Her edge is yield per plant, not choices.** Her tomatoes produce 7.2 units per plant against our 4.0,
+  because she fertilizes them early and harvests daily. Her strawberries (7.6), wheat (4.2), carrots and
+  melons yield what ours do. Her realised prices equal the benchmark's except wool (+25) and milk (+5).
+- **V48 is a production clone.** It runs the same V45 route tapes. So the shared-price lift from our
+  changes flows to it, as it does to the benchmark: margin/own-cash behaves the same as in self-play.
+- **Caveat on natural-seed panels.** Any change alters weed spawning, which shares the random stream with
+  the shop draws. Paired own-cash numbers partly reflect different worlds; margin is the clean measure.
+
+**Ladder record check (Kaggle episode service).** Her retired submission 56266758 was at 3185 when she
+replaced it on 2026-09-18.
+
+| Opponents rated | Her win rate | Majkel 56216119 | Majkel 56156662 |
+|---|---|---|---|
+| 3050+ | 60% | 61% | 60% |
+| 2900-3050 | 72% | 87% | 87% |
+
+- She beat Majkel head to head (100-75 on his episode lists).
+- Her losses to the 2900-3050 band are narrow: median 106k against 113k, and only 2 of 28 below 85k. Most
+  are to ymg_aq, Sida Zuo and Excluding. So Majkel's edge is robustness against the mid-field, not
+  beating her. Nothing in the record ties his lead to nondeterminism.
+
+**Fertilized-tomato fix (`fertilize_swaps`).** Swapped tomatoes use the fertilizer the tape brings to the
+slot on day 20. That gives 4.98 units per plant (360 of 390 fertilized, zero losses), but own cash is −84
+(−365 to +178) against the unfertilized swap. On our calendar a fertilizer buys one extra tomato, worth
+what the fertilizer sells for, so the fix is left off. Re-deriving the swap threshold with 4-, 5- and
+6-unit tomatoes (`scripts/rederive_swap_threshold.py`) leaves the boundary unchanged: day-10 forecasts
+are all at or below 80 or at or above 161, and the rule swaps the first group.
+
+**Geese, decided at each purchase from the visible shops** (her 30 worlds, against the benchmark):
+
+| Rule | Converted | Margin (95% CI) | Own cash (95% CI) |
+|---|---|---|---|
+| Her rule (first two shops) | 19 | +258 (−109 to +570) | +583 (+227 to +932) |
+| Sheep → geese while no Yarn Store is visible | 21 | +362 (+46 to +645) | +812 (+553 to +1,086) |
+| Geese → sheep once a Yarn Store is visible (V48 direction) | 6 | +456 (−8 to +1,148) | +356 (0 to +923) |
+
+- The gain comes from worlds with no Yarn Store all season: +1.1k margin.
+- The V48 direction pays only where a Yarn Store appears on day 9: +6.9k margin in each of those worlds.
+- The two directions never fire in the same world, so the candidate uses both.
+
+## Three-opponent panel (2026-09-18)
+
+Candidate `cand_v1_nash5`: the calibrated strawberry rule with model-chosen melons, both herd directions,
+and the equilibrium opening. Seeds 174000-174031, both seats, 64 games per opponent. Her recorded moves
+are tested in her 30 worlds with the 40-coin cushion taken back out of her score.
+
+| Opponent | Candidate W-T-L | Candidate margin (95% CI) | Candidate − benchmark, paired (95% CI) |
+|---|---|---|---|
+| Frozen benchmark | 42-0-22 (66%) | −24 (−854 to +776) | — |
+| V48 | 20-0-44 (31%) | −1,242 (−2,170 to −351) | **+1,283 (+567 to +2,023)** |
+| Her reimplemented policy (without R8) | 40-0-24 (62.5%) | +655 (−195 to +1,485) | +4 (−583 to +598) |
+| Her recorded moves | 0-30 | −11,789 (−13,834 to −9,828) | +792 (−35 to +1,634) |
+
+- **Against V48:** the candidate halves the benchmark's deficit. About +0.8k comes from the opening
+  (immune to V48's turn-1 attack) and +0.5k from the crop and herd layers. It still loses.
+- **Against her recorded moves:** it still loses every game. Her edge is yield from execution
+  (fertilizer and daily harvests), which tape-visit swaps cannot produce.
+- **Margin and own cash depend on the opponent's production plan.** Against her recorded moves (a
+  non-clone with a fixed plan) the candidate's own-cash gain of +1,088 (+38 to +2,012) is mostly kept as
+  margin (+792). Against production clones (the benchmark and V48) only about 15-20% is kept, because
+  the shared-price lift flows to the clone.
+
 ## Built but not evaluated when paused
 
 `mg6_herd_mg`, `mg6_herd_noyarn`, `mg6_herd_v48` (herd, decided per purchase), `mg6_flip5`, and `mg_live`

@@ -498,7 +498,8 @@ def _mgs_select_econ(state, obs, rule, step):
         tu, _, tH = _mgs_plan(state, tile, t0, 'TOMATO', 'STRAWBERRY')
         mu, _, mH = _mgs_plan(state, tile, t0, 'MELON', 'STRAWBERRY') if rule.get('max_melons') else (0, '', None)
         fe = _mgs_tile_ops(state, tile, t0, (t0 // 24 + 17) * 24, 'FERTILIZE')
-        slots.append(dict(t0=t0, u=u, tile=tile, P=t0 // 24, tomato=(tu, tH), melon=(mu, mH), fe=fe))
+        fe_tw = _mgs_tile_ops(state, tile, (t0 // 24 + 6) * 24, (t0 // 24 + 11) * 24, 'FERTILIZE')
+        slots.append(dict(t0=t0, u=u, tile=tile, P=t0 // 24, tomato=(tu, tH), melon=(mu, mH), fe=fe, fe_tw=fe_tw))
     adds = []
     if rule.get('wheat_days'):
         wlo, whi = rule['wheat_days']
@@ -534,9 +535,10 @@ def _mgs_select_econ(state, obs, rule, step):
                 _mgs_add(so, ad['P'] + 10 + 2 * j, 1.0)
         rs_o, rs_p = _mgs_market('STRAWBERRY', inv.get('STRAWBERRY', 10000), day0, shops, so, opp)
         to = {}
+        per_prod = rule.get('tomato_units_per_plant', 4.0) / 4.0
         for s in tomato_ok[:t]:
             for j in range(4):
-                _mgs_add(to, s['P'] + 8 + j, 1.0)
+                _mgs_add(to, s['P'] + 8 + j, per_prod)
         # the tomato market also carries both farms' own day-18 programme (V219) when tomato demand makes it
         # likely (it needs >= 3 Pizza/Farmers Market instances among the shops visible on day 18)
         v219 = {}
@@ -556,7 +558,10 @@ def _mgs_select_econ(state, obs, rule, step):
         rm_o, rm_p = _mgs_market('MELON', inv.get('MELON', 10000), day0, shops, mo, m_base_p)
         dropped = (tomato_ok[:t] + melon_ok[:m])
         cost = 50.0 * t + 80.0 * m + 100.0 * a - 100.0 * drop
-        fert = fert_price * (sum(s['fe'] for s in dropped) + sum(ad['fe'] for ad in adds[:a]))
+        # fertilizer the tape would have spent on dropped strawberries is sold instead, except what a
+        # fertilized tomato uses (cfg 'fertilize_swaps')
+        used = sum(min(1, s['fe_tw']) for s in tomato_ok[:t]) if _MGS_CFG.get('fertilize_swaps') else 0
+        fert = fert_price * (sum(s['fe'] for s in dropped) - used + sum(ad['fe'] for ad in adds[:a]))
         wheat = sum(ad['lost'] for ad in adds[:a]) * (4.0 * wheat_price - 10.0)
         ours = rs_o + rt_o + rm_o - cost + fert - wheat
         theirs = rs_p + rt_p + rm_p
@@ -880,8 +885,23 @@ def _mgs_rewrite(state, obs, action, step):
             watered = cell.get('watered_today')
             if ongoing:
                 last_prod = first + (maxy - 1) * interval
-                if age >= last_prod:
+                fert_active = int(cell.get('fertilized_until_day', -1) or -1) >= day
+                later = not _mgs_last_turn_today(state, tile, step)
+                must_water = not watered and int(cell.get('consecutive_unwatered', 0) or 0) >= 1 and not later
+                inv_u = (obs['private'].get('inventories') or [{}] * (u + 1))
+                carries = u < len(inv_u) and int((inv_u[u] or {}).get('FERTILIZER', 0) or 0) > 0
+                # fertilizer the tape brought for its own crop here (cfg 'fertilize_swaps'): doubles the next
+                # productions on watered days, so the tile's cap (max_yield) forces an earlier harvest
+                use_fert = (_MGS_CFG.get('fertilize_swaps') and cmd[0] == 'FERTILIZE' and carries and not fert_active
+                            and age < last_prod and (watered or later))
+                inc = 2 if fert_active else 1
+                if use_fert:
+                    new = ['FERTILIZE']
+                    _mgs_count('fertilized_swaps')
+                elif age >= last_prod:
                     new = ['HARVEST'] if y_units > 0 else ['PASS']
+                elif y_units > 0 and y_units + inc > maxy and not must_water:
+                    new = ['HARVEST']
                 elif not watered:
                     new = ['WATER']
                 elif y_units > 0:
@@ -1059,17 +1079,15 @@ def agent(observation, configuration=None):
     try:
         step = int(observation['step'])
         player = int(observation['player'])
-        if step == 0:
-            _MGS_REPORT.clear()
-        if step <= 1:
-            action = _mgs_opening(action, step)
         state = _MGS_STATES.get(player)
         if state is None or step <= state.get('last', -1):
+            _MGS_REPORT.clear()
             state = _MGS_STATES[player] = {'last': -1, 'sim': {}, 'swaps': {}, 'programs': {}, 'rule_taken': {},
                                            'credit': {}, 'reserve': {},
                                            'herd': {'build': {}, 'pick': {}, 'place': {}, 'buy': {}, 'tiles': set()}}
-            _MGS_REPORT.clear()
         state['last'] = step
+        if step <= 1:
+            action = _mgs_opening(action, step)
         if step < 145 or step >= 718:
             return action
         native = _IMPL.chassis.players.get(player) or {}
