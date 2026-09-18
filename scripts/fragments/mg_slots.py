@@ -91,9 +91,15 @@ def _mgs_rate(shop, product):
     return (12.0 if len(d) == 1 else 6.0) if product in d else 0.0
 
 
+_MGS_SCEN = None   # {product: expected instances among the undrawn shops} while a scenario is being valued
+
+
 def _mgs_daily_consumption(shops, product, day):
     total = 1.0
     expected = sum(_mgs_rate(s, product) for s in _MGS_SHOP_DEMAND) / float(len(_MGS_SHOP_DEMAND))
+    if _MGS_SCEN is not None and product in _MGS_SCEN:
+        undrawn = max(1, 8 - len(shops))
+        expected = 6.0 * _MGS_SCEN[product] / float(undrawn)
     for i in range(8):
         if 3 * (i + 1) > day:
             break
@@ -815,6 +821,173 @@ def _mgs_herd_rewrite(state, obs, action, step):
     return action
 
 
+# Undrawn-shop scenarios for the day-10 decision: of the 5 shops still to be drawn, the number that demand
+# tomatoes is Binomial(5, 2/8) and the number that demand strawberries Binomial(5, 4/8). Coarsened to two
+# tomato outcomes and three strawberry outcomes, with their probabilities.
+_MGS_SCENARIOS = [(kt, ks, pt * ps) for kt, pt in ((0.4, 0.633), (2.4, 0.367))
+                  for ks, ps in ((1.0, 0.1875), (2.5, 0.625), (4.5, 0.1875))]
+
+
+def _mgs_select_econ2(state, obs, rule, step):
+    """Scenario-weighted, separable version of _mgs_select_econ: the strawberry, tomato and melon markets are
+    simulated once per option per demand scenario and combined; the option with the best expected margin
+    (or own revenue) over the scenarios is committed. Options are a coarse grid to fit the 1 s step budget."""
+    global _MGS_SCEN
+    player = int(obs['player'])
+    day0 = step // 24
+    farm, opp_farm = obs['farms'][player], obs['farms'][1 - player]
+    shops = list((obs.get('town') or {}).get('unlocked_shops') or [])
+    inv = (obs.get('market') or {}).get('inventory') or {}
+    prices = (obs.get('market') or {}).get('prices') or {}
+    lo, hi = rule['days']
+    batch = [c for c in _mgs_plantings(state, 'STRAWBERRY', lo, hi, step + 1)
+             if c[:2] not in state['swaps'] and c[2] not in state['programs']]
+    n = len(batch)
+    if not n:
+        return
+    F = rule.get('tape_units_per_straw', 7.5) / 4.0
+    base_ours = _mgs_board_supply(farm, 'STRAWBERRY', day0, F)
+    future = _mgs_plantings(state, 'STRAWBERRY', day0, 29, step + 1)
+    for t0, u, tile in future:
+        if (t0, u, tile) in batch:
+            continue
+        for k in range(4):
+            _mgs_add(base_ours, t0 // 24 + 10 + 2 * k, F)
+    opp = _mgs_board_supply(opp_farm, 'STRAWBERRY', day0, F)
+    for t0, u, tile in future:
+        for k in range(4):
+            _mgs_add(opp, t0 // 24 + 10 + 2 * k, F)
+    fert_price = float(prices.get('FERTILIZER', 30) or 30)
+    wheat_price = float(prices.get('WHEAT', 30) or 30) + rule.get('wheat_uplift', 8)
+    slots = []
+    for t0, u, tile in batch:
+        tu, _, tH = _mgs_plan(state, tile, t0, 'TOMATO', 'STRAWBERRY')
+        mu, _, mH = _mgs_plan(state, tile, t0, 'MELON', 'STRAWBERRY') if rule.get('max_melons') else (0, '', None)
+        fe = _mgs_tile_ops(state, tile, t0, (t0 // 24 + 17) * 24, 'FERTILIZE')
+        slots.append(dict(t0=t0, u=u, tile=tile, P=t0 // 24, tomato=(tu, tH), melon=(mu, mH), fe=fe))
+    adds = []
+    if rule.get('wheat_days'):
+        wlo, whi = rule['wheat_days']
+        for t0, u, tile in _mgs_plantings(state, 'WHEAT', wlo, whi, step + 1):
+            if (t0, u) in state['swaps'] or tile in state['programs'] or any(a['tile'] == tile for a in adds):
+                continue
+            su, _, sH = _mgs_plan(state, tile, t0, 'STRAWBERRY', 'WHEAT')
+            if su < 4:
+                continue
+            P = t0 // 24
+            adds.append(dict(t0=t0, u=u, tile=tile, P=P, H=sH,
+                             lost=1 + _mgs_tile_ops(state, tile, t0 + 1, (P + 17) * 24, 'PLANT'),
+                             fe=_mgs_tile_ops(state, tile, t0, (P + 17) * 24, 'FERTILIZE')))
+        adds.sort(key=lambda a: (a['lost'], a['t0']))
+        adds = adds[:rule.get('max_add', 12)]
+    tomato_ok = [s_ for s_ in slots if s_['tomato'][0] >= 4]
+    melon_ok = [s_ for s_ in slots if s_['melon'][0] >= rule.get('melon_min_units', 5)]
+    m_base_o = _mgs_board_supply(farm, 'MELON', day0, 6.0)
+    m_base_p = _mgs_board_supply(opp_farm, 'MELON', day0, 6.0)
+    hands = _MGS_CFG.get('hands') or {}
+    upt = rule.get('tomato_units_per_plant', 4.0)
+    keeps = sorted({k for k in rule.get('keep_grid', (0, 2, 4, 6, 8, 10, 13)) if 0 <= k <= n} | {n})
+    keeps = [k for k in keeps if n - k <= len(tomato_ok)]
+    add_grid = [a for a in rule.get('add_grid', (0, 3, 6, 9, 12)) if a <= len(adds)]
+    melons = list(range(0, min(rule.get('max_melons', 0), len(melon_ok)) + 1))
+    v219_likely = sum(sh in ('PIZZA_SHOP', 'FARMERS_MARKET') for sh in shops) >= rule.get('v219_tomato_shops', 2)
+    batch_days = sorted(s_['P'] for s_ in slots)
+    scen_total = {}
+    for kt, ks, prob in _MGS_SCENARIOS:
+        _MGS_SCEN = {'TOMATO': kt, 'STRAWBERRY': ks}
+        try:
+            S_straw = {}
+            for k in keeps:
+                for a in add_grid:
+                    so = dict(base_ours)
+                    for P in batch_days[:k]:
+                        for j in range(4):
+                            _mgs_add(so, P + 10 + 2 * j, F)
+                    for ad in adds[:a]:
+                        for j in range(4):
+                            _mgs_add(so, ad['P'] + 10 + 2 * j, 1.0)
+                    S_straw[(k, a)] = _mgs_market('STRAWBERRY', inv.get('STRAWBERRY', 10000), day0, shops, so, opp)
+            S_tom = {}
+            v219 = {}
+            if v219_likely:
+                for x in range(26, 30):
+                    _mgs_add(v219, x, 20.0)
+            for t in {n - k - m for k in keeps for m in melons if n - k - m >= 0}:
+                to = dict(v219)
+                for s_ in tomato_ok[:t]:
+                    for j in range(4):
+                        _mgs_add(to, s_['P'] + 8 + j, upt / 4.0)
+                S_tom[t] = _mgs_market('TOMATO', inv.get('TOMATO', 10000), day0, shops, to, v219) if (to or v219) else (0.0, 0.0)
+            S_mel = {}
+            for m in melons:
+                mo = dict(m_base_o)
+                for s_ in melon_ok[:m]:
+                    _mgs_add(mo, s_['melon'][1], float(s_['melon'][0]))
+                S_mel[m] = _mgs_market('MELON', inv.get('MELON', 10000), day0, shops, mo, m_base_p)
+        finally:
+            _MGS_SCEN = None
+        scen_total[(kt, ks)] = (prob, S_straw, S_tom, S_mel)
+
+    def value(k, m, a):
+        t = n - k - m
+        exp_o = exp_p = 0.0
+        for (kt, ks), (prob, S_straw, S_tom, S_mel) in scen_total.items():
+            rs_o, rs_p = S_straw[(k, a)]
+            rt_o, rt_p = S_tom[t]
+            rm_o, rm_p = S_mel[m]
+            exp_o += prob * (rs_o + rt_o + rm_o)
+            exp_p += prob * (rs_p + rt_p + rm_p)
+        dropped = tomato_ok[:t] + melon_ok[:m]
+        cost = 50.0 * t + 80.0 * m + 100.0 * a - 100.0 * (n - k)
+        fert = fert_price * (sum(s_['fe'] for s_ in dropped) + sum(ad['fe'] for ad in adds[:a]))
+        wheat = sum(ad['lost'] for ad in adds[:a]) * (4.0 * wheat_price - 10.0)
+        hand_cost = 0.0
+        if t and hands.get('enabled'):
+            kh = min(int(hands.get('max_hands', 3)), max(1, -(-(3 * t + 2) // 20)))
+            hand_cost = 3.0 * sum(_MGH_FIB[11 + j] for j in range(kh)) + 2.0 * t * (fert_price + 10.0)
+        return exp_o - cost + fert - wheat - hand_cost, exp_p
+
+    base_o, base_p = value(n, 0, 0)
+    best = (0.0, n, 0, 0, 0.0, 0.0)
+    objective = rule.get('objective', 'margin')
+    for m in melons:
+        for k in keeps:
+            if n - k - m < 0 or n - k - m > len(tomato_ok):
+                continue
+            for a in (add_grid if k == n and m == 0 else [0]):
+                if k == n and m == 0 and a == 0:
+                    continue
+                o, p_ = value(k, m, a)
+                d_own, d_opp = o - base_o, p_ - base_p
+                score = d_own - d_opp if objective == 'margin' else d_own
+                if score > best[0] + rule.get('min_gain', 150.0):
+                    best = (score, k, m, a, d_own, d_opp)
+    score, k, m, a, d_own, d_opp = best
+    _MGS_REPORT['econ_decision'] = dict(day=day0, shops=shops, slots=n, tomato_ok=len(tomato_ok), melon_ok=len(melon_ok),
+                                        adds=len(adds), keep=k, melons=m, add=a, tomatoes=n - k - m,
+                                        pred_own=round(d_own), pred_opp=round(d_opp), pred_score=round(score),
+                                        scenarios=len(scen_total), v219_likely=v219_likely)
+    if rule.get('dry_run'):
+        for s_ in slots:
+            state['swaps'][(s_['t0'], s_['u'])] = None
+        return
+    melon_set = melon_ok[:m]
+    tomato_set = [s_ for s_ in tomato_ok if s_ not in melon_set][:n - k - m]
+    chosen = set()
+    for s_ in melon_set:
+        _mgs_commit(state, s_['t0'], s_['u'], s_['tile'], 'MELON', 'STRAWBERRY', s_['melon'][0], s_['melon'][1], rule['name'])
+        chosen.add((s_['t0'], s_['u']))
+    for s_ in tomato_set:
+        _mgs_commit(state, s_['t0'], s_['u'], s_['tile'], 'TOMATO', 'STRAWBERRY', s_['tomato'][0], s_['tomato'][1], rule['name'])
+        chosen.add((s_['t0'], s_['u']))
+    for s_ in slots:
+        if (s_['t0'], s_['u']) not in chosen:
+            state['swaps'][(s_['t0'], s_['u'])] = None
+    for ad in adds[:a]:
+        units, _, H = _mgs_plan(state, ad['tile'], ad['t0'], 'STRAWBERRY', 'WHEAT')
+        _mgs_commit(state, ad['t0'], ad['u'], ad['tile'], 'STRAWBERRY', 'WHEAT', units, H, rule['name'])
+
+
 def _mgs_select(state, obs, step):
     for rule in _MGS_CFG.get('swaps', []):
         key = 'rule_done_' + rule['name']
@@ -830,6 +1003,9 @@ def _mgs_select(state, obs, step):
             state[key] = True
         elif kind == 'econ':
             _mgs_select_econ(state, obs, rule, step)
+            state[key] = True
+        elif kind == 'econ2':
+            _mgs_select_econ2(state, obs, rule, step)
             state[key] = True
         elif kind == 'herd':
             state['herd']['route'] = (_IMPL.chassis.players.get(int(obs['player'])) or {}).get('route')

@@ -143,6 +143,12 @@ VARIANTS = {
     'mg10_hands_econ': ('Candidate v2b: as mg9_hands_econ with owned hands v2.',
                         {'hands': dict(HANDS, max_hands=3), 'opening': 'nash5',
                          'swaps': [dict(ECON, max_melons=2, tomato_units_per_plant=7.5), HERD_NOYARN, HERD_V48]}),
+    # scenario-weighted rule (econ2): six undrawn-shop demand scenarios, separable market sims, coarse option grid
+    'mg11_probe': ('econ2 dry run: decisions only, no swaps.',
+                   {'hands': dict(HANDS), 'swaps': [dict(ECON, kind='econ2', name='econ2', max_melons=2, tomato_units_per_plant=7.5, dry_run=True)]}),
+    'mg11_econ2': ('Candidate v3: econ2 rule with hands v1, melons, both herd directions, equilibrium opening.',
+                   {'hands': dict(HANDS), 'opening': 'nash5',
+                    'swaps': [dict(ECON, kind='econ2', name='econ2', max_melons=2, tomato_units_per_plant=7.5), HERD_NOYARN, HERD_V48]}),
     # step 5 opponent
     'mg_live': ('Mother-Goose policy reimplemented on our chassis (opponent for the panel).', MG_LIVE),
     'mg_live_crops': ('Her reimplemented policy without her herd rule (R8 was a misreading and costs money).',
