@@ -225,6 +225,16 @@ with fertilizer on the tape visit; 7 hand-days, 1,131 wages, 11 fertilizer bough
   shop visible at day 10; the model missed the opponent's gain from the withdrawn strawberries (+4.2k to
   +8.6k against a predicted +1.2k), a forecast error on the undrawn shops rather than a bug. Not fitted
   away at n=3.
+- Candidate v2 vs the frozen benchmark on natural seeds: 42-0-22, −31 (−942 to +786); paired with v1 it is
+  own cash −390 (−815 to −2), margin −7. The hands' tomatoes (+461) do not cover wages (+690) and
+  fertilizer (+134). Marginal tomato ~24-33 against a hand cost of ~42 per unit.
+- Model check on the swap worlds: in worlds with 0-1 tomato shops the model's tomato revenue is right
+  (predicted 4.7-6.9k, realised 4.0-6.9k); in the four with 2-3 tomato shops it predicted +2.7-3.5k and
+  the realised gain was −2.3k to +0.5k, because our early units erase the scarcity premium on our own
+  late (V219) tomato sales, 80 units at ~163 in the null.
+- Hands v2b (`mg10_*`: coverage subtraction, midnight dump, third hand): 7.55 units per plant in
+  isolation, 7.02 in the candidate, but 219 hand-days against 202, so own cash −148 (−328 to +19) against
+  hands v1. Candidate v2b on her worlds: 24-0-6, +1,045 (+20 to +2,078) vs null.
 - v1 hands lost 29% of second fertilizations to the turn budget (two hands, four turns reserved for the
   cargo drop, both ops planned even where the tape covered one). v2 subtracts the tape's coverage, lets
   cargo ride the midnight dump (the chassis's hour-23 guard counts carried stock; hands are never hired
