@@ -256,6 +256,11 @@ simulated once per option per scenario and combined additively, and the option g
 First smoke: her world 0 goes from "swap all 13" to 6 tomatoes + 1 melon + 6 strawberries, margin
 +2.0k → +9.9k; the strawberry-rich world 5 keeps all 13 and adds 3, unchanged.
 
+Her 30 worlds vs the benchmark: **24-0-6, +1,404 (+682 to +2,289)**, own +1,417 (+265 to +2,611),
+benchmark cash +9 (v2: +320). Paired with v2: margin +201 (−165 to +714), own −110. Decisions: keep all in
+19 worlds, 6 tomatoes in 4, 12 in 5, 13 in 1, 5 in 1; 61 hand-days (v2: 72). The two-strawberry-shop cell
+went from −239 to +2,091 by planting 6 instead of 13. Planted 125/126, no errors.
+
 ## Built but not evaluated when paused
 
 `mg6_herd_mg`, `mg6_herd_noyarn`, `mg6_herd_v48` (herd, decided per purchase), `mg6_flip5`, and `mg_live`
