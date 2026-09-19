@@ -20,6 +20,16 @@ by step 25 with 0 false positives in 362 other seats; her board is forecastable 
 shops to 17-27% error (bounded), and her sale hours are fixed. See
 [the feasibility report](docs/preemption_feasibility.md).
 
+**Tape repairs on the Mother-Goose base (2026-09-19/20):** `agents/mgt_t7.py` = tape router (board term 1.0)
++ feed guard + demand-conditioned care top-up. Natural seeds 174000-174031, both seats, Kaggle loader:
+**54-10 vs V50 (+3,199, CI +1,062..+5,292)** and **54-10 vs V48 (+4,735)**; the router alone is 40-24 (+1,758)
+and the repairs are +1,441 paired (+755..+2,256). In leave-one-out (her 40 recorded worlds, her tape removed)
+28-12 vs V50, +3.0k paired over the router. The feed guard is the big one: her crew feeds from the shed's own
+wheat stock, a borrowed tape runs a few wheat short and her animals starve (one world -51k -> +16k for 11
+wheat). Her care rate is demand-conditioned (46% of sheep-days with no Yarn Store, 75-90% with one), so a hand
+of ours tops up what a low-demand tape skips. Her Yarn rule for adding sheep is gated off by an engine-curve
+glut model: V50 runs sheep too and the wool market saturates. See [the tape base](docs/mg_tape_base.md).
+
 **Mother-Goose's plan as the base (2026-09-19):** public V50 now beats V48 63-1 and our V45-based
 candidates 57-7, and those candidates sit at ~2200 on the ladder, so the base changed: a router over 584 of
 her recorded deterministic games on the public chassis core, with the equilibrium opening. Her native plan

@@ -55,6 +55,9 @@ def run(job):
                revenue=d['revenue'], spend=d['spend'], sold=d['sold_units'], rival_revenue=res['daily'][1 - seat][-1]['revenue'],
                no_effect=d['physical'].get('no_effect', 0), missing=d['physical'].get('missing_worker_commands', 0),
                cash_daily=[x['money'] for x in res['daily'][seat]], history=list(history) if history is not None else None,
+               revenue_daily=[{k: round(v) for k, v in x['revenue'].items()} for x in res['daily'][seat]],
+               units_daily=[dict(x['sold_units']) for x in res['daily'][seat]],
+               rival_units_daily=[dict(x['sold_units']) for x in res['daily'][1 - seat]],
                sheep=json.loads(json.dumps(sheep, default=list)) if sheep else None)
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / f'{name}-{arm}-{ep}.json').write_text(json.dumps(out), encoding='utf-8')

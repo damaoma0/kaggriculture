@@ -30,6 +30,7 @@ _SHP_NUM = {}
 _SHP_LOOKUP = {3: 10, 6: 9, 9: 4, 12: 2, 15: 2}
 _SHP_FIB = [1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987]
 _SHP_SHED = ((4, 4), (5, 4), (4, 5), (5, 5))
+_SHP_CARGO = ('WOOL', 'MILK', 'EGG', 'FERTILIZER')     # what an overlay hand may carry home and sell
 
 
 def _shp_count(key, n=1):
@@ -93,34 +94,39 @@ def _shp_reserved(tape, step, item):
 def _shp_feed_guard(obs, action, step, tape):
     """Her crew feeds from the shed's wheat stock, which her own fields refill; on a borrowed tape (or with fields
     turned into pasture) the stock can run short, the PICKUP comes up empty and her animals starve (two unfed
-    days = lost). One step ahead of every tape wheat PICKUP, buy what the shed will be missing."""
+    days = lost). One step ahead of every tape PICKUP of a purchasable input (wheat; fertilizer when
+    ``guard_fertilizer`` is on), buy what the shed will be missing."""
     if not _SHP_CFG.get('feed_guard', True) or step % 24 == 23 or step + 1 >= len(tape):
         return action
     nxt = tape[step + 1] if isinstance(tape[step + 1], dict) else {}
-    need = 0
-    for c in [nxt.get('farmer')] + list(nxt.get('hands') or []):
-        if c and c[0] == 'PICKUP' and len(c) > 2 and c[1] == 'WHEAT':
-            need += int(c[2])
-    if need <= 0:
-        return action
-    have = int((obs['private'].get('shed') or {}).get('WHEAT', 0) or 0)
-    for c in [action.get('farmer')] + list(action.get('hands') or []):
-        if c and c[0] == 'PICKUP' and len(c) > 2 and c[1] == 'WHEAT':
-            have -= int(c[2])
-    have = max(0, have)
-    market = [list(o) for o in (action.get('market') or [])]
-    for o in market:
-        if len(o) >= 3 and o[1] == 'WHEAT':
-            if o[0] == 'BUY_PRODUCT':
-                have += int(o[2])
-            elif o[0] == 'SELL':
-                have = max(0, have - int(o[2]))
-    short = min(int(_SHP_CFG.get('feed_guard_max', 20)), need - have)
-    if short <= 0 or len(market) >= 10:
-        return action
-    market.append(['BUY_PRODUCT', 'WHEAT', short])
-    _shp_count('guard_wheat', short)
-    return dict(action, market=market)
+    items = ('WHEAT', 'FERTILIZER') if _SHP_CFG.get('guard_fertilizer') else ('WHEAT',)
+    market = None
+    for item in items:
+        need = 0
+        for c in [nxt.get('farmer')] + list(nxt.get('hands') or []):
+            if c and c[0] == 'PICKUP' and len(c) > 2 and c[1] == item:
+                need += int(c[2])
+        if need <= 0:
+            continue
+        have = int((obs['private'].get('shed') or {}).get(item, 0) or 0)
+        for c in [action.get('farmer')] + list(action.get('hands') or []):
+            if c and c[0] == 'PICKUP' and len(c) > 2 and c[1] == item:
+                have -= int(c[2])
+        have = max(0, have)
+        if market is None:
+            market = [list(o) for o in (action.get('market') or [])]
+        for o in market:
+            if len(o) >= 3 and o[1] == item:
+                if o[0] == 'BUY_PRODUCT':
+                    have += int(o[2])
+                elif o[0] == 'SELL':
+                    have = max(0, have - int(o[2]))
+        short = min(int(_SHP_CFG.get('feed_guard_max', 20)), need - have)
+        if short <= 0 or len(market) >= 10:
+            continue
+        market.append(['BUY_PRODUCT', item, short])
+        _shp_count('guard_' + item.lower(), short)
+    return action if market is None else dict(action, market=market)
 
 
 def _shp_last_hire_hour(tape, day):
@@ -196,7 +202,7 @@ def _shp_topups(state, obs, tape, day):
               charged a second feed when it does not (the payout feed below then follows on that day).
       payout  on a production day with a bank, a FEED the tape skips is worth the whole bank.
     Values use ``topup_factor`` of today's price; feed at wheat + 12."""
-    if not _SHP_CFG.get('topup', True) or day < 1 or day > 28:
+    if not _SHP_CFG.get('topup', True) or day < 1 or day > 29:
         return []
     farm = obs['farms'][int(obs['player'])]
     prices = (obs.get('market') or {}).get('prices') or {}
@@ -205,6 +211,8 @@ def _shp_topups(state, obs, tape, day):
     feed, care = _shp_cal(state, tape, day)
     outlook = {_SHP_ANIMALS[a][0]: _shp_outlook(obs, _SHP_ANIMALS[a][0], a) for a in _SHP_ANIMALS}
     out = []
+    orphans = state.setdefault('orphans', [])
+    del orphans[:]
     for y, row in enumerate(farm['tiles']):
         for x, c in enumerate(row):
             if not (isinstance(c, dict) and c.get('animal') in _SHP_ANIMALS) or (x, y) in state['tiles']:
@@ -218,6 +226,26 @@ def _shp_topups(state, obs, tape, day):
             since = day + 1 - placed - first
             bank = int(c.get('pending_care_bonus', 0) or 0)
             ops, value = set(), 0.0
+            if _SHP_CFG.get('adopt', True) and not fed and all(
+                    (x, y) not in _shp_cal(state, tape, d)[0] for d in range(day + 1, min(29, day + 3))):
+                # ORPHAN: the tape feeds it neither today nor on the next two days - after a tape switch the
+                # new tape keeps its animals elsewhere, and this one would be gone in two days. Service it
+                # fully (feed, care, harvest) while a day of it is worth more than its feed.
+                nxt = _shp_next_prod(species, placed, day)
+                waiting = int(c.get('yield_units', 0) or 0)
+                daily = _SHP_RATE[species] * price - wheat
+                payout = (1 + bank) * price - wheat if (since >= 0 and since % interval == 0 and day < 29) else 0.0
+                if nxt is not None and daily >= _SHP_CFG.get('adopt_min', 25.0):
+                    out.append((daily + waiting * price, (x, y), {'FEED', 'CARE', 'HARVEST'}))
+                    orphans.append((x, y))
+                elif payout >= _SHP_CFG.get('adopt_min', 25.0):
+                    out.append((payout + waiting * price, (x, y), {'FEED', 'HARVEST'}))
+                    orphans.append((x, y))
+                elif waiting:
+                    out.append((waiting * price, (x, y), {'HARVEST'}))
+                continue
+            if day >= 29:
+                continue
             if since >= 0 and since % interval == 0 and bank > 0 and not fed:
                 ops.add('FEED')                                   # payout
                 value += bank * price - wheat
@@ -236,6 +264,8 @@ def _shp_topups(state, obs, tape, day):
                     value += v
             if ops and value >= _SHP_CFG.get('topup_min', 40.0):
                 out.append((value, (x, y), ops))
+    if orphans:
+        _shp_count('orphan_days', len(orphans))
     return out
 
 
@@ -663,7 +693,7 @@ def _shp_work(state, obs, idx, role, step):
             role['tries'] += 1
             state['need_wheat'] = max(state.get('need_wheat', 0), want - have_wheat)
             return ['PASS']                       # wait a turn for the re-bought feed to land
-    cargo = sum(int(v or 0) for k_, v in inv.items() if k_ in ('WOOL', 'FERTILIZER'))
+    cargo = sum(int(v or 0) for k_, v in inv.items() if k_ in _SHP_CARGO)
     if last_day and cargo and 24 - hour <= _shp_dist(pos, home) + 2:
         return _shp_walk(pos, home) or ['DROP']
     # feed-only mode when the day is running out
@@ -704,6 +734,8 @@ def _shp_work(state, obs, idx, role, step):
                 continue                                  # care without feed banks nothing
             if 'CARE' in topup[t] and not c.get('cared_today'):
                 todo.append((t, ['CARE']))
+            elif 'HARVEST' in topup[t] and int(c.get('yield_units', 0) or 0) > 0:
+                todo.append((t, ['HARVEST']))
     if todo:
         tile, cmd = min(todo, key=lambda x: (_shp_dist(pos, x[0]), x[0]))
         if pos != tile:
@@ -713,7 +745,7 @@ def _shp_work(state, obs, idx, role, step):
     if unfed and have_wheat == 0 and role['tries'] < 6 and pos not in _SHP_SHED:
         return _shp_walk(pos, home)                   # out of feed: back to the shed for more
     if hour == 23 and pos not in _SHP_SHED:           # cargo still out: it is auto-dropped at midnight
-        for item in ('WOOL', 'FERTILIZER'):
+        for item in _SHP_CARGO:
             if int(inv.get(item, 0) or 0):
                 state['credit'][item] = state['credit'].get(item, 0) + int(inv[item])
         state['wheat_credit'] = state.get('wheat_credit', 0) + have_wheat
@@ -726,7 +758,7 @@ def _shp_work(state, obs, idx, role, step):
         shed_total = sum(int(v or 0) for v in shed.values())
         if shed_total + load > 100 and hour < 22:
             return ['PASS']                           # wait for room rather than lose the overflow
-        for item in ('WOOL', 'FERTILIZER'):
+        for item in _SHP_CARGO:
             if int(inv.get(item, 0) or 0):
                 state['credit'][item] = state['credit'].get(item, 0) + int(inv[item])
         state['wheat_credit'] = state.get('wheat_credit', 0) + have_wheat
@@ -797,7 +829,7 @@ def agent(observation, configuration=None):
         if _tape_now is not None:
             action = _shp_feed_guard(observation, action, step, _tape_now)
         shed_now = observation['private'].get('shed') or {}
-        for item in ('WOOL', 'FERTILIZER'):
+        for item in _SHP_CARGO:
             q = min(int(state['credit'].get(item, 0)), int(shed_now.get(item, 0) or 0))
             market = [list(o) for o in (action.get('market') or [])]
             if q > 0 and len(market) < 10:

@@ -77,6 +77,14 @@ All numbers: 40 leave-one-out worlds vs live V50, paired against the router alon
 | `mgt_t7` | feed guard + care top-up + sheep expansion gate | **28-12** | **+3,032** (+603..+7,199), better 22-11 |
 | top-up over guard | | | +701 (+182..+1,328) |
 
+Natural seeds 174000-174031, both seats, vs live V50 (`scripts/selfplay_gate.py`, loaded with Kaggle's loader):
+
+| Build | W-L | Mean margin | Note |
+|---|---|---|---|
+| `mgt_v1` router, no board term | 33-31 | +31 (-2,610..+2,685) | |
+| `mgt_v2e` router, board term 1.0 | 40-24 | +1,758 (-577..+4,065) | |
+| `mgt_t7` + feed guard, care top-up | **54-10 (84%)** | **+3,199 (+1,062..+5,292)** | paired over `mgt_v2e` +1,441 (+755..+2,256), 21 seeds better / 6 worse; max call 0.04 s |
+
 **Feed guard.** Her crew feeds animals from the shed's wheat stock, which her own wheat fields refill; her feed
 purchases are sized to the unit. On a borrowed tape the stock runs a few wheat short, a hand's `PICKUP WHEAT n`
 comes up empty, its FEEDs do nothing, and after two unfed days the animal is gone. In the five-Yarn world

@@ -46,6 +46,7 @@ _MGT_CFG['default_route'] = next((i for i, t in enumerate(_MGT_TAPES) if t.get('
 _MGT_ROUTES = {i: [_MGT_ACTIONS[j] for j in t['ids']] for i, t in enumerate(_MGT_TAPES)}
 _MGT_REPORT = {'switches': 0, 'router_errors': 0}
 _MGT_HISTORY = []
+_MGT_ANIMAL_LABELS = ('sh', 'co', 'go')
 _MGT_IGNORE = {}                       # player -> tile indexes an overlay owns (left out of the board distance)
 _MGT_DEMAND = {'BAKERY': {'EGG': 1, 'WHEAT': 1}, 'PIZZA_SHOP': {'MILK': 1, 'TOMATO': 1, 'WHEAT': 1},
                'BRUNCH_SPOT': {'EGG': 1, 'WHEAT': 1, 'STRAWBERRY': 1}, 'YARN_STORE': {'WOOL': 2},
@@ -141,9 +142,11 @@ def _mgt_router(observation, step, state):
         ign = _MGT_IGNORE.get(_int(_get(observation, 'player', 0))) or ()
         if ign:
             board = [None if j in ign else x for j, x in enumerate(board)]
+        aw = _MGT_CFG.get('animal_weight', 1)
         for i, t in enumerate(_MGT_TAPES):
-            h = _mgt_hamming(board, t['lab'][day]) if not ign else sum(
-                1 for x, y in zip(board, t['lab'][day]) if x is not None and x != y)
+            h = _mgt_hamming(board, t['lab'][day]) if not (ign or aw != 1) else sum(
+                (aw if (x in _MGT_ANIMAL_LABELS or y in _MGT_ANIMAL_LABELS) else 1)
+                for x, y in zip(board, t['lab'][day]) if x is not None and x != y)
             if h > limit and i != cur:
                 continue
             d = _mgt_distance(ours_vec, shops, t, k)
@@ -281,7 +284,7 @@ def main():
     # name's original position in the module dict, so helpers defined after the first `agent` would win. The
     # entry point is therefore a fresh name, defined last; the check below loads the file the way Kaggle does.
     body += chr(10) * 3 + 'def mgt_kaggle_entry(observation, configuration=None):' + chr(10) \
-        + '    return agent(observation, configuration)' + chr(10) * 3         + "mgt_kaggle_entry.sp_telemetry = getattr(agent, 'sp_telemetry', None) or _MGT_REPORT" + chr(10)
+        + '    return agent(observation, configuration)' + chr(10) * 3         + "mgt_kaggle_entry.sp_telemetry = agent.sp_telemetry if hasattr(agent, 'sp_telemetry') else _MGT_REPORT" + chr(10)
     out = ROOT / 'agents' / f'{name}.py'
     out.write_text(chassis + body, encoding='utf-8')
     compile(out.read_text(encoding='utf-8'), str(out), 'exec')

@@ -1,6 +1,6 @@
 """Classify the tape commands that do nothing when a tape-router build plays a leave-one-out world.
 
-usage: mgt_dead.py <agent> <episode>[,<episode>...] [rival=v50_public]
+usage: mgt_dead.py <agent> <episode|seed:<seed>:<seat>>[,...] [rival=v50_public]
 For every step and unit the command is checked against the observation (before the step): FEED without wheat,
 PICKUP of more than the shed holds, PLANT without a seed, FERTILIZE without fertilizer, PLACE without the animal,
 HARVEST of nothing, ... The counts say which "tape repairs" are worth building. One game per episode, run
@@ -67,9 +67,13 @@ def classify(cmd, pos, tile, inv, shed, seeds):
 
 
 def run(name, ep, rival):
-    path = next(p for s in ('56266758', '56266899') for p in (ROOT / 'data/mg_tapes' / s).glob(f'{ep}.json.gz'))
-    tape = json.load(gzip.open(path, 'rt', encoding='utf-8'))
-    os.environ['MGT_EXCLUDE'] = str(ep)
+    if str(ep).startswith('seed:'):                       # natural world: seed:<seed>:<seat>
+        _, seed, seat0 = str(ep).split(':')
+        tape = dict(seat=int(seat0), seed=int(seed), shops=None)
+    else:
+        path = next(p for s in ('56266758', '56266899') for p in (ROOT / 'data/mg_tapes' / s).glob(f'{ep}.json.gz'))
+        tape = json.load(gzip.open(path, 'rt', encoding='utf-8'))
+        os.environ['MGT_EXCLUDE'] = str(ep)
     from kaggle_environments import make
     from kaggle_environments.agent import get_last_callable
     from kaggle_environments.envs.kaggriculture import kaggriculture as E
@@ -113,12 +117,19 @@ def run(name, ep, rival):
     players[1 - seat] = lambda obs, t: opp(obs)
     env = make('kaggriculture', configuration={'episodeSteps': 720}, info={'seed': tape['seed']})
     res = TV._play(E, env, players, seat, tape['shops'], None, None, seat)
+    hist = ns.get('_MGT_HISTORY') or []
+    routes = []
+    for h in hist:
+        if not routes or routes[-1][1] != h[1]:
+            routes.append((h[0], h[1], h[3]))
+    print('   shops', [s[:6] for s in (env.state[0].observation.town.unlocked_shops or [])], 'routes (day, tape, hamming)', routes,
+          'overlay', {k: v for k, v in (ns.get('_SHP_REPORT') or {}).items() if k != 'decisions'})
     return res['final'][seat] - res['final'][1 - seat], counts, lost
 
 
 def main():
     name = sys.argv[1]
-    eps = [int(x) for x in sys.argv[2].split(',')]
+    eps = [x if x.startswith('seed:') else int(x) for x in sys.argv[2].split(',')]
     rival = sys.argv[3] if len(sys.argv) > 3 else 'v50_public'
     total = Counter()
     for ep in eps:
