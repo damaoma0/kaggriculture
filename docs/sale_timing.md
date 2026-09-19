@@ -111,3 +111,35 @@ confirmed: against a price-insensitive seller, earlier is better and later is a 
    consumption tick (+10-15% on wool and milk). Only the farmer and stock already in the shed can reach it. After
    hour 1 the day is flat (+-3%), so labour efficiency beats hurrying; the only other rule is not to slip to the next
    day.
+
+## So what explains her wins? (her 72 replays, her side against the opponent in the SAME market)
+| | Old policy (21-9, +3,548) | New (28-14, +2,825) |
+|---|---|---|
+| Revenue, her minus opponent | **+240** (units +64, prices +176) | **-78** (units -1,593, prices +1,515) |
+| Implied spending, her minus opponent | **-3,307** (28.1k vs 31.4k) | **-2,903** (30.6k vs 33.5k) |
+| of which wages (Fibonacci) | -592 (9.3 vs 9.5 hands a day) | -869 |
+| animals bought, land | about equal (3 quadrants both) | about equal |
+
+Against opponents of her own level she earns the SAME revenue and wins by spending about 10% less: fewer of the
+expensive marginal hands, and fewer purchases (seed, wheat and fertilizer; wheat round trips inflate both sides'
+revenue and spending, so the split between them is not exact). By product she is ahead on eggs (+2.5k), tomatoes
+(+2.4k) and melons (+4.1k, of which +2.7k is price: she sells her first melon lot before the opponent in 20 of 30
+games, and melon is the one steep curve where being first is worth a lot), and BEHIND on milk, wool, strawberries
+(she sells strawberries at 160 against 170) and carrots. Her margins over peers are 3% of cash, and she is 2-10
+against Majkel's newest. Her 52-0 (+14k) record against the 2700-2900 band is a different thing: that is the
+demand-conditioned production plan and the fertilizer-timed yields (7.4 tomatoes, 7.5 strawberries a plant), which the
+public router family does not have.
+
+## Compute (2026-09-20): we are not compute-bound
+`scripts/bench_parallel.py`; i9-13900HX, 24 cores / 32 threads, 15.7 GB RAM (6.6-7 GB free).
+- One full game (tape router vs live V50, Kaggle loader) takes **4-6 s** single-process: engine + framework ~5 s
+  (deepcopy / structify in kaggle_environments), V50 ~1 s, our agent < 0.5 s, plus ~2 s to load the two agent files.
+  The panel harness adds nothing material (same margins to the unit: seed 174000 +12,717, 174012 -3,086).
+- Measured from result-file timestamps: a 64-game panel takes **2.6 min**, a 40-world leave-one-out **1.6-2.1 min**, at
+  4 workers. (The "20-35 minutes" quoted in earlier reports was wrong: it was my polling cadence, not the runs.)
+- Memory is the local ceiling: **~0.92 GB per worker** (the decoded 584-tape library plus V50). 4 workers: 1,306
+  games/hour, 3.6 GB left. 12 workers: 2,380 games/hour but available memory hit 0.0 GB. 24 workers thrash (36 s a
+  game, back to 1,302 games/hour). 6 workers is the safe maximum beside the user's other work.
+- Everything we test is pure engine (no game client anywhere in this project), so it would port to a Kaggle notebook
+  or a VM in an hour or two - but a three-opponent panel is ~8 minutes locally. The spare capacity should buy
+  statistical power instead: 128 seeds x 2 seats is ~10 minutes and halves every confidence interval.
