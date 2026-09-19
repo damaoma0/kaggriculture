@@ -50,9 +50,23 @@ def run(job):
         ours = lambda obs, t: agent(obs)
         history = ns['_MGT_HISTORY']
         sheep = ns.get('_SHP_REPORT')
+    trace = dict(price={'WOOL': [], 'MILK': []}, ours={'WOOL': {}, 'MILK': {}}, rival={'WOOL': {}, 'MILK': {}})
+
+    def logged(fn, who):
+        def call(obs, t):
+            a = fn(obs, t)
+            if who == 'ours':
+                for k in trace['price']:
+                    trace['price'][k].append(obs['market']['prices'].get(k))
+            for o in (a.get('market') or []) if isinstance(a, dict) else []:
+                if o and o[0] == 'SELL' and len(o) >= 3 and o[1] in trace[who] and int(o[2]) > 0:
+                    trace[who][o[1]][t] = trace[who][o[1]].get(t, 0) + int(o[2])
+            return a
+        return call
+
     players = [None, None]
-    players[seat] = ours
-    players[1 - seat] = lambda obs, t: opp(obs)
+    players[seat] = logged(ours, 'ours')
+    players[1 - seat] = logged(lambda obs, t: opp(obs), 'rival')
     env = make('kaggriculture', configuration={'episodeSteps': 720}, info={'seed': tape['seed']})
     res = TV._play(E, env, players, seat, tape['shops'], None, None, seat)
     d = res['daily'][seat][-1]
@@ -64,7 +78,7 @@ def run(job):
                revenue_daily=[{k: round(v) for k, v in x['revenue'].items()} for x in res['daily'][seat]],
                units_daily=[dict(x['sold_units']) for x in res['daily'][seat]],
                rival_units_daily=[dict(x['sold_units']) for x in res['daily'][1 - seat]],
-               sheep=json.loads(json.dumps(sheep, default=list)) if sheep else None)
+               sheep=json.loads(json.dumps(sheep, default=list)) if sheep else None, trace=trace)
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / f'{name}-{arm}-{ep}.json').write_text(json.dumps(out), encoding='utf-8')
     return out

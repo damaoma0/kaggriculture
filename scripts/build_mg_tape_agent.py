@@ -226,6 +226,9 @@ def main():
             if args[i + 1] != 'default':
                 for kv in args[i + 1].split(','):
                     k, v = kv.split('=')
+                    if k in ('hold_items', 'align_items'):
+                        sheep[k] = tuple(x for x in v.split('+') if x)
+                        continue
                     sheep[k] = float(v) if '.' in v else int(v)
             i += 2
         elif args[i] == '--cfg':

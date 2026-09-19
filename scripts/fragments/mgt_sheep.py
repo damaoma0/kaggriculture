@@ -129,6 +129,98 @@ def _shp_feed_guard(obs, action, step, tape, cut=None):
     return action if market is None else dict(action, market=market)
 
 
+def _shp_hold_surplus(obs, action, step, tape):
+    """The shed as a price cache. The chassis' dead-stock rule sells any stock beyond the tape's future SELLs the
+    moment it reaches the shed (mid-day, when everybody delivers). Nothing spoils in the shed, so for the products
+    in ``hold_items`` that surplus is held back and released in lots of ``hold_lot`` inside the hour window
+    ``hold_from``..``hold_to`` (wrapping past midnight when from > to). The tape's own SELLs are never touched.
+    Bounds: the shed holds 100 items and the midnight auto-drop discards the overflow, so the hold is lifted when the
+    shed plus everything the crew carries nears the cap, and for good from ``hold_last_day``."""
+    items = _SHP_CFG.get('hold_items') or ()
+    if not items:
+        return action
+    day, hour = step // 24, step % 24
+    if day >= _SHP_CFG.get('hold_last_day', 28):
+        return action
+    private = obs['private']
+    shed_total = sum(int(v or 0) for v in (private.get('shed') or {}).values())
+    carried = sum(int(v or 0) for inv in (private.get('inventories') or []) for v in (inv or {}).values())
+    if shed_total >= _SHP_CFG.get('hold_shed_cap', 90) or (hour >= 20 and shed_total + carried >= _SHP_CFG.get('hold_night_cap', 92)):
+        _shp_count('hold_lifted')
+        return action
+    lo, hi = int(_SHP_CFG.get('hold_from', 0)), int(_SHP_CFG.get('hold_to', 6))
+    inside = (lo <= hour <= hi) if lo <= hi else (hour >= lo or hour <= hi)
+    if _SHP_CFG.get('hold_tick'):
+        # shops consume at hours 0, 4, 8, ... AFTER the market phase, so the price peaks one step later (wool
+        # +10.6%, milk +7.8% over the tick hour in her 72 replays) and every strong seller sells there
+        inside = step % 4 == 1
+    now = tape[step] if step < len(tape) and isinstance(tape[step], dict) else {}
+    planned = {}
+    for o in now.get('market') or []:
+        if o and o[0] == 'SELL' and len(o) >= 3:
+            planned[o[1]] = planned.get(o[1], 0) + int(o[2])
+    market = [list(o) for o in (action.get('market') or [])]
+    changed = False
+    for item in items:
+        total = sum(int(o[2]) for o in market if o and o[0] == 'SELL' and len(o) >= 3 and o[1] == item)
+        surplus = total - min(total, planned.get(item, 0))
+        if surplus <= 0:
+            continue
+        allow = min(surplus, int(_SHP_CFG.get('hold_lot', 6))) if inside else 0
+        cut = surplus - allow
+        if cut <= 0:
+            _shp_count('released_' + item.lower(), allow)
+            continue
+        if allow:
+            _shp_count('released_' + item.lower(), allow)
+        _shp_count('held_' + item.lower(), cut)
+        for o in reversed(market):                           # dead-stock extras are appended after the tape's
+            if cut > 0 and o and o[0] == 'SELL' and len(o) >= 3 and o[1] == item:
+                take = min(cut, int(o[2]))
+                o[2] = int(o[2]) - take
+                cut -= take
+        changed = True
+    return dict(action, market=market) if changed else action
+
+
+def _shp_align_sells(state, obs, action, step):
+    """Tick alignment. Shops consume at hours 0, 4, 8, ... AFTER the market phase, so the quote one step later is the
+    local peak (her 72 replays: wool +10.6%, milk +7.8%, strawberry +3.9% over the tick hour) and the strong sellers
+    sell there. SELLs of the products in ``align_items`` that fall on any other step are deferred - at most three
+    hours - to the next post-tick step. Not before ``align_first_day`` (cash is tight and her buys are budget-exact),
+    not in the last two days, and never when the shed is close to its 100-item cap."""
+    items = _SHP_CFG.get('align_items') or ()
+    if not items:
+        return action
+    day, hour = step // 24, step % 24
+    deferred = state.setdefault('deferred', {})
+    private = obs['private']
+    shed = private.get('shed') or {}
+    shed_total = sum(int(v or 0) for v in shed.values())
+    carried = sum(int(v or 0) for inv in (private.get('inventories') or []) for v in (inv or {}).values())
+    money = float(obs['farms'][int(obs['player'])]['money'])
+    free = (day < _SHP_CFG.get('align_first_day', 12) or day >= 28 or money < _SHP_CFG.get('align_min_cash', 3000)
+            or shed_total >= _SHP_CFG.get('hold_shed_cap', 88) or (hour >= 20 and shed_total + carried >= _SHP_CFG.get('hold_night_cap', 90)))
+    market = [list(o) for o in (action.get('market') or [])]
+    changed = False
+    if free or step % 4 == 1:
+        for item in items:
+            q = min(int(deferred.get(item, 0)), int(shed.get(item, 0) or 0))
+            if q > 0 and len(market) < 10:
+                market.append(['SELL', item, q])
+                _shp_count('aligned_' + item.lower(), q)
+                changed = True
+            deferred[item] = 0
+        return dict(action, market=market) if changed else action
+    for o in market:
+        if o and o[0] == 'SELL' and len(o) >= 3 and o[1] in items and int(o[2]) > 0:
+            deferred[o[1]] = deferred.get(o[1], 0) + int(o[2])
+            _shp_count('deferred_' + o[1].lower(), int(o[2]))
+            o[2] = 0
+            changed = True
+    return dict(action, market=market) if changed else action
+
+
 def _shp_last_hire_hour(tape, day):
     """The overlay hires only AFTER the tape's last hire of the day: a hand of ours standing on a shed tile
     changes where the engine spawns the tape's next hands (least-occupied shed tile), and a displaced tape hand
@@ -917,6 +1009,8 @@ def agent(observation, configuration=None):
                 _shp_cull_plan(state, observation, _tape_now, step // 24)
             action = _shp_apply_cull(state, observation, action)
             action = _shp_feed_guard(observation, action, step, _tape_now, state.get('pickup_cut'))
+            action = _shp_hold_surplus(observation, action, step, _tape_now)
+            action = _shp_align_sells(state, observation, action, step)
         shed_now = observation['private'].get('shed') or {}
         for item in _SHP_CARGO:
             q = min(int(state['credit'].get(item, 0)), int(shed_now.get(item, 0) or 0))
