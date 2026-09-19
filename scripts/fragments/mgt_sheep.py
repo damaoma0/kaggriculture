@@ -221,6 +221,69 @@ def _shp_align_sells(state, obs, action, step):
     return dict(action, market=market) if changed else action
 
 
+_SHP_BUYS = {'BAKERY': ('EGG', 'WHEAT'), 'PIZZA_SHOP': ('MILK', 'TOMATO', 'WHEAT'), 'BRUNCH_SPOT': ('EGG', 'WHEAT', 'STRAWBERRY'),
+             'YARN_STORE': ('WOOL',), 'ICE_CREAM_SHOP': ('STRAWBERRY', 'MILK', 'WHEAT'), 'PET_CAFE': ('CARROT',),
+             'SMOOTHIE_SHOP': ('STRAWBERRY', 'MILK'), 'FARMERS_MARKET': ('WHEAT', 'CARROT', 'TOMATO', 'STRAWBERRY')}
+
+
+def _shp_reveal_hold(state, obs, action, step):
+    """Hold a product for a couple of days after a shop that buys it is REVEALED. 576 openings in her 72 replays
+    (scripts/mg_shop_open_study.py): nothing jumps at the opening, but the quote then climbs for days - wool after a
+    Yarn Store +26 / +49 / +53 on days D+1 / D+2 / D+3 against -26 / -25 / -43 after any other shop. The type is
+    unknown beforehand (banking ahead loses in expectation), so the hold starts at the reveal: every SELL of the
+    product is deferred until ``reveal_<product>`` days later, then released ``reveal_lot`` units a step. Lifted when
+    the shed nears its 100-item cap, when cash is short, and in the last three days."""
+    spec = _SHP_CFG.get('reveal') or {}
+    if not spec:
+        return action
+    day = step // 24
+    shops = list((obs.get('town') or {}).get('unlocked_shops') or [])
+    seen = state.get('rh_shops')
+    if seen is None:
+        seen = state['rh_shops'] = len(shops)
+    until, deferred = state.setdefault('rh_until', {}), state.setdefault('rh_deferred', {})
+    if len(shops) > seen:
+        for shop in shops[seen:]:
+            for item in _SHP_BUYS.get(shop, ()):
+                if item in spec and day >= _SHP_CFG.get('reveal_first_day', 9):
+                    until[item] = max(until.get(item, 0), (day + int(spec[item])) * 24 + 1)
+                    _shp_count('reveal_holds')
+        state['rh_shops'] = len(shops)
+    if not until and not any(deferred.values()):
+        return action
+    private = obs['private']
+    shed = private.get('shed') or {}
+    shed_total = sum(int(v or 0) for v in shed.values())
+    carried = sum(int(v or 0) for inv in (private.get('inventories') or []) for v in (inv or {}).values())
+    money = float(obs['farms'][int(obs['player'])]['money'])
+    pressed = (day >= 27 or money < _SHP_CFG.get('align_min_cash', 3000) or shed_total >= _SHP_CFG.get('hold_shed_cap', 85)
+               or (step % 24 >= 20 and shed_total + carried >= _SHP_CFG.get('hold_night_cap', 88)))
+    market = [list(o) for o in (action.get('market') or [])]
+    changed = False
+    for item in list(spec):
+        holding = step < until.get(item, 0) and not pressed
+        if holding:
+            for o in market:
+                if o and o[0] == 'SELL' and len(o) >= 3 and o[1] == item and int(o[2]) > 0:
+                    deferred[item] = deferred.get(item, 0) + int(o[2])
+                    _shp_count('reveal_deferred_' + item.lower(), int(o[2]))
+                    o[2] = 0
+                    changed = True
+        elif deferred.get(item, 0) > 0:
+            if pressed and step < until.get(item, 0):
+                until[item] = 0
+                _shp_count('reveal_lifted')
+            q = min(int(deferred[item]), int(shed.get(item, 0) or 0), int(_SHP_CFG.get('reveal_lot', 8)))
+            if q > 0 and len(market) < 10:
+                market.append(['SELL', item, q])
+                deferred[item] -= q
+                _shp_count('reveal_released_' + item.lower(), q)
+                changed = True
+            elif int(shed.get(item, 0) or 0) <= 0:
+                deferred[item] = 0
+    return dict(action, market=market) if changed else action
+
+
 def _shp_last_hire_hour(tape, day):
     """The overlay hires only AFTER the tape's last hire of the day: a hand of ours standing on a shed tile
     changes where the engine spawns the tape's next hands (least-occupied shed tile), and a displaced tape hand
@@ -1011,6 +1074,7 @@ def agent(observation, configuration=None):
             action = _shp_feed_guard(observation, action, step, _tape_now, state.get('pickup_cut'))
             action = _shp_hold_surplus(observation, action, step, _tape_now)
             action = _shp_align_sells(state, observation, action, step)
+            action = _shp_reveal_hold(state, observation, action, step)
         shed_now = observation['private'].get('shed') or {}
         for item in _SHP_CARGO:
             q = min(int(state['credit'].get(item, 0)), int(shed_now.get(item, 0) or 0))

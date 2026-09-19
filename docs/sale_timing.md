@@ -53,3 +53,29 @@ mean against V50's 1.14x / 1.12x. Moving the rest onto the peak step made it wor
 those steps, orders fill in per-unit lockstep, and the quote before the step is not what a lot sold INTO the crowd
 realises. Her off-tick sells (hour 0, before the hour-1 crowd) were front-running it. The peak is a race, and joining
 the crowd later hands the rival the clean units.
+
+## Banking before a shop opens? (`scripts/mg_shop_open_study.py`, 576 openings, sonnet subagent; numbers re-read by me)
+"Relevant" = the new shop buys the product. Bootstrap 95% intervals over events.
+
+- **She does not bank and does not dump.** Units sold on the opening day, relevant minus irrelevant: wool +0.24
+  (-0.06..+0.55), milk -0.03, strawberry +0.06, all n.s.; hours 0-1 of the opening day: wool **-0.69 (-1.24..-0.08)**,
+  i.e. less, not more. Stock on the night before an opening against the neighbouring nights: wool -0.9, milk -0.5,
+  strawberry -1.0 (all significantly LOWER); wheat +3.6 (her season-long wheat position, not opening-specific). The
+  three-day rhythm in her wool sales is sheep biology (3-day production from the day-0 flock lands on days 6, 9, ...),
+  identical for relevant and irrelevant openings and present in her opponents too.
+- **No jump at the opening** (hour 23 -> hour 0: wool -0.1): the new shop first consumes after hour 0's market.
+- **The lift afterwards is large and builds for days.** Quote against day D-1:
+
+| | D | D+1 | D+2 | D+3 | D+5 |
+|---|---|---|---|---|---|
+| Wool, Yarn Store opened (68) | +7 | +26 | +49 | +53 | +71 |
+| Wool, any other shop (508) | -17 | -26 | -25 | -43 | -48 |
+| Milk, relevant (227) / not (349) | +2 / -5 | +7 / -9 | +3 / -22 | +4 / -27 | +1 / -43 |
+| Strawberry, relevant (307) / not (269) | +1 / -2 | +5 / -5 | +5 / -11 | +9 / -14 | +12 / -22 |
+
+  Carrot and wheat move by 1-4 (flat price curves). Difference-in-differences for wool: +52 (D+1), +96 (D+3), +115 (D+6).
+- **Consequence.** Banking AHEAD loses in expectation because the type is unknown: wool is relevant 1 time in 8, so
+  the expected D+3 move is 1/8 x 53 + 7/8 x (-43) = -31. Holding AFTER a relevant reveal is the play: a wool unit
+  sold at D+2 instead of D is worth ~+42. Dumping at hour 00 of the opening day is the worst moment of the window.
+- Tests: `mgt_r1` (hold wool 2 days after a Yarn Store is revealed, release 8 a step) and `mgt_r2` (wool, milk and
+  strawberry, 2 days), capacity- and cash-guarded (`_shp_reveal_hold`).
