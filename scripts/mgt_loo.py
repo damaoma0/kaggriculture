@@ -32,6 +32,7 @@ def run(job):
     rp = ROOT / 'agents' / f'{rival}.py'
     opp = get_last_callable(rp.read_text(encoding='utf-8'), path=str(rp))
     history = None
+    sheep = None
     if arm == 'native_raw':
         actions = [a if isinstance(a, dict) else {} for a in tape['actions']]
         fix_opening(actions)
@@ -42,6 +43,7 @@ def run(job):
         agent = ns['agent']
         ours = lambda obs, t: agent(obs)
         history = ns['_MGT_HISTORY']
+        sheep = ns.get('_SHP_REPORT')
     players = [None, None]
     players[seat] = ours
     players[1 - seat] = lambda obs, t: opp(obs)
@@ -52,7 +54,8 @@ def run(job):
                final=res['final'][seat], rival_final=res['final'][1 - seat], margin=res['final'][seat] - res['final'][1 - seat],
                revenue=d['revenue'], spend=d['spend'], sold=d['sold_units'], rival_revenue=res['daily'][1 - seat][-1]['revenue'],
                no_effect=d['physical'].get('no_effect', 0), missing=d['physical'].get('missing_worker_commands', 0),
-               cash_daily=[x['money'] for x in res['daily'][seat]], history=list(history) if history is not None else None)
+               cash_daily=[x['money'] for x in res['daily'][seat]], history=list(history) if history is not None else None,
+               sheep=json.loads(json.dumps(sheep, default=list)) if sheep else None)
     OUT.mkdir(parents=True, exist_ok=True)
     (OUT / f'{name}-{arm}-{ep}.json').write_text(json.dumps(out), encoding='utf-8')
     return out

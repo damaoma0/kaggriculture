@@ -46,6 +46,7 @@ _MGT_CFG['default_route'] = next((i for i, t in enumerate(_MGT_TAPES) if t.get('
 _MGT_ROUTES = {i: [_MGT_ACTIONS[j] for j in t['ids']] for i, t in enumerate(_MGT_TAPES)}
 _MGT_REPORT = {'switches': 0, 'router_errors': 0}
 _MGT_HISTORY = []
+_MGT_IGNORE = {}                       # player -> tile indexes an overlay owns (left out of the board distance)
 _MGT_DEMAND = {'BAKERY': {'EGG': 1, 'WHEAT': 1}, 'PIZZA_SHOP': {'MILK': 1, 'TOMATO': 1, 'WHEAT': 1},
                'BRUNCH_SPOT': {'EGG': 1, 'WHEAT': 1, 'STRAWBERRY': 1}, 'YARN_STORE': {'WOOL': 2},
                'ICE_CREAM_SHOP': {'STRAWBERRY': 1, 'MILK': 1, 'WHEAT': 1}, 'PET_CAFE': {'CARROT': 2},
@@ -137,8 +138,12 @@ def _mgt_router(observation, step, state):
         lam = _MGT_CFG.get('hamming_weight', 0.0)
         penalty = _MGT_CFG.get('incompatible_penalty', 4.0)
         best = None
+        ign = _MGT_IGNORE.get(_int(_get(observation, 'player', 0))) or ()
+        if ign:
+            board = [None if j in ign else x for j, x in enumerate(board)]
         for i, t in enumerate(_MGT_TAPES):
-            h = _mgt_hamming(board, t['lab'][day])
+            h = _mgt_hamming(board, t['lab'][day]) if not ign else sum(
+                1 for x, y in zip(board, t['lab'][day]) if x is not None and x != y)
             if h > limit and i != cur:
                 continue
             d = _mgt_distance(ours_vec, shops, t, k)
@@ -213,8 +218,8 @@ def main():
                 settings[k] = v.lower() in ('1', 'true', 'yes')
             i += 2
         elif args[i] == '--sheep':
-            sheep = dict(enabled=True, max_sheep=6, min_deficit=3, min_wool_price=120, first_day=9, last_day=16,
-                         latest_hour=8, cash_margin=2000)
+            sheep = dict(enabled=True, max_sheep=16, max_hands=4, min_deficit=2, min_profit=3000, first_day=6,
+                         last_day=19, latest_hour=8, cash_margin=2000)
             if args[i + 1] != 'default':
                 for kv in args[i + 1].split(','):
                     k, v = kv.split('=')
@@ -272,9 +277,17 @@ def main():
         sep = chr(10) * 2
         body += sep + (frag / 'tape_calendar.py').read_text(encoding='utf-8')
         body += sep + (frag / 'mgt_sheep.py').read_text(encoding='utf-8').replace('__SHEEP_CFG__', repr(sheep))
+    # Kaggle's loader calls the LAST NEW callable name in the file. Re-defining `agent` in a fragment keeps the
+    # name's original position in the module dict, so helpers defined after the first `agent` would win. The
+    # entry point is therefore a fresh name, defined last; the check below loads the file the way Kaggle does.
+    body += chr(10) * 3 + 'def mgt_kaggle_entry(observation, configuration=None):' + chr(10) \
+        + '    return agent(observation, configuration)' + chr(10) * 3         + "mgt_kaggle_entry.sp_telemetry = getattr(agent, 'sp_telemetry', None) or _MGT_REPORT" + chr(10)
     out = ROOT / 'agents' / f'{name}.py'
     out.write_text(chassis + body, encoding='utf-8')
     compile(out.read_text(encoding='utf-8'), str(out), 'exec')
+    from kaggle_environments.agent import get_last_callable
+    entry = get_last_callable(out.read_text(encoding='utf-8'), path=str(out))
+    assert getattr(entry, '__name__', '') == 'mgt_kaggle_entry', f'loader would call {entry!r}'
     print(f'built {name}: {len(tapes)} tapes, {len(unique)} unique actions, blob {len(blob) / 1e6:.2f} MB, file {out.stat().st_size / 1e6:.2f} MB, '
           f'pre-shop stream shared by {pre.most_common(1)[0][1]}/{len(tapes)} tapes, sha {sha256(out.read_bytes()).hexdigest()[:12]}')
 

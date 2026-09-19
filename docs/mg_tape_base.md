@@ -60,6 +60,55 @@ worlds) wool is −13.5k and the total loss −19.7k; when Yarn positions match 
 Her own plan adds sheep as Yarn Stores appear at shops 3-5 (8→15, 14→20 sheep); a borrowed tape does not. This
 is also V50's headline feature. First adaptation: a Yarn-responsive sheep programme on top of the tape.
 
+## Router: board similarity in the choice (hamming_weight 1.0)
+
+Adding the board Hamming distance to the ranking key (`--cfg hamming_weight=1.0`, agent `mgt_v2e`) is worth
+**+2,402** in leave-one-out (+362..+4,435; 23-17; dead commands 91 -> 57). Weight 0.5 is +1.4k, 2.0 and a looser
+compatibility limit are worse, a heavier wool weight does not help.
+
+## Adaptation 1: servicing repairs on top of the tape (`scripts/fragments/mgt_sheep.py`)
+
+All numbers: 40 leave-one-out worlds vs live V50, paired against the router alone (`mgt_v2e`, 23-17, +1,101).
+`scripts/mgt_loo_compare.py <candidate> <reference>` prints the paired table.
+
+| Build | What it adds | W-L | Paired margin |
+|---|---|---|---|
+| `mgt_g1` | feed guard only | 25-15 | **+2,331** (+201..+6,106), better 12-3 |
+| `mgt_t7` | feed guard + care top-up + sheep expansion gate | **28-12** | **+3,032** (+603..+7,199), better 22-11 |
+| top-up over guard | | | +701 (+182..+1,328) |
+
+**Feed guard.** Her crew feeds animals from the shed's wheat stock, which her own wheat fields refill; her feed
+purchases are sized to the unit. On a borrowed tape the stock runs a few wheat short, a hand's `PICKUP WHEAT n`
+comes up empty, its FEEDs do nothing, and after two unfed days the animal is gone. In the five-Yarn world
+(109532024) eight of her fourteen sheep starved: margin -51k. The guard looks one step ahead at the tape's wheat
+PICKUPs and buys the shortfall: 11 wheat in that game, margin **+16k** (wool 31k -> 94k). It buys something in 15
+of 40 worlds, 1-13 wheat a game.
+
+**Care top-up.** Her servicing is demand-conditioned (`scripts/mg_care_rule.py`, all 584 tapes): sheep are cared
+for on 46% of animal-days (fed 68%) with no Yarn Store, 75-90% with one or more; cows 65% -> 86% as milk shops
+appear; geese always ~92%. A tape from a lower-demand world under-services our animals. Every day the tape's own
+FEED/CARE visits are read from the tape calendar; an animal it skips gets CARE (or FEED + CARE) from a hand of
+ours when the banked unit is worth it at the price the engine curve is heading for, and a hand is hired only when
+its run is worth 1.5x its marginal Fibonacci wage. Best worlds: four Pizza shops +8.5k (milk +13k), Yarn worlds
++4k each. Engine detail that matters: the bank is paid only if the animal is FED on the production day, and her
+low-demand tapes skip exactly those feeds, so a top-up is only counted when the tape feeds the next production
+day (or a second feed is charged).
+
+**Sheep expansion (her Yarn rule) is gated off by the market model.** Her additive rule (4 + 10/9/4/2/2 per Yarn
+Store by reveal day) says 14 sheep in a one-Yarn world, but against V50 - which runs sheep too - the wool market
+is already saturated: 4 more sheep sold +51 wool for +143 revenue (price is `200 - 0.058 x^2` in the glut x and
+hits the floor at x = 59). The gate now simulates the glut day by day from the engine curve, the shops'
+consumption and BOTH farms' flocks; it declined in all 40 worlds once the feed guard keeps the tape's own flock
+alive.
+
+Lessons that cost games before they were understood (also in CLAUDE.md):
+- Hire overlay hands only after the tape's last hire of the day (hour 1 on 96% of her days) and hide them from
+  the tape layer. An extra unit on a shed tile moves the engine's next spawn, and a displaced tape hand replays
+  its whole day one tile off (-5k to -9k a game).
+- The shed holds 100 items. Overlay cargo dumped at midnight pushes her products out; bring it home and sell it
+  the same day, carry feed leftovers forward, never take wheat or animals her own crew still picks up today.
+- Overlay pastures must be left out of the router's board distance or it starts switching tapes.
+
 ## Adaptation sources
 
 - First principles: equilibrium opening (in; she moved to the same thing herself), market model for crop

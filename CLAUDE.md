@@ -50,3 +50,18 @@ https://www.kaggle.com/competitions/kaggriculture
   tapes buy ~700 early and sell ~800 late. The shed cap (100) silently discards midnight overflow.
 - Fourth quadrant, 13 hands, 41 strawberries, 20 melons: all tested worse. Wheat fertilization at
   scale tested worse (labor).
+- Kaggle's loader calls the last NEW callable name in the file. A fragment that re-defines `agent`
+  does not move the name, so a helper defined later becomes the entry point and the agent sits at
+  3,000 cash all game. Harnesses that call `ns['agent']` (mgt_loo, the debug scripts) do not show it;
+  `selfplay_gate.py` does. `build_mg_tape_agent.py` appends `mgt_kaggle_entry` last and asserts it.
+- Adding hands of our own on top of a replayed tape: hire them only AFTER the tape's last hire of the
+  day. A new hand spawns on the least-occupied shed tile, so an extra unit standing at the shed moves
+  the tape's next spawns and those hands replay their whole day one tile off (cost 5-9k a game).
+  Hide the extra hands from the tape layer (observation without them, merge commands by real index).
+- Animal care is settled at day end: production first (pays 1 + banked bonus if fed that day, else 1
+  and the bank is wiped), THEN a fed+cared day banks +1 for the next production. Order of FEED/CARE
+  within a day is irrelevant; care on the last production day is wasted.
+- Mother-Goose's servicing is demand-conditioned (`scripts/mg_care_rule.py`, 584 tapes): sheep cared
+  46% / fed 68% of animal-days with no Yarn Store vs 75-90% with one; cows 65% -> 86% as milk shops
+  appear; geese always ~92%. Her tapes also over-request animal orders (six "BUY SHEEP 1" at once), so
+  count sheep from boards, not from orders.
