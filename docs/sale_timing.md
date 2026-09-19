@@ -95,3 +95,19 @@ revenue does not move, the rival's goes up by 400-450. Withholding supply raises
 opponent keeps selling into it and collects the lift, and our release pushes the quote back down for ourselves. In a
 shared market scored on the margin, a cache subsidises the opponent. The lift after a relevant opening is real but it
 is a public good; whoever sells FIRST captures it.
+
+### The mirror image: selling one step EARLY (`mgt_l1`, the chassis' `sell_lead` layer switched on)
++37 (+23..+54), **better in 32 of 40 worlds, worse in none**; own cash +20, V50 -17. Small - a one-step lead on lots
+already in the shed is a small change - but the sign is the opposite of every deferral and it never loses. Direction
+confirmed: against a price-insensitive seller, earlier is better and later is a gift.
+
+## Answers
+1. **The shed as a price cache**: free in units (no spoilage), bounded by the 100-item cap, which her plan already
+   uses (77 on an average day, over 90 on 27% of days, overflow lost on 11% of nights). The carry is NEGATIVE on
+   average (-8 to -15% overnight for wool, -4 to -9% milk, -10% strawberry) because the glut builds through the season.
+2. **Banking for a new shop**: she does not do it; there is no jump at the opening; the multi-day lift after a relevant
+   reveal is real (wool +49 by D+2) but waiting for it pays the opponent, not us.
+3. **Rushing**: speed pays at one moment only - hour 1, the first step after the midnight production and the hour-0
+   consumption tick (+10-15% on wool and milk). Only the farmer and stock already in the shed can reach it. After
+   hour 1 the day is flat (+-3%), so labour efficiency beats hurrying; the only other rule is not to slip to the next
+   day.
