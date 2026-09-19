@@ -153,6 +153,13 @@ VARIANTS = {
                         {'hands': dict(HANDS), 'opening': 'nash5',
                          'swaps': [dict(ECON, kind='econ2', name='econ2', max_melons=2, tomato_units_per_plant=7.5,
                                         keep_grid=(0, 4, 8, 13), add_grid=(0, 3, 6)), HERD_NOYARN, HERD_V48]}),
+    # ---- V50-based builds (public frontier as the base; our production layers on top) ----
+    'x50_null': ('V50 + slot layer with no swaps (control: must reproduce V50).', {'_base': 'v50', 'swaps': []}),
+    'x50_econ2': ('V50 + scenario-weighted strawberry/tomato/melon rule + owned hands. V50 keeps its own opening and herd.',
+                  {'_base': 'v50', 'hands': dict(HANDS),
+                   'swaps': [dict(ECON, kind='econ2', name='econ2', max_melons=2, tomato_units_per_plant=7.5)]}),
+    'x50_econ2_nohands': ('V50 + scenario-weighted rule, tape visits only (tomatoes valued at 5 units).',
+                          {'_base': 'v50', 'swaps': [dict(ECON, kind='econ2', name='econ2', max_melons=2, tomato_units_per_plant=5.0)]}),
     # step 5 opponent
     'mg_live': ('Mother-Goose policy reimplemented on our chassis (opponent for the panel).', MG_LIVE),
     'mg_live_crops': ('Her reimplemented policy without her herd rule (R8 was a misreading and costs money).',
@@ -160,11 +167,18 @@ VARIANTS = {
 }
 
 
+BASES = {None: (BASE, BASE_SHA),
+         'v50': (ROOT / 'agents/v50_public.py', '044a26601be23816d397c51c22c4d86b938f8bac4b914f9bea1fbe38bac1e8a5')}
+
+
 def build(name):
     description, cfg = VARIANTS[name]
-    base = BASE.read_bytes()
-    assert sha256(base).hexdigest() == BASE_SHA, 'frozen benchmark drifted'
-    block = HEADER.format(name=name, sha=BASE_SHA, description=description)
+    cfg = dict(cfg)
+    base_path, base_sha = BASES[cfg.pop('_base', None)]
+    base = base_path.read_bytes()
+    assert sha256(base).hexdigest() == base_sha, f'{base_path.name} drifted'
+    block = HEADER.format(name=name, sha=base_sha, description=description).replace(
+        'agents/benchmark_frozen_56280048.py', f'agents/{base_path.name}').replace('frozen benchmark', 'base agent')
     block += (FRAG / 'tape_calendar.py').read_text(encoding='utf-8') + '\n\n'
     block += (FRAG / 'mg_slots.py').read_text(encoding='utf-8').replace('__MGS_CFG__', pprint.pformat(cfg, width=110))
     block += '\n\n' + (FRAG / 'mg_hands.py').read_text(encoding='utf-8')
