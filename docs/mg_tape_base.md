@@ -166,3 +166,25 @@ Lessons that cost games before they were understood (also in CLAUDE.md):
   fixes. Risky on foreign tapes: the sheep-to-cow cap, feed suppression, the literal-gated opening. The
   double-Yarn sheep expansion needs its day and tile gates generalised.
 - Her new version: earlier commitment (strawberries from day 2, third quadrant day 9-10).
+
+## Watching her: strategy and sell points (`scripts/mg_watch_extract.py`, `scripts/build_mg_watch.py`)
+
+72 raw public replays (30 old policy, 42 new submissions) -> `results/fresh/mg_watch/` and a viewer page
+(Artifact "Mother-Goose Sell Points"; `mother-goose-sell-points-local.html` opens from disk). Sales are filled
+lots: a unit's DROP / PLACE at the shed runs before the market phase of the same step, so she delivers and sells in
+one step and the shed of the previous observation understates what is on sale.
+
+What the sell points say (units-weighted, price before the lot):
+
+| Product | Lots/game old / new | Avg lot | Sale price vs that DAY's mean price | Busiest hours (old) |
+|---|---|---|---|---|
+| Wool | 24 / 33 | 5 / 4 | **1.41 / 1.38** | 06, 00, 01 |
+| Milk | 40 / 53 | 5 / 4 | **1.14 / 1.22** | 01, 17, 21 |
+| Strawberry | 43 / 39 | 6 / 5 | 1.09 / 1.15 | 05, 00, 09 |
+| Melon | 9 / 12 | 9 / 6 | 1.09 / 1.05 | 10, 00, 11 |
+| Egg, tomato, carrot, wheat, fertilizer | | | 1.00-1.04 | |
+
+She sells wool and milk in small lots in the first hours of the day, 40% and 15-20% above the day's average price:
+the glut-sensitive products recover overnight (shops consume every 4 hours, nobody delivers) and she takes the peak
+before the day's deliveries. Our overlay sells its own wool/milk the moment it is dropped (mid-day). Next test:
+hold overlay cargo credits for the next day's first hours.
