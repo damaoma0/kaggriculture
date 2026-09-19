@@ -134,20 +134,20 @@ def _mgt_router(observation, step, state):
         limit = _MGT_CFG.get('max_hamming', 8)
         cur = state['route']
         ours_vec = [_mgt_vec(shops, j) for j in range(9)]
-        ranked = sorted((( _mgt_distance(ours_vec, shops, t, k), 0 if i == cur else 1, i) for i, t in enumerate(_MGT_TAPES)))
-        cur_d = next(d for d, _, i in ranked if i == cur)
-        cur_h = _mgt_hamming(board, _MGT_TAPES[cur]['lab'][day])
-        best = (cur_d + (_MGT_CFG.get('incompatible_penalty', 4.0) if cur_h > limit else 0.0), cur_h, cur)
-        margin = _MGT_CFG.get('switch_margin', 0.0)
-        for d, _, i in ranked:
-            if d >= best[0] - margin:
-                break
-            if i == cur:
+        lam = _MGT_CFG.get('hamming_weight', 0.0)
+        penalty = _MGT_CFG.get('incompatible_penalty', 4.0)
+        best = None
+        for i, t in enumerate(_MGT_TAPES):
+            h = _mgt_hamming(board, t['lab'][day])
+            if h > limit and i != cur:
                 continue
-            h = _mgt_hamming(board, _MGT_TAPES[i]['lab'][day])
-            if h <= limit:
-                best = (d, h, i)
-                break
+            d = _mgt_distance(ours_vec, shops, t, k)
+            if i == cur and h > limit:
+                d += penalty
+            key = (d + lam * h, 0 if i == cur else 1, h, i)
+            if best is None or key < best[0]:
+                best = (key, d, h, i)
+        best = (best[1], best[2], best[3])
         if best[2] != cur:
             state['route'] = best[2]
             _MGT_REPORT['switches'] += 1
@@ -197,6 +197,7 @@ def main():
     name = args[0]
     subs = ['56266758', '56266899']
     max_tapes = None
+    sheep = None
     settings = dict(hand_align=True, weed_repair=True, sell_lead=False, front_run=False, budget_guard=True,
                     room_guard=True, clamp_sells=True, dead_stock=True, terminal_liquidation=True)
     cfg = dict(max_hamming=8, incompatible_penalty=4.0)
@@ -210,6 +211,14 @@ def main():
             for kv in args[i + 1].split(','):
                 k, v = kv.split('=')
                 settings[k] = v.lower() in ('1', 'true', 'yes')
+            i += 2
+        elif args[i] == '--sheep':
+            sheep = dict(enabled=True, max_sheep=6, min_deficit=3, min_wool_price=120, first_day=9, last_day=16,
+                         latest_hour=8, cash_margin=2000)
+            if args[i + 1] != 'default':
+                for kv in args[i + 1].split(','):
+                    k, v = kv.split('=')
+                    sheep[k] = float(v) if '.' in v else int(v)
             i += 2
         elif args[i] == '--cfg':
             for kv in args[i + 1].split(','):
@@ -258,6 +267,11 @@ def main():
     assert "'" not in blob and '\\' not in blob
     body = (ROUTER.replace('__BLOB__', blob).replace('__CFG__', repr(cfg)).replace('__SUBS__', ', '.join(subs))
             .replace('__NTAPES__', str(len(tapes))))
+    if sheep:
+        frag = ROOT / 'scripts/fragments'
+        sep = chr(10) * 2
+        body += sep + (frag / 'tape_calendar.py').read_text(encoding='utf-8')
+        body += sep + (frag / 'mgt_sheep.py').read_text(encoding='utf-8').replace('__SHEEP_CFG__', repr(sheep))
     out = ROOT / 'agents' / f'{name}.py'
     out.write_text(chassis + body, encoding='utf-8')
     compile(out.read_text(encoding='utf-8'), str(out), 'exec')

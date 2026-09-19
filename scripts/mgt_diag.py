@@ -35,6 +35,8 @@ def main():
     final_route = st.get('route')
     print('final tape', final_route, 'episode', tapes[final_route]['ep'], 'its shops:', tapes[final_route]['shops'])
     print('telemetry:', ns['_MGT_REPORT'], 'chassis diagnostics:', ns['_MGT_IMPL'].chassis.diagnostics)
+    if '_SHP_REPORT' in ns:
+        print('sheep overlay:', ns['_SHP_REPORT'])
     daily = res['daily'][seat]
     prev = Counter()
     print('day: cash | no-effect cmds | missing-hand cmds | effective')

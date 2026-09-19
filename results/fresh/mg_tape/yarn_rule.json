@@ -1,0 +1,955 @@
+{
+  "n_games": 584,
+  "q1_sheep_by_reveal_group": [
+    {
+      "group": "none",
+      "yarn_days": [],
+      "n": 214,
+      "mean_total_sheep": 4.21,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 2.2,
+        "9-11": 0.01,
+        "12-14": 0,
+        "15-17": 0,
+        "18-20": 0,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 4.21,
+        "18": 4.15,
+        "24": 3.52
+      },
+      "mean_final_cash": 110359.0
+    },
+    {
+      "group": "yarn days 12",
+      "yarn_days": [
+        12
+      ],
+      "n": 30,
+      "mean_total_sheep": 6.17,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 2.03,
+        "9-11": 0,
+        "12-14": 2.13,
+        "15-17": 0,
+        "18-20": 0,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 4,
+        "18": 6.1,
+        "24": 6.13
+      },
+      "mean_final_cash": 105060.0
+    },
+    {
+      "group": "yarn days 15+24",
+      "yarn_days": [
+        15,
+        24
+      ],
+      "n": 8,
+      "mean_total_sheep": 6,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 2.5,
+        "9-11": 0,
+        "12-14": 0,
+        "15-17": 1.38,
+        "18-20": 0.12,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 4.5,
+        "18": 5.62,
+        "24": 6
+      },
+      "mean_final_cash": 102590.0
+    },
+    {
+      "group": "yarn days 15",
+      "yarn_days": [
+        15
+      ],
+      "n": 33,
+      "mean_total_sheep": 5.73,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 2.09,
+        "9-11": 0,
+        "12-14": 0,
+        "15-17": 1.64,
+        "18-20": 0,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 4.09,
+        "18": 5.61,
+        "24": 5.67
+      },
+      "mean_final_cash": 106198.0
+    },
+    {
+      "group": "yarn days 18",
+      "yarn_days": [
+        18
+      ],
+      "n": 21,
+      "mean_total_sheep": 4.24,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 2.1,
+        "9-11": 0,
+        "12-14": 0,
+        "15-17": 0,
+        "18-20": 0.14,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 4.1,
+        "18": 4,
+        "24": 4.14
+      },
+      "mean_final_cash": 115334.0
+    },
+    {
+      "group": "yarn days 21",
+      "yarn_days": [
+        21
+      ],
+      "n": 26,
+      "mean_total_sheep": 4.12,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 2.08,
+        "9-11": 0.04,
+        "12-14": 0,
+        "15-17": 0,
+        "18-20": 0,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 4.12,
+        "18": 3.92,
+        "24": 3.58
+      },
+      "mean_final_cash": 107454.0
+    },
+    {
+      "group": "yarn days 24",
+      "yarn_days": [
+        24
+      ],
+      "n": 27,
+      "mean_total_sheep": 4.22,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 2.22,
+        "9-11": 0,
+        "12-14": 0,
+        "15-17": 0,
+        "18-20": 0,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 4.22,
+        "18": 4.07,
+        "24": 3.7
+      },
+      "mean_final_cash": 105822.0
+    },
+    {
+      "group": "yarn days 3",
+      "yarn_days": [
+        3
+      ],
+      "n": 28,
+      "mean_total_sheep": 13.79,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 9.79,
+        "9-11": 2,
+        "12-14": 0,
+        "15-17": 0,
+        "18-20": 0,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 10.86,
+        "18": 10.86,
+        "24": 9.86
+      },
+      "mean_final_cash": 105919.0
+    },
+    {
+      "group": "yarn days 6+15",
+      "yarn_days": [
+        6,
+        15
+      ],
+      "n": 9,
+      "mean_total_sheep": 15.56,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 9.89,
+        "9-11": 1.89,
+        "12-14": 0,
+        "15-17": 1.78,
+        "18-20": 0,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 10.33,
+        "18": 11.89,
+        "24": 12.11
+      },
+      "mean_final_cash": 114030.0
+    },
+    {
+      "group": "yarn days 6",
+      "yarn_days": [
+        6
+      ],
+      "n": 31,
+      "mean_total_sheep": 13.45,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 9.61,
+        "9-11": 1.84,
+        "12-14": 0,
+        "15-17": 0,
+        "18-20": 0,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 10.1,
+        "18": 10.1,
+        "24": 9.16
+      },
+      "mean_final_cash": 103890.0
+    },
+    {
+      "group": "yarn days 9+24",
+      "yarn_days": [
+        9,
+        24
+      ],
+      "n": 8,
+      "mean_total_sheep": 8.5,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 2.12,
+        "9-11": 3.5,
+        "12-14": 0.88,
+        "15-17": 0,
+        "18-20": 0,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 7.62,
+        "18": 8.5,
+        "24": 8.25
+      },
+      "mean_final_cash": 110994.0
+    },
+    {
+      "group": "yarn days 9",
+      "yarn_days": [
+        9
+      ],
+      "n": 28,
+      "mean_total_sheep": 8.64,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 2.29,
+        "9-11": 3.54,
+        "12-14": 0.82,
+        "15-17": 0,
+        "18-20": 0,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 7.79,
+        "18": 8.61,
+        "24": 8.46
+      },
+      "mean_final_cash": 106290.0
+    },
+    {
+      "group": "2 yarn stores, other combos",
+      "yarn_days": null,
+      "n": 84,
+      "mean_total_sheep": 11.31,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 5.9,
+        "9-11": 1.65,
+        "12-14": 1.24,
+        "15-17": 0.39,
+        "18-20": 0.12,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 8.01,
+        "18": 9.56,
+        "24": 9.54
+      },
+      "mean_final_cash": 112934.0
+    },
+    {
+      "group": "3 yarn stores, other combos",
+      "yarn_days": null,
+      "n": 25,
+      "mean_total_sheep": 13.84,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 6.52,
+        "9-11": 2.28,
+        "12-14": 2.08,
+        "15-17": 0.72,
+        "18-20": 0.24,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 9.2,
+        "18": 11.6,
+        "24": 11.92
+      },
+      "mean_final_cash": 123452.0
+    },
+    {
+      "group": "4 yarn stores, other combos",
+      "yarn_days": null,
+      "n": 11,
+      "mean_total_sheep": 16.09,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 5.45,
+        "9-11": 3.18,
+        "12-14": 3,
+        "15-17": 1.64,
+        "18-20": 0.82,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 9.09,
+        "18": 12.73,
+        "24": 14.09
+      },
+      "mean_final_cash": 124328.0
+    },
+    {
+      "group": "5 yarn stores, other combos",
+      "yarn_days": null,
+      "n": 1,
+      "mean_total_sheep": 23,
+      "sheep_by_day_bucket": {
+        "0-5": 2,
+        "6-8": 10,
+        "9-11": 5,
+        "12-14": 6,
+        "15-17": 0,
+        "18-20": 0,
+        "21+": 0
+      },
+      "sheep_on_board": {
+        "12": 14,
+        "18": 20,
+        "24": 20
+      },
+      "mean_final_cash": 137687.0
+    }
+  ],
+  "q2_trigger_rule": {
+    "baseline_mean_total_sheep_no_yarn": 4.21,
+    "baseline_purchase_pattern": {
+      "day0_hr1": 2.0,
+      "day8_hr3": 2.201,
+      "day11_hr1": 0.009
+    },
+    "per_reveal_day_profile": {
+      "3": {
+        "n": 28,
+        "mean_total_sheep": 13.79,
+        "mean_cash_at_reveal": 137.0,
+        "extra_vs_baseline": 9.58,
+        "events": [
+          {
+            "day": 0,
+            "hour": 1,
+            "day_offset_from_D": -3,
+            "mean_qty": 2.0,
+            "presence": "28/28"
+          },
+          {
+            "day": 6,
+            "hour": 6,
+            "day_offset_from_D": 3,
+            "mean_qty": 2.0,
+            "presence": "28/28"
+          },
+          {
+            "day": 7,
+            "hour": 1,
+            "day_offset_from_D": 4,
+            "mean_qty": 0.643,
+            "presence": "18/28"
+          },
+          {
+            "day": 7,
+            "hour": 8,
+            "day_offset_from_D": 4,
+            "mean_qty": 1.0,
+            "presence": "28/28"
+          },
+          {
+            "day": 8,
+            "hour": 1,
+            "day_offset_from_D": 5,
+            "mean_qty": 0.143,
+            "presence": "1/28"
+          },
+          {
+            "day": 8,
+            "hour": 3,
+            "day_offset_from_D": 5,
+            "mean_qty": 6.0,
+            "presence": "27/28"
+          },
+          {
+            "day": 10,
+            "hour": 1,
+            "day_offset_from_D": 7,
+            "mean_qty": 1.643,
+            "presence": "23/28"
+          },
+          {
+            "day": 11,
+            "hour": 1,
+            "day_offset_from_D": 8,
+            "mean_qty": 0.357,
+            "presence": "10/28"
+          }
+        ]
+      },
+      "6": {
+        "n": 31,
+        "mean_total_sheep": 13.45,
+        "mean_cash_at_reveal": 250.0,
+        "extra_vs_baseline": 9.24,
+        "events": [
+          {
+            "day": 0,
+            "hour": 1,
+            "day_offset_from_D": -6,
+            "mean_qty": 2.0,
+            "presence": "31/31"
+          },
+          {
+            "day": 6,
+            "hour": 6,
+            "day_offset_from_D": 0,
+            "mean_qty": 2.0,
+            "presence": "31/31"
+          },
+          {
+            "day": 7,
+            "hour": 1,
+            "day_offset_from_D": 1,
+            "mean_qty": 0.613,
+            "presence": "19/31"
+          },
+          {
+            "day": 7,
+            "hour": 8,
+            "day_offset_from_D": 1,
+            "mean_qty": 1.0,
+            "presence": "31/31"
+          },
+          {
+            "day": 7,
+            "hour": 9,
+            "day_offset_from_D": 1,
+            "mean_qty": 0.032,
+            "presence": "1/31"
+          },
+          {
+            "day": 8,
+            "hour": 3,
+            "day_offset_from_D": 2,
+            "mean_qty": 5.968,
+            "presence": "31/31"
+          },
+          {
+            "day": 10,
+            "hour": 1,
+            "day_offset_from_D": 4,
+            "mean_qty": 1.613,
+            "presence": "25/31"
+          },
+          {
+            "day": 11,
+            "hour": 1,
+            "day_offset_from_D": 5,
+            "mean_qty": 0.226,
+            "presence": "7/31"
+          }
+        ]
+      },
+      "9": {
+        "n": 28,
+        "mean_total_sheep": 8.64,
+        "mean_cash_at_reveal": 909.0,
+        "extra_vs_baseline": 4.43,
+        "events": [
+          {
+            "day": 0,
+            "hour": 1,
+            "day_offset_from_D": -9,
+            "mean_qty": 2.0,
+            "presence": "28/28"
+          },
+          {
+            "day": 8,
+            "hour": 3,
+            "day_offset_from_D": -1,
+            "mean_qty": 2.286,
+            "presence": "28/28"
+          },
+          {
+            "day": 9,
+            "hour": 1,
+            "day_offset_from_D": 0,
+            "mean_qty": 0.036,
+            "presence": "1/28"
+          },
+          {
+            "day": 9,
+            "hour": 10,
+            "day_offset_from_D": 0,
+            "mean_qty": 1.071,
+            "presence": "27/28"
+          },
+          {
+            "day": 9,
+            "hour": 13,
+            "day_offset_from_D": 0,
+            "mean_qty": 0.036,
+            "presence": "1/28"
+          },
+          {
+            "day": 10,
+            "hour": 1,
+            "day_offset_from_D": 1,
+            "mean_qty": 2.0,
+            "presence": "28/28"
+          },
+          {
+            "day": 11,
+            "hour": 1,
+            "day_offset_from_D": 2,
+            "mean_qty": 0.393,
+            "presence": "11/28"
+          },
+          {
+            "day": 12,
+            "hour": 1,
+            "day_offset_from_D": 3,
+            "mean_qty": 0.786,
+            "presence": "22/28"
+          },
+          {
+            "day": 14,
+            "hour": 1,
+            "day_offset_from_D": 5,
+            "mean_qty": 0.036,
+            "presence": "1/28"
+          }
+        ]
+      },
+      "12": {
+        "n": 30,
+        "mean_total_sheep": 6.17,
+        "mean_cash_at_reveal": 15906.0,
+        "extra_vs_baseline": 1.96,
+        "events": [
+          {
+            "day": 0,
+            "hour": 1,
+            "day_offset_from_D": -12,
+            "mean_qty": 2.0,
+            "presence": "30/30"
+          },
+          {
+            "day": 8,
+            "hour": 3,
+            "day_offset_from_D": -4,
+            "mean_qty": 2.033,
+            "presence": "30/30"
+          },
+          {
+            "day": 12,
+            "hour": 1,
+            "day_offset_from_D": 0,
+            "mean_qty": 1.0,
+            "presence": "30/30"
+          },
+          {
+            "day": 12,
+            "hour": 2,
+            "day_offset_from_D": 0,
+            "mean_qty": 0.2,
+            "presence": "6/30"
+          },
+          {
+            "day": 14,
+            "hour": 1,
+            "day_offset_from_D": 2,
+            "mean_qty": 0.933,
+            "presence": "28/30"
+          }
+        ]
+      },
+      "15": {
+        "n": 33,
+        "mean_total_sheep": 5.73,
+        "mean_cash_at_reveal": 23491.0,
+        "extra_vs_baseline": 1.52,
+        "events": [
+          {
+            "day": 0,
+            "hour": 1,
+            "day_offset_from_D": -15,
+            "mean_qty": 2.0,
+            "presence": "33/33"
+          },
+          {
+            "day": 8,
+            "hour": 3,
+            "day_offset_from_D": -7,
+            "mean_qty": 2.091,
+            "presence": "32/33"
+          },
+          {
+            "day": 15,
+            "hour": 1,
+            "day_offset_from_D": 0,
+            "mean_qty": 0.667,
+            "presence": "22/33"
+          },
+          {
+            "day": 16,
+            "hour": 1,
+            "day_offset_from_D": 1,
+            "mean_qty": 0.97,
+            "presence": "32/33"
+          }
+        ]
+      },
+      "18": {
+        "n": 21,
+        "mean_total_sheep": 4.24,
+        "mean_cash_at_reveal": 35904.0,
+        "extra_vs_baseline": 0.03,
+        "events": [
+          {
+            "day": 0,
+            "hour": 1,
+            "day_offset_from_D": -18,
+            "mean_qty": 2.0,
+            "presence": "21/21"
+          },
+          {
+            "day": 8,
+            "hour": 3,
+            "day_offset_from_D": -10,
+            "mean_qty": 2.095,
+            "presence": "21/21"
+          },
+          {
+            "day": 18,
+            "hour": 1,
+            "day_offset_from_D": 0,
+            "mean_qty": 0.143,
+            "presence": "3/21"
+          }
+        ]
+      },
+      "21": {
+        "n": 26,
+        "mean_total_sheep": 4.12,
+        "mean_cash_at_reveal": 54205.0,
+        "extra_vs_baseline": -0.09,
+        "events": [
+          {
+            "day": 0,
+            "hour": 1,
+            "day_offset_from_D": -21,
+            "mean_qty": 2.0,
+            "presence": "26/26"
+          },
+          {
+            "day": 8,
+            "hour": 3,
+            "day_offset_from_D": -13,
+            "mean_qty": 2.077,
+            "presence": "26/26"
+          },
+          {
+            "day": 11,
+            "hour": 1,
+            "day_offset_from_D": -10,
+            "mean_qty": 0.038,
+            "presence": "1/26"
+          }
+        ]
+      },
+      "24": {
+        "n": 27,
+        "mean_total_sheep": 4.22,
+        "mean_cash_at_reveal": 68779.0,
+        "extra_vs_baseline": 0.01,
+        "events": [
+          {
+            "day": 0,
+            "hour": 1,
+            "day_offset_from_D": -24,
+            "mean_qty": 2.0,
+            "presence": "27/27"
+          },
+          {
+            "day": 8,
+            "hour": 3,
+            "day_offset_from_D": -16,
+            "mean_qty": 2.222,
+            "presence": "27/27"
+          }
+        ]
+      }
+    },
+    "extra_sheep_lookup_by_reveal_day": {
+      "3": 10,
+      "6": 9,
+      "9": 4,
+      "12": 2,
+      "15": 2,
+      "18": 0,
+      "21": 0,
+      "24": 0
+    },
+    "additivity_check_multi_yarn_games": [
+      {
+        "yarn_days": [
+          3,
+          12
+        ],
+        "n": 6,
+        "actual_mean_total": 16.67,
+        "predicted_additive_total": 16.21
+      },
+      {
+        "yarn_days": [
+          6,
+          15
+        ],
+        "n": 9,
+        "actual_mean_total": 15.56,
+        "predicted_additive_total": 15.21
+      },
+      {
+        "yarn_days": [
+          6,
+          18
+        ],
+        "n": 6,
+        "actual_mean_total": 13.67,
+        "predicted_additive_total": 13.21
+      },
+      {
+        "yarn_days": [
+          9,
+          24
+        ],
+        "n": 8,
+        "actual_mean_total": 8.5,
+        "predicted_additive_total": 8.21
+      },
+      {
+        "yarn_days": [
+          12,
+          24
+        ],
+        "n": 6,
+        "actual_mean_total": 6.5,
+        "predicted_additive_total": 6.21
+      },
+      {
+        "yarn_days": [
+          15,
+          24
+        ],
+        "n": 8,
+        "actual_mean_total": 6,
+        "predicted_additive_total": 6.21
+      },
+      {
+        "yarn_days": [
+          21,
+          24
+        ],
+        "n": 7,
+        "actual_mean_total": 4.29,
+        "predicted_additive_total": 4.21
+      }
+    ],
+    "rule_baseline_plus_lookup_accuracy_within_1": 0.887,
+    "rule_description": "predicted_total_season_sheep(game) = 4 + sum(extra_sheep_lookup_by_reveal_day[D] for each Yarn Store reveal day D in the game), applied independently/additively per reveal regardless of how many Yarn Stores are already visible or her cash on hand."
+  },
+  "q3_placement": {
+    "n_new_sheep_tiles_after_day8": 2402,
+    "n_games_with_new_sheep_tile_after_day8": 582,
+    "before_label_counts": {
+      "pa": 1433,
+      "ME": 435,
+      "WH": 261,
+      ".": 138,
+      "L": 103,
+      "CA": 15,
+      "TO": 9,
+      "ST": 4,
+      "w": 4
+    },
+    "quadrant_counts": {
+      "NE": 1396,
+      "NW": 523,
+      "SW": 483
+    },
+    "buy_land_within_3_days": {
+      "near_buy_land": 2126,
+      "no_buy_land_nearby": 276
+    },
+    "note": "before label 'co' is ambiguous: an empty COOP and a cow-occupied PASTURE are both labelled 'co' (tile_label truncates kind/animal to 2 lowercase chars); 'pa' is an empty (animal-less) pasture already built. An OCCUPIED pasture cannot be DIGged (engine no-ops DIG on occupied coop/pasture), so a true cow/goose -> sheep species swap on an existing occupied structure is not mechanically possible; 'co'/'go' before labels here most likely reflect an empty coop or an unrelated cow tile adjacent, not a swap."
+  },
+  "q4_tradeoffs": [
+    {
+      "reveal_day": 12,
+      "n": 30,
+      "hires_per_day": 10.458,
+      "hires_per_day_baseline": 10.493,
+      "wheat_bought_per_day": 0.033,
+      "wheat_bought_per_day_baseline": 0.151,
+      "wheat_plantings_per_day": 5.642,
+      "wheat_plantings_per_day_baseline": 4.822
+    },
+    {
+      "reveal_day": 15,
+      "n": 33,
+      "hires_per_day": 10.977,
+      "hires_per_day_baseline": 10.791,
+      "wheat_bought_per_day": 0.038,
+      "wheat_bought_per_day_baseline": 0.0,
+      "wheat_plantings_per_day": 4.758,
+      "wheat_plantings_per_day_baseline": 4.152
+    },
+    {
+      "reveal_day": 18,
+      "n": 21,
+      "hires_per_day": 11.0,
+      "hires_per_day_baseline": 10.985,
+      "wheat_bought_per_day": 1.25,
+      "wheat_bought_per_day_baseline": 0.382,
+      "wheat_plantings_per_day": 4.286,
+      "wheat_plantings_per_day_baseline": 4.447
+    }
+  ],
+  "q5_wool_selling": {
+    "games_with_yarn": 370,
+    "games_with_yarn_and_any_wool_sell": 370,
+    "wool_sold_by_day_bucket_yarn_games": {
+      "12-14": 11166,
+      "15-17": 11827,
+      "18-20": 11092,
+      "21-29": 44931,
+      "6-8": 4450,
+      "9-11": 2945
+    },
+    "qty_per_sell_order_histogram": {
+      "6": 3742,
+      "7": 3693,
+      "8": 1762,
+      "5": 1257,
+      "12": 587,
+      "10": 410,
+      "2": 381,
+      "4": 311,
+      "9": 240,
+      "16": 106,
+      "3": 47,
+      "11": 16,
+      "1": 6,
+      "20": 6,
+      "15": 5,
+      "14": 4,
+      "37": 2,
+      "21": 2,
+      "13": 1,
+      "18": 1
+    },
+    "zero_yarn_games": 214,
+    "zero_yarn_games_with_any_wool_sell": 214,
+    "wool_sold_by_day_bucket_zero_yarn_games": {
+      "12-14": 5209,
+      "15-17": 1877,
+      "18-20": 2053,
+      "21-29": 4272,
+      "6-8": 2582,
+      "9-11": 1706
+    }
+  },
+  "q6_payoff": {
+    "by_yarn_count": {
+      "0": {
+        "n": 214,
+        "mean_final_cash": 110359.0
+      },
+      "1": {
+        "n": 224,
+        "mean_final_cash": 106660.0
+      },
+      "2": {
+        "n": 109,
+        "mean_final_cash": 112123.0
+      },
+      "3+": {
+        "n": 37,
+        "mean_final_cash": 124097.0
+      }
+    },
+    "early_vs_late_within_count": {
+      "1": {
+        "early_first_reveal_le_9": {
+          "n": 87,
+          "mean_final_cash": 105315.0
+        },
+        "late_first_reveal_ge_15": {
+          "n": 107,
+          "mean_final_cash": 108201.0
+        }
+      },
+      "2": {
+        "early_first_reveal_le_9": {
+          "n": 71,
+          "mean_final_cash": 114675.0
+        },
+        "late_first_reveal_ge_15": {
+          "n": 24,
+          "mean_final_cash": 106184.0
+        }
+      }
+    },
+    "note": "opponent differs per game (rating and policy both vary), so cash differences are suggestive only, not causal."
+  }
+}
