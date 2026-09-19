@@ -79,3 +79,19 @@ the crowd later hands the rival the clean units.
   sold at D+2 instead of D is worth ~+42. Dumping at hour 00 of the opening day is the worst moment of the window.
 - Tests: `mgt_r1` (hold wool 2 days after a Yarn Store is revealed, release 8 a step) and `mgt_r2` (wool, milk and
   strawberry, 2 days), capacity- and cash-guarded (`_shp_reveal_hold`).
+
+### Post-reveal hold: measured (leave-one-out, 40 worlds, live V50, paired against `mgt_h0`)
+| Variant | Result | Own cash | V50 cash |
+|---|---|---|---|
+| `mgt_r1` wool, 2 days after a Yarn Store | +25 (-31..+83), 10 better / 6 worse | +31 | +7 |
+| `mgt_r2` wool + milk + strawberry, 2 days | **-405 (-509..-301), worse in 37 of 40** | +4 | **+409** |
+
+Only 8 wool a world were ever deferred and 182 of 235 holds were lifted early by the capacity / cash guard: her plan
+runs the shed at 77 of 100 on an average day (wheat position, fertilizer), so there is no room for a cache. In the
+Yarn-rich worlds wool already sits at the 235-240 ceiling of the scarcity curve, so there is no lift left to wait for.
+
+**The signature of every deferral we tried is the same** (`mgt_h3` tick alignment -658, `mgt_r2` -405): our own
+revenue does not move, the rival's goes up by 400-450. Withholding supply raises the quote, a price-insensitive
+opponent keeps selling into it and collects the lift, and our release pushes the quote back down for ourselves. In a
+shared market scored on the margin, a cache subsidises the opponent. The lift after a relevant opening is real but it
+is a public good; whoever sells FIRST captures it.
