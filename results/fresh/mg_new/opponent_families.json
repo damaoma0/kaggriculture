@@ -1,0 +1,5705 @@
+{
+  "definitions": {
+    "V45-flip70": [
+      [
+        "BUY_PRODUCT",
+        "WHEAT",
+        70
+      ],
+      [
+        "SELL",
+        "WHEAT",
+        70
+      ]
+    ],
+    "V46-V50-attack": {
+      "t0": [
+        [
+          "BUY_PRODUCT",
+          "WHEAT",
+          7
+        ],
+        [
+          "SELL",
+          "WHEAT",
+          2
+        ]
+      ],
+      "t1_attack_first_order": [
+        "BUY_PRODUCT",
+        "WHEAT",
+        30
+      ],
+      "t2_attack_first_order": [
+        "SELL",
+        "WHEAT",
+        30
+      ]
+    },
+    "older-router_variants": [
+      [
+        [
+          "BUY_PRODUCT",
+          "WHEAT",
+          13
+        ],
+        [
+          "BUY_PRODUCT",
+          "WHEAT",
+          30
+        ],
+        [
+          "SELL",
+          "WHEAT",
+          30
+        ]
+      ],
+      [
+        [
+          "BUY_PRODUCT",
+          "WHEAT",
+          5
+        ],
+        [
+          "BUY_PRODUCT",
+          "WHEAT",
+          10
+        ],
+        [
+          "SELL",
+          "WHEAT",
+          60
+        ]
+      ]
+    ],
+    "MG-old-opening": {
+      "t0": [
+        [
+          "BUY_PRODUCT",
+          "WHEAT",
+          13
+        ],
+        [
+          "BUY_PRODUCT",
+          "WHEAT",
+          5
+        ],
+        [
+          "SELL",
+          "WHEAT",
+          13
+        ]
+      ],
+      "t1_head": [
+        [
+          "SELL",
+          "WHEAT",
+          5
+        ],
+        [
+          "BUY_PRODUCT",
+          "WHEAT",
+          5
+        ]
+      ]
+    },
+    "shared-cow1-wheat5-opener": [
+      [
+        "BUY_ANIMAL",
+        "COW",
+        1
+      ],
+      [
+        "BUY_PRODUCT",
+        "WHEAT",
+        5
+      ]
+    ]
+  },
+  "corpus_family_counts_all_seats_excl_mg": {
+    "other": 65,
+    "shared-cow1-wheat5-opener": 50,
+    "older-router": 1
+  },
+  "corpus_family_examples": {
+    "other": [
+      {
+        "team": "Excluding",
+        "t0": [
+          [
+            "BUY_ANIMAL",
+            "COW",
+            2
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            3
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            5
+          ],
+          [
+            "BUY_SEED",
+            "MELON",
+            2
+          ],
+          [
+            "BUY_SEED",
+            "WHEAT",
+            2
+          ]
+        ],
+        "t1": [],
+        "t2": [
+          [
+            "SELL",
+            "WHEAT",
+            3
+          ]
+        ]
+      },
+      {
+        "team": "ymg_aq",
+        "t0": [
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            35
+          ],
+          [
+            "SELL",
+            "WHEAT",
+            30
+          ],
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            12
+          ],
+          [
+            "SELL",
+            "WHEAT",
+            12
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ]
+        ],
+        "t1": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            3
+          ]
+        ],
+        "t2": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ]
+        ]
+      },
+      {
+        "team": "Planned Economy",
+        "t0": [
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            13
+          ]
+        ],
+        "t1": [
+          [
+            "SELL",
+            "WHEAT",
+            9
+          ],
+          [
+            "BUY_SEED",
+            "WHEAT",
+            7
+          ],
+          [
+            "BUY_SEED",
+            "MELON",
+            12
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            2
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            2
+          ]
+        ],
+        "t2": []
+      },
+      {
+        "team": "keiz",
+        "t0": [
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            20
+          ]
+        ],
+        "t1": [
+          [
+            "SELL",
+            "WHEAT",
+            15
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            2
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            2
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_SEED",
+            "WHEAT",
+            7
+          ],
+          [
+            "BUY_SEED",
+            "MELON",
+            12
+          ]
+        ],
+        "t2": []
+      },
+      {
+        "team": "Majkel1337",
+        "t0": [
+          [
+            "BUY_ANIMAL",
+            "COW",
+            2
+          ],
+          [
+            "BUY_SEED",
+            "WHEAT",
+            3
+          ],
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            4
+          ]
+        ],
+        "t1": [
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            2
+          ]
+        ],
+        "t2": [
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            1
+          ]
+        ]
+      },
+      {
+        "team": "Otter Vibe",
+        "t0": [
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            3
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            2
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            3
+          ],
+          [
+            "BUY_SEED",
+            "MELON",
+            7
+          ],
+          [
+            "BUY_SEED",
+            "WHEAT",
+            5
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ]
+        ],
+        "t1": [],
+        "t2": []
+      },
+      {
+        "team": "ymg_aq",
+        "t0": [
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            35
+          ],
+          [
+            "SELL",
+            "WHEAT",
+            30
+          ],
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            12
+          ],
+          [
+            "SELL",
+            "WHEAT",
+            12
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ]
+        ],
+        "t1": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            3
+          ]
+        ],
+        "t2": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ]
+        ]
+      },
+      {
+        "team": "Planned Economy",
+        "t0": [
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            13
+          ]
+        ],
+        "t1": [
+          [
+            "SELL",
+            "WHEAT",
+            9
+          ],
+          [
+            "BUY_SEED",
+            "WHEAT",
+            7
+          ],
+          [
+            "BUY_SEED",
+            "MELON",
+            12
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            2
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            2
+          ]
+        ],
+        "t2": []
+      }
+    ],
+    "shared-cow1-wheat5-opener": [
+      {
+        "team": "Majkel1337",
+        "t0": [
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            5
+          ]
+        ],
+        "t1": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            3
+          ]
+        ],
+        "t2": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ]
+        ]
+      },
+      {
+        "team": "QQ",
+        "t0": [
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            5
+          ]
+        ],
+        "t1": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            3
+          ]
+        ],
+        "t2": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ]
+        ]
+      },
+      {
+        "team": "Majkel1337",
+        "t0": [
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            5
+          ]
+        ],
+        "t1": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            3
+          ]
+        ],
+        "t2": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ]
+        ]
+      },
+      {
+        "team": "QQ",
+        "t0": [
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            5
+          ]
+        ],
+        "t1": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            3
+          ]
+        ],
+        "t2": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ]
+        ]
+      },
+      {
+        "team": "Majkel1337",
+        "t0": [
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            5
+          ]
+        ],
+        "t1": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            3
+          ]
+        ],
+        "t2": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ]
+        ]
+      },
+      {
+        "team": "Majkel1337",
+        "t0": [
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            5
+          ]
+        ],
+        "t1": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            3
+          ]
+        ],
+        "t2": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ]
+        ]
+      },
+      {
+        "team": "Majkel1337",
+        "t0": [
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            5
+          ]
+        ],
+        "t1": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            3
+          ]
+        ],
+        "t2": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ]
+        ]
+      },
+      {
+        "team": "Orbital Terraformer",
+        "t0": [
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            5
+          ]
+        ],
+        "t1": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            1
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            3
+          ]
+        ],
+        "t2": [
+          [
+            "SELL",
+            "WHEAT",
+            1
+          ]
+        ]
+      }
+    ],
+    "older-router": [
+      {
+        "team": "pensukesan",
+        "t0": [
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            13
+          ],
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            30
+          ],
+          [
+            "SELL",
+            "WHEAT",
+            30
+          ]
+        ],
+        "t1": [
+          [
+            "SELL",
+            "WHEAT",
+            13
+          ],
+          [
+            "BUY_PRODUCT",
+            "WHEAT",
+            5
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "HIRE"
+          ],
+          [
+            "BUY_ANIMAL",
+            "COW",
+            2
+          ],
+          [
+            "BUY_ANIMAL",
+            "SHEEP",
+            2
+          ]
+        ],
+        "t2": []
+      }
+    ]
+  },
+  "mg_family_table": {
+    "other": {
+      "n": 46,
+      "w": 35,
+      "l": 11,
+      "t": 0,
+      "mean_margin": 4430.3,
+      "mean_mg_final_cash": 108562.5,
+      "by_source": {
+        "new": 33,
+        "old": 13
+      },
+      "opponent_teams": [
+        "Ad Space Available",
+        "Arda Ceylan",
+        "DSM",
+        "DeeperNet",
+        "Ebi",
+        "Excluding",
+        "Majkel1337",
+        "Otter Vibe",
+        "Planned Economy",
+        "Ryo Takaki",
+        "Sida Zuo",
+        "SpaTaro",
+        "THIRD FARM CLUB",
+        "feel the agi",
+        "forever young",
+        "keiz",
+        "kwa",
+        "tetsuya & yuanzhe & guoqi",
+        "ymg_aq"
+      ]
+    },
+    "shared-cow1-wheat5-opener": {
+      "n": 26,
+      "w": 14,
+      "l": 12,
+      "t": 0,
+      "mean_margin": 819.3,
+      "mean_mg_final_cash": 116963.2,
+      "by_source": {
+        "new": 9,
+        "old": 17
+      },
+      "opponent_teams": [
+        "Majkel1337",
+        "Orbital Terraformer",
+        "QQ"
+      ]
+    }
+  },
+  "mg_named_team_table": {
+    "Majkel1337": {
+      "team_id": 16718819,
+      "n": 28,
+      "w": 12,
+      "l": 16,
+      "mean_margin": -565.1,
+      "families_seen": {
+        "other": 6,
+        "shared-cow1-wheat5-opener": 22
+      },
+      "sample_t0": [
+        "Majkel1337",
+        "Unknown Mother-Goose"
+      ],
+      "new": {
+        "n": 12,
+        "w": 2
+      },
+      "old": {
+        "n": 16,
+        "w": 10
+      }
+    },
+    "SpaTaro": {
+      "team_id": 16640510,
+      "n": 1,
+      "w": 0,
+      "l": 1,
+      "mean_margin": -1637.0,
+      "families_seen": {
+        "other": 1
+      },
+      "sample_t0": [
+        "Unknown Mother-Goose",
+        "SpaTaro"
+      ],
+      "new": {
+        "n": 0,
+        "w": 0
+      },
+      "old": {
+        "n": 1,
+        "w": 0
+      }
+    },
+    "DSM": {
+      "team_id": 16732748,
+      "n": 1,
+      "w": 1,
+      "l": 0,
+      "mean_margin": 3027.0,
+      "families_seen": {
+        "other": 1
+      },
+      "sample_t0": [
+        "DSM",
+        "Unknown Mother-Goose"
+      ],
+      "new": {
+        "n": 0,
+        "w": 0
+      },
+      "old": {
+        "n": 1,
+        "w": 1
+      }
+    },
+    "Sida Zuo": {
+      "team_id": 16664246,
+      "n": 7,
+      "w": 5,
+      "l": 2,
+      "mean_margin": 3503.4,
+      "families_seen": {
+        "other": 7
+      },
+      "sample_t0": [
+        "Sida Zuo",
+        "Unknown Mother-Goose"
+      ],
+      "new": {
+        "n": 6,
+        "w": 4
+      },
+      "old": {
+        "n": 1,
+        "w": 1
+      }
+    },
+    "ymg_aq": {
+      "team_id": 16732403,
+      "n": 5,
+      "w": 4,
+      "l": 1,
+      "mean_margin": 2998.6,
+      "families_seen": {
+        "other": 5
+      },
+      "sample_t0": [
+        "Unknown Mother-Goose",
+        "ymg_aq"
+      ],
+      "new": {
+        "n": 4,
+        "w": 4
+      },
+      "old": {
+        "n": 1,
+        "w": 0
+      }
+    },
+    "THIRD FARM CLUB": {
+      "team_id": 16730524,
+      "n": 2,
+      "w": 2,
+      "l": 0,
+      "mean_margin": 7568.0,
+      "families_seen": {
+        "other": 2
+      },
+      "sample_t0": [
+        "THIRD FARM CLUB",
+        "Unknown Mother-Goose"
+      ],
+      "new": {
+        "n": 1,
+        "w": 1
+      },
+      "old": {
+        "n": 1,
+        "w": 1
+      }
+    },
+    "Excluding": {
+      "team_id": 16671741,
+      "n": 3,
+      "w": 2,
+      "l": 1,
+      "mean_margin": 4452.0,
+      "families_seen": {
+        "other": 3
+      },
+      "sample_t0": [
+        "Excluding",
+        "Unknown Mother-Goose"
+      ],
+      "new": {
+        "n": 2,
+        "w": 2
+      },
+      "old": {
+        "n": 1,
+        "w": 0
+      }
+    },
+    "Arda Ceylan": {
+      "team_id": 16673205,
+      "n": 5,
+      "w": 5,
+      "l": 0,
+      "mean_margin": 8029.0,
+      "families_seen": {
+        "other": 5
+      },
+      "sample_t0": [
+        "Arda Ceylan",
+        "Unknown Mother-Goose"
+      ],
+      "new": {
+        "n": 4,
+        "w": 4
+      },
+      "old": {
+        "n": 1,
+        "w": 1
+      }
+    }
+  },
+  "attack_effect": {
+    "n_games_found": 0,
+    "note": "No opponent seat in this 94-replay sample matched the V48/V49/V50 exact turn-0 fingerprint [[BUY_PRODUCT,WHEAT,7],[SELL,WHEAT,2]]; the attack-effect comparison below is therefore empty (0 games), not a null result about the attack itself.",
+    "games": []
+  },
+  "hire_cash_context_old_vs_new": {
+    "new": {
+      "n": 42,
+      "mean_day0_end_cash": 5.5,
+      "n_starved_day1_hires": 42
+    },
+    "old": {
+      "n": 30,
+      "mean_day0_end_cash": 29.1,
+      "n_starved_day1_hires": 0
+    }
+  },
+  "rating_bands": {
+    "new": {
+      "n_episodes": 352,
+      "by_band": {
+        "2900-3050": {
+          "n": 143,
+          "w": 120,
+          "l": 23,
+          "t": 0,
+          "mean_margin": 6064.8
+        },
+        "3050+": {
+          "n": 68,
+          "w": 20,
+          "l": 48,
+          "t": 0,
+          "mean_margin": -2100.1
+        },
+        "2700-2900": {
+          "n": 52,
+          "w": 52,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 14346.3
+        },
+        "<2700": {
+          "n": 87,
+          "w": 87,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 25316.4
+        },
+        "unknown": {
+          "n": 2,
+          "w": 0,
+          "l": 1,
+          "t": 1,
+          "mean_margin": -315.5
+        }
+      },
+      "by_team": {
+        "Arda Ceylan (16673205)": {
+          "n": 10,
+          "w": 9,
+          "l": 1,
+          "t": 0,
+          "mean_margin": 5194.1,
+          "since_2026-09-18": {
+            "n": 10,
+            "w": 9,
+            "l": 1,
+            "mean_margin": 5194.1
+          }
+        },
+        "Planned Economy (16685950)": {
+          "n": 15,
+          "w": 11,
+          "l": 4,
+          "t": 0,
+          "mean_margin": 4142.3,
+          "since_2026-09-18": {
+            "n": 15,
+            "w": 11,
+            "l": 4,
+            "mean_margin": 4142.3
+          }
+        },
+        "Majkel1337 (16718819)": {
+          "n": 20,
+          "w": 2,
+          "l": 18,
+          "t": 0,
+          "mean_margin": -3016.6,
+          "since_2026-09-18": {
+            "n": 20,
+            "w": 2,
+            "l": 18,
+            "mean_margin": -3016.6
+          }
+        },
+        "Orbital Terraformer (16675778)": {
+          "n": 11,
+          "w": 9,
+          "l": 2,
+          "t": 0,
+          "mean_margin": 4046.2,
+          "since_2026-09-18": {
+            "n": 11,
+            "w": 9,
+            "l": 2,
+            "mean_margin": 4046.2
+          }
+        },
+        "Sida Zuo (16664246)": {
+          "n": 16,
+          "w": 10,
+          "l": 6,
+          "t": 0,
+          "mean_margin": 2398.1,
+          "since_2026-09-18": {
+            "n": 16,
+            "w": 10,
+            "l": 6,
+            "mean_margin": 2398.1
+          }
+        },
+        "ymg_aq (16732403)": {
+          "n": 21,
+          "w": 12,
+          "l": 9,
+          "t": 0,
+          "mean_margin": 899.2,
+          "since_2026-09-18": {
+            "n": 21,
+            "w": 12,
+            "l": 9,
+            "mean_margin": 899.2
+          }
+        },
+        "QQ (16817528)": {
+          "n": 3,
+          "w": 3,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 2876.3,
+          "since_2026-09-18": {
+            "n": 3,
+            "w": 3,
+            "l": 0,
+            "mean_margin": 2876.3
+          }
+        },
+        "Otter Vibe (16760569)": {
+          "n": 14,
+          "w": 11,
+          "l": 3,
+          "t": 0,
+          "mean_margin": 3031.2,
+          "since_2026-09-18": {
+            "n": 14,
+            "w": 11,
+            "l": 3,
+            "mean_margin": 3031.2
+          }
+        },
+        "THIRD FARM CLUB (16730524)": {
+          "n": 18,
+          "w": 7,
+          "l": 11,
+          "t": 0,
+          "mean_margin": -2226.7,
+          "since_2026-09-18": {
+            "n": 18,
+            "w": 7,
+            "l": 11,
+            "mean_margin": -2226.7
+          }
+        },
+        "keiz (16767215)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 3077,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 3077
+          }
+        },
+        "Excluding (16671741)": {
+          "n": 13,
+          "w": 13,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 7060.5,
+          "since_2026-09-18": {
+            "n": 13,
+            "w": 13,
+            "l": 0,
+            "mean_margin": 7060.5
+          }
+        },
+        "SpaTaro (16640510)": {
+          "n": 5,
+          "w": 0,
+          "l": 5,
+          "t": 0,
+          "mean_margin": -9685.8,
+          "since_2026-09-18": {
+            "n": 5,
+            "w": 0,
+            "l": 5,
+            "mean_margin": -9685.8
+          }
+        },
+        "DSM (16732748)": {
+          "n": 9,
+          "w": 2,
+          "l": 7,
+          "t": 0,
+          "mean_margin": -3677.1,
+          "since_2026-09-18": {
+            "n": 9,
+            "w": 2,
+            "l": 7,
+            "mean_margin": -3677.1
+          }
+        },
+        "\u30a2\u30eb\u30e2\u30f3\u30c9 (16773026)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 14114,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 14114
+          }
+        },
+        "Ebi (16882725)": {
+          "n": 4,
+          "w": 4,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12931,
+          "since_2026-09-18": {
+            "n": 4,
+            "w": 4,
+            "l": 0,
+            "mean_margin": 12931
+          }
+        },
+        "feel the agi (16805699)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 9395.5,
+          "since_2026-09-18": {
+            "n": 2,
+            "w": 2,
+            "l": 0,
+            "mean_margin": 9395.5
+          }
+        },
+        "Yannik Schiffner (16760701)": {
+          "n": 3,
+          "w": 3,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 17174.3,
+          "since_2026-09-18": {
+            "n": 3,
+            "w": 3,
+            "l": 0,
+            "mean_margin": 17174.3
+          }
+        },
+        "binghua (16685556)": {
+          "n": 7,
+          "w": 6,
+          "l": 1,
+          "t": 0,
+          "mean_margin": 5190.9,
+          "since_2026-09-18": {
+            "n": 7,
+            "w": 6,
+            "l": 1,
+            "mean_margin": 5190.9
+          }
+        },
+        "redblackbst (16732521)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 23606,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 23606
+          }
+        },
+        "mtmr_s1 (16758882)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11987,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 11987
+          }
+        },
+        "THUNDER THUNDER (16622198)": {
+          "n": 5,
+          "w": 4,
+          "l": 1,
+          "t": 0,
+          "mean_margin": 6071,
+          "since_2026-09-18": {
+            "n": 5,
+            "w": 4,
+            "l": 1,
+            "mean_margin": 6071
+          }
+        },
+        "xiao xiongwei (16811948)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 18822,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 18822
+          }
+        },
+        "yjshyfy (16641710)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12100.5,
+          "since_2026-09-18": {
+            "n": 2,
+            "w": 2,
+            "l": 0,
+            "mean_margin": 12100.5
+          }
+        },
+        "Mengfei Li (16622349)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 7865,
+          "since_2026-09-18": {
+            "n": 2,
+            "w": 2,
+            "l": 0,
+            "mean_margin": 7865
+          }
+        },
+        "jojo (16883168)": {
+          "n": 3,
+          "w": 3,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 16835.7,
+          "since_2026-09-18": {
+            "n": 3,
+            "w": 3,
+            "l": 0,
+            "mean_margin": 16835.7
+          }
+        },
+        "forever young (16629972)": {
+          "n": 3,
+          "w": 2,
+          "l": 1,
+          "t": 0,
+          "mean_margin": 16594,
+          "since_2026-09-18": {
+            "n": 3,
+            "w": 2,
+            "l": 1,
+            "mean_margin": 16594
+          }
+        },
+        "Crop Dustas (16714457)": {
+          "n": 3,
+          "w": 3,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 9334,
+          "since_2026-09-18": {
+            "n": 3,
+            "w": 3,
+            "l": 0,
+            "mean_margin": 9334
+          }
+        },
+        "Xiangyu Liu (16706222)": {
+          "n": 3,
+          "w": 3,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 13731,
+          "since_2026-09-18": {
+            "n": 3,
+            "w": 3,
+            "l": 0,
+            "mean_margin": 13731
+          }
+        },
+        "EthanL67 (16887437)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 21066.5,
+          "since_2026-09-18": {
+            "n": 2,
+            "w": 2,
+            "l": 0,
+            "mean_margin": 21066.5
+          }
+        },
+        "Hire me! \ud83e\udd17 [Viktor Cikojevic] (16865335)": {
+          "n": 4,
+          "w": 4,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12837.2,
+          "since_2026-09-18": {
+            "n": 4,
+            "w": 4,
+            "l": 0,
+            "mean_margin": 12837.2
+          }
+        },
+        "lumen (16706321)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 25575,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 25575
+          }
+        },
+        "Yudai Ueno (16773244)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11365,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 11365
+          }
+        },
+        "Catalyst (16640467)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 6990,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 6990
+          }
+        },
+        "extra eclaire (16640048)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 26667,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 26667
+          }
+        },
+        "Collin Christensen (16760241)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 24872,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 24872
+          }
+        },
+        "Zhenghongshuang (16725899)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11357,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 11357
+          }
+        },
+        "HadBoumoussa's Farm \ud83c\udf3e (16848956)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 18176,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 18176
+          }
+        },
+        "\ud55c\ubc2d\ub300\ud559\uad50\ucef4\ud4e8\ud130\uacf5\ud559\uacfc\uc815\uc6b0\ubbfc (16867213)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 15678,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 15678
+          }
+        },
+        "Roman Svet (16669935)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 22350,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 22350
+          }
+        },
+        "yuki0731 (16778946)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 15149,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 15149
+          }
+        },
+        "hiroshi murakami (16622330)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 5242,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 5242
+          }
+        },
+        "Tom&Jerry (16777134)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 18498,
+          "since_2026-09-18": {
+            "n": 2,
+            "w": 2,
+            "l": 0,
+            "mean_margin": 18498
+          }
+        },
+        "shfyyds12138 (16743528)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 35354,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 35354
+          }
+        },
+        "leave you (16637255)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 7383,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 7383
+          }
+        },
+        "kta_jpn (16810171)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 5644,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 5644
+          }
+        },
+        "Jeryos (16732051)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 4469,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 4469
+          }
+        },
+        "Asan Ashirov (16899084)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 7995,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 7995
+          }
+        },
+        "Kenjo1209 (16670032)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 16683,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 16683
+          }
+        },
+        "Shiji Zheng (16762319)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 5517.5,
+          "since_2026-09-18": {
+            "n": 2,
+            "w": 2,
+            "l": 0,
+            "mean_margin": 5517.5
+          }
+        },
+        "LittleScottyy (16746275)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 2821,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 2821
+          }
+        },
+        "playboicarti (16877834)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12418,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 12418
+          }
+        },
+        "Ivan Aleksandrov (16768104)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 10716,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 10716
+          }
+        },
+        "Smackaveli (16862183)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12560,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 12560
+          }
+        },
+        "edteoh (16665134)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 26015,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 26015
+          }
+        },
+        "xxxzzz123312123321 (16751603)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12762,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 12762
+          }
+        },
+        "Emre (16638651)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 10580,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 10580
+          }
+        },
+        "HirokiTaniai (16794536)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 27528,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 27528
+          }
+        },
+        "Tagir Analyzes (16666977)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 16077,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 16077
+          }
+        },
+        "thisray (16625220)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 16920,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 16920
+          }
+        },
+        "lalal2006 (16866458)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 5473,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 5473
+          }
+        },
+        "Shadowell888 (16632599)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 10563,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 10563
+          }
+        },
+        "Seyit kaan Gunes (16713262)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 9994,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 9994
+          }
+        },
+        "Pico (16754022)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 24988,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 24988
+          }
+        },
+        "\u54c8\u57fa\u7c73\u5357\u5317\u8def\u591a (16914744)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 7112,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 7112
+          }
+        },
+        "kwon yong deuk (16695685)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 6486,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 6486
+          }
+        },
+        "Harris Bashir (16750268)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 21763,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 21763
+          }
+        },
+        "Ryosei Hara (16841663)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 39275,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 39275
+          }
+        },
+        "Hai Dang (16712121)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 8662,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 8662
+          }
+        },
+        "goosehaaan (16633212)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12190,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 12190
+          }
+        },
+        "Horatio Eversfield (16863350)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 20310,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 20310
+          }
+        },
+        "JuliaGastellu (16744837)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 16205,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 16205
+          }
+        },
+        "\u6708\u4e4b\u5149\u9762 (16847247)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 20904,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 20904
+          }
+        },
+        "Zalyaliev Marat (16883355)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 9240,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 9240
+          }
+        },
+        "\u306d\u306d\u306d (16731966)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11814,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 11814
+          }
+        },
+        "Younes Chafi (16900902)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 21671,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 21671
+          }
+        },
+        "Kudo (16656452)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 21259,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 21259
+          }
+        },
+        "Kerem \u00e7elik (16643693)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 9283,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 9283
+          }
+        },
+        "Gigrise (16633190)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 16494,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 16494
+          }
+        },
+        "Mansi Aggarwal (16710428)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 6293,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 6293
+          }
+        },
+        "Satoshi Nguyen (16795062)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 31863,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 31863
+          }
+        },
+        "Annsatz (16881121)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 22078,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 22078
+          }
+        },
+        "Takumu Hata (16640873)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 6568,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 6568
+          }
+        },
+        "WANG HONGXIANG (16842293)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 1818,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 1818
+          }
+        },
+        "latentb (16886066)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12725,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 12725
+          }
+        },
+        "walawala (16773041)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 1204,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 1204
+          }
+        },
+        "Richard (16844770)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 15197,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 15197
+          }
+        },
+        "rin2401 (16724806)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 31289,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 31289
+          }
+        },
+        "Nozprod (16654914)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 27692,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 27692
+          }
+        },
+        "melowdramtic (16841077)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 23433,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 23433
+          }
+        },
+        "ANJAN B (16826561)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 40993,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 40993
+          }
+        },
+        "Arvin (16716613)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 17303,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 17303
+          }
+        },
+        "Kyuhwan Cho (16639369)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 27022,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 27022
+          }
+        },
+        "SHOUHEI IKEDA (16828844)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 50685,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 50685
+          }
+        },
+        "Moomin and his farm (16771703)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 45330,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 45330
+          }
+        },
+        "Victor's Team (16661983)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 53302,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 53302
+          }
+        },
+        "namanbnsl (16675027)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 45692,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 45692
+          }
+        },
+        "Boris Pletenev (16729472)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 55589,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 55589
+          }
+        },
+        "Chintakrinda_Naveen (16659663)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 73918,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 73918
+          }
+        },
+        "Ahmet Bilginoglu (16762719)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 49174,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 49174
+          }
+        },
+        "Ziel_Lux (16660270)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 116842,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 116842
+          }
+        },
+        "Unknown Mother-Goose (16730612)": {
+          "n": 2,
+          "w": 0,
+          "l": 1,
+          "t": 1,
+          "mean_margin": -315.5,
+          "since_2026-09-18": {
+            "n": 2,
+            "w": 0,
+            "l": 1,
+            "mean_margin": -315.5
+          }
+        },
+        "Ad Space Available (16665237)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 3859,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 3859
+          }
+        },
+        "DeeperNet (16693904)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 3358.5,
+          "since_2026-09-18": {
+            "n": 2,
+            "w": 2,
+            "l": 0,
+            "mean_margin": 3358.5
+          }
+        },
+        "tetsuya & yuanzhe & guoqi (16623716)": {
+          "n": 1,
+          "w": 0,
+          "l": 1,
+          "t": 0,
+          "mean_margin": -4165,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 0,
+            "l": 1,
+            "mean_margin": -4165
+          }
+        },
+        "Ryo Takaki (16623449)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 37287,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 37287
+          }
+        },
+        "mikelou1 (16629685)": {
+          "n": 2,
+          "w": 1,
+          "l": 1,
+          "t": 0,
+          "mean_margin": 249,
+          "since_2026-09-18": {
+            "n": 2,
+            "w": 1,
+            "l": 1,
+            "mean_margin": 249
+          }
+        },
+        "Driz Lo (16748733)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12712,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 12712
+          }
+        },
+        "Agricola (16727266)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 10143,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 10143
+          }
+        },
+        "istinetz (16632021)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 5907,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 5907
+          }
+        },
+        "\u6613\u601d\u8a00ysy (16891396)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 28329,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 28329
+          }
+        },
+        "kwa (16739633)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 2088,
+          "since_2026-09-18": {
+            "n": 2,
+            "w": 2,
+            "l": 0,
+            "mean_margin": 2088
+          }
+        },
+        "Ahmed Alhassan (16744979)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 13157,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 13157
+          }
+        },
+        "Zyy7390 (16668783)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 30677,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 30677
+          }
+        },
+        "Kaggriculture Agent (16644724)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 4432.5,
+          "since_2026-09-18": {
+            "n": 2,
+            "w": 2,
+            "l": 0,
+            "mean_margin": 4432.5
+          }
+        },
+        "Bryan Pauze (16851133)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 9231.5,
+          "since_2026-09-18": {
+            "n": 2,
+            "w": 2,
+            "l": 0,
+            "mean_margin": 9231.5
+          }
+        },
+        "yuto083 (16623697)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 2423,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 2423
+          }
+        },
+        "Teddy Tennant (16697767)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11018,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 11018
+          }
+        },
+        "nofreewill42 (16739925)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 7560,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 7560
+          }
+        },
+        "yfy (16727171)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 22268,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 22268
+          }
+        },
+        "charmq (16847222)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 21851,
+          "since_2026-09-18": {
+            "n": 2,
+            "w": 2,
+            "l": 0,
+            "mean_margin": 21851
+          }
+        },
+        "ziheng (16671515)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11511,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 11511
+          }
+        },
+        "agi here, asi soon (16915651)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 8711,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 8711
+          }
+        },
+        "Sohshi Nakamura (16757727)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 16158,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 16158
+          }
+        },
+        "HanFish (16863383)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12395,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 12395
+          }
+        },
+        "Max64738CB (16687159)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 6373,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 6373
+          }
+        },
+        "Jince (16669926)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 10732,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 10732
+          }
+        },
+        "hidsaito (16727998)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 4008,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 4008
+          }
+        },
+        "Talvenn (16843315)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11792,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 11792
+          }
+        },
+        "cqupt_sdq (16676609)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 7972,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 7972
+          }
+        },
+        "JOSHNA ACSHA S 21CS (16666434)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11317,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 11317
+          }
+        },
+        "islet (16626732)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 24333,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 24333
+          }
+        },
+        "Nuno Ferreira (16685358)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 13507,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 13507
+          }
+        },
+        "yang zhang (16755328)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 4708,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 4708
+          }
+        },
+        "Marlubie (16675671)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 3263,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 3263
+          }
+        },
+        "Alperen Ayd\u0131n (16756764)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 10092,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 10092
+          }
+        },
+        "qhapaq49 (16883863)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 17266,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 17266
+          }
+        },
+        "test_money (16633226)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 29314,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 29314
+          }
+        },
+        "stars_w (16652630)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12681,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 12681
+          }
+        },
+        "Dias Bakhtiyarov (16875968)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 14569,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 14569
+          }
+        },
+        "tq1d (16849801)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 27220,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 27220
+          }
+        },
+        "ChengxuGu (16790091)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 15570,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 15570
+          }
+        },
+        "Methematics (16856629)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 10247,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 10247
+          }
+        },
+        "isk54_34 (16843582)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 13941,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 13941
+          }
+        },
+        "Sankalp Wanjari (16847543)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11118,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 11118
+          }
+        },
+        "Abracadabra (16661039)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12473,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 12473
+          }
+        },
+        "Joe Muller (16735539)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 25983,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 25983
+          }
+        },
+        "tanadai (16732210)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11623,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 11623
+          }
+        },
+        "lll (16883907)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 9155,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 9155
+          }
+        },
+        "HY ISHI (16851474)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12665,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 12665
+          }
+        },
+        "Adnan Zaman (16664836)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 10769,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 10769
+          }
+        },
+        "\u8001\u4e61 (16735744)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 16529,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 16529
+          }
+        },
+        "David Wang (16858207)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 9801,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 9801
+          }
+        },
+        "MudassarPAPI (16881755)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 15093,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 15093
+          }
+        },
+        "static (16730142)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 13402,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 13402
+          }
+        },
+        "linmumu009 (16826465)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 9826,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 9826
+          }
+        },
+        "yomogii (16833141)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 6766,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 6766
+          }
+        },
+        "ywwywww (16694346)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 18031,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 18031
+          }
+        },
+        "Rey4Dan (16663166)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 49440,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 49440
+          }
+        },
+        "premjampuram (16661701)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 22639,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 22639
+          }
+        },
+        "thisArmin (16794841)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 37866,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 37866
+          }
+        },
+        "One Zero001 (16780141)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 20084,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 20084
+          }
+        },
+        "Amey Thakur (16740392)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 40448,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 40448
+          }
+        },
+        "Adarsh Balanolla (16741131)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 35111,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 35111
+          }
+        },
+        "Binil George (16666410)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 44118,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 44118
+          }
+        },
+        "SHICHIES (16802486)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 67912,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 67912
+          }
+        },
+        "Touhidul Alam Seyam (16662161)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 58397,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 58397
+          }
+        },
+        "\uc774\uc21c\uc2e0 (16854935)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 78236,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 78236
+          }
+        },
+        "Ademola Arigbabuwo (16655744)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 46583,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 46583
+          }
+        },
+        "Muzhi11 (16814805)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 102386,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 102386
+          }
+        },
+        "Frankyface (16718565)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 78200,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 78200
+          }
+        }
+      }
+    },
+    "old": {
+      "n_episodes": 344,
+      "by_band": {
+        "3050+": {
+          "n": 159,
+          "w": 95,
+          "l": 64,
+          "t": 0,
+          "mean_margin": 757.2
+        },
+        "2900-3050": {
+          "n": 90,
+          "w": 66,
+          "l": 24,
+          "t": 0,
+          "mean_margin": 4812.3
+        },
+        "2700-2900": {
+          "n": 42,
+          "w": 37,
+          "l": 5,
+          "t": 0,
+          "mean_margin": 9280
+        },
+        "<2700": {
+          "n": 52,
+          "w": 50,
+          "l": 2,
+          "t": 0,
+          "mean_margin": 27836.4
+        },
+        "unknown": {
+          "n": 1,
+          "w": 0,
+          "l": 1,
+          "t": 0,
+          "mean_margin": -120
+        }
+      },
+      "by_team": {
+        "Majkel1337 (16718819)": {
+          "n": 86,
+          "w": 56,
+          "l": 30,
+          "t": 0,
+          "mean_margin": 1428.6,
+          "since_2026-09-18": {
+            "n": 33,
+            "w": 22,
+            "l": 11,
+            "mean_margin": 1307.6
+          }
+        },
+        "DSM (16732748)": {
+          "n": 20,
+          "w": 14,
+          "l": 6,
+          "t": 0,
+          "mean_margin": 978.9,
+          "since_2026-09-18": {
+            "n": 3,
+            "w": 3,
+            "l": 0,
+            "mean_margin": 1626.3
+          }
+        },
+        "SpaTaro (16640510)": {
+          "n": 31,
+          "w": 16,
+          "l": 15,
+          "t": 0,
+          "mean_margin": 1673.2,
+          "since_2026-09-18": {
+            "n": 15,
+            "w": 6,
+            "l": 9,
+            "mean_margin": 818.6
+          }
+        },
+        "ymg_aq (16732403)": {
+          "n": 11,
+          "w": 3,
+          "l": 8,
+          "t": 0,
+          "mean_margin": -3685.3,
+          "since_2026-09-18": {
+            "n": 1,
+            "w": 1,
+            "l": 0,
+            "mean_margin": 6177
+          }
+        },
+        "Sida Zuo (16664246)": {
+          "n": 21,
+          "w": 15,
+          "l": 6,
+          "t": 0,
+          "mean_margin": 1982.9,
+          "since_2026-09-18": {
+            "n": 3,
+            "w": 2,
+            "l": 1,
+            "mean_margin": 531.7
+          }
+        },
+        "Boey (16915014)": {
+          "n": 5,
+          "w": 0,
+          "l": 5,
+          "t": 0,
+          "mean_margin": -12304.4,
+          "since_2026-09-18": {
+            "n": 5,
+            "w": 0,
+            "l": 5,
+            "mean_margin": -12304.4
+          }
+        },
+        "Excluding (16671741)": {
+          "n": 13,
+          "w": 7,
+          "l": 6,
+          "t": 0,
+          "mean_margin": 1089.5,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Planned Economy (16685950)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 581,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Orbital Terraformer (16675778)": {
+          "n": 5,
+          "w": 3,
+          "l": 2,
+          "t": 0,
+          "mean_margin": 1145.4,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "forever young (16629972)": {
+          "n": 3,
+          "w": 3,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 15844.3,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Arda Ceylan (16673205)": {
+          "n": 3,
+          "w": 3,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 13468.7,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "lumen (16706321)": {
+          "n": 4,
+          "w": 4,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11498.5,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "kwa (16739633)": {
+          "n": 3,
+          "w": 2,
+          "l": 1,
+          "t": 0,
+          "mean_margin": 3390.7,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "feel the agi (16805699)": {
+          "n": 5,
+          "w": 5,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11669.4,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Driz Lo (16748733)": {
+          "n": 4,
+          "w": 4,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 10350.8,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Thomas Tschinkel (16719123)": {
+          "n": 3,
+          "w": 3,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 9705,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "THIRD FARM CLUB (16730524)": {
+          "n": 6,
+          "w": 5,
+          "l": 1,
+          "t": 0,
+          "mean_margin": 3020.2,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Ebi (16882725)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12059,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "M & M & P & Q (16681125)": {
+          "n": 7,
+          "w": 0,
+          "l": 7,
+          "t": 0,
+          "mean_margin": -10913.6,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Ishan Karnick (16889224)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 17941,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "\ud835\udd6f\ud835\udd8a\ud835\udd94\ud835\udd89\ud835\udd8e\ud835\udd92\ud835\udd98 & \ud835\udd6e\ud835\udd94 (16781445)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 4478.5,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Otter Vibe (16760569)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 2425,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "yjshyfy (16641710)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 16882,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Mengfei Li (16622349)": {
+          "n": 5,
+          "w": 4,
+          "l": 1,
+          "t": 0,
+          "mean_margin": 6552.4,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "fog flower (16684093)": {
+          "n": 3,
+          "w": 3,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 10440.7,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Emile Andrieu (16633100)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 20890,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Yannik Schiffner (16760701)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 9199.5,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Kaggriculture Agent (16644724)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 14961,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Cow Boy (16633178)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 23089,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "thisray (16625220)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 10018.5,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "porply (16623463)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 13555,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Crop Dustas (16714457)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 6375,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "local (16723379)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 14412,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "sam_the_rice_cake (16748476)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 7595,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Catalyst (16640467)": {
+          "n": 1,
+          "w": 0,
+          "l": 1,
+          "t": 0,
+          "mean_margin": -4750,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "lingxiaojun (16658349)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12177.5,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Lucas Boesen (16652175)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 17622,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Peng Wang (16623459)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 14061,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "nikotin55 (16881395)": {
+          "n": 1,
+          "w": 0,
+          "l": 1,
+          "t": 0,
+          "mean_margin": -24978,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Seho.Connect (16663632)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 19954,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Dias Bakhtiyarov (16875968)": {
+          "n": 1,
+          "w": 0,
+          "l": 1,
+          "t": 0,
+          "mean_margin": -7615,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "goosehaaan (16633212)": {
+          "n": 1,
+          "w": 0,
+          "l": 1,
+          "t": 0,
+          "mean_margin": -5008,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Xiangyu Liu (16706222)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 14057,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "yfy (16727171)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12094,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "HojunLee (16884858)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 6172,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Ali Alghaithi (16670210)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 13275,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "yasu (16639565)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 13434,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "\u304a\u304b\u3086\u3093 (16845833)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 10339,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Omkar Kadam (16635969)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 20818,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "researchstudio.site (16676904)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11746,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "FinalSunFlower (16727182)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 8979,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "kobq (16860293)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 31379,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "kevin park (16626191)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 7413,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Saravanan Jaichandaran (16665809)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 14777,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Chris Deotte (16867799)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 3833,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "skw1990 (16661575)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 13448,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "mhiro2 (16736874)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 9177,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "JianYuan Deng (16688896)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 9860,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "asteriam (16623520)": {
+          "n": 1,
+          "w": 0,
+          "l": 1,
+          "t": 0,
+          "mean_margin": -12739,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Roxy (16632224)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 5057,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Apa (16773098)": {
+          "n": 2,
+          "w": 2,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 13978,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "culture (16864125)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 5772,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "varshitha kolupuri (16803032)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 7051,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "hidsaito (16727998)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 979,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Xander (16637987)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 3506,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Ikeda0516 (16655379)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 16034,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "kawauso9n (16743858)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 17080,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "latentm (16896572)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 8674,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Hai Dang (16712121)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 5601,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Kyoungwon Jeong (16628897)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 14332,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Ali Eren O\u011fuzta\u015f (16668071)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 9385,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "MioValentine (16796370)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 14879,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Marlubie (16675671)": {
+          "n": 1,
+          "w": 0,
+          "l": 1,
+          "t": 0,
+          "mean_margin": -4801,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "kuro0315 (16623637)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 8785,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Shiji Zheng (16762319)": {
+          "n": 2,
+          "w": 1,
+          "l": 1,
+          "t": 0,
+          "mean_margin": 1814,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "akmr (16634580)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 6369,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "kaerururu (16851186)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 7485,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Aaron amacadu (16868304)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 4873,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Roshan Roy (16658221)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 5018,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "SuzukiKazuma (16847412)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 36535,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Dr Chandrasen Pandey (16639625)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12582,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Ryotaro Minato (16675493)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 3362,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Akhilesh godugu (16623799)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 12021,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "JYShane (16731803)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 4133,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "King Tian (16675063)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 41631,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Satkar sarvankar (16682032)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 15506,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "broccoli (16730720)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 23092,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "hidenov (16806541)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 3122,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "BOB (16731415)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11141,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Juste Me (\u25cf'\u25e1'\u25cf) (16624919)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 10023,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Yosef Zoabi (16854439)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 25448,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Blu3s (16730065)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 11121,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "DieByTheSword (16659771)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 15428,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Yasuhiro Manai (16892682)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 41366,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "drezna ultra (16640780)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 26912,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "infamemconculcemus (16633179)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 16658,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Mert Bayraktar (16669686)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 18481,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "UYHHHHYu (16903770)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 19276,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "LXZ538 (16778627)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 7536,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "tksfjn (16797036)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 14152,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Jackylw (16847096)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 10864,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "AlejandroAlvarez (16668162)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 37314,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Lumberjacks (16781550)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 43210,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Q1du (16839489)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 30439,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "dqvide (16728901)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 40258,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "\u4e09\u6d66\u6842\u57fa (16752018)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 46675,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "sadatch (16707584)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 29297,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "marinxbt (16658746)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 51717,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "mohit (16654832)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 87066,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Mesut G\u00f6zdemir (16632250)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 68577,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Mirza Yasir Abdullah Baig (16635668)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 76180,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Haruki Iwase (16775237)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 152055,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "indrapurnama (16657400)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 122057,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Huchen Jiang (16740840)": {
+          "n": 1,
+          "w": 1,
+          "l": 0,
+          "t": 0,
+          "mean_margin": 149489,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        },
+        "Unknown Mother-Goose (16730612)": {
+          "n": 1,
+          "w": 0,
+          "l": 1,
+          "t": 0,
+          "mean_margin": -120,
+          "since_2026-09-18": {
+            "n": 0,
+            "w": 0,
+            "l": 0,
+            "mean_margin": null
+          }
+        }
+      }
+    }
+  },
+  "band_3050_plus_losses_since_2026-09-18": [
+    {
+      "submission_id": 56216119,
+      "team": "Majkel1337",
+      "team_id": 16718819,
+      "n_losses": 8,
+      "mean_margin": -2946.2
+    },
+    {
+      "submission_id": 56332038,
+      "team": "Majkel1337",
+      "team_id": 16718819,
+      "n_losses": 8,
+      "mean_margin": -4807.2
+    },
+    {
+      "submission_id": 56286806,
+      "team": "SpaTaro",
+      "team_id": 16640510,
+      "n_losses": 5,
+      "mean_margin": -9685.8
+    },
+    {
+      "submission_id": 56335405,
+      "team": "DSM",
+      "team_id": 16732748,
+      "n_losses": 5,
+      "mean_margin": -3463.4
+    },
+    {
+      "submission_id": 56305493,
+      "team": "ymg_aq",
+      "team_id": 16732403,
+      "n_losses": 5,
+      "mean_margin": -2303.8
+    },
+    {
+      "submission_id": 56305515,
+      "team": "ymg_aq",
+      "team_id": 16732403,
+      "n_losses": 4,
+      "mean_margin": -1205
+    },
+    {
+      "submission_id": 56334581,
+      "team": "THIRD FARM CLUB",
+      "team_id": 16730524,
+      "n_losses": 4,
+      "mean_margin": -6124.8
+    },
+    {
+      "submission_id": 56326604,
+      "team": "THIRD FARM CLUB",
+      "team_id": 16730524,
+      "n_losses": 4,
+      "mean_margin": -2452.8
+    },
+    {
+      "submission_id": 56263637,
+      "team": "Sida Zuo",
+      "team_id": 16664246,
+      "n_losses": 3,
+      "mean_margin": -3184
+    },
+    {
+      "submission_id": 56329635,
+      "team": "DSM",
+      "team_id": 16732748,
+      "n_losses": 2,
+      "mean_margin": -9018
+    }
+  ],
+  "majkel1337_revenue_timing_since_2026-09-18": {
+    "n_new_games": 12,
+    "n_losses": 10,
+    "n_wins": 2,
+    "mean_mg_revenue_by_product_in_losses": {
+      "WHEAT": 17475.4,
+      "FERTILIZER": 11478.2,
+      "MILK": 8457.1,
+      "MELON": 6112.2,
+      "WOOL": 8778.0,
+      "STRAWBERRY": 25434.0,
+      "TOMATO": 3858.1,
+      "CARROT": 6076.2,
+      "EGG": 2768.9
+    },
+    "mean_mg_revenue_by_product_in_wins": {
+      "WHEAT": 16078.0,
+      "FERTILIZER": 11170.5,
+      "MILK": 10728.5,
+      "MELON": 5485.0,
+      "EGG": 6511.0,
+      "WOOL": 2382.0,
+      "STRAWBERRY": 38108.0,
+      "CARROT": 9295.5,
+      "TOMATO": 2746.5
+    },
+    "note": "Revenue is APPROXIMATE: sum over her SELL orders of min(qty, her shed stock at that step) x market price at that step; not exact fill accounting.",
+    "loss_games_detail": [
+      {
+        "id": "0f386306-b40c-11f1-bfc8-0242ac130204",
+        "margin": -2837.0,
+        "mg_revenue": {
+          "WHEAT": 23617,
+          "FERTILIZER": 11882,
+          "MILK": 7088,
+          "MELON": 6954,
+          "WOOL": 378,
+          "STRAWBERRY": 31227,
+          "TOMATO": 3358,
+          "CARROT": 296
+        },
+        "opp_revenue": {
+          "WHEAT": 18998,
+          "FERTILIZER": 10932,
+          "WOOL": 5112,
+          "MILK": 13148,
+          "MELON": 14664,
+          "STRAWBERRY": 39957,
+          "EGG": 4412,
+          "CARROT": 7053,
+          "TOMATO": 4431
+        },
+        "opp_sells_near_her_hour": {
+          "WHEAT": {
+            "mg_mode_sell_hour": 4,
+            "opp_sells_within_2h_before": 13,
+            "opp_total_sells": 92
+          },
+          "MELON": {
+            "mg_mode_sell_hour": 10,
+            "opp_sells_within_2h_before": 4,
+            "opp_total_sells": 14
+          },
+          "STRAWBERRY": {
+            "mg_mode_sell_hour": 0,
+            "opp_sells_within_2h_before": 8,
+            "opp_total_sells": 53
+          },
+          "WOOL": {
+            "mg_mode_sell_hour": 5,
+            "opp_sells_within_2h_before": 5,
+            "opp_total_sells": 25
+          },
+          "MILK": {
+            "mg_mode_sell_hour": 2,
+            "opp_sells_within_2h_before": 13,
+            "opp_total_sells": 80
+          }
+        }
+      },
+      {
+        "id": "1654b47a-b40f-11f1-9ba1-0242ac130203",
+        "margin": -2666.0,
+        "mg_revenue": {
+          "WHEAT": 16443,
+          "FERTILIZER": 10719,
+          "MILK": 4116,
+          "MELON": 5862,
+          "EGG": 6291,
+          "WOOL": 8260,
+          "STRAWBERRY": 18406,
+          "CARROT": 14396,
+          "TOMATO": 1016
+        },
+        "opp_revenue": {
+          "WHEAT": 11072,
+          "FERTILIZER": 13475,
+          "WOOL": 22394,
+          "EGG": 9096,
+          "MILK": 6576,
+          "MELON": 16179,
+          "CARROT": 15450,
+          "STRAWBERRY": 26441,
+          "TOMATO": 5933
+        },
+        "opp_sells_near_her_hour": {
+          "WHEAT": {
+            "mg_mode_sell_hour": 5,
+            "opp_sells_within_2h_before": 0,
+            "opp_total_sells": 41
+          },
+          "MELON": {
+            "mg_mode_sell_hour": 10,
+            "opp_sells_within_2h_before": 1,
+            "opp_total_sells": 13
+          },
+          "STRAWBERRY": {
+            "mg_mode_sell_hour": 0,
+            "opp_sells_within_2h_before": 4,
+            "opp_total_sells": 23
+          },
+          "WOOL": {
+            "mg_mode_sell_hour": 3,
+            "opp_sells_within_2h_before": 12,
+            "opp_total_sells": 61
+          },
+          "MILK": {
+            "mg_mode_sell_hour": 2,
+            "opp_sells_within_2h_before": 8,
+            "opp_total_sells": 36
+          }
+        }
+      },
+      {
+        "id": "aa9fbe8a-b415-11f1-9459-0242ac130204",
+        "margin": -2518.0,
+        "mg_revenue": {
+          "WHEAT": 16540,
+          "FERTILIZER": 11458,
+          "MILK": 9541,
+          "MELON": 5190,
+          "WOOL": 3928,
+          "STRAWBERRY": 28530,
+          "EGG": 2200,
+          "CARROT": 6565,
+          "TOMATO": 4707
+        },
+        "opp_revenue": {
+          "WHEAT": 12871,
+          "FERTILIZER": 12113,
+          "WOOL": 10333,
+          "EGG": 11342,
+          "MILK": 16851,
+          "MELON": 16056,
+          "CARROT": 10510,
+          "STRAWBERRY": 29436,
+          "TOMATO": 3179
+        },
+        "opp_sells_near_her_hour": {
+          "WHEAT": {
+            "mg_mode_sell_hour": 15,
+            "opp_sells_within_2h_before": 4,
+            "opp_total_sells": 43
+          },
+          "MELON": {
+            "mg_mode_sell_hour": 11,
+            "opp_sells_within_2h_before": 2,
+            "opp_total_sells": 13
+          },
+          "STRAWBERRY": {
+            "mg_mode_sell_hour": 5,
+            "opp_sells_within_2h_before": 3,
+            "opp_total_sells": 35
+          },
+          "WOOL": {
+            "mg_mode_sell_hour": 3,
+            "opp_sells_within_2h_before": 1,
+            "opp_total_sells": 17
+          },
+          "MILK": {
+            "mg_mode_sell_hour": 1,
+            "opp_sells_within_2h_before": 4,
+            "opp_total_sells": 51
+          }
+        }
+      },
+      {
+        "id": "772c9394-b419-11f1-8553-0242ac130204",
+        "margin": -6125.0,
+        "mg_revenue": {
+          "WHEAT": 13618,
+          "FERTILIZER": 11795,
+          "MILK": 12233,
+          "MELON": 6294,
+          "WOOL": 13578,
+          "STRAWBERRY": 12271,
+          "CARROT": 8371,
+          "TOMATO": 2274
+        },
+        "opp_revenue": {
+          "WHEAT": 11555,
+          "FERTILIZER": 12190,
+          "WOOL": 28516,
+          "MILK": 18223,
+          "MELON": 14728,
+          "STRAWBERRY": 20334,
+          "CARROT": 11343,
+          "TOMATO": 5154
+        },
+        "opp_sells_near_her_hour": {
+          "WHEAT": {
+            "mg_mode_sell_hour": 5,
+            "opp_sells_within_2h_before": 6,
+            "opp_total_sells": 75
+          },
+          "MELON": {
+            "mg_mode_sell_hour": 10,
+            "opp_sells_within_2h_before": 2,
+            "opp_total_sells": 14
+          },
+          "STRAWBERRY": {
+            "mg_mode_sell_hour": 0,
+            "opp_sells_within_2h_before": 14,
+            "opp_total_sells": 41
+          },
+          "WOOL": {
+            "mg_mode_sell_hour": 5,
+            "opp_sells_within_2h_before": 17,
+            "opp_total_sells": 91
+          },
+          "MILK": {
+            "mg_mode_sell_hour": 1,
+            "opp_sells_within_2h_before": 10,
+            "opp_total_sells": 47
+          }
+        }
+      },
+      {
+        "id": "d91e2e7c-b41f-11f1-ad4d-0242ac130204",
+        "margin": -3269.0,
+        "mg_revenue": {
+          "WHEAT": 21595,
+          "FERTILIZER": 12998,
+          "MILK": 9046,
+          "MELON": 4536,
+          "WOOL": 32665,
+          "STRAWBERRY": 23454,
+          "TOMATO": 5592,
+          "CARROT": 476
+        },
+        "opp_revenue": {
+          "WHEAT": 16649,
+          "FERTILIZER": 11863,
+          "WOOL": 41863,
+          "MILK": 24023,
+          "MELON": 14878,
+          "STRAWBERRY": 29943,
+          "TOMATO": 15787,
+          "CARROT": 4290
+        },
+        "opp_sells_near_her_hour": {
+          "WHEAT": {
+            "mg_mode_sell_hour": 22,
+            "opp_sells_within_2h_before": 16,
+            "opp_total_sells": 76
+          },
+          "MELON": {
+            "mg_mode_sell_hour": 10,
+            "opp_sells_within_2h_before": 3,
+            "opp_total_sells": 11
+          },
+          "STRAWBERRY": {
+            "mg_mode_sell_hour": 0,
+            "opp_sells_within_2h_before": 14,
+            "opp_total_sells": 48
+          },
+          "WOOL": {
+            "mg_mode_sell_hour": 3,
+            "opp_sells_within_2h_before": 2,
+            "opp_total_sells": 58
+          },
+          "MILK": {
+            "mg_mode_sell_hour": 1,
+            "opp_sells_within_2h_before": 9,
+            "opp_total_sells": 70
+          }
+        }
+      },
+      {
+        "id": "3cbcebd2-b423-11f1-983b-0242ac130203",
+        "margin": -1245.0,
+        "mg_revenue": {
+          "WHEAT": 16295,
+          "FERTILIZER": 12911,
+          "MILK": 15372,
+          "MELON": 9528,
+          "EGG": 3302,
+          "WOOL": 1819,
+          "STRAWBERRY": 39527,
+          "TOMATO": 1656,
+          "CARROT": 168
+        },
+        "opp_revenue": {
+          "WHEAT": 15690,
+          "FERTILIZER": 12095,
+          "WOOL": 7195,
+          "MILK": 36712,
+          "MELON": 14759,
+          "EGG": 4306,
+          "STRAWBERRY": 45061,
+          "TOMATO": 2024,
+          "CARROT": 5636
+        },
+        "opp_sells_near_her_hour": {
+          "WHEAT": {
+            "mg_mode_sell_hour": 5,
+            "opp_sells_within_2h_before": 7,
+            "opp_total_sells": 73
+          },
+          "MELON": {
+            "mg_mode_sell_hour": 10,
+            "opp_sells_within_2h_before": 2,
+            "opp_total_sells": 13
+          },
+          "STRAWBERRY": {
+            "mg_mode_sell_hour": 0,
+            "opp_sells_within_2h_before": 16,
+            "opp_total_sells": 71
+          },
+          "WOOL": {
+            "mg_mode_sell_hour": 3,
+            "opp_sells_within_2h_before": 7,
+            "opp_total_sells": 42
+          },
+          "MILK": {
+            "mg_mode_sell_hour": 2,
+            "opp_sells_within_2h_before": 15,
+            "opp_total_sells": 84
+          }
+        }
+      },
+      {
+        "id": "68872f72-b426-11f1-bae4-0242ac130203",
+        "margin": -955.0,
+        "mg_revenue": {
+          "WHEAT": 16779,
+          "FERTILIZER": 10688,
+          "MILK": 6102,
+          "MELON": 6186,
+          "WOOL": 2091,
+          "STRAWBERRY": 35865,
+          "EGG": 1762,
+          "TOMATO": 7714,
+          "CARROT": 5084
+        },
+        "opp_revenue": {
+          "WHEAT": 13785,
+          "FERTILIZER": 11028,
+          "WOOL": 7287,
+          "MILK": 16936,
+          "MELON": 14455,
+          "STRAWBERRY": 44488,
+          "EGG": 4436,
+          "CARROT": 12767,
+          "TOMATO": 6191
+        },
+        "opp_sells_near_her_hour": {
+          "WHEAT": {
+            "mg_mode_sell_hour": 4,
+            "opp_sells_within_2h_before": 12,
+            "opp_total_sells": 77
+          },
+          "MELON": {
+            "mg_mode_sell_hour": 10,
+            "opp_sells_within_2h_before": 2,
+            "opp_total_sells": 13
+          },
+          "STRAWBERRY": {
+            "mg_mode_sell_hour": 0,
+            "opp_sells_within_2h_before": 15,
+            "opp_total_sells": 59
+          },
+          "WOOL": {
+            "mg_mode_sell_hour": 3,
+            "opp_sells_within_2h_before": 6,
+            "opp_total_sells": 38
+          },
+          "MILK": {
+            "mg_mode_sell_hour": 2,
+            "opp_sells_within_2h_before": 20,
+            "opp_total_sells": 83
+          }
+        }
+      },
+      {
+        "id": "98669d9a-b426-11f1-99f3-0242ac130203",
+        "margin": -11702.0,
+        "mg_revenue": {
+          "WHEAT": 14419,
+          "FERTILIZER": 10889,
+          "MILK": 5315,
+          "MELON": 6006,
+          "WOOL": 16902,
+          "STRAWBERRY": 24618,
+          "CARROT": 5189,
+          "TOMATO": 2072
+        },
+        "opp_revenue": {
+          "WHEAT": 8469,
+          "FERTILIZER": 13520,
+          "WOOL": 37703,
+          "EGG": 6477,
+          "MILK": 15303,
+          "MELON": 16203,
+          "CARROT": 9673,
+          "STRAWBERRY": 24790,
+          "TOMATO": 3004
+        },
+        "opp_sells_near_her_hour": {
+          "WHEAT": {
+            "mg_mode_sell_hour": 5,
+            "opp_sells_within_2h_before": 0,
+            "opp_total_sells": 40
+          },
+          "MELON": {
+            "mg_mode_sell_hour": 10,
+            "opp_sells_within_2h_before": 1,
+            "opp_total_sells": 12
+          },
+          "STRAWBERRY": {
+            "mg_mode_sell_hour": 0,
+            "opp_sells_within_2h_before": 4,
+            "opp_total_sells": 40
+          },
+          "WOOL": {
+            "mg_mode_sell_hour": 3,
+            "opp_sells_within_2h_before": 6,
+            "opp_total_sells": 43
+          },
+          "MILK": {
+            "mg_mode_sell_hour": 2,
+            "opp_sells_within_2h_before": 12,
+            "opp_total_sells": 51
+          }
+        }
+      },
+      {
+        "id": "64c394b4-b42d-11f1-94b0-0242ac130203",
+        "margin": -1052.0,
+        "mg_revenue": {
+          "WHEAT": 15982,
+          "FERTILIZER": 9945,
+          "MILK": 3186,
+          "MELON": 7752,
+          "EGG": 11493,
+          "WOOL": 278,
+          "STRAWBERRY": 30421,
+          "CARROT": 13207,
+          "TOMATO": 4904
+        },
+        "opp_revenue": {
+          "WHEAT": 13189,
+          "FERTILIZER": 10968,
+          "WOOL": 5054,
+          "MILK": 7358,
+          "MELON": 14876,
+          "EGG": 7080,
+          "STRAWBERRY": 41168,
+          "CARROT": 16431,
+          "TOMATO": 6920
+        },
+        "opp_sells_near_her_hour": {
+          "WHEAT": {
+            "mg_mode_sell_hour": 5,
+            "opp_sells_within_2h_before": 5,
+            "opp_total_sells": 70
+          },
+          "MELON": {
+            "mg_mode_sell_hour": 10,
+            "opp_sells_within_2h_before": 2,
+            "opp_total_sells": 10
+          },
+          "STRAWBERRY": {
+            "mg_mode_sell_hour": 0,
+            "opp_sells_within_2h_before": 11,
+            "opp_total_sells": 52
+          },
+          "WOOL": {
+            "mg_mode_sell_hour": 5,
+            "opp_sells_within_2h_before": 4,
+            "opp_total_sells": 21
+          },
+          "MILK": {
+            "mg_mode_sell_hour": 2,
+            "opp_sells_within_2h_before": 14,
+            "opp_total_sells": 72
+          }
+        }
+      },
+      {
+        "id": "792f70e4-b42d-11f1-9f01-0242ac130202",
+        "margin": -7693.0,
+        "mg_revenue": {
+          "WHEAT": 19466,
+          "FERTILIZER": 11497,
+          "MILK": 12572,
+          "MELON": 2814,
+          "EGG": 2641,
+          "WOOL": 7881,
+          "STRAWBERRY": 10021,
+          "CARROT": 7010,
+          "TOMATO": 5288
+        },
+        "opp_revenue": {
+          "WHEAT": 13893,
+          "FERTILIZER": 13500,
+          "WOOL": 18727,
+          "EGG": 9682,
+          "MILK": 20017,
+          "MELON": 15906,
+          "CARROT": 5387,
+          "STRAWBERRY": 15151,
+          "TOMATO": 8799
+        },
+        "opp_sells_near_her_hour": {
+          "WHEAT": {
+            "mg_mode_sell_hour": 13,
+            "opp_sells_within_2h_before": 7,
+            "opp_total_sells": 49
+          },
+          "MELON": {
+            "mg_mode_sell_hour": 11,
+            "opp_sells_within_2h_before": 2,
+            "opp_total_sells": 12
+          },
+          "STRAWBERRY": {
+            "mg_mode_sell_hour": 0,
+            "opp_sells_within_2h_before": 4,
+            "opp_total_sells": 10
+          },
+          "WOOL": {
+            "mg_mode_sell_hour": 17,
+            "opp_sells_within_2h_before": 7,
+            "opp_total_sells": 47
+          },
+          "MILK": {
+            "mg_mode_sell_hour": 2,
+            "opp_sells_within_2h_before": 10,
+            "opp_total_sells": 74
+          }
+        }
+      }
+    ]
+  },
+  "answer_does_mg_beat_v48_v49_v50_family": {
+    "n_V46_V50_attack_games": 0,
+    "n_V45_flip70_games": 0,
+    "n_older_router_games": 0,
+    "verdict": "NOT CONFIRMABLE FROM THIS SAMPLE: across all 94 sampled replays (72 of them her own games -- 42 new-submission + 30 old-submission), zero opponent seats matched the V48/V49/V50 public agents' exact turn-0 opening fingerprint [[BUY_PRODUCT,WHEAT,7],[SELL,WHEAT,2]], and only one seat anywhere in the corpus (pensukesan, in an old-dataset game against Majkel1337 that does not involve Mother-Goose) matched the older router tape. The V45-flip70 fingerprint ([[BUY_PRODUCT,WHEAT,70],[SELL,WHEAT,70]]) likewise had zero matches. Confidence: essentially none either way -- the sample simply contains no head-to-head games against that lineage; her real opponents (Majkel1337 above all, plus Sida Zuo, ymg_aq, Arda Ceylan, Planned Economy, Excluding, Otter Vibe, THIRD FARM CLUB, DSM) all run distinct, non-tape openings classified as 'other/own architecture' here."
+  }
+}
