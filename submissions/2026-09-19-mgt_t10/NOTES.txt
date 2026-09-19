@@ -1,0 +1,21 @@
+mgt_t10: Mother-Goose's plan as the base, with first-principles repairs. Submitted at explicit user request.
+Source: agents/mgt_t10.py, built by `scripts/build_mg_tape_agent.py mgt_t10 --cfg hamming_weight=1.0 --sheep default`
+(commit fdc9bb2 state of scripts/fragments/mgt_sheep.py; SHA-256 14f4def11f51...). Write-up: docs/mg_tape_base.md.
+
+What it is
+- Public route-replay chassis core + a library of 584 recorded games of her OLD deterministic policy (submissions
+  56266758 / 56266899) + a shop router (demand-count distance at checkpoints, board Hamming term 1.0, switches only
+  at day starts) + equilibrium opening (one BUY of the net feed wheat on turn 0).
+- Feed guard: buys the wheat the shed will be missing one step before the tape's crew picks it up.
+- Care top-up: a hand of ours cares for / feeds animals the tape skips when the banked unit pays (engine price
+  curve, next production day must be fed); hired after the tape's last hire, hidden from the tape layer.
+- Orphan adoption: animals the current tape never touches again after a tape switch are serviced by us.
+- Her Yarn sheep rule is present but gated by a day-by-day glut model (declined almost everywhere vs V50).
+- Entry point `mgt_kaggle_entry` is the last new callable in the file (Kaggle's loader rule), asserted at build.
+
+Local evidence (seeds 174000-174031, both seats, 64 games each, Kaggle loader)
+- vs V50: 54-10, +3,340 (CI +1,345..+5,361); paired over mgt_t7 +142 (3 seeds better, 0 worse).
+- mgt_t7 (same minus adoption): vs V48 54-10 +4,735; vs frozen benchmark 56280048 56-8 +5,487.
+- Leave-one-out, her 40 recorded worlds vs live V50: 28-12, +4,308 (router alone 23-17, +1,101).
+- Head to head, her recorded tape in her own world vs live mgt_t10: she wins 30-10 by +3,106 (36-4, +8,437 vs V50).
+Checks: stdlib imports only, 4.75 MB, module load ~1.3 s, max step 0.04 s, first action = BUY 5 wheat.
