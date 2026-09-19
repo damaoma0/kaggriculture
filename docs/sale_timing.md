@@ -143,3 +143,13 @@ public router family does not have.
 - Everything we test is pure engine (no game client anywhere in this project), so it would port to a Kaggle notebook
   or a VM in an hour or two - but a three-opponent panel is ~8 minutes locally. The spare capacity should buy
   statistical power instead: 128 seeds x 2 seats is ~10 minutes and halves every confidence interval.
+
+## Three-opponent panel, seeds 174000-174031, both seats (five 64-game panels ran in 14 minutes)
+| Opponent | `mgt_t10` (submitted) | `mgt_l1` (sells one step early) | paired `l1 - t10` by seed |
+|---|---|---|---|
+| V50 | 54-10, +3,340 | 54-10, +3,362 | +22 (+11..+35), 16 better / 2 worse |
+| V48 | 54-10, +4,876 | 54-10, +4,901 | +24 (+8..+45), 16 / 2 |
+| frozen benchmark | 56-8, +5,629 | 56-8, +5,650 | +21 (+9..+34), 16 / 1 |
+
+Selling early is a real but tiny gain (no game changes hands), the same size against all three opponents; every
+deferral is a loss. Not worth a submission slot on its own; keep `sell_lead=true` for the next build.
