@@ -20,6 +20,13 @@ by step 25 with 0 false positives in 362 other seats; her board is forecastable 
 shops to 17-27% error (bounded), and her sale hours are fixed. See
 [the feasibility report](docs/preemption_feasibility.md).
 
+**Mother-Goose's plan as the base (2026-09-19):** public V50 now beats V48 63-1 and our V45-based
+candidates 57-7, and those candidates sit at ~2200 on the ladder, so the base changed: a router over 584 of
+her recorded deterministic games on the public chassis core, with the equilibrium opening. Her native plan
+beats live V50 37-3 by +8.5k; the router is level with V50 on natural seeds (+31) and +5.1k over our old
+benchmark; routing costs ~9.8k, 40% of it one behaviour (adding sheep when Yarn Stores appear late). Her new
+submissions are closed-loop and do not replay. See [the tape base](docs/mg_tape_base.md).
+
 **Mother-Goose-based build, paused (2026-09-18):** crop swaps run on the V45 tape's own visits. The
 crew's visit calendar is predicted exactly from the tape, and a swapped crop is serviced by rewriting
 only that tile's actions. Result: 390/390 swapped tomatoes fully harvested with zero losses; the
