@@ -26,7 +26,7 @@ def main():
     players[1 - seat] = lambda obs, t: opp(obs)
     env = make('kaggriculture', configuration={'episodeSteps': 720}, info={'seed': seed})
     res = TV._play(E, env, players, seat, None, None, None, seat)
-    st = ns['_MGT_IMPL'].chassis.players[seat]['router_state']
+    st = ns['_MGT_IMPL'].chassis.players[seat]['router_state']; st['history'] = st.get('history')
     tapes = ns['_MGT_TAPES']
     shops = env.state[0].observation.town['unlocked_shops']
     print(f'{name} vs {rival}, seed {seed}, seat {seat}: {res["final"][seat]:,.0f} vs {res["final"][1 - seat]:,.0f} (margin {res["final"][seat] - res["final"][1 - seat]:+,.0f})')

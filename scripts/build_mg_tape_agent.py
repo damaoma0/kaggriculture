@@ -35,9 +35,17 @@ import zlib as _mgt_zlib
 _MGT_LIB = _mgt_json.loads(_mgt_zlib.decompress(_mgt_b64.b85decode('__BLOB__')))
 _MGT_ACTIONS = _MGT_LIB['actions']
 _MGT_TAPES = _MGT_LIB['tapes']          # [{'ids': [...719], 'shops': [8], 'boards': [30 x 200-char str], 'ep': id}]
-_MGT_ROUTES = {i: [_MGT_ACTIONS[j] for j in t['ids']] for i, t in enumerate(_MGT_TAPES)}
 _MGT_CFG = __CFG__
-_MGT_REPORT = {'switches': 0, 'stays_incompatible': 0, 'router_errors': 0}
+# research hooks (absent on Kaggle): restrict the library to one recorded game, or leave one out
+import os as _mgt_os
+if _mgt_os.environ.get('MGT_ONLY'):
+    _MGT_TAPES = [t for t in _MGT_TAPES if str(t['ep']) == _mgt_os.environ['MGT_ONLY']]
+elif _mgt_os.environ.get('MGT_EXCLUDE'):
+    _MGT_TAPES = [t for t in _MGT_TAPES if str(t['ep']) != _mgt_os.environ['MGT_EXCLUDE']]
+_MGT_CFG['default_route'] = next((i for i, t in enumerate(_MGT_TAPES) if t.get('modal')), 0)
+_MGT_ROUTES = {i: [_MGT_ACTIONS[j] for j in t['ids']] for i, t in enumerate(_MGT_TAPES)}
+_MGT_REPORT = {'switches': 0, 'router_errors': 0}
+_MGT_HISTORY = []
 _MGT_DEMAND = {'BAKERY': {'EGG': 1, 'WHEAT': 1}, 'PIZZA_SHOP': {'MILK': 1, 'TOMATO': 1, 'WHEAT': 1},
                'BRUNCH_SPOT': {'EGG': 1, 'WHEAT': 1, 'STRAWBERRY': 1}, 'YARN_STORE': {'WOOL': 2},
                'ICE_CREAM_SHOP': {'STRAWBERRY': 1, 'MILK': 1, 'WHEAT': 1}, 'PET_CAFE': {'CARROT': 2},
@@ -66,67 +74,88 @@ def _mgt_board(farm):
     return ''.join(_mgt_label(t) for row in farm['tiles'] for t in row)
 
 
-def _mgt_hamming(a, b):
-    return sum(1 for i in range(0, min(len(a), len(b)), 2) if a[i:i + 2] != b[i:i + 2])
+_MGT_PRODUCTS = ('STRAWBERRY', 'TOMATO', 'WOOL', 'CARROT', 'MILK', 'EGG', 'WHEAT')
+_MGT_W = tuple(float(_MGT_CFG.get('weights', {}).get(p, _MGT_WEIGHT[p])) for p in _MGT_PRODUCTS)
+_MGT_SOFT = (' .', 'WH', 'CA')          # short-lived or empty: interchangeable when 'relaxed_compat' is on
 
 
-def _mgt_counts(shops, j):
-    c = {}
+def _mgt_vec(shops, j):
+    c = [0] * len(_MGT_PRODUCTS)
     for s in shops[:j]:
         for p, n in _MGT_DEMAND.get(s, {}).items():
-            c[p] = c.get(p, 0) + n
-    return c
+            c[_MGT_PRODUCTS.index(p)] += n
+    return tuple(c)
 
 
-def _mgt_distance(ours, theirs):
-    k = len(ours)
+def _mgt_labels(board):
+    out = [board[i:i + 2] for i in range(0, len(board), 2)]
+    if _MGT_CFG.get('relaxed_compat'):
+        out = [' .' if x in _MGT_SOFT else x for x in out]
+    return [' .' if x == ' w' else x for x in out]
+
+
+for _mgt_t in _MGT_TAPES:
+    _mgt_t['vec'] = [_mgt_vec(_mgt_t['shops'], j) for j in range(9)]
+    _mgt_t['lab'] = [_mgt_labels(b) for b in _mgt_t['boards']]
+
+
+def _mgt_hamming(a, b):
+    return sum(1 for x, y in zip(a, b) if x != y)
+
+
+def _mgt_distance(ours_vec, ours, t, k):
     d = 0.0
     for j in _MGT_CHECKPOINTS:
         jj = min(j, k)
-        a, b = _mgt_counts(ours, jj), _mgt_counts(theirs, jj)
-        d += sum(w * abs(a.get(p, 0) - b.get(p, 0)) for p, w in _MGT_WEIGHT.items())
+        a, b = ours_vec[jj], t['vec'][jj]
+        d += sum(w * abs(x - y) for w, x, y in zip(_MGT_W, a, b))
         if j >= k:
             break
-    # exact ordered prefix agreement is the strongest evidence of identical decisions
     same = 0
-    for x, y in zip(ours, theirs):
+    for x, y in zip(ours, t['shops']):
         if x != y:
             break
         same += 1
     return d - 0.01 * same
 
 
-for _mgt_t in _MGT_TAPES:
-    _mgt_t['noweed'] = [b.replace(' w', ' .') for b in _mgt_t['boards']]
-
-
 def _mgt_router(observation, step, state):
     try:
         if 'route' not in state:
             state['route'] = _MGT_CFG.get('default_route', 0)
-        if step % 24 != 0 or step < 72 or step >= 696:
+            del _MGT_HISTORY[:]
+        if step % 24 != 0 or step < 72 or step >= _MGT_CFG.get('last_switch_day', 28) * 24 + 1:
             return state['route']
         day = step // 24
         shops = list((_get(observation, 'town', {}) or {}).get('unlocked_shops', []) or [])
+        k = len(shops)
         farm = observation['farms'][_int(_get(observation, 'player', 0))]
-        board = _mgt_board(farm)
+        board = _mgt_labels(_mgt_board(farm))
         limit = _MGT_CFG.get('max_hamming', 8)
         cur = state['route']
-        best = None
-        for i, t in enumerate(_MGT_TAPES):
-            h = _mgt_hamming(board, t['noweed'][day])
-            if h > limit and i != cur:
+        ours_vec = [_mgt_vec(shops, j) for j in range(9)]
+        ranked = sorted((( _mgt_distance(ours_vec, shops, t, k), 0 if i == cur else 1, i) for i, t in enumerate(_MGT_TAPES)))
+        cur_d = next(d for d, _, i in ranked if i == cur)
+        cur_h = _mgt_hamming(board, _MGT_TAPES[cur]['lab'][day])
+        best = (cur_d + (_MGT_CFG.get('incompatible_penalty', 4.0) if cur_h > limit else 0.0), cur_h, cur)
+        margin = _MGT_CFG.get('switch_margin', 0.0)
+        for d, _, i in ranked:
+            if d >= best[0] - margin:
+                break
+            if i == cur:
                 continue
-            d = _mgt_distance(shops, t['shops'])
-            key = (d, 0 if i == cur else 1, h, i)
-            if i == cur and h > limit:
-                key = (d + _MGT_CFG.get('incompatible_penalty', 4.0), 0, h, i)
-            if best is None or key < best:
-                best = key
-        if best is not None and best[3] != cur:
-            state['route'] = best[3]
+            h = _mgt_hamming(board, _MGT_TAPES[i]['lab'][day])
+            if h <= limit:
+                best = (d, h, i)
+                break
+        if best[2] != cur:
+            state['route'] = best[2]
             _MGT_REPORT['switches'] += 1
-            state.setdefault('history', []).append((day, best[3], round(best[0], 2), best[2]))
+        chosen = _MGT_TAPES[state['route']]
+        _MGT_HISTORY.append([day, chosen['ep'], round(best[0], 2), best[1], k])
+        if day in (6, 12, 18, 24):
+            _MGT_REPORT['dist_d%d' % day] = round(best[0], 2)
+        _MGT_REPORT['hamming_max'] = max(_MGT_REPORT.get('hamming_max', 0), best[1])
         return state['route']
     except Exception:
         _MGT_REPORT['router_errors'] += 1
@@ -144,6 +173,8 @@ def agent(observation, configuration=None):
 
 
 agent.mgt_telemetry = _MGT_REPORT
+agent.sp_telemetry = _MGT_REPORT
+agent.mgt_history = _MGT_HISTORY
 '''
 
 
@@ -183,7 +214,10 @@ def main():
         elif args[i] == '--cfg':
             for kv in args[i + 1].split(','):
                 k, v = kv.split('=')
-                cfg[k] = float(v) if '.' in v else int(v)
+                if k.startswith('w_'):
+                    cfg.setdefault('weights', {})[k[2:].upper()] = float(v)
+                else:
+                    cfg[k] = float(v) if '.' in v else int(v)
             i += 2
         else:
             raise SystemExit(f'unknown argument {args[i]}')
@@ -217,6 +251,8 @@ def main():
     pre = Counter(tuple(t['ids'][:72]) for t in tapes)
     modal = pre.most_common(1)[0][0]
     cfg['default_route'] = next(i for i, t in enumerate(tapes) if tuple(t['ids'][:72]) == modal)
+    for t in tapes:
+        t['modal'] = tuple(t['ids'][:72]) == modal
     cfg['settings'] = settings
     blob = base64.b85encode(zlib.compress(json.dumps(dict(actions=unique, tapes=tapes), separators=(',', ':')).encode('utf-8'), 9)).decode('ascii')
     assert "'" not in blob and '\\' not in blob
