@@ -20,8 +20,9 @@ by step 25 with 0 false positives in 362 other seats; her board is forecastable 
 shops to 17-27% error (bounded), and her sale hours are fixed. See
 [the feasibility report](docs/preemption_feasibility.md).
 
-**Tape repairs on the Mother-Goose base (2026-09-19/20):** `agents/mgt_t7.py` = tape router (board term 1.0)
-+ feed guard + demand-conditioned care top-up. Natural seeds 174000-174031, both seats, Kaggle loader:
+**Tape repairs on the Mother-Goose base (2026-09-19/20):** current candidate `agents/mgt_t10.py` (= `mgt_t7` +
+adoption of animals orphaned by a tape switch: +142 paired on natural seeds, 3 better / 0 worse; 54-10, +3,340 vs
+V50). `agents/mgt_t7.py` = tape router (board term 1.0) + feed guard + demand-conditioned care top-up. Natural seeds 174000-174031, both seats, Kaggle loader:
 **54-10 vs V50 (+3,199, CI +1,062..+5,292)** and **54-10 vs V48 (+4,735)**; the router alone is 40-24 (+1,758)
 and the repairs are +1,441 paired (+755..+2,256). In leave-one-out (her 40 recorded worlds, her tape removed)
 28-12 vs V50, +3.0k paired over the router. The feed guard is the big one: her crew feeds from the shed's own
