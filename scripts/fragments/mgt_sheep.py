@@ -173,14 +173,16 @@ def _shp_next_prod(species, placed_day, day):
 def _shp_tape_today(tape, day):
     """Tiles the tape's crew FEEDs / CAREs today (tape calendar)."""
     sim = _tc_simulate(lambda t: tape[t] if t < len(tape) else {}, day * 24, day * 24 + 23, [(4, 4)])
-    feed, care = set(), set()
+    feed, care, touch = set(), set(), set()
     for row in sim.values():
         for x, y, c in row:
             if c and c[0] == 'FEED':
                 feed.add((x, y))
             elif c and c[0] == 'CARE':
                 care.add((x, y))
-    return feed, care
+            if c and c[0] in ('FEED', 'CARE', 'HARVEST', 'COLLECT_FERTILIZER'):
+                touch.add((x, y))
+    return feed, care, touch
 
 
 def _shp_cal(state, tape, day):
@@ -208,7 +210,7 @@ def _shp_topups(state, obs, tape, day):
     prices = (obs.get('market') or {}).get('prices') or {}
     wheat = float(prices.get('WHEAT', 40) or 40) + 12.0
     factor = _SHP_CFG.get('topup_factor', 0.8)
-    feed, care = _shp_cal(state, tape, day)
+    feed, care, _ = _shp_cal(state, tape, day)
     outlook = {_SHP_ANIMALS[a][0]: _shp_outlook(obs, _SHP_ANIMALS[a][0], a) for a in _SHP_ANIMALS}
     out = []
     orphans = state.setdefault('orphans', [])
@@ -227,10 +229,11 @@ def _shp_topups(state, obs, tape, day):
             bank = int(c.get('pending_care_bonus', 0) or 0)
             ops, value = set(), 0.0
             if _SHP_CFG.get('adopt', True) and not fed and all(
-                    (x, y) not in _shp_cal(state, tape, d)[0] for d in range(day + 1, min(29, day + 3))):
-                # ORPHAN: the tape feeds it neither today nor on the next two days - after a tape switch the
-                # new tape keeps its animals elsewhere, and this one would be gone in two days. Service it
-                # fully (feed, care, harvest) while a day of it is worth more than its feed.
+                    (x, y) not in _shp_cal(state, tape, d)[2] for d in range(day, min(30, day + 3))):
+                # ORPHAN: the tape's crew does not touch this tile today or on the next two days (no feed, care,
+                # harvest or collect) - after a tape switch the new tape keeps its animals elsewhere, and this
+                # one would be gone in two days. Her own end-of-season wind-down is NOT this: she stops feeding
+                # but still comes to harvest. Service an orphan fully while a day of it is worth more than its feed.
                 nxt = _shp_next_prod(species, placed, day)
                 waiting = int(c.get('yield_units', 0) or 0)
                 daily = _SHP_RATE[species] * price - wheat

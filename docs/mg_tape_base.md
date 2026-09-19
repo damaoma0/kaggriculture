@@ -109,6 +109,17 @@ hits the floor at x = 59). The gate now simulates the glut day by day from the e
 consumption and BOTH farms' flocks; it declined in all 40 worlds once the feed guard keeps the tape's own flock
 alive.
 
+**Orphaned animals after a tape switch.** The two worst natural seeds (174026 -13k, 174015 -5k;
+`scripts/mgt_dead.py mgt_t7 seed:174026:0`) are tape switches onto a tape whose animals sit on other tiles: four
+cows / four sheep are never fed again and leave two days later. True dead commands are otherwise rare (WATER on
+an empty tile 6-17 a game). Two fixes, leave-one-out paired against `mgt_t7`:
+- adoption, first version (`mgt_t8`: an animal the tape will not FEED for three days is serviced by us): +36
+  (-169..+279) but 8 better / 30 worse - it also fired on her end-of-season wind-down (she stops feeding on days
+  27-29 but still comes to harvest), hiring ~3 pointless hand-days a game (-500) against +2k in the four worlds
+  with real orphans. Corrected definition (`mgt_t10`): the tape's crew does not TOUCH the tile for three days:
+  **+175 (+47..+334), 7 worlds better, 0 worse.** Kept.
+- animal tiles weighted x3 in the router's board distance (`mgt_t9`): -228 (-874..+350). Not kept.
+
 Lessons that cost games before they were understood (also in CLAUDE.md):
 - Hire overlay hands only after the tape's last hire of the day (hour 1 on 96% of her days) and hide them from
   the tape layer. An extra unit on a shed tile moves the engine's next spawn, and a displaced tape hand replays
