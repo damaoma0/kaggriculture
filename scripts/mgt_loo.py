@@ -33,7 +33,13 @@ def run(job):
     opp = get_last_callable(rp.read_text(encoding='utf-8'), path=str(rp))
     history = None
     sheep = None
-    if arm == 'native_raw':
+    if arm == 'mg_vs':
+        # head to head: HER recorded moves in her own world against the live rival, whose tape library must not
+        # contain this world (the rival file reads MGT_EXCLUDE when it is loaded below)
+        os.environ['MGT_EXCLUDE'] = str(ep)
+        rp = ROOT / 'agents' / f'{rival}.py'
+        opp = get_last_callable(rp.read_text(encoding='utf-8'), path=str(rp))
+    if arm in ('native_raw', 'mg_vs'):
         actions = [a if isinstance(a, dict) else {} for a in tape['actions']]
         fix_opening(actions)
         ours = lambda obs, t: deepcopy(actions[t]) if t < len(actions) else {'farmer': ['PASS'], 'hands': [], 'market': []}
@@ -75,9 +81,9 @@ def main():
     for p in files[:n]:
         ep = p.name.split('.')[0]
         for arm in arms:
-            key = 'any' if arm == 'native_raw' else name
-            if not (OUT / f'{key if arm == "native_raw" else name}-{arm}-{ep}.json').exists():
-                jobs.append((name if arm != 'native_raw' else 'any', rival, arm, str(p)))
+            key = 'any' if arm == 'native_raw' else (f'mgtape_vs_{rival}' if arm == 'mg_vs' else name)
+            if not (OUT / f'{key}-{arm}-{ep}.json').exists():
+                jobs.append((key, rival, arm, str(p)))
     print(f'{len(jobs)} games', flush=True)
     with ProcessPoolExecutor(max_workers=4, max_tasks_per_child=1) as pool:
         futures = {pool.submit(run, j): j for j in jobs}

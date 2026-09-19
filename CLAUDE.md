@@ -60,7 +60,11 @@ https://www.kaggle.com/competitions/kaggriculture
   Hide the extra hands from the tape layer (observation without them, merge commands by real index).
 - Animal care is settled at day end: production first (pays 1 + banked bonus if fed that day, else 1
   and the bank is wiped), THEN a fed+cared day banks +1 for the next production. Order of FEED/CARE
-  within a day is irrelevant; care on the last production day is wasted.
+  within a day is irrelevant; care on the last production day is wasted. Checked by calling
+  `_daily_refresh_animals` directly (engine 1.32.7): a missed feed on a NON-production day only loses
+  that day's +1 (bank 3 stays 3); a missed feed on the PRODUCTION day wipes the whole accumulated bank
+  (sheep: 6 -> 1). Yield on the tile is capped at max_held, so an unharvested 6 swallows the next
+  production entirely.
 - Mother-Goose's servicing is demand-conditioned (`scripts/mg_care_rule.py`, 584 tapes): sheep cared
   46% / fed 68% of animal-days with no Yarn Store vs 75-90% with one; cows 65% -> 86% as milk shops
   appear; geese always ~92%. Her tapes also over-request animal orders (six "BUY SHEEP 1" at once), so

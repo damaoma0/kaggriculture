@@ -124,6 +124,30 @@ an empty tile 6-17 a game). Two fixes, leave-one-out paired against `mgt_t7`:
   **+175 (+47..+334), 7 worlds better, 0 worse.** Kept.
 - animal tiles weighted x3 in the router's board distance (`mgt_t9`): -228 (-874..+350). Not kept.
 
+## Head to head with her old policy (`scripts/mgt_loo.py x <build> 40 mg_vs`, `scripts/mgt_vs_report.py`)
+
+Her recorded moves in her own 40 worlds (equilibrium opening) against our LIVE build, with that world's tape
+removed from our library. Numbers from her side.
+
+| Opponent of her tape | Her W-L | Her margin | Her cash / opponent cash |
+|---|---|---|---|
+| V50 | 36-4 | +8,437 | 109.5k / 101.1k |
+| `mgt_t7` | 30-10 | +3,206 (+1,606..+5,142) | 114.1k / 110.9k |
+| `mgt_t10` | 30-10 | +3,106 (+1,547..+4,925) | 114.1k / 111.0k |
+
+We take a quarter of the games where V50 takes a tenth. Her edge is wool +1.8k, wheat +0.65k, tomato +0.45k, egg and
+carrot +0.3k each; we are ahead on milk (+0.5k, the care top-up). By world: no Yarn Store 9-5 (+1.7k), one 10-4
+(+2.4k), two or more 11-1 (+5.6k) - her own plan runs far more sheep there than any tape we can borrow, and our
+expansion is gated off because V50 floods wool too. Both sides earn ~5k MORE against each other than against
+V50: V50's sheep programme is what depresses the shared wool/milk markets. Her new closed-loop submissions
+(~3065-3110) do not replay, so there is no local number for them.
+
+**Economic feeding gate: tested, OFF.** Late wool sells under 70 in 18 of 40 worlds and late milk under 60 in 23
+while her tapes keep feeding, so stopping feeds looked free. Two versions (season-horizon herd size; per-animal
+next-production value with the glut outlook) both lost 9-15k on three test worlds: the outlook is far too
+pessimistic (it said 29 for wool that then sold at 93 and 37) and culls start on day 10. Left in the fragment
+behind `cull=1`; needs a calibrated price forecast before it is worth another run.
+
 Lessons that cost games before they were understood (also in CLAUDE.md):
 - Hire overlay hands only after the tape's last hire of the day (hour 1 on 96% of her days) and hide them from
   the tape layer. An extra unit on a shed tile moves the engine's next spawn, and a displaced tape hand replays

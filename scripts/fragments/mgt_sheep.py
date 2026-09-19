@@ -91,7 +91,7 @@ def _shp_reserved(tape, step, item):
     return n
 
 
-def _shp_feed_guard(obs, action, step, tape):
+def _shp_feed_guard(obs, action, step, tape, cut=None):
     """Her crew feeds from the shed's wheat stock, which her own fields refill; on a borrowed tape (or with fields
     turned into pasture) the stock can run short, the PICKUP comes up empty and her animals starve (two unfed
     days = lost). One step ahead of every tape PICKUP of a purchasable input (wheat; fertilizer when
@@ -103,9 +103,9 @@ def _shp_feed_guard(obs, action, step, tape):
     market = None
     for item in items:
         need = 0
-        for c in [nxt.get('farmer')] + list(nxt.get('hands') or []):
+        for u, c in enumerate([nxt.get('farmer')] + list(nxt.get('hands') or [])):
             if c and c[0] == 'PICKUP' and len(c) > 2 and c[1] == item:
-                need += int(c[2])
+                need += max(0, int(c[2]) - (int((cut or {}).get(u, 0)) if item == 'WHEAT' else 0))
         if need <= 0:
             continue
         have = int((obs['private'].get('shed') or {}).get(item, 0) or 0)
@@ -218,6 +218,8 @@ def _shp_topups(state, obs, tape, day):
     for y, row in enumerate(farm['tiles']):
         for x, c in enumerate(row):
             if not (isinstance(c, dict) and c.get('animal') in _SHP_ANIMALS) or (x, y) in state['tiles']:
+                continue
+            if (x, y) in state.get('culled', ()):
                 continue
             species = c['animal']
             product, first, interval = _SHP_ANIMALS[species]
@@ -396,6 +398,86 @@ def _shp_outlook(obs, item, species, days=3):
         x += supply - use[d]
     today = float(((obs.get('market') or {}).get('prices') or {}).get(item, 0) or 0)
     return min(today, _shp_price(item, x))
+
+
+def _shp_cycle_net(obs, species, c, day, wheat):
+    """Cash value of feeding one animal through its NEXT production: the units it will pay (1 + banked bonus +
+    her usual care on the remaining days) at the price the engine curve is heading for, less the wheat she feeds
+    it on the way (about 4 days in 5). None when no production is left before the season ends."""
+    product, first, interval = _SHP_ANIMALS[species]
+    d = int(c.get('placed_day', day)) + first - 1
+    while d < day:
+        d += interval
+    if d > 28:
+        return None
+    days = d - day + 1
+    units = 1.0 + int(c.get('pending_care_bonus', 0) or 0) + _SHP_CFG.get('cull_care', 0.5) * (days - 1)
+    price = _shp_outlook(obs, product, species, days=days)
+    return _SHP_CFG.get('keep_factor', 0.9) * price * units - _SHP_CFG.get('feed_share', 0.8) * wheat * days
+
+
+def _shp_cull_plan(state, obs, tape, day):
+    """Once a day: stop feeding an animal whose next production no longer pays for the wheat to reach it. Her old
+    policy is not price-aware and keeps feeding a flock whose wool sells for $1 (late wool is under 70 in 18 of 40
+    leave-one-out worlds, late milk under 60 in 23). The tape's FEED/CARE on a culled tile become PASS and the
+    hand's wheat PICKUP shrinks by the feeds it will not make. At most a third of a species goes per day, least
+    banked first, so the price can answer before the next ones go."""
+    if not _SHP_CFG.get('cull', False) or day < _SHP_CFG.get('cull_first_day', 10) or day > 28:   # OFF: tested negative
+        return
+    player = int(obs['player'])
+    farm = obs['farms'][player]
+    culled = state.setdefault('culled', set())
+    wheat = float(((obs.get('market') or {}).get('prices') or {}).get('WHEAT', 40) or 40)
+    for species in ('SHEEP', 'COW'):
+        mine = []
+        for y, row in enumerate(farm['tiles']):
+            for x, c in enumerate(row):
+                if (isinstance(c, dict) and c.get('animal') == species and (x, y) not in culled
+                        and (x, y) not in state['tiles']):
+                    net = _shp_cycle_net(obs, species, c, day, wheat)
+                    mine.append((-1e9 if net is None else net, (x, y)))
+        losers = sorted(t for t in mine if t[0] < -_SHP_CFG.get('cull_margin', 25.0))
+        for net, tile in losers[:max(1, -(-len(mine) // 3))]:
+            culled.add(tile)
+            _shp_count('culled_' + species.lower())
+            _SHP_REPORT.setdefault('cull_log', []).append((day, species, round(net), round(_shp_outlook(obs, _SHP_ANIMALS[species][0], species)),
+                                                           ((obs.get('market') or {}).get('prices') or {}).get(_SHP_ANIMALS[species][0])))
+    # today's feeds the tape's hands will not make: shrink their wheat pickups by that much
+    cut = {}
+    if culled:
+        sim = _tc_simulate(lambda t: tape[t] if t < len(tape) else {}, day * 24, day * 24 + 23, [(4, 4)])
+        for row in sim.values():
+            for u, (x, y, c) in enumerate(row):
+                if c and c[0] == 'FEED' and (x, y) in culled:
+                    cut[u] = cut.get(u, 0) + 1
+    state['pickup_cut'] = cut
+
+
+def _shp_apply_cull(state, obs, action):
+    """Rewrite the merged unit commands: no FEED/CARE on culled tiles, smaller wheat pickups."""
+    culled = state.get('culled')
+    if not culled:
+        return action
+    farm = obs['farms'][int(obs['player'])]
+    units = [farm['farmer']] + list(farm['hands'])
+    cmds = [list(action.get('farmer') or ['PASS'])] + [list(c or ['PASS']) for c in (action.get('hands') or [])]
+    cut = state.get('pickup_cut') or {}
+    changed = False
+    for i, c in enumerate(cmds):
+        if i >= len(units) or i in state.get('own', ()):
+            continue
+        if c[0] in ('FEED', 'CARE') and tuple(units[i]) in culled:
+            cmds[i] = ['PASS']
+            changed = True
+            _shp_count('feeds_saved' if c[0] == 'FEED' else 'cares_saved')
+        elif c[0] == 'PICKUP' and len(c) > 2 and c[1] == 'WHEAT' and cut.get(i):
+            n = max(0, int(c[2]) - cut[i])
+            cut[i] = 0
+            cmds[i] = ['PICKUP', 'WHEAT', n] if n > 0 else ['PASS']
+            changed = True
+    if not changed:
+        return action
+    return dict(action, farmer=cmds[0], hands=cmds[1:])
 
 
 def _shp_last_prod(placed_day):
@@ -830,7 +912,11 @@ def agent(observation, configuration=None):
         _MGT_IGNORE[player] = {y * 10 + x for x, y in state['tiles']}
         _tape_now = _shp_route(player)
         if _tape_now is not None:
-            action = _shp_feed_guard(observation, action, step, _tape_now)
+            if state.get('cull_day') != step // 24:
+                state['cull_day'] = step // 24
+                _shp_cull_plan(state, observation, _tape_now, step // 24)
+            action = _shp_apply_cull(state, observation, action)
+            action = _shp_feed_guard(observation, action, step, _tape_now, state.get('pickup_cut'))
         shed_now = observation['private'].get('shed') or {}
         for item in _SHP_CARGO:
             q = min(int(state['credit'].get(item, 0)), int(shed_now.get(item, 0) or 0))
