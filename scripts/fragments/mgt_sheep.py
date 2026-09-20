@@ -418,7 +418,14 @@ def _shp_topups(state, obs, tape, day):
                 daily = _SHP_RATE[species] * price - wheat
                 payout = (1 + bank) * price - wheat if (since >= 0 and since % interval == 0 and day < 29) else 0.0
                 if nxt is not None and daily >= _SHP_CFG.get('adopt_min', 25.0):
-                    out.append((daily + waiting * price, (x, y), {'FEED', 'CARE', 'HARVEST'}))
+                    rescue = 0.0
+                    if _SHP_CFG.get('rescue', False) and int(c.get('consecutive_unfed', 0) or 0) >= 1:
+                        # unfed yesterday: it escapes TONIGHT. What a feed saves is not one day of product but the
+                        # animal - up to ten more days of it (ladder game 110933872: a sheep placed on day 8, the
+                        # router switched tapes on day 9, one day of wool did not justify a hand, the sheep was gone).
+                        rescue = daily * min(10, max(0, 27 - day))
+                        _shp_count('rescues_valued')
+                    out.append((daily + waiting * price + rescue, (x, y), {'FEED', 'CARE', 'HARVEST'}))
                     orphans.append((x, y))
                 elif payout >= _SHP_CFG.get('adopt_min', 25.0):
                     out.append((payout + waiting * price, (x, y), {'FEED', 'HARVEST'}))
@@ -915,7 +922,10 @@ def _shp_daily_hire(state, obs, action, step):
         return action
     feeds = sum(1 for run in runs for t, ops in run if (ops is None and t in flock) or (ops and 'FEED' in ops))
     wage = _shp_wages(int(farm.get('hires_today', 0)) + parent_hires, len(runs))
-    if float(farm['money']) < wage + feeds * 70 + _SHP_CFG.get('hire_margin', 300):
+    _rescue = bool(state.get('orphans')) and any(
+        int((farm['tiles'][t[1]][t[0]] or {}).get('consecutive_unfed', 0) or 0) >= 1 for t in state['orphans']
+        if isinstance(farm['tiles'][t[1]][t[0]], dict))
+    if float(farm['money']) < wage + feeds * 70 + (0 if _rescue and _SHP_CFG.get('rescue', False) else _SHP_CFG.get('hire_margin', 300)):
         _shp_count('declined_hire_cash')
         runs = runs[:1] if flock else []
         if not runs:
