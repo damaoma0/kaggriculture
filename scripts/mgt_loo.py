@@ -56,7 +56,7 @@ def run(job):
     _items = ('WOOL', 'MILK', 'MELON', 'STRAWBERRY', 'TOMATO', 'EGG')
     trace = dict(price={k: [] for k in _items}, ours={k: {} for k in _items}, rival={k: {} for k in _items},
                  melon_ready=[[], []], melon_index=[{}, {}], index={'ours': {k: {} for k in _items}, 'rival': {k: {} for k in _items}},
-                 orders={'ours': {}, 'rival': {}})
+                 orders={'ours': {}, 'rival': {}}, service=[[], []])
 
     def logged(fn, who):
         def call(obs, t):
@@ -65,6 +65,19 @@ def run(job):
                 for k in trace['price']:
                     trace['price'][k].append(obs['market']['prices'].get(k))
                 day = t // 24
+                if t % 24 == 23:                       # servicing snapshot (hour-23 actions are not in it)
+                    for side, farm in ((0, obs['farms'][seat]), (1, obs['farms'][1 - seat])):
+                        snap = {}
+                        for row in farm['tiles']:
+                            for c in row:
+                                if isinstance(c, dict) and c.get('animal'):
+                                    v = snap.setdefault(c['animal'], [0, 0, 0, 0, 0])
+                                    v[0] += 1
+                                    v[1] += bool(c.get('fed_today'))
+                                    v[2] += bool(c.get('cared_today'))
+                                    v[3] += int(c.get('pending_care_bonus', 0) or 0)
+                                    v[4] += int(c.get('yield_units', 0) or 0)
+                        trace['service'][side].append(snap)
                 for side, farm in ((0, obs['farms'][seat]), (1, obs['farms'][1 - seat])):
                     trace['melon_ready'][side].append(sum(
                         1 for row in farm['tiles'] for c in row
@@ -93,6 +106,10 @@ def run(job):
                final=res['final'][seat], rival_final=res['final'][1 - seat], margin=res['final'][seat] - res['final'][1 - seat],
                revenue=d['revenue'], spend=d['spend'], sold=d['sold_units'], rival_revenue=res['daily'][1 - seat][-1]['revenue'],
                rival_spend=res['daily'][1 - seat][-1]['spend'], rival_sold=res['daily'][1 - seat][-1]['sold_units'],
+               rival_revenue_daily=[{k: round(v) for k, v in x['revenue'].items()} for x in res['daily'][1 - seat]],
+               rival_history=[list(h) for h in (getattr(opp, '__globals__', {}).get('_MGT_HISTORY') or [])],
+               rival_sheep=json.loads(json.dumps(getattr(opp, '__globals__', {}).get('_SHP_REPORT') or {}, default=list)),
+               rival_report=json.loads(json.dumps(getattr(opp, '__globals__', {}).get('_MGT_REPORT') or {}, default=str)),
                no_effect=d['physical'].get('no_effect', 0), missing=d['physical'].get('missing_worker_commands', 0),
                cash_daily=[x['money'] for x in res['daily'][seat]], history=list(history) if history is not None else None,
                revenue_daily=[{k: round(v) for k, v in x['revenue'].items()} for x in res['daily'][seat]],
@@ -117,7 +134,7 @@ def main():
         ep = p.name.split('.')[0]
         for arm in arms:
             key = 'any' if arm == 'native_raw' else (f'mgtape_vs_{rival}' if arm.startswith('mg_vs') else name)
-            if not (OUT / f'{key}-{arm}-{ep}.json').exists():
+            if os.environ.get('MGT_FORCE') or not (OUT / f'{key}-{arm}-{ep}.json').exists():
                 jobs.append((key, rival, arm, str(p)))
     print(f'{len(jobs)} games', flush=True)
     with ProcessPoolExecutor(max_workers=4, max_tasks_per_child=1) as pool:

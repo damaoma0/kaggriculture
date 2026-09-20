@@ -217,3 +217,38 @@ it faithfully (+546 on her own plan). The 5k sits in the half that is ALREADY se
 sold when, wheat round trip) against the actual world's shops - plus a late-game production fit. The executor only
 earns its cost if it is used to CHANGE the plan (late-shop re-plants, melon-day re-route), and that needs a model
 of her plan as a function of shops first.
+
+## Why the ladder case loses 4.5k: late shops, through PRODUCTION (2026-09-20, `mgt_b1`, 128 worlds)
+Scripts: `scripts/mgt_h2h_lateshops.py`, `scripts/mgt_h2h_service.py`, `scripts/mg_service_dynamics.py`,
+`scripts/mg_crop_dynamics.py`. The harness now records our router history, daily revenue of both sides, the
+overlay telemetry and an hour-23 servicing snapshot of both farms.
+
+**Correction.** "Price, not units" (above) was an average over two groups that cancel. Per world it is units:
+- The router's last switch is on day 12 (median); after day 12 in 23 of 128 worlds, after day 18 in 9. The final
+  tape has the same first four shops as the world in 33 worlds and the same last four in **0**.
+- With the SAME wool demand in the tape's world and this world (59 worlds) our late wool is 52.1 units at 112.7
+  against 52.7 at 112.1 on her own plan: **a neighbour's sell schedule costs nothing.** Same for milk (92.6 vs
+  93.3) and tomato (82.3 vs 81.4).
+- Where this world has MORE late Yarn demand than the tape's world (27 worlds) we sell 81.9 late units against her
+  112.7 at ~195: **-4,161** there. Where it has LESS (38 worlds) we sell 133 against 96 at 90 instead of 124:
+  revenue +33. Under-production at high prices is not paid back by over-production into a glut.
+- OLS of the per-world loss on demand-capacity mismatch of the final tape (R2 0.20): intercept -639, early
+  mismatch -1.0k, **late mismatch -3.6k**; the top quartile of late mismatch loses 8.3k.
+- The deficit is a tail: the worst 32 worlds carry 61% of it, the worst 64 carry 93%. They are worlds where one
+  product has many buyers and she scales it (her revenue minus ours: tomato +22k in a Farm-Farm-Piz-Farm world,
+  wool +19k with late Yarn Stores, strawberry +16k, milk +10k). By buyers among the 8 shops, contribution to the
+  mean gap: wool with 2+ Yarn +658, tomato with 2+ buyers +935, milk with 4+ +495, carrot with 3+ +524 (we
+  out-earn her by 427 with 0-2), egg +170; our extra spending 1,254 (hidden hands 515, wheat 598, sheep 121).
+
+**Her late game is a live policy.** Per animal-day, by the shop capacity for the product OPEN that day
+(584 tapes): sheep fed/cared 57%/26% with no Yarn Store, 95%/95% with one (days 12-17), and care goes 3% -> 94%
+ON THE DAY the first Yarn Store opens; herd on day 24 is 3.6 / 6.5 / 10.3 for 0 / 1 / 2+ Yarn Stores. Cows 47%/36%
+-> 95%/95% across capacity 0 -> 24+. Crops the same: strawberry plantings on days 12-17 go 0.2 -> 21.9 a game and
+their fertilizer on days 18-23 0 -> 34 with open capacity; tomato plantings 6 -> 17; carrots 0.5 -> 31 on days
+18-23. In the head-to-head worlds our servicing matches hers where demand matches (sheep 80%/75% vs 78%/74%) and
+is off where it does not (world has more: ours 6.5 sheep 80%/69% vs hers 7.9 at 89%/80%; world has less: ours 8.5
+at 86%/75% vs hers 6.5 at 63%/48%).
+
+**Consequence.** Re-deriving the SELL schedule late recovers ~0: sale timing is not where the loss is. What is
+missing is her late demand response in production (herd, servicing, plantings, fertilizer), which no tape fixed
+before the late shops are known can contain, and which the router cannot switch into (boards diverge).

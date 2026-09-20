@@ -901,6 +901,9 @@ def _shp_daily_hire(state, obs, action, step):
                and int(farm['tiles'][t[1]][t[0]].get('yield_units', 0) or 0) > 0}
     harvest_only = [t for t in waiting if t not in flock]  # past their last production, wool still on the tile
     optional = _shp_topups(state, obs, tape, day)
+    _done = (state.get('inplace') or {}).get('tiles') or () if (state.get('inplace') or {}).get('day') == day else ()
+    if _done:
+        optional = [(v, t, ops) for v, t, ops in optional if not (t in _done and set(ops) == {'CARE'})]
     state['hired_day'] = day
     if not flock and not harvest_only and not optional:
         return action
@@ -1093,6 +1096,139 @@ def _shp_work(state, obs, idx, role, step):
     return ['PASS']
 
 
+# --------------------------------------------------------------------------- in-place servicing (per-unit lag)
+# The tape crew stands on most animals every day (FEED, HARVEST, COLLECT_FERTILIZER) but, in a tape recorded for a
+# world with less demand, does not CARE them. A CARE slotted right after the crew's own command on the tile costs no
+# wage: the unit runs one step behind its tape from then on and catches up at its next PASS. An insertion is planned
+# only when the unit's tape day has a PASS left to absorb it, so no tape command is pushed past midnight; a lagged
+# unit never acts EARLIER than its tape. While a unit lags it replays the raw tape command (no weed repair).
+def _shp_inplace_plan(state, obs, tape, day):
+    """{(tape unit, tape step): [commands]} for today, from the top-up valuation and the tape calendar."""
+    plan, tiles = {}, set()
+    if day < int(_SHP_CFG.get('inplace_first_day', 6)) or day > int(_SHP_CFG.get('inplace_last_day', 27)):
+        return plan, tiles
+    want = {}
+    farm = obs['farms'][int(obs['player'])]
+    feed, care, _ = _shp_cal(state, tape, day)
+    factor = _SHP_CFG.get('topup_factor', 0.8)
+    outlook = {}
+    for y, row in enumerate(farm['tiles']):
+        for x, c in enumerate(row):
+            if not (isinstance(c, dict) and c.get('animal') in _SHP_ANIMALS) or (x, y) in state['tiles']:
+                continue
+            if (x, y) in state.get('culled', ()) or (x, y) in care or c.get('cared_today'):
+                continue
+            if not ((x, y) in feed or c.get('fed_today')):
+                continue                                  # a cared day only banks when the animal is fed as well
+            _shp_count('inplace_fed_not_cared')
+            species = c['animal']
+            product = _SHP_ANIMALS[species][0]
+            nxt = _shp_next_prod(species, int(c.get('placed_day', day)), day)
+            if nxt is None or int(c.get('pending_care_bonus', 0) or 0) >= 5:
+                continue
+            if (x, y) not in _shp_cal(state, tape, nxt)[0]:
+                _shp_count('inplace_no_payout_feed')      # the tape skips the production-day feed: the bank is wiped
+                continue
+            if product not in outlook:
+                outlook[product] = _shp_outlook(obs, product, species)
+            value = factor * outlook[product]
+            if value >= _SHP_CFG.get('inplace_min', 10.0):
+                want[(x, y)] = value
+            else:
+                _shp_count('inplace_low_value')
+    if not want:
+        return plan, tiles
+    sim = _tc_simulate(lambda t: tape[t] if t < len(tape) else {}, day * 24, day * 24 + 23, [(4, 4)])
+    seq = {}
+    for t in sorted(sim):
+        for u, (x, y, c) in enumerate(sim[t]):
+            seq.setdefault(u, []).append((t, (x, y), (c[0] if c else 'PASS')))
+
+    def fits(u, points):
+        lag = 0
+        for t, _, op in seq[u]:
+            if op == 'PASS' and lag > 0:
+                lag -= 1
+            if t in points:
+                lag += 1
+        return lag == 0
+
+    chosen = {}
+    for tile in sorted(want, key=lambda k: -want[k]):
+        best = None
+        for u, v in seq.items():
+            for k, (t, pos, op) in enumerate(v):
+                if pos != tile or op == 'PASS' or op in _TC_MOVES:
+                    continue
+                nxt = v[k + 1] if k + 1 < len(v) else None
+                if nxt is not None and nxt[1] == tile and nxt[2] != 'PASS' and nxt[2] not in _TC_MOVES:
+                    continue                              # still working here: slot after the last command
+                if fits(u, chosen.get(u, set()) | {t}):
+                    rank = (0 if op == 'FEED' else 1, t)
+                    if best is None or rank < best[0]:
+                        best = (rank, u, t)
+        if best:
+            chosen.setdefault(best[1], set()).add(best[2])
+            plan[(best[1], best[2])] = [(['CARE'], tile)]
+            tiles.add(tile)
+    return plan, tiles
+
+
+def _shp_inplace(state, obs, action, step, tape, own):
+    """Re-time the tape crew's commands around the day's planned insertions."""
+    day = step // 24
+    st = state.get('inplace')
+    if st is None or st['day'] != day:
+        plan, tiles = _shp_inplace_plan(state, obs, tape, day)
+        st = state['inplace'] = dict(day=day, plan=plan, tiles=tiles, clock={}, queue={}, tape=id(tape))
+        if plan:
+            _shp_count('inplace_planned', len(plan))
+    if not st['plan'] and not st['queue'] and not any(c < step for c in st['clock'].values()):
+        return action
+    farm = obs['farms'][int(obs['player'])]
+    real = [i for i in range(1, len(farm['hands']) + 1) if i not in own]
+    cmds = [list(action.get('farmer') or ['PASS'])] + [list(c or ['PASS']) for c in (action.get('hands') or [])]
+    n_units = 1 + len(real)
+
+    def raw(t, u):
+        a = tape[t] if 0 <= t < len(tape) and isinstance(tape[t], dict) else {}
+        units = _tc_units(a)
+        return list(units[u]) if u < len(units) else ['PASS']
+
+    def position(u):
+        if u == 0:
+            return tuple(farm['farmer'])
+        return tuple(farm['hands'][real[u - 1] - 1]) if u - 1 < len(real) else None
+
+    out = []
+    for u in range(min(n_units, len(cmds))):
+        q = st['queue'].get(u)
+        if q:
+            cmd, tile = q.pop(0)
+            cell = farm['tiles'][tile[1]][tile[0]] if position(u) == tile else None
+            if isinstance(cell, dict) and cell.get('animal') and not cell.get('cared_today'):
+                out.append(cmd)
+                _shp_count('inplace_done')
+                continue
+            _shp_count('inplace_skipped')                 # not where the calendar said: no insertion, no lag
+        c = st['clock'].get(u, step)
+        while c < step and raw(c, u)[0] == 'PASS':
+            c += 1                                        # catch up through the tape's own idle steps
+        cmd = cmds[u] if c == step else raw(c, u)
+        ins = st['plan'].pop((u, c), None)
+        if ins:
+            tile = ins[0][1]
+            if position(u) == tile and step % 24 < 23:
+                st['queue'][u] = list(ins)
+            else:
+                _shp_count('inplace_skipped')
+        st['clock'][u] = c + 1
+        out.append(cmd)
+    out += cmds[len(out):]
+    merged_hands = out[1:]
+    return dict(action, farmer=out[0], hands=merged_hands)
+
+
 def _shp_hidden(obs, player, own):
     """The observation the tape layer sees: without the overlay's hands."""
     farm = dict(obs['farms'][player])
@@ -1137,6 +1273,8 @@ def agent(observation, configuration=None):
         step = int(observation['step'])
         player = int(observation['player'])
         farm = observation['farms'][player]
+        if _SHP_CFG.get('inplace') and _shp_route(player) is not None:
+            action = _shp_inplace(state, observation, action, step, _shp_route(player), own)
         if own:
             tape_cmds = [list(c or ['PASS']) for c in (action.get('hands') or [])]
             merged, j = [], 0
