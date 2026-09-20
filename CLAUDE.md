@@ -69,12 +69,16 @@ https://www.kaggle.com/competitions/kaggriculture
   46% / fed 68% of animal-days with no Yarn Store vs 75-90% with one; cows 65% -> 86% as milk shops
   appear; geese always ~92%. Her tapes also over-request animal orders (six "BUY SHEEP 1" at once), so
   count sheep from boards, not from orders.
-- 2026-09-20: live submission is `agents/mgt_t10.py` (56368334; Mother-Goose tape router + repairs + overlay, ~2310
-  and rising); `mgt_b1` (= t10 + sell_lead) is the local best, not submitted. README.md and `docs/` are the live log;
+- 2026-09-20: live submissions are `agents/mgt_m1.py` (56395605, submitted 2026-09-20) and `agents/mgt_t10.py`
+  (56368334, ~2430); `mgt_m1` = t10 + sell_lead + hire guard + strand rule is the best measured build. README.md and `docs/` are the live log;
   the status lines above are history. Head to head against her ORIGINAL tape in 128 fresh recorded worlds: -4.5k
   (19-109) when her tape for the world is excluded, +0.5k (98-30; b1 +0.8k, 111-17) on her own plan. The layers are
-  net positive; the whole gap is playing a neighbour's plan, and it is PRICE (late-game wool/milk/strawberry quotes),
-  not units. Her crew routing is within 4% of optimal per hand (`docs/tape_opportunity_map.md`).
+  net positive; the whole gap is playing a neighbour's plan. "Price, not units" was an AVERAGE ARTIFACT (corrected the
+  same day): where the tape's world and the real world have the same demand for a product our realised price equals
+  hers (wool 112.7 vs 112.1), so a neighbour's SELL TIMING costs nothing; where the world has more late demand we are
+  short of UNITS at high prices (-4.2k in those worlds), where it has less we over-produce into a glut and gain nothing.
+  Her late game is a live demand response (care 3% -> 94% the day a Yarn Store opens; late plantings, fertilizer and
+  herd scale with open demand). Her crew routing is within 4% of optimal per hand (`docs/tape_opportunity_map.md`).
 - LADDER PANEL (`scripts/ladder_panel_fetch.py`, `scripts/ladder_panel.py run|report`, `docs/ladder_panel.md`): our
   recorded ladder games replayed with the same seed, forced shops and the OPPONENT's recorded actions against a live
   build. `mgt_t10` reproduces its 141 ladder results to the dollar. 378 worlds on disk (7.9 MB); 141 games ~7 min.

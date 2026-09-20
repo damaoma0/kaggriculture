@@ -142,6 +142,22 @@ def _mgt_router(observation, step, state):
             return state['route']
         day = step // 24
         shops = list((_get(observation, 'town', {}) or {}).get('unlocked_shops', []) or [])
+        # research hooks (absent on Kaggle), hindsight ceilings:
+        #   MGT_ORACLE_SHOPS=a,b,..  rank tapes against the world's FULL shop list from the first routing day on
+        #   MGT_LATE_ONLY=<ep>:<day> tape <ep> is hidden from the router until <day>, then forced for good
+        #   MGT_SELL_FROM=<ep>:<day> tape <ep> is hidden for good (its SELL orders are blended in further down)
+        if _mgt_os.environ.get('MGT_ORACLE_SHOPS'):
+            shops = _mgt_os.environ['MGT_ORACLE_SHOPS'].split(',')
+        _hide = None
+        _spec = _mgt_os.environ.get('MGT_LATE_ONLY') or _mgt_os.environ.get('MGT_SELL_FROM')
+        if _spec:
+            _hide = next((i for i, t in enumerate(_MGT_TAPES) if str(t['ep']) == _spec.split(':')[0]), None)
+            if _mgt_os.environ.get('MGT_LATE_ONLY') and _hide is not None and day >= int(_spec.split(':')[1]):
+                if state['route'] != _hide:
+                    _MGT_REPORT['switches'] += 1
+                state['route'] = _hide
+                _MGT_HISTORY.append([day, _MGT_TAPES[_hide]['ep'], 0.0, -1, len(shops)])
+                return state['route']
         k = len(shops)
         farm = observation['farms'][_int(_get(observation, 'player', 0))]
         board = _mgt_labels(_mgt_board(farm))
@@ -161,6 +177,8 @@ def _mgt_router(observation, step, state):
         sp = _MGT_CFG.get('strand_penalty', 0.0)
         mine = [j for j, x in enumerate(board) if x in _MGT_ANIMAL_LABELS] if sp else ()
         for i, t in enumerate(_MGT_TAPES):
+            if i == _hide:
+                continue
             h = _mgt_hamming(board, t['lab'][day]) if not (ign or aw != 1) else sum(
                 (aw if (x in _MGT_ANIMAL_LABELS or y in _MGT_ANIMAL_LABELS) else 1)
                 for x, y in zip(board, t['lab'][day]) if x is not None and x != y)
@@ -202,6 +220,23 @@ def _mgt_router(observation, step, state):
 
 
 _MGT_IMPL = make_agent(_MGT_ROUTES, router=_mgt_router, **_MGT_CFG.get('settings', {}))
+if _mgt_os.environ.get('MGT_SELL_FROM'):
+    # research hook: from <day> on every route carries the SELL orders of tape <ep> instead of its own (the crew and
+    # the purchases stay the route's) - the hindsight ceiling of re-deriving the sell schedule for the true world
+    _sf_ep, _sf_day = _mgt_os.environ['MGT_SELL_FROM'].split(':')
+    _sf_src = _MGT_ROUTES[next(i for i, t in enumerate(_MGT_TAPES) if str(t['ep']) == _sf_ep)]
+    _sf_from = int(_sf_day) * 24
+
+    class _MgtBlend(list):
+        def __getitem__(self, t):
+            a = list.__getitem__(self, t)
+            if not isinstance(t, int) or t < _sf_from or not isinstance(a, dict):
+                return a
+            b = _sf_src[t] if t < len(_sf_src) and isinstance(_sf_src[t], dict) else {}
+            sells = [o for o in (b.get('market') or []) if o and o[0] == 'SELL']
+            return dict(a, market=sells + [o for o in (a.get('market') or []) if not (o and o[0] == 'SELL')])
+
+    _MGT_IMPL.chassis.routes = {rid: _MgtBlend(tape) for rid, tape in _MGT_IMPL.chassis.routes.items()}
 
 
 def agent(observation, configuration=None):

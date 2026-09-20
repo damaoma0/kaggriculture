@@ -34,6 +34,21 @@ def run(job):
     opp = get_last_callable(rp.read_text(encoding='utf-8'), path=str(rp))
     history = None
     sheep = None
+    if arm.startswith(('mg_late', 'mg_sell', 'mg_oracle')):
+        # hindsight ceilings (research hooks of the router template): mg_late<D> = her tape for this world hidden
+        # until day D, then forced; mg_sell<D> = a neighbour's crew and purchases with HER sell orders from day D;
+        # mg_oracle = her tape removed, the router ranks against the world's full shop list from day 3
+        for k in ('MGT_EXCLUDE', 'MGT_ONLY', 'MGT_LATE_ONLY', 'MGT_SELL_FROM', 'MGT_ORACLE_SHOPS'):
+            os.environ.pop(k, None)
+        if arm.startswith('mg_late'):
+            os.environ['MGT_LATE_ONLY'] = f'{ep}:{int(arm[7:])}'
+        elif arm.startswith('mg_sell'):
+            os.environ['MGT_SELL_FROM'] = f'{ep}:{int(arm[7:])}'
+        else:
+            os.environ['MGT_EXCLUDE'] = str(ep)
+            os.environ['MGT_ORACLE_SHOPS'] = ','.join(tape['shops'][30])
+        rp = ROOT / 'agents' / f'{rival}.py'
+        opp = get_last_callable(rp.read_text(encoding='utf-8'), path=str(rp))
     if arm in ('mg_vs', 'mg_vs_only'):
         # head to head: HER recorded moves in her own world against the live rival. mg_vs: the rival's tape library
         # must not contain this world (MGT_EXCLUDE, read when the file is loaded below) - the ladder situation.
@@ -42,7 +57,7 @@ def run(job):
         os.environ['MGT_EXCLUDE' if arm == 'mg_vs' else 'MGT_ONLY'] = str(ep)
         rp = ROOT / 'agents' / f'{rival}.py'
         opp = get_last_callable(rp.read_text(encoding='utf-8'), path=str(rp))
-    if arm in ('native_raw', 'mg_vs', 'mg_vs_only'):
+    if arm == 'native_raw' or arm.startswith('mg_'):
         actions = [a if isinstance(a, dict) else {} for a in tape['actions']]
         fix_opening(actions)
         ours = lambda obs, t: deepcopy(actions[t]) if t < len(actions) else {'farmer': ['PASS'], 'hands': [], 'market': []}
@@ -133,7 +148,7 @@ def main():
     for p in files[off:off + n]:
         ep = p.name.split('.')[0]
         for arm in arms:
-            key = 'any' if arm == 'native_raw' else (f'mgtape_vs_{rival}' if arm.startswith('mg_vs') else name)
+            key = 'any' if arm == 'native_raw' else (f'mgtape_vs_{rival}' if arm.startswith('mg_') else name)
             if os.environ.get('MGT_FORCE') or not (OUT / f'{key}-{arm}-{ep}.json').exists():
                 jobs.append((key, rival, arm, str(p)))
     print(f'{len(jobs)} games', flush=True)
