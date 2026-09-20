@@ -99,3 +99,37 @@ the care top-up adds milk everywhere, including where it only lowers the price.
 - His wider ranges: shop-controlled correlations with the opponent's visible board were weak and inconsistent in the
   segment study, so there is no evidence he conditions on something she does not; the variance is consistent with
   re-planning every hour from noisy search. Learning from him means learning a planner, which is the executor route.
+
+## Labour slack and the fourth quadrant (2026-09-20, offline over her tapes)
+Scripts: `scripts/mg_slack.py` (584 tapes), `scripts/mg_slack_geo.py`, `scripts/mg_slack_absorb.py` (146 tapes).
+
+**Slack.** 7,046 paid unit-steps a game: work 48%, travel 40%, idle 12% (855 steps). The idle is not a spare hand:
+- by hour: <=3% idle for hours 0-15, then 6 / 7 / 14 / 21 / 30 / 41 / 56 / 72% for hours 16-23. It is the tail of
+  each route. Trailing idle block per unit-day (days 6-28): 0 steps 34%, 1-2 steps 33%, 3-5 steps 27%, 6+ steps 5%.
+- by phase: days 6-11 26 idle steps/day over 10.3 units; 12-17 41 over 11.6; 18-29 23-24 over 12.0.
+- wages 4,720 a game; the last hire of each day costs 1,814 (38%) - so a dropped hand is worth ~73 a day.
+
+**Can a hand be dropped?** Generous bound: drop the lightest hand (7.8 work + 8.5 travel steps), let every other
+unit use its trailing block one-way (midnight auto-drop means no return trip), greedy nearest tile, inventory and
+spawn shifts ignored. The others reach 38% of its work commands; ALL of it on 15% of days -> **232 a game at most**,
+91 if the dropped hand had any seed / feed / fertilizer / shed job excluded. Twenty idle steps a day exist, but as
+ten blocks of two, and a block of two reaches nothing. Not worth building.
+
+**Can idle hands fetch harvest early?** No paid hand is idle in the morning: on day 10 (melon day) idle is 0% for
+hours 0-15 in every sampled tape. Early runs need either an extra hire or re-ordering a hand's own route (a replan).
+`docs/sale_timing.md` already prices the prize: only hour 1 is worth more (10-15% on wool/milk), the rest of the day
+is flat +-3%, and only the farmer exists at hour 1.
+
+**Fourth quadrant for travel.** She owns three quadrants in 581 of 584 tapes (NE day 6, SW day 11; never SE). Work
+commands by ring: d0 16%, d1 12, d2 14, d3 15, d4 14, d5 11, d6 8, d7 6, d8 3 (mean 3.15). Day-20 boards: the 18
+tiles within distance 2 hold the animals (6.5 cows, 4.2 sheep, 2.6 geese); the 30 tiles beyond distance 4 hold 13
+strawberries, 9.6 wheat, 6 tomatoes - the low-touch crops are already the far ones. 77% of hand-days reach beyond
+distance 4. Upper bound if every such hand-day stopped at 4: 1,060 steps a game = 48 hand-days = the last hand
+(1,814) plus most of the next (~1,100) over a full season, ~2,900; SE cannot be bought before ~day 12, which leaves
+~17 days: **<= ~2,000 of wages against 4,000 of land**. The realistic relocation (SE's 15 near tiles replace the 15
+farthest) saves 300-400 steps, ~1,000-1,300. Negative on travel alone at any bound, and it needs a full replan: the
+tape addresses tiles by dead-reckoned moves, so moving one crop rewrites every route through it. SE only pays if it
+carries ADDED production (our sheep overlay: +139 n.s. on LOO), which is a different sum.
+
+**Priority.** Neither idea clears a few hundred a game at its upper bound. Front-running the V45-family tapes
+(inferred +0.4-0.7k, overlay-sized, no replan) stays ahead of both.
