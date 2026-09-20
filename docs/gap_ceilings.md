@@ -28,24 +28,24 @@ is still 20 away from the world (0 = same demand at every checkpoint): 584 recor
 | attack | how the ceiling was measured | W-L vs her tape | gain over the ladder case (95% CI) | share of the gap |
 |---|---|---|---|---|
 | better tape SELECTION, any day | router ranks against the world's FULL shop list from day 3 (perfect foresight, same library, same compatibility) | 36-92 | **+1,311** (+87 to +2,499) | 25% |
-| switch LATER, day 12 | her own tape for the world hidden until day 12, then forced | 11-18 (n=30) | **+2,455** (+1,084 to +3,895) | 50% |
-| switch later, day 15 | same, day 15 | 0-30 | **-3,628** (-5,804 to -1,515) | negative |
-| switch later, day 18 | same, day 18 | 0-30 | **-5,476** (-7,380 to -3,510) | negative |
-| switch later, day 21 | same, day 21 | 0-29 | **-4,690** (-6,085 to -3,165) | negative |
+| switch LATER, day 12 | her own tape for the world hidden until day 12, then forced | 24-39 (n=64) | **+2,663** (+1,464 to +3,874) | 52% |
+| switch later, day 15 | same, day 15 | 1-63 | **-3,128** (-4,660 to -1,620) | negative |
+| switch later, day 18 | same, day 18 | 0-64 | **-5,343** (-6,790 to -3,938) | negative |
+| switch later, day 21 | same, day 21 | 0-64 | **-4,749** (-5,706 to -3,765) | negative |
 | BLEND: our production, a late-shop-matched sell schedule | a neighbour's crew and purchases with HER sell orders from day 12 | 15-113 | **-1,150** (-1,854 to -524) | negative |
 | SYNTHESISE / re-derive late sells | not run as a game: with equal demand in the tape's world and the real world a neighbour's schedule already realises her prices (wool 112.7 vs 112.1, milk 92.6 vs 93.3, tomato 82.3 vs 81.4); the four sale-timing layers built earlier measured 0, -658, +25 / -405, -194 | | ~0 | ~0% |
 
-(the day-15/18/21 rows are from the first 30 of 64 worlds; the sign is 0 wins in 89 games.)
+(the four switch rows are 64 worlds each, all games completed; day 15-21 together: 1 win in 192 games.)
 
 - **Late switching is not blocked by our rule, it is blocked by the tape format.** A tape addresses tiles by counted
-  moves on ITS board. Forcing even the perfect tape onto our diverged board on day 15-21 costs 3.6-5.5k: its
+  moves on ITS board. Forcing even the perfect tape onto our diverged board on day 15-21 costs 3.1-5.3k: its
   commands land on the wrong tiles and ours are orphaned. Day 12 is the last morning a switch pays.
 - **Selection is worth 1.3k at most**, with information nobody has (the four shops still to come are random).
   Consistent with the earlier top-four oracle (+1.8k against V50). The library is the constraint.
 - **Sell schedules are dead three times over**: the matched-demand diagnostic, four built layers, and now her own
   sell orders on our production, which LOSE 1.2k (a schedule fits the production stream it was written for).
-- **Where the gap is**: a perfect plan adopted at day 12 is worth +2.5k even after paying the switch; the other
-  ~2.7k is the first twelve days (the first four shops match in 33 of 128 worlds) plus that switch cost. What the
+- **Where the gap is**: a perfect plan adopted at day 12 is worth +2.7k even after paying the switch; the other
+  ~2.6k is the first twelve days (the first four shops match in 33 of 128 worlds) plus that switch cost. What the
   late half consists of is known from `docs/tape_opportunity_map.md`: her servicing, herd, fertilizer and plantings
   follow the demand open THAT DAY. That is a policy; no recording chosen in advance contains it.
 
@@ -53,6 +53,6 @@ is still 20 away from the world (0 = same demand at every checkpoint): 584 recor
 Both tape-level ceilings are low (selection 25%, late switching negative, sells negative), so the tape library is
 the constraint and the answer has to be a different kind of thing: a live late-game demand response that acts
 through our own hands and in-place insertions ON TOP of the running tape, never through a switch. Its ceiling is
-the +2.5k of the day-12 row or better (it pays no switch cost). Pieces, with the sizes measured earlier: animal
+the +2.7k of the day-12 row or better (it pays no switch cost). Pieces, with the sizes measured earlier: animal
 servicing and herd to her open-demand targets ~1.3k; fertilizer on the strawberries and tomatoes that are already
 planted, and late carrot / tomato plantings, ~1.5-2k together.
