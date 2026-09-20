@@ -59,11 +59,25 @@ final cash reproduces to the dollar in 72 of 72.
 | wheat, net cash (sold - bought) | **+1,447** (+10,744 vs +9,297) | **+5,032** (+12,330 vs +7,298) |
 | revenue excluding wheat | +1,755 | -3,813 |
 
-- The non-wage gap is WHEAT, not seeds. With the old policy she buys 63 fewer wheat a game: that is her
-  demand-conditioned feeding (sheep fed on 68% of days when nothing buys wool), not thrift on inputs. Her wheat
-  position nets +1.4k more than her opponents' although she sells slightly fewer units.
-- The new submissions changed the business: 169 wheat seeds against 135, 536 wheat sold against 435, +5.0k net on
-  wheat and -3.8k on everything else. Against peers she now wins as a wheat farmer.
+- The non-wage gap is WHEAT, not seeds - and most of the "wheat bought" line is ROUND-TRIP volume, not consumption.
+  Physical wheat per game, old policy (cut + bought = fed + sold to within a unit or two on both sides):
+
+  | | cut from fields | bought | fed to animals | sold |
+  |---|---|---|---|---|
+  | her | 588 | 137 | 320 | 403 |
+  | opponents | 564 | 200 | 328 | 428 |
+  | her, new submissions | 672 | 200 | 325 | 536 |
+  | opponents of the new | 529 | 227 | 316 | 435 |
+
+  She FEEDS almost exactly what her opponents feed (320 vs 328), so the -2,573 on purchases is not thrift on feed: her
+  opponents buy 63 more wheat and sell 25 more (their wheat revenue is 1,126 higher). Net of the round trip her wheat
+  position is +1,447: she cuts 24 more wheat from her own fields, feeds 8 fewer and buys at 35.1 against 37.0.
+  (An earlier version of this note attributed the purchase gap to her demand-conditioned feeding. That was wrong: the
+  feeding rule shifts WHICH days she feeds, not how much she feeds against these opponents.)
+  Her +3,548 over peers adds up exactly: non-wheat revenue +1,755, wheat net +1,447, hires +592, seeds +338,
+  animals / land / fertilizer -585.
+- The new submissions changed the business: 169 wheat seeds against 135, 672 wheat cut against 529, 536 sold against
+  435, +5.0k net on wheat and -3.8k on everything else. Against peers she now wins as a wheat farmer.
 - For us: nothing to build. Our tapes are her old policy, so the feeding economy is inherited; what our overlay adds
   back is visible in the leave-one-out ledgers (wheat +0.5k, hires +0.3k a game) and is already gated on value.
 
