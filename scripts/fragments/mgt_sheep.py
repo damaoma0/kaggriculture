@@ -832,6 +832,8 @@ def _shp_decide(state, obs, action, step):
             continue
         after = len(_shp_runs(state, list(flock) + list(tiles_all[:n]), optional, 2, base_mid, int(_SHP_CFG.get('max_hands', 4))))
         before = hands_before
+        if _SHP_CFG.get('labour_model') == 'count':       # as submitted in mgt_t10
+            after, before = _shp_hands_for(len(flock) + n, 0), _shp_hands_for(len(flock), 0)
         if _shp_hands_for(len(flock) + n, 0) > _SHP_CFG.get('max_hands', 4):
             continue
         wage = sum(_shp_wages(b, after) - _shp_wages(b, before) for b in bases)
@@ -1041,7 +1043,7 @@ def _shp_work(state, obs, idx, role, step):
                 todo.append((t, ['CARE']))
             elif int(c.get('yield_units', 0) or 0) > 0:
                 todo.append((t, ['HARVEST']))
-            elif c.get('fertilizer_available') and hour < 16 and not last_day and not _SHP_CFG.get('no_collect'):
+            elif c.get('fertilizer_available') and hour < int(_SHP_CFG.get('collect_until', 16)) and not last_day and not _SHP_CFG.get('no_collect'):
                 todo.append((t, ['COLLECT_FERTILIZER']))
         elif t not in state['placed'] and have_sheep > 0 and not feed_only:
             if c is None:
@@ -1064,7 +1066,7 @@ def _shp_work(state, obs, idx, role, step):
             elif 'HARVEST' in topup[t] and int(c.get('yield_units', 0) or 0) > 0:
                 todo.append((t, ['HARVEST']))
     wool_on_board = int(inv.get('WOOL', 0) or 0) + int(inv.get('MILK', 0) or 0)
-    if todo and wool_on_board and not unfed and (hour >= 17 or wool_on_board >= _SHP_CFG.get('deliver_at', 24)):
+    if todo and wool_on_board and not unfed and _SHP_CFG.get('deliver_early', 1) and (hour >= 17 or wool_on_board >= _SHP_CFG.get('deliver_at', 24)):
         todo = []                                     # the product goes to market today; the rest of the round can wait
     if todo:
         tile, cmd = min(todo, key=lambda x: (_shp_dist(pos, x[0]), x[0]))
@@ -1086,6 +1088,15 @@ def _shp_work(state, obs, idx, role, step):
         if step_home:
             return step_home
         shed_total = sum(int(v or 0) for v in shed.values())
+        if _SHP_CFG.get('cargo_drop'):                    # as submitted in mgt_t10: one DROP, sold from credit
+            if shed_total + load > 100 and hour < 22:
+                return ['PASS']
+            for item in _SHP_CARGO:
+                if int(inv.get(item, 0) or 0):
+                    state['credit'][item] = state['credit'].get(item, 0) + int(inv[item])
+            state['wheat_credit'] = state.get('wheat_credit', 0) + have_wheat
+            role['tries'] = 9
+            return ['DROP']
         room = max(0, 100 - shed_total - int(state.get('room_used', 0)))
         for item in _SHP_CARGO:                       # one product a step, only what fits, sold the same step
             have = int(inv.get(item, 0) or 0)
@@ -1239,6 +1250,111 @@ def _shp_inplace(state, obs, action, step, tape, own):
     return dict(action, farmer=out[0], hands=merged_hands)
 
 
+# --------------------------------------------------------------------------- hire guard
+# Her opening spends to the last coin, and a hire that does not arrive is the most expensive thing that can go wrong:
+# every later hand of the day answers to the wrong index (ladder game 110950148: 3 of 8 hires failed on day 9 because
+# the tape lists 800 cash of seeds BEFORE its HIREs and cash was 456; -22k). Orders execute in list order and a SELL
+# pays before the next order, so: walk the list with the engine's prices; if a HIRE would find too little cash, put
+# the SELLs first and the HIREs before every purchase; if that is still not enough, sell a few units of shed stock in
+# front. Games in which no hire is at risk are left byte-identical.
+_SHP_OUTPUTS = ('MELON', 'WOOL', 'MILK', 'STRAWBERRY', 'TOMATO', 'EGG', 'CARROT', 'FERTILIZER', 'WHEAT')
+
+
+def _shp_hire_guard(obs, action):
+    if not _SHP_CFG.get('hire_guard'):
+        return action
+    market = [list(o) for o in (action.get('market') or []) if o][:10]
+    farm = obs['farms'][int(obs['player'])]
+    prices = (obs.get('market') or {}).get('prices') or {}
+    shed = {k: int(v or 0) for k, v in (obs['private'].get('shed') or {}).items()}
+    hired = int(farm.get('hires_today', 0) or 0)
+    step = int(obs['step'])
+    n_hire = sum(1 for o in market if o[0] == 'HIRE')
+    # the tape's HIREs of the next two hours must find their wages too (her day-8 pattern: purchases at hour 0 leave
+    # 73 cash, the four hires of hour 1 cost 76, one hand never comes)
+    ahead = 0
+    tape = _shp_route(int(obs['player']))
+    if tape is not None and step % 24 < 22:
+        k = hired + n_hire
+        for t in (step + 1, step + 2):
+            for o in ((tape[t].get('market') or []) if t < len(tape) and isinstance(tape[t], dict) else []):
+                if o and o[0] == 'HIRE':
+                    ahead += _SHP_FIB[min(15, k)]
+                    k += 1
+    if not n_hire and not ahead:
+        return action
+
+    def run(orders):
+        """(cash missing at the worst HIRE, cash left) when the list runs in order: sales at 90%, buys at 110%."""
+        cash, k, worst, left = float(farm['money']), 0, 0.0, dict(shed)
+        for o in orders:
+            op, item = o[0], (o[1] if len(o) > 1 else None)
+            qty = max(0, int(o[2])) if len(o) > 2 else 1
+            if op == 'SELL':
+                q = min(qty, left.get(item, 0))
+                left[item] = left.get(item, 0) - q
+                cash += 0.9 * q * float(prices.get(item, 0) or 0)
+            elif op == 'HIRE':
+                wage = _SHP_FIB[min(15, hired + k)]
+                k += 1
+                worst = max(worst, wage - cash)
+                cash -= min(cash, wage)
+            elif op == 'BUY_SEED':
+                cash -= min(cash, SEED_PRICE.get(item, 0) * qty)
+            elif op == 'BUY_ANIMAL':
+                cash -= min(cash, ANIMAL_COST.get(item, 0) * qty)
+            elif op == 'BUY_PRODUCT':
+                cash -= min(cash, 1.1 * float(prices.get(item, 0) or 0) * qty)
+            elif op == 'BUY_LAND':
+                cash -= min(cash, 4000.0)
+        return worst, cash
+
+    worst, cash_end = run(market)
+    if worst <= 0 and cash_end >= ahead:
+        return action
+    _shp_count('hire_guard_fired')
+    if worst > 0:
+        market = [o for o in market if o[0] == 'SELL'] + [o for o in market if o[0] == 'HIRE'] + [o for o in market if o[0] not in ('SELL', 'HIRE')]
+        worst, cash_end = run(market)
+    gap = max(worst, ahead - cash_end)
+    if gap > 0:                                           # 1. sell a little shed stock in front
+        planned = {}
+        for o in market:
+            if o[0] == 'SELL' and len(o) > 2:
+                planned[o[1]] = planned.get(o[1], 0) + int(o[2])
+        for item in _SHP_OUTPUTS:
+            price = 0.9 * float(prices.get(item, 0) or 0)
+            free = shed.get(item, 0) - planned.get(item, 0)
+            if gap <= 0 or price < 5 or free <= 0:
+                continue
+            q = min(free, int(-(-(gap + 2) // price)))
+            old = next((o for o in market if o[0] == 'SELL' and o[1] == item), None)
+            if old is not None:
+                old[2] = int(old[2]) + q
+            elif len(market) < 10:
+                market.insert(0, ['SELL', item, q])
+            else:
+                continue
+            gap -= q * price
+            _shp_count('hire_guard_sold', q)
+    if gap > 0 and worst <= 0:                            # 2. nothing to sell: buy less now so the next hour can hire
+        for kind in ('BUY_PRODUCT', 'BUY_SEED'):
+            for o in reversed(market):
+                if gap <= 0 or o[0] != kind or len(o) < 3 or (kind == 'BUY_SEED' and o[1] not in ('WHEAT', 'CARROT')):
+                    continue
+                unit = 1.1 * float(prices.get(o[1], 0) or 0) if kind == 'BUY_PRODUCT' else float(SEED_PRICE.get(o[1], 0))
+                if unit <= 0:
+                    continue
+                cut = min(int(o[2]), int(-(-gap // unit)))
+                o[2] = int(o[2]) - cut
+                gap -= cut * unit
+                _shp_count('hire_guard_trimmed', cut)
+        market = [o for o in market if not (o[0] in ('BUY_PRODUCT', 'BUY_SEED') and len(o) > 2 and int(o[2]) <= 0)]
+    if gap > 0:
+        _shp_count('hire_guard_unfunded')
+    return dict(action, market=market)
+
+
 def _shp_hidden(obs, player, own):
     """The observation the tape layer sees: without the overlay's hands."""
     farm = dict(obs['farms'][player])
@@ -1333,6 +1449,11 @@ def agent(observation, configuration=None):
                 action = dict(action, market=market)
                 _shp_count('feed_rebuys')
             state['need_wheat'] = 0
+    except Exception as exc:
+        _shp_count('errors')
+        _SHP_REPORT['last_error'] = repr(exc)[:200]
+    try:
+        action = _shp_hire_guard(observation, action)
     except Exception as exc:
         _shp_count('errors')
         _SHP_REPORT['last_error'] = repr(exc)[:200]

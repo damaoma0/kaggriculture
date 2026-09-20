@@ -15,7 +15,8 @@ deterministic game tapes + a shop router + first-principles adaptations. Single 
 
 Usage: python build_mg_tape_agent.py <name> [--subs 56266758,56266899] [--max-tapes N] [--settings k=v,...]
 """
-import base64, gzip, json, sys, zlib
+import base64, gzip, json, os, sys, zlib
+from pathlib import Path
 from hashlib import sha256
 from market_corpus import ROOT
 
@@ -154,6 +155,11 @@ def _mgt_router(observation, step, state):
         if ign:
             board = [None if j in ign else x for j, x in enumerate(board)]
         aw = _MGT_CFG.get('animal_weight', 1)
+        # strand_penalty: a live animal of ours on a tile where the candidate tape has no animal today NOR two days
+        # on is an animal nobody will feed (ladder game 110933872: sheep placed on day 8, switch on day 9, gone that
+        # night, and no cash to hire a rescuer). Narrow on purpose: the blanket animal-tile weight tested -228.
+        sp = _MGT_CFG.get('strand_penalty', 0.0)
+        mine = [j for j, x in enumerate(board) if x in _MGT_ANIMAL_LABELS] if sp else ()
         for i, t in enumerate(_MGT_TAPES):
             h = _mgt_hamming(board, t['lab'][day]) if not (ign or aw != 1) else sum(
                 (aw if (x in _MGT_ANIMAL_LABELS or y in _MGT_ANIMAL_LABELS) else 1)
@@ -163,6 +169,9 @@ def _mgt_router(observation, step, state):
             d = _mgt_distance(ours_vec, shops, t, k)
             if i == cur and h > limit:
                 d += penalty
+            if mine:
+                now_lab, later_lab = t['lab'][day], t['lab'][min(29, day + 2)]
+                d += sp * sum(1 for j in mine if now_lab[j] not in _MGT_ANIMAL_LABELS and later_lab[j] not in _MGT_ANIMAL_LABELS)
             key = (d + lam * h, 0 if i == cur else 1, h, i)
             if best is None or key < best[0]:
                 best = (key, d, h, i)
@@ -254,7 +263,7 @@ def main():
                     if k in ('hold_items', 'align_items', 'sell_all'):
                         sheep[k] = tuple(x for x in v.split('+') if x)
                         continue
-                    sheep[k] = float(v) if '.' in v else int(v)
+                    sheep[k] = float(v) if '.' in v else (int(v) if v.lstrip('-').isdigit() else v)
             i += 2
         elif args[i] == '--cfg':
             for kv in args[i + 1].split(','):
@@ -307,7 +316,8 @@ def main():
         frag = ROOT / 'scripts/fragments'
         sep = chr(10) * 2
         body += sep + (frag / 'tape_calendar.py').read_text(encoding='utf-8')
-        body += sep + (frag / 'mgt_sheep.py').read_text(encoding='utf-8').replace('__SHEEP_CFG__', repr(sheep))
+        sheep_file = Path(os.environ['MGT_SHEEP_FILE']) if os.environ.get('MGT_SHEEP_FILE') else frag / 'mgt_sheep.py'   # bisecting old overlays
+        body += sep + sheep_file.read_text(encoding='utf-8').replace('__SHEEP_CFG__', repr(sheep))
     # Kaggle's loader calls the LAST NEW callable name in the file. Re-defining `agent` in a fragment keeps the
     # name's original position in the module dict, so helpers defined after the first `agent` would win. The
     # entry point is therefore a fresh name, defined last; the check below loads the file the way Kaggle does.
