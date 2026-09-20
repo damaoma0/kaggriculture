@@ -117,3 +117,29 @@ by the user's instruction.
 **112-16, +898** (+665 to +1,205). With that tape removed from the library (the ladder case): 20-108, -4,345.
 The tailored version beats the tape it is tailored from; what loses is a recording from a DIFFERENT world.
 Submitted as 56395605 on 2026-09-20 (validation passed; `cand_v1` retired).
+
+## Live check of `mgt_m1` (2026-09-20 19:40 UTC, 86 ladder games)
+Active submissions: 56395605 `mgt_m1` 2303.8 (uploaded 13:31 UTC on the user's "submit it first") and 56368334
+`mgt_t10` 2471.6; `cand_v1` 56341683 played its last game at 13:21 and is retired.
+
+| | games | W-L | mean opp. team score | <1800 | 1800-2200 | 2200-2500 | 2500-2800 |
+|---|---|---|---|---|---|---|---|
+| `mgt_m1` | 86 | 64-22 (74%) | 2,108 | 11-1 | 21-6 | 24-13 | 8-2 |
+| `mgt_t10`, first 86 games | 86 | 73-13 (85%) | 1,978 | 23-2 | 27-3 | 9-3 | 13-5 |
+| `mgt_t10`, all 172 | 172 | 139-33 (81%) | 2,197 | 24-2 | 36-3 | 43-15 | 34-12 |
+| `mgt_t10`, same hours as m1 | 24 | 18-6 | 2,505 | | | 11-3 | 7-3 |
+
+- Rating: `mgt_t10` stood at 2310 after 101 games and climbed to 2470 over the next 70; `mgt_m1` is at 2304 after 86.
+  Same trajectory; the lower W-L comes with a harder draw (12 games against sub-1800 teams where t10 had 25).
+- Band for band m1 is lower in 1800-2500 (45-19 against t10's 79-18, z ~ 1.6) and the whole difference sits in seat 1
+  (36-16 against 68-15; seat 0 is 28-6 against 71-18). Suggestive, not conclusive.
+- **Direct test** (`ladder_panel.py run mgt_m1,mgt_t10 56395605`): `mgt_m1` reproduces all 86 of its own ladder results to
+  the dollar; `mgt_t10` played into the SAME 86 games goes **60-26 against m1's 64-22, paired -888 (-1,621 to -318)**,
+  worse in both seats (seat 1: 34-18 against 36-16) and with hire shortfalls in 4 of them. The games m1 lost are games
+  t10 loses too. Traces of m1's six largest losses: 0 action mismatches, every hire arrived, <2% dead commands; five
+  of the six are worlds with late Yarn Stores the tape's world did not have (the known plan gap).
+- The strand rule does not freeze the router: last switch on day 12 in 50% of panel worlds for m1 against 49% for
+  t10, and where m1 stops earlier (22 worlds) it is +3.0k.
+- Frozen opponents as a blind spot: of m1's three changes only sell-one-step-early touches the opponent at all (the
+  hire guard and the strand rule are about our own cash and router); it is +16 on the panel and was +21..+24 against
+  a LIVE V50. It cannot produce a ten-point swing. Verdict: no regression shown; judge the rating after ~170 games.
