@@ -252,3 +252,12 @@ at 86%/75% vs hers 6.5 at 63%/48%).
 **Consequence.** Re-deriving the SELL schedule late recovers ~0: sale timing is not where the loss is. What is
 missing is her late demand response in production (herd, servicing, plantings, fertilizer), which no tape fixed
 before the late shops are known can contain, and which the router cannot switch into (boards diverge).
+
+**First brick, measured (ladder case, 128 worlds, paired).** `mgt_k1` = `mgt_k0` (current fragment, b1 settings) +
+`inplace=1`: a CARE slotted right after the tape crew's own command on an animal it feeds but does not care, paid
+with the unit's own idle steps (per-unit lag, no wage, never acts earlier than the tape). **+78 (+33 to +126),
+better in 40 worlds, worse in 9**; 19-109 -> 20-108, mean -4,480 -> -4,402. It fires 1.5 times a game: of 21.3
+fed-not-cared animal-days, 7.3 have no production-day feed on the tape (the bank would be wiped), 4.4 are worth
+under 10, and most of the rest do not fit the unit's idle steps. The primitive is safe; the volume is in FEED+CARE
+for animals the tape does not feed, which needs wheat in the hand. Side finding: the fragment's "COLLECT only
+before hour 16" is -24 (-57 to -2) against b1's hour 22.
