@@ -284,6 +284,28 @@ def _shp_reveal_hold(state, obs, action, step):
     return dict(action, market=market) if changed else action
 
 
+def _shp_sell_all(obs, action, step):
+    """At HER sale points, sell everything we hold of that product, not just the borrowed tape's quantity. Production
+    on a borrowed tape matches hers to the unit (7.0 tomatoes, 7.2 strawberries a plant), but the SELL quantities were
+    written for another world: when ours is larger the rest waits for a later SELL, and waiting costs 3-10% a day."""
+    items = _SHP_CFG.get('sell_all') or ()
+    if not items:
+        return action
+    shed = obs['private'].get('shed') or {}
+    market = [list(o) for o in (action.get('market') or [])]
+    seen, changed = set(), False
+    for o in market:
+        if o and o[0] == 'SELL' and len(o) >= 3 and o[1] in items and int(o[2]) > 0 and o[1] not in seen:
+            seen.add(o[1])
+            total = sum(int(x[2]) for x in market if x and x[0] == 'SELL' and len(x) >= 3 and x[1] == o[1])
+            extra = int(shed.get(o[1], 0) or 0) - total
+            if extra > 0:
+                o[2] = int(o[2]) + extra
+                _shp_count('sell_all_' + o[1].lower(), extra)
+                changed = True
+    return dict(action, market=market) if changed else action
+
+
 def _shp_last_hire_hour(tape, day):
     """The overlay hires only AFTER the tape's last hire of the day: a hand of ours standing on a shed tile
     changes where the engine spawns the tape's next hands (least-occupied shed tile), and a displaced tape hand
@@ -1141,6 +1163,7 @@ def agent(observation, configuration=None):
             action = _shp_hold_surplus(observation, action, step, _tape_now)
             action = _shp_align_sells(state, observation, action, step)
             action = _shp_reveal_hold(state, observation, action, step)
+            action = _shp_sell_all(observation, action, step)
         shed_now = observation['private'].get('shed') or {}
         for item in _SHP_CARGO:
             # lots placed THIS step are on sale this step; older credit (midnight auto-drops) once it is in the shed

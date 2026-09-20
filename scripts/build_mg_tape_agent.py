@@ -251,7 +251,7 @@ def main():
                     if k.startswith('reveal_') and k[7:].upper() in ('WOOL', 'MILK', 'STRAWBERRY', 'EGG', 'CARROT', 'TOMATO', 'WHEAT'):
                         sheep.setdefault('reveal', {})[k[7:].upper()] = int(v)
                         continue
-                    if k in ('hold_items', 'align_items'):
+                    if k in ('hold_items', 'align_items', 'sell_all'):
                         sheep[k] = tuple(x for x in v.split('+') if x)
                         continue
                     sheep[k] = float(v) if '.' in v else int(v)
