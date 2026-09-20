@@ -85,3 +85,22 @@ gated on, and it flattered us (84%); these seeds were never looked at before.
 | V50 | 183-73 | 71.5% (63.7-78.9) | +3,482 (+2,239..+4,746) |
 | V48 | 197-59 | 77.0% (69.9-83.6) | +5,125 (+3,795..+6,448) |
 | frozen benchmark | 199-57 | 77.7% (70.7-84.4) | +5,196 (+3,903..+6,518) |
+
+## Router headroom, second look: the ranking already takes what is knowable
+Offline on the 160 frozen-pick games (40 worlds x the four best tapes at day 12), choosing among the four by any
+single feature available at day 12 is WORSE than taking rank 0 (+4,436, 28-12):
+
+| Rule among the top four | Mean margin | W-L |
+|---|---|---|
+| highest recorded cash of the tape's own game | +2,644 | 28-12 |
+| highest recorded margin | +2,016 | 24-16 |
+| lowest board distance | +3,859 | 28-12 |
+| most / fewest sheep in the tape | +2,548 / +1,836 | 24-16 / 26-14 |
+| most strawberries | +3,148 | 29-11 |
+| HINDSIGHT: most of shops 5-8 matching ours | +3,923 | 28-12 |
+| oracle | +6,196 | 33-7 |
+
+Within a world the only feature that correlates with the outcome is the rank itself (-0.35); recorded cash, margin,
+herd, strawberries, board distance and even the hindsight match of the hidden shops are all within +-0.12. The 1.8k
+between rank 0 and the oracle is therefore mostly variance between near-equivalent tapes (weeds, the rival's
+reaction), not information a better ranking could use. Learning the router's weights is not the next lever either.
