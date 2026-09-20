@@ -112,3 +112,8 @@ not exercise at all.
 ## Status
 `agents/mgt_m1.py` is the best measured build on every panel we have. It is NOT submitted: submissions are on hold
 by the user's instruction.
+
+**`mgt_m1` against her original tape, both arms (128 recorded worlds).** Allowed to use her tape for that world:
+**112-16, +898** (+665 to +1,205). With that tape removed from the library (the ladder case): 20-108, -4,345.
+The tailored version beats the tape it is tailored from; what loses is a recording from a DIFFERENT world.
+Submitted as 56395605 on 2026-09-20 (validation passed; `cand_v1` retired).
