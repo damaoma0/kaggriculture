@@ -98,3 +98,17 @@ them. The out-of-sample check is the 237 ladder worlds of our other submission (
 | **`mgt_m1`** | **175-62** | +6,846 | **+330 (+55 to +614)** | 129 / 42 / 66 | **0** |
 
 All 378 ladder worlds: `mgt_t10` 291-87 (77.0%) -> `mgt_m1` 295-83 (78.0%), paired **+432 (+200 to +677)**.
+
+**Regression checks of `mgt_m1` on the older measurements.**
+| setting | reference | `mgt_m1` | paired |
+|---|---|---|---|
+| natural seeds 176000-176127, both seats, live V50 (256 games) | `mgt_b1` 183-73 (71.5%), +3,482 | **187-69 (73.0%)**, +3,801 | +318 (-285 to +848), 24 seeds better / 14 worse / 90 same |
+| her ORIGINAL tape, ladder case, 128 recorded worlds | `mgt_k0` 19-109, -4,480 | 20-108, -4,345 | +135 (-107 to +390) |
+
+Note on "the expansion never fires in our panels": against V50 on this block it commits in 0.04 games a game
+(10 of 256), against ~6% on the ladder - thin rather than absent; hire shortfalls are the path the V50 panels do
+not exercise at all.
+
+## Status
+`agents/mgt_m1.py` is the best measured build on every panel we have. It is NOT submitted: submissions are on hold
+by the user's instruction.

@@ -75,3 +75,17 @@ https://www.kaggle.com/competitions/kaggriculture
   (19-109) when her tape for the world is excluded, +0.5k (98-30; b1 +0.8k, 111-17) on her own plan. The layers are
   net positive; the whole gap is playing a neighbour's plan, and it is PRICE (late-game wool/milk/strawberry quotes),
   not units. Her crew routing is within 4% of optimal per hand (`docs/tape_opportunity_map.md`).
+- LADDER PANEL (`scripts/ladder_panel_fetch.py`, `scripts/ladder_panel.py run|report`, `docs/ladder_panel.md`): our
+  recorded ladder games replayed with the same seed, forced shops and the OPPONENT's recorded actions against a live
+  build. `mgt_t10` reproduces its 141 ladder results to the dollar. 378 worlds on disk (7.9 MB); 141 games ~7 min.
+  Measure anything that touches cash, hires, the router or the overlay here as well as on the V50 panels: the
+  ladder's price impact exercises paths the V50 panels barely do (hire shortfalls never, the sheep expansion in 4%
+  of games against ~6%).
+- Hire shortfalls come from her opening spending to the last coin (days 5-9, cash under 500), NOT from the sheep
+  expansion: seeds listed before HIREs, or hour-0 purchases leaving less than the hour-1 wages. One missing hand
+  shifts every later hand index that day (-2k typical, -22k worst). `--sheep hire_guard=1` removes them.
+- Late tape switches that strand live animals were the identifiable harm of switching; `--cfg strand_penalty=4.0`
+  (one-directional, only tiles with a live animal of ours the candidate tape will not service) is +0.46k on the
+  ladder panel where the blanket `animal_weight` was negative.
+- Never edit a script while a ProcessPool run that uses it is in flight: on Windows every worker re-imports
+  `__main__`, so a half-written file fails every remaining game (lost 133 of 141 games that way once).
