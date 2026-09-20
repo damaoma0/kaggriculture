@@ -1,0 +1,23 @@
+mgt_m1: Mother-Goose tape router + overlay, with the three ladder defects fixed. Submitted at explicit user request
+("submit it first", 2026-09-20).
+Source: agents/mgt_m1.py, built by
+  scripts/build_mg_tape_agent.py mgt_m1 --cfg hamming_weight=1.0,strand_penalty=4.0 --settings sell_lead=true --sheep labour_model=count,hire_guard=1
+(scripts/fragments/mgt_sheep.py at commit b120cd5; SHA-256 1152ef2e12c4...). Write-up: docs/ladder_panel.md.
+
+What changed against mgt_t10 (56368334)
+- sell_lead: the tape's SELLs go out one step early (+16 paired on the ladder panel, 77 better / 10 worse).
+- hire_guard: if a HIRE now or in the next two hours would not find its wage, SELLs first, HIREs before purchases,
+  sell a little shed stock, else buy slightly less wheat / seed. Hire-short games 5 -> 0 (+260 paired).
+- strand_penalty 4.0: the router does not switch to a tape that would leave a live animal of ours unserviced
+  (+458 paired; it mostly stops late switches).
+- overlay code as of 2026-09-20 (cargo delivered in lots that fit and sold the same step) with the SUBMITTED
+  expansion labour model (labour_model=count).
+
+Local evidence
+- Ladder panel, mgt_t10's own 141 recorded ladder games (in sample): 117-24 -> 120-21, +602 (+229..+1,053).
+- 237 recorded ladder games of our other submission (out of sample): 174-63 -> 175-62, +330 (+55..+614).
+- All 378: 291-87 -> 295-83, +432 (+200..+677). mgt_t10 reproduces its 141 ladder results to the dollar.
+- Natural seeds 176000-176127 vs live V50: 187-69 (73.0%), +3,801 (mgt_b1 183-73, +3,482); max call 0.042 s.
+- Her original tape, ladder case, 128 recorded worlds: 20-108, -4,345 (unchanged; that gap is the plan, not these fixes).
+Checks: stdlib imports only, 4.79 MB, entry point mgt_kaggle_entry (Kaggle's last-new-callable rule), 900+ full
+games through Kaggle's loader without an error.
