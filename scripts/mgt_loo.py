@@ -50,8 +50,10 @@ def run(job):
         ours = lambda obs, t: agent(obs)
         history = ns['_MGT_HISTORY']
         sheep = ns.get('_SHP_REPORT')
-    trace = dict(price={'WOOL': [], 'MILK': [], 'MELON': []}, ours={'WOOL': {}, 'MILK': {}, 'MELON': {}},
-                 rival={'WOOL': {}, 'MILK': {}, 'MELON': {}}, melon_ready=[[], []], melon_index=[{}, {}])
+    _items = ('WOOL', 'MILK', 'MELON', 'STRAWBERRY', 'TOMATO', 'EGG')
+    trace = dict(price={k: [] for k in _items}, ours={k: {} for k in _items}, rival={k: {} for k in _items},
+                 melon_ready=[[], []], melon_index=[{}, {}], index={'ours': {k: {} for k in _items}, 'rival': {k: {} for k in _items}},
+                 orders={'ours': {}, 'rival': {}})
 
     def logged(fn, who):
         def call(obs, t):
@@ -68,6 +70,10 @@ def run(job):
             for j, o in enumerate((a.get('market') or []) if isinstance(a, dict) else []):
                 if o and o[0] == 'SELL' and len(o) >= 3 and o[1] == 'MELON' and int(o[2]) > 0:
                     trace['melon_index'][0 if who == 'ours' else 1][t] = j      # position of the melon SELL in the order list
+                if o and o[0] == 'SELL' and len(o) >= 3 and o[1] in trace['index'][who] and int(o[2]) > 0:
+                    trace['index'][who][o[1]].setdefault(t, j)                  # first position of that product's SELL
+            if isinstance(a, dict) and a.get('market'):
+                trace['orders'][who][t] = len(a['market'])
             for o in (a.get('market') or []) if isinstance(a, dict) else []:
                 if o and o[0] == 'SELL' and len(o) >= 3 and o[1] in trace[who] and int(o[2]) > 0:
                     trace[who][o[1]][t] = trace[who][o[1]].get(t, 0) + int(o[2])

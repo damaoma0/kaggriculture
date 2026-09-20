@@ -54,3 +54,48 @@ the care top-up adds milk everywhere, including where it only lowers the price.
 - 2 and 4 do not collide: the melon field is cleared on day 10-11 and her strawberries / tomatoes go in afterwards.
   2 and 3 share labour only through our own overlay hands (each is the 12th-14th hire, 144-377 a day).
 - 4 and 5 both need command rewriting of her units, i.e. the same executor machinery; 5 is a small first piece of 4.
+
+## Provenance and ladder check (2026-09-20 03:15 UTC)
+- `submissions/2026-09-19-mgt_t10/main.py` (sha 14f4def1..., submission 56368334) IS her tape base: 941 lines of
+  route-replay chassis machinery with no routes of its own, then 584 embedded tapes - 310 from her submission 56266758
+  and 274 from 56266899, every one an episode in `data/mg_tapes/` - the shop router, and the overlay. The description
+  "benchmark + demand-keyed strawberry rule + melons + geese + buy-5 opening" is the OTHER submission, `cand_v1_nash5`
+  (56341683), a V45 benchmark with her rules bolted on.
+- Ladder: 56368334 is at **2309.7 after 101 games, 85-16**, still rising (2032 -> 2265 -> 2310); last 25 games 20-5.
+  By opponent's current score: <1800 21-1, 1800-2200 30-6 (+6.5k), 2200-2500 **25-5 (+6.3k)**, 2500-2800 **9-4
+  (+2.0k)**. `cand_v1` on the same ladder: 2239.4 after 203 games, 115-88; 2200-2500 31-27 (+0.1k), 2500-2800 21-28
+  (-1.2k). The rating lags the record because a new submission starts near 600 and the update shrinks with every game.
+
+## Microstructure map (engine `_process_market`, and 40 traced games against V50)
+- Orders are cut at 10 and filled by list position: position i of BOTH players is processed together, unit by unit,
+  both quoted at the same pre-commit inventory, so two SELLs of one product at the same position split every price step
+  equally; a SELL at a lower position finishes before the other side's starts. HIRE and BUY_LAND are atomic, in seat
+  order. A buy quotes the post-buy inventory, so a same-step round trip nets zero. There is no seat advantage.
+- So priority = (step, list position). Against V50, measured: only 19-21% of our wool, milk and strawberry units are sold
+  in a step where V50 sells the same product (melon 87%), and in those steps both sides already sit at position 0
+  (same position for 72-98% of the co-sold units; we are behind on 4-15% of them, i.e. 1-3% of all units). Position is
+  already taken by both sides; re-ranking our list is worth tens, not hundreds.
+- What is left is the STEP. Selling a lot one step before the rival's sale of that product is the only lever that has
+  measured positive (+22..+37, never negative, all three opponents), and it only reaches lots already in the shed; 48%
+  of her wool is delivered and sold in the same step. Every lever that moves our sales LATER pays the rival ~+400.
+- Untried, on-thesis: V45-family opponents are tapes too - deterministic given the shops we also see, identifiable from
+  their public farm by step 25, their tapes public. Their sale steps can be predicted and front-run by exactly one
+  step (the chassis has the `front_run` / `opponent_plan` hook for this). Bound: 20% of ~68k wool + milk + strawberry
+  revenue is co-sold; taking those lots first instead of sharing them is worth an inferred +0.4 to +0.7k to us and
+  about as much off the rival. It does nothing against opponents that are not tapes.
+
+## Majkel (rank 1): what we have and what we never did
+- Measured: 38 of his games in the 52-replay segment study (`docs/leader_segments.md`): per-segment behaviour, reaction to
+  shop reveals (same demand conditioning as hers), 58 PASS commands a game against her 882 (he works every hour, she
+  leaves labour idle), fertilizer made and used rather than bought, and the record comparison on the board.
+- Never done: replaying his tape against our benchmark, a product decomposition, or rule inference. His recorded actions
+  are one sample of a closed-loop hourly planner; replayed open-loop they would desynchronise the way her NEW
+  submissions' tapes do (21-21, -12k in their own world). Not worth doing as a tape.
+- Nondeterminism: 15 of 210 same-seat pairs diverge on identical observation histories, median first divergence at
+  step 3, action agreement 0.28 in the first segment and 0.00 from day 18. His overage clock drops 60 -> 40.8 s in the
+  opening and is flat afterwards (hers 60 -> 46.3): a heavy start-up computation, then sub-second steps. Divergence at
+  step 3, before any opponent or price information differs, reads as a wall-clock-bounded search (incidental), not a
+  mixed strategy - inference, not proof.
+- His wider ranges: shop-controlled correlations with the opponent's visible board were weak and inconsistent in the
+  segment study, so there is no evidence he conditions on something she does not; the variance is consistent with
+  re-planning every hour from noisy search. Learning from him means learning a planner, which is the executor route.
