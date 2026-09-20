@@ -75,3 +75,13 @@ of her cost edge) comes from a PLAN that needs 9.3 hands a day instead of 9.5, n
 13th hand" was the wrong lesson and is withdrawn as a recommendation for the base. Where the Fibonacci wage does bind
 is our own overlay: each of its hands is the 12th-14th hire of the day (144-377), which is why the care top-up only
 hires when a run is worth 1.5x its wage and why the sheep expansion does not pay.
+
+## Where the current build stands, on a fresh and larger block (seeds 176000-176127, both seats, 256 games each)
+`mgt_b1` (= submitted `mgt_t10` + sell one step early). The 32-seed block 174000-174031 was the one every change was
+gated on, and it flattered us (84%); these seeds were never looked at before.
+
+| Opponent | W-L | Win rate (95% CI) | Mean margin (95% CI) |
+|---|---|---|---|
+| V50 | 183-73 | 71.5% (63.7-78.9) | +3,482 (+2,239..+4,746) |
+| V48 | 197-59 | 77.0% (69.9-83.6) | +5,125 (+3,795..+6,448) |
+| frozen benchmark | 199-57 | 77.7% (70.7-84.4) | +5,196 (+3,903..+6,518) |
