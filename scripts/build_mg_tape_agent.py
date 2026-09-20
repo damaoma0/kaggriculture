@@ -105,6 +105,9 @@ def _mgt_hamming(a, b):
     return sum(1 for x, y in zip(a, b) if x != y)
 
 
+_MGT_MEAN = tuple(sum(_MGT_DEMAND[s].get(p, 0) for s in _MGT_DEMAND) / float(len(_MGT_DEMAND)) for p in _MGT_PRODUCTS)
+
+
 def _mgt_distance(ours_vec, ours, t, k):
     d = 0.0
     for j in _MGT_CHECKPOINTS:
@@ -113,6 +116,14 @@ def _mgt_distance(ours_vec, ours, t, k):
         d += sum(w * abs(x - y) for w, x, y in zip(_MGT_W, a, b))
         if j >= k:
             break
+    fw = _MGT_CFG.get('future_weight', 0.0)
+    if fw:
+        # the shops still to come are unknown: prefer a plan that was made for a TYPICAL future over one made for a
+        # rare one - the tape's later demand counts against the expectation (what we have + the mean shop per draw)
+        for j in _MGT_CHECKPOINTS:
+            if j > k:
+                exp = [x + (j - k) * m for x, m in zip(ours_vec[k], _MGT_MEAN)]
+                d += fw * sum(w * abs(x - y) for w, x, y in zip(_MGT_W, exp, t['vec'][j]))
     same = 0
     for x, y in zip(ours, t['shops']):
         if x != y:
@@ -156,6 +167,17 @@ def _mgt_router(observation, step, state):
             if best is None or key < best[0]:
                 best = (key, d, h, i)
         best = (best[1], best[2], best[3])
+        # research hook (absent on Kaggle): on day MGT_FREEZE_DAY take the MGT_PICK-th best tape and stop switching
+        _fd = _mgt_os.environ.get('MGT_FREEZE_DAY')
+        if _fd:
+            if state.get('frozen'):
+                return state['route']
+            if day >= int(_fd):
+                ranked = sorted((((_mgt_distance(ours_vec, shops, t, k) + lam * (_mgt_hamming(board, t['lab'][day]) if not ign else 0)), i)
+                                 for i, t in enumerate(_MGT_TAPES) if _mgt_hamming(board, t['lab'][day]) <= limit or i == cur))
+                pick = ranked[min(int(_mgt_os.environ.get('MGT_PICK', '0')), len(ranked) - 1)]
+                state['frozen'] = True
+                best = (pick[0], _mgt_hamming(board, _MGT_TAPES[pick[1]]['lab'][day]), pick[1])
         if best[2] != cur:
             state['route'] = best[2]
             _MGT_REPORT['switches'] += 1

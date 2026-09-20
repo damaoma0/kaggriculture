@@ -705,6 +705,28 @@ def _shp_field_tiles(tape, farm, step, n, taken=()):
     return out
 
 
+def _shp_se_tiles(farm, n, taken=()):
+    """Tiles for the extra flock in the SE quadrant - the one quadrant her plan never buys. It touches the shed
+    (access tile (5,5)), so the walk is one or two steps, and nothing of hers is displaced: turning her wheat fields
+    into pasture breaks her crew's harvest-then-feed chains (they feed with the wheat they just cut) and her own sheep
+    starve. Returned nearest the shed first; LOCKED tiles count when the land is about to be bought."""
+    out = []
+    for y in range(5, 10):
+        for x in range(5, 10):
+            p = (x, y)
+            if p in _SHP_SHED or p in taken:
+                continue
+            c = farm['tiles'][y][x]
+            if c is None or c == 'LOCKED' or (isinstance(c, dict) and c.get('kind') == 'WEED'):
+                out.append(p)
+    out.sort(key=lambda p: (_shp_dist(p, (5, 5)), p))
+    return out[:n]
+
+
+def _shp_tape_buys_land(tape, step):
+    return any(o and o[0] == 'BUY_LAND' for t in range(step, len(tape)) for o in ((tape[t] or {}).get('market') or []))
+
+
 def _shp_flock(state, day=None):
     """Tiles still worth servicing."""
     return [t for t in state['tiles'] if t not in state['lost']
@@ -737,6 +759,13 @@ def _shp_decide(state, obs, action, step):
     planned = owned + _shp_tape_future(player, day)
     flock = _shp_flock(state)
     deficit = min(int(_SHP_CFG.get('max_sheep', 16)) - len(flock), target - planned)
+    glut = float(((obs.get('market') or {}).get('inventory') or {}).get('WOOL', 10000) or 10000) - 10000.0
+    yarn = sum(1 for s in shops if s == 'YARN_STORE')
+    if _SHP_CFG.get('scarce_extra', 0) and yarn >= 2 and glut <= -_SHP_CFG.get('scarce_glut', 20):
+        # two or more Yarn Stores and the market already short: her additive rule under-counts (she ends on 14-20
+        # sheep there, V50 on 15); let the glut model size the flock instead
+        deficit = min(int(_SHP_CFG.get('max_sheep', 16)) - len(flock), max(deficit, int(_SHP_CFG['scarce_extra'])))
+    _SHP_REPORT.setdefault('evals', []).append([day, target, owned, planned, deficit])
     if deficit < _SHP_CFG.get('min_deficit', 2):
         return action
     farm = obs['farms'][player]
@@ -747,42 +776,65 @@ def _shp_decide(state, obs, action, step):
     cash = float(farm['money']) - _SHP_CFG.get('cash_margin', 2000)
     slots = 10 - len(market) - 2
     best = None
-    tiles_all = _shp_field_tiles(tape, farm, step, deficit, tuple(state['tiles']))
-    crop_tiles = set(_SHP_STATES.get('_crop_tiles') or ())
+    land = 0.0
+    if _SHP_CFG.get('se_quadrant'):
+        quads = list(farm.get('unlocked_quadrants') or [])
+        scarce = yarn >= 2 and glut <= -_SHP_CFG.get('scarce_glut', 20)
+        if not scarce or ('SE' not in quads and (len(quads) != 3 or _shp_tape_buys_land(tape, step))):
+            return action                                 # SE must be the NEXT quadrant, and hers must all be bought
+        land = 0.0 if 'SE' in quads else 4000.0
+        tiles_all = _shp_se_tiles(farm, deficit, tuple(state['tiles']))
+        crop_tiles = set()
+    else:
+        tiles_all = _shp_field_tiles(tape, farm, step, deficit, tuple(state['tiles']))
+        crop_tiles = set(_SHP_STATES.get('_crop_tiles') or ())
     if len(tiles_all) < _SHP_CFG.get('min_deficit', 2):
         _shp_count('declined_tiles')
         return action
     deficit = len(tiles_all)
     bases = [_shp_tape_hires(tape, d) for d in range(day + 1, 29)]
     base_today = int(farm.get('hires_today', 0)) + sum(1 for o in market if o and o[0] == 'HIRE')
+    optional = _shp_topups(state, obs, tape, day) if _SHP_CFG.get('share_labour', True) else []
+    base_mid = bases[len(bases) // 2] if bases else base_today
+    hands_before = len(_shp_runs(state, list(flock), optional, 2, base_mid, int(_SHP_CFG.get('max_hands', 4))))
     for n in range(deficit, 0, -1):
         k_today = _shp_hands_for(n, hour, True) + (0 if hired_today else _shp_hands_for(len(flock), hour))
         if k_today > min(slots, _SHP_CFG.get('max_hands', 4)):
             continue
-        after, before = _shp_hands_for(len(flock) + n, 0), _shp_hands_for(len(flock), 0)
-        if after > _SHP_CFG.get('max_hands', 4):
+        after = len(_shp_runs(state, list(flock) + list(tiles_all[:n]), optional, 2, base_mid, int(_SHP_CFG.get('max_hands', 4))))
+        before = hands_before
+        if _shp_hands_for(len(flock) + n, 0) > _SHP_CFG.get('max_hands', 4):
             continue
         wage = sum(_shp_wages(b, after) - _shp_wages(b, before) for b in bases)
         wage_today = _shp_wages(base_today, k_today)
         # wool revenue from the engine price curve (85%), feed at wheat + 12, a converted field ~1 wheat a day
         fields = sum(1 for t in tiles_all[:n] if t in crop_tiles)
         profit = (_SHP_CFG.get('wool_factor', 0.85) * _shp_wool_gain(obs, player, day, n) - 500.0 * n
-                  - n * days_left * (wheat + 12.0) - fields * days_left * wheat - wage - wage_today)
-        cost = 500 * n + wage_today + (len(flock) + n + 2) * (wheat + 12)
+                  - n * days_left * (wheat + 12.0) - fields * days_left * wheat - wage - wage_today - land)
+        cost = 500 * n + wage_today + (len(flock) + n + 2) * (wheat + 12) + land
         if cost > cash:
             continue
         if best is None or profit > best[0]:
             best = (profit, n, k_today)
     if best is None:
         _shp_count('declined_cash')
+        _SHP_REPORT['evals'][-1] += ['cash', round(cash)]
         return action
     profit, n, k = best
+    _SHP_REPORT['evals'][-1] += [n, round(profit), round(_shp_wool_gain(obs, player, day, n)), round(wool)]
     if n < _SHP_CFG.get('min_deficit', 2) or profit < _SHP_CFG.get('min_profit', 1000.0):
         _shp_count('declined_profit')
         return action
     tiles = tiles_all[:n]
     feed = n + 2 + (0 if hired_today else len(flock))
     parent_hires = sum(1 for o in market if o and o[0] == 'HIRE')
+    if land:
+        if len(market) + k + 3 > 10:
+            _shp_count('declined_orders')
+            return action
+        market.append(['BUY_LAND'])
+        state['se_bought'] = True
+        _shp_count('se_quadrant_bought')
     market += [['BUY_ANIMAL', 'SHEEP', n], ['BUY_PRODUCT', 'WHEAT', feed]] + [['HIRE'] for _ in range(k)]
     work = list(tiles) + ([] if hired_today else flock)
     state['tiles'] = state['tiles'] + tiles
@@ -954,7 +1006,7 @@ def _shp_work(state, obs, idx, role, step):
                 todo.append((t, ['CARE']))
             elif int(c.get('yield_units', 0) or 0) > 0:
                 todo.append((t, ['HARVEST']))
-            elif c.get('fertilizer_available') and hour < 22 and not last_day:
+            elif c.get('fertilizer_available') and hour < 16 and not last_day and not _SHP_CFG.get('no_collect'):
                 todo.append((t, ['COLLECT_FERTILIZER']))
         elif t not in state['placed'] and have_sheep > 0 and not feed_only:
             if c is None:
@@ -976,6 +1028,9 @@ def _shp_work(state, obs, idx, role, step):
                 todo.append((t, ['CARE']))
             elif 'HARVEST' in topup[t] and int(c.get('yield_units', 0) or 0) > 0:
                 todo.append((t, ['HARVEST']))
+    wool_on_board = int(inv.get('WOOL', 0) or 0) + int(inv.get('MILK', 0) or 0)
+    if todo and wool_on_board and not unfed and (hour >= 17 or wool_on_board >= _SHP_CFG.get('deliver_at', 24)):
+        todo = []                                     # the product goes to market today; the rest of the round can wait
     if todo:
         tile, cmd = min(todo, key=lambda x: (_shp_dist(pos, x[0]), x[0]))
         if pos != tile:
@@ -996,14 +1051,23 @@ def _shp_work(state, obs, idx, role, step):
         if step_home:
             return step_home
         shed_total = sum(int(v or 0) for v in shed.values())
-        if shed_total + load > 100 and hour < 22:
-            return ['PASS']                           # wait for room rather than lose the overflow
-        for item in _SHP_CARGO:
-            if int(inv.get(item, 0) or 0):
-                state['credit'][item] = state['credit'].get(item, 0) + int(inv[item])
-        state['wheat_credit'] = state.get('wheat_credit', 0) + have_wheat
-        role['tries'] = 9                             # done for the day: no more loading
-        return ['DROP']
+        room = max(0, 100 - shed_total - int(state.get('room_used', 0)))
+        for item in _SHP_CARGO:                       # one product a step, only what fits, sold the same step
+            have = int(inv.get(item, 0) or 0)
+            if have <= 0:
+                continue
+            n = min(have, room)
+            if n <= 0:
+                return ['PASS']                       # full shed: wait for our same-step sales to clear it
+            state['sell_now'][item] = state['sell_now'].get(item, 0) + n
+            state['room_used'] = int(state.get('room_used', 0)) + n
+            role['tries'] = 9                         # done for the day: no more loading
+            return ['PLACE', item, n]
+        if have_wheat and room >= have_wheat:
+            state['wheat_credit'] = state.get('wheat_credit', 0) + have_wheat
+            role['tries'] = 9
+            return ['PLACE', 'WHEAT', have_wheat]
+        return ['PASS']
     return ['PASS']
 
 
@@ -1030,7 +1094,8 @@ def agent(observation, configuration=None):
         state = _SHP_STATES.get(player)
         if state is None or step <= state.get('last', -1):
             state = _SHP_STATES[player] = {'last': -1, 'workers': {}, 'tiles': [], 'placed': set(), 'placed_day': {},
-                                           'lost': set(), 'own': set(), 'own_day': -1, 'credit': {}, 'wheat_credit': 0}
+                                           'lost': set(), 'own': set(), 'own_day': -1, 'credit': {}, 'wheat_credit': 0,
+                                           'sell_now': {}, 'room_used': 0}
             _SHP_REPORT.clear()
         state['last'] = step
         if state.get('own_day') != step // 24:
@@ -1064,7 +1129,8 @@ def agent(observation, configuration=None):
             action = dict(action, hands=merged)
         action = _shp_decide(state, observation, action, step)
         action = _shp_daily_hire(state, observation, action, step)
-        _MGT_IGNORE[player] = {y * 10 + x for x, y in state['tiles']}
+        _MGT_IGNORE[player] = {y * 10 + x for x, y in state['tiles']} | (
+            {y * 10 + x for y in range(5, 10) for x in range(5, 10)} if state.get('se_bought') else set())
         _tape_now = _shp_route(player)
         if _tape_now is not None:
             if state.get('cull_day') != step // 24:
@@ -1077,13 +1143,18 @@ def agent(observation, configuration=None):
             action = _shp_reveal_hold(state, observation, action, step)
         shed_now = observation['private'].get('shed') or {}
         for item in _SHP_CARGO:
-            q = min(int(state['credit'].get(item, 0)), int(shed_now.get(item, 0) or 0))
+            # lots placed THIS step are on sale this step; older credit (midnight auto-drops) once it is in the shed
+            q = int(state['sell_now'].get(item, 0)) + min(int(state['credit'].get(item, 0)), int(shed_now.get(item, 0) or 0))
             market = [list(o) for o in (action.get('market') or [])]
             if q > 0 and len(market) < 10:
                 market.append(['SELL', item, q])
                 action = dict(action, market=market)
-                state['credit'][item] -= q
+                state['credit'][item] = max(0, int(state['credit'].get(item, 0)) - max(0, q - int(state['sell_now'].get(item, 0))))
                 _shp_count('sold_' + item.lower(), q)
+            elif state['sell_now'].get(item):
+                state['credit'][item] = state['credit'].get(item, 0) + state['sell_now'][item]   # no slot: sell later
+        state['sell_now'] = {}
+        state['room_used'] = 0
         if state.get('need_wheat'):
             market = [list(o) for o in (action.get('market') or [])]
             if len(market) < 10 and step % 24 < 12:

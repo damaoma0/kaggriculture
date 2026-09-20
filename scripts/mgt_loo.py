@@ -50,7 +50,8 @@ def run(job):
         ours = lambda obs, t: agent(obs)
         history = ns['_MGT_HISTORY']
         sheep = ns.get('_SHP_REPORT')
-    trace = dict(price={'WOOL': [], 'MILK': []}, ours={'WOOL': {}, 'MILK': {}}, rival={'WOOL': {}, 'MILK': {}})
+    trace = dict(price={'WOOL': [], 'MILK': [], 'MELON': []}, ours={'WOOL': {}, 'MILK': {}, 'MELON': {}},
+                 rival={'WOOL': {}, 'MILK': {}, 'MELON': {}}, melon_ready=[[], []], melon_index=[{}, {}])
 
     def logged(fn, who):
         def call(obs, t):
@@ -58,6 +59,15 @@ def run(job):
             if who == 'ours':
                 for k in trace['price']:
                     trace['price'][k].append(obs['market']['prices'].get(k))
+                day = t // 24
+                for side, farm in ((0, obs['farms'][seat]), (1, obs['farms'][1 - seat])):
+                    trace['melon_ready'][side].append(sum(
+                        1 for row in farm['tiles'] for c in row
+                        if isinstance(c, dict) and c.get('kind') == 'PLANT' and c.get('crop') == 'MELON'
+                        and day - int(c.get('planted_day', day)) >= 10))
+            for j, o in enumerate((a.get('market') or []) if isinstance(a, dict) else []):
+                if o and o[0] == 'SELL' and len(o) >= 3 and o[1] == 'MELON' and int(o[2]) > 0:
+                    trace['melon_index'][0 if who == 'ours' else 1][t] = j      # position of the melon SELL in the order list
             for o in (a.get('market') or []) if isinstance(a, dict) else []:
                 if o and o[0] == 'SELL' and len(o) >= 3 and o[1] in trace[who] and int(o[2]) > 0:
                     trace[who][o[1]][t] = trace[who][o[1]].get(t, 0) + int(o[2])
