@@ -69,3 +69,9 @@ https://www.kaggle.com/competitions/kaggriculture
   46% / fed 68% of animal-days with no Yarn Store vs 75-90% with one; cows 65% -> 86% as milk shops
   appear; geese always ~92%. Her tapes also over-request animal orders (six "BUY SHEEP 1" at once), so
   count sheep from boards, not from orders.
+- 2026-09-20: live submission is `agents/mgt_t10.py` (56368334; Mother-Goose tape router + repairs + overlay, ~2310
+  and rising); `mgt_b1` (= t10 + sell_lead) is the local best, not submitted. README.md and `docs/` are the live log;
+  the status lines above are history. Head to head against her ORIGINAL tape in 128 fresh recorded worlds: -4.5k
+  (19-109) when her tape for the world is excluded, +0.5k (98-30; b1 +0.8k, 111-17) on her own plan. The layers are
+  net positive; the whole gap is playing a neighbour's plan, and it is PRICE (late-game wool/milk/strawberry quotes),
+  not units. Her crew routing is within 4% of optimal per hand (`docs/tape_opportunity_map.md`).

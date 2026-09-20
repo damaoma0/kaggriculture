@@ -6,7 +6,8 @@ shops forced, natural weeds) and played in her seat in three arms:
   native_chassis  the agent restricted to that one tape (MGT_ONLY): what the chassis layers cost or add
   loo             the agent with that tape removed from its library (MGT_EXCLUDE): the pure routing loss
 Output: results/fresh/mg_tape/loo/<agent>-<arm>-<episode>.json
-Usage:  python mgt_loo.py <agent> [rival=v50_public] [n_worlds=40] [arms=native_raw,native_chassis,loo]
+  mg_vs / mg_vs_only   HER recorded tape in her seat against live <rival> (tape excluded / rival restricted to it)
+Usage:  python mgt_loo.py <agent> [rival=v50_public] [n_worlds=40] [arms=native_raw,native_chassis,loo] [offset=0]
 """
 import gzip, json, os, random, sys
 from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -33,13 +34,15 @@ def run(job):
     opp = get_last_callable(rp.read_text(encoding='utf-8'), path=str(rp))
     history = None
     sheep = None
-    if arm == 'mg_vs':
-        # head to head: HER recorded moves in her own world against the live rival, whose tape library must not
-        # contain this world (the rival file reads MGT_EXCLUDE when it is loaded below)
-        os.environ['MGT_EXCLUDE'] = str(ep)
+    if arm in ('mg_vs', 'mg_vs_only'):
+        # head to head: HER recorded moves in her own world against the live rival. mg_vs: the rival's tape library
+        # must not contain this world (MGT_EXCLUDE, read when the file is loaded below) - the ladder situation.
+        # mg_vs_only: the rival is restricted to this very tape (MGT_ONLY) - same plan on both sides, so the margin
+        # is what the chassis repairs and the overlay add to or take from her original.
+        os.environ['MGT_EXCLUDE' if arm == 'mg_vs' else 'MGT_ONLY'] = str(ep)
         rp = ROOT / 'agents' / f'{rival}.py'
         opp = get_last_callable(rp.read_text(encoding='utf-8'), path=str(rp))
-    if arm in ('native_raw', 'mg_vs'):
+    if arm in ('native_raw', 'mg_vs', 'mg_vs_only'):
         actions = [a if isinstance(a, dict) else {} for a in tape['actions']]
         fix_opening(actions)
         ours = lambda obs, t: deepcopy(actions[t]) if t < len(actions) else {'farmer': ['PASS'], 'hands': [], 'market': []}
@@ -89,6 +92,7 @@ def run(job):
     out = dict(agent=name, rival=rival, arm=arm, episode=ep, seat=seat, shops=tape['shops'][30],
                final=res['final'][seat], rival_final=res['final'][1 - seat], margin=res['final'][seat] - res['final'][1 - seat],
                revenue=d['revenue'], spend=d['spend'], sold=d['sold_units'], rival_revenue=res['daily'][1 - seat][-1]['revenue'],
+               rival_spend=res['daily'][1 - seat][-1]['spend'], rival_sold=res['daily'][1 - seat][-1]['sold_units'],
                no_effect=d['physical'].get('no_effect', 0), missing=d['physical'].get('missing_worker_commands', 0),
                cash_daily=[x['money'] for x in res['daily'][seat]], history=list(history) if history is not None else None,
                revenue_daily=[{k: round(v) for k, v in x['revenue'].items()} for x in res['daily'][seat]],
@@ -105,13 +109,14 @@ def main():
     rival = sys.argv[2] if len(sys.argv) > 2 else 'v50_public'
     n = int(sys.argv[3]) if len(sys.argv) > 3 else 40
     arms = (sys.argv[4] if len(sys.argv) > 4 else 'native_raw,native_chassis,loo').split(',')
+    off = int(sys.argv[5]) if len(sys.argv) > 5 else 0          # worlds [off, off + n) of the fixed shuffle
     files = sorted(p for s in ('56266758', '56266899') for p in (ROOT / 'data/mg_tapes' / s).glob('*.json.gz'))
     random.Random(20260920).shuffle(files)
     jobs = []
-    for p in files[:n]:
+    for p in files[off:off + n]:
         ep = p.name.split('.')[0]
         for arm in arms:
-            key = 'any' if arm == 'native_raw' else (f'mgtape_vs_{rival}' if arm == 'mg_vs' else name)
+            key = 'any' if arm == 'native_raw' else (f'mgtape_vs_{rival}' if arm.startswith('mg_vs') else name)
             if not (OUT / f'{key}-{arm}-{ep}.json').exists():
                 jobs.append((key, rival, arm, str(p)))
     print(f'{len(jobs)} games', flush=True)

@@ -133,3 +133,87 @@ carries ADDED production (our sheep overlay: +139 n.s. on LOO), which is a diffe
 
 **Priority.** Neither idea clears a few hundred a game at its upper bound. Front-running the V45-family tapes
 (inferred +0.4-0.7k, overlay-sized, no replan) stays ahead of both.
+
+## Head to head against her ORIGINAL tape (2026-09-20, 128 fresh worlds)
+`scripts/mgt_loo.py <agent> <agent> 128 mg_vs,mg_vs_only 80`, report `scripts/mgt_h2h_report.py`. A recorded tape
+belongs to its world, so the panel is 128 of HER recorded worlds (seed, her shops forced, natural weeds) that were
+never used for tuning (worlds 80-207 of the fixed shuffle; the 0-79 block is the development set). Her recorded
+moves play her seat raw (equilibrium opening only); our agent plays the other seat live (we sit in seat 0 in 76
+worlds, seat 1 in 52). Margins are ours minus hers. "Net" subtracts the 2,468 frozen-tape handicap of
+`docs/tape_vs_bench.md` from us.
+
+| `mgt_t10` | W-T-L raw | mean raw (95% CI) | W-T-L net | mean net |
+|---|---|---|---|---|
+| **A. ladder case**: her tape for this world removed from our library | **19-0-109** | **-4,485** (-5,346 to -3,610) | 8-0-120 | -6,953 |
+| **B. same plan**: we are restricted to her tape for this world | **98-0-30** | **+546** (+380 to +738) | 5-0-123 | -1,922 |
+| A minus B, paired by world (= routing to a neighbour's tape) | 15-0-113 | **-5,031** (-5,873 to -4,185) | | |
+
+- **Our layers do not degrade her policy.** On her own plan the repairs + overlay are worth +546 (wool +461, milk
+  +270 of revenue; +204 wages, +257 wheat of spending). Both seats agree (+518 / +585).
+- **The whole deficit is the plan we replay.** Without her tape for the world we lose 4.5k to it: tomato -1,023,
+  wool -829, wheat -694, milk -614 of revenue, and +1,171 of spending (wheat +571, wages +483). That is a
+  WHAT-to-produce error (a neighbour's plan, made for other shops), not an execution error: the same chassis and
+  overlay run her own plan at +546.
+- **On the handicap.** 2,468 was calibrated on our old benchmark, a price-reactive policy, frozen against itself.
+  Her tape here stays valid (3.6-4.6 commands without effect a game out of ~6,200; 5.4 against V50; no failed hire
+  chain), and she does not condition on prices, so the real handicap in this matchup is probably much smaller than
+  2,468. It cannot be measured without her code. The raw numbers are the better estimate; the net ones are the
+  pessimistic bound.
+
+| `mgt_b1` (= t10 + sell one step early) | W-T-L raw | mean raw (95% CI) | W-T-L net | mean net |
+|---|---|---|---|---|
+| A. ladder case | 19-0-109 | -4,455 (-5,317 to -3,586) | 8-0-120 | -6,923 |
+| B. same plan | **111-0-17** | **+779** (+578 to +989) | 7-0-121 | -1,689 |
+| A minus B | 13-0-115 | -5,235 (-6,078 to -4,384) | | |
+
+Selling one step ahead of her adds +233 on her own plan (98-30 -> 111-17): the microstructure lever works against
+her, it is just small next to the plan gap.
+
+**What the 5.0k routing loss is made of (`mgt_t10`, A minus B, per game):** our revenue -2,982, our spending +668
+(wheat +310, wages +279), HER revenue +1,372 (she no longer shares every quote with a twin selling the same lots
+on the same steps: wool +2.7, milk +1.5, tomato +3.6 a unit). Our revenue loss is PRICE, not units:
+
+| ours | units B -> A | realised price B -> A | revenue |
+|---|---|---|---|
+| wool | 134.3 -> 139.3 | 155.1 -> **142.5** | -972 |
+| milk | 179.7 -> 181.1 | 129.4 -> **125.1** | -612 |
+| strawberry | 212.4 -> 217.3 | 168.4 -> **163.6** | -221 |
+| tomato | 77.6 -> **66.5** | 81.2 -> 83.1 | -776 |
+| wheat | 405.3 -> **387.5** | 36.4 -> 37.0 | -431 |
+
+A neighbour's tape reproduces her VOLUMES within 4% (tomato -14%); what it does not reproduce is the fit between
+when / how much is sold and this world's shops. By phase the wool quote at our sale steps is equal to day 17 and
+then falls away (days 18-23: 150 -> 134, days 24-29: 145 -> 113): the mismatch is in the late game, where the
+shops that matter (days 9-27) were unknown when the tape was chosen.
+
+## Plan versus execution: what the split looks like (2026-09-20, `scripts/mg_plan_split.py`)
+**Interface today.** `Chassis.act` takes `routes[route_id][step]` - one flat Kaggle action dict
+`{farmer, hands[], market[]}` - and mutates it. There is no task object anywhere on the crew side: a hand's command
+is addressed by hand index and is only right if that hand stands where her hand stood (dead reckoning);
+`hand_align` pads the list and `weed_repair` inserts a DIG and replays the displaced command. The MARKET half is
+already split from execution: orders do not depend on routes, and `budget_guard`, `room_guard`, `clamp_sells`,
+`dead_stock`, `terminal_liquidation`, `sell_lead` re-write them against the real cash and shed every step. The
+only place a crew PLAN exists is the overlay: `_tc_simulate` / `_tc_visits` (tape calendar) recover
+(step, unit, tile, command) from the tape, `_shp_cal` turns that into per-day feed / care / touch sets, and
+`_shp_runs` + `_shp_work` are a working small executor (assign tiles to up to 4 hidden hands, walk, PICKUP wheat,
+FEED / CARE / HARVEST, deliver and sell in the same step). So the extractor exists and a narrow executor exists.
+
+**How much of a tape is plan.** Per game 7,046 unit-steps + 756 market orders:
+- decisions, ~10%: PLANT 233, FERTILIZE 187, BUILD 21, BUY_ANIMAL 14, BUY_LAND 2 on the crew side; SELL 269,
+  BUY_SEED 146, BUY_PRODUCT 47 on the market side (HIRE 278 is a consequence of the workload).
+- upkeep that follows from those decisions by rule, ~36%: WATER 1,020, HARVEST 499, COLLECT_FERTILIZER 389,
+  FEED 317, CARE 299 (her servicing is demand-conditioned, so FEED / CARE carry some decision too).
+- execution, 57%: moves 2,837 (40%), shed logistics 349 (5%: PICKUP 212, PLACE 94, DROP 44), idle 857 (12%).
+- The crew plan is 1,393 tile-visits a game (46 tiles a day, 2.2 commands a visit).
+
+**How good her execution is.** Re-ordering the same tiles optimally inside each leg (exact DP, order constraints
+ignored, so generous) saves 107 of 2,666 moves a game (4.0%); 87% of hand-days are already optimal. Re-packing
+across hands is bounded by the slack study: <= ~1.0k of wages with a perfect packer, ~0.35k realistically. An
+executor that routes 10% worse than she does costs ~280 steps = a hand a day = -1.8k.
+
+**Read.** Splitting crew plan from crew execution is feasible (the extractor and a narrow executor exist) but
+re-executing the SAME plan buys at most ~0.3-1.0k and risks ~2k: her crew half is near-optimal and we already run
+it faithfully (+546 on her own plan). The 5k sits in the half that is ALREADY separable - the market plan (what is
+sold when, wheat round trip) against the actual world's shops - plus a late-game production fit. The executor only
+earns its cost if it is used to CHANGE the plan (late-shop re-plants, melon-day re-route), and that needs a model
+of her plan as a function of shops first.
