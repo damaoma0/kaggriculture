@@ -151,8 +151,14 @@ def main():
             key = 'any' if arm == 'native_raw' else (f'mgtape_vs_{rival}' if arm.startswith('mg_') else name)
             if os.environ.get('MGT_FORCE') or not (OUT / f'{key}-{arm}-{ep}.json').exists():
                 jobs.append((key, rival, arm, str(p)))
-    print(f'{len(jobs)} games', flush=True)
-    with ProcessPoolExecutor(max_workers=4, max_tasks_per_child=1) as pool:
+    # memory guard (shared machine): ~0.92 GB a worker, keep 2 GB free, never more than 4 (LP_WORKERS caps lower)
+    import psutil
+    avail = psutil.virtual_memory().available / 1e9
+    workers = max(0, min(4, int(os.environ.get('LP_WORKERS', 4)), int((avail - 2.0) / 0.92)))
+    print(f'{len(jobs)} games, {workers} workers ({avail:.1f} GB free)', flush=True)
+    if not workers:
+        raise SystemExit('not enough free memory for one game worker; aborting')
+    with ProcessPoolExecutor(max_workers=workers, max_tasks_per_child=1) as pool:
         futures = {pool.submit(run, j): j for j in jobs}
         for f in as_completed(futures):
             try:

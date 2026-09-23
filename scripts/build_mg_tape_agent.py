@@ -44,6 +44,10 @@ if _mgt_os.environ.get('MGT_ONLY'):
 elif _mgt_os.environ.get('MGT_EXCLUDE'):
     _MGT_TAPES = [t for t in _MGT_TAPES if str(t['ep']) != _mgt_os.environ['MGT_EXCLUDE']]
 _MGT_CFG['default_route'] = next((i for i, t in enumerate(_MGT_TAPES) if t.get('modal')), 0)
+if _MGT_CFG.get('opening_route') is not None:          # locate the opening route by id (library filters shift indexes)
+    _MGT_CFG['opening_route'] = next((i for i, t in enumerate(_MGT_TAPES) if t.get('ep') == 'opening'), None)
+    if _MGT_CFG['opening_route'] is not None:
+        _MGT_CFG['default_route'] = _MGT_CFG['opening_route']
 _MGT_ROUTES = {i: [_MGT_ACTIONS[j] for j in t['ids']] for i, t in enumerate(_MGT_TAPES)}
 _MGT_REPORT = {'switches': 0, 'router_errors': 0}
 _MGT_HISTORY = []
@@ -141,6 +145,12 @@ def _mgt_router(observation, step, state):
         if step % 24 != 0 or step < 72 or step >= _MGT_CFG.get('last_switch_day', 28) * 24 + 1:
             return state['route']
         day = step // 24
+        # new-opening handoff (off unless --opening): the leaders' fixed opening is played as a route until
+        # opening_until (the day-6 morning is the only day its board is within max_hamming of our tapes), and is
+        # never ranked or kept after that
+        _op = _MGT_CFG.get('opening_route')
+        if _op is not None and state['route'] == _op and day < _MGT_CFG.get('opening_until', 6):
+            return state['route']
         shops = list((_get(observation, 'town', {}) or {}).get('unlocked_shops', []) or [])
         # research hooks (absent on Kaggle), hindsight ceilings:
         #   MGT_ORACLE_SHOPS=a,b,..  rank tapes against the world's FULL shop list from the first routing day on
@@ -177,7 +187,7 @@ def _mgt_router(observation, step, state):
         sp = _MGT_CFG.get('strand_penalty', 0.0)
         mine = [j for j, x in enumerate(board) if x in _MGT_ANIMAL_LABELS] if sp else ()
         for i, t in enumerate(_MGT_TAPES):
-            if i == _hide:
+            if i == _hide or i == _op:
                 continue
             h = _mgt_hamming(board, t['lab'][day]) if not (ign or aw != 1) else sum(
                 (aw if (x in _MGT_ANIMAL_LABELS or y in _MGT_ANIMAL_LABELS) else 1)
@@ -193,6 +203,12 @@ def _mgt_router(observation, step, state):
             key = (d + lam * h, 0 if i == cur else 1, h, i)
             if best is None or key < best[0]:
                 best = (key, d, h, i)
+        if best is None:
+            # only reachable when the opening route is left: no tape within max_hamming, take the nearest board
+            best = min(((_mgt_hamming(board, t['lab'][day]), _mgt_distance(ours_vec, shops, t, k), i)
+                        for i, t in enumerate(_MGT_TAPES) if i != _op))
+            best = ((best[1] + penalty, 1, best[0], best[2]), best[1] + penalty, best[0], best[2])
+            _MGT_REPORT['opening_fallback'] = 1
         best = (best[1], best[2], best[3])
         # research hook (absent on Kaggle): on day MGT_FREEZE_DAY take the MGT_PICK-th best tape and stop switching
         _fd = _mgt_os.environ.get('MGT_FREEZE_DAY')
@@ -275,6 +291,7 @@ def main():
     settings = dict(hand_align=True, weed_repair=True, sell_lead=False, front_run=False, budget_guard=True,
                     room_guard=True, clamp_sells=True, dead_stock=True, terminal_liquidation=True)
     cfg = dict(max_hamming=8, incompatible_penalty=4.0)
+    opening = None
     i = 1
     while i < len(args):
         if args[i] == '--subs':
@@ -300,6 +317,8 @@ def main():
                         continue
                     sheep[k] = float(v) if '.' in v else (int(v) if v.lstrip('-').isdigit() else v)
             i += 2
+        elif args[i] == '--opening':
+            opening = json.loads(Path(args[i + 1]).read_text(encoding='utf-8')); i += 2
         elif args[i] == '--cfg':
             for kv in args[i + 1].split(','):
                 k, v = kv.split('=')
@@ -342,6 +361,22 @@ def main():
     cfg['default_route'] = next(i for i, t in enumerate(tapes) if tuple(t['ids'][:72]) == modal)
     for t in tapes:
         t['modal'] = tuple(t['ids'][:72]) == modal
+    if opening:
+        # the leaders' fixed opening as an extra route: its recorded actions for days 0..len-1, nothing after; boards for
+        # the recorded days, then an impossible board so the router can never keep it
+        ids = []
+        for t in range(719):
+            a = opening['actions'][t] if t < len(opening['actions']) else {}
+            a = {'farmer': a.get('farmer') or ['PASS'], 'hands': a.get('hands') or [], 'market': a.get('market') or []}
+            k = json.dumps(a, sort_keys=True, separators=(',', ':'))
+            if k not in index:
+                index[k] = len(unique); unique.append(a)
+            ids.append(index[k])
+        boards = list(opening['boards']) + ['XX' * 100] * (30 - len(opening['boards']))
+        tapes.append(dict(ids=ids, shops=list(tapes[0]['shops']), boards=boards, ep='opening', modal=False))
+        cfg['opening_route'] = len(tapes) - 1
+        cfg['opening_until'] = int(opening.get('until', len(opening['actions']) // 24))
+        cfg['default_route'] = cfg['opening_route']
     cfg['settings'] = settings
     blob = base64.b85encode(zlib.compress(json.dumps(dict(actions=unique, tapes=tapes), separators=(',', ':')).encode('utf-8'), 9)).decode('ascii')
     assert "'" not in blob and '\\' not in blob
@@ -356,8 +391,24 @@ def main():
     # Kaggle's loader calls the LAST NEW callable name in the file. Re-defining `agent` in a fragment keeps the
     # name's original position in the module dict, so helpers defined after the first `agent` would win. The
     # entry point is therefore a fresh name, defined last; the check below loads the file the way Kaggle does.
-    body += chr(10) * 3 + 'def mgt_kaggle_entry(observation, configuration=None):' + chr(10) \
-        + '    return agent(observation, configuration)' + chr(10) * 3         + "mgt_kaggle_entry.sp_telemetry = agent.sp_telemetry if hasattr(agent, 'sp_telemetry') else _MGT_REPORT" + chr(10)
+    entry_src = ('def mgt_kaggle_entry(observation, configuration=None):' + chr(10)
+                 + '    return agent(observation, configuration)' + chr(10))
+    if opening and opening.get('raw', True):
+        # the leaders' opening is budget-exact and over-requests hires on purpose (DSM asks ~17 on day 1, ~6 arrive, and
+        # ends day 1 with a few coins): our budget / hire guards rewrite it (first O1 panel: board 12 tiles off at the
+        # handoff, hire shortfalls in every game, -66k). Replayed raw it reproduces DSM's day-6 board in 14/16 worlds
+        # (scripts/opening_replay_probe.py), so the days before opening_until go out untouched and the chassis and
+        # every layer start at the day-6 handoff, when all hands respawn at the shed.
+        entry_src = ('def mgt_kaggle_entry(observation, configuration=None):' + chr(10)
+                     + "    _op = _MGT_CFG.get('opening_route')" + chr(10)
+                     + "    _t = int(_get(observation, 'step', 0) or 0)" + chr(10)
+                     + "    if _op is not None and _t < _MGT_CFG.get('opening_until', 6) * 24:" + chr(10)
+                     + '        _a = _MGT_ROUTES[_op][_t]' + chr(10)
+                     + "        return {'farmer': list(_a.get('farmer') or ['PASS']), 'hands': [list(h) for h in (_a.get('hands') or [])],"
+                     + " 'market': [list(o) for o in (_a.get('market') or [])]}" + chr(10)
+                     + '    return agent(observation, configuration)' + chr(10))
+    body += chr(10) * 3 + entry_src + chr(10) * 2 \
+        + "mgt_kaggle_entry.sp_telemetry = agent.sp_telemetry if hasattr(agent, 'sp_telemetry') else _MGT_REPORT" + chr(10)
     out = ROOT / 'agents' / f'{name}.py'
     out.write_text(chassis + body, encoding='utf-8')
     compile(out.read_text(encoding='utf-8'), str(out), 'exec')

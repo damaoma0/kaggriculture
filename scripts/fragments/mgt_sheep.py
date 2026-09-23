@@ -380,7 +380,11 @@ def _shp_topups(state, obs, tape, day):
               production days, so a banked unit is only counted when the tape feeds the next production day, or
               charged a second feed when it does not (the payout feed below then follows on that day).
       payout  on a production day with a bank, a FEED the tape skips is worth the whole bank.
-    Values use ``topup_factor`` of today's price; feed at wheat + 12."""
+    Values use ``topup_factor`` of today's price; feed at wheat + 12.
+    ``rescue_pin`` (off): also fill ``state['rescue_pinned']`` with every tile that is an orphan rescue/payout
+    commitment, or whose animal has consecutive_unfed>=1 - these cannot wait for a later hand. _shp_runs seats them
+    with the flock, ahead of any value-density ranking, so a merely-higher-value task (e.g. a yarn_service pass on
+    an animal that is in no danger) can never cost an already-needed rescue the day's last route slot."""
     if not _SHP_CFG.get('topup', True) or day < 1 or day > 29:
         return []
     farm = obs['farms'][int(obs['player'])]
@@ -389,9 +393,25 @@ def _shp_topups(state, obs, tape, day):
     factor = _SHP_CFG.get('topup_factor', 0.8)
     feed, care, _ = _shp_cal(state, tape, day)
     outlook = {_SHP_ANIMALS[a][0]: _shp_outlook(obs, _SHP_ANIMALS[a][0], a) for a in _SHP_ANIMALS}
+    # late-Yarn response (off unless yarn_service): a Yarn Store is open in THIS world. In the 27 of 128 head-to-head
+    # worlds that got more late Yarn Stores than our final tape, we kept 5.4 sheep to her 6.5 and fed / cared them
+    # 69% / 51% of days to her 88% / 78% (scripts/late_yarn_service_gap.py): a tape from a low-Yarn world winds its
+    # sheep down (skips feeds, still harvests), which the orphan rule leaves alone.
+    _world = list((obs.get('town') or {}).get('unlocked_shops') or [])
+    yarn_open = bool(_SHP_CFG.get('yarn_service')) and 'YARN_STORE' in _world
+    if yarn_open and _SHP_CFG.get('yarn_gate'):
+        # only where the world has MORE Yarn Stores open than the followed tape's world had by the same reveal: where
+        # they match, the tape already services for that demand (head-to-head: +221 where the world has more, -64 /
+        # -94 where it has the same or fewer)
+        _rid = (_MGT_IMPL.chassis.players.get(int(obs['player'])) or {}).get('route')
+        _tshops = list(_MGT_TAPES[_rid]['shops']) if _rid is not None and _rid < len(_MGT_TAPES) else []
+        yarn_open = _world.count('YARN_STORE') > _tshops[:len(_world)].count('YARN_STORE')
+    pin_on = bool(_SHP_CFG.get('rescue_pin'))
     out = []
     orphans = state.setdefault('orphans', [])
     del orphans[:]
+    pinned = state.setdefault('rescue_pinned', [])
+    del pinned[:]
     for y, row in enumerate(farm['tiles']):
         for x, c in enumerate(row):
             if not (isinstance(c, dict) and c.get('animal') in _SHP_ANIMALS) or (x, y) in state['tiles']:
@@ -406,6 +426,7 @@ def _shp_topups(state, obs, tape, day):
             cared = bool(c.get('cared_today')) or (x, y) in care
             since = day + 1 - placed - first
             bank = int(c.get('pending_care_bonus', 0) or 0)
+            unfed_now = pin_on and int(c.get('consecutive_unfed', 0) or 0) >= 1
             ops, value = set(), 0.0
             if _SHP_CFG.get('adopt', True) and not fed and all(
                     (x, y) not in _shp_cal(state, tape, d)[2] for d in range(day, min(30, day + 3))):
@@ -427,14 +448,45 @@ def _shp_topups(state, obs, tape, day):
                         _shp_count('rescues_valued')
                     out.append((daily + waiting * price + rescue, (x, y), {'FEED', 'CARE', 'HARVEST'}))
                     orphans.append((x, y))
+                    if pin_on:
+                        pinned.append((x, y))
                 elif payout >= _SHP_CFG.get('adopt_min', 25.0):
                     out.append((payout + waiting * price, (x, y), {'FEED', 'HARVEST'}))
                     orphans.append((x, y))
+                    if pin_on:
+                        pinned.append((x, y))
                 elif waiting:
                     out.append((waiting * price, (x, y), {'HARVEST'}))
                 continue
             if day >= 29:
                 continue
+            if yarn_open and species == 'SHEEP':
+                price = outlook[product]                          # full outlook, not topup_factor of it
+                if not fed and _shp_next_prod(species, placed, day) is not None:
+                    # keep the sheep: a day of wool, the bank it would pay (or lose) on a production day, and - once
+                    # it was unfed yesterday - the animal itself (it escapes tonight)
+                    is_prod_day = since >= 0 and since % interval == 0
+                    daily = _SHP_RATE[species] * price - wheat
+                    payout = (1 + bank) * price - wheat if is_prod_day else 0.0
+                    keep = max(0.0, daily) * min(10, max(0, 27 - day)) if int(c.get('consecutive_unfed', 0) or 0) >= 1 else 0.0
+                    waiting = int(c.get('yield_units', 0) or 0)
+                    # yarn_harvest_min (off -> always harvest, as submitted in mgt_y2): the branch used to add
+                    # HARVEST unconditionally, so a hand collected a small partial batch early and lost the turn it
+                    # would have spent banking CARE before the next production. Harvest only a real batch (>=
+                    # threshold), or on a production day that would otherwise push yield_units past max_held (6) and
+                    # discard the overflow for good.
+                    thr = _SHP_CFG.get('yarn_harvest_min')
+                    if thr is None:
+                        do_harvest = True
+                    else:
+                        added = (1 + bank) if is_prod_day else 0
+                        do_harvest = waiting >= thr or (is_prod_day and waiting + added > 6)
+                    ops = {'FEED'} | ({'HARVEST'} if do_harvest else set()) | ({'CARE'} if not cared and bank < 5 else set())
+                    out.append((max(0.0, daily) + payout + keep + waiting * price, (x, y), ops))
+                    _shp_count('yarn_service')
+                    if unfed_now:
+                        pinned.append((x, y))
+                    continue
             if since >= 0 and since % interval == 0 and bank > 0 and not fed:
                 ops.add('FEED')                                   # payout
                 value += bank * price - wheat
@@ -453,34 +505,43 @@ def _shp_topups(state, obs, tape, day):
                     value += v
             if ops and value >= _SHP_CFG.get('topup_min', 40.0):
                 out.append((value, (x, y), ops))
+                if unfed_now:
+                    pinned.append((x, y))
     if orphans:
         _shp_count('orphan_days', len(orphans))
     return out
 
 
-def _shp_runs(state, mandatory, optional, hour, base, max_hands, heavy=()):
-    """Split the day's work into one run per hand: the flock first (nearest-neighbour walk from the shed), then
-    top-ups by value density. A hand beyond the flock's needs is kept only when its run is worth more than
-    ``topup_margin`` x its marginal wage. Returns [[(tile, ops_or_None), ...], ...]."""
+def _shp_runs(state, mandatory, optional, hour, base, max_hands, heavy=(), pinned=()):
+    """Split the day's work into one run per hand: pinned rescues and the flock first (nearest-neighbour walk from
+    the shed), then top-ups by value density. A hand beyond the flock's needs is kept only when its run is worth
+    more than ``topup_margin`` x its marginal wage. Returns [[(tile, ops_or_None), ...], ...].
+    ``pinned`` (tiles from state['rescue_pinned'], populated only when ``rescue_pin`` is on): optional tasks that
+    cannot wait - an orphan rescue/payout, or any animal with consecutive_unfed>=1. They are walked with the flock,
+    ahead of value-density ranking, so a higher-value but non-urgent task (e.g. plain yarn_service) can never bump
+    one of them out of the day's last hand slot. Empty by default: identical to the un-pinned packing."""
     budget = 23 - hour - 1                                # acts from hour+1, one turn to load
     runs, cur, used, pos = [], [], 0, (4, 5)
-    todo = list(mandatory)
+    pin_set = set(pinned)
+    pin_ops = {t: ops for v, t, ops in optional if t in pin_set} if pin_set else {}
+    todo = list(mandatory) + [t for t in pin_ops if t not in mandatory]
     while todo:
         t = min(todo, key=lambda q: (_shp_dist(pos, q), q))
         todo.remove(t)
-        cost = _shp_dist(pos, t) + (3 if t in heavy else 2)   # FEED + CARE (+ HARVEST when wool is waiting)
+        ops = pin_ops.get(t)
+        cost = _shp_dist(pos, t) + (len(ops) if ops else (3 if t in heavy else 2))
         if cur and used + cost > budget:
             runs.append(cur)
             cur, used, pos = [], 0, (4, 5)
-            cost = _shp_dist(pos, t) + (3 if t in heavy else 2)
-        cur.append((t, None))
+            cost = _shp_dist(pos, t) + (len(ops) if ops else (3 if t in heavy else 2))
+        cur.append((t, ops))
         used += cost
         pos = t
     if cur and len(runs) >= max_hands and runs:
         runs[-1].extend(cur)                              # more flock than hands: overload the last run
         cur = []
     flock_hands = len(runs) + (1 if cur else 0)
-    rest = sorted(optional, key=lambda o: -o[0])
+    rest = sorted((o for o in optional if o[1] not in pin_ops), key=lambda o: -o[0])
     value = 0.0
     margin = _SHP_CFG.get('topup_margin', 1.5)
     while rest and len(runs) < max_hands:
@@ -825,12 +886,12 @@ def _shp_decide(state, obs, action, step):
     base_today = int(farm.get('hires_today', 0)) + sum(1 for o in market if o and o[0] == 'HIRE')
     optional = _shp_topups(state, obs, tape, day) if _SHP_CFG.get('share_labour', True) else []
     base_mid = bases[len(bases) // 2] if bases else base_today
-    hands_before = len(_shp_runs(state, list(flock), optional, 2, base_mid, int(_SHP_CFG.get('max_hands', 4))))
+    hands_before = len(_shp_runs(state, list(flock), optional, 2, base_mid, int(_SHP_CFG.get('max_hands', 4)), pinned=state.get('rescue_pinned') or ()))
     for n in range(deficit, 0, -1):
         k_today = _shp_hands_for(n, hour, True) + (0 if hired_today else _shp_hands_for(len(flock), hour))
         if k_today > min(slots, _SHP_CFG.get('max_hands', 4)):
             continue
-        after = len(_shp_runs(state, list(flock) + list(tiles_all[:n]), optional, 2, base_mid, int(_SHP_CFG.get('max_hands', 4))))
+        after = len(_shp_runs(state, list(flock) + list(tiles_all[:n]), optional, 2, base_mid, int(_SHP_CFG.get('max_hands', 4)), pinned=state.get('rescue_pinned') or ()))
         before = hands_before
         if _SHP_CFG.get('labour_model') == 'count':       # as submitted in mgt_t10
             after, before = _shp_hands_for(len(flock) + n, 0), _shp_hands_for(len(flock), 0)
@@ -919,7 +980,7 @@ def _shp_daily_hire(state, obs, action, step):
     parent_hires = sum(1 for o in market if o and o[0] == 'HIRE')
     base = max(_shp_tape_hires(tape, day), int(farm.get('hires_today', 0)) + parent_hires)
     max_hands = min(int(_SHP_CFG.get('max_hands', 4)), 10 - len(market) - 1)
-    runs = _shp_runs(state, list(flock) + harvest_only, optional, hour, base, max_hands, heavy=waiting)
+    runs = _shp_runs(state, list(flock) + harvest_only, optional, hour, base, max_hands, heavy=waiting, pinned=state.get('rescue_pinned') or ())
     if not runs:
         return action
     feeds = sum(1 for run in runs for t, ops in run if (ops is None and t in flock) or (ops and 'FEED' in ops))

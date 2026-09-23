@@ -134,8 +134,15 @@ def main():
         paths = [p for p in paths if p.name.split('.')[0] in only]
     jobs = [(a, str(p)) for p in paths for a in agents
             if os.environ.get('MGT_FORCE') or not (OUT / a / f'{p.name.split(".")[0]}.json').exists()]
-    print(f'{len(jobs)} games', flush=True)
-    with ProcessPoolExecutor(max_workers=4, max_tasks_per_child=1) as pool:
+    # memory guard: a game worker peaks at ~0.92 GB and the machine is shared; never more than 4 workers,
+    # and fewer if free memory would drop under 2 GB (LP_WORKERS overrides the cap downward only)
+    import psutil
+    avail = psutil.virtual_memory().available / 1e9
+    workers = max(0, min(4, int(os.environ.get('LP_WORKERS', 4)), int((avail - 2.0) / 0.92)))
+    print(f'{len(jobs)} games, {workers} workers ({avail:.1f} GB free)', flush=True)
+    if not workers:
+        raise SystemExit('not enough free memory for one game worker; aborting')
+    with ProcessPoolExecutor(max_workers=workers, max_tasks_per_child=1) as pool:
         futures = {pool.submit(run, j): j for j in jobs}
         for f in as_completed(futures):
             try:
