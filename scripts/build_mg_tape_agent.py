@@ -292,6 +292,7 @@ def main():
                     room_guard=True, clamp_sells=True, dead_stock=True, terminal_liquidation=True)
     cfg = dict(max_hamming=8, incompatible_penalty=4.0)
     opening = None
+    tape_dir, no_fix, norm_hires = TAPES, False, False
     i = 1
     while i < len(args):
         if args[i] == '--subs':
@@ -317,6 +318,12 @@ def main():
                         continue
                     sheep[k] = float(v) if '.' in v else (int(v) if v.lstrip('-').isdigit() else v)
             i += 2
+        elif args[i] == '--tape-dir':
+            tape_dir = ROOT / args[i + 1]; i += 2
+        elif args[i] == '--no-fix-opening':
+            no_fix = True; i += 1
+        elif args[i] == '--normalize-hires':
+            norm_hires = True; i += 1
         elif args[i] == '--opening':
             opening = json.loads(Path(args[i + 1]).read_text(encoding='utf-8')); i += 2
         elif args[i] == '--cfg':
@@ -337,7 +344,7 @@ def main():
     assert 'def make_agent(' in chassis and '_R108_DATA' not in chassis
 
     unique, index, tapes = [], {}, []
-    files = sorted(p for s in subs for p in (TAPES / s).glob('*.json.gz'))
+    files = sorted(p for s in subs for p in (tape_dir / s).glob('*.json.gz'))
     if max_tapes:
         files = files[:max_tapes]
     for p in files:
@@ -345,7 +352,22 @@ def main():
         if len(t['actions']) != 719 or len(t['shops'][30]) < 8:
             continue
         actions = [a if isinstance(a, dict) else {} for a in t['actions']]
-        fix_opening(actions)
+        if norm_hires and t.get('hands_by_step'):
+            # closed-loop leaders over-request HIREs and get what cash allows; keep only the HIREs that ARRIVED at that
+            # step in the recorded game (order otherwise kept), so price drift cannot shift every later hand index
+            hs = t['hands_by_step']
+            for tt, act in enumerate(actions):
+                arrived = max(0, hs[tt + 1] - hs[tt]) if (tt + 1) % 24 else 0
+                kept, out = 0, []
+                for o in act.get('market') or []:
+                    if o and o[0] == 'HIRE':
+                        if kept < arrived:
+                            out.append(o); kept += 1
+                        continue
+                    out.append(o)
+                actions[tt] = dict(act, market=out)
+        if not no_fix:
+            fix_opening(actions)
         ids = []
         for a in actions:
             a = {'farmer': a.get('farmer') or ['PASS'], 'hands': a.get('hands') or [], 'market': a.get('market') or []}
