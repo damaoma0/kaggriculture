@@ -1,0 +1,15 @@
+mgt_y3 = mgt_m1 + late-Yarn service layer with its two traced fixes (NOT YET SUBMITTED - awaiting user approval)
+Build: .venv/Scripts/python.exe scripts/build_mg_tape_agent.py mgt_y3 --cfg hamming_weight=1.0,strand_penalty=4.0
+       --settings sell_lead=true --sheep labour_model=count,hire_guard=1,yarn_service=1,yarn_gate=1,rescue_pin=1,yarn_harvest_min=4
+File sha256: 416ab6977af12644c39ba26b269cecc261c47daffe35997fb51e4cf5fbbb7073
+Layer: while the world has more Yarn Stores open than the followed tape's world had by the same reveal, sheep the tape
+does not feed are fed/cared by the hidden hands, valued as live animals at the full wool outlook; rescues of animals
+at risk are pinned ahead of any other task; harvest only full batches or overflow-saving ones.
+Measured, paired against mgt_m1 (docs/late_yarn_layer_20260923.md, results/fresh/newphase_20260923/y3/):
+  live public V56 (reacts), 20 fresh seeds x 2 seats: +295 (95% CI +69..+554)
+  180 recorded ladder worlds of mgt_t10 (frozen opponents): +183 (+105..+266), wins 128 -> 130
+  new 2750-3000 panel, 185 games (frozen opponents): +306 (+204..+416), wins 84 -> 87, 71 better / 18 worse
+Controls: rebuilt m1 with the new code off reproduces cached m1 44/44; mgt_t10 reproduces its 60 recorded p2750 games 60/60.
+Timing: max 0.025 s per call, mean 1.4 ms (identical to mgt_m1).
+Proposed slot: replace mgt_m1 (56395605, 2700.5); keep mgt_t10 (56368334, 2805.5), which is -352 (-648..-76) vs m1
+on the 2750-3000 panel but holds the team's current best rating while y3 climbs.
