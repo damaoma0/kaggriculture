@@ -249,3 +249,14 @@ Design, cheapest first:
 2. Sell timing against the rival's harvest calendar (its crops' ages are visible): avoid selling into the day its
    strawberries or wool come in. Extends the existing FlowModel.
 3. Plan evaluation with a rival model (V9-lite machinery on plans): only if 1-2 show value; the known blind spot stays.
+
+## 12. Plan selection measured (T2, gate G2 offline; `results/fresh/leader_retrieval/summary.md`)
+Leave-one-game-out over the 240 games, decisions at the reveals: retrieving the nearest leader game (shop-demand
+distance + own-board Hamming, lambda 1.0, k 1-5) predicts the board 3 days ahead almost exactly at day 3 (98-99%
+within 8 tiles) and well at day 6 (77%), but from day 9 on under 7% of predictions land within 8 tiles: after the
+shared opening no single recording is a tile-level analogue of a new world. From day 12 a ridge regression on
+composition COUNTS (visible shops + own counts) beats retrieval (count MAE day 15 +3: 1.00 vs 1.81). Same-family
+restriction changes nothing (cross-family distances are already large). Leave-one-TEAM-out is much worse, but that
+measures imitating an unseen team; we follow these same teams in new worlds, so leave-one-game-out is the relevant
+test. Design consequence: two target modes in the planner, tile-level target boards through ~day 9 (opening and
+early game, retrieval), composition targets from ~day 12 (regression), laid onto our own board by the planner.
