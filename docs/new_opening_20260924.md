@@ -118,3 +118,28 @@ does not favour the build that actually played. On the real ladder, t10 played 1
 rated about 2,135 before m1 existed. In the shared window since, its higher rating drew stronger opponents (2,563
 against 2,426), and it won 64.6% against m1's 67.6%. The rating gap is head start plus matchmaking.
 `mgt_y3` − m1 is positive in all three kinds of game (+289 / +182 / +343).
+
+## DSM library: how much is replay fidelity? (2026-09-24, existing panel data, no new games)
+
+`mgt_dsm_a` (router over 109 DSM tapes, hires trimmed to arrivals, m1's guards) on the same 180 worlds, paired with
+t10's recorded result in each world (the panel reproduces t10 to the dollar; m1 runs exist for only 61 of these
+worlds: −6,663 vs m1 there). All 180: **−5,916** mean, median −4,436.
+
+| replay condition (outcome-defined) | worlds | margin vs t10 recorded | own cash | rival cash |
+|---|---|---|---|---|
+| no hire shortfall, board within 8 tiles of the tape all game | 113 | **+754** (±2,080) | −2,236 | −2,989 |
+| no hire shortfall, board drifts past 8 tiles | 27 | −13,337 | −10,577 | +2,760 |
+| hire shortfall, board within 8 tiles | 22 | −12,694 | −10,240 | +2,454 |
+| hire shortfall and drift | 18 | −28,375 | −18,528 | +9,847 |
+
+- Hire shortfalls: 40 worlds, first on day 1 in 12 (the budget-exact opening), day 7 in 18, day 8 in 4 (−59,921 mean).
+  Traced world 111574686: the tape spends day 6 down to 4 coins (animals and seeds that its own world funded),
+  ends day 7 on 5 coins, asks for 8 hands on day 8 and gets 3. The existing hire guard only looks two hours ahead,
+  and it cannot trim purchases once the HIRE itself is unfunded, so an overnight shortfall is invisible to it.
+- The faithful-replay row is conditioned on outcomes (a world that replays cleanly is also a friendlier world), so
+  +754 is an optimistic ceiling for a perfect budget guard, not an estimate of one. Even that ceiling is break-even
+  with t10; y3 is about +0.5k over t10 on the same worlds (+183 over m1; m1 is +314 over t10 in t10's own games).
+- **Conclusion: the DSM opening cannot beat y3 by 2026-09-28** by any route measured: graft (O1r −51k even in the
+  46 eligible-handoff worlds), DSM library (ceiling ≈ break-even with t10). The handoff alternatives (another day,
+  reconcile before handoff, select on the reached board, opening as production targets) all need the target-reaching
+  executor described above; "select on the reached board" is what O1r already does.
