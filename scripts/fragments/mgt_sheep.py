@@ -1416,6 +1416,102 @@ def _shp_hire_guard(obs, action):
     return dict(action, market=market)
 
 
+# --------------------------------------------------------------------------- overnight hire reserve
+# `_shp_hire_guard` only sees the next two hours (`ahead`, above): DSM's own tapes spend to the last coin (median
+# 4/3/8 coins at the start of days 1-3) and the guard cannot see past that window, so a low day-end balance clips
+# the next morning's HIREs and every later hand index that day answers to the wrong index (world 111574686: day 6
+# down to 4 coins, day 7 ends on 5, asks for 8 hands at day-8 hour 0 and gets 3). This reserve is simple and
+# conservative (it ignores future income): at every step it totals the fib cost of the tape's remaining HIREs
+# today beyond the guard's own 2-hour window, plus tomorrow's hours 0-2 counted fresh from 0 hires (which also
+# covers the day-0-to-1 boundary), and if this hour's orders would leave less than that it trims this hour's
+# purchases -- BUY_PRODUCT (non-wheat first, then wheat), then BUY_SEED, then BUY_ANIMAL -- never SELL or HIRE.
+def _shp_hire_reserve(obs, action):
+    if not _SHP_CFG.get('hire_reserve'):
+        return action
+    player = int(obs['player'])
+    tape = _shp_route(player)
+    if tape is None:
+        return action
+    market = [list(o) for o in (action.get('market') or []) if o][:10]
+    farm = obs['farms'][player]
+    prices = (obs.get('market') or {}).get('prices') or {}
+    hired = int(farm.get('hires_today', 0) or 0)
+    step = int(obs['step'])
+    day = step // 24
+
+    # cash this hour's own orders would leave (sales at 90%, buys at 110%, same convention as the hire guard)
+    cash, k = float(farm['money']), hired
+    for o in market:
+        op = o[0]
+        item = o[1] if len(o) > 1 else None
+        qty = max(0, int(o[2])) if len(o) > 2 else 0
+        if op == 'SELL':
+            cash += 0.9 * qty * float(prices.get(item, 0) or 0)
+        elif op == 'HIRE':
+            cash -= _SHP_FIB[min(15, k)]
+            k += 1
+        elif op == 'BUY_SEED':
+            cash -= float(SEED_PRICE.get(item, 0) or 0) * qty
+        elif op == 'BUY_ANIMAL':
+            cash -= float(ANIMAL_COST.get(item, 0) or 0) * qty
+        elif op == 'BUY_PRODUCT':
+            cash -= 1.1 * float(prices.get(item, 0) or 0) * qty
+        elif op == 'BUY_LAND':
+            cash -= 4000.0
+
+    # the rest of today, beyond the guard's own step+1/step+2 window
+    reserve, k = 0.0, hired + sum(1 for o in market if o[0] == 'HIRE')
+    end_today = (day + 1) * 24
+    for t in range(step + 1, end_today):
+        if t >= len(tape) or not isinstance(tape[t], dict):
+            continue
+        for o in (tape[t].get('market') or []):
+            if o and o[0] == 'HIRE':
+                if t - step > 2:
+                    reserve += _SHP_FIB[min(15, k)]
+                k += 1
+    # tomorrow's hours 0-2, fresh from 0 hires (covers the day-1 case too: day 0 hour 0 onward)
+    k2 = 0
+    for t in range(end_today, min(end_today + 3, len(tape))):
+        if not isinstance(tape[t], dict):
+            continue
+        for o in (tape[t].get('market') or []):
+            if o and o[0] == 'HIRE':
+                reserve += _SHP_FIB[min(15, k2)]
+                k2 += 1
+
+    if cash >= reserve:
+        return action
+    gap = reserve - cash
+    _shp_count('hire_reserve_fired')
+
+    def trim(kind, pred, cost):
+        nonlocal gap
+        for o in reversed(market):
+            if gap <= 0:
+                return
+            if o[0] != kind or len(o) < 3 or not pred(o):
+                continue
+            unit = cost(o[1])
+            if unit <= 0:
+                continue
+            cut = min(int(o[2]), int(-(-gap // unit)))
+            if cut <= 0:
+                continue
+            o[2] = int(o[2]) - cut
+            gap -= cut * unit
+            _shp_count('hire_reserve_trimmed', cut)
+
+    trim('BUY_PRODUCT', lambda o: o[1] != 'WHEAT', lambda item: 1.1 * float(prices.get(item, 0) or 0))
+    trim('BUY_PRODUCT', lambda o: o[1] == 'WHEAT', lambda item: 1.1 * float(prices.get(item, 0) or 0))
+    trim('BUY_SEED', lambda o: True, lambda item: float(SEED_PRICE.get(item, 0) or 0))
+    trim('BUY_ANIMAL', lambda o: True, lambda item: float(ANIMAL_COST.get(item, 0) or 0))
+    market = [o for o in market if not (o[0] in ('BUY_PRODUCT', 'BUY_SEED', 'BUY_ANIMAL') and len(o) > 2 and int(o[2]) <= 0)]
+    if gap > 0:
+        _shp_count('hire_reserve_unfunded')
+    return dict(action, market=market)
+
+
 def _shp_hidden(obs, player, own):
     """The observation the tape layer sees: without the overlay's hands."""
     farm = dict(obs['farms'][player])
@@ -1515,6 +1611,11 @@ def agent(observation, configuration=None):
         _SHP_REPORT['last_error'] = repr(exc)[:200]
     try:
         action = _shp_hire_guard(observation, action)
+    except Exception as exc:
+        _shp_count('errors')
+        _SHP_REPORT['last_error'] = repr(exc)[:200]
+    try:
+        action = _shp_hire_reserve(observation, action)
     except Exception as exc:
         _shp_count('errors')
         _SHP_REPORT['last_error'] = repr(exc)[:200]
