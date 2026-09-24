@@ -28,7 +28,7 @@ After a late Yarn reveal (20 worlds) V9 switches TO tapes that service sheep the
 orphan days -1.7, wool +25.6, margin +3,865 vs y3 (p2750 alone: 14 worlds, +4,320). Other switches (52): +2,799,
 orphan days +0.0, yarn tasks +1.5. The residue is switches made BEFORE a late Yarn Store (the new tape plans less wool; y3's layer
 then carries up to 28 more service tasks, up to 4 orphan days): four of the six worst worlds, -1.3k to -2.2k. A tail,
-not a general property (the other 26 switches average +2,022).
+not a general property (the 52 switches not after a late Yarn reveal average +2,799).
 
 ## Checklist
 | check | result |
