@@ -40,24 +40,37 @@ for sub in ('data/ladder_panel', 'data/mg_tapes'):
 
 env = dict(os.environ, LP_WORKERS=str(SHARD.get('workers', 4)), PYTHONUNBUFFERED='1')
 t1 = time.time()
-cmd = [sys.executable, 'scripts/ladder_panel.py', 'run', ','.join(SHARD['agents']), SHARD['submission'], ','.join(SHARD['episodes'])]
+if SHARD.get('cmd'):
+    # generic mode: any repo script; result files matching SHARD['collect'] (repo-relative globs) are returned
+    cmd = [sys.executable] + list(SHARD['cmd'])
+else:
+    cmd = [sys.executable, 'scripts/ladder_panel.py', 'run', ','.join(SHARD['agents']), SHARD['submission'], ','.join(SHARD['episodes'])]
 proc = subprocess.run(cmd, cwd=work, env=env, capture_output=True, text=True)
 t_run = time.time() - t1
 
 out = Path('/kaggle/working/out')
 out.mkdir(parents=True, exist_ok=True)
 n = 0
-for f in (work / 'results/fresh/ladder_panel').glob('*/*.json'):
-    dst = out / f.parent.name
-    dst.mkdir(exist_ok=True)
-    shutil.copy(f, dst / f.name)
-    n += 1
+if SHARD.get('cmd'):
+    for pattern in SHARD.get('collect') or []:
+        for f in work.glob(pattern):
+            if f.is_file():
+                dst = out / 'repo' / f.relative_to(work)
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy(f, dst)
+                n += 1
+else:
+    for f in (work / 'results/fresh/ladder_panel').glob('*/*.json'):
+        dst = out / f.parent.name
+        dst.mkdir(exist_ok=True)
+        shutil.copy(f, dst / f.name)
+        n += 1
 import kaggle_environments
 info = dict(shard=SHARD, games=n, pip_seconds=t_pip, run_seconds=t_run, returncode=proc.returncode,
             cpus=os.cpu_count(), python=platform.python_version(), engine=getattr(kaggle_environments, '__version__', '?'),
             cpu_model=next((l.split(':', 1)[1].strip() for l in open('/proc/cpuinfo') if l.startswith('model name')), '?'),
             mem_gb=round(os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES') / 1e9, 1),
-            stdout_tail=[l for l in proc.stdout.splitlines() if 'margin' in l or 'games' in l or 'FAILED' in l][-60:],
+            stdout_tail=[l for l in proc.stdout.splitlines() if 'margin' in l or 'games' in l or 'FAILED' in l or 'completed' in l][-60:],
             stderr_tail=proc.stderr.splitlines()[-30:])
 (out / 'run_info.json').write_text(json.dumps(info, indent=1))
 print(json.dumps({k: v for k, v in info.items() if k not in ('stdout_tail', 'stderr_tail')}, indent=1))

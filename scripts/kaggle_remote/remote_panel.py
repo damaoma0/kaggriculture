@@ -42,6 +42,13 @@ def bundle(agents):
         shutil.copy(ROOT / 'agents' / f'{a}.py', repo / 'agents' / f'{a}.py')
     shutil.copytree(ROOT / 'data/ladder_panel', repo / 'data/ladder_panel', ignore=shutil.ignore_patterns('_raw'))
     shutil.copytree(ROOT / 'data/mg_tapes', repo / 'data/mg_tapes', ignore=shutil.ignore_patterns('_raw'))
+    for extra in [x for x in os.environ.get('KGR_EXTRA', '').split(',') if x]:     # repo-relative files / dirs
+        src = ROOT / extra
+        if src.is_dir():
+            shutil.copytree(src, repo / extra, ignore=shutil.ignore_patterns('__pycache__', '*.log'), dirs_exist_ok=True)
+        else:
+            (repo / extra).parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy(src, repo / extra)
     meta = dict(title=DATASET.split('/')[1], id=DATASET, licenses=[{'name': 'other'}])
     (d / 'dataset-metadata.json').write_text(json.dumps(meta))
     exists = sh('datasets', 'status', DATASET, check=False).strip().splitlines()[-1:] == ['ready']   # --mine listing lags
@@ -76,6 +83,38 @@ def push(run, agents, submission, episodes, shards=1, workers=4):
         kernels.append(slug)
     (STAGE / run / 'kernels.json').write_text(json.dumps(dict(kernels=kernels, agents=agents, submission=submission,
                                                               pushed=time.time()), indent=1))
+
+
+def pushcmd(run, cmd, collect):
+    """One private kernel running `python <cmd...>` in the unpacked bundle; files matching the repo-relative globs in
+    `collect` come back under output/<kernel>/out/repo/ (fetchcmd copies them into the repo where missing)."""
+    code = TEMPLATE.read_text(encoding='utf-8')
+    slug = f'kgr-{run}-s0'.lower().replace('_', '-')
+    kd = STAGE / run / 'kernel_s0'
+    shutil.rmtree(kd, ignore_errors=True)
+    kd.mkdir(parents=True)
+    shard = dict(cmd=cmd.split(), collect=collect.split(','), workers=4)
+    (kd / 'panel_kernel.py').write_text(code.replace('__SHARD__', repr(shard)), encoding='utf-8')
+    (kd / 'kernel-metadata.json').write_text(json.dumps(dict(
+        id=f'{USER}/{slug}', title=slug, code_file='panel_kernel.py', language='python', kernel_type='script',
+        is_private=True, enable_gpu=False, enable_internet=True, dataset_sources=[DATASET],
+        competition_sources=[], kernel_sources=[])))
+    print(slug, sh('kernels', 'push', '-p', str(kd)).strip().splitlines()[-1])
+    (STAGE / run / 'kernels.json').write_text(json.dumps(dict(kernels=[slug], cmd=cmd, pushed=time.time()), indent=1))
+
+
+def fetchcmd(run):
+    fetch(run)
+    n = 0
+    for f in (STAGE / run / 'output').rglob('out/repo/**/*'):
+        if f.is_file():
+            rel = f.relative_to(next(p for p in f.parents if p.name == 'repo'))
+            dst = ROOT / rel
+            if not dst.exists():
+                dst.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy(f, dst)
+                n += 1
+    print(n, 'files merged into the repo')
 
 
 def status(run):
@@ -135,6 +174,10 @@ if __name__ == '__main__':
         bundle(args)
     elif cmd == 'push':
         push(args[0], args[1], args[2], args[3], int(args[4]) if len(args) > 4 else 1, int(args[5]) if len(args) > 5 else 4)
+    elif cmd == 'pushcmd':
+        pushcmd(args[0], args[1], args[2])
+    elif cmd == 'fetchcmd':
+        fetchcmd(args[0])
     elif cmd == 'status':
         status(args[0])
     elif cmd == 'fetch':
