@@ -34,6 +34,8 @@ sys.path.insert(0, str(ROOT / 'scripts'))
 import lead_g1  # noqa: E402
 
 OUT = ROOT / 'results/fresh/lead_agent_20260924'
+import os as _os
+_SUFFIX = _os.environ.get('ABL_SUFFIX', '')   # separate result dirs per research variant (abl_<cell><suffix>)
 COLLAPSED = 112708229      # the replayed opponent collapses in this world: report means with and without it
 CLEAN9 = {112444381, 112445586, 112447950, 112449129, 112655730, 112661570, 112667461, 112714050, 112721923}
 
@@ -197,7 +199,7 @@ def job(args):
         r = play_cell(game, cell)
         r['wall'] = time.time() - t0
         r['cell'] = cell
-        o = OUT / f'abl_{cell}'
+        o = OUT / f'abl_{cell}{_SUFFIX}'
         o.mkdir(parents=True, exist_ok=True)
         (o / f"{game.split(':')[1]}.json").write_text(json.dumps(r, default=str), encoding='utf-8')
         return (game, cell, r['ratio'], None)
@@ -206,7 +208,7 @@ def job(args):
 
 
 def _load(cell):
-    return {int(f.stem): json.load(open(f)) for f in sorted((OUT / f'abl_{cell}').glob('1*.json'))}
+    return {int(f.stem): json.load(open(f)) for f in sorted((OUT / f'abl_{cell}{_SUFFIX}').glob('1*.json'))}
 
 
 def _board_cells(b):

@@ -389,3 +389,46 @@ Summary of where the deploy's -24k (new worlds) / -0.13 (leader worlds) sits:
   transfer onto the leader's plan (E2p: no-feed + hands regression lose 26 animals a game).
 Next levers, in order: plan volume in new worlds (land_max, count-model targets per product vs y3's units), a sell
 rule that holds and batches like the leaders (worth ~5k a game), hands regression +1 early.
+
+## Plan volume in new worlds (deploy research copy `agents/mgt_lead_deploy_pv.py`; variants `agents/mgt_lpv_<name>.py`)
+Levers are DEP_CFG overrides (`scripts/lead_pv_variant.py NAME '{...}'`); `mgt_lead_deploy_pv` adds `cm_file` (count
+model file) and `hands_add_early` (extra hands on days before compose_from). Measured on the 12 p2750 smoke worlds
+(`scripts/lead_pv_report.py`, 1 worker per variant, two variants in parallel), paired vs y3 and vs the deploy baseline
+(mgt_lead_deploy_s1 = committed deploy). G1 check (`ABL_SUFFIX=_<name> LEAD_DEPLOY_PATH=agents/mgt_lpv_<name>.py
+lead_ablation.py run E2`) only for variants that help in the new worlds. Selling is out of scope (sem_market thread);
+note the deploy's wheat-keep rule (holds the herd's feed to the end) lowers its wheat units sold.
+
+| variant | margin | vs y3 | vs deploy_s1 (95% CI, better/12) | units wheat / carrot / milk / wool / straw / tomato / melon / egg |
+|---|---:|---:|---|---|
+| y3 | +4,672 | | | 442 / 87 / 209 / 138 / 193 / 91 / 82 / 118 |
+| deploy_s1 (baseline) | -19,300 | -23,973 | | 282 / 23 / 169 / 108 / 167 / 75 / 72 / 122 |
+| land3 (`land_max` 3: the SE quadrant) | -24,614 | -29,287 | -5,314 (-6,981..-3,454) 1/12 | 388 / 37 / 177 / 102 / 168 / 95 / 67 / 111 |
+| cm600 (600-game count model) | -18,503 | -23,176 | +797 (-420..+1,969) 8/12 | 233 / 36 / 171 / 109 / 168 / 98 / 70 / 119 |
+| he1 (`hands_add_early` 1) | -18,566 | -23,238 | +734 (-1,655..+3,411) 5/12 | 282 / 19 / 172 / 106 / 165 / 75 / 73 / 128 |
+| wc15 (`pred_mult` WH, CA x1.5) | -18,653 | -23,325 | +648 (-207..+1,700) 4/12 | 298 / 15 / 170 / 106 / 168 / 75 / 72 / 121 |
+| **nf99** (`nofeed_from` 99: the deploy's no-feed hook off; the executor's maintenance module still stops end-of-life animals) | **-14,507** | **-19,179** | **+4,794 (+2,352..+7,786) 11/12** | 230 / 22 / **212** / **130** / 167 / 76 / 71 / 125 (fertilizer 230) |
+| hl6 (`h_long` 6) | -19,757 | -24,429 | -456 (-1,485..+589) 6/12 | 240 / 25 / 172 / 107 / 165 / 110 / 58 / 126 |
+| **c1** = nf99 + cm600 + he1 | **-12,657** | **-17,329** | **+6,643 (+3,373..+10,157) 9/12** | 230 / 15 / 219 / 127 / 165 / 92 / 72 / 128 (fertilizer 242) |
+
+G1 check (leader worlds, E2 cell with the variant, this episode held out of retrieval): **nf99 0.867 / 0.862 / 0.851**
+(12 / 11 / clean9) vs E2 0.843 / 0.834 / 0.823 (+0.024; animals lost 3.7 vs 12.2 a game, plants died 1.1). Passes.
+| c2 = c1 + `pred_mult` CA x2, ST x1.2 + `max_new_per_crop` 16 | -13,493 | -18,165 | +5,807 (+2,417..+9,482) 10/12 | 174 / 19 / 218 / 124 / **189** / 89 / 70 / 129 |
+
+G1 check: **c1 0.871 / 0.865 / 0.846** (plants died 2.3, animals lost 4.3, failed buys 0.6/game). Passes (E2 0.843 / 0.834 / 0.823).
+Carrot units do not respond to the count-model scale (x1.5: 15, x2: 19 vs y3 87): the carrot target is small in the
+leaders' own data, so scaling it does little; strawberries do respond (x1.2: 189 vs y3 193) but take wheat tiles.
+| c3 = c1 + `pred_mult` ST x1.2 | -13,282 | -17,954 | +6,019 (+2,543..+9,696) 9/12 | 179 / 15 / 217 / 124 / 191 / 90 / 71 / 128 |
+| c4 = c1 + `hands_add` 2 (compose days) | -13,894 | -18,566 | +5,406 (+1,686..+9,434) 9/12 | 230 / 14 / 221 / 130 / 169 / 99 / 72 / 136 |
+
+**Result.** Best: **c1 = `nofeed_from` 99 + `cm_file` count_model_600.json + `hands_add_early` 1**: new worlds
+-12,657 margin (vs y3 -17,329, was -23,973: **+6,643 a game, 95% CI +3,373..+10,157**), leader worlds 0.871 / 0.865 /
+0.846 (E2 0.843 / 0.834 / 0.823). Almost all of it is the no-feed hook (nf99 alone +4,794, 11/12 better; leader
+worlds +0.024): the executor's maintenance module already stops end-of-life animals, so the deploy's own hook starved
+producing animals (milk 169 -> 212-219 units, wool 108 -> 127-130, fertilizer 189 -> 230-242: now at or above y3).
+The 600-game model and the early hand add +0.7..+0.8k each (not significant alone). The unit gap left vs y3: wheat
+(230 vs 442; mostly the wheat-keep sell rule and y3's wheat trading, sell-rule thread), carrots (15 vs 87: leaders'
+count targets are small; scaling does not raise them), strawberries (165 vs 193; x1.2 closes it but costs wheat
+tiles, net -0.6k). The third quadrant (SE, $4000) loses 5.3k; a longer horizon (6) and more composition hands lose.
+Recommended deploy defaults: `nofeed_from` 99 (or drop the hook), `cm_file` count_model_600.json, `hands_add_early` 1
+(`agents/mgt_lpv_c1.py` = the deploy with exactly these overrides; `agents/mgt_lead_deploy_pv.py` adds the two new
+DEP_CFG options). `agents/mgt_lead_deploy.py` itself is not edited.
