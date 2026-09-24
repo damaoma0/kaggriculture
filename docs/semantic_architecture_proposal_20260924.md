@@ -352,3 +352,30 @@ hire counts, our execution reaches 0.757 of the leader's cash (0.747 without the
 0 failed commands and the day-6 board within 0-1 tiles; the divergence after day 6 is our execution running late.
 So about a quarter of a leader's cash is lost in EXECUTION even with their plan: execution is the first priority,
 the planting rule is not. Cells B-F split that further.
+
+## 16. Build order (lead, 2026-09-24 night) and the scheduler spec
+Evidence: with a leader's exact plan our execution reaches 0.757 of their cash (§15), and our tape agent grows about
+as much as a leader (1.02 of their cash in their own worlds) but lets the rival sell ~9k a game dearer (strawberry
++5.1k, milk +3.1k, wool +2.0k of rival revenue, through price, at equal volumes). We grow enough; we execute and
+sell worse. Build order: (1) maintenance jobs = minimum-sufficient schedule with values and deadlines
+(`scripts/fragments/sem_maintenance.py`, on `scripts/min_maintenance.py`), end-of-life handling and the abandonment
+log; (2) the scheduler with the labour-economic skip; (3) the market layer (from the market-mechanism study);
+(4) planting rules last.
+
+**Scheduler (value-based, deadlines, marginal-wage hiring).** Input at hour 0 and on every re-plan: the day's jobs
+(maintenance jobs from (1) with value v in coins, deadline hour, item needs; plan jobs: plant / place / build / dig /
+harvest, valued by the plan's target and the asset's expected value; delivery-to-sale jobs valued by the day's
+sale plan), the units present, cash, and hires already made today.
+- Capacity: farmer + k hands; a hand hired at hour h acts from h+1; time per job from the calibrated route time
+  model (`scripts/labour_search.py`: Manhattan travel + one step per command + pickups; walking is ~40% of time).
+- Hiring = the temporary skip rule: add the n-th hand while the value of the jobs that ONLY that hand can finish
+  before their deadlines exceeds fib(n) (plus its idle risk); the jobs left over at the optimum are TODAY'S SKIPS,
+  lowest value first. Survival jobs carry the asset's whole remaining value, so they are skipped only when the asset
+  is end-of-life (then they are not emitted at all). This drops the cheapest MAINTENANCE on a harvest or planting
+  spike rather than a whole hand (capping hires outright measured −3,857).
+- Dispatch: per step, each idle unit takes the job with the highest value density (value / time incl. travel) among
+  those it can still finish before their deadlines, with item pickups at spawn/shed chained in; re-plan when the
+  board deviates (a failed purchase, a new weed, a missing hand). Routes are NOT rebuilt wholesale mid-day (two route
+  rebuild attempts measured 0.506 and 0.459; the greedy value dispatcher 0.757).
+- Logged per day: hires with the marginal job value at the cut, skipped jobs with values (the temporary skips), and
+  every end-of-life stop / abandonment (with the verdict), so each game is evidence for the rules.
