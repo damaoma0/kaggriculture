@@ -43,5 +43,8 @@ DEFECT FOUND AND FIXED (2026-09-24): the first isolated-directory run on Kaggle 
     y3 (seed-clustered +82..+1,682), +1,000 vs m1 (+137..+1,922).
   Timing on Kaggle CPU through the official runner: one core 8/8 (bank >= 46.4); half a core (one core shared with a
     busy process) 8/8 (bank >= 30.8, longest move 21.3 s); results identical to the unrestricted runs.
+  Official runner, 4 packages at once on one 4-vCPU Kaggle machine (scripts/parallel_package_test.py), each from an
+    empty dir: 16/16 DONE, bank >= 35.2; NO module loaded from the repo's scripts/agents/data/results (the package
+    carries every dependency; the test now fails otherwise).
   NOTE: y3's late-Yarn layer IS in this build (_BASE = 'mgt_y3'; pkg/agents/mgt_y3.py == submissions/2026-09-24-mgt_y3/main.py).
 VALIDATION COMPLETE for the thread-free build (submission.tar.gz, hashes in MANIFEST.json). NOT SUBMITTED.
