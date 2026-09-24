@@ -5,6 +5,13 @@ competing on profit against other agents in a shared market. Competition page:
 https://www.kaggle.com/competitions/kaggriculture
 
 ## Conventions
+- 2026-09-24 ACCEPTANCE TEST = the 2750-3000 exact panel `data/ladder_panel/p2750/` (185 games: 81 of our own vs
+  2750-3000 teams, 104 team-vs-team; `scripts/build_p2750_panel.py`, `scripts/report_p2750.py`; submission arg
+  `p2750` to ladder_panel.py / remote_panel.py). Win rates there: m1 45.4%, t10 42.2% (t10 −352 vs m1, CI
+  −648..−76), y3 47.0%. CANDIDATE `agents/mgt_y3.py` (= m1 + yarn_service, yarn_gate, rescue_pin,
+  yarn_harvest_min=4), packaged in `submissions/2026-09-24-mgt_y3/` but NOT submitted: vs live V56 +295 (+69..+554),
+  180 ladder worlds +183 (+105..+266), p2750 +306 (+204..+416); max 0.025 s a call. New opening: measurably fails in
+  the tape architecture (`docs/new_opening_20260924.md`): graft −66k/−87k (hidden state), DSM library −7.1k.
 - 2026-09-23 remote panels + late-Yarn layer: see `docs/late_yarn_layer_20260923.md`. Kaggle remote panels are
   VALIDATED (`scripts/kaggle_remote/remote_panel.py`; 40/40 dollar-identical to local, t10 20/20 to its ladder
   recordings; 5 private sessions about 20 games/min; the user's other agent system shares the account's sessions).
@@ -422,3 +429,26 @@ https://www.kaggle.com/competitions/kaggriculture
 - Fetched 32 recordings from eight submissions rated 2757-2984. All originals reconstruct exactly, but 11 counterfactual playbacks materially break after replacing their original rival; do not count their inflated margins as opponent strength. Remaining 21: +504 mean margin, 2 better/19 same. Opponents still cannot react.
 - Added all ten qualifying actual original-m1 games across six opponents rated 2753-2804, with exact native cash/hourly board/private-state equality required first. All ten controls pass; +665 mean, 2 better/8 same, 0 worse, no opponent board divergence. Evil Mango loss -12635 -> -6214 (+6421); Snorlax loss -25467 remains untouched.
 - Final audit: all 254 ledgers and action hashes, all 42 source reconstructions, 318 decisions and frozen source hashes verified. Zero measured local time-bank exhaustions; framework setup and competition sandbox enforcement are outside this timing measurement. No production edit or submission. Next research target is coverage of the untouched losses, keeping this completed panel separate from subsequent tuning.
+
+### Cross-thread tape findings (2026-09-24)
+- User asked to incorporate suggestions/findings in other project prompts. Read `Refetch game records and diagnose`, the m1/t10/V56 picker comparison, `Review kaggriculture project context`, and `Assess UMG imitation coverage`; integrated the saved production-plan recommendations in `docs/value_tape_cross_thread_findings_20260923.md`.
+- User's three-day semantic segment proposal remains relevant: carry plantings, herd/service investment, deliveries, replacement cycles and next-reveal farm state; compile changes on our actual board through the scheduler. V9 commits an existing tape for three days but is not this general compiler. Earlier segment implementations failed execution and replacement-cycle maintenance.
+- Fresh 25-game m1 diagnostic: sales shortfalls versus matched rivals 7.4% strawberry, 21.7% wool, 12.7% milk. These are descriptive gaps, not automatic investment instructions. Two unchanged games in the other thread's eight-game V9 sample overlap this thread's exact-recording panel; retain separate estimates.
+- Read-only audit of the frozen 64 live matchups: 477/1115 alternatives reject for loss of baseline-preserved cohorts; by day 12/15/18: 59/384 (15.4%), 200/375 (53.3%), 218/356 (61.2%). Other alternatives: 293 not expanded after one scenario, 298 stopped at four-world nonpositive risk, 38 failed final eight-world gate, 9 admitted across 7 selected decisions. Unexpanded routes are not proven unprofitable.
+- Snorlax 112109339 (-25467) exact ledger: wool revenue -16297, extra hires -12363, other net +3193. Wool harvested 541 vs 558; sold 516 vs 558; average sale price154.10 vs171.70; 11 own wool still held at finish. Day12 best scout fails four-world economics; all four alternative tapes at each of D15/D18 fail cohort preservation. This motivates repaired service/delivery transitions and costed retirement, not simply dropping the guard or buying more sheep.
+- `scripts/audit_cross_thread_tape_findings_20260923.py` creates `results/fresh/tape_cross_thread_20260923_01a0/audit.json` from completed artifacts, with source hashes and ledger/panel-size assertions. No additional games or policy edits; m1 and V9 hashes unchanged. Next implementation remains a separate research policy for repaired transitions and reveal-conditioned production deltas.
+
+
+### Costed tape transition repairs (2026-09-24; R3)
+
+Research only; native mgt_m1 and frozen V9 unchanged. Report: docs/tape_transition_repair_20260924.md. Scripts value_tape_repair_r1/r2/r3.py add bounded three-day cohort service repairs through the native funded hidden-worker scheduler. R3 validates repairs over 16 shop futures plus 16 separate 6/12h rival-sale-delay stress scenarios; default cooperative 18s decision deadline. Source freeze and all raw results: results/fresh/tape_repair_20260924_01a0/.
+
+Development R1: all32 prior V56 worlds +2 exact m1 recordings, one +2705 vsV9, one -1570,32unchanged. Extra ordinary shop samples (R2,32futures) did not catch the regression. R3 sale-delay stress vetoed that regression and retained +2705 development recovery. Physical repairs succeeded in156/160 initial scouts, but152/160 forecasts had nonpositive risk-adjusted economics.
+
+Frozen new qualification r3holdout24:24 unseen IID eight-shop worlds x liveV56/originalm1 x original/V9/R3 =144 full games. R3 vs original:7better,40same,1worse; mean margin+531.4375 (+294.625 vsV56,+768.25 vsoriginalm1). VersusV9:1better(+1016),47exact same two-seat action streams,0worse; mean+21.1667. Only one repaired commitment in144R3 decisions;194/200 repair scouts preserved cohorts,185 ended with nonpositive value. Fresh repair fresh-11-original_m1 D18route422 keeps sheep(7,4,SHEEP,8),strawberry(8,2,STRAWBERRY,6); tie->win1016; owncash-1260,rival-2276. No additional losing-game deficit recovery fromR3. Fullpackage deficit recovery1.25%. One-world incremental gain is not a broad upgrade. Fresh mean/median/p95/max reveal3.40/2.33/6.97/7.89s, minimum measured bank48.45s, no deadline exhaustion. At most2memory-gated workers; local shared-laptop timing, not official sandbox certification.
+
+Fresh regression shared byV9/R3: fresh-12-v56 seed1895503985 D12route47, native+1692->-838 (-2530). Owncash+1768,rival+4298; own wool sales-44,rival wool receipts+6674. Applying16futures+16delivery stresses to this ordinary switch after evaluation STILL approves(mean+5023,worststress+301). Diagnostic only in ordinary_timing_diagnostic.json; no policy tuning on the holdout. Future rival production/market modeling must address this failure; timing stress alone is insufficient.
+
+R3record42:42additional candidate games on prior32rated recordings+10exactm1anchors; reused controls verified against168file hashes and42exact source reconstructions. All31cases without material opponent-command collapse unchanged vsV9. One+2473 vsV9 on TheEggman112562107 is excluded because baseline,V9,R3all have material frozen-opponent command failure. Original anchors retain+664.6mean vsoriginal, eligible21rated+503.8. Snorlax112109339 remains-25467; EvilMango112543358 retains+6421recovery. No replay timeouts, min measured bank45.30s. Do not count broken playback gains as live strength.
+
+Functional checks and final audits passed; audit_tape_repair_panel.py and audit_tape_repair_recordings.py reproduce summaries. Next reuse candidates: tape_semantic_features.py / verified whole-farm segments for economic retrieval; agents/adaptive_market_order.py::FlowModel for observed rival sale history (not integrated into R3). No new production submission.
