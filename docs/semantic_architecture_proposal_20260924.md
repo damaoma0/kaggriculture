@@ -46,6 +46,26 @@ Assumed (to be tested):
 - That a composition plan plus computed maintenance recovers most of a leader's value when executed by us.
 - (Tested and refuted: a simple care-cost layout is worth nothing; see [F].)
 
+## 2b. First look at the 3000+ material (240 games, 40 per team, 2026-09-24)
+`data/leader_semantics/` (stream S1): both seats' recorded actions replayed through the engine with the recorded
+seed and shop order; recorded cash reproduced in 240/240 games; per-day boards, plantings, harvests, animals,
+maintenance per tile, labour and market for the leader's seat. Scripts `scripts/extract_leader_semantics.py`,
+`scripts/leader_semantics_openings.py`, `scripts/leader_semantics_maintenance.py`.
+- **Two opening families, not one.** DSM and Vadim play one identical day-6 board in 100% of games, Mother-Goose 85%,
+  DECEM 70% (117 of the 240 games share it exactly: 10 melons, 10 strawberries, 2 cows, 3 sheep). The #1 team, Boey
+  (3080), plays a different one: 10 melons, 4.4 strawberries, 4.8 cows, 2.5 geese, 2.9 sheep, 17 distinct boards in
+  40 games. M & M & P & Q (3060): 9 melons, 8 strawberries, 6.5 wheat, 4.8 cows, 2.5 sheep, 35 distinct boards.
+  [A] therefore needs a choice between families (or a learned rule for it), not one schedule.
+- **Maintenance really is "maximum by default, exceptions where the engine says it is worthless".** Animals are fed
+  and cared 83-98% of animal-days on days 7-17, falling to ~50-70% (sheep, cows) on days 18-29 as their last
+  productions pass; geese stay at 72-89%. Crops follow the engine's value rules, not "always": melons are watered on
+  about half the days while young (survival only) and 98-100% in their bonus window (days 7-17); strawberries on
+  54-74% of days (every other day plus); wheat, tomatoes and carrots 56-77%. This is what [E] would compute.
+- **Current leaders barely condition sheep service on demand.** Sheep care with vs without a visible Yarn Store:
+  DSM 0.80 vs 0.65, Vadim 0.78 vs 0.67, Mother-Goose 0.81 vs 0.73, DECEM 0.80 vs 0.70, M&M&P&Q 0.78 vs 0.77, Boey
+  0.81 vs 0.90 (reversed). The old Mother-Goose tapes' 46% -> 75-90% switch is largely gone: they keep sheep serviced
+  regardless, which again points to "service everything that can pay" rather than a demand-keyed rule.
+
 ## 3. Components and how they compose
 ```
  visible shops, day, our farm (full observation), cash, rival farm (observable)
