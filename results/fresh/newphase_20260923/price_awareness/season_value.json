@@ -1,0 +1,66 @@
+{
+ "season_value": {
+  "mean": 127766,
+  "sd": 7181,
+  "shop_r2": 0.797,
+  "sd_shop_pred": 6612,
+  "resid_rmse": 3237
+ },
+ "final_cash": {
+  "mean": 116023,
+  "sd": 18665,
+  "shop_r2": 0.415,
+  "resid_rmse": 14280
+ },
+ "margin": {
+  "mean": 25611,
+  "sd": 22258
+ },
+ "blocks": {
+  "CASH_d6": {
+   "delta": -0.01,
+   "ci": [
+    -0.015,
+    -0.005
+   ],
+   "upper_sd_coins": 0,
+   "sd_incr_pred_coins": 168
+  },
+  "CASH_d12": {
+   "delta": -0.009,
+   "ci": [
+    -0.016,
+    -0.003
+   ],
+   "upper_sd_coins": 0,
+   "sd_incr_pred_coins": 275
+  },
+  "PLAYER_PRICE_d12": {
+   "delta": -0.04,
+   "ci": [
+    -0.08,
+    -0.017
+   ],
+   "upper_sd_coins": 0,
+   "sd_incr_pred_coins": 774
+  },
+  "OPP_d12": {
+   "delta": 0.026,
+   "ci": [
+    -0.007,
+    0.058
+   ],
+   "upper_sd_coins": 1729,
+   "sd_incr_pred_coins": 1566
+  },
+  "ALL_d12": {
+   "delta": 0.018,
+   "ci": [
+    -0.014,
+    0.053
+   ],
+   "upper_sd_coins": 1653,
+   "sd_incr_pred_coins": 1760
+  }
+ }
+}

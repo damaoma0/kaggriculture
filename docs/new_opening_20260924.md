@@ -143,3 +143,9 @@ worlds: −6,663 vs m1 there). All 180: **−5,916** mean, median −4,436.
   46 eligible-handoff worlds), DSM library (ceiling ≈ break-even with t10). The handoff alternatives (another day,
   reconcile before handoff, select on the reached board, opening as production targets) all need the target-reaching
   executor described above; "select on the reached board" is what O1r already does.
+
+**Price-awareness result (final, `results/fresh/newphase_20260923/price_awareness/summary.md`).** With only the shops
+DSM could see, shops explain sheep 0.98 -> 0.80, cows 0.94 -> 0.78, strawberries 0.95 -> 0.67 of the board variance
+(days 9 -> 24); prices, cash and the opponent add a median -0.001 on top of shops plus DSM's own board three days
+earlier. Their effects are timing (cash decides the hour a purchase goes through, then DSM catches up within days)
+and a few late channels worth ~0.3-1k each. A price-aware planner is worth at most ~1-2k; the executor is the prize.
