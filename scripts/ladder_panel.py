@@ -141,7 +141,7 @@ def main():
     # and fewer if free memory would drop under 2 GB (LP_WORKERS overrides the cap downward only)
     import psutil
     avail = psutil.virtual_memory().available / 1e9
-    workers = max(0, min(4, int(os.environ.get('LP_WORKERS', 4)), int((avail - 2.0) / 0.92)))
+    workers = max(0, min(int(os.environ.get('LP_MAX', 4)), int(os.environ.get('LP_WORKERS', 4)), int((avail - 2.0) / 0.92)))
     print(f'{len(jobs)} games, {workers} workers ({avail:.1f} GB free)', flush=True)
     if not workers:
         raise SystemExit('not enough free memory for one game worker; aborting')
