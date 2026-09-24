@@ -22,10 +22,11 @@ Combination versus V9-lite alone (`agents/mgt_v9litem1pkg.py`, same package on m
 layer adds +153 (-226..+460; wins 87 alone vs 85 combined). The layers add; the combination is chosen.
 
 ## Interaction: does a V9 switch strand sheep y3's layer services?
-`scripts/v9_strand_interaction.py` on the 40 p2750 worlds where the build differs from y3 (diagnostic copy
-`agents/mgt_v9lite_diag.py`, identical play in 40/40): sheep lost 0 in every world. After a late Yarn reveal (14
-worlds) V9 switches TO tapes that service sheep themselves: y3's yarn tasks -20.6, orphan days -2.1, wool +22.6,
-margin +4,320 vs y3. The residue is switches made BEFORE a late Yarn Store (the new tape plans less wool; y3's layer
+`scripts/v9_strand_interaction.py` on all 72 worlds (40 p2750 + 32 of the 180 ladder worlds) where the build
+differs from y3 (diagnostic copy `agents/mgt_v9lite_diag.py`, identical play in 72/72): sheep lost 0 in every world.
+After a late Yarn reveal (20 worlds) V9 switches TO tapes that service sheep themselves: y3's yarn tasks -19.9,
+orphan days -1.7, wool +25.6, margin +3,865 vs y3 (p2750 alone: 14 worlds, +4,320). Other switches (52): +2,799,
+orphan days +0.0, yarn tasks +1.5. The residue is switches made BEFORE a late Yarn Store (the new tape plans less wool; y3's layer
 then carries up to 28 more service tasks, up to 4 orphan days): four of the six worst worlds, -1.3k to -2.2k. A tail,
 not a general property (the other 26 switches average +2,022).
 
