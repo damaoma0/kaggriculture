@@ -1,4 +1,5 @@
-"""mgt_v9lite submission entry (main.py of a multi-file Kaggle agent archive; builder scripts/package_v9lite.py).
+"""RESEARCH COPY with _BASE = mgt_m1 (V9-lite WITHOUT y3; the text below describes the y3-based package).
+mgt_v9lite submission entry (main.py of a multi-file Kaggle agent archive; builder scripts/package_v9lite.py).
 
 Base: mgt_y3 plays every step. At the reveals of days 12, 15 and 18 (steps 288, 360, 432) the V9-lite value selector
 (scripts/value_tape_search_lite.py over the unchanged V9 runtime) may commit the router to a different tape until its

@@ -1,0 +1,469 @@
+{
+ "p2750": {
+  "label": "p2750 (185-game exact panel, own+team-vs-team)",
+  "n": 184,
+  "y3_minus_m1": {
+   "mean": 308.0652173913044,
+   "sum": 56684.0,
+   "lo": 206.17391304347825,
+   "hi": 418.33152173913044,
+   "better": 71,
+   "worse": 18,
+   "same": 95
+  },
+  "v9m1_minus_m1": {
+   "mean": 631.3097826086956,
+   "sum": 116161.0,
+   "lo": 332.7554347826087,
+   "hi": 955.9565217391304,
+   "better": 32,
+   "worse": 7,
+   "same": 145
+  },
+  "comb_minus_m1": {
+   "mean": 922.9782608695652,
+   "sum": 169828.0,
+   "lo": 621.0489130434783,
+   "hi": 1246.8532608695652,
+   "better": 82,
+   "worse": 21,
+   "same": 81
+  },
+  "comb_minus_y3": {
+   "mean": 614.9130434782609,
+   "sum": 113144.0,
+   "lo": 339.0217391304348,
+   "hi": 921.570652173913,
+   "better": 32,
+   "worse": 7,
+   "same": 145
+  },
+  "own_cash_comb_minus_y3": {
+   "mean": 209.93478260869566,
+   "sum": 38628.0,
+   "lo": -38.641304347826086,
+   "hi": 494.82065217391306,
+   "better": 23,
+   "worse": 16,
+   "same": 145
+  },
+  "rival_cash_comb_minus_y3": {
+   "mean": -404.9782608695652,
+   "sum": -74516.0,
+   "lo": -688.8152173913044,
+   "hi": -161.0326086956522,
+   "better": 14,
+   "worse": 25,
+   "same": 145
+  },
+  "concentration": {
+   "total_gain": 113144.0,
+   "total_positive": 126803.0,
+   "top5_of_total": 45687.0,
+   "top5_share_of_total": 0.4037951636852153,
+   "top5_share_of_positive": 0.36029904655252637,
+   "top10_of_total": 74161.0,
+   "top10_share_of_total": 0.6554567630629994,
+   "top10_share_of_positive": 0.5848520934047302
+  },
+  "worst5": [
+   {
+    "key": "112616230",
+    "comb_minus_y3": -1366.0
+   },
+   {
+    "key": "112093957",
+    "comb_minus_y3": -1413.0
+   },
+   {
+    "key": "112460119",
+    "comb_minus_y3": -2182.0
+   },
+   {
+    "key": "112612492",
+    "comb_minus_y3": -2230.0
+   },
+   {
+    "key": "112616240",
+    "comb_minus_y3": -4852.0
+   }
+  ],
+  "best5": [
+   {
+    "key": "112617395",
+    "comb_minus_y3": 12033.0
+   },
+   {
+    "key": "112181121",
+    "comb_minus_y3": 9498.0
+   },
+   {
+    "key": "112583218",
+    "comb_minus_y3": 8814.0
+   },
+   {
+    "key": "112612772",
+    "comb_minus_y3": 7679.0
+   },
+   {
+    "key": "112200188",
+    "comb_minus_y3": 7663.0
+   }
+  ],
+  "own_revenue_delta_comb_minus_y3": {
+   "CARROT": -47297,
+   "MILK": 30600,
+   "WOOL": 21530,
+   "STRAWBERRY": 13763,
+   "WHEAT": -12455,
+   "TOMATO": 10056,
+   "FERTILIZER": 9446,
+   "EGG": -5417,
+   "MELON": 469
+  },
+  "rival_revenue_delta_comb_minus_y3": null,
+  "by_source_comb_minus_y3": {
+   "own_ladder": {
+    "n": 81,
+    "mean": 625.5802469135803,
+    "sum": 50672.0
+   },
+   "team_vs_team": {
+    "n": 103,
+    "mean": 606.5242718446602,
+    "sum": 62472.0
+   }
+  },
+  "note": "m1/y3 (p2750eval schema) have no itemized rival_revenue, only a rival cash total; rival product deltas suppressed here"
+ },
+ "v56": {
+  "label": "live V56 paired (120 games/build: v56_paired 40 + v56_paired_b 80)",
+  "n": 120,
+  "y3_minus_m1": {
+   "mean": 178.0,
+   "sum": 21360.0,
+   "lo": -56.99166666666667,
+   "hi": 373.7,
+   "better": 32,
+   "worse": 16,
+   "same": 72
+  },
+  "v9m1_minus_m1": {
+   "mean": 846.95,
+   "sum": 101634.0,
+   "lo": 314.075,
+   "hi": 1443.0166666666667,
+   "better": 26,
+   "worse": 8,
+   "same": 86
+  },
+  "comb_minus_m1": {
+   "mean": 1000.25,
+   "sum": 120030.0,
+   "lo": 396.725,
+   "hi": 1648.8666666666666,
+   "better": 43,
+   "worse": 16,
+   "same": 61
+  },
+  "comb_minus_y3": {
+   "mean": 822.25,
+   "sum": 98670.0,
+   "lo": 266.05833333333334,
+   "hi": 1432.575,
+   "better": 21,
+   "worse": 8,
+   "same": 91
+  },
+  "own_cash_comb_minus_y3": {
+   "mean": 1403.1916666666666,
+   "sum": 168383.0,
+   "lo": 433.21666666666664,
+   "hi": 2407.133333333333,
+   "better": 24,
+   "worse": 5,
+   "same": 91
+  },
+  "rival_cash_comb_minus_y3": {
+   "mean": 580.9416666666667,
+   "sum": 69713.0,
+   "lo": -596.5083333333333,
+   "hi": 1635.45,
+   "better": 21,
+   "worse": 8,
+   "same": 91
+  },
+  "concentration": {
+   "total_gain": 98670.0,
+   "total_positive": 127003.0,
+   "top5_of_total": 63385.0,
+   "top5_share_of_total": 0.6423938380460119,
+   "top5_share_of_positive": 0.49908269883388584,
+   "top10_of_total": 96955.0,
+   "top10_share_of_total": 0.9826188304449174,
+   "top10_share_of_positive": 0.7634071636103085
+  },
+  "worst5": [
+   {
+    "key": "(1449981328, 1)",
+    "comb_minus_y3": -1524.0
+   },
+   {
+    "key": "(1921634684, 0)",
+    "comb_minus_y3": -5476.0
+   },
+   {
+    "key": "(1921634684, 1)",
+    "comb_minus_y3": -5476.0
+   },
+   {
+    "key": "(1455671948, 1)",
+    "comb_minus_y3": -5797.0
+   },
+   {
+    "key": "(1455671948, 0)",
+    "comb_minus_y3": -7430.0
+   }
+  ],
+  "best5": [
+   {
+    "key": "(1779242936, 0)",
+    "comb_minus_y3": 16428.0
+   },
+   {
+    "key": "(1779242936, 1)",
+    "comb_minus_y3": 16428.0
+   },
+   {
+    "key": "(324432268, 0)",
+    "comb_minus_y3": 10931.0
+   },
+   {
+    "key": "(324432268, 1)",
+    "comb_minus_y3": 10560.0
+   },
+   {
+    "key": "(256822585, 0)",
+    "comb_minus_y3": 9038.0
+   }
+  ],
+  "own_revenue_delta_comb_minus_y3": {
+   "WOOL": 62731,
+   "MILK": 44739,
+   "STRAWBERRY": 36563,
+   "CARROT": -10322,
+   "WHEAT": -7128,
+   "TOMATO": 3699,
+   "EGG": 2754,
+   "FERTILIZER": 948,
+   "MELON": 470
+  },
+  "rival_revenue_delta_comb_minus_y3": {
+   "WOOL": 64058,
+   "MILK": 44089,
+   "STRAWBERRY": 34245,
+   "CARROT": -9914,
+   "WHEAT": -5316,
+   "TOMATO": 3811,
+   "EGG": 2432,
+   "FERTILIZER": 681,
+   "MELON": 470
+  }
+ },
+ "ladder180": {
+  "label": "180 ladder worlds (3-way: m1/y3/combined; no v9litem1pkg-alone leg run here)",
+  "n": 180,
+  "y3_minus_m1": {
+   "mean": 183.42222222222222,
+   "sum": 33016.0,
+   "lo": 105.13333333333334,
+   "hi": 266.09444444444443,
+   "better": 57,
+   "worse": 19,
+   "same": 104
+  },
+  "comb_minus_m1": {
+   "mean": 854.4611111111111,
+   "sum": 153803.0,
+   "lo": 492.3277777777778,
+   "hi": 1264.0722222222223,
+   "better": 71,
+   "worse": 24,
+   "same": 85
+  },
+  "comb_minus_y3": {
+   "mean": 671.0388888888889,
+   "sum": 120787.0,
+   "lo": 328.49444444444447,
+   "hi": 1062.2388888888888,
+   "better": 26,
+   "worse": 11,
+   "same": 143
+  },
+  "concentration": {
+   "total_gain": 120787.0,
+   "top5_share_of_total": 0.4747034035119673,
+   "top10_share_of_total": 0.7693874340781707
+  },
+  "worst5": [
+   {
+    "key": 112282761,
+    "comb_minus_y3": -2564.0
+   },
+   {
+    "key": 111069352,
+    "comb_minus_y3": -2585.0
+   },
+   {
+    "key": 112187400,
+    "comb_minus_y3": -2791.0
+   },
+   {
+    "key": 110963585,
+    "comb_minus_y3": -2993.0
+   },
+   {
+    "key": 111159575,
+    "comb_minus_y3": -3093.0
+   }
+  ],
+  "best5": [
+   {
+    "key": 111858516,
+    "comb_minus_y3": 15989.0
+   },
+   {
+    "key": 111362566,
+    "comb_minus_y3": 11344.0
+   },
+   {
+    "key": 111721810,
+    "comb_minus_y3": 10603.0
+   },
+   {
+    "key": 110963800,
+    "comb_minus_y3": 9904.0
+   },
+   {
+    "key": 112181121,
+    "comb_minus_y3": 9498.0
+   }
+  ]
+ },
+ "switchday": {
+  "n": 72,
+  "mean_margin": 3094.9444444444443,
+  "by_switch_day": {
+   "12": {
+    "n": 46,
+    "mean": 3484.586956521739,
+    "sum": 160291.0
+   },
+   "12,15": {
+    "n": 4,
+    "mean": 7985.0,
+    "sum": 31940.0
+   },
+   "12,15,18": {
+    "n": 1,
+    "mean": 2877.0,
+    "sum": 2877.0
+   },
+   "12,18": {
+    "n": 1,
+    "mean": 2614.0,
+    "sum": 2614.0
+   },
+   "15": {
+    "n": 16,
+    "mean": 1395.75,
+    "sum": 22332.0
+   },
+   "18": {
+    "n": 4,
+    "mean": 695.5,
+    "sum": 2782.0
+   }
+  },
+  "top5_share_of_total": 0.2686863881958032,
+  "top10_share_of_total": 0.46090847080364034,
+  "own_wool_delta": 567,
+  "own_milk_delta": 538,
+  "own_strawberry_delta": 176,
+  "worst5": [
+   {
+    "ep": 111069352,
+    "d_margin": -2585.0,
+    "switch_days": [
+     12
+    ]
+   },
+   {
+    "ep": 112187400,
+    "d_margin": -2791.0,
+    "switch_days": [
+     15
+    ]
+   },
+   {
+    "ep": 110963585,
+    "d_margin": -2993.0,
+    "switch_days": [
+     12
+    ]
+   },
+   {
+    "ep": 111159575,
+    "d_margin": -3093.0,
+    "switch_days": [
+     12
+    ]
+   },
+   {
+    "ep": 112616240,
+    "d_margin": -4852.0,
+    "switch_days": [
+     12
+    ]
+   }
+  ],
+  "best5": [
+   {
+    "ep": 111858516,
+    "d_margin": 15989.0,
+    "switch_days": [
+     12
+    ]
+   },
+   {
+    "ep": 112617395,
+    "d_margin": 12033.0,
+    "switch_days": [
+     12
+    ]
+   },
+   {
+    "ep": 111362566,
+    "d_margin": 11344.0,
+    "switch_days": [
+     12,
+     15
+    ]
+   },
+   {
+    "ep": 111721810,
+    "d_margin": 10603.0,
+    "switch_days": [
+     15
+    ]
+   },
+   {
+    "ep": 110963800,
+    "d_margin": 9904.0,
+    "switch_days": [
+     12
+    ]
+   }
+  ]
+ }
+}
