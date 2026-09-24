@@ -49,6 +49,9 @@ def bundle(agents):
         else:
             (repo / extra).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy(src, repo / extra)
+    # Kaggle decompresses .gz files on upload; list them so the kernel can restore every one
+    (repo / 'gz_manifest.txt').write_text(chr(10).join(p.relative_to(repo).as_posix() for p in repo.rglob('*.gz')),
+                                          encoding='utf-8')
     meta = dict(title=DATASET.split('/')[1], id=DATASET, licenses=[{'name': 'other'}])
     (d / 'dataset-metadata.json').write_text(json.dumps(meta))
     exists = sh('datasets', 'status', DATASET, check=False).strip().splitlines()[-1:] == ['ready']   # --mine listing lags

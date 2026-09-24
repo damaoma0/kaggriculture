@@ -30,13 +30,20 @@ else:
         inner = next(Path('/tmp').rglob('scripts/ladder_panel.py')).parents[1]
         work = inner
 
-# Kaggle decompresses uploaded .gz files; the harness reads data/*/<episode>.json.gz, so re-wrap them (same JSON)
+# Kaggle decompresses uploaded .gz files. The bundle carries gz_manifest.txt, the list of every .gz it held; each
+# is re-wrapped from its decompressed copy (same content), wherever it lives (ladder games, tapes, V9's libraries).
 import gzip
-for sub in ('data/ladder_panel', 'data/mg_tapes'):
-    for f in (work / sub).rglob('*.json'):
+listed = work / 'gz_manifest.txt'
+todo = [work / l.strip()[:-3] for l in listed.read_text().splitlines() if l.strip()] if listed.exists() else     [f for sub in ('data/ladder_panel', 'data/mg_tapes') for f in (work / sub).rglob('*.json')]
+restored = 0
+for f in todo:
+    if f.exists() and not Path(str(f) + '.gz').exists():
         with open(f, 'rb') as fi, gzip.open(str(f) + '.gz', 'wb') as fo:
             fo.write(fi.read())
         f.unlink()
+        restored += 1
+missing_gz = [str(f) for f in todo if not Path(str(f) + '.gz').exists()]
+assert not missing_gz, f'gz files not restored: {missing_gz[:5]}'
 
 env = dict(os.environ, LP_WORKERS=str(SHARD.get('workers', 4)), PYTHONUNBUFFERED='1')
 t1 = time.time()

@@ -24,6 +24,12 @@ if _BASE != 'mgt_m1':
     _V9_V0.SOURCE = _p.read_text(encoding='utf-8')
     _V9_V0.CODE = compile(_V9_V0.SOURCE, str(_p), 'exec')
 import value_tape_search_v9 as _V9_N                      # noqa: E402
+# Fail loudly if the opponent libraries are missing: without them V9's search swallows the error with the live
+# engine hooked and silently corrupts the game (a Kaggle bundle whose .json.gz files were decompressed lost
+# 104-168k a game). Loading them here raises instead.
+import rival_trajectory_model_v3 as _V9_RTM3              # noqa: E402
+assert len(_V9_RTM3.training_library()) == 115, 'V9 opponent libraries incomplete'
+
 
 _V9_STATE = {}
 _V9_REPORT = {'decisions': [], 'switches': 0, 'seconds': []}
