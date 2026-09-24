@@ -1,0 +1,1416 @@
+{
+  "meta": {
+    "n_games": 263,
+    "teams": [
+      "Boey",
+      "DECEM",
+      "DSM",
+      "M & M & P & Q",
+      "Unknown Mother-Goose",
+      "Vadim Vasilenko"
+    ],
+    "n_teams": 6,
+    "generated": "2026-09-24 20:04:46"
+  },
+  "q1": {
+    "per_reveal_day": {
+      "STRAWBERRY": {
+        "3": {
+          "n_demanded": 126,
+          "n_not_demanded": 137,
+          "mean_delta3_demanded": 5.833,
+          "mean_delta3_not_demanded": 5.482,
+          "excess_units_3d": 0.352,
+          "excess_units_3d_se": 0.11,
+          "mean_delta6_demanded": 19.135,
+          "mean_delta6_not_demanded": 11.803,
+          "excess_units_6d": 7.332
+        },
+        "6": {
+          "n_demanded": 115,
+          "n_not_demanded": 148,
+          "mean_delta3_demanded": 13.922,
+          "mean_delta3_not_demanded": 6.358,
+          "excess_units_3d": 7.564,
+          "excess_units_3d_se": 0.615,
+          "mean_delta6_demanded": 19.939,
+          "mean_delta6_not_demanded": 11.216,
+          "excess_units_6d": 8.723
+        },
+        "9": {
+          "n_demanded": 151,
+          "n_not_demanded": 112,
+          "mean_delta3_demanded": 8.06,
+          "mean_delta3_not_demanded": 1.732,
+          "excess_units_3d": 6.327,
+          "excess_units_3d_se": 0.332,
+          "mean_delta6_demanded": 12.166,
+          "mean_delta6_not_demanded": 4.554,
+          "excess_units_6d": 7.612
+        },
+        "12": {
+          "n_demanded": 124,
+          "n_not_demanded": 139,
+          "mean_delta3_demanded": 6.435,
+          "mean_delta3_not_demanded": 0.993,
+          "excess_units_3d": 5.443,
+          "excess_units_3d_se": 0.406,
+          "mean_delta6_demanded": 7.081,
+          "mean_delta6_not_demanded": 1.554,
+          "excess_units_6d": 5.527
+        },
+        "15": {
+          "n_demanded": 127,
+          "n_not_demanded": 136,
+          "mean_delta3_demanded": 2.339,
+          "mean_delta3_not_demanded": -1.022,
+          "excess_units_3d": 3.361,
+          "excess_units_3d_se": 0.328,
+          "mean_delta6_demanded": -5.622,
+          "mean_delta6_not_demanded": -9.441,
+          "excess_units_6d": 3.819
+        },
+        "18": {
+          "n_demanded": 127,
+          "n_not_demanded": 136,
+          "mean_delta3_demanded": -7.882,
+          "mean_delta3_not_demanded": -8.493,
+          "excess_units_3d": 0.611,
+          "excess_units_3d_se": 0.354,
+          "mean_delta6_demanded": -16.551,
+          "mean_delta6_not_demanded": -16.912,
+          "excess_units_6d": 0.361
+        },
+        "21": {
+          "n_demanded": 135,
+          "n_not_demanded": 128,
+          "mean_delta3_demanded": -8.363,
+          "mean_delta3_not_demanded": -8.727,
+          "excess_units_3d": 0.364,
+          "excess_units_3d_se": 0.686,
+          "mean_delta6_demanded": -12.519,
+          "mean_delta6_not_demanded": -12.281,
+          "excess_units_6d": -0.237
+        },
+        "24": {
+          "n_demanded": 141,
+          "n_not_demanded": 122,
+          "mean_delta3_demanded": -3.752,
+          "mean_delta3_not_demanded": -3.992,
+          "excess_units_3d": 0.24,
+          "excess_units_3d_se": 0.412,
+          "mean_delta6_demanded": -5.865,
+          "mean_delta6_not_demanded": -6.156,
+          "excess_units_6d": 0.29
+        }
+      },
+      "MELON": {
+        "3": null,
+        "6": null,
+        "9": null,
+        "12": null,
+        "15": null,
+        "18": null,
+        "21": null,
+        "24": null
+      },
+      "TOMATO": {
+        "3": {
+          "n_demanded": 61,
+          "n_not_demanded": 202,
+          "mean_delta3_demanded": 0,
+          "mean_delta3_not_demanded": 0,
+          "excess_units_3d": 0,
+          "excess_units_3d_se": 0.0,
+          "mean_delta6_demanded": 0.049,
+          "mean_delta6_not_demanded": 0.015,
+          "excess_units_6d": 0.034
+        },
+        "6": {
+          "n_demanded": 65,
+          "n_not_demanded": 198,
+          "mean_delta3_demanded": 0.031,
+          "mean_delta3_not_demanded": 0.02,
+          "excess_units_3d": 0.011,
+          "excess_units_3d_se": 0.032,
+          "mean_delta6_demanded": 3.477,
+          "mean_delta6_not_demanded": 2.712,
+          "excess_units_6d": 0.765
+        },
+        "9": {
+          "n_demanded": 70,
+          "n_not_demanded": 193,
+          "mean_delta3_demanded": 4.043,
+          "mean_delta3_not_demanded": 2.456,
+          "excess_units_3d": 1.587,
+          "excess_units_3d_se": 0.59,
+          "mean_delta6_demanded": 8.671,
+          "mean_delta6_not_demanded": 5.383,
+          "excess_units_6d": 3.288
+        },
+        "12": {
+          "n_demanded": 63,
+          "n_not_demanded": 200,
+          "mean_delta3_demanded": 4.667,
+          "mean_delta3_not_demanded": 2.975,
+          "excess_units_3d": 1.692,
+          "excess_units_3d_se": 0.63,
+          "mean_delta6_demanded": 7.683,
+          "mean_delta6_not_demanded": 5.025,
+          "excess_units_6d": 2.658
+        },
+        "15": {
+          "n_demanded": 68,
+          "n_not_demanded": 195,
+          "mean_delta3_demanded": 3.529,
+          "mean_delta3_not_demanded": 1.846,
+          "excess_units_3d": 1.683,
+          "excess_units_3d_se": 0.429,
+          "mean_delta6_demanded": 5.353,
+          "mean_delta6_not_demanded": 3.256,
+          "excess_units_6d": 2.097
+        },
+        "18": {
+          "n_demanded": 79,
+          "n_not_demanded": 184,
+          "mean_delta3_demanded": 2.38,
+          "mean_delta3_not_demanded": 1.147,
+          "excess_units_3d": 1.233,
+          "excess_units_3d_se": 0.275,
+          "mean_delta6_demanded": -1.494,
+          "mean_delta6_not_demanded": -1.739,
+          "excess_units_6d": 0.245
+        },
+        "21": {
+          "n_demanded": 70,
+          "n_not_demanded": 193,
+          "mean_delta3_demanded": -2.429,
+          "mean_delta3_not_demanded": -3.456,
+          "excess_units_3d": 1.027,
+          "excess_units_3d_se": 0.429,
+          "mean_delta6_demanded": -4.7,
+          "mean_delta6_not_demanded": -6.446,
+          "excess_units_6d": 1.746
+        },
+        "24": {
+          "n_demanded": 67,
+          "n_not_demanded": 196,
+          "mean_delta3_demanded": -2.761,
+          "mean_delta3_not_demanded": -2.811,
+          "excess_units_3d": 0.05,
+          "excess_units_3d_se": 0.47,
+          "mean_delta6_demanded": -4.164,
+          "mean_delta6_not_demanded": -3.918,
+          "excess_units_6d": -0.246
+        }
+      },
+      "WHEAT": {
+        "3": {
+          "n_demanded": 160,
+          "n_not_demanded": 103,
+          "mean_delta3_demanded": -4.431,
+          "mean_delta3_not_demanded": -4.903,
+          "excess_units_3d": 0.472,
+          "excess_units_3d_se": 0.335,
+          "mean_delta6_demanded": 5.556,
+          "mean_delta6_not_demanded": 3.437,
+          "excess_units_6d": 2.119
+        },
+        "6": {
+          "n_demanded": 154,
+          "n_not_demanded": 109,
+          "mean_delta3_demanded": 9.643,
+          "mean_delta3_not_demanded": 8.917,
+          "excess_units_3d": 0.725,
+          "excess_units_3d_se": 0.772,
+          "mean_delta6_demanded": 28.312,
+          "mean_delta6_not_demanded": 26.229,
+          "excess_units_6d": 2.082
+        },
+        "9": {
+          "n_demanded": 188,
+          "n_not_demanded": 75,
+          "mean_delta3_demanded": 18.436,
+          "mean_delta3_not_demanded": 17.28,
+          "excess_units_3d": 1.156,
+          "excess_units_3d_se": 1.222,
+          "mean_delta6_demanded": 13.734,
+          "mean_delta6_not_demanded": 11.64,
+          "excess_units_6d": 2.094
+        },
+        "12": {
+          "n_demanded": 167,
+          "n_not_demanded": 96,
+          "mean_delta3_demanded": -4.461,
+          "mean_delta3_not_demanded": -5.854,
+          "excess_units_3d": 1.393,
+          "excess_units_3d_se": 0.66,
+          "mean_delta6_demanded": -8.563,
+          "mean_delta6_not_demanded": -9.969,
+          "excess_units_6d": 1.406
+        },
+        "15": {
+          "n_demanded": 163,
+          "n_not_demanded": 100,
+          "mean_delta3_demanded": -3.712,
+          "mean_delta3_not_demanded": -4.75,
+          "excess_units_3d": 1.038,
+          "excess_units_3d_se": 0.655,
+          "mean_delta6_demanded": 0.092,
+          "mean_delta6_not_demanded": -0.82,
+          "excess_units_6d": 0.912
+        },
+        "18": {
+          "n_demanded": 170,
+          "n_not_demanded": 93,
+          "mean_delta3_demanded": 4.1,
+          "mean_delta3_not_demanded": 3.398,
+          "excess_units_3d": 0.702,
+          "excess_units_3d_se": 0.749,
+          "mean_delta6_demanded": 10.994,
+          "mean_delta6_not_demanded": 9.753,
+          "excess_units_6d": 1.241
+        },
+        "21": {
+          "n_demanded": 176,
+          "n_not_demanded": 87,
+          "mean_delta3_demanded": 7.188,
+          "mean_delta3_not_demanded": 5.724,
+          "excess_units_3d": 1.463,
+          "excess_units_3d_se": 0.881,
+          "mean_delta6_demanded": 6.443,
+          "mean_delta6_not_demanded": 4.908,
+          "excess_units_6d": 1.535
+        },
+        "24": {
+          "n_demanded": 165,
+          "n_not_demanded": 98,
+          "mean_delta3_demanded": 0.606,
+          "mean_delta3_not_demanded": -3.082,
+          "excess_units_3d": 3.688,
+          "excess_units_3d_se": 0.966,
+          "mean_delta6_demanded": -15.055,
+          "mean_delta6_not_demanded": -16.367,
+          "excess_units_6d": 1.313
+        }
+      },
+      "CARROT": {
+        "3": {
+          "n_demanded": 63,
+          "n_not_demanded": 200,
+          "mean_delta3_demanded": 0,
+          "mean_delta3_not_demanded": 0,
+          "excess_units_3d": 0,
+          "excess_units_3d_se": 0.0,
+          "mean_delta6_demanded": 0.857,
+          "mean_delta6_not_demanded": 0,
+          "excess_units_6d": 0.857
+        },
+        "6": {
+          "n_demanded": 72,
+          "n_not_demanded": 191,
+          "mean_delta3_demanded": 0.736,
+          "mean_delta3_not_demanded": 0.005,
+          "excess_units_3d": 0.731,
+          "excess_units_3d_se": 0.388,
+          "mean_delta6_demanded": 6.708,
+          "mean_delta6_not_demanded": 1.822,
+          "excess_units_6d": 4.886
+        },
+        "9": {
+          "n_demanded": 59,
+          "n_not_demanded": 204,
+          "mean_delta3_demanded": 6.525,
+          "mean_delta3_not_demanded": 1.922,
+          "excess_units_3d": 4.604,
+          "excess_units_3d_se": 0.973,
+          "mean_delta6_demanded": 8.576,
+          "mean_delta6_not_demanded": 3.314,
+          "excess_units_6d": 5.263
+        },
+        "12": {
+          "n_demanded": 69,
+          "n_not_demanded": 194,
+          "mean_delta3_demanded": 3.986,
+          "mean_delta3_not_demanded": 0.67,
+          "excess_units_3d": 3.315,
+          "excess_units_3d_se": 0.728,
+          "mean_delta6_demanded": 5.725,
+          "mean_delta6_not_demanded": 1.814,
+          "excess_units_6d": 3.91
+        },
+        "15": {
+          "n_demanded": 74,
+          "n_not_demanded": 189,
+          "mean_delta3_demanded": 4.459,
+          "mean_delta3_not_demanded": 0.063,
+          "excess_units_3d": 4.396,
+          "excess_units_3d_se": 0.676,
+          "mean_delta6_demanded": 8.297,
+          "mean_delta6_not_demanded": 2.328,
+          "excess_units_6d": 5.969
+        },
+        "18": {
+          "n_demanded": 70,
+          "n_not_demanded": 193,
+          "mean_delta3_demanded": 5.929,
+          "mean_delta3_not_demanded": 1.539,
+          "excess_units_3d": 4.39,
+          "excess_units_3d_se": 0.744,
+          "mean_delta6_demanded": 11.514,
+          "mean_delta6_not_demanded": 5.238,
+          "excess_units_6d": 6.276
+        },
+        "21": {
+          "n_demanded": 63,
+          "n_not_demanded": 200,
+          "mean_delta3_demanded": 8.254,
+          "mean_delta3_not_demanded": 2.925,
+          "excess_units_3d": 5.329,
+          "excess_units_3d_se": 1.035,
+          "mean_delta6_demanded": 15.968,
+          "mean_delta6_not_demanded": 9.245,
+          "excess_units_6d": 6.723
+        },
+        "24": {
+          "n_demanded": 61,
+          "n_not_demanded": 202,
+          "mean_delta3_demanded": 11,
+          "mean_delta3_not_demanded": 5.342,
+          "excess_units_3d": 5.658,
+          "excess_units_3d_se": 1.42,
+          "mean_delta6_demanded": -4.148,
+          "mean_delta6_not_demanded": -6.238,
+          "excess_units_6d": 2.09
+        }
+      },
+      "WOOL": {
+        "3": {
+          "n_demanded": 33,
+          "n_not_demanded": 230,
+          "mean_delta3_demanded": 1,
+          "mean_delta3_not_demanded": 0.087,
+          "excess_units_3d": 0.913,
+          "excess_units_3d_se": 0.247,
+          "mean_delta6_demanded": 9.03,
+          "mean_delta6_not_demanded": 1.713,
+          "excess_units_6d": 7.317
+        },
+        "6": {
+          "n_demanded": 40,
+          "n_not_demanded": 223,
+          "mean_delta3_demanded": 7.725,
+          "mean_delta3_not_demanded": 1.48,
+          "excess_units_3d": 6.245,
+          "excess_units_3d_se": 0.334,
+          "mean_delta6_demanded": 8.8,
+          "mean_delta6_not_demanded": 2.247,
+          "excess_units_6d": 6.553
+        },
+        "9": {
+          "n_demanded": 27,
+          "n_not_demanded": 236,
+          "mean_delta3_demanded": 6.037,
+          "mean_delta3_not_demanded": 0.216,
+          "excess_units_3d": 5.821,
+          "excess_units_3d_se": 0.309,
+          "mean_delta6_demanded": 7.333,
+          "mean_delta6_not_demanded": 0.585,
+          "excess_units_6d": 6.749
+        },
+        "12": {
+          "n_demanded": 30,
+          "n_not_demanded": 233,
+          "mean_delta3_demanded": 4.033,
+          "mean_delta3_not_demanded": 0.004,
+          "excess_units_3d": 4.029,
+          "excess_units_3d_se": 0.342,
+          "mean_delta6_demanded": 4.633,
+          "mean_delta6_not_demanded": 0.382,
+          "excess_units_6d": 4.251
+        },
+        "15": {
+          "n_demanded": 28,
+          "n_not_demanded": 235,
+          "mean_delta3_demanded": 2.393,
+          "mean_delta3_not_demanded": 0.166,
+          "excess_units_3d": 2.227,
+          "excess_units_3d_se": 0.266,
+          "mean_delta6_demanded": 2.571,
+          "mean_delta6_not_demanded": -0.077,
+          "excess_units_6d": 2.648
+        },
+        "18": {
+          "n_demanded": 31,
+          "n_not_demanded": 232,
+          "mean_delta3_demanded": 0.742,
+          "mean_delta3_not_demanded": -0.323,
+          "excess_units_3d": 1.065,
+          "excess_units_3d_se": 0.201,
+          "mean_delta6_demanded": 1.258,
+          "mean_delta6_not_demanded": -0.754,
+          "excess_units_6d": 2.012
+        },
+        "21": {
+          "n_demanded": 32,
+          "n_not_demanded": 231,
+          "mean_delta3_demanded": 0.75,
+          "mean_delta3_not_demanded": -0.468,
+          "excess_units_3d": 1.218,
+          "excess_units_3d_se": 0.25,
+          "mean_delta6_demanded": 0.625,
+          "mean_delta6_not_demanded": -1.597,
+          "excess_units_6d": 2.222
+        },
+        "24": {
+          "n_demanded": 29,
+          "n_not_demanded": 234,
+          "mean_delta3_demanded": -0.31,
+          "mean_delta3_not_demanded": -1.094,
+          "excess_units_3d": 0.784,
+          "excess_units_3d_se": 0.148,
+          "mean_delta6_demanded": -4.379,
+          "mean_delta6_not_demanded": -5.043,
+          "excess_units_6d": 0.663
+        }
+      },
+      "EGG": {
+        "3": {
+          "n_demanded": 69,
+          "n_not_demanded": 194,
+          "mean_delta3_demanded": 0.159,
+          "mean_delta3_not_demanded": 0.062,
+          "excess_units_3d": 0.098,
+          "excess_units_3d_se": 0.052,
+          "mean_delta6_demanded": 2.855,
+          "mean_delta6_not_demanded": 1.361,
+          "excess_units_6d": 1.494
+        },
+        "6": {
+          "n_demanded": 66,
+          "n_not_demanded": 197,
+          "mean_delta3_demanded": 2.652,
+          "mean_delta3_not_demanded": 1.335,
+          "excess_units_3d": 1.316,
+          "excess_units_3d_se": 0.28,
+          "mean_delta6_demanded": 6.833,
+          "mean_delta6_not_demanded": 4.254,
+          "excess_units_6d": 2.58
+        },
+        "9": {
+          "n_demanded": 80,
+          "n_not_demanded": 183,
+          "mean_delta3_demanded": 4.125,
+          "mean_delta3_not_demanded": 2.847,
+          "excess_units_3d": 1.278,
+          "excess_units_3d_se": 0.369,
+          "mean_delta6_demanded": 4.213,
+          "mean_delta6_not_demanded": 2.962,
+          "excess_units_6d": 1.251
+        },
+        "12": {
+          "n_demanded": 75,
+          "n_not_demanded": 188,
+          "mean_delta3_demanded": 0.12,
+          "mean_delta3_not_demanded": 0.101,
+          "excess_units_3d": 0.019,
+          "excess_units_3d_se": 0.05,
+          "mean_delta6_demanded": 0.133,
+          "mean_delta6_not_demanded": 0.08,
+          "excess_units_6d": 0.054
+        },
+        "15": {
+          "n_demanded": 66,
+          "n_not_demanded": 197,
+          "mean_delta3_demanded": 0,
+          "mean_delta3_not_demanded": -0.015,
+          "excess_units_3d": 0.015,
+          "excess_units_3d_se": 0.023,
+          "mean_delta6_demanded": -0.045,
+          "mean_delta6_not_demanded": -0.086,
+          "excess_units_6d": 0.041
+        },
+        "18": {
+          "n_demanded": 72,
+          "n_not_demanded": 191,
+          "mean_delta3_demanded": -0.014,
+          "mean_delta3_not_demanded": -0.084,
+          "excess_units_3d": 0.07,
+          "excess_units_3d_se": 0.026,
+          "mean_delta6_demanded": -0.208,
+          "mean_delta6_not_demanded": -0.23,
+          "excess_units_6d": 0.022
+        },
+        "21": {
+          "n_demanded": 71,
+          "n_not_demanded": 192,
+          "mean_delta3_demanded": -0.014,
+          "mean_delta3_not_demanded": -0.214,
+          "excess_units_3d": 0.199,
+          "excess_units_3d_se": 0.04,
+          "mean_delta6_demanded": -0.099,
+          "mean_delta6_not_demanded": -0.417,
+          "excess_units_6d": 0.318
+        },
+        "24": {
+          "n_demanded": 64,
+          "n_not_demanded": 199,
+          "mean_delta3_demanded": -0.125,
+          "mean_delta3_not_demanded": -0.186,
+          "excess_units_3d": 0.061,
+          "excess_units_3d_se": 0.058,
+          "mean_delta6_demanded": -0.578,
+          "mean_delta6_not_demanded": -0.889,
+          "excess_units_6d": 0.311
+        }
+      },
+      "MILK": {
+        "3": {
+          "n_demanded": 98,
+          "n_not_demanded": 165,
+          "mean_delta3_demanded": 0.724,
+          "mean_delta3_not_demanded": 0.194,
+          "excess_units_3d": 0.531,
+          "excess_units_3d_se": 0.138,
+          "mean_delta6_demanded": 6.245,
+          "mean_delta6_not_demanded": 2.824,
+          "excess_units_6d": 3.421
+        },
+        "6": {
+          "n_demanded": 85,
+          "n_not_demanded": 178,
+          "mean_delta3_demanded": 5.424,
+          "mean_delta3_not_demanded": 2.888,
+          "excess_units_3d": 2.536,
+          "excess_units_3d_se": 0.315,
+          "mean_delta6_demanded": 7.306,
+          "mean_delta6_not_demanded": 4.208,
+          "excess_units_6d": 3.098
+        },
+        "9": {
+          "n_demanded": 97,
+          "n_not_demanded": 166,
+          "mean_delta3_demanded": 2.701,
+          "mean_delta3_not_demanded": 0.801,
+          "excess_units_3d": 1.9,
+          "excess_units_3d_se": 0.141,
+          "mean_delta6_demanded": 3.103,
+          "mean_delta6_not_demanded": 0.928,
+          "excess_units_6d": 2.175
+        },
+        "12": {
+          "n_demanded": 89,
+          "n_not_demanded": 174,
+          "mean_delta3_demanded": 0.472,
+          "mean_delta3_not_demanded": 0.103,
+          "excess_units_3d": 0.368,
+          "excess_units_3d_se": 0.097,
+          "mean_delta6_demanded": 0.517,
+          "mean_delta6_not_demanded": -0.138,
+          "excess_units_6d": 0.655
+        },
+        "15": {
+          "n_demanded": 95,
+          "n_not_demanded": 168,
+          "mean_delta3_demanded": 0.053,
+          "mean_delta3_not_demanded": -0.256,
+          "excess_units_3d": 0.309,
+          "excess_units_3d_se": 0.059,
+          "mean_delta6_demanded": 0.021,
+          "mean_delta6_not_demanded": -0.714,
+          "excess_units_6d": 0.735
+        },
+        "18": {
+          "n_demanded": 90,
+          "n_not_demanded": 173,
+          "mean_delta3_demanded": -0.011,
+          "mean_delta3_not_demanded": -0.457,
+          "excess_units_3d": 0.446,
+          "excess_units_3d_se": 0.087,
+          "mean_delta6_demanded": -0.167,
+          "mean_delta6_not_demanded": -1.133,
+          "excess_units_6d": 0.966
+        },
+        "21": {
+          "n_demanded": 97,
+          "n_not_demanded": 166,
+          "mean_delta3_demanded": -0.216,
+          "mean_delta3_not_demanded": -0.663,
+          "excess_units_3d": 0.446,
+          "excess_units_3d_se": 0.119,
+          "mean_delta6_demanded": -0.433,
+          "mean_delta6_not_demanded": -1.277,
+          "excess_units_6d": 0.844
+        },
+        "24": {
+          "n_demanded": 109,
+          "n_not_demanded": 154,
+          "mean_delta3_demanded": -0.156,
+          "mean_delta3_not_demanded": -0.688,
+          "excess_units_3d": 0.532,
+          "excess_units_3d_se": 0.111,
+          "mean_delta6_demanded": 0.183,
+          "mean_delta6_not_demanded": -1.045,
+          "excess_units_6d": 1.229
+        }
+      }
+    },
+    "pooled_regression": {
+      "STRAWBERRY": {
+        "3d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": 11.025,
+          "intercept_se": 0.202,
+          "demanded_coef": 3.035,
+          "demanded_se": 0.213,
+          "day_coef": -0.7374,
+          "day_se": 0.0146,
+          "current_holdings_coef": -0.1183,
+          "current_holdings_se": 0.0066
+        },
+        "6d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": 22.356,
+          "intercept_se": 0.47,
+          "demanded_coef": 4.355,
+          "demanded_se": 0.321,
+          "day_coef": -1.2471,
+          "day_se": 0.0261,
+          "current_holdings_coef": -0.4388,
+          "current_holdings_se": 0.0117
+        }
+      },
+      "MELON": {
+        "3d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": 4.657,
+          "intercept_se": 0.068,
+          "demanded_coef": -0.0,
+          "demanded_se": 0.0,
+          "day_coef": -0.2533,
+          "day_se": 0.0041,
+          "current_holdings_coef": -0.5953,
+          "current_holdings_se": 0.0058
+        },
+        "6d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": 5.245,
+          "intercept_se": 0.109,
+          "demanded_coef": -0.0,
+          "demanded_se": 0.0,
+          "day_coef": -0.282,
+          "day_se": 0.006,
+          "current_holdings_coef": -0.9466,
+          "current_holdings_se": 0.0069
+        }
+      },
+      "TOMATO": {
+        "3d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": 2.232,
+          "intercept_se": 0.145,
+          "demanded_coef": 0.987,
+          "demanded_se": 0.18,
+          "day_coef": -0.1165,
+          "day_se": 0.0084,
+          "current_holdings_coef": -0.0925,
+          "current_holdings_se": 0.0037
+        },
+        "6d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": 4.956,
+          "intercept_se": 0.293,
+          "demanded_coef": 1.338,
+          "demanded_se": 0.279,
+          "day_coef": -0.2174,
+          "day_se": 0.0132,
+          "current_holdings_coef": -0.3431,
+          "current_holdings_se": 0.0107
+        }
+      },
+      "WHEAT": {
+        "3d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": 3.966,
+          "intercept_se": 0.323,
+          "demanded_coef": 2.015,
+          "demanded_se": 0.372,
+          "day_coef": 0.5218,
+          "day_se": 0.0324,
+          "current_holdings_coef": -0.5283,
+          "current_holdings_se": 0.0226
+        },
+        "6d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": 18.308,
+          "intercept_se": 0.58,
+          "demanded_coef": 1.638,
+          "demanded_se": 0.451,
+          "day_coef": 0.1786,
+          "day_se": 0.0446,
+          "current_holdings_coef": -0.9687,
+          "current_holdings_se": 0.032
+        }
+      },
+      "CARROT": {
+        "3d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": -2.527,
+          "intercept_se": 0.189,
+          "demanded_coef": 3.374,
+          "demanded_se": 0.307,
+          "day_coef": 0.3578,
+          "day_se": 0.0192,
+          "current_holdings_coef": -0.1592,
+          "current_holdings_se": 0.0223
+        },
+        "6d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": -0.243,
+          "intercept_se": 0.362,
+          "demanded_coef": 4.453,
+          "demanded_se": 0.452,
+          "day_coef": 0.3738,
+          "day_se": 0.033,
+          "current_holdings_coef": -0.5802,
+          "current_holdings_se": 0.0353
+        }
+      },
+      "WOOL": {
+        "3d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": 1.425,
+          "intercept_se": 0.082,
+          "demanded_coef": 2.879,
+          "demanded_se": 0.184,
+          "day_coef": -0.0906,
+          "day_se": 0.0046,
+          "current_holdings_coef": -0.0355,
+          "current_holdings_se": 0.0061
+        },
+        "6d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": 4.445,
+          "intercept_se": 0.208,
+          "demanded_coef": 4.15,
+          "demanded_se": 0.224,
+          "day_coef": -0.2913,
+          "day_se": 0.0129,
+          "current_holdings_coef": -0.1505,
+          "current_holdings_se": 0.0092
+        }
+      },
+      "EGG": {
+        "3d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": 1.589,
+          "intercept_se": 0.08,
+          "demanded_coef": 0.429,
+          "demanded_se": 0.086,
+          "day_coef": -0.0752,
+          "day_se": 0.0034,
+          "current_holdings_coef": -0.0281,
+          "current_holdings_se": 0.0056
+        },
+        "6d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": 3.824,
+          "intercept_se": 0.187,
+          "demanded_coef": 0.722,
+          "demanded_se": 0.125,
+          "day_coef": -0.1855,
+          "day_se": 0.0081,
+          "current_holdings_coef": -0.1183,
+          "current_holdings_se": 0.0114
+        }
+      },
+      "MILK": {
+        "3d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": 2.242,
+          "intercept_se": 0.074,
+          "demanded_coef": 0.825,
+          "demanded_se": 0.084,
+          "day_coef": -0.1141,
+          "day_se": 0.0037,
+          "current_holdings_coef": -0.0696,
+          "current_holdings_se": 0.0076
+        },
+        "6d": {
+          "n": 2104,
+          "n_games": 263,
+          "intercept": 5.022,
+          "intercept_se": 0.161,
+          "demanded_coef": 1.611,
+          "demanded_se": 0.114,
+          "day_coef": -0.2281,
+          "day_se": 0.0083,
+          "current_holdings_coef": -0.2294,
+          "current_holdings_se": 0.0164
+        }
+      }
+    },
+    "per_team_pooled_delta3": {
+      "STRAWBERRY": {
+        "Boey": 0.96,
+        "DECEM": 3.36,
+        "DSM": 3.46,
+        "M & M & P & Q": 2.95,
+        "Unknown Mother-Goose": 3.18,
+        "Vadim Vasilenko": 3.52
+      },
+      "MELON": {},
+      "TOMATO": {
+        "Boey": 0.04,
+        "DECEM": 1.63,
+        "DSM": 1.89,
+        "M & M & P & Q": 0,
+        "Unknown Mother-Goose": 1.28,
+        "Vadim Vasilenko": 1.0
+      },
+      "WHEAT": {
+        "Boey": 0.64,
+        "DECEM": 1.83,
+        "DSM": 4.21,
+        "M & M & P & Q": 1.27,
+        "Unknown Mother-Goose": 3.76,
+        "Vadim Vasilenko": 1.44
+      },
+      "CARROT": {
+        "Boey": 2.07,
+        "DECEM": 4.68,
+        "DSM": 3.34,
+        "M & M & P & Q": 5.04,
+        "Unknown Mother-Goose": 2.5,
+        "Vadim Vasilenko": 3.51
+      },
+      "WOOL": {
+        "Boey": 2.4,
+        "DECEM": 3.01,
+        "DSM": 2.11,
+        "M & M & P & Q": 4.0,
+        "Unknown Mother-Goose": 2.85,
+        "Vadim Vasilenko": 3.35
+      },
+      "EGG": {
+        "Boey": 0.35,
+        "DECEM": 0.27,
+        "DSM": 0.66,
+        "M & M & P & Q": 0,
+        "Unknown Mother-Goose": 0.79,
+        "Vadim Vasilenko": 0.75
+      },
+      "MILK": {
+        "Boey": 0.84,
+        "DECEM": 0.95,
+        "DSM": 0.77,
+        "M & M & P & Q": 1.16,
+        "Unknown Mother-Goose": 0.63,
+        "Vadim Vasilenko": 0.38
+      }
+    }
+  },
+  "q2": {
+    "STRAWBERRY": {
+      "n_observed": 711,
+      "n_censored": 335,
+      "n_reveal_events": 1046,
+      "mean_delay": -2.16,
+      "median_delay": -3,
+      "p25": -3,
+      "p75": -1,
+      "frac_anticipated_before_reveal": 0.872,
+      "frac_same_day": 0.097,
+      "frac_lagged": 0.031
+    },
+    "MELON": {
+      "n_observed": 0,
+      "n_censored": 0,
+      "n_reveal_events": 0
+    },
+    "TOMATO": {
+      "n_observed": 333,
+      "n_censored": 210,
+      "n_reveal_events": 543,
+      "mean_delay": -0.17,
+      "median_delay": -2,
+      "p25": -3,
+      "p75": 3,
+      "frac_anticipated_before_reveal": 0.55,
+      "frac_same_day": 0.153,
+      "frac_lagged": 0.297
+    },
+    "WHEAT": {
+      "n_observed": 1343,
+      "n_censored": 0,
+      "n_reveal_events": 1343,
+      "mean_delay": -2.66,
+      "median_delay": -3,
+      "p25": -3,
+      "p75": -3,
+      "frac_anticipated_before_reveal": 0.91,
+      "frac_same_day": 0.086,
+      "frac_lagged": 0.004
+    },
+    "CARROT": {
+      "n_observed": 487,
+      "n_censored": 44,
+      "n_reveal_events": 531,
+      "mean_delay": 0.85,
+      "median_delay": 0,
+      "p25": -3,
+      "p75": 4,
+      "frac_anticipated_before_reveal": 0.437,
+      "frac_same_day": 0.088,
+      "frac_lagged": 0.474
+    },
+    "WOOL": {
+      "n_observed": 182,
+      "n_censored": 68,
+      "n_reveal_events": 250,
+      "mean_delay": -0.9,
+      "median_delay": 0.0,
+      "p25": -2,
+      "p75": 0,
+      "frac_anticipated_before_reveal": 0.401,
+      "frac_same_day": 0.577,
+      "frac_lagged": 0.022
+    },
+    "EGG": {
+      "n_observed": 253,
+      "n_censored": 310,
+      "n_reveal_events": 563,
+      "mean_delay": -0.1,
+      "median_delay": 0,
+      "p25": -3,
+      "p75": 3,
+      "frac_anticipated_before_reveal": 0.447,
+      "frac_same_day": 0.277,
+      "frac_lagged": 0.277
+    },
+    "MILK": {
+      "n_observed": 392,
+      "n_censored": 368,
+      "n_reveal_events": 760,
+      "mean_delay": -2.02,
+      "median_delay": -3.0,
+      "p25": -3,
+      "p75": -2,
+      "frac_anticipated_before_reveal": 0.788,
+      "frac_same_day": 0.194,
+      "frac_lagged": 0.018
+    }
+  },
+  "q3": {
+    "STRAWBERRY": {
+      "by_prior_demanding_shops": {
+        "0": {
+          "n": 261,
+          "mean_delta3": 6.858
+        },
+        "1": {
+          "n": 254,
+          "mean_delta3": 6.705
+        },
+        "2": {
+          "n": 224,
+          "mean_delta3": 0.946
+        },
+        "3": {
+          "n": 166,
+          "mean_delta3": -4.313
+        },
+        "4": {
+          "n": 92,
+          "mean_delta3": -6.565
+        },
+        "5": {
+          "n": 37,
+          "mean_delta3": -8.351
+        },
+        "6": {
+          "n": 11,
+          "mean_delta3": -7.182
+        },
+        "7": {
+          "n": 1,
+          "mean_delta3": -8
+        }
+      },
+      "saturation_ratio_vs_zero_prior": {
+        "1": 0.978,
+        "2": 0.138,
+        "3": -0.629,
+        "4": -0.957,
+        "5": -1.218,
+        "6": -1.047,
+        "7": -1.167
+      }
+    },
+    "MELON": {
+      "by_prior_demanding_shops": {},
+      "saturation_ratio_vs_zero_prior": {}
+    },
+    "TOMATO": {
+      "by_prior_demanding_shops": {
+        "0": {
+          "n": 244,
+          "mean_delta3": 1.115
+        },
+        "1": {
+          "n": 176,
+          "mean_delta3": 2.062
+        },
+        "2": {
+          "n": 80,
+          "mean_delta3": 1.738
+        },
+        "3": {
+          "n": 34,
+          "mean_delta3": -2.118
+        },
+        "4": {
+          "n": 8,
+          "mean_delta3": -5.5
+        },
+        "5": {
+          "n": 1,
+          "mean_delta3": -6
+        }
+      },
+      "saturation_ratio_vs_zero_prior": {
+        "1": 1.849,
+        "2": 1.559,
+        "3": -1.9,
+        "4": -4.933,
+        "5": -5.381
+      }
+    },
+    "WHEAT": {
+      "by_prior_demanding_shops": {
+        "0": {
+          "n": 263,
+          "mean_delta3": 0.924
+        },
+        "1": {
+          "n": 262,
+          "mean_delta3": 9.053
+        },
+        "2": {
+          "n": 253,
+          "mean_delta3": 4.957
+        },
+        "3": {
+          "n": 232,
+          "mean_delta3": -0.056
+        },
+        "4": {
+          "n": 178,
+          "mean_delta3": 3.494
+        },
+        "5": {
+          "n": 101,
+          "mean_delta3": 3.287
+        },
+        "6": {
+          "n": 40,
+          "mean_delta3": 3.675
+        },
+        "7": {
+          "n": 14,
+          "mean_delta3": -0.214
+        }
+      },
+      "saturation_ratio_vs_zero_prior": {
+        "1": 9.798,
+        "2": 5.365,
+        "3": -0.061,
+        "4": 3.781,
+        "5": 3.557,
+        "6": 3.977,
+        "7": -0.232
+      }
+    },
+    "CARROT": {
+      "by_prior_demanding_shops": {
+        "0": {
+          "n": 237,
+          "mean_delta3": 1.928
+        },
+        "1": {
+          "n": 169,
+          "mean_delta3": 6.615
+        },
+        "2": {
+          "n": 86,
+          "mean_delta3": 8.058
+        },
+        "3": {
+          "n": 28,
+          "mean_delta3": 9.786
+        },
+        "4": {
+          "n": 9,
+          "mean_delta3": 8.111
+        },
+        "5": {
+          "n": 2,
+          "mean_delta3": 17
+        }
+      },
+      "saturation_ratio_vs_zero_prior": {
+        "1": 3.431,
+        "2": 4.179,
+        "3": 5.076,
+        "4": 4.207,
+        "5": 8.817
+      }
+    },
+    "WOOL": {
+      "by_prior_demanding_shops": {
+        "0": {
+          "n": 170,
+          "mean_delta3": 3.171
+        },
+        "1": {
+          "n": 64,
+          "mean_delta3": 2.672
+        },
+        "2": {
+          "n": 13,
+          "mean_delta3": 1.462
+        },
+        "3": {
+          "n": 2,
+          "mean_delta3": 1
+        },
+        "4": {
+          "n": 1,
+          "mean_delta3": 0
+        }
+      },
+      "saturation_ratio_vs_zero_prior": {
+        "1": 0.843,
+        "2": 0.461,
+        "3": 0.315,
+        "4": 0.0
+      }
+    },
+    "EGG": {
+      "by_prior_demanding_shops": {
+        "0": {
+          "n": 238,
+          "mean_delta3": 0.979
+        },
+        "1": {
+          "n": 182,
+          "mean_delta3": 1.341
+        },
+        "2": {
+          "n": 101,
+          "mean_delta3": 0.376
+        },
+        "3": {
+          "n": 31,
+          "mean_delta3": 0
+        },
+        "4": {
+          "n": 8,
+          "mean_delta3": 0
+        },
+        "5": {
+          "n": 3,
+          "mean_delta3": 0
+        }
+      },
+      "saturation_ratio_vs_zero_prior": {
+        "1": 1.37,
+        "2": 0.384,
+        "3": 0.0,
+        "4": 0.0,
+        "5": 0.0
+      }
+    },
+    "MILK": {
+      "by_prior_demanding_shops": {
+        "0": {
+          "n": 254,
+          "mean_delta3": 1.425
+        },
+        "1": {
+          "n": 221,
+          "mean_delta3": 1.71
+        },
+        "2": {
+          "n": 161,
+          "mean_delta3": 0.391
+        },
+        "3": {
+          "n": 86,
+          "mean_delta3": 0.023
+        },
+        "4": {
+          "n": 29,
+          "mean_delta3": -0.103
+        },
+        "5": {
+          "n": 7,
+          "mean_delta3": 0
+        },
+        "6": {
+          "n": 2,
+          "mean_delta3": 0
+        }
+      },
+      "saturation_ratio_vs_zero_prior": {
+        "1": 1.2,
+        "2": 0.274,
+        "3": 0.016,
+        "4": -0.072,
+        "5": 0.0,
+        "6": 0.0
+      }
+    }
+  },
+  "q4": {
+    "crops": {
+      "STRAWBERRY": {
+        "n_games_ever_planted": 263,
+        "n_games_never_planted": 0,
+        "mean_last_plant_day": 14.14,
+        "median_last_plant_day": 15,
+        "max_last_plant_day": 19,
+        "mean_last_plant_day_if_day24_shop_demands_it": 14.1,
+        "mean_last_plant_day_if_day24_shop_does_not": 14.18,
+        "n_day24_demands": 141,
+        "n_day24_not": 122
+      },
+      "MELON": {
+        "n_games_ever_planted": 263,
+        "n_games_never_planted": 0,
+        "mean_last_plant_day": 3.67,
+        "median_last_plant_day": 1,
+        "max_last_plant_day": 19,
+        "mean_last_plant_day_if_day24_shop_demands_it": null,
+        "mean_last_plant_day_if_day24_shop_does_not": 3.67,
+        "n_day24_demands": 0,
+        "n_day24_not": 263
+      },
+      "TOMATO": {
+        "n_games_ever_planted": 181,
+        "n_games_never_planted": 82,
+        "mean_last_plant_day": 19.12,
+        "median_last_plant_day": 19,
+        "max_last_plant_day": 27,
+        "mean_last_plant_day_if_day24_shop_demands_it": 18.73,
+        "mean_last_plant_day_if_day24_shop_does_not": 19.26,
+        "n_day24_demands": 48,
+        "n_day24_not": 133
+      },
+      "WHEAT": {
+        "n_games_ever_planted": 263,
+        "n_games_never_planted": 0,
+        "mean_last_plant_day": 26.77,
+        "median_last_plant_day": 27,
+        "max_last_plant_day": 29,
+        "mean_last_plant_day_if_day24_shop_demands_it": 26.74,
+        "mean_last_plant_day_if_day24_shop_does_not": 26.82,
+        "n_day24_demands": 165,
+        "n_day24_not": 98
+      },
+      "CARROT": {
+        "n_games_ever_planted": 262,
+        "n_games_never_planted": 1,
+        "mean_last_plant_day": 26.35,
+        "median_last_plant_day": 27.0,
+        "max_last_plant_day": 28,
+        "mean_last_plant_day_if_day24_shop_demands_it": 26.53,
+        "mean_last_plant_day_if_day24_shop_does_not": 26.3,
+        "n_day24_demands": 60,
+        "n_day24_not": 202
+      }
+    },
+    "animals": {
+      "WOOL/SHEEP": {
+        "n_games_ever_bought": 263,
+        "n_games_never_bought": 0,
+        "mean_last_purchase_day": 8.47,
+        "median_last_purchase_day": 8,
+        "max_last_purchase_day": 23,
+        "mean_last_purchase_day_if_day24_shop_demands_it": 9.21,
+        "mean_last_purchase_day_if_day24_shop_does_not": 8.38,
+        "n_day24_demands": 29,
+        "n_day24_not": 234
+      },
+      "EGG/GOOSE": {
+        "n_games_ever_bought": 223,
+        "n_games_never_bought": 40,
+        "mean_last_purchase_day": 10.51,
+        "median_last_purchase_day": 11,
+        "max_last_purchase_day": 12,
+        "mean_last_purchase_day_if_day24_shop_demands_it": 10.15,
+        "mean_last_purchase_day_if_day24_shop_does_not": 10.61,
+        "n_day24_demands": 52,
+        "n_day24_not": 171
+      },
+      "MILK/COW (ambiguous, see caveat)": {
+        "n_games_ever_bought": 263,
+        "n_games_never_bought": 0,
+        "mean_last_purchase_day": 9.46,
+        "median_last_purchase_day": 9,
+        "max_last_purchase_day": 21,
+        "mean_last_purchase_day_if_day24_shop_demands_it": 9.43,
+        "mean_last_purchase_day_if_day24_shop_does_not": 9.47,
+        "n_day24_demands": 109,
+        "n_day24_not": 154
+      }
+    }
+  },
+  "q5": {
+    "NE": {
+      "n_games_purchased": 263,
+      "n_games_never": 0,
+      "mean_day": 6.89,
+      "median_day": 7,
+      "min_day": 6,
+      "max_day": 7,
+      "frac_on_a_reveal_day": 0.106,
+      "frac_day_after_a_reveal_day": 0.894
+    },
+    "SW": {
+      "n_games_purchased": 246,
+      "n_games_never": 17,
+      "mean_day": 9.76,
+      "median_day": 10.0,
+      "min_day": 9,
+      "max_day": 10,
+      "frac_on_a_reveal_day": 0.236,
+      "frac_day_after_a_reveal_day": 0.764
+    },
+    "SE": {
+      "n_games_purchased": 141,
+      "n_games_never": 122,
+      "mean_day": 11.02,
+      "median_day": 11,
+      "min_day": 11,
+      "max_day": 12,
+      "frac_on_a_reveal_day": 0.021,
+      "frac_day_after_a_reveal_day": 0.0
+    }
+  }
+}

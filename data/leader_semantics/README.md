@@ -93,3 +93,10 @@ and 1): the extractor's hooks read a day counter that only updates at midnight. 
 `hands_present`, `built`, `dug`, `harvested` are dated correctly. The data is NOT regenerated because
 `agents/mgt_lead.py` corrects for the shift; any other consumer must shift those three fields by one day.
 `openings.json` hire / purchase-per-day entries inherit the shift.
+
+## KNOWN ISSUE 2 (found 2026-09-24 by the reveal-response thread): 'co' is ambiguous
+The label is `str(kind)[:2].lower()` for an empty structure and `str(animal)[:2].lower()` for an animal, so an EMPTY
+COOP ('COOP' -> 'co') and a COW ('COW' -> 'co') share the label 'co' (a 4-goose die-off raised 'co' by +4 with no
+cow bought). Cow counts from boards are upper bounds; geese / sheep are exact. The same label function is used by
+the tape router (`scripts/build_mg_tape_agent.py::_mgt_label`, board Hamming only). Consumers that turn target
+boards into actions must disambiguate via `animals.placed` / `built.BUILD_COOP` / `built.BUILD_PASTURE`.
