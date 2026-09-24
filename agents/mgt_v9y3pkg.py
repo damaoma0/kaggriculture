@@ -55,6 +55,27 @@ if str(_V9_ROOT / 'scripts') not in _v9_sys.path:
     _v9_sys.path.insert(0, str(_V9_ROOT / 'scripts'))
 import value_tape_search as _V9_V0                        # noqa: E402
 
+# The official runner swaps the process-wide sys.stdout / sys.stderr for per-call buffers and closes them after each
+# call. V9's engine setup (research_labour_profit.engine / Simulator) wraps itself in contextlib.redirect_*; run
+# from a background thread, that saves a per-call buffer and restores it after the runner closed it, and the next
+# write kills the process (Kaggle, 2026-09-24: "I/O operation on closed file", "lost sys.stderr"). Outside the main
+# thread those redirects therefore do nothing; in the main thread they behave exactly as before.
+import contextlib as _v9_contextlib                       # noqa: E402
+import threading as _v9_threading_rd                      # noqa: E402
+_v9_rlp = _v9_sys.modules['research_labour_profit']
+
+
+def _v9_thread_safe(original):
+    def redirect(target):
+        if _v9_threading_rd.current_thread() is _v9_threading_rd.main_thread():
+            return original(target)
+        return _v9_contextlib.nullcontext(target)
+    return redirect
+
+
+_v9_rlp.redirect_stdout = _v9_thread_safe(_v9_rlp.redirect_stdout)
+_v9_rlp.redirect_stderr = _v9_thread_safe(_v9_rlp.redirect_stderr)
+
 _p = _V9_ROOT / 'agents' / f'{_BASE}.py'
 _V9_V0.SOURCE_PATH = _p
 _V9_V0.SOURCE = _p.read_text(encoding='utf-8')

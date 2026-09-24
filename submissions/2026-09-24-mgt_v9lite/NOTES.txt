@@ -15,4 +15,12 @@ Results (Kaggle, 2026-09-24):
     budget; 0 errors in 555 searches; warm-up ~10.5 s + 2.4 s off the clock.
   live V56, 20 seeds x 2 seats: +645 vs y3 (+89..+1,327), 6 better / 4 worse / 30 same; +941 vs m1; wins 27-13
     (y3 29-11).
-Pending: 180 ladder worlds; isolated-directory timing of this package on Kaggle hardware.
+  180 ladder worlds (frozen opponents): +671 vs y3 (+343..+1,052), 26 better / 11 worse, own +566, wins 130 -> 134
+    (excluding the one dev world in this panel +687); max search 8.6 s, 0 errors in 540 searches.
+DEFECT FOUND AND FIXED (2026-09-24): the first isolated-directory run on Kaggle died within the first game
+  ("I/O operation on closed file", "lost sys.stderr"). The official runner swaps the process-wide sys.stdout/stderr
+  for per-call buffers and closes them; V9's engine setup (research_labour_profit.engine / Simulator) wraps itself
+  in contextlib.redirect_*, and run from the warm-up THREAD it restored a closed per-call buffer. The ladder harness
+  never redirects per call, so the panels above are unaffected. Fix: those redirects are no-ops outside the main
+  thread (package mains of both v9lite and v9y3). Re-validation on Kaggle queued: isolated timing (8 games) and a
+  24-game panel subset that must reproduce the results above exactly.
