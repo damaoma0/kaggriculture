@@ -149,3 +149,20 @@ DSM could see, shops explain sheep 0.98 -> 0.80, cows 0.94 -> 0.78, strawberries
 (days 9 -> 24); prices, cash and the opponent add a median -0.001 on top of shops plus DSM's own board three days
 earlier. Their effects are timing (cash decides the hour a purchase goes through, then DSM catches up within days)
 and a few late channels worth ~0.3-1k each. A price-aware planner is worth at most ~1-2k; the executor is the prize.
+
+### Overnight hire reserve (stream D, 2026-09-24): removes the shortfalls, costs 34k a game
+`--sheep hire_reserve=1` (`_shp_hire_reserve`, `scripts/fragments/mgt_sheep.py`, default off; commit 9817982) keeps
+cash for the followed tape's next-morning HIREs and trims this hour's purchases (products, seeds, then animals) when
+short. `mgt_dsm_a2` = `mgt_dsm_a` + the reserve, same 180 worlds (Kaggle, `scripts/report_dsm_guard.py`):
+
+| build | vs t10 recorded | worlds with a hire shortfall |
+|---|---|---|
+| `mgt_dsm_a` | −5,916 (−8,481..−3,476) | 40 |
+| `mgt_dsm_a2` | **−40,294** (−42,926..−37,660); paired vs a −34,378, 9 better / 171 worse | 0 |
+
+It fires in every game (72 times, 177 units trimmed, median), because it cannot see the day's later income: purchases
+DSM's plan needs are cut (land −1,289 a game, fewer cows and sheep), failed commands +818 a game, revenue lower in
+every product. The recording is infeasible in our world either way: protecting the hires starves the purchases, and
+protecting the purchases loses the hires. A replay cannot choose between them the way DSM's own closed loop does.
+On the 46 worlds where O1r had an eligible day-6 handoff, DSM's own continuation without the reserve is +169 vs t10
+(−3,699..+4,342): break-even, where the graft lost about 51k. The opening conclusion above stands.
