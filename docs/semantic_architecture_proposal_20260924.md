@@ -3,7 +3,7 @@
 Status: discussion document, no code. Benchmark: the 2750-3000 exact panel (`data/ladder_panel/p2750/`). Study
 material: the six teams rated 3000+ on 2026-09-23 (Boey 3080, M & M & P & Q 3060, Unknown Mother-Goose 3052, DECEM
 3043, Vadim Vasilenko 3033, DSM 3001). Harvest and extraction are running (`data/leader_semantics/`, stream S1); the
-value of layout freedom is being measured (`results/fresh/layout_value/`, stream S2). Sections marked PENDING wait for them.
+value of layout freedom was measured (`results/fresh/layout_value/`, stream S2: none for a simple rule).
 
 ## 1. The idea in one paragraph
 Stop replaying what the leaders DID; learn what they DECIDE and generate our own play from it. A leader's game is
@@ -44,7 +44,7 @@ Measured (this project):
 Assumed (to be tested):
 - That leaders' decisions transfer across opponents (they barely condition on the opponent, which supports it).
 - That a composition plan plus computed maintenance recovers most of a leader's value when executed by us.
-- That layout freedom is worth something (PENDING: S2; prior routing results suggest it is modest).
+- (Tested and refuted: a simple care-cost layout is worth nothing; see [F].)
 
 ## 3. Components and how they compose
 ```
@@ -109,9 +109,13 @@ this calculus, not its source. Where they disagree, we learn something (either o
 
 **[F] Layout.** Assign each new cohort to a tile by care cost: daily-visited items (animals: feed + care; tomatoes in
 their production window) nearest the shed, every-other-day items (strawberries) next, short crops (wheat, carrots)
-outside. Pastures and coops are structures, so animal placement is decided when they are built. PENDING (S2): how
-much this is worth. The prior results (routes within 4% of optimal, idle time fragmented at day end) suggest the
-direct walking saving is modest; its real value may be that freed hours absorb maintenance that is skipped today.
+outside. Pastures and coops are structures, so animal placement is decided when they are built.
+MEASURED (S2, `scripts/layout_value.py`, DSM's 109 games, the scheduler's time model): walking is ~40% of unit-hours
+(farmer 39.5%, hands 42.4%), but a "most-cared-for nearest the shed" greedy re-layout is WORSE in 109/109 games
+(−1,975 unit-hours, −124 wages a game; 517 days need more hands, 8 fewer), and DSM's layout is already as close to
+the shed, visit-weighted, as the greedy (3.63 vs 3.71). The greedy scatters tiles that are worked together on the
+same day. So layout is not a lever by itself: keep the leaders' spatial pattern (co-located same-day cohorts), and
+only a joint layout-and-schedule optimiser could still find something. Layout drops from the critical path.
 
 **[G] Market.** Reuse what exists: sell timing (`sell_lead`), the wheat stock trade (buy ~700 early, sell ~800
 late), the flow model of rival sales (`agents/adaptive_market_order.py::FlowModel`). New: a 24-48 h cash projection
@@ -133,7 +137,7 @@ max 0.29 s an action) is the nearest prototype.
 | what to own (crops, herd, land) and when | yes: shop-conditioned plan model | scaling to our cash and land |
 | cohort retirement / replanting | yes (cadence, day) | whether a retirement pays (engine value) |
 | maintenance | only as validation | value of every job from engine rules |
-| layout | no | care cost vs distance |
+| layout | the leaders' spatial pattern (same-day cohorts together) | only jointly with the schedule, if at all |
 | hands per day, routes | no | scheduler |
 | selling, wheat stock | partly (existing heuristics) | cash projection, price forecast |
 | rival response | no (leaders ignore it) | optional: V9-lite plan evaluator |
