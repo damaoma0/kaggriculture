@@ -64,3 +64,27 @@ on their own early investments.
   the source policy's adaptation has failed: the grafts here, the DSM library, and earlier continuation executors
   (−4k to −12k). A usable plan learner needs a price- and budget-aware executor that can reach a target board from
   our actual state. That is a multi-week build and cannot land by 2026-09-28.
+
+## Follow-up checks (2026-09-24)
+
+**Shop-conditioned targets past day 9** (`scripts/shop_target_predictability.py`; ridge on shop counts, leave-one-out,
+DSM's 109 exact boards). Out-of-sample R² of DSM's day-d counts from the shops revealed by day d:
+
+| day | sheep | cows | geese | strawberry | tomato | wheat | carrot |
+|---|---|---|---|---|---|---|---|
+| 9 | 0.74 | 0.64 | 0.63 | 0.67 | – | 0.66 | −0.06 |
+| 12 | 0.84 | 0.89 | 0.74 | 0.85 | 0.46 | 0.51 | 0.56 |
+| 15 | 0.92 | 0.86 | 0.91 | 0.89 | 0.72 | 0.54 | 0.63 |
+| 18 | 0.90 | 0.77 | 0.61 | 0.88 | 0.81 | 0.52 | 0.59 |
+| 24 | 0.75 | 0.71 | 0.34 | 0.57 | 0.62 | 0.56 | 0.64 |
+
+Mother-Goose old (584 tapes) is similar (day 15: 0.90 / 0.86 / 0.84 / 0.81 / 0.69). The leaders' production plans are
+learnable from shops through the whole season, not only the opening. The learning side generalises; execution is
+the bottleneck.
+
+**Why t10 is rated above m1 while weaker on the 2750-3000 panel.** On the panel, t10 − m1 is negative in all three
+kinds of game, including t10's own ladder games (−314; m1's own −510; team-vs-team −343, CI −722..−8), so the panel
+does not favour the build that actually played. On the real ladder, t10 played 148 games at 81.8% against opponents
+rated about 2,135 before m1 existed. In the shared window since, its higher rating drew stronger opponents (2,563
+against 2,426), and it won 64.6% against m1's 67.6%. The rating gap is head start plus matchmaking.
+`mgt_y3` − m1 is positive in all three kinds of game (+289 / +182 / +343).
