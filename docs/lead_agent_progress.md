@@ -428,7 +428,35 @@ producing animals (milk 169 -> 212-219 units, wool 108 -> 127-130, fertilizer 18
 The 600-game model and the early hand add +0.7..+0.8k each (not significant alone). The unit gap left vs y3: wheat
 (230 vs 442; mostly the wheat-keep sell rule and y3's wheat trading, sell-rule thread), carrots (15 vs 87: leaders'
 count targets are small; scaling does not raise them), strawberries (165 vs 193; x1.2 closes it but costs wheat
-tiles, net -0.6k). The third quadrant (SE, $4000) loses 5.3k; a longer horizon (6) and more composition hands lose.
+tiles, net -0.6k). The FOURTH quadrant (SE, $4000; the third PURCHASE after NE $1000 and SW $2000, i.e. 4 of 4 quadrants held) loses 5.3k; a longer horizon (6) and more composition hands lose.
 Recommended deploy defaults: `nofeed_from` 99 (or drop the hook), `cm_file` count_model_600.json, `hands_add_early` 1
 (`agents/mgt_lpv_c1.py` = the deploy with exactly these overrides; `agents/mgt_lead_deploy_pv.py` adds the two new
 DEP_CFG options). `agents/mgt_lead_deploy.py` itself is not edited.
+
+## c1 ported into the deploy, full p2750 panel, remaining new-world gap (2026-09-25)
+Step 1: `agents/mgt_lead_deploy.py` now has c1 as DEFAULTS (`nofeed_from` 99, `cm_file` count_model_600.json,
+`hands_add_early` 1, both new options ported). On the 12 p2750 smoke worlds it reproduces `agents/mgt_lpv_c1.py` to the
+dollar (12/12, own and rival cash). The old local deploy results of those 12 worlds (an early version, -47k) were moved
+to `results/fresh/ladder_panel/mgt_lead_deploy_oldlocal/`.
+Step 2: full 185-game p2750 panel pushed to Kaggle (private dataset yiyangxudmm/kaggriculture-panel-bundle-lead, stage
+results/fresh/kaggle_remote_lead, runs leadv30/31/32, 62/62/61 games, 4 workers each), results pending.
+Step 3 (12 smoke worlds; `scripts/lead_newworld_gap.py mgt_lead_deploy mgt_y3_cal`): revenue gap vs y3 -16.8k a game
+(118.4k vs 135.2k; spend equal 27.4k vs 27.9k). Split: VOLUME -14.8k (units short x y3's price), PRICE -2.0k (our units
+x price difference; the market layer's share). By product (volume part): wheat -7.7k (230 vs 442 units; wheat-keep
+rule and y3's wheat trading, sell thread), strawberry -3.8k (165 vs 193), carrot -3.2k (15 vs 87), melon -1.9k (72 vs
+82), wool -1.4k (127 vs 138); milk +1.5k, fertilizer +1.0k, egg +0.5k. By day window (all products): days 0-11 -5.3k
+(melon -4.3k, milk -2.0k: y3 sells its melons and first milk earlier), days 12-17 +3.7k (our early strawberries +4.1k
+and milk +3.2k), days 18-23 -6.1k (strawberry -3.8k, wheat -1.8k), days 24-29 -9.1k (carrot -3.1k, strawberry -2.6k,
+wheat -2.1k, tomato -1.3k). So after the market layer the gap left is late-season VOLUME: the second strawberry
+cohort and late carrots/tomatoes (count-model targets fall off after day ~18; last_plant ST 18 / TO 20) plus wheat, and
+the early melon timing.
+Step 2 note, determinism bug found and fixed: the first Kaggle run (leadv3) drifted from the local runs in all 12
+common worlds (by 100 to 10,700 own cash; engine 1.32.7 and Python 3.12 on both sides). Cause: `_dep_sem_path` took
+the first hit of an unsorted `glob` over `data/leader_semantics/*/<episode>.json.gz`, and 48 of the 552 corpus episodes
+exist under two teams (leaders who met each other), including the day-0 exemplar 112655730 (DSM vs Mother-Goose).
+NTFS returns directories alphabetically, so every LOCAL measurement used 16730612 = Mother-Goose's seat of that game
+as the opening (and the first-sorting seat of any duplicated retrieved episode); Linux returns them in arbitrary order.
+Fix: `sorted(glob(...))` (reproduces the measured local behaviour everywhere). leadv3 is discarded (not merged); the
+panel is re-run as leadv4. Follow-up for the plan thread: the exemplar is labelled "DSM" but is really Mother-Goose's
+seat, and retrieval returns an episode, not a (team, episode) pair, so a duplicated episode resolves to the first
+team by id; the retrieval should carry the team.
