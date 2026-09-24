@@ -325,3 +325,67 @@ The executor upgrade carries into new worlds: +9,902 margin (+7,992 .. +11,852) 
 12/12 worlds (own cash +7.3k). The deploy mode is still 24k a game behind y3 there: the remaining gap is the
 target builder (plan, market, hires), not the executor. The p2750 before-resync number (-33.9k on these 12)
 matches the committed full-panel v2 figure (-33.7k), so these 12 worlds look representative.
+
+## Deployment gap decomposition (hold-one-out on the deploy agent, 12 G1 leader worlds)
+Harness cells (scripts/lead_ablation.py, `_DeployAdapter(mode='full', swap=...)`; the deploy file frozen at commit
+b4ed59e via `LEAD_DEPLOY_PATH`): E2 = the full deploy agent (retrieval days 0-11 with this episode excluded, count
+model from day 12, sell-as-it-reaches-the-shed, hands regression, no-feed hook, land_max 2). One component swapped for
+the leader's at a time: E2s sell schedule (leader's cumulative units), E2h hires (leader's daily count, day-29
+artifact corrected), E2p plan (leader's game as the Target all 30 days, all its land; deploy's sell rule, hands
+regression from day 12 and no-feed hook kept), E2d plan through day 11 (leader's Target, then the count model).
+R16 = the current G1 agent (leader plan + leader sell + leader hires) as reference.
+
+| cell | mean12 | mean11 | clean9 | vs E2 (12) | revenue gap vs leader, k$/game | failed buys | no-effect | Hamming d6/d12/d20 | hires (leader) | plants died | animals lost | diverges from A |
+|---|---:|---:|---:|---:|---|---:|---:|---|---:|---:|---:|---|
+| R16 (leader plan + sell + hires) | 0.874 | 0.866 | 0.844 | +0.031 | -17.3: wheat -8.7, carrot -3.6, strawberry -2.9 | 0.9 | 0.1 | 1/19/22 | 294 (283) | 7.6 | 4.7 | 2 / 10 |
+| **E2 full deploy** | **0.843** | **0.834** | **0.823** | | -26.0: carrot -7.7, wheat -5.8, tomato -3.6, egg -3.3 | 0.9 | 0 | 2/38/57 | 290 (283) | 2.0 | 12.2 | 1 / 7 |
+| E2s + leader sell schedule | 0.893 | 0.883 | 0.871 | **+0.050** | -20.2: carrot -7.2, egg -4.3, wheat -4.0 | 0.9 | 0.3 | 2/38/57 | 291 (283) | 1.2 | 11.7 | 1 / 7 |
+| E2h + leader hires | 0.859 | 0.851 | 0.837 | +0.016 | -23.5 | 0.9 | 0 | 2/39/57 | 294 (283) | 1.7 | 11.9 | 1 / 7 |
+| E2p + leader plan (all days) | 0.746 | 0.738 | 0.732 | -0.097 | -19.8 | 0.9 | 0 | 1/18/23 | 307 (283) | 5.4 | 26.4 | 2 / 10 |
+| E2d + leader plan to day 11, count model after | 0.804 | 0.797 | 0.781 | -0.039 | -23.7 | 0.9 | 0 | 1/18/45 | 300 (283) | 4.4 | 11.0 | 2 / 10 |
+
+Isolation: failed buys 0.9/game in every cell, no-effect <= 0.3; the replayed opponent does not collapse in these
+cells (10 of 12 games clean across all listed cells).
+
+What it says:
+1. In the leaders' own worlds the full deploy agent is only 0.03 behind the leader-following agent (0.843 vs 0.874);
+   its own plan is not the problem there: with the leader's sell schedule it BEATS the leader-plan agent
+   (E2s 0.893 vs R16 0.874).
+2. The biggest single deploy component is the SELL RULE: +0.050 of leader cash (~5k a game) from the leader's schedule.
+   Same units (strawberry 180 vs 175, milk 146 vs 139) at higher prices: milk 134.6 vs 126.7, wool 165.2 vs 149.4,
+   carrot 65.2 vs 58.4, fertilizer 61.4 vs 58.9; the leader's schedule also sells more wheat (346 vs 294 units).
+3. Hires: +0.016 with the leader's daily count (the regression hires ~1 hand/day too few early).
+4. The deploy's other rules do not transfer onto the leader's plan: E2p loses 0.10, mostly the no-feed hook and the
+   hands regression on a bigger four-quadrant farm (26 animals lost a game vs 12). E2d (leader's opening, then the
+   count model) is below E2 too (-0.039): the count-model phase does better from the deploy's own (two-quadrant)
+   opening than from the leader's; the retrieval phase itself is not the loser.
+5. Strawberry calendar (G1 worlds): deploy first strawberry tiles day 3.8 (leader 3.0), first sale day 12.9 (leader
+   13.2), units sold by day 15: 21 (leader 26, R16 19); total strawberry revenue 27.0k (leader 29.3k). The exemplar
+   opening puts the deploy nearly on the leader's strawberry calendar in these worlds.
+6. The new-world gap is different from the leader-world gap. In the 12 p2750 smoke worlds (deploy after resync vs
+   y3, per game): own cash 92.1k vs 110.3k, revenue 114.9k vs 135.2k, spend 25.9k vs 27.9k. The deploy sells FEWER
+   UNITS of everything at HIGHER prices: wheat 282 vs 442 units (-5.2k), milk 169 vs 209 (-3.2k), melon 72 vs 82
+   (-2.9k), carrot 23 vs 87 (-2.8k), strawberry 167 vs 193 (-1.9k), wool 108 vs 138 (-1.6k), fertilizer 189 vs 225
+   (-1.6k), tomato 75 vs 91 (-1.4k); eggs equal. The rival ends +5.7k richer against the deploy (our lower volumes
+   keep its prices up). So in new worlds the deploy's loss is production VOLUME (plan scale: two quadrants by
+   land_max, count-model targets), not the executor and mostly not the sell rule; in the leaders' worlds (where its
+   retrieval has the leader-family opening and the count model is fitted on the same corpus) it keeps volume and loses
+   mainly on sell prices.
+7. Strawberry calendar in the p2750 smoke worlds (y3 re-run as a copy `agents/mgt_y3_cal.py` so per-day revenue is
+   recorded; it reproduces y3's earlier panel margins in all 12): the deploy sells its first strawberries on day 13 in
+   all 12 worlds, y3 on day 16. Cumulative strawberry revenue per game, deploy vs y3: day 16 3.8k vs 0, day 18 8.9k vs
+   4.6k, day 21 15.4k vs 13.4k, day 25 20.0k vs 19.7k, end 24.0k vs 25.9k (167 vs 193 units). So the family-A opening
+   IS in the deploy agent (3 days earlier than y3, and on the leader's calendar in the G1 worlds: day 12.9 vs 13.2),
+   and its early price advantage is being realised; the deploy then falls behind on late-season strawberry volume
+   (and on every other product), i.e. the new-world gap is plan scale after day 12, not the opening.
+   (`scripts/lead_strawberry_calendar.py`; the panel's `revenue_daily` is cumulative per day boundary.)
+
+Summary of where the deploy's -24k (new worlds) / -0.13 (leader worlds) sits:
+- Executor: already shared with G1 (R16); its residual is the same ~0.13 of leader cash as G1's.
+- Sell rule: -0.05 of leader cash in leader worlds (price per unit); in new worlds it is masked by lower volume.
+- Hires: -0.016 (regression slightly short).
+- Plan: fine in leader worlds (E2s > R16), too small in new worlds (units -15..-75% per product vs y3); the
+  count-model phase does worse from the leader's four-quadrant opening (E2d) and the deploy's other rules do not
+  transfer onto the leader's plan (E2p: no-feed + hands regression lose 26 animals a game).
+Next levers, in order: plan volume in new worlds (land_max, count-model targets per product vs y3's units), a sell
+rule that holds and batches like the leaders (worth ~5k a game), hands regression +1 early.

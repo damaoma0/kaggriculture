@@ -62,6 +62,10 @@ CELLS = {
     'X': dict(cfg={'hands_d29_fix': True, 'maint_source': 'leader', 'maint_safety': True}),
     'E': dict(cfg={}, deploy='plan'),
     'E2': dict(cfg={}, deploy='full'),
+    'E2s': dict(cfg={}, deploy='full', swap={'sell': 'leader'}),
+    'E2h': dict(cfg={}, deploy='full', swap={'hires': 'leader'}),
+    'E2p': dict(cfg={}, deploy='full', swap={'plan': 'leader'}),
+    'E2d': dict(cfg={}, deploy='full', swap={'plan': 'leader_to11'}),
 }
 
 
@@ -79,11 +83,16 @@ def _hire_steps(team_id, ep):
 class _DeployAdapter:
     """module-like wrapper so lead_g1.play can drive mgt_lead_deploy in the held-out world."""
 
-    def __init__(self, mode, ep):
-        spec = importlib.util.spec_from_file_location('mgt_lead_deploy_abl', ROOT / 'agents/mgt_lead_deploy.py')
+    def __init__(self, mode, ep, swap=None):
+        import os
+        spec = importlib.util.spec_from_file_location(
+            'mgt_lead_deploy_abl', os.environ.get('LEAD_DEPLOY_PATH') or (ROOT / 'agents/mgt_lead_deploy.py'))
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         self.mod, self.mode, self.ep = mod, mode, int(ep)
+        # swap (mode 'full' only): {'plan': 'deploy'|'leader'|'leader_to11', 'sell': 'deploy'|'leader',
+        #                           'hires': 'deploy'|'leader'}; the no-feed hook stays the deploy's
+        self.swap = dict({'plan': 'deploy', 'sell': 'deploy', 'hires': 'deploy'}, **(swap or {}))
         lpr = mod._dep_lpr
         orig = getattr(lpr, '_abl_orig_retrieve', None) or lpr.retrieve
         lpr._abl_orig_retrieve = orig
@@ -99,14 +108,50 @@ class _DeployAdapter:
         ex = mod.agent
         adapter = self
 
+        sw = self.swap
+        if sw['plan'] in ('leader', 'leader_to11'):
+            mod.DEP_CFG['switch_days'] = ()           # no retrieval switches: the leader's own game is the plan
+            mod.DEP_CFG['land_max'] = 3               # the leader's land through its plan (all quadrants it buys)
+            if sw['plan'] == 'leader':
+                mod.DEP_CFG['compose_from'] = 99      # no count-model phase either
+            ini = mod._dep_init
+
+            def dep_init():
+                ini()
+                mod._T = mod._DepTarget(adapter.leader)
+                mod._DEP['lead_t'] = adapter.leader
+                mod._MGT_HISTORY[:] = [(0, adapter.ep)]
+            mod._dep_init = dep_init
+
         def executor(obs, config=None):
+            d = min(int(obs['step']) // 24, 29)
             if adapter.mode == 'plan':
-                d = min(int(obs['step']) // 24, 29)
                 mod._T.hands[d] = adapter.leader.hands[d]
                 mod._T.cum_sold[d] = Counter(adapter.leader.cum_sold[d])
                 mod._DEP['nofeed'] = set()
+            else:
+                if sw['plan'] == 'leader' and d >= 12:
+                    # the deploy's own hires and no-feed rule on the leader's plan (normally set by its compose step)
+                    if d not in adapter._composed:
+                        adapter._composed.add(d)
+                        if sw['hires'] == 'deploy':
+                            me = int(obs['player'])
+                            tl = obs['farms'][me]['tiles']
+                            crops = sum(1 for row in tl for t in row if isinstance(t, dict) and t.get('kind') == 'PLANT')
+                            crops += len(mod._T.plant[d])
+                            anim = sum(1 for row in tl for t in row if isinstance(t, dict) and t.get('animal'))
+                            b0, b1, b2 = mod.DEP_CFG['hands_coef']
+                            mod._T.hands[d] = max(0, min(14, int(b0 + b1 * crops + b2 * anim + 0.5) + mod.DEP_CFG['hands_add']))
+                        mod._DEP['nofeed'] = mod._dep_nofeed(obs, d)
+                if sw['sell'] == 'leader':
+                    mod._T.cum_sold[d] = Counter(adapter.leader.cum_sold[d])
+                if sw['hires'] == 'leader':
+                    mod._T.hands[d] = adapter.leader.hands[d]
+                    if d == 29 and adapter.leader.hands[d] == 0:
+                        mod._T.hands[d] = adapter.leader.hands[28]   # the corpus' last-day artifact (A29)
             return ex(obs, config)
         mod.agent = executor
+        self._composed = set()
 
     @property
     def _S(self):
@@ -127,7 +172,7 @@ def play_cell(game, cell):
 
     def load(cfg):
         if spec.get('deploy'):
-            return _DeployAdapter(spec['deploy'], ep)
+            return _DeployAdapter(spec['deploy'], ep, spec.get('swap'))
         mod = orig_load(cfg)
         if spec.get('hire_steps'):
             conf = mod.configure
@@ -273,7 +318,7 @@ def main():
         if err:
             print(err, flush=True)
     print(f'wall {time.time() - t0:.0f}s')
-    print(report(sorted(set(cells) | ({'A'} if (OUT / 'abl_A').exists() else set()), key=lambda c: 'A A29 X CUR R16 R12 R19 S1 S1f S1h S1x S2 S2p20 S2p80 S3 S2d S3h B B2 E E2 C D Dp F'.split().index(c) if c in 'A A29 X S1 S1h S1x S2 S2p20 S2p80 S3 S2d S3h B B2 E E2 C D Dp F'.split() else 9)))
+    print(report(sorted(set(cells) | ({'A'} if (OUT / 'abl_A').exists() else set()), key=lambda c: 'A A29 X CUR R16 R12 R19 E2 E2s E2h E2p E2d S1 S1f S1h S1x S2 S2p20 S2p80 S3 S2d S3h B B2 E E2 C D Dp F'.split().index(c) if c in 'A A29 X S1 S1h S1x S2 S2p20 S2p80 S3 S2d S3h B B2 E E2 C D Dp F'.split() else 9)))
 
 
 if __name__ == '__main__':
