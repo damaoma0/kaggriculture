@@ -22,5 +22,8 @@ DEFECT FOUND AND FIXED (2026-09-24): the first isolated-directory run on Kaggle 
   for per-call buffers and closes them; V9's engine setup (research_labour_profit.engine / Simulator) wraps itself
   in contextlib.redirect_*, and run from the warm-up THREAD it restored a closed per-call buffer. The ladder harness
   never redirects per call, so the panels above are unaffected. Fix: those redirects are no-ops outside the main
-  thread (package mains of both v9lite and v9y3). Re-validation on Kaggle queued: isolated timing (8 games) and a
-  24-game panel subset that must reproduce the results above exactly.
+  thread (package mains of both v9lite and v9y3). In the ladder harness the fixed package reproduced 24/24 earlier
+  games exactly, BUT the isolated official-runner test on Kaggle still died (after 187 s instead of 100 s).
+  Second fix: the warm-up thread is OFF (_V9_WARM_START = None). The runtime is built inside the first search, as in
+  the V9 package that passed the official runner 8/8. Re-validation of this thread-free build (mgt_v9litepkg3):
+  isolated official-runner timing, full 185-game p2750 panel, live V56 - queued.

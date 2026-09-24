@@ -29,8 +29,12 @@ _V9_RESERVE = 8.0          # seconds of overage bank never spent on search
 _V9_CAPS = {288: 30.0, 360: 20.0, 432: 20.0}
 _V9_EST_LATER = 6.0        # seconds set aside for each later reveal
 _V9_MIN = 2.0              # below this a search is not started
-_V9_WARM_START = 2         # step at which the warm-up thread starts building the runtime
-_V9_WARM_ROLLOUT = 240     # step whose observation feeds the throw-away warm-up rollout (None: no rollout)
+_V9_WARM_START = None      # step at which a warm-up thread would build the runtime (None: no thread; see below)
+_V9_WARM_ROLLOUT = None    # step whose observation would feed a throw-away warm-up rollout (None: no rollout)
+# The warm-up thread is OFF: under kaggle_environments' official runner, which swaps the process-wide stdout/stderr
+# for per-call buffers, the package with the thread died within the first game on Kaggle twice (2026-09-24), the
+# second time even with V9's own redirects neutralised in threads. Without it the runtime is built inside the first
+# search, as in the V9 package that passed the official runner 8/8.
 _V9L_PARAMS = dict(count=7, keep=2, lazy_keep=True, worlds=4, scout_min=350.0, final_min=350.0, skip_native_commit=True,
                    max_hamming=12)
 
@@ -170,7 +174,7 @@ def _v9lite_act(observation):
     step = int(observation['step'] if isinstance(observation, dict) else getattr(observation, 'step', 0))
     if not _V9_STATE.get('broken'):
         try:
-            if step >= _V9_WARM_START and not _V9_WARM.get('built'):
+            if _V9_WARM_START is not None and step >= _V9_WARM_START and not _V9_WARM.get('built'):
                 _V9_WARM['built'] = True
                 _v9_start(_v9_warm_build)
             if _V9_WARM_ROLLOUT is not None and step == _V9_WARM_ROLLOUT and not _V9_WARM.get('rolled'):
