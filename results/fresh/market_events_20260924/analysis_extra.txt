@@ -1,0 +1,54 @@
+35 intact; dropped 19
+STRAWBERRY rival_harvested: leader 2.26 y3 1.49 rival_sold_prev: leader 1.41 y3 0.90 rival_sells_next: leader 1.31 y3 1.16
+MILK rival_harvested: leader 1.76 y3 1.07 rival_sold_prev: leader 1.10 y3 0.97 rival_sells_next: leader 1.32 y3 1.09
+WOOL rival_harvested: leader 2.25 y3 1.22 rival_sold_prev: leader 1.36 y3 1.25 rival_sells_next: leader 1.35 y3 1.03
+STRAWBERRY our-schedule effect on rival: mean +5650 (95% CI +4225..+7125), positive in 32/35; production part mean +6146, positive 31/35
+MILK       our-schedule effect on rival: mean +3648 (95% CI +1618..+6046), positive in 19/35; production part mean +3036, positive 19/35
+WOOL       our-schedule effect on rival: mean +5838 (95% CI +3515..+8461), positive in 34/35; production part mean +5388, positive 27/35
+leader-calendar transplant for STRAWBERRY/MILK/WOOL (market-only): mean margin +5745 per world; y3 losses 20/35, flipped 8
+STRAWBERRY our-schedule effect on rival: mean +5650 (95% CI +4225..+7125), positive in 32/35; production part mean +6146, positive 31/35
+leader-calendar transplant for STRAWBERRY (market-only): mean margin +2194 per world; y3 losses 20/35, flipped 3
+STRAWBERRY: day | cum sold leader / y3 / rival | stock-I0 at day start leader world / y3 world | rival mean price L / Y
+  d11 |    0.0    0.0    0.0 |    -52    -52 |    nan    nan
+  d12 |    0.0    0.0    0.0 |    -61    -61 |  179.2  181.5
+  d13 |    0.0    0.0    0.5 |    -73    -73 |  189.7  192.1
+  d14 |    5.3    0.0    2.3 |    -78    -83 |  183.0  191.2
+  d15 |   13.5    0.0    6.6 |    -78    -91 |  182.9  197.1
+  d16 |   23.7    0.0   13.5 |    -77   -101 |  180.4  195.8
+  d17 |   41.5   18.2   29.5 |    -59    -83 |  164.0  186.8
+  d18 |   55.4   24.1   42.4 |    -49    -81 |  159.0  181.6
+  d19 |   76.8   47.7   60.5 |    -29    -59 |  138.5  171.3
+  d20 |   90.3   56.6   74.5 |    -21    -56 |  125.8  163.7
+  d21 |  110.7   77.4   91.1 |     -3    -39 |  111.0  148.0
+  d22 |  121.4   88.0  104.9 |     -2    -38 |  112.5  144.8
+  d23 |  136.1  117.8  120.0 |     +6    -18 |  103.5  130.8
+  d24 |  150.0  130.3  133.1 |    +10    -17 |  108.5  143.3
+  d25 |  160.1  139.7  144.5 |     +6    -21 |  106.8  140.2
+  d26 |  171.6  151.8  155.0 |     +3    -24 |  114.2  150.1
+  d27 |  184.5  166.2  167.4 |     +4    -24 |  107.3  147.7
+  d28 |  195.8  174.5  177.3 |     +0    -31 |  107.1  144.3
+  d29 |  207.2  192.9  187.5 |     -3    -29 |  109.5  141.0
+WOOL: day | cum sold leader / y3 / rival | stock-I0 at day start leader world / y3 world | rival mean price L / Y
+  d 6 |    0.0    0.0    0.0 |    -14    -14 |  199.8  209.2
+  d 9 |   17.0   12.0   15.8 |     +4     -1 |  160.2  188.6
+  d12 |   28.3   20.0   26.6 |     +8     -1 |  130.5  161.3
+  d15 |   51.3   43.9   46.9 |    +27    +18 |  116.4  134.4
+  d18 |   72.4   65.1   68.2 |    +40    +29 |   81.5  109.7
+  d21 |   93.6   84.8   86.5 |    +46    +30 |   66.1  102.3
+  d24 |  112.4  107.7  106.7 |    +47    +30 |   60.5  105.8
+  d27 |  131.4  130.1  129.7 |    +47    +27 |   59.4  114.7
+MILK: day | cum sold leader / y3 / rival | stock-I0 at day start leader world / y3 world | rival mean price L / Y
+  d 8 |    0.0    0.0    0.0 |    -20    -20 |  175.5  174.1
+  d11 |   15.4   23.8   17.6 |     -4     +4 |  157.8  144.6
+  d14 |   27.9   39.1   30.9 |     -1    +10 |  127.3  118.7
+  d17 |   67.3   65.3   62.6 |    +41    +36 |   70.8   84.5
+  d20 |   89.9   87.4   86.5 |    +52    +42 |   50.0   67.9
+  d23 |  114.3  109.9  110.4 |    +57    +41 |   45.8   77.0
+  d26 |  137.5  132.7  132.4 |    +54    +35 |   47.9   85.1
+  d29 |  166.8  159.9  158.5 |    +57    +32 |   42.8   95.5
+floor guard MILK thr 1 own -27 rival -51 margin +24 max held 67
+floor guard MILK thr 10 own -10 rival -66 margin +57 max held 84
+floor guard STRAWBERRY thr 1 own -134 rival -64 margin -71 max held 76
+floor guard STRAWBERRY thr 10 own -118 rival -61 margin -57 max held 84
+floor guard WOOL thr 1 own -130 rival -243 margin +113 max held 80
+floor guard WOOL thr 10 own -110 rival -274 margin +165 max held 86
