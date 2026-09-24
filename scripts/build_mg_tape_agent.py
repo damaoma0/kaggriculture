@@ -186,6 +186,10 @@ def _mgt_router(observation, step, state):
         # night, and no cash to hire a rescuer). Narrow on purpose: the blanket animal-tile weight tested -228.
         sp = _MGT_CFG.get('strand_penalty', 0.0)
         mine = [j for j, x in enumerate(board) if x in _MGT_ANIMAL_LABELS] if sp else ()
+        # crop_strand_penalty: the same for a live strawberry / melon / tomato of ours that the candidate tape grows
+        # neither today nor two days on (a switch abandons about 0.8 such tiles a game on the 2750-3000 panel)
+        cp = _MGT_CFG.get('crop_strand_penalty', 0.0)
+        crops = [j for j, x in enumerate(board) if x in ('ST', 'ME', 'TO')] if cp else ()
         for i, t in enumerate(_MGT_TAPES):
             if i == _hide or i == _op:
                 continue
@@ -200,6 +204,9 @@ def _mgt_router(observation, step, state):
             if mine:
                 now_lab, later_lab = t['lab'][day], t['lab'][min(29, day + 2)]
                 d += sp * sum(1 for j in mine if now_lab[j] not in _MGT_ANIMAL_LABELS and later_lab[j] not in _MGT_ANIMAL_LABELS)
+            if crops:
+                now_lab, later_lab = t['lab'][day], t['lab'][min(29, day + 2)]
+                d += cp * sum(1 for j in crops if now_lab[j] != board[j] and later_lab[j] != board[j])
             key = (d + lam * h, 0 if i == cur else 1, h, i)
             if best is None or key < best[0]:
                 best = (key, d, h, i)
