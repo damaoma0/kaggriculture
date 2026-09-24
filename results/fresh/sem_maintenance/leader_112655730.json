@@ -1,0 +1,2955 @@
+{
+ "team_dir": "16732748_56498734",
+ "episode": "112655730",
+ "seat": 0,
+ "cash_match": true,
+ "final": [
+  97066.0,
+  92826.0
+ ],
+ "timing_ms": {
+  "n": 30,
+  "median": 30.41,
+  "max": 243.24,
+  "first": 0.01,
+  "p90": 166.68
+ },
+ "totals": {
+  "jobs": 2633,
+  "leader": 3230,
+  "matched": 2408,
+  "missed": 225,
+  "extra": 461
+ },
+ "by_cmd": {
+  "FEED": {
+   "leader": 374,
+   "extra": 31,
+   "jobs": 391,
+   "matched": 343,
+   "missed": 48
+  },
+  "CARE": {
+   "leader": 366,
+   "extra": 41,
+   "jobs": 372,
+   "matched": 325,
+   "missed": 47
+  },
+  "WATER": {
+   "leader": 1156,
+   "extra": 251,
+   "jobs": 929,
+   "matched": 905,
+   "missed": 24
+  },
+  "COLLECT_FERTILIZER": {
+   "jobs": 465,
+   "leader": 459,
+   "matched": 459,
+   "missed": 6
+  },
+  "HARVEST": {
+   "leader": 626,
+   "jobs": 284,
+   "matched": 265,
+   "missed": 19
+  },
+  "FERTILIZE": {
+   "jobs": 192,
+   "leader": 249,
+   "missed": 81,
+   "extra": 138,
+   "matched": 111
+  }
+ },
+ "missed_by": [
+  [
+   [
+    "CARE",
+    "COW",
+    "bank"
+   ],
+   27,
+   1593.0
+  ],
+  [
+   [
+    "FEED",
+    "GOOSE",
+    "survival"
+   ],
+   4,
+   791.5
+  ],
+  [
+   [
+    "FEED",
+    "COW",
+    "bank"
+   ],
+   27,
+   680.1
+  ],
+  [
+   [
+    "FERTILIZE",
+    "WHEAT",
+    "bonus"
+   ],
+   39,
+   667.1
+  ],
+  [
+   [
+    "WATER",
+    "WHEAT",
+    "bonus"
+   ],
+   10,
+   570.0
+  ],
+  [
+   [
+    "CARE",
+    "GOOSE",
+    "bank"
+   ],
+   17,
+   563.0
+  ],
+  [
+   [
+    "FEED",
+    "GOOSE",
+    "production"
+   ],
+   13,
+   538.7
+  ],
+  [
+   [
+    "FERTILIZE",
+    "CARROT",
+    "bonus"
+   ],
+   32,
+   506.9
+  ],
+  [
+   [
+    "WATER",
+    "TOMATO",
+    "survival"
+   ],
+   1,
+   442.2
+  ],
+  [
+   [
+    "WATER",
+    "STRAWBERRY",
+    "production"
+   ],
+   4,
+   367.0
+  ],
+  [
+   [
+    "WATER",
+    "WHEAT",
+    "survival"
+   ],
+   2,
+   346.0
+  ],
+  [
+   [
+    "WATER",
+    "TOMATO",
+    "production"
+   ],
+   5,
+   338.0
+  ],
+  [
+   [
+    "HARVEST",
+    "SHEEP",
+    "endoflife"
+   ],
+   14,
+   272.0
+  ],
+  [
+   [
+    "FERTILIZE",
+    "TOMATO",
+    "bonus"
+   ],
+   7,
+   252.6
+  ],
+  [
+   [
+    "FERTILIZE",
+    "STRAWBERRY",
+    "bonus"
+   ],
+   3,
+   217.1
+  ],
+  [
+   [
+    "CARE",
+    "SHEEP",
+    "bank"
+   ],
+   3,
+   198.0
+  ],
+  [
+   [
+    "WATER",
+    "CARROT",
+    "bonus"
+   ],
+   2,
+   125.0
+  ],
+  [
+   [
+    "HARVEST",
+    "WHEAT",
+    "harvest"
+   ],
+   1,
+   105.0
+  ],
+  [
+   [
+    "FEED",
+    "SHEEP",
+    "bank"
+   ],
+   3,
+   79.2
+  ],
+  [
+   [
+    "COLLECT_FERTILIZER",
+    "GOOSE",
+    "production"
+   ],
+   2,
+   60.0
+  ],
+  [
+   [
+    "HARVEST",
+    "STRAWBERRY",
+    "endoflife"
+   ],
+   1,
+   59.0
+  ],
+  [
+   [
+    "COLLECT_FERTILIZER",
+    "GOOSE",
+    "endoflife"
+   ],
+   3,
+   54.0
+  ],
+  [
+   [
+    "HARVEST",
+    "COW",
+    "harvest"
+   ],
+   1,
+   51.0
+  ],
+  [
+   [
+    "COLLECT_FERTILIZER",
+    "COW",
+    "production"
+   ],
+   1,
+   39.0
+  ],
+  [
+   [
+    "FEED",
+    "GOOSE",
+    "bank"
+   ],
+   1,
+   13.8
+  ],
+  [
+   [
+    "HARVEST",
+    "SHEEP",
+    "harvest"
+   ],
+   2,
+   2.0
+  ]
+ ],
+ "extra_by": [
+  [
+   [
+    "WATER",
+    "STRAWBERRY",
+    "not needed today (0 value)"
+   ],
+   115
+  ],
+  [
+   [
+    "HARVEST",
+    "WHEAT",
+    "optional harvest (could wait)"
+   ],
+   100
+  ],
+  [
+   [
+    "WATER",
+    null,
+    "tile planted/placed during the day"
+   ],
+   99
+  ],
+  [
+   [
+    "HARVEST",
+    "STRAWBERRY",
+    "optional harvest (could wait)"
+   ],
+   93
+  ],
+  [
+   [
+    "FERTILIZE",
+    "WHEAT",
+    "not needed today (0 value)"
+   ],
+   91
+  ],
+  [
+   [
+    "HARVEST",
+    "GOOSE",
+    "optional harvest (could wait)"
+   ],
+   58
+  ],
+  [
+   [
+    "HARVEST",
+    "COW",
+    "optional harvest (could wait)"
+   ],
+   53
+  ],
+  [
+   [
+    "HARVEST",
+    "TOMATO",
+    "optional harvest (could wait)"
+   ],
+   40
+  ],
+  [
+   [
+    "FERTILIZE",
+    "CARROT",
+    "not needed today (0 value)"
+   ],
+   29
+  ],
+  [
+   [
+    "WATER",
+    "TOMATO",
+    "not needed today (0 value)"
+   ],
+   28
+  ],
+  [
+   [
+    "FEED",
+    "SHEEP",
+    "not needed today (0 value)"
+   ],
+   20
+  ],
+  [
+   [
+    "CARE",
+    "COW",
+    "not needed today (0 value)"
+   ],
+   16
+  ],
+  [
+   [
+    "CARE",
+    "SHEEP",
+    "not needed today (0 value)"
+   ],
+   16
+  ],
+  [
+   [
+    "FERTILIZE",
+    "STRAWBERRY",
+    "not needed today (0 value)"
+   ],
+   14
+  ],
+  [
+   [
+    "HARVEST",
+    "SHEEP",
+    "optional harvest (could wait)"
+   ],
+   9
+  ],
+  [
+   [
+    "HARVEST",
+    "CARROT",
+    "optional harvest (could wait)"
+   ],
+   8
+  ],
+  [
+   [
+    "CARE",
+    null,
+    "tile planted/placed during the day"
+   ],
+   7
+  ],
+  [
+   [
+    "FEED",
+    null,
+    "tile planted/placed during the day"
+   ],
+   6
+  ],
+  [
+   [
+    "WATER",
+    "CARROT",
+    "not needed today (0 value)"
+   ],
+   5
+  ],
+  [
+   [
+    "FEED",
+    "COW",
+    "not needed today (0 value)"
+   ],
+   4
+  ],
+  [
+   [
+    "FERTILIZE",
+    "TOMATO",
+    "not needed today (0 value)"
+   ],
+   4
+  ],
+  [
+   [
+    "WATER",
+    "WHEAT",
+    "not needed today (0 value)"
+   ],
+   3
+  ],
+  [
+   [
+    "WATER",
+    "MELON",
+    "not needed today (0 value)"
+   ],
+   1
+  ],
+  [
+   [
+    "FEED",
+    "MELON",
+    "not needed today (0 value)"
+   ],
+   1
+  ],
+  [
+   [
+    "CARE",
+    "MELON",
+    "not needed today (0 value)"
+   ],
+   1
+  ],
+  [
+   [
+    "CARE",
+    "GOOSE",
+    "not needed today (0 value)"
+   ],
+   1
+  ]
+ ],
+ "deaths": {
+  "plant:TOMATO": 3,
+  "plant:WHEAT": 2,
+  "escaped:GOOSE": 4,
+  "plant:STRAWBERRY": 2,
+  "escaped:SHEEP": 3
+ },
+ "abandonment_log": [
+  {
+   "kind": "SHEEP",
+   "tile": [
+    4,
+    3
+   ],
+   "start_day": 0,
+   "day": 13,
+   "cost": 500,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 3,
+   "forfeited_units": 19,
+   "forfeited_value": 456.0,
+   "upkeep_saved": 0.0,
+   "verdict": "error",
+   "planting_signal": true,
+   "reason": "remaining value does not cover upkeep",
+   "shops": null
+  },
+  {
+   "kind": "SHEEP",
+   "tile": [
+    2,
+    4
+   ],
+   "start_day": 0,
+   "day": 13,
+   "cost": 500,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 3,
+   "forfeited_units": 19,
+   "forfeited_value": 456.0,
+   "upkeep_saved": 0.0,
+   "verdict": "error",
+   "planting_signal": true,
+   "reason": "remaining value does not cover upkeep",
+   "shops": null
+  },
+  {
+   "kind": "SHEEP",
+   "tile": [
+    3,
+    4
+   ],
+   "start_day": 0,
+   "day": 13,
+   "cost": 500,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 3,
+   "forfeited_units": 19,
+   "forfeited_value": 456.0,
+   "upkeep_saved": 0.0,
+   "verdict": "error",
+   "planting_signal": true,
+   "reason": "remaining value does not cover upkeep",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    0,
+    0
+   ],
+   "start_day": 2,
+   "day": 18,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    0,
+    1
+   ],
+   "start_day": 2,
+   "day": 18,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    1,
+    1
+   ],
+   "start_day": 2,
+   "day": 18,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    0,
+    4
+   ],
+   "start_day": 2,
+   "day": 18,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    1,
+    0
+   ],
+   "start_day": 3,
+   "day": 19,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    2,
+    0
+   ],
+   "start_day": 3,
+   "day": 19,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    2,
+    1
+   ],
+   "start_day": 3,
+   "day": 19,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    0,
+    2
+   ],
+   "start_day": 3,
+   "day": 19,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    2,
+    2
+   ],
+   "start_day": 3,
+   "day": 19,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    0,
+    3
+   ],
+   "start_day": 3,
+   "day": 19,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    0,
+    9
+   ],
+   "start_day": 9,
+   "day": 20,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    1,
+    9
+   ],
+   "start_day": 10,
+   "day": 21,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    5,
+    0
+   ],
+   "start_day": 6,
+   "day": 22,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    6,
+    0
+   ],
+   "start_day": 6,
+   "day": 22,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    7,
+    0
+   ],
+   "start_day": 6,
+   "day": 22,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    8,
+    0
+   ],
+   "start_day": 6,
+   "day": 22,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    9,
+    0
+   ],
+   "start_day": 6,
+   "day": 22,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    5,
+    1
+   ],
+   "start_day": 6,
+   "day": 22,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    7,
+    1
+   ],
+   "start_day": 6,
+   "day": 22,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    8,
+    1
+   ],
+   "start_day": 6,
+   "day": 22,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    7,
+    3
+   ],
+   "start_day": 6,
+   "day": 22,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    0,
+    6
+   ],
+   "start_day": 11,
+   "day": 22,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    0,
+    8
+   ],
+   "start_day": 11,
+   "day": 22,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    1,
+    6
+   ],
+   "start_day": 12,
+   "day": 23,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    1,
+    7
+   ],
+   "start_day": 12,
+   "day": 23,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    3,
+    7
+   ],
+   "start_day": 12,
+   "day": 23,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    0,
+    7
+   ],
+   "start_day": 13,
+   "day": 24,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    1,
+    8
+   ],
+   "start_day": 13,
+   "day": 24,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    1,
+    2
+   ],
+   "start_day": 14,
+   "day": 25,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    7,
+    6
+   ],
+   "start_day": 14,
+   "day": 25,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    3,
+    8
+   ],
+   "start_day": 9,
+   "day": 25,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    3,
+    9
+   ],
+   "start_day": 9,
+   "day": 25,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    3,
+    1
+   ],
+   "start_day": 10,
+   "day": 26,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    4,
+    1
+   ],
+   "start_day": 10,
+   "day": 26,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    8,
+    6
+   ],
+   "start_day": 15,
+   "day": 26,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    8,
+    7
+   ],
+   "start_day": 15,
+   "day": 26,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    2,
+    8
+   ],
+   "start_day": 10,
+   "day": 26,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    5,
+    8
+   ],
+   "start_day": 10,
+   "day": 26,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    3,
+    0
+   ],
+   "start_day": 11,
+   "day": 27,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    4,
+    0
+   ],
+   "start_day": 11,
+   "day": 27,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    6,
+    6
+   ],
+   "start_day": 16,
+   "day": 27,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    5,
+    9
+   ],
+   "start_day": 11,
+   "day": 27,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    6,
+    1
+   ],
+   "start_day": 17,
+   "day": 28,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "COW",
+   "tile": [
+    4,
+    2
+   ],
+   "start_day": 0,
+   "day": 28,
+   "cost": 400,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 11,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "COW",
+   "tile": [
+    5,
+    2
+   ],
+   "start_day": 6,
+   "day": 28,
+   "cost": 400,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 8,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "COW",
+   "tile": [
+    5,
+    3
+   ],
+   "start_day": 6,
+   "day": 28,
+   "cost": 400,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 8,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "COW",
+   "tile": [
+    4,
+    4
+   ],
+   "start_day": 0,
+   "day": 28,
+   "cost": 400,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 11,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "COW",
+   "tile": [
+    5,
+    4
+   ],
+   "start_day": 6,
+   "day": 28,
+   "cost": 400,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 8,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "COW",
+   "tile": [
+    5,
+    5
+   ],
+   "start_day": 12,
+   "day": 28,
+   "cost": 400,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 5,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    0,
+    0
+   ],
+   "start_day": 18,
+   "day": 29,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    0,
+    1
+   ],
+   "start_day": 18,
+   "day": 29,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    1,
+    1
+   ],
+   "start_day": 18,
+   "day": 29,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    8,
+    2
+   ],
+   "start_day": 15,
+   "day": 29,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 3,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "GOOSE",
+   "tile": [
+    1,
+    3
+   ],
+   "start_day": 10,
+   "day": 29,
+   "cost": 300,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 16,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "GOOSE",
+   "tile": [
+    6,
+    3
+   ],
+   "start_day": 6,
+   "day": 29,
+   "cost": 300,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 20,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "TOMATO",
+   "tile": [
+    0,
+    4
+   ],
+   "start_day": 18,
+   "day": 29,
+   "cost": 50,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 4,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "GOOSE",
+   "tile": [
+    7,
+    4
+   ],
+   "start_day": 6,
+   "day": 29,
+   "cost": 300,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 20,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "GOOSE",
+   "tile": [
+    8,
+    4
+   ],
+   "start_day": 7,
+   "day": 29,
+   "cost": 300,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 19,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "COW",
+   "tile": [
+    3,
+    5
+   ],
+   "start_day": 9,
+   "day": 29,
+   "cost": 400,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 7,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "COW",
+   "tile": [
+    4,
+    5
+   ],
+   "start_day": 9,
+   "day": 29,
+   "cost": 400,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 7,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    3,
+    6
+   ],
+   "start_day": 15,
+   "day": 29,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 3,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "GOOSE",
+   "tile": [
+    4,
+    6
+   ],
+   "start_day": 9,
+   "day": 29,
+   "cost": 300,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 17,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "GOOSE",
+   "tile": [
+    4,
+    7
+   ],
+   "start_day": 9,
+   "day": 29,
+   "cost": 300,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 17,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    7,
+    8
+   ],
+   "start_day": 15,
+   "day": 29,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 3,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    4,
+    9
+   ],
+   "start_day": 15,
+   "day": 29,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 3,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  },
+  {
+   "kind": "STRAWBERRY",
+   "tile": [
+    6,
+    9
+   ],
+   "start_day": 15,
+   "day": 29,
+   "cost": 100,
+   "revenue": null,
+   "paid_back": null,
+   "productions_so_far": 3,
+   "forfeited_units": 0,
+   "forfeited_value": 0.0,
+   "upkeep_saved": 0.0,
+   "verdict": "end_of_life",
+   "planting_signal": false,
+   "reason": "no production reachable before the season ends",
+   "shops": null
+  }
+ ],
+ "days": [
+  {
+   "day": 0,
+   "jobs": {},
+   "leader": {
+    "FEED": 4,
+    "CARE": 4,
+    "WATER": 15
+   },
+   "matched": {},
+   "missed": {},
+   "extra": {
+    "FEED": 4,
+    "CARE": 4,
+    "WATER": 15
+   },
+   "missed_value": 0.0,
+   "early_harvest": 0
+  },
+  {
+   "day": 1,
+   "jobs": {
+    "FEED": 4,
+    "CARE": 4,
+    "COLLECT_FERTILIZER": 5
+   },
+   "leader": {
+    "COLLECT_FERTILIZER": 5,
+    "CARE": 5,
+    "FEED": 5,
+    "WATER": 5
+   },
+   "matched": {
+    "FEED": 4,
+    "CARE": 4,
+    "COLLECT_FERTILIZER": 5
+   },
+   "missed": {},
+   "extra": {
+    "CARE": 1,
+    "FEED": 1,
+    "WATER": 5
+   },
+   "missed_value": 0.0,
+   "early_harvest": 0
+  },
+  {
+   "day": 2,
+   "jobs": {
+    "WATER": 15,
+    "COLLECT_FERTILIZER": 5,
+    "FEED": 3,
+    "CARE": 3
+   },
+   "leader": {
+    "COLLECT_FERTILIZER": 5,
+    "CARE": 5,
+    "WATER": 15,
+    "FEED": 3,
+    "HARVEST": 6
+   },
+   "matched": {
+    "WATER": 15,
+    "COLLECT_FERTILIZER": 5,
+    "FEED": 3,
+    "CARE": 3
+   },
+   "missed": {},
+   "extra": {
+    "CARE": 2
+   },
+   "missed_value": 0.0,
+   "early_harvest": 6
+  },
+  {
+   "day": 3,
+   "jobs": {
+    "WATER": 8,
+    "FEED": 5,
+    "CARE": 5,
+    "COLLECT_FERTILIZER": 5
+   },
+   "leader": {
+    "COLLECT_FERTILIZER": 5,
+    "CARE": 5,
+    "FEED": 5,
+    "WATER": 11,
+    "HARVEST": 4
+   },
+   "matched": {
+    "WATER": 8,
+    "FEED": 5,
+    "CARE": 5,
+    "COLLECT_FERTILIZER": 5
+   },
+   "missed": {},
+   "extra": {
+    "WATER": 3
+   },
+   "missed_value": 0.0,
+   "early_harvest": 4
+  },
+  {
+   "day": 4,
+   "jobs": {
+    "WATER": 9,
+    "FEED": 4,
+    "CARE": 4,
+    "COLLECT_FERTILIZER": 5
+   },
+   "leader": {
+    "COLLECT_FERTILIZER": 5,
+    "CARE": 5,
+    "FEED": 5,
+    "WATER": 9
+   },
+   "matched": {
+    "WATER": 9,
+    "FEED": 4,
+    "CARE": 4,
+    "COLLECT_FERTILIZER": 5
+   },
+   "missed": {},
+   "extra": {
+    "CARE": 1,
+    "FEED": 1
+   },
+   "missed_value": 0.0,
+   "early_harvest": 0
+  },
+  {
+   "day": 5,
+   "jobs": {
+    "WATER": 11,
+    "FEED": 4,
+    "CARE": 4,
+    "COLLECT_FERTILIZER": 5
+   },
+   "leader": {
+    "COLLECT_FERTILIZER": 5,
+    "CARE": 5,
+    "FEED": 5,
+    "WATER": 11
+   },
+   "matched": {
+    "WATER": 11,
+    "FEED": 4,
+    "CARE": 4,
+    "COLLECT_FERTILIZER": 5
+   },
+   "missed": {},
+   "extra": {
+    "CARE": 1,
+    "FEED": 1
+   },
+   "missed_value": 0.0,
+   "early_harvest": 0
+  },
+  {
+   "day": 6,
+   "jobs": {
+    "WATER": 9,
+    "FEED": 4,
+    "CARE": 4,
+    "COLLECT_FERTILIZER": 5
+   },
+   "leader": {
+    "HARVEST": 3,
+    "FEED": 6,
+    "CARE": 7,
+    "COLLECT_FERTILIZER": 5,
+    "WATER": 25
+   },
+   "matched": {
+    "WATER": 9,
+    "FEED": 4,
+    "CARE": 4,
+    "COLLECT_FERTILIZER": 5
+   },
+   "missed": {},
+   "extra": {
+    "FEED": 2,
+    "CARE": 3,
+    "WATER": 16
+   },
+   "missed_value": 0.0,
+   "early_harvest": 3
+  },
+  {
+   "day": 7,
+   "jobs": {
+    "WATER": 16,
+    "FEED": 12,
+    "CARE": 12,
+    "COLLECT_FERTILIZER": 12
+   },
+   "leader": {
+    "CARE": 13,
+    "COLLECT_FERTILIZER": 12,
+    "FEED": 13,
+    "WATER": 23
+   },
+   "matched": {
+    "WATER": 16,
+    "FEED": 12,
+    "CARE": 12,
+    "COLLECT_FERTILIZER": 12
+   },
+   "missed": {},
+   "extra": {
+    "WATER": 7,
+    "FEED": 1,
+    "CARE": 1
+   },
+   "missed_value": 0.0,
+   "early_harvest": 0
+  },
+  {
+   "day": 8,
+   "jobs": {
+    "WATER": 24,
+    "FEED": 10,
+    "CARE": 10,
+    "COLLECT_FERTILIZER": 13
+   },
+   "leader": {
+    "HARVEST": 6,
+    "CARE": 11,
+    "COLLECT_FERTILIZER": 13,
+    "FEED": 10,
+    "WATER": 34
+   },
+   "matched": {
+    "WATER": 24,
+    "FEED": 10,
+    "CARE": 10,
+    "COLLECT_FERTILIZER": 13
+   },
+   "missed": {},
+   "extra": {
+    "CARE": 1,
+    "WATER": 10
+   },
+   "missed_value": 0.0,
+   "early_harvest": 6
+  },
+  {
+   "day": 9,
+   "jobs": {
+    "WATER": 14,
+    "FEED": 13,
+    "CARE": 13,
+    "COLLECT_FERTILIZER": 13
+   },
+   "leader": {
+    "HARVEST": 6,
+    "CARE": 13,
+    "FEED": 13,
+    "WATER": 43,
+    "COLLECT_FERTILIZER": 13
+   },
+   "matched": {
+    "WATER": 14,
+    "FEED": 13,
+    "CARE": 13,
+    "COLLECT_FERTILIZER": 13
+   },
+   "missed": {},
+   "extra": {
+    "WATER": 29
+   },
+   "missed_value": 0.0,
+   "early_harvest": 6
+  },
+  {
+   "day": 10,
+   "jobs": {
+    "WATER": 22,
+    "HARVEST": 10,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 18,
+    "FERTILIZE": 1
+   },
+   "leader": {
+    "HARVEST": 13,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 18,
+    "WATER": 36,
+    "FERTILIZE": 3
+   },
+   "matched": {
+    "WATER": 22,
+    "HARVEST": 10,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 18
+   },
+   "missed": {
+    "FERTILIZE": 1
+   },
+   "extra": {
+    "FERTILIZE": 3,
+    "WATER": 14
+   },
+   "missed_value": 1.9,
+   "early_harvest": 3
+  },
+  {
+   "day": 11,
+   "jobs": {
+    "WATER": 38,
+    "FERTILIZE": 4,
+    "HARVEST": 6,
+    "FEED": 17,
+    "CARE": 17,
+    "COLLECT_FERTILIZER": 19
+   },
+   "leader": {
+    "CARE": 18,
+    "FEED": 17,
+    "COLLECT_FERTILIZER": 19,
+    "WATER": 52,
+    "HARVEST": 12,
+    "FERTILIZE": 14
+   },
+   "matched": {
+    "WATER": 38,
+    "FERTILIZE": 4,
+    "HARVEST": 6,
+    "FEED": 16,
+    "CARE": 16,
+    "COLLECT_FERTILIZER": 19
+   },
+   "missed": {
+    "FEED": 1,
+    "CARE": 1
+   },
+   "extra": {
+    "CARE": 2,
+    "WATER": 14,
+    "FERTILIZE": 10,
+    "FEED": 1
+   },
+   "missed_value": 68.8,
+   "early_harvest": 6
+  },
+  {
+   "day": 12,
+   "jobs": {
+    "WATER": 41,
+    "FERTILIZE": 11,
+    "FEED": 20,
+    "CARE": 20,
+    "COLLECT_FERTILIZER": 20,
+    "HARVEST": 3
+   },
+   "leader": {
+    "HARVEST": 27,
+    "WATER": 54,
+    "CARE": 17,
+    "FEED": 17,
+    "COLLECT_FERTILIZER": 20,
+    "FERTILIZE": 10
+   },
+   "matched": {
+    "WATER": 41,
+    "FERTILIZE": 7,
+    "FEED": 17,
+    "CARE": 17,
+    "COLLECT_FERTILIZER": 20,
+    "HARVEST": 3
+   },
+   "missed": {
+    "FEED": 3,
+    "CARE": 3,
+    "FERTILIZE": 4
+   },
+   "extra": {
+    "FERTILIZE": 3,
+    "WATER": 13
+   },
+   "missed_value": 334.4,
+   "early_harvest": 24
+  },
+  {
+   "day": 13,
+   "jobs": {
+    "WATER": 37,
+    "FERTILIZE": 6,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 21,
+    "HARVEST": 7
+   },
+   "leader": {
+    "FEED": 21,
+    "CARE": 21,
+    "WATER": 49,
+    "COLLECT_FERTILIZER": 21,
+    "HARVEST": 20,
+    "FERTILIZE": 9
+   },
+   "matched": {
+    "WATER": 36,
+    "FERTILIZE": 2,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 21,
+    "HARVEST": 6
+   },
+   "missed": {
+    "HARVEST": 1,
+    "FERTILIZE": 4,
+    "WATER": 1
+   },
+   "extra": {
+    "FEED": 3,
+    "CARE": 3,
+    "FERTILIZE": 7,
+    "WATER": 13
+   },
+   "missed_value": 251.6,
+   "early_harvest": 14
+  },
+  {
+   "day": 14,
+   "jobs": {
+    "WATER": 50,
+    "FERTILIZE": 8,
+    "HARVEST": 8,
+    "FEED": 20,
+    "CARE": 17,
+    "COLLECT_FERTILIZER": 21
+   },
+   "leader": {
+    "HARVEST": 28,
+    "COLLECT_FERTILIZER": 21,
+    "FEED": 20,
+    "WATER": 53,
+    "CARE": 20,
+    "FERTILIZE": 15
+   },
+   "matched": {
+    "WATER": 47,
+    "FERTILIZE": 2,
+    "HARVEST": 8,
+    "FEED": 20,
+    "CARE": 17,
+    "COLLECT_FERTILIZER": 21
+   },
+   "missed": {
+    "WATER": 3,
+    "FERTILIZE": 6
+   },
+   "extra": {
+    "FERTILIZE": 13,
+    "CARE": 3,
+    "WATER": 6
+   },
+   "missed_value": 320.0,
+   "early_harvest": 20
+  },
+  {
+   "day": 15,
+   "jobs": {
+    "WATER": 48,
+    "FERTILIZE": 12,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 21,
+    "HARVEST": 11
+   },
+   "leader": {
+    "COLLECT_FERTILIZER": 21,
+    "FEED": 18,
+    "CARE": 18,
+    "HARVEST": 27,
+    "WATER": 53,
+    "FERTILIZE": 15
+   },
+   "matched": {
+    "WATER": 48,
+    "FERTILIZE": 8,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 21,
+    "HARVEST": 11
+   },
+   "missed": {
+    "FERTILIZE": 4
+   },
+   "extra": {
+    "FERTILIZE": 7,
+    "WATER": 5
+   },
+   "missed_value": 83.6,
+   "early_harvest": 16
+  },
+  {
+   "day": 16,
+   "jobs": {
+    "WATER": 37,
+    "FERTILIZE": 6,
+    "HARVEST": 11,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 21
+   },
+   "leader": {
+    "HARVEST": 29,
+    "FEED": 19,
+    "COLLECT_FERTILIZER": 21,
+    "CARE": 18,
+    "WATER": 48,
+    "FERTILIZE": 9
+   },
+   "matched": {
+    "WATER": 37,
+    "FERTILIZE": 5,
+    "HARVEST": 8,
+    "FEED": 16,
+    "CARE": 16,
+    "COLLECT_FERTILIZER": 21
+   },
+   "missed": {
+    "FEED": 2,
+    "CARE": 2,
+    "HARVEST": 3,
+    "FERTILIZE": 1
+   },
+   "extra": {
+    "FEED": 3,
+    "FERTILIZE": 4,
+    "CARE": 2,
+    "WATER": 11
+   },
+   "missed_value": 371.2,
+   "early_harvest": 21
+  },
+  {
+   "day": 17,
+   "jobs": {
+    "WATER": 47,
+    "FERTILIZE": 12,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 21,
+    "HARVEST": 7
+   },
+   "leader": {
+    "HARVEST": 29,
+    "FEED": 20,
+    "COLLECT_FERTILIZER": 21,
+    "WATER": 52,
+    "CARE": 20,
+    "FERTILIZE": 15
+   },
+   "matched": {
+    "WATER": 45,
+    "FERTILIZE": 8,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 21,
+    "HARVEST": 7
+   },
+   "missed": {
+    "FERTILIZE": 4,
+    "WATER": 2
+   },
+   "extra": {
+    "FEED": 2,
+    "CARE": 2,
+    "FERTILIZE": 7,
+    "WATER": 7
+   },
+   "missed_value": 607.8,
+   "early_harvest": 22
+  },
+  {
+   "day": 18,
+   "jobs": {
+    "HARVEST": 11,
+    "WATER": 39,
+    "FERTILIZE": 7,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 21
+   },
+   "leader": {
+    "HARVEST": 34,
+    "COLLECT_FERTILIZER": 21,
+    "FEED": 17,
+    "WATER": 44,
+    "CARE": 16,
+    "FERTILIZE": 9
+   },
+   "matched": {
+    "HARVEST": 10,
+    "WATER": 37,
+    "FERTILIZE": 6,
+    "FEED": 16,
+    "CARE": 16,
+    "COLLECT_FERTILIZER": 21
+   },
+   "missed": {
+    "WATER": 2,
+    "FERTILIZE": 1,
+    "FEED": 2,
+    "CARE": 2,
+    "HARVEST": 1
+   },
+   "extra": {
+    "FEED": 1,
+    "FERTILIZE": 3,
+    "WATER": 7
+   },
+   "missed_value": 743.1,
+   "early_harvest": 24
+  },
+  {
+   "day": 19,
+   "jobs": {
+    "HARVEST": 15,
+    "WATER": 49,
+    "FERTILIZE": 15,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 21
+   },
+   "leader": {
+    "HARVEST": 24,
+    "FEED": 18,
+    "COLLECT_FERTILIZER": 21,
+    "CARE": 16,
+    "WATER": 54,
+    "FERTILIZE": 18
+   },
+   "matched": {
+    "HARVEST": 13,
+    "WATER": 48,
+    "FERTILIZE": 13,
+    "FEED": 16,
+    "CARE": 16,
+    "COLLECT_FERTILIZER": 21
+   },
+   "missed": {
+    "HARVEST": 2,
+    "FEED": 2,
+    "CARE": 2,
+    "FERTILIZE": 2,
+    "WATER": 1
+   },
+   "extra": {
+    "FEED": 2,
+    "FERTILIZE": 5,
+    "WATER": 6
+   },
+   "missed_value": 336.8,
+   "early_harvest": 11
+  },
+  {
+   "day": 20,
+   "jobs": {
+    "WATER": 39,
+    "FERTILIZE": 10,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 21,
+    "HARVEST": 13
+   },
+   "leader": {
+    "HARVEST": 37,
+    "COLLECT_FERTILIZER": 19,
+    "FEED": 13,
+    "CARE": 11,
+    "WATER": 48,
+    "FERTILIZE": 13
+   },
+   "matched": {
+    "WATER": 39,
+    "FERTILIZE": 8,
+    "COLLECT_FERTILIZER": 19,
+    "FEED": 12,
+    "CARE": 11,
+    "HARVEST": 10
+   },
+   "missed": {
+    "FEED": 6,
+    "CARE": 7,
+    "COLLECT_FERTILIZER": 2,
+    "HARVEST": 3,
+    "FERTILIZE": 2
+   },
+   "extra": {
+    "FEED": 1,
+    "FERTILIZE": 5,
+    "WATER": 9
+   },
+   "missed_value": 684.6,
+   "early_harvest": 27
+  },
+  {
+   "day": 21,
+   "jobs": {
+    "WATER": 50,
+    "FERTILIZE": 9,
+    "HARVEST": 14,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 21
+   },
+   "leader": {
+    "COLLECT_FERTILIZER": 21,
+    "FEED": 16,
+    "HARVEST": 33,
+    "WATER": 57,
+    "CARE": 14,
+    "FERTILIZE": 14
+   },
+   "matched": {
+    "WATER": 48,
+    "FERTILIZE": 6,
+    "HARVEST": 12,
+    "FEED": 14,
+    "CARE": 14,
+    "COLLECT_FERTILIZER": 21
+   },
+   "missed": {
+    "FEED": 4,
+    "CARE": 4,
+    "HARVEST": 2,
+    "WATER": 2,
+    "FERTILIZE": 3
+   },
+   "extra": {
+    "FEED": 2,
+    "FERTILIZE": 8,
+    "WATER": 9
+   },
+   "missed_value": 460.8,
+   "early_harvest": 21
+  },
+  {
+   "day": 22,
+   "jobs": {
+    "WATER": 36,
+    "HARVEST": 19,
+    "FEED": 18,
+    "CARE": 18,
+    "COLLECT_FERTILIZER": 21,
+    "FERTILIZE": 7
+   },
+   "leader": {
+    "COLLECT_FERTILIZER": 21,
+    "HARVEST": 37,
+    "FEED": 17,
+    "WATER": 43,
+    "CARE": 17,
+    "FERTILIZE": 14
+   },
+   "matched": {
+    "WATER": 34,
+    "HARVEST": 17,
+    "FEED": 16,
+    "CARE": 17,
+    "COLLECT_FERTILIZER": 21,
+    "FERTILIZE": 5
+   },
+   "missed": {
+    "FEED": 2,
+    "CARE": 1,
+    "HARVEST": 2,
+    "WATER": 2,
+    "FERTILIZE": 2
+   },
+   "extra": {
+    "FEED": 1,
+    "FERTILIZE": 9,
+    "WATER": 9
+   },
+   "missed_value": 711.0,
+   "early_harvest": 20
+  },
+  {
+   "day": 23,
+   "jobs": {
+    "WATER": 47,
+    "FERTILIZE": 10,
+    "HARVEST": 18,
+    "FEED": 17,
+    "CARE": 17,
+    "COLLECT_FERTILIZER": 20
+   },
+   "leader": {
+    "HARVEST": 31,
+    "FEED": 18,
+    "COLLECT_FERTILIZER": 20,
+    "WATER": 51,
+    "CARE": 16,
+    "FERTILIZE": 15
+   },
+   "matched": {
+    "WATER": 45,
+    "FERTILIZE": 6,
+    "HARVEST": 16,
+    "FEED": 16,
+    "CARE": 16,
+    "COLLECT_FERTILIZER": 20
+   },
+   "missed": {
+    "HARVEST": 2,
+    "FEED": 1,
+    "CARE": 1,
+    "WATER": 2,
+    "FERTILIZE": 4
+   },
+   "extra": {
+    "FEED": 2,
+    "FERTILIZE": 9,
+    "WATER": 6
+   },
+   "missed_value": 335.9,
+   "early_harvest": 15
+  },
+  {
+   "day": 24,
+   "jobs": {
+    "WATER": 47,
+    "FERTILIZE": 16,
+    "HARVEST": 16,
+    "FEED": 17,
+    "CARE": 17,
+    "COLLECT_FERTILIZER": 20
+   },
+   "leader": {
+    "COLLECT_FERTILIZER": 20,
+    "FEED": 14,
+    "WATER": 53,
+    "CARE": 14,
+    "FERTILIZE": 19,
+    "HARVEST": 34
+   },
+   "matched": {
+    "WATER": 47,
+    "FERTILIZE": 10,
+    "HARVEST": 15,
+    "FEED": 11,
+    "CARE": 11,
+    "COLLECT_FERTILIZER": 20
+   },
+   "missed": {
+    "FEED": 6,
+    "CARE": 6,
+    "HARVEST": 1,
+    "FERTILIZE": 6
+   },
+   "extra": {
+    "FEED": 3,
+    "CARE": 3,
+    "FERTILIZE": 9,
+    "WATER": 6
+   },
+   "missed_value": 986.4,
+   "early_harvest": 19
+  },
+  {
+   "day": 25,
+   "jobs": {
+    "WATER": 41,
+    "FERTILIZE": 13,
+    "HARVEST": 15,
+    "FEED": 19,
+    "CARE": 19,
+    "COLLECT_FERTILIZER": 19
+   },
+   "leader": {
+    "HARVEST": 34,
+    "FEED": 14,
+    "COLLECT_FERTILIZER": 19,
+    "WATER": 56,
+    "CARE": 14,
+    "FERTILIZE": 17
+   },
+   "matched": {
+    "WATER": 40,
+    "FERTILIZE": 6,
+    "HARVEST": 15,
+    "FEED": 14,
+    "CARE": 14,
+    "COLLECT_FERTILIZER": 19
+   },
+   "missed": {
+    "FERTILIZE": 7,
+    "FEED": 5,
+    "CARE": 5,
+    "WATER": 1
+   },
+   "extra": {
+    "FERTILIZE": 11,
+    "WATER": 16
+   },
+   "missed_value": 665.6,
+   "early_harvest": 19
+  },
+  {
+   "day": 26,
+   "jobs": {
+    "WATER": 46,
+    "HARVEST": 20,
+    "FERTILIZE": 6,
+    "FEED": 19,
+    "CARE": 16,
+    "COLLECT_FERTILIZER": 19
+   },
+   "leader": {
+    "COLLECT_FERTILIZER": 19,
+    "HARVEST": 33,
+    "FEED": 13,
+    "CARE": 13,
+    "WATER": 51,
+    "FERTILIZE": 11
+   },
+   "matched": {
+    "WATER": 44,
+    "HARVEST": 20,
+    "FERTILIZE": 3,
+    "COLLECT_FERTILIZER": 19,
+    "FEED": 13,
+    "CARE": 10
+   },
+   "missed": {
+    "WATER": 2,
+    "FERTILIZE": 3,
+    "FEED": 6,
+    "CARE": 6
+   },
+   "extra": {
+    "CARE": 3,
+    "FERTILIZE": 8,
+    "WATER": 7
+   },
+   "missed_value": 546.6,
+   "early_harvest": 13
+  },
+  {
+   "day": 27,
+   "jobs": {
+    "WATER": 40,
+    "HARVEST": 21,
+    "FERTILIZE": 6,
+    "FEED": 16,
+    "COLLECT_FERTILIZER": 19,
+    "CARE": 10
+   },
+   "leader": {
+    "COLLECT_FERTILIZER": 19,
+    "HARVEST": 35,
+    "FEED": 12,
+    "WATER": 46,
+    "CARE": 9,
+    "FERTILIZE": 15
+   },
+   "matched": {
+    "WATER": 39,
+    "HARVEST": 21,
+    "FERTILIZE": 2,
+    "FEED": 12,
+    "COLLECT_FERTILIZER": 19,
+    "CARE": 3
+   },
+   "missed": {
+    "CARE": 7,
+    "FEED": 4,
+    "FERTILIZE": 4,
+    "WATER": 1
+   },
+   "extra": {
+    "CARE": 6,
+    "FERTILIZE": 13,
+    "WATER": 7
+   },
+   "missed_value": 452.8,
+   "early_harvest": 14
+  },
+  {
+   "day": 28,
+   "jobs": {
+    "WATER": 45,
+    "FERTILIZE": 18,
+    "HARVEST": 18,
+    "COLLECT_FERTILIZER": 19,
+    "FEED": 7
+   },
+   "leader": {
+    "HARVEST": 45,
+    "COLLECT_FERTILIZER": 18,
+    "FEED": 3,
+    "WATER": 43,
+    "CARE": 3,
+    "FERTILIZE": 14
+   },
+   "matched": {
+    "HARVEST": 18,
+    "WATER": 42,
+    "FERTILIZE": 10,
+    "COLLECT_FERTILIZER": 18,
+    "FEED": 3
+   },
+   "missed": {
+    "WATER": 3,
+    "FERTILIZE": 8,
+    "COLLECT_FERTILIZER": 1,
+    "FEED": 4
+   },
+   "extra": {
+    "CARE": 3,
+    "FERTILIZE": 4,
+    "WATER": 1
+   },
+   "missed_value": 519.0,
+   "early_harvest": 27
+  },
+  {
+   "day": 29,
+   "jobs": {
+    "HARVEST": 41,
+    "WATER": 24,
+    "FERTILIZE": 15,
+    "COLLECT_FERTILIZER": 14
+   },
+   "leader": {
+    "COLLECT_FERTILIZER": 11,
+    "WATER": 22,
+    "HARVEST": 39
+   },
+   "matched": {
+    "HARVEST": 39,
+    "WATER": 22,
+    "COLLECT_FERTILIZER": 11
+   },
+   "missed": {
+    "FERTILIZE": 15,
+    "COLLECT_FERTILIZER": 3,
+    "WATER": 2,
+    "HARVEST": 2
+   },
+   "extra": {},
+   "missed_value": 449.3,
+   "early_harvest": 0
+  }
+ ],
+ "runtime_s": 21.8
+}
