@@ -310,3 +310,18 @@ maintenance labour spent), the revenue it produced, and the value it forfeits. T
   planting error. These cases are training signal for the planting rule from our own games, with no leader replay
   needed, and the planting rule gets a hard constraint: do not plant a crop whose first full harvest cannot be
   reached and sold before day 29 under minimum maintenance (the lifecycle data gives the ages).
+
+**Refinement (user, 2026-09-24): "It's still worth noticing that we could be abandoning an animal or a long life plant
+if it can't make the last harvest".** Permanent abandonment has two kinds, told apart by a computable test, not a
+judgement: *can the asset complete one more production cycle (and have it harvested and sold) before the season
+ends, under minimum maintenance?*
+- **End-of-life abandonment (answer: no).** A correctly acquired animal or long-lived plant whose next production
+  falls beyond the season boundary. Correct play; logged as end-of-life; NEVER counted against the planting rule
+  (it would teach the planting model the wrong lesson).
+- **Error abandonment (answer: yes, but abandoning anyway because its remaining value does not cover its upkeep).**
+  Typically a short-lived, low-value crop planted too late or in excess. Logged as a planting error and fed back.
+- (A temporary labour-spike skip is neither: the asset is resumed after the spike.)
+**Positive rule:** stop maintaining any asset the moment its next reachable production falls beyond the season
+boundary; its remaining feed, water and care are pure cost. It applies to every long-lived asset, not only marginal
+ones, and a tape cannot do it (a tape maintains whatever it recorded). To be quantified: the labour (unit-hours,
+hands, wages) and wheat the leaders and our current agents spend on assets past their last reachable harvest.
