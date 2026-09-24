@@ -69,6 +69,11 @@ CFG = {
     "lazy_fetch": False,
     "harvest_before_build": True,
     "spawn_allot": False,
+    "maint_source": "ours",   # ablation: "leader" = the leader's per-tile per-day WATER/FEED/CARE/FERTILIZE
+    "maint_safety": False,    # ablation B2: with maint_source="leader", still save plants/animals that die tonight
+    "hands_d29_fix": True,    # A29 (default on since 2026-09-24): hire the day-28 count on day 29 (the corpus records 0 hands on day 29 because the day-end hook never runs on the last day)
+    "sell_source": "leader",  # ablation: "shed" = mgt_lead_deploy's sell-as-it-reaches-the-shed rule
+    "hire_source": "ours",    # ablation: "leader_steps" = the leader's HIRE orders at the leader's steps
     "route_once": True,
     "add_radius": 3,
     "late_p1": 0,
@@ -170,6 +175,10 @@ class Target:
             self.cum_sold.append(Counter(run))
         # plant events list (pd, tile, crop)
         self.events = [(d, t, c) for d in range(self.n) for t, c in self.plant[d].items()]
+        # OPTIONAL fields (ablation only; deployment targets may omit them):
+        # maint[d] = {'WATER'|'FEED'|'CARE'|'FERTILIZE': set(tile)} the leader's own maintenance that day
+        self.maint = [{op: set(ts) for op, ts in day["maintenance"].items()} for day in days]
+        self.hire_steps = {}      # step -> number of HIRE orders the leader issued (set by the ablation harness)
 
 
 def configure(sem, **cfg):
@@ -401,6 +410,13 @@ def _plan(obs, S, tiles, day):
             if t2 == tt:
                 m = mm
         fert.add(m)
+    if CFG["maint_source"] == "leader":
+        mp = {}
+        for (pd, t2), mm in S["pmap"].items():
+            mp[t2] = mm
+        mp.update({k: v for k, v in S["smap"].items()})
+        lm = getattr(T, "maint", None)
+        S["lmaint"] = {op: {mp.get(tt, tt) for tt in ts} for op, ts in (lm[d] if lm else {}).items()}
     return jobs, fert
 
 
@@ -465,6 +481,7 @@ def _tile_ops(idx, t, job, fert, day, last_day, seeds):
         c = CROPS[t["crop"]]
         age = day - t["planted_day"]
         own_fert = False
+        lm = _S.get("lmaint") if (CFG["maint_source"] == "leader" and _S) else None
         if CFG["fert_ongoing"] and c["ongoing"] and day < last_day - 1:
             # a production falls within the 3 fertilized days and the plant is not finished
             last = _ongoing_last_age(t["crop"])
@@ -473,11 +490,17 @@ def _tile_ops(idx, t, job, fert, day, last_day, seeds):
                 if c["first"] <= a <= last and (a - c["first"]) % c["interval"] == 0:
                     own_fert = True
                     break
+        if lm is not None:
+            own_fert = False
         if (idx in fert or own_fert) and t.get("fertilized_until_day", -1) < day and day < last_day:
             ops.append(["FERTILIZE"])
             need["FERTILIZER"] += 1
             prio = min(prio, CFG["fert_prio"])
         wn, urgent = _water_needed(t, day, last_day)
+        if lm is not None:
+            cu1 = t.get("consecutive_unwatered", 0) >= 1 and day < last_day
+            wn = (idx in lm.get("WATER", ()) or (CFG["maint_safety"] and cu1)) and not t.get("watered_today")
+            urgent = wn and cu1
         if wn:
             ops.append(["WATER"])
             # a window water on a one-time crop adds a unit (melon ~ $200): treat as urgent
@@ -506,14 +529,16 @@ def _tile_ops(idx, t, job, fert, day, last_day, seeds):
                     prio = min(prio, 1)
     elif _animal(t):
         if day < last_day:
-            if not t.get("fed_today"):
+            lma = _S.get("lmaint") if (CFG["maint_source"] == "leader" and _S) else None
+            if not t.get("fed_today") and (lma is None or idx in lma.get("FEED", ())
+                                           or (CFG["maint_safety"] and t.get("consecutive_unfed", 0) >= 1)):
                 ops.append(["FEED"])
                 need["WHEAT"] += 1
                 if CFG["prio3"]:
                     prio = min(prio, 0 if t.get("consecutive_unfed", 0) >= 1 else 1)
                 else:
                     prio = min(prio, 1 if t.get("consecutive_unfed", 0) >= 1 else 2)
-            if not t.get("cared_today"):
+            if not t.get("cared_today") and (lma is None or idx in lma.get("CARE", ())):
                 ops.append(["CARE"])
                 prio = min(prio, 2)
         if t.get("fertilizer_available"):
@@ -1277,7 +1302,15 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
         if endgame:
             n = have
         else:
-            quota = T.cum_sold[d].get(p, 0) - S["sold"][p]
+            if CFG["sell_source"] == "shed":
+                # mgt_lead_deploy rule: everything as soon as it is in the shed, except the wheat the herd eats
+                if p == "WHEAT":
+                    n_an = sum(1 for r_ in farm["tiles"] for t_ in r_ if _animal(t_))
+                    quota = shed.get("WHEAT", 0) - (n_an * max(0, 28 - day) + 10)
+                else:
+                    quota = have
+            else:
+                quota = T.cum_sold[d].get(p, 0) - S["sold"][p]
             n = min(have, quota)
         if n > 0:
             sells.append(["SELL", p, int(n)])
@@ -1299,8 +1332,11 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     cash = money + sum(prices.get(o[1], 0) * o[2] * 0.85 for o in sells)
     # hires come first: without hands nothing is maintained (death spiral); sell beyond quota to fund them
     hires = []
-    if not endgame and hour <= 12 and CFG["hires_first"]:
+    if (not endgame or CFG["hands_d29_fix"]) and hour <= 12 and CFG["hires_first"]:
         want = T.hands[d] + CFG["hire_extra"]
+        if CFG["hands_d29_fix"] and d == T.n - 1 and T.hands[d] == 0 and d > 0:
+            # semantics artifact: hands_present of the last day is 0 (the end-of-day hook never runs on day 29)
+            want = T.hands[d - 1] + CFG["hire_extra"]
         k = max(0, want - (len(pos) - 1))
         hires_today = int(farm.get("hires_today", 0))
         cost_all = sum(_fib(hires_today + i) for i in range(k))
@@ -1384,6 +1420,9 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             cash -= k * CROPS[crop]["seed"]
     # assemble within the 10-order cap: sells first (cash), then hires, then buys
     buys = wheat_buy + buys
+    if CFG["hire_source"] == "leader_steps":
+        # the leader's own HIRE orders, at the leader's steps (they fail on cash exactly as orders do)
+        hires = [["HIRE"]] * int(getattr(T, "hire_steps", {}).get(int(_g(obs, "step", 0)), 0))
     orders = []
     hire_cost = sum(_fib(int(farm.get("hires_today", 0)) + i) for i in range(len(hires)))
     if CFG["hires_at_front"] and hires and money >= hire_cost:

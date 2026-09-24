@@ -183,3 +183,75 @@ pickups, cash/leader at days 9 and 12).
 \* opponent replay partly collapsed (73k vs its recorded 83k; worse in earlier runs). No-effect commands 0.
 Plants died 39.8/game, animals lost ~2/game. Cash/leader at day 9 is now 1.13 (was 0.36 at the start of round 3),
 at day 12 0.68 (was 0.45); the remaining gap opens on days 12-20 (per-tile yields: waterings, harvests, fertilizer).
+
+## Ablation (hold-one-out around G1; `scripts/lead_ablation.py`)
+
+`lead_ablation.py run CELL[,CELL] [--workers 2]` / `lead_ablation.py report CELL[,CELL]`; results in
+`results/fresh/lead_agent_20260924/abl_<cell>/`. Same 12 games, the leader's own world (recorded seed, forced shops,
+opponent = recorded opp_actions). Each cell swaps ONE component, everything else as A:
+
+- **A baseline** = current G1 defaults (leader plan + leader tiles + leader cumulative sell schedule + our maintenance +
+  our hires/dispatch). Reproduces final3 exactly.
+- **B maintenance = LEADER EXACT**: `CFG maint_source="leader"`: WATER/FEED/CARE/FERTILIZE happen only on the tiles in the
+  leader's per-day maintenance lists (semantics `maintenance`, correctly dated), mapped through our remaps; our own
+  engine-derived rules (smart water, own fertilizing, feed/care all animals) are off. Structural pipelines keep their
+  seedling water / new-animal feed. Harvests stay ours.
+- **C market = OURS**: `CFG sell_source="shed"`: mgt_lead_deploy's rule (sell every product as soon as it is in the shed,
+  keep the wheat the herd eats until the end).
+- **D hires = LEADER EXACT**: `CFG hire_source="leader_steps"`: the leader's HIRE orders at the leader's own steps (tape).
+  A already hires the leader's exact daily count (hands_present == corrected hires_arrived on all 324 checked
+  game-days), so D isolates hire timing (leader: ~8 HIREs at hour 0, ~3 at hour 1; A: up to 10 at hour 0).
+- **E plan = OURS**: mgt_lead_deploy's target builder (family-A exemplar opening, retrieval at days 3/6/9, count model
+  from day 12) with this episode excluded from retrieval (`exclude_episode`, any seat) and, when the game is the day-0
+  exemplar (112655730), the next family-A game (112661570) as exemplar. Hands and the sell schedule are overwritten
+  with the leader's every step, and the no-feed hook is off, so only the plan differs from A. Caveat: the ridge count
+  model (days 12+) was fitted on the corpus that contains these games (1 of 240 games; not refitted).
+- **E2** (reference) = the full mgt_lead_deploy agent (its plan + its market + its hires + no-feed), same exclusion.
+
+Interface note: `Target` gained two OPTIONAL fields (`maint`, `hire_steps`) used only by B/D; three CFG flags
+(`maint_source`, `sell_source`, `hire_source`) default to A's behaviour, so mgt_lead_deploy's verbatim executor copy
+is unaffected until E2 re-copies it.
+
+### Ablation results (12 games each; mean11 = without 112708229, whose replayed opponent collapses)
+| cell | mean12 | mean11 | vs A | revenue gap vs leader, k$/game (top 4) | failed buys/game | no-effect | Hamming to leader d6/d12/d20 | hires (leader) | plants died | animals lost | diverges from A: first day >0 / >5 tiles (median) |
+|---|---:|---:|---:|---|---:|---:|---|---:|---:|---:|---|
+| A baseline | 0.757 | 0.747 | | -28.3: wheat -9.3, straw -7.3, carrot -3.9, tomato -3.6 | 1.0 | 0 | 1/16/25 | 283 (283) | 39.8 | 1.8 | - |
+| B maintenance = leader exact | 0.669 | 0.663 | -0.088 | -36.7: straw -11.5, wheat -9.3, melon -5.3, carrot -3.8 | 1.1 | 0 | 4/36/30 | 283 (283) | 113.9 | 10.8 | day 2 / day 7 |
+| B2 = B + survival net (water/feed only what would die tonight, beyond the leader's lists) | 0.796 | 0.785 | +0.038 | -26.2: wheat -8.2, straw -6.4, egg -3.9, carrot -3.7 | 1.1 | 0 | 1/16/20 | 283 (283) | 33.4 | 1.8 | day 2 / day 10 |
+| E plan = ours (mgt_lead_deploy targets, episode held out; leader hires + sell schedule) | 0.795 | 0.783 | +0.038 | -29.4: wheat -8.8, carrot -7.9, egg -6.0, tomato -3.6 | 0.9 | 0 | 2/40/57 (by design) | 283 (283) | 8.8 | 2.8 | day 1 / day 7 |
+| C market = ours (sell as it reaches the shed) | 0.745 | 0.735 | -0.013 | -29.8: wheat -10.8, straw -7.7, carrot -3.9, tomato -3.5 | 0.9 | 0 | 1/17/24 | 283 (283) | 42.2 | 1.5 | day 7 / day 11 |
+| D hires = leader exact steps | 0.878 | 0.870 | +0.120 | -18.4: wheat -8.8, straw -5.5, tomato -3.6, egg -3.4 | 4.2 | 0 | 0/23/25 | 285 (283) | 44.2 | 1.0 | day 1 / day 6 |
+| D' = A with `hires_first` off (D's side effect alone) | 0.755 | 0.743 | -0.003 | -29.2 | 1.0 | 0 | 1/17/25 | 283 (283) | 39.6 | 1.4 | day 8 / day 11 |
+| A29 = A + hire the day-28 count on day 29 | 0.792 | 0.780 | +0.035 | -24.5: wheat -8.3, straw -6.8, tomato -3.4, carrot -3.1 | 1.0 | 0 | 1/16/25 | 294 (283) | 39.8 | 1.8 | no divergence at any day start |
+| X = A29 + B2 (combined, measured) | 0.824 | 0.812 | +0.067 | -23.1: wheat -7.3, straw -6.0, egg -3.6, tomato -3.2 | 1.1 | 0 | 1/16/20 | 294 (283) | 33.4 | 1.8 | day 2 / day 10 |
+
+**Opponent-collapse control (mean-nc).** The opponent is the tape's open-loop action stream; when our market
+behaviour changes, its orders can fail and its farm collapses, which inflates our ratio. In A the opponent already
+ends at 1.03-1.41x its recorded cash (we sell less than the leader, so prices stay higher for it). Cells where it ends
+below 0.8x: D in 112715010 (0.31, our ratio 1.786), 112673479 (0.54, 1.051), 112708229 (0.74); 112708229 in A too
+(0.88 -> excluded as mean11). mean-nc = the 9 games where no cell's opponent falls below 0.8x:
+A 0.751, A29 0.785, X 0.790, B 0.650, B2 0.764, E 0.775, C 0.736, D 0.748, D' 0.740.
+
+**Isolation.** Failed purchases stay at ~1/game in every cell except D (4.2: its hires cost cash at the leader's hours
+and wheat/seed buys fail 37+8 times in 12 games); no-effect commands 0 in every cell. Board divergence from A starts
+on day 1-2 in B/B2/D/E (they change day-0/1 work) and exceeds 5 tiles by day 6-11; C diverges only from day 7;
+A29 is identical to A through day 29 (it only changes the last day).
+
+**What the ablation says about the gap (A = 0.751 on clean games, i.e. a 25% gap):**
+1. Last-day labour is a pure bug worth +0.035: the semantics' `hands_present` of day 29 is always 0 (the end-of-day
+   hook never runs on the last day), so A hired nobody on day 29 while the leader hires ~10. Fix = A29.
+2. Maintenance POLICY: +0.013 to +0.038 when the leader's per-tile lists are used with a survival net (B2); used
+   bare (B) they lose 0.10 because our crops are not exactly the leader's (a day or a tile off), so the leader's
+   every-other-day rhythm lands on the wrong days (114 plants and 11 animals lost a game). The leader's policy feeds
+   and cares less (332/290 vs 416/385 actions), waters more (1033 vs 959) and buys 1.2k less wheat.
+3. Plan: our own plan (E) beats following the leader's plan in the leader's world (+0.024 clean, +0.038 all), mostly
+   because it never buys the $4000 SE quadrant (revenue is about equal: 104.9k vs 106.0k) and has far fewer
+   deaths (8.8 vs 39.8). With our execution the leader's full four-quadrant plan does not pay for its last quadrant.
+4. Market: the deploy sell-at-once rule costs 0.013-0.015 vs following the leader's sell schedule.
+5. Hires: the leader's exact hire timing on days 0-28 is neutral to slightly worse than ours (D clean 0.748 includes
+   the day-29 gain); the +0.120 all-game figure is opponent collapse.
+Measured combination X (A29 + B2): 0.824 all / 0.790 clean, close to additive (+0.034 + 0.013 expected +0.047 clean,
+measured +0.039). What remains, about 0.21 of the leader's cash on clean games, is spread over crop yields (wheat
+-7k, strawberry -6k, egg/tomato -3k each per game) = execution labour, which no single swap here removes; E suggests
+part of it is plan density (the leader's 4th quadrant only pays with the leader's execution).
+Not run: F (layout; lowest priority), E2 (full deploy reference). Count-model leakage in E (1/240 games) not removed.
