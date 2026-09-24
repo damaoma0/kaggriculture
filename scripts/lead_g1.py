@@ -44,7 +44,8 @@ def _label(tile):
 
 
 def _load_agent(cfg):
-    spec = importlib.util.spec_from_file_location('mgt_lead', ROOT / 'agents/mgt_lead.py')
+    import os
+    spec = importlib.util.spec_from_file_location('mgt_lead', os.environ.get('LEAD_AGENT_PATH') or (ROOT / 'agents/mgt_lead.py'))
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod

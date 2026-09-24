@@ -35,6 +35,7 @@ import lead_g1  # noqa: E402
 
 OUT = ROOT / 'results/fresh/lead_agent_20260924'
 COLLAPSED = 112708229      # the replayed opponent collapses in this world: report means with and without it
+CLEAN9 = {112444381, 112445586, 112447950, 112449129, 112655730, 112661570, 112667461, 112714050, 112721923}
 
 CELLS = {
     'A': dict(cfg={}),
@@ -44,6 +45,16 @@ CELLS = {
     'D': dict(cfg={'hire_source': 'leader_steps', 'hires_first': False}, hire_steps=True),
     'Dp': dict(cfg={'hires_first': False}),
     'A29': dict(cfg={'hands_d29_fix': True}),
+    'S1': dict(cfg={'sched_maint': True}),
+    'S2': dict(cfg={'sched_maint': True, 'sched_dispatch': True}),
+    'S3': dict(cfg={'sched_maint': True, 'sched_dispatch': True, 'sched_hire': True}),
+    'S2d': dict(cfg={'sched_dispatch': True}),
+    'S2p20': dict(cfg={'sched_maint': True, 'sched_dispatch': True, 'sched_cost': 'prize', 'step_value': 20.0}),
+    'S2p80': dict(cfg={'sched_maint': True, 'sched_dispatch': True, 'sched_cost': 'prize', 'step_value': 80.0}),
+    'S3h': dict(cfg={'sched_hire': True}),
+    'S1h': dict(cfg={'sched_maint': True, 'sched_hire': True}),
+    'S1x': dict(cfg={'sched_maint': True, 'mj_collect': False}),
+    'S1f': dict(cfg={'sched_maint': True}),
     'X': dict(cfg={'hands_d29_fix': True, 'maint_source': 'leader', 'maint_safety': True}),
     'E': dict(cfg={}, deploy='plan'),
     'E2': dict(cfg={}, deploy='full'),
@@ -165,14 +176,14 @@ def report(cells):
         ok = {e for e, r in rows_c.items() if r['opp_final'] >= 0.8 * r['target_opp']}
         clean = ok if clean is None else clean & ok
     clean = clean or set()
-    lines[0] = lines[0].replace('| mean11 |', '| mean11 | mean-nc |')
+    lines[0] = lines[0].replace('| mean11 |', '| mean11 | clean9 |')
     lines[1] = '|---|---:|---:|---:|---:|---:|---|---:|---:|---|---:|---:|---:|---|'
     for cell in cells:
         rows = allrows[cell]
         if not rows:
             continue
         rs = [r['ratio'] for r in rows.values()]
-        rnc = [r['ratio'] for e, r in rows.items() if e in clean]
+        rnc = [r['ratio'] for e, r in rows.items() if e in CLEAN9]
         r11 = [r['ratio'] for e, r in rows.items() if e != COLLAPSED]
         dA = ''
         if base and cell != 'A':
@@ -220,8 +231,8 @@ def report(cells):
         lines.append(f"| {cell} | {n} | {st.mean(rs):.3f} | {st.mean(r11):.3f} | {(st.mean(rnc) if rnc else 0):.3f} | {dA} | total {tot:+.1f}: {gaps} | "
                      f"{fails / n:.1f} | {noeff / n:.1f} | {st.mean(ham[6]):.0f}/{st.mean(ham[12]):.0f}/{st.mean(ham[20]):.0f} | "
                      f"{hires / n:.0f} ({thires / n:.0f}) | {died / n:.1f} | {lost / n:.1f} | {div} |")
-    lines.append(f'mean-nc = the {len(clean)} games where no listed cell has the replayed opponent below 0.8x its '
-                 f'recorded cash: {sorted(clean)}')
+    lines.append(f'clean9 = the fixed 9 games of the ablation (no cell A-X collapses the opponent there); games where no '
+                 f'listed cell has the opponent below 0.8x: {len(clean)}')
     return '\n'.join(lines)
 
 
@@ -258,7 +269,7 @@ def main():
         if err:
             print(err, flush=True)
     print(f'wall {time.time() - t0:.0f}s')
-    print(report(sorted(set(cells) | ({'A'} if (OUT / 'abl_A').exists() else set()), key=lambda c: 'A A29 X B B2 E E2 C D Dp F'.split().index(c) if c in 'A A29 X B B2 E E2 C D Dp F'.split() else 9)))
+    print(report(sorted(set(cells) | ({'A'} if (OUT / 'abl_A').exists() else set()), key=lambda c: 'A A29 X S1 S1f S1h S1x S2 S2p20 S2p80 S3 S2d S3h B B2 E E2 C D Dp F'.split().index(c) if c in 'A A29 X S1 S1h S1x S2 S2p20 S2p80 S3 S2d S3h B B2 E E2 C D Dp F'.split() else 9)))
 
 
 if __name__ == '__main__':

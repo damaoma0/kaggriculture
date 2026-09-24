@@ -255,3 +255,36 @@ measured +0.039). What remains, about 0.21 of the leader's cash on clean games, 
 -7k, strawberry -6k, egg/tomato -3k each per game) = execution labour, which no single swap here removes; E suggests
 part of it is plan density (the leader's 4th quadrant only pays with the leader's execution).
 Not run: F (layout; lowest priority), E2 (full deploy reference). Count-model leakage in E (1/240 games) not removed.
+
+## Scheduler (proposal section 16; values, deadlines, marginal-wage hiring)
+Flags (all default off = A29 behaviour): `sched_maint` (maintenance ops of every live asset from
+`scripts/fragments/sem_maintenance.maintenance_jobs(obs, player, fertilize='auto', include_optional=True,
+collect=True)`, re-solved at hour 0 and when the asset set changes, at most every 3 hours; assets planted/placed after
+the last solve use our own rules until the next solve; optional early harvests valued at held x price x 0.15; plan
+jobs valued 400), `sched_dispatch` + `sched_cost` ("density" = value / time among jobs finishable before their deadline;
+"prize" = travel + ops - value/step_value; "skip" = values only choose today's temporary skips (lowest value density
+beyond the crew's remaining unit-hours), routing stays distance-based), `sched_hire` (n-th hand while the value only it
+adds, in value-density order within the day's unit-hours, exceeds fib(n-1); plan jobs whose inputs have not arrived
+are counted). Logged per game: `mj_calls`, `skipped_value` (value left undone at 23:00), `hire_hands`,
+`hire_cut_value`, abandonment log (`S["abandon"]`). `scripts/lead_g1.py` now takes `LEAD_AGENT_PATH` (a frozen agent
+copy per batch, so the agent can be edited while games run).
+
+Targets: A29 = 0.792 / 0.780 / 0.785 (12 / 11 / clean-9), X = 0.824 / 0.812 / 0.790.
+
+| cell | change | games | mean | notes |
+|---|---|---|---:|---|
+| S1 v0 | sched_maint | 1 | 0.708 (A29 0.742) | age-0 deaths 3 -> 31: plantings after the last solve had no planting-day water (module note 2) |
+| S2 density | + value-density dispatch | 1 / 3 | 0.593 / 0.621 | 93-118 plants died: high-density jobs (collect, harvest) first, cheap survival waters left for a day that runs out |
+| S3 v0 | + marginal-wage hiring | 1 | 0.517 | 218 hires vs 291 (planting jobs invisible at hour 0; fixed) |
+| S2 prize 20 / 80 | prize-collecting cost | 3 | 0.575 / 0.699 | the stronger the value pull, the worse (travel) |
+| S1 v1 | + own rules for assets newer than the last solve | 3 | 0.759 (A29 0.765, X 0.783) | age-2 deaths 30 -> 3 (the module's minimum schedule fixes the must-water day); plants died 29 vs ~40 |
+| **S1** (12 games) | sched_maint, our dispatcher | 12 | **0.829 / 0.807 / clean9 0.784** | vs A29 0.792 / 0.780 / 0.785: +0.037 / +0.027 / -0.001. Plants died 28.6 (A29 39.8); animals lost 8.0 (module end-of-life stops, deliberate). Gains concentrated: 112715010 +0.216, 112673479 +0.095, 112661570 +0.074; losses 112445586 -0.072, 112714050 / 112721923 -0.029. Revenue gap -19.7k vs -24.5k (strawberry -4.0k vs -6.8k, wheat -12.4k vs -8.3k) |
+| S2 skip (12 games) | + values choose today's skips, distance routes | 12 | 0.764 / 0.755 / 0.729 | worse than S1 (77 plants died): dropping low-density jobs (mostly cheap survival / bonus waterings) when the estimate says capacity is short kills plants the executor would have reached |
+| bug found in S1 | optional early harvests (held x price x 0.15) also fired on one-time crops | - | - | S1 harvested 323 wheat/game vs A29 543 (wheat at age 2 with 2 units instead of 4; harvesting ends a one-time crop). Fix: optional harvests only for animals and strawberry/tomato. S1f = fixed S1 |
+| **S1f** (12 games) | S1 with the fix | 12 | **0.862 / 0.854 / clean9 0.833** | beats A29 (0.792 / 0.780 / 0.785) and X (0.824 / 0.812 / 0.790) on all three; better than A29 in all 12 games (+0.026 .. +0.270; median +0.045). Revenue gap -18.2k vs -24.5k (strawberry harvest 153 vs 132/game, wheat 516 vs 543). Plants died 40.7 (A29 39.8), animals lost 5.9 (module end-of-life stops). No failed-command change (1.1/game), no-effect 0. Opponent ends 0.82-1.38x its recorded cash (never collapsed). Max 0.123 s a step, 3-6 s a game. **Now the default (`sched_maint=True`).** |
+| S1h (12 games) | S1f + marginal-wage hiring | 12 | 0.749 / 0.747 / 0.746 | worse: hires 269 vs 294 (the value model under-counts the day's work: harvests appear after watering, deliveries, re-plans), skipped value +16k. Hiring stays the leader's count. |
+
+Notes: the agent now loads `scripts/fragments/sem_maintenance.py` at runtime (research); the single-file build must paste
+it in (it is stdlib-only with `_sm_`/`SM_` prefixes). Value-based DISPATCH (density, prize, skip) lost in every form
+tried (0.575-0.764); only the value/deadline JOB LIST won. Not done in the time box: dispatch that uses deadlines
+without dropping cheap survival jobs, and a hiring model calibrated on realised work.

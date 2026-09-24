@@ -70,7 +70,7 @@ CFG = {
     "harvest_before_build": True,
     "spawn_allot": False,
     "maint_source": "ours",   # ablation: "leader" = the leader's per-tile per-day WATER/FEED/CARE/FERTILIZE
-    "sched_maint": True,      # (default on since 2026-09-24: S1f 0.862/0.854/0.833 vs A29 0.792/0.780/0.785) scheduler: maintenance jobs (value, deadline) from scripts/fragments/sem_maintenance.py
+    "sched_maint": False,     # scheduler: maintenance jobs (value, deadline) from scripts/fragments/sem_maintenance.py
     "sched_dispatch": False,  # scheduler: dispatch by value density among jobs finishable before their deadline
     "sched_hire": False,      # scheduler: hire the n-th hand while the value only it adds exceeds fib(n)
     "mj_every": 3,            # re-solve maintenance jobs at most every N hours when the asset set changed

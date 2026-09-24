@@ -70,7 +70,7 @@ CFG = {
     "harvest_before_build": True,
     "spawn_allot": False,
     "maint_source": "ours",   # ablation: "leader" = the leader's per-tile per-day WATER/FEED/CARE/FERTILIZE
-    "sched_maint": True,      # (default on since 2026-09-24: S1f 0.862/0.854/0.833 vs A29 0.792/0.780/0.785) scheduler: maintenance jobs (value, deadline) from scripts/fragments/sem_maintenance.py
+    "sched_maint": False,     # scheduler: maintenance jobs (value, deadline) from scripts/fragments/sem_maintenance.py
     "sched_dispatch": False,  # scheduler: dispatch by value density among jobs finishable before their deadline
     "sched_hire": False,      # scheduler: hire the n-th hand while the value only it adds exceeds fib(n)
     "mj_every": 3,            # re-solve maintenance jobs at most every N hours when the asset set changed
@@ -616,10 +616,6 @@ def _sched_tile_ops(idx, t, day):
         if _sched_done(cmd, t, day):
             continue
         if j.get("optional"):
-            # early harvest only where the yield keeps accruing anyway (animals, strawberry / tomato); a one-time
-            # crop's harvest ends the plant, so it waits for the module's required harvest
-            if _is_plant(t) and not CROPS[t["crop"]]["ongoing"]:
-                continue
             v = float(j.get("held", 0)) * float(j.get("price", 0)) * CFG["opt_harvest_frac"]
         else:
             v = max(0.0, float(j.get("value", 0.0)))
@@ -1414,7 +1410,7 @@ def _dispatch_route(S, day, hour, last_day, tiles, pos, invs, tasks, shed, seeds
     return actions, taken
 
 
-def _sched_hands(S, day, hour, tasks, jobs=None):
+def _sched_hands(S, day, hour, tasks):
     """hire the n-th hand while the value of the jobs only it adds (in value-density order, within the day's
     remaining unit-hours) exceeds fib(n-1); decided at hour 0 (re-used for later retries)."""
     key = ("hands", day)
@@ -1425,11 +1421,6 @@ def _sched_hands(S, day, hour, tasks, jobs=None):
         v, dl = S.get("tval", {}).get(idx, (0.0, 23))
         tt = len(ops) + CFG["travel_est"] + (0.5 if need else 0.0)
         items.append((v / tt, v, tt))
-    for idx, job in (jobs or {}).items():
-        if idx in tasks:
-            continue            # plan job whose seeds / animals are not in yet: it still needs a hand today
-        tt = 3 + CFG["travel_est"]
-        items.append((CFG["plan_value"] / tt, CFG["plan_value"], tt))
     items.sort(reverse=True)
 
     def done_value(k):
@@ -1530,7 +1521,7 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     if (not endgame or CFG["hands_d29_fix"]) and hour <= 12 and CFG["hires_first"]:
         want = T.hands[d] + CFG["hire_extra"]
         if CFG["sched_hire"]:
-            want = _sched_hands(S, day, hour, tasks, jobs)
+            want = _sched_hands(S, day, hour, tasks)
         elif CFG["hands_d29_fix"] and d == T.n - 1 and T.hands[d] == 0 and d > 0:
             # semantics artifact: hands_present of the last day is 0 (the end-of-day hook never runs on day 29)
             want = T.hands[d - 1] + CFG["hire_extra"]
