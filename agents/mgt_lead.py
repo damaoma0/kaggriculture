@@ -62,6 +62,15 @@ CFG = {
     "pick_cap": {"WHEAT": 3, "FERTILIZER": 4},
     "deliver_value_late": 1000,
     "hires_at_front": True,
+    "place_bonus": 8,
+    "place_bonus_days": 0,
+    "window_p0": ["MELON"],
+    "fert_reserve_soon": True,
+    "lazy_fetch": False,
+    "harvest_before_build": True,
+    "spawn_allot": False,
+    "route_once": True,
+    "add_radius": 3,
     "late_p1": 0,
     "steal_radius": 5,
     "keep_bonus": 1.5,
@@ -432,6 +441,8 @@ def _tile_ops(idx, t, job, fert, day, last_day, seeds):
                 if _is_plant(t):
                     c = CROPS[t["crop"]]
                     if not c["ongoing"] and _plant_state(t, day)[1]:
+                        if CFG["harvest_before_build"]:
+                            return [["HARVEST"]], need, 0
                         ops += [["HARVEST"]]
                     else:
                         ops += [["DIG"]]
@@ -472,7 +483,8 @@ def _tile_ops(idx, t, job, fert, day, last_day, seeds):
             # a window water on a one-time crop adds a unit (melon ~ $200): treat as urgent
             valuable = (not c["ongoing"]) and CFG["window_urgent"] and t["crop"] in CFG["window_urgent"]
             if CFG["prio3"]:
-                prio = min(prio, 0 if urgent else 1 if valuable else 2)
+                hard = (not c["ongoing"]) and t["crop"] in CFG["window_p0"]
+                prio = min(prio, 0 if (urgent or (valuable and hard)) else 1 if valuable else 2)
             else:
                 prio = min(prio, 1 if (urgent or valuable) else 2)
         if c["ongoing"]:
@@ -512,6 +524,19 @@ def _tile_ops(idx, t, job, fert, day, last_day, seeds):
             risk = t.get("yield_units", 0) >= ANIMALS[t["animal"]]["max_held"] - 2 or day >= last_day - 1
             prio = min(prio, 1 if (risk or not CFG["prio3"]) else 2)
     return ops, need, prio
+
+
+def _first_need(ops, inv):
+    """items the ops before (and including) the first item-consuming op need that inv lacks."""
+    need = Counter()
+    for op in ops:
+        c = op[0]
+        k = "WHEAT" if c == "FEED" else "FERTILIZER" if c == "FERTILIZE" else op[1] if c == "PLACE" else None
+        if k is None:
+            continue
+        need[k] += 1
+        return [k] if inv.get(k, 0) < need[k] else []
+    return []
 
 
 # =========================================================================== EXECUTOR + MARKET
@@ -620,7 +645,10 @@ def agent(obs, config=None):
         ok = usable_ops(u, ops, need)
         if not ok:
             return None
-        miss = [k for k, v in need.items() if invs[u].get(k, 0) < v and shed_left.get(k, 0) > 0]
+        if CFG["lazy_fetch"]:
+            miss = [k for k in _first_need(ok, invs[u]) if shed_left.get(k, 0) > 0]
+        else:
+            miss = [k for k, v in need.items() if invs[u].get(k, 0) < v and shed_left.get(k, 0) > 0]
         if miss:
             s = _near_shed(p)
             c = _dist(p, s) + len(miss) + _dist(s, tgt)
@@ -635,6 +663,8 @@ def agent(obs, config=None):
             return c + prio * (6 if hour >= 14 else 3)
         # urgency only matters when the day runs short: plant/place pipelines and
         # death-preventing work first late in the day
+        if CFG["place_bonus"] and day <= CFG["place_bonus_days"] and any(o[0] == "PLACE" for o in ops):
+            c -= CFG["place_bonus"]  # animals first (the leaders place every animal early in the day)
         if hour >= CFG["late_hour"] and prio >= 2:
             c += 10
         elif CFG["prio3"] and hour >= CFG["late_hour"] and prio == 1:
@@ -726,6 +756,10 @@ def agent(obs, config=None):
         if p in SHED and idx != "D" and hour < 22:
             want = zneed[u] if CFG["zone_penalty"] else Counter(
                 {k: min(CFG["pick_cap"].get(k, 3), max(0, demand[k] - carried[k])) for k in ("WHEAT", "FERTILIZER")})
+            if CFG["spawn_allot"] and hour <= 2 and n > 1:
+                # full-day allotment at spawn: this hand's share of the day's feeding
+                share = -(-demand["WHEAT"] // n) + 1
+                want["WHEAT"] = min(max(0, demand["WHEAT"] - carried["WHEAT"] + inv.get("WHEAT", 0)), share)
             got = None
             for k in ("WHEAT", "FERTILIZER"):
                 gap = min(want.get(k, 0) - inv.get(k, 0), max(0, demand[k] - carried[k]), shed_left.get(k, 0))
@@ -756,7 +790,10 @@ def agent(obs, config=None):
             continue
         ops, need, prio = tasks[idx]
         tgt = (idx % 10, idx // 10)
-        miss = [k for k, v in need.items() if inv.get(k, 0) < v and shed_left.get(k, 0) > 0]
+        if CFG["lazy_fetch"]:
+            miss = [k for k in _first_need(usable_ops(u, ops, need), inv) if shed_left.get(k, 0) > 0]
+        else:
+            miss = [k for k, v in need.items() if inv.get(k, 0) < v and shed_left.get(k, 0) > 0]
         if miss:
             s = _near_shed(p)
             if p != s:
@@ -984,7 +1021,17 @@ def _dispatch_route(S, day, hour, last_day, tiles, pos, invs, tasks, shed, seeds
     actions = [["PASS"] for _ in range(n)]
     lg = S["log"]
     key = (day, n)
-    if S.get("rkey") != key:
+    full = n >= _T.hands[min(day, _T.n - 1)] + 1 or hour >= 2
+    if CFG["route_once"]:
+        if S.get("rday") != day:
+            S["rday"] = day
+            S["rbuilt"] = False
+            S["routes"] = _build_routes(S, hour, pos, tasks, n)
+            S["deliver"] = set()
+        elif not S["rbuilt"] and full:
+            S["rbuilt"] = True
+            S["routes"] = _build_routes(S, hour, pos, tasks, n)
+    elif S.get("rkey") != key:
         S["rkey"] = key
         S["routes"] = _build_routes(S, hour, pos, tasks, n)
         S["deliver"] = set()
@@ -998,8 +1045,24 @@ def _dispatch_route(S, day, hour, last_day, tiles, pos, invs, tasks, shed, seeds
     routed = set(i for r in routes.values() for i in r)
     for idx in sorted(tasks, key=lambda i: tasks[i][2]):
         if idx not in routed:
+            if CFG["route_once"]:
+                q = (idx % 10, idx // 10)
+                near = min((_dist(q, (j % 10, j // 10)) for r in routes.values() for j in r), default=99)
+                near = min(near, min(_dist(q, pos[v]) for v in range(n)))
+                if near > CFG["add_radius"]:
+                    continue
             _insert(routes, pos, hour, idx, tasks)
             routed.add(idx)
+    # idle hands take the nearest task nobody has
+    if CFG["route_once"]:
+        for u in range(n):
+            if routes[u]:
+                continue
+            free_t = [i for i in tasks if i not in routed]
+            if free_t:
+                i = min(free_t, key=lambda i: _dist(pos[u], (i % 10, i // 10)))
+                routes[u] = [i]
+                routed.add(i)
     shed_left = Counter(shed)
     seeds_left = Counter(seeds)
     endgame = day >= last_day
@@ -1188,8 +1251,21 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     n_plants = sum(1 for r in farm["tiles"] for t in r if _is_plant(t))
     tomorrow = min(len(T.fert[d + 1]) if d + 1 < T.n else 0, n_plants)
     if CFG["fert_ongoing"]:
-        n_on = sum(1 for r in farm["tiles"] for t in r if _is_plant(t) and CROPS[t["crop"]]["ongoing"])
-        tomorrow = max(tomorrow, n_on // 2)
+        if CFG["fert_reserve_soon"]:
+            n_on = 0
+            for r in farm["tiles"]:
+                for t in r:
+                    if _is_plant(t) and CROPS[t["crop"]]["ongoing"] and t.get("fertilized_until_day", -1) <= day:
+                        c = CROPS[t["crop"]]
+                        age = day - t["planted_day"]
+                        last = _ongoing_last_age(t["crop"])
+                        if any(c["first"] <= age + k + 1 <= last and (age + k + 1 - c["first"]) % c["interval"] == 0
+                               for k in range(1, 4)):
+                            n_on += 1
+            tomorrow = max(tomorrow, n_on)
+        else:
+            n_on = sum(1 for r in farm["tiles"] for t in r if _is_plant(t) and CROPS[t["crop"]]["ongoing"])
+            tomorrow = max(tomorrow, n_on // 2)
     reserve["FERTILIZER"] = max(0, demand.get("FERTILIZER", 0) + tomorrow - carried.get("FERTILIZER", 0))
     if endgame:
         reserve = Counter()

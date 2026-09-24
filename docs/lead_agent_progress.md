@@ -143,3 +143,43 @@ Unit-steps: 7141 (g5) vs the leader's 7365: some hires still land after hour 0 o
    (age-2 must-water day of wheat/carrots dominates); fertilizer is plentiful (about 16 units unused at 23:00
    daily) but only 117-182 applications vs the leader's ~207.
 3. Extra PICKUP actions (+136/game): small wheat/fertilizer pickups; a bigger wheat cap (6) did not help.
+
+## Round 3 (after commit at 0.747)
+| tag | change | mean12 | mean11 | cash/leader d9 / d12 |
+|---|---|---:|---:|---|
+| final2 | round-2 final | 0.747 | 0.717 | 0.36 / 0.45 |
+| h1 | animal placements get an assignment bonus (all game) | 0.719 | 0.705 | 0.51 / 0.51 |
+| h2 | bonus on day 0 only (`place_bonus_days=0`): all 5 animals placed on day 0 in all 12 games (was 4) | 0.729 | 0.718 | 0.68 / 0.43 |
+| h3 | fertilizer reserve only for strawberry/tomato tiles producing within 3 days (early fertilizer is sold, as the leader does) | 0.740 | 0.731 | 1.10 / 0.44 |
+| h3b | + melon window water as a hard deadline (priority 0) | identical to h3 | | |
+| h4 | lazy fetch (shed detour only when the next op needs the item) | 0.727 | 0.716 | 1.07 / 0.42 (rejected) |
+| **h5** | a build/place job on a harvestable crop first becomes a bare HARVEST task (melons on future coop tiles were never harvested: the bundled pipeline needed a goose detour and always lost to nearer tasks) | **0.757** | **0.747** | 1.13 / 0.68 |
+| h6 | full-day wheat allotment per hand at spawn (share of the day's feeding) | 0.745 | 0.733 | 1.11 / 0.65 (pickups 306 vs 309: no effect; off) |
+| h7r | route dispatcher built once per day when the full crew is present, never rebuilt, additions only within 3 tiles, idle hands take the nearest unrouted task (`dispatch="route"`) | 0.459 | 0.453 | 1.18 / 0.32 (plants died 72.8/game; rejected) |
+| **final3** | defaults = h5 (greedy dispatch; `spawn_allot` off; route mode behind `CFG["dispatch"]`) | **0.757** | **0.747** | 1.13 / 0.68 |
+
+New CFG keys (round 3): `place_bonus`, `place_bonus_days`, `window_p0`, `fert_reserve_soon`, `lazy_fetch` (off),
+`harvest_before_build`, `spawn_allot` (off), `route_once`, `add_radius`. Target interface unchanged.
+New helper script: `scripts/lead_means.py <tags>` (12- and 11-game means, day-1 animals, deaths, unit-steps,
+pickups, cash/leader at days 9 and 12).
+
+### final3 table (deterministic; max 0.27 s a step measured on a loaded laptop, earlier unloaded runs <= 0.09 s)
+| game | team | ratio | Hamming d6/d12/d20 | failed buys | hires (leader) |
+|---|---|---:|---|---:|---:|
+| 112655730 | DSM | 0.711 | 1/15/29 | 1 | 291 (291) |
+| 112661570 | DSM | 0.833 | 1/16/40 | 2 | 287 (287) |
+| 112667461 | DSM | 0.677 | 1/17/28 | 1 | 292 (292) |
+| 112673479 | DSM | 0.609 | 1/17/26 | 1 | 279 (279) |
+| 112708229 | Vadim | 0.876* | 1/19/23 | 1 | 290 (290) |
+| 112714050 | Vadim | 0.769 | 1/16/30 | 1 | 280 (280) |
+| 112715010 | Vadim | 0.842 | 1/22/20 | 1 | 271 (271) |
+| 112721923 | Vadim | 0.839 | 1/13/32 | 1 | 285 (285) |
+| 112444381 | UMG | 0.777 | 1/13/18 | 1 | 280 (280) |
+| 112445586 | UMG | 0.750 | 1/7/14 | 0 | 281 (281) |
+| 112447950 | UMG | 0.703 | 1/13/13 | 1 | 275 (275) |
+| 112449129 | UMG | 0.701 | 2/23/28 | 1 | 284 (284) |
+| **mean** | | **0.757** (11 games: **0.747**) | | | |
+
+\* opponent replay partly collapsed (73k vs its recorded 83k; worse in earlier runs). No-effect commands 0.
+Plants died 39.8/game, animals lost ~2/game. Cash/leader at day 9 is now 1.13 (was 0.36 at the start of round 3),
+at day 12 0.68 (was 0.45); the remaining gap opens on days 12-20 (per-tile yields: waterings, harvests, fertilizer).
