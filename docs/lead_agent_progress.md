@@ -460,3 +460,33 @@ Fix: `sorted(glob(...))` (reproduces the measured local behaviour everywhere). l
 panel is re-run as leadv4. Follow-up for the plan thread: the exemplar is labelled "DSM" but is really Mother-Goose's
 seat, and retrieval returns an episode, not a (team, episode) pair, so a duplicated episode resolves to the first
 team by id; the retrieval should carry the team.
+
+### Full p2750 panel, new deploy (c1 defaults + glob fix), Kaggle run leadv4 (185 games)
+Remote vs local: identical to the dollar in the 12 worlds run on both sides (12/12); 3 shards of 61-62 games, 4 workers,
+563-655 s each (5.6-6.6 games/min per kernel). Results merged into `results/fresh/ladder_panel/mgt_lead_deploy/`
+(`scripts/lead_panel_report.py results/fresh/ladder_panel/mgt_lead_deploy mgt_y3,mgt_m1`).
+
+| build | mean margin | W-L | own cash | paired vs y3 (95% CI), better | paired vs m1 (95% CI), better |
+|---|---:|---|---:|---|---|
+| y3 | +1,093 | 87-98 | | | |
+| m1 | +787 | 84-101 | | | |
+| deploy v2 (committed earlier) | | | | -33.7k | |
+| **deploy (c1 + glob fix)** | **-17,558** | **10-175** | 89,019 | **-18,652 (-21,118 .. -16,178), 6/185** | **-18,345 (-20,807 .. -15,823), 6/185** |
+
+The opponent's recorded tape breaks (its commands without effect +40 vs y3's game) in 31 of 185 games; without them the
+deploy is -21,539 vs y3 (n=154). Seat split vs y3: seat 1 -20,328 (n=104), seat 0 -16,499 (n=81).
+Units per game (deploy vs y3): wheat 222 vs 392, carrot 20 vs 129, milk 202 vs 185, wool 137 vs 157, strawberry 176 vs
+198, tomato 80 vs 81, melon 70 vs 82, egg 134 vs 118, fertilizer 241 vs 223. Revenue 113.8k vs 133.2k (-19.4k): VOLUME
+-15.7k, PRICE -3.6k. Volume by product: wheat -6.3k, carrot -5.2k, wool -3.0k, strawberry -3.0k, melon -2.3k; milk
++2.1k, fertilizer +1.0k, egg +0.8k. Price part: milk -3.4k (we sell milk at 103 vs 120: more units into the same
+demand), fertilizer -1.2k, melon -0.8k; strawberry +1.0k, wool +0.5k.
+
+### Remaining new-world gap after the market layer (step 3)
+If the market layer brings our prices to y3's (the -3.6k price part), about -15.7k of volume remains, all in the
+PLAN: (1) carrots -5.2k: 20 units vs 129 over the full panel (the leaders' count targets for carrots are small
+and do not respond to scaling; y3 plants carrots for Pet Cafe / Farmers Market demand); (2) wheat -6.3k: 222 vs 392
+(the wheat-keep rule holds the herd's feed plus y3 trades wheat; sell thread); (3) wool -3.0k (137 vs 157 sheep
+output), strawberry -3.0k (176 vs 198), melon -2.3k (70 vs 82). By day (12 smoke worlds with daily revenue on both
+sides, see above): days 0-11 -5.3k (melon timing, first milk), days 12-17 +3.7k (our early strawberries), days
+18-23 -6.1k and 24-29 -9.1k (second strawberry cohort, late carrots/tomatoes, wheat). The late season is where
+the plan stops: count-model targets fall off after day ~18 (last_plant ST 18 / TO 20) and carrots never scale.

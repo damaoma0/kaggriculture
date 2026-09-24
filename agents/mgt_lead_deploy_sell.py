@@ -97,7 +97,7 @@ CFG = {
     "hire_idle": 0.0,         # hiring model: extra coins a hand must earn (idle risk)
     "maint_safety": False,    # ablation B2: with maint_source="leader", still save plants/animals that die tonight
     "hands_d29_fix": True,    # A29 (default on since 2026-09-24): hire the day-28 count on day 29 (the corpus records 0 hands on day 29 because the day-end hook never runs on the last day)
-    "sell_source": "leader",  # ablation: "shed" = mgt_lead_deploy's sell-as-it-reaches-the-shed rule
+    "sell_source": "sem",     # mgt_lead_deploy_sell: "sem" = scripts/fragments/sem_market.py hold-and-batch rule; "leader" = the deploy's quota (sell on arrival); "shed" = G1 ablation rule
     "hire_source": "ours",    # ablation: "leader_steps" = the leader's HIRE orders at the leader's steps
     "route_once": True,
     "add_radius": 3,
@@ -1539,6 +1539,70 @@ def _sched_hands(S, day, hour, tasks, jobs=None):
     return k
 
 
+# ===== BEGIN SEM_MARKET SELL BLOCK (2026-09-24; mgt_lead_deploy_sell only) =================================
+# CFG["sell_source"] == "sem": the hold-and-batch rule of scripts/fragments/sem_market.py replaces the sell quota
+# (sell-on-arrival / leader cumulative units). The rest of _market (hire funding, shed-overflow guard, buys, order
+# assembly) is unchanged. Wheat keeps the deploy's herd reserve (its cum_sold quota), fertilizer the executor's
+# pending-fertilize reserve. Merge = copy this block + the two-line call site marked SEM_MARKET CALL SITE in _market.
+_SMKNS = None
+SEM_MARKET_PARAMS = None                 # research override: {"W":.., "P": {product: {...}}}; env SEM_MARKET_JSON
+try:
+    import os as _smk_os0
+    import json as _smk_json0
+    if _smk_os0.environ.get("SEM_MARKET_JSON"):
+        SEM_MARKET_PARAMS = _smk_json0.loads(_smk_os0.environ["SEM_MARKET_JSON"])
+except Exception:
+    SEM_MARKET_PARAMS = None
+
+
+def _smk():
+    """scripts/fragments/sem_market.py (stdlib-only; pasted into the single-file agent later)."""
+    global _SMKNS
+    if _SMKNS is None:
+        import os
+        here = globals().get("__file__")          # undefined under Kaggle's loader (exec of the source)
+        cands = [os.path.join(os.path.dirname(os.path.abspath(here)), "..", "scripts", "fragments", "sem_market.py")] if here else []
+        cands.append(os.path.join(os.getcwd(), "scripts", "fragments", "sem_market.py"))
+        path = next((c for c in cands if os.path.isfile(c)), cands[-1])
+        ns = {}
+        with open(path, encoding="utf-8") as fh:
+            exec(compile(fh.read(), "sem_market", "exec"), ns)
+        _SMKNS = ns
+    return _SMKNS
+
+
+def _smk_sells(S, obs, T, d, shed, reserve, endgame):
+    res = Counter() if endgame else Counter(reserve)
+    if not endgame:
+        # wheat: the deploy's quota keeps what the herd eats (cum_sold = sold + shed - keep)
+        w_have = shed.get("WHEAT", 0) - res.get("WHEAT", 0)
+        w_ok = max(0, min(w_have, T.cum_sold[d].get("WHEAT", 0) - S["sold"]["WHEAT"]))
+        res["WHEAT"] = shed.get("WHEAT", 0) - w_ok
+    me = int(_g(obs, "player", 0))
+    return _smk()["sell_orders"](obs, me, dict(shed), dict(res), S.setdefault("smk", {}), SEM_MARKET_PARAMS,
+                                 sold_total=dict(S["sold"]))
+
+
+def _smk_wheat_buys(obs, day, shed, carried, reserve, farm, cash, sells, buys):
+    """wheat buy-ahead (sem_market.wheat_buy) with the cash left after this step's other purchases."""
+    tiles = farm["tiles"]
+    nofeed = _DEP.get("nofeed", ()) if isinstance(globals().get("_DEP"), dict) else ()
+    n_fed = sum(1 for row in tiles for t in row if _animal(t))
+    n_fed -= sum(1 for idx in nofeed if _animal(_tile(tiles, idx)))
+    n_fed += sum(int(shed.get(sp, 0)) for sp in ANIMALS)            # bought, not yet placed
+    in_shed = sum(int(v) for v in shed.values())
+    in_shed -= sum(o[2] for o in sells if o[0] == "SELL")
+    in_shed += sum(o[2] for o in buys if o[0] in ("BUY_PRODUCT", "BUY_ANIMAL"))
+    room = 100 - in_shed
+    stock_w = int(shed.get("WHEAT", 0)) + int(carried.get("WHEAT", 0)) + sum(o[2] for o in buys if o[:2] == ["BUY_PRODUCT", "WHEAT"])
+    w = _smk()
+    room = min(room, int(((SEM_MARKET_PARAMS or {}).get("wheat") or {}).get("room_total", w["SMK_WHEAT"]["room_total"])) - in_shed)
+    k = w["wheat_buy"](obs, int(_g(obs, "player", 0)), stock_w, reserve.get("WHEAT", 0), max(0, n_fed), max(0, room),
+                       cash, None, SEM_MARKET_PARAMS)
+    return [["BUY_PRODUCT", "WHEAT", int(k)]] if k > 0 else []
+# ===== END SEM_MARKET SELL BLOCK ===========================================================================
+
+
 def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, demand, prices,
             unlocked, farm, pos, last_day):
     T = _T
@@ -1591,6 +1655,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             n = min(have, quota)
         if n > 0:
             sells.append(["SELL", p, int(n)])
+    if CFG["sell_source"] == "sem":      # SEM_MARKET CALL SITE (see the SEM_MARKET SELL BLOCK above _market)
+        sells = _smk_sells(S, obs, T, d, shed, reserve, endgame)
     # shed overflow guard: midnight drop discards above 100
     total = sum(shed.values()) + sum(sum(i.values()) for i in invs)
     sold_now = sum(o[2] for o in sells)
@@ -1699,6 +1765,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             cash -= k * CROPS[crop]["seed"]
     # assemble within the 10-order cap: sells first (cash), then hires, then buys
     buys = wheat_buy + buys
+    if CFG["sell_source"] == "sem" and not endgame:   # SEM_MARKET CALL SITE 2 (wheat buy-ahead, lowest priority)
+        buys = buys + _smk_wheat_buys(obs, day, shed, carried, reserve, farm, cash, sells, buys)
     if CFG["hire_source"] == "leader_steps":
         # the leader's own HIRE orders, at the leader's steps (they fail on cash exactly as orders do)
         hires = [["HIRE"]] * int(getattr(T, "hire_steps", {}).get(int(_g(obs, "step", 0)), 0))
@@ -1770,7 +1838,7 @@ DEP_CFG = {
     "last_plant": {"STRAWBERRY": 18, "TOMATO": 20, "MELON": 17, "WHEAT": 26, "CARROT": 26},
     "last_animal": {"SHEEP": 17, "COW": 18, "GOOSE": 20},
     "hands_coef": (6.186, 0.040, 0.123),  # hands ~ b0 + b1*crop tiles + b2*animal tiles (corpus days 12-28)
-    "nofeed_from": 99,                  # no-feed hook off (plan-volume c1, 2026-09-25: the executor's maintenance module already stops end-of-life animals; the hook starved producing ones: +4.8k/world p2750, +0.024 G1)
+    "nofeed_from": 15,
     "wheat_margin": 10,
     "wheat_keep_days": 99,              # hold the wheat the herd eats to the end (2 days: -3.1k own cash on 12 worlds)
     "max_new_per_crop": 12,
@@ -1779,8 +1847,6 @@ DEP_CFG = {
     "pred_mult": {},                    # label -> multiplier on the count model's prediction (research)
     "co_fix": False,                    # 'co' = cow OR empty coop in the corpus labels: compare with our cows + empty coops
     "land_max": 2,                      # quadrants we buy: never the $4000 SE one (12 worlds: +5.6k margin; 1 quadrant +1.3k)
-    "cm_file": "count_model_600.json",  # count model (c1: 600-game refit; count_model.json = the 240-game fit)
-    "hands_add_early": 1,               # extra hand on the days before compose_from (c1)
 }
 try:                                    # research overrides (ablations): DEP_CFG_JSON='{"key": value}'
     import os as _dep_os0
@@ -1811,7 +1877,7 @@ if _dep_os.path.join(_DEP_ROOT, "scripts") not in _dep_sys.path:
 import leader_plan_retrieval as _dep_lpr  # noqa: E402  (stdlib-only module)
 _dep_lpr.load_corpus()               # parse the 240-game index once, at import
 
-with open(_dep_os.path.join(_DEP_SEM_DIR, DEP_CFG.get("cm_file", "count_model.json"))) as _dep_fh:
+with open(_dep_os.path.join(_DEP_SEM_DIR, "count_model.json")) as _dep_fh:
     _DEP_CM = _dep_json.load(_dep_fh)
 _DEP_LABELS = tuple(_DEP_CM["meta"]["labels"])
 _DEP_DEMAND = {'BAKERY': {'EGG': 1, 'WHEAT': 1}, 'PIZZA_SHOP': {'MILK': 1, 'TOMATO': 1, 'WHEAT': 1},
@@ -1826,10 +1892,7 @@ _DEP_ANIMAL_LABEL = {"SHEEP": "sh", "COW": "co", "GOOSE": "go"}
 
 
 def _dep_sem_path(ep):
-    # sorted: glob order is filesystem-dependent (NTFS alphabetical, Linux arbitrary) and 48 corpus episodes exist
-    # under two teams (leaders who met), incl. the exemplar 112655730 (16730612 = Mother-Goose's seat sorts first;
-    # every local measurement used that seat). Found 2026-09-25: Kaggle kernels drifted from local runs 12/12.
-    hits = sorted(_dep_glob.glob(_dep_os.path.join(_DEP_SEM_DIR, "*", "%s.json.gz" % ep)))
+    hits = _dep_glob.glob(_dep_os.path.join(_DEP_SEM_DIR, "*", "%s.json.gz" % ep))
     return hits[0] if hits else None
 
 
@@ -2262,9 +2325,6 @@ def _dep_update(obs, day, hour):
         _DEP["nofeed"] = _dep_nofeed(obs, day)
     for i in range(DEP_CFG["land_max"], 3):
         T.land_day[LAND_ORDER[i]] = 99
-    if DEP_CFG["hands_add_early"] and day < DEP_CFG["compose_from"] and ("he", day) not in _DEP:
-        _DEP[("he", day)] = True
-        T.hands[day] = min(14, T.hands[day] + DEP_CFG["hands_add_early"])
     _dep_sell_quota(obs, day)
 
 
