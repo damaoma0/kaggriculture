@@ -1,5 +1,12 @@
 # AWS for Kaggriculture panels: operating guide (2026-09-24)
 
+> **STATUS 2026-09-24 late: NOT RUNNING, $0.** CLI signed in (root identity), region **eu-west-1**. Launch refused:
+> the account is on the AWS **Free plan** (only Free Tier instance types, max 2 vCPUs) and the EC2 quota is **5 vCPUs**
+> (on-demand and spot). To use it: (1) Billing and Cost Management → Account plan → Upgrade to the Paid plan (the $200
+> credit carries over); (2) Service Quotas → Amazon EC2 → "Running On-Demand Standard (A, C, D, H, I, M, R, T, Z)
+> instances" → Request increase → 32. Then `aws_ops.py up c7a.8xlarge` (32 cores, $1.76/h in eu-west-1). Until then
+> Kaggle + local. Created so far (free): key pair `kgr-aws` (saved to ~/.ssh/kgr-aws.pem), security group `kgr-ssh`.
+
 ## ▶ The one thing to do first (5-10 min, only you can)
 Give the AWS CLI on this laptop your sign-in. Keys never go into chat or a file I touch.
 
@@ -11,7 +18,7 @@ Give the AWS CLI on this laptop your sign-in. Keys never go into chat or a file 
    - If that command does not exist: Console → IAM → Users → Create user `kgr-runner` → attach
      `AmazonEC2FullAccess`, `AmazonSSMReadOnlyAccess`, `ServiceQuotasReadOnlyAccess` → user → Security credentials →
      Create access key (CLI) → run `aws configure` and type the two keys INTO THAT PROMPT.
-3. `aws configure set region us-east-1`
+3. Region: any; this account uses eu-west-1 and the script follows the CLI's configured region.
 4. Check: `aws sts get-caller-identity` shows your account id and user name (no secrets). Tell me "AWS ready".
 5. Recommended safety net (2 min): Console → Billing and Cost Management → Budgets → Create budget → template
    "Monthly cost budget" → $50 → your email. AWS emails you if spend passes it.
@@ -22,9 +29,10 @@ Standard (A, C, D, H, I, M, R, T, Z) instances" → Request increase → 64.
 
 ## What runs and what it costs
 - Nothing is running yet.
-- Plan: ONE instance `kgr-runner`, c7a.8xlarge (32 cores, 64 GB), on-demand $1.64/h, us-east-1.
+- Plan: ONE instance `kgr-runner`, c7a.8xlarge (32 cores, 64 GB), on-demand $1.76/h in eu-west-1 (needs the Paid plan
+  and a 32-vCPU quota; with the current 5-vCPU quota at most c7a.xlarge, 4 cores, $0.22/h).
   Only while jobs run. 30 GB disk, deleted with the instance.
-- Expected use: 10-20 hours until 30 Sep = **~$15-35 of the $200 credit**.
+- Expected use: 10-20 hours until 30 Sep = **~$18-35 of the $200 credit**.
 - See it: `.venv/Scripts/python.exe scripts/aws/aws_ops.py status` prints each instance, hours up and $ so far.
   Console: Billing → Bills (credits appear as a negative line).
 

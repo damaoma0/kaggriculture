@@ -13,22 +13,33 @@ from its own store (`aws login` / `aws configure`); this script never reads, pri
 
 Safety built into every instance: shutdown = TERMINATE (nothing left stopped-but-billing), a guard that shuts the
 instance down after IDLE_MIN minutes without a job, and a hard stop at UNTIL (the competition deadline).
-Env: KGR_AWS_REGION (default us-east-1).
+Region: KGR_AWS_REGION, else the CLI's configured region (eu-west-1 on this account).
 """
 import calendar, io, json, os, subprocess, sys, tarfile, time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 STATE = ROOT / 'results/fresh/aws/state.json'
-REGION = os.environ.get('KGR_AWS_REGION', 'us-east-1')
+_AWS_DIR = r'C:\Program Files\Amazon\AWSCLIV2'
+if os.name == 'nt' and os.path.isdir(_AWS_DIR) and _AWS_DIR not in os.environ.get('PATH', ''):
+    os.environ['PATH'] = _AWS_DIR + os.pathsep + os.environ.get('PATH', '')
+
+
+def _cli_region():
+    try:
+        return subprocess.run(['aws', 'configure', 'get', 'region'], capture_output=True, text=True).stdout.strip()
+    except OSError:
+        return ''
+
+
+REGION = os.environ.get('KGR_AWS_REGION') or _cli_region() or 'eu-west-1'
 TAG = 'kaggriculture'
 KEY_NAME = 'kgr-aws'
 KEY_PATH = Path.home() / '.ssh' / 'kgr-aws.pem'
 SG_NAME = 'kgr-ssh'
 IDLE_MIN = 120
 UNTIL = '2026-09-30 23:00 UTC'
-PRICE = {'c7a.8xlarge': 1.642, 'c7a.4xlarge': 0.821, 'c7a.2xlarge': 0.410, 'c7a.16xlarge': 3.284,
-         'c7i.8xlarge': 1.428, 'c6a.8xlarge': 1.224, 'm7a.8xlarge': 1.855}          # us-east-1 on-demand $/h
+PRICE = {'c7a.xlarge': 0.2202, 'c7a.8xlarge': 1.7619}  # eu-west-1 Linux on-demand $/h (AWS pricing API, 2026-09-24)
 AMI_PARAM = '/aws/service/canonical/ubuntu/server/24.04/stable/current/amd64/hvm/ebs-gp3/ami-id'
 
 
@@ -86,7 +97,7 @@ def cmd_quotas():
         print(f'{name:26s} {q.get("Quota", {}).get("Value", "unknown (not readable)")}  [{code}, {REGION}]')
 
 
-def cmd_up(itype='c7a.8xlarge'):
+def cmd_up(itype='c7a.xlarge'):     # the account's quota is 5 vCPUs in eu-west-1 (2026-09-24)
     if state().get('instance'):
         raise SystemExit(f'already running {state()["instance"]}; use status / down')
     ami = aws('ssm', 'get-parameter', '--name', AMI_PARAM)['Parameter']['Value']
