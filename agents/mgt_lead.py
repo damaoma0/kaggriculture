@@ -71,6 +71,8 @@ CFG = {
     "spawn_allot": False,
     "maint_source": "ours",   # ablation: "leader" = the leader's per-tile per-day WATER/FEED/CARE/FERTILIZE
     "sched_maint": True,      # (default on since 2026-09-24: S1f 0.862/0.854/0.833 vs A29 0.792/0.780/0.785) scheduler: maintenance jobs (value, deadline) from scripts/fragments/sem_maintenance.py
+    "surv_reserve": True,     # (default on since R16: 0.874/0.866/0.844 vs 0.862/0.854/0.833) from surv_hour: survival jobs (dies / escapes tonight) get nearest-first routes, only their op
+    "surv_hour": 16,
     "sched_dispatch": False,  # scheduler: dispatch by value density among jobs finishable before their deadline
     "sched_hire": False,      # scheduler: hire the n-th hand while the value only it adds exceeds fib(n)
     "mj_every": 3,            # re-solve maintenance jobs at most every N hours when the asset set changed
@@ -116,9 +118,10 @@ def _sm():
     global _SMNS
     if _SMNS is None:
         import os
-        path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "scripts", "fragments", "sem_maintenance.py")
-        if not os.path.isfile(path):
-            path = os.path.join(os.getcwd(), "scripts", "fragments", "sem_maintenance.py")
+        here = globals().get("__file__")          # undefined under Kaggle's loader (exec of the source)
+        cands = [os.path.join(os.path.dirname(os.path.abspath(here)), "..", "scripts", "fragments", "sem_maintenance.py")] if here else []
+        cands.append(os.path.join(os.getcwd(), "scripts", "fragments", "sem_maintenance.py"))
+        path = next((c for c in cands if os.path.isfile(c)), cands[-1])
         ns = {}
         with open(path, encoding="utf-8") as fh:
             exec(compile(fh.read(), "sem_maintenance", "exec"), ns)
@@ -892,6 +895,47 @@ def agent(obs, config=None):
         if dv and hour < 22 and (((sum(dv.values()) >= 10 or val >= CFG["deliver_value"]) and not late)
                                  or (S.get("short") and val > 0) or (val >= CFG["deliver_value_late"] and hour < 20)):
             assign[u] = "D"
+    surv_route = {}
+    if CFG["surv_reserve"] and hour >= CFG["surv_hour"] and day < last_day and CFG["dispatch"] != "route":
+        # every tile whose asset dies / escapes tonight unless served: nearest-arrival greedy routes
+        surv = []
+        for idx in tasks:
+            t_ = _tile(tiles, idx)
+            if _is_plant(t_) and not t_.get("watered_today") and t_.get("consecutive_unwatered", 0) >= 1:
+                surv.append((idx, "WATER"))
+            elif _animal(t_) and not t_.get("fed_today") and t_.get("consecutive_unfed", 0) >= 1:
+                if any(invs[v].get("WHEAT", 0) > 0 for v in range(n)) or shed_left.get("WHEAT", 0) > 0:
+                    surv.append((idx, "FEED"))
+        if surv:
+            clock = {u: hour for u in range(n) if assign.get(u) != "D"}
+            where = {u: pos[u] for u in clock}
+            wheat = {u: invs[u].get("WHEAT", 0) for u in clock}
+            left = list(surv)
+            while left and clock:
+                best = None
+                for u in clock:
+                    for idx, op in left:
+                        q = (idx % 10, idx // 10)
+                        if op == "FEED" and wheat[u] <= 0:
+                            s0 = _near_shed(where[u])
+                            arr = clock[u] + _dist(where[u], s0) + 1 + _dist(s0, q)
+                        else:
+                            arr = clock[u] + _dist(where[u], q)
+                        if best is None or arr < best[0]:
+                            best = (arr, u, idx, op)
+                arr, u, idx, op = best
+                if arr > 23:
+                    break
+                surv_route.setdefault(u, []).append((idx, op))
+                clock[u], where[u] = arr + 1, (idx % 10, idx // 10)
+                if op == "FEED":
+                    wheat[u] = max(0, wheat[u] - 1) if wheat[u] > 0 else 0
+                left.remove((idx, op))
+            S["log"]["surv_routed"] += sum(len(r) for r in surv_route.values())
+            S["log"]["surv_unroutable"] += len(left)
+        for u, r in surv_route.items():
+            assign[u] = r[0][0]
+            taken.add(r[0][0])
     free = [u for u in range(n) if u not in assign] if CFG["dispatch"] != "route" else []
     while free:
         best = None
@@ -964,6 +1008,22 @@ def agent(obs, config=None):
             continue
         ops, need, prio = tasks[idx]
         tgt = (idx % 10, idx // 10)
+        if u in surv_route:
+            sop = surv_route[u][0][1]
+            if sop == "FEED" and inv.get("WHEAT", 0) <= 0 and shed_left.get("WHEAT", 0) > 0:
+                s0 = _near_shed(p)
+                if p != s0:
+                    actions[u] = _step_toward(p, s0)
+                else:
+                    k = min(shed_left["WHEAT"], max(1, sum(1 for _, o in surv_route[u] if o == "FEED")))
+                    shed_left["WHEAT"] -= k
+                    actions[u] = ["PICKUP", "WHEAT", int(k)]
+                continue
+            if p != tgt:
+                actions[u] = _step_toward(p, tgt)
+                continue
+            actions[u] = [sop]
+            continue
         if CFG["lazy_fetch"]:
             miss = [k for k in _first_need(usable_ops(u, ops, need), inv) if shed_left.get(k, 0) > 0]
         else:
@@ -1025,8 +1085,19 @@ def agent(obs, config=None):
             t = _tile(tiles, idx)
             if _is_plant(t) and not t.get("watered_today") and t.get("consecutive_unwatered", 0) >= 1:
                 lg["die_%s_%s" % (t["crop"], "assigned" if idx in taken else "unassigned")] += 1
+
             if _animal(t) and not t.get("fed_today"):
                 lg["unfed_%s" % ("assigned" if idx in taken else "unassigned")] += 1
+    if hour == 23 and day < last_day:
+        for idx in range(100):
+            t = _tile(tiles, idx)
+            if _is_plant(t) and not t.get("watered_today") and t.get("consecutive_unwatered", 0) >= 1:
+                if idx not in tasks:
+                    S["log"]["dying_no_task"] += 1
+                elif any(o[0] == "WATER" for o in tasks[idx][0]):
+                    S["log"]["dying_water_task"] += 1
+                else:
+                    S["log"]["dying_task_without_water"] += 1
     lg = S["log"]
     for u in range(n):
         if actions[u] == ["PASS"]:

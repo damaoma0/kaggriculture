@@ -1,7 +1,7 @@
 """mgt_lead_deploy: mgt_lead's executor playing worlds it has never seen, choosing its own targets.
 
 Research agent (2026-09-24). The EXECUTOR SECTION below is a verbatim copy of agents/mgt_lead.py (owned by the
-E1 thread; copied from agents/mgt_lead.py = E1 scheduler build (sched_maint + surv_reserve R16), sha256 2a8f6eb72f9e4891); re-sync by copying that file between the two marker lines. Only the
+E1 thread; copied from the working copy at 19:20 = E1 round 3 "h5", sha256 8b4ae882bd7796cb); re-sync by copying that file between the two marker lines. Only the
 DEPLOY section after it is new: it builds the Target the executor follows (retrieval of leader games at days
 0/3/6/9, count-model composition from day 12, sell-everything rule, hands from the day's work) and holds the
 entry point, which is the LAST callable in the file (Kaggle's loader and scripts/ladder_panel.py call that one).
@@ -80,25 +80,6 @@ CFG = {
     "lazy_fetch": False,
     "harvest_before_build": True,
     "spawn_allot": False,
-    "maint_source": "ours",   # ablation: "leader" = the leader's per-tile per-day WATER/FEED/CARE/FERTILIZE
-    "sched_maint": True,      # (default on since 2026-09-24: S1f 0.862/0.854/0.833 vs A29 0.792/0.780/0.785) scheduler: maintenance jobs (value, deadline) from scripts/fragments/sem_maintenance.py
-    "surv_reserve": True,     # (default on since R16: 0.874/0.866/0.844 vs 0.862/0.854/0.833) from surv_hour: survival jobs (dies / escapes tonight) get nearest-first routes, only their op
-    "surv_hour": 16,
-    "sched_dispatch": False,  # scheduler: dispatch by value density among jobs finishable before their deadline
-    "sched_hire": False,      # scheduler: hire the n-th hand while the value only it adds exceeds fib(n)
-    "mj_every": 3,            # re-solve maintenance jobs at most every N hours when the asset set changed
-    "mj_collect": True,       # value the daily fertilizer an animal yields (keeps old animals fed longer)
-    "opt_harvest_frac": 0.15, # value of an optional (early) harvest = held units x price x this (cash now)
-    "plan_value": 400.0,      # value of a plan job (plant / build / place pipeline) for the scheduler
-    "travel_est": 2.0,
-    "sched_cost": "skip",     # "skip" (value picks today's skips, distance routes) | "prize" | "density"
-    "step_value": 40.0,       # coins one unit-step is worth (prize cost)
-    "skip_slack": 1.0,        # skip dispatch: fraction of the remaining unit-hours the kept jobs may fill        # hiring model: travel steps per tile job
-    "hire_idle": 0.0,         # hiring model: extra coins a hand must earn (idle risk)
-    "maint_safety": False,    # ablation B2: with maint_source="leader", still save plants/animals that die tonight
-    "hands_d29_fix": True,    # A29 (default on since 2026-09-24): hire the day-28 count on day 29 (the corpus records 0 hands on day 29 because the day-end hook never runs on the last day)
-    "sell_source": "leader",  # ablation: "shed" = mgt_lead_deploy's sell-as-it-reaches-the-shed rule
-    "hire_source": "ours",    # ablation: "leader_steps" = the leader's HIRE orders at the leader's steps
     "route_once": True,
     "add_radius": 3,
     "late_p1": 0,
@@ -120,25 +101,6 @@ def _curve():
 
 CURVE = _curve()
 CURVE_POS = {idx: i for i, idx in enumerate(CURVE)}
-
-_SMNS = None
-
-
-def _sm():
-    """scripts/fragments/sem_maintenance.py (stdlib-only; pasted into the single-file agent later)."""
-    global _SMNS
-    if _SMNS is None:
-        import os
-        here = globals().get("__file__")          # undefined under Kaggle's loader (exec of the source)
-        cands = [os.path.join(os.path.dirname(os.path.abspath(here)), "..", "scripts", "fragments", "sem_maintenance.py")] if here else []
-        cands.append(os.path.join(os.getcwd(), "scripts", "fragments", "sem_maintenance.py"))
-        path = next((c for c in cands if os.path.isfile(c)), cands[-1])
-        ns = {}
-        with open(path, encoding="utf-8") as fh:
-            exec(compile(fh.read(), "sem_maintenance", "exec"), ns)
-        _SMNS = ns
-    return _SMNS
-
 
 _T = None      # Target
 _S = None      # per-game state
@@ -219,10 +181,6 @@ class Target:
             self.cum_sold.append(Counter(run))
         # plant events list (pd, tile, crop)
         self.events = [(d, t, c) for d in range(self.n) for t, c in self.plant[d].items()]
-        # OPTIONAL fields (ablation only; deployment targets may omit them):
-        # maint[d] = {'WATER'|'FEED'|'CARE'|'FERTILIZE': set(tile)} the leader's own maintenance that day
-        self.maint = [{op: set(ts) for op, ts in day["maintenance"].items()} for day in days]
-        self.hire_steps = {}      # step -> number of HIRE orders the leader issued (set by the ablation harness)
 
 
 def configure(sem, **cfg):
@@ -454,13 +412,6 @@ def _plan(obs, S, tiles, day):
             if t2 == tt:
                 m = mm
         fert.add(m)
-    if CFG["maint_source"] == "leader":
-        mp = {}
-        for (pd, t2), mm in S["pmap"].items():
-            mp[t2] = mm
-        mp.update({k: v for k, v in S["smap"].items()})
-        lm = getattr(T, "maint", None)
-        S["lmaint"] = {op: {mp.get(tt, tt) for tt in ts} for op, ts in (lm[d] if lm else {}).items()}
     return jobs, fert
 
 
@@ -521,15 +472,10 @@ def _tile_ops(idx, t, job, fert, day, last_day, seeds):
                 need[sp] += 1
                 need["WHEAT"] += 1
                 return ops, need, 0
-    if CFG["sched_maint"] and _S is not None and (_is_plant(t) or _animal(t)):
-        r = _sched_tile_ops(idx, t, day)
-        if r is not None:
-            return r
     if _is_plant(t):
         c = CROPS[t["crop"]]
         age = day - t["planted_day"]
         own_fert = False
-        lm = _S.get("lmaint") if (CFG["maint_source"] == "leader" and _S) else None
         if CFG["fert_ongoing"] and c["ongoing"] and day < last_day - 1:
             # a production falls within the 3 fertilized days and the plant is not finished
             last = _ongoing_last_age(t["crop"])
@@ -538,17 +484,11 @@ def _tile_ops(idx, t, job, fert, day, last_day, seeds):
                 if c["first"] <= a <= last and (a - c["first"]) % c["interval"] == 0:
                     own_fert = True
                     break
-        if lm is not None:
-            own_fert = False
         if (idx in fert or own_fert) and t.get("fertilized_until_day", -1) < day and day < last_day:
             ops.append(["FERTILIZE"])
             need["FERTILIZER"] += 1
             prio = min(prio, CFG["fert_prio"])
         wn, urgent = _water_needed(t, day, last_day)
-        if lm is not None:
-            cu1 = t.get("consecutive_unwatered", 0) >= 1 and day < last_day
-            wn = (idx in lm.get("WATER", ()) or (CFG["maint_safety"] and cu1)) and not t.get("watered_today")
-            urgent = wn and cu1
         if wn:
             ops.append(["WATER"])
             # a window water on a one-time crop adds a unit (melon ~ $200): treat as urgent
@@ -577,16 +517,14 @@ def _tile_ops(idx, t, job, fert, day, last_day, seeds):
                     prio = min(prio, 1)
     elif _animal(t):
         if day < last_day:
-            lma = _S.get("lmaint") if (CFG["maint_source"] == "leader" and _S) else None
-            if not t.get("fed_today") and (lma is None or idx in lma.get("FEED", ())
-                                           or (CFG["maint_safety"] and t.get("consecutive_unfed", 0) >= 1)):
+            if not t.get("fed_today"):
                 ops.append(["FEED"])
                 need["WHEAT"] += 1
                 if CFG["prio3"]:
                     prio = min(prio, 0 if t.get("consecutive_unfed", 0) >= 1 else 1)
                 else:
                     prio = min(prio, 1 if t.get("consecutive_unfed", 0) >= 1 else 2)
-            if not t.get("cared_today") and (lma is None or idx in lma.get("CARE", ())):
+            if not t.get("cared_today"):
                 ops.append(["CARE"])
                 prio = min(prio, 2)
         if t.get("fertilizer_available"):
@@ -596,57 +534,6 @@ def _tile_ops(idx, t, job, fert, day, last_day, seeds):
             ops.append(["HARVEST"])
             risk = t.get("yield_units", 0) >= ANIMALS[t["animal"]]["max_held"] - 2 or day >= last_day - 1
             prio = min(prio, 1 if (risk or not CFG["prio3"]) else 2)
-    return ops, need, prio
-
-
-def _sched_done(cmd, t, day):
-    if cmd == "WATER":
-        return bool(t.get("watered_today"))
-    if cmd == "FEED":
-        return bool(t.get("fed_today"))
-    if cmd == "CARE":
-        return bool(t.get("cared_today"))
-    if cmd == "FERTILIZE":
-        return t.get("fertilized_until_day", -1) >= day + 2
-    if cmd == "HARVEST":
-        return t.get("yield_units", 0) <= 0
-    if cmd == "COLLECT_FERTILIZER":
-        return not t.get("fertilizer_available")
-    return False
-
-
-def _sched_tile_ops(idx, t, day):
-    """maintenance ops of our live asset from the value/deadline job list (sem_maintenance)."""
-    S = _S
-    asset = t.get("crop") if _is_plant(t) else t.get("animal")
-    start = t.get("planted_day") if _is_plant(t) else t.get("placed_day")
-    if (idx, asset, start) not in S.get("mj_known", ()):
-        return None          # planted / placed after the last solve: our own rules until the next refresh
-    ops, need, prio, val, dl = [], Counter(), 3, 0.0, 23
-    for j in sorted(S.get("mj", {}).get(idx, ()), key=lambda j: j.get("order", 0)):
-        if j.get("asset") != asset:
-            continue
-        cmd = j["cmd"]
-        if _sched_done(cmd, t, day):
-            continue
-        if j.get("optional"):
-            # early harvest only where the yield keeps accruing anyway (animals, strawberry / tomato); a one-time
-            # crop's harvest ends the plant, so it waits for the module's required harvest
-            if _is_plant(t) and not CROPS[t["crop"]]["ongoing"]:
-                continue
-            v = float(j.get("held", 0)) * float(j.get("price", 0)) * CFG["opt_harvest_frac"]
-        else:
-            v = max(0.0, float(j.get("value", 0.0)))
-        ops.append([cmd])
-        for k, n in (j.get("needs") or {}).items():
-            need[k] += n
-        val += v
-        if v > 0:
-            dl = min(dl, int(j.get("deadline", 23)))
-        prio = min(prio, 0 if j.get("kind") == "survival" else 1 if v > 0 else 2)
-    # CARE pays only when fed: keep FEED before CARE on the tile
-    ops.sort(key=lambda o: {"FERTILIZE": 0, "FEED": 0, "WATER": 1, "CARE": 1, "HARVEST": 2, "COLLECT_FERTILIZER": 3}.get(o[0], 5))
-    S["tval"][idx] = (val, dl)
     return ops, need, prio
 
 
@@ -697,31 +584,6 @@ def agent(obs, config=None):
     unlocked = list(farm.get("unlocked_quadrants", ["NW"]))
 
     jobs, fert = _plan(obs, S, tiles, day)
-    if CFG["sched_maint"]:
-        sig = []
-        for idx in range(100):
-            t = _tile(tiles, idx)
-            if _is_plant(t):
-                sig.append((idx, t["crop"], t["planted_day"]))
-            elif _animal(t):
-                sig.append((idx, t["animal"], t.get("placed_day")))
-        sig = tuple(sig)
-        if S.get("mj_day") != day or (S.get("mj_sig") != sig and hour - S.get("mj_hour", -99) >= CFG["mj_every"]):
-            try:
-                jl = _sm()["maintenance_jobs"](obs, me, prices=None, fertilize="auto", include_optional=True,
-                                              collect=CFG["mj_collect"], log=S.setdefault("abandon", []))
-            except Exception as exc:  # never crash: fall back to the previous list
-                S["log"]["mj_error"] += 1
-                jl = None
-            if jl is not None:
-                by = {}
-                for j in jl:
-                    by.setdefault(j["tile"][1] * 10 + j["tile"][0], []).append(j)
-                S["mj"] = by
-                S["mj_day"], S["mj_sig"], S["mj_hour"] = day, sig, hour
-                S["mj_known"] = set(sig)
-                S["log"]["mj_calls"] += 1
-    S["tval"] = {}
 
     # ---- tile tasks
     tasks = {}
@@ -732,8 +594,6 @@ def agent(obs, config=None):
         ops, need, prio = _tile_ops(idx, t, jobs.get(idx), fert, day, last_day, seeds)
         if ops:
             tasks[idx] = (ops, need, prio)
-            if idx not in S["tval"]:
-                S["tval"][idx] = ((CFG["plan_value"] if jobs.get(idx) else 50.0 * len(ops)), 23)
 
     carried = Counter()
     for inv in invs:
@@ -789,24 +649,6 @@ def agent(obs, config=None):
             out.append(op)
         return out
 
-    skipped_now = set()
-    if CFG["sched_dispatch"] and CFG["sched_cost"] == "skip":
-        # temporary skips: keep the highest value-density jobs that fit the crew's remaining unit-hours
-        cap = sum(max(0, 23 - hour) for _ in range(n)) * CFG["skip_slack"]
-        items = []
-        for i2, (o2, n2, p2) in tasks.items():
-            v2, dl2 = S["tval"].get(i2, (0.0, 23))
-            tt2 = len(o2) + CFG["travel_est"]
-            items.append((-(v2 / tt2), i2, tt2))
-        items.sort()
-        acc = 0.0
-        for _, i2, tt2 in items:
-            acc += tt2
-            if acc > cap:
-                skipped_now.add(i2)
-        if hour == 12:
-            S["log"]["skip_jobs_h12"] += len(skipped_now)
-
     def cost(u, idx):
         ops, need, prio = tasks[idx]
         p = pos[u]
@@ -828,25 +670,6 @@ def agent(obs, config=None):
             return None
         if len(ok) < len(ops):
             c += 2
-        if CFG["sched_dispatch"] and CFG["sched_cost"] == "skip":
-            if idx in skipped_now:
-                c += 30             # today's temporary skip: only when nothing else is left
-        elif CFG["sched_dispatch"]:
-            v, dl = S["tval"].get(idx, (0.0, 23))
-            tt = c + len(ok)
-            structural = any(o[0] in ("PLANT", "PLACE", "BUILD_COOP", "BUILD_PASTURE", "DIG") for o in ok)
-            if hour + tt - 1 > dl and not structural:
-                v *= 0.2            # past its deadline most of the value is gone
-            if CFG["sched_cost"] == "prize":
-                # prize-collecting: travel + ops minus the job's value in unit-steps
-                c2 = tt - v / CFG["step_value"]
-                if prev.get(u) == idx:
-                    c2 -= CFG["keep_bonus"]
-                return c2
-            dens = (v + 1.0) / max(1.0, tt)
-            if prev.get(u) == idx:
-                dens *= 1.3
-            return -dens
         if CFG["prio_mode"] == "old":
             return c + prio * (6 if hour >= 14 else 3)
         # urgency only matters when the day runs short: plant/place pipelines and
@@ -885,7 +708,7 @@ def agent(obs, config=None):
         c = cost(u, idx)
         if c is None:
             return None
-        if not CFG["sticky"] and prev.get(u) == idx and not CFG["sched_dispatch"]:
+        if not CFG["sticky"] and prev.get(u) == idx:
             c -= CFG["keep_bonus"]
         if not CFG["zone_penalty"]:
             return c
@@ -906,47 +729,6 @@ def agent(obs, config=None):
         if dv and hour < 22 and (((sum(dv.values()) >= 10 or val >= CFG["deliver_value"]) and not late)
                                  or (S.get("short") and val > 0) or (val >= CFG["deliver_value_late"] and hour < 20)):
             assign[u] = "D"
-    surv_route = {}
-    if CFG["surv_reserve"] and hour >= CFG["surv_hour"] and day < last_day and CFG["dispatch"] != "route":
-        # every tile whose asset dies / escapes tonight unless served: nearest-arrival greedy routes
-        surv = []
-        for idx in tasks:
-            t_ = _tile(tiles, idx)
-            if _is_plant(t_) and not t_.get("watered_today") and t_.get("consecutive_unwatered", 0) >= 1:
-                surv.append((idx, "WATER"))
-            elif _animal(t_) and not t_.get("fed_today") and t_.get("consecutive_unfed", 0) >= 1:
-                if any(invs[v].get("WHEAT", 0) > 0 for v in range(n)) or shed_left.get("WHEAT", 0) > 0:
-                    surv.append((idx, "FEED"))
-        if surv:
-            clock = {u: hour for u in range(n) if assign.get(u) != "D"}
-            where = {u: pos[u] for u in clock}
-            wheat = {u: invs[u].get("WHEAT", 0) for u in clock}
-            left = list(surv)
-            while left and clock:
-                best = None
-                for u in clock:
-                    for idx, op in left:
-                        q = (idx % 10, idx // 10)
-                        if op == "FEED" and wheat[u] <= 0:
-                            s0 = _near_shed(where[u])
-                            arr = clock[u] + _dist(where[u], s0) + 1 + _dist(s0, q)
-                        else:
-                            arr = clock[u] + _dist(where[u], q)
-                        if best is None or arr < best[0]:
-                            best = (arr, u, idx, op)
-                arr, u, idx, op = best
-                if arr > 23:
-                    break
-                surv_route.setdefault(u, []).append((idx, op))
-                clock[u], where[u] = arr + 1, (idx % 10, idx // 10)
-                if op == "FEED":
-                    wheat[u] = max(0, wheat[u] - 1) if wheat[u] > 0 else 0
-                left.remove((idx, op))
-            S["log"]["surv_routed"] += sum(len(r) for r in surv_route.values())
-            S["log"]["surv_unroutable"] += len(left)
-        for u, r in surv_route.items():
-            assign[u] = r[0][0]
-            taken.add(r[0][0])
     free = [u for u in range(n) if u not in assign] if CFG["dispatch"] != "route" else []
     while free:
         best = None
@@ -1019,22 +801,6 @@ def agent(obs, config=None):
             continue
         ops, need, prio = tasks[idx]
         tgt = (idx % 10, idx // 10)
-        if u in surv_route:
-            sop = surv_route[u][0][1]
-            if sop == "FEED" and inv.get("WHEAT", 0) <= 0 and shed_left.get("WHEAT", 0) > 0:
-                s0 = _near_shed(p)
-                if p != s0:
-                    actions[u] = _step_toward(p, s0)
-                else:
-                    k = min(shed_left["WHEAT"], max(1, sum(1 for _, o in surv_route[u] if o == "FEED")))
-                    shed_left["WHEAT"] -= k
-                    actions[u] = ["PICKUP", "WHEAT", int(k)]
-                continue
-            if p != tgt:
-                actions[u] = _step_toward(p, tgt)
-                continue
-            actions[u] = [sop]
-            continue
         if CFG["lazy_fetch"]:
             miss = [k for k in _first_need(usable_ops(u, ops, need), inv) if shed_left.get(k, 0) > 0]
         else:
@@ -1087,28 +853,14 @@ def agent(obs, config=None):
         nf = sum(1 for ops, need, prio in tasks.values() if any(o[0] == "FERTILIZE" for o in ops))
         lg["fert_tasks_h%02d" % hour] += nf
         lg["fert_stock_h%02d" % hour] += shed.get("FERTILIZER", 0) + carried.get("FERTILIZER", 0)
-    if hour == 23 and day < last_day and S.get("tval"):
-        S["log"]["skipped_value"] += int(sum(v for i, (v, dl) in S["tval"].items() if i in tasks))
-        S["log"]["skipped_jobs"] += len(tasks)
     if hour == 23 and day < last_day:
         lg = S["log"]
         for idx, (ops, need, prio) in tasks.items():
             t = _tile(tiles, idx)
             if _is_plant(t) and not t.get("watered_today") and t.get("consecutive_unwatered", 0) >= 1:
                 lg["die_%s_%s" % (t["crop"], "assigned" if idx in taken else "unassigned")] += 1
-
             if _animal(t) and not t.get("fed_today"):
                 lg["unfed_%s" % ("assigned" if idx in taken else "unassigned")] += 1
-    if hour == 23 and day < last_day:
-        for idx in range(100):
-            t = _tile(tiles, idx)
-            if _is_plant(t) and not t.get("watered_today") and t.get("consecutive_unwatered", 0) >= 1:
-                if idx not in tasks:
-                    S["log"]["dying_no_task"] += 1
-                elif any(o[0] == "WATER" for o in tasks[idx][0]):
-                    S["log"]["dying_water_task"] += 1
-                else:
-                    S["log"]["dying_task_without_water"] += 1
     lg = S["log"]
     for u in range(n):
         if actions[u] == ["PASS"]:
@@ -1496,49 +1248,6 @@ def _dispatch_route(S, day, hour, last_day, tiles, pos, invs, tasks, shed, seeds
     return actions, taken
 
 
-def _sched_hands(S, day, hour, tasks, jobs=None):
-    """hire the n-th hand while the value of the jobs only it adds (in value-density order, within the day's
-    remaining unit-hours) exceeds fib(n-1); decided at hour 0 (re-used for later retries)."""
-    key = ("hands", day)
-    if key in S and hour > 0:
-        return S[key]
-    items = []
-    for idx, (ops, need, prio) in tasks.items():
-        v, dl = S.get("tval", {}).get(idx, (0.0, 23))
-        tt = len(ops) + CFG["travel_est"] + (0.5 if need else 0.0)
-        items.append((v / tt, v, tt))
-    for idx, job in (jobs or {}).items():
-        if idx in tasks:
-            continue            # plan job whose seeds / animals are not in yet: it still needs a hand today
-        tt = 3 + CFG["travel_est"]
-        items.append((CFG["plan_value"] / tt, CFG["plan_value"], tt))
-    items.sort(reverse=True)
-
-    def done_value(k):
-        cap = (24 - hour) + (23 - hour) * k
-        tot = acc = 0.0
-        for dens, v, tt in items:
-            if acc + tt > cap:
-                break
-            acc += tt
-            tot += v
-        return tot
-    k, prev_v = 0, done_value(0)
-    cut = 0.0
-    while k < 14:
-        vk = done_value(k + 1)
-        marginal = vk - prev_v
-        if marginal <= _fib(k) + CFG["hire_idle"]:
-            cut = marginal
-            break
-        k, prev_v = k + 1, vk
-    S[key] = k
-    lg = S["log"]
-    lg["hire_hands"] += k
-    lg["hire_cut_value"] += int(cut)
-    return k
-
-
 def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, demand, prices,
             unlocked, farm, pos, last_day):
     T = _T
@@ -1579,15 +1288,7 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
         if endgame:
             n = have
         else:
-            if CFG["sell_source"] == "shed":
-                # mgt_lead_deploy rule: everything as soon as it is in the shed, except the wheat the herd eats
-                if p == "WHEAT":
-                    n_an = sum(1 for r_ in farm["tiles"] for t_ in r_ if _animal(t_))
-                    quota = shed.get("WHEAT", 0) - (n_an * max(0, 28 - day) + 10)
-                else:
-                    quota = have
-            else:
-                quota = T.cum_sold[d].get(p, 0) - S["sold"][p]
+            quota = T.cum_sold[d].get(p, 0) - S["sold"][p]
             n = min(have, quota)
         if n > 0:
             sells.append(["SELL", p, int(n)])
@@ -1609,13 +1310,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     cash = money + sum(prices.get(o[1], 0) * o[2] * 0.85 for o in sells)
     # hires come first: without hands nothing is maintained (death spiral); sell beyond quota to fund them
     hires = []
-    if (not endgame or CFG["hands_d29_fix"]) and hour <= 12 and CFG["hires_first"]:
+    if not endgame and hour <= 12 and CFG["hires_first"]:
         want = T.hands[d] + CFG["hire_extra"]
-        if CFG["sched_hire"]:
-            want = _sched_hands(S, day, hour, tasks, jobs)
-        elif CFG["hands_d29_fix"] and d == T.n - 1 and T.hands[d] == 0 and d > 0:
-            # semantics artifact: hands_present of the last day is 0 (the end-of-day hook never runs on day 29)
-            want = T.hands[d - 1] + CFG["hire_extra"]
         k = max(0, want - (len(pos) - 1))
         hires_today = int(farm.get("hires_today", 0))
         cost_all = sum(_fib(hires_today + i) for i in range(k))
@@ -1699,9 +1395,6 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             cash -= k * CROPS[crop]["seed"]
     # assemble within the 10-order cap: sells first (cash), then hires, then buys
     buys = wheat_buy + buys
-    if CFG["hire_source"] == "leader_steps":
-        # the leader's own HIRE orders, at the leader's steps (they fail on cash exactly as orders do)
-        hires = [["HIRE"]] * int(getattr(T, "hire_steps", {}).get(int(_g(obs, "step", 0)), 0))
     orders = []
     hire_cost = sum(_fib(int(farm.get("hires_today", 0)) + i) for i in range(len(hires)))
     if CFG["hires_at_front"] and hires and money >= hire_cost:

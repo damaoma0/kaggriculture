@@ -55,6 +55,10 @@ CELLS = {
     'S1h': dict(cfg={'sched_maint': True, 'sched_hire': True}),
     'S1x': dict(cfg={'sched_maint': True, 'mj_collect': False}),
     'S1f': dict(cfg={'sched_maint': True}),
+    'CUR': dict(cfg={}),
+    'R16': dict(cfg={'surv_reserve': True, 'surv_hour': 16}),
+    'R12': dict(cfg={'surv_reserve': True, 'surv_hour': 12}),
+    'R19': dict(cfg={'surv_reserve': True, 'surv_hour': 19}),
     'X': dict(cfg={'hands_d29_fix': True, 'maint_source': 'leader', 'maint_safety': True}),
     'E': dict(cfg={}, deploy='plan'),
     'E2': dict(cfg={}, deploy='full'),
@@ -269,7 +273,7 @@ def main():
         if err:
             print(err, flush=True)
     print(f'wall {time.time() - t0:.0f}s')
-    print(report(sorted(set(cells) | ({'A'} if (OUT / 'abl_A').exists() else set()), key=lambda c: 'A A29 X S1 S1f S1h S1x S2 S2p20 S2p80 S3 S2d S3h B B2 E E2 C D Dp F'.split().index(c) if c in 'A A29 X S1 S1h S1x S2 S2p20 S2p80 S3 S2d S3h B B2 E E2 C D Dp F'.split() else 9)))
+    print(report(sorted(set(cells) | ({'A'} if (OUT / 'abl_A').exists() else set()), key=lambda c: 'A A29 X CUR R16 R12 R19 S1 S1f S1h S1x S2 S2p20 S2p80 S3 S2d S3h B B2 E E2 C D Dp F'.split().index(c) if c in 'A A29 X S1 S1h S1x S2 S2p20 S2p80 S3 S2d S3h B B2 E E2 C D Dp F'.split() else 9)))
 
 
 if __name__ == '__main__':

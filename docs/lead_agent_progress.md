@@ -288,3 +288,40 @@ Notes: the agent now loads `scripts/fragments/sem_maintenance.py` at runtime (re
 it in (it is stdlib-only with `_sm_`/`SM_` prefixes). Value-based DISPATCH (density, prize, skip) lost in every form
 tried (0.575-0.764); only the value/deadline JOB LIST won. Not done in the time box: dispatch that uses deadlines
 without dropping cheap survival jobs, and a hiring model calibrated on realised work.
+
+## Survival reservation and deployment (after commit fd664f8)
+Step 1, reproduction: the committed defaults (cell CUR, frozen copy of agents/mgt_lead.py) reproduce S1f exactly in all
+12 games (same final cash, same day-start boards every day): 0.862 / 0.854 / clean9 0.833. No drift.
+Step 2, survival reservation (`surv_reserve`, `surv_hour`): from surv_hour, every step, the tiles whose asset dies
+tonight (plant with consecutive_unwatered >= 1 not yet watered; animal with consecutive_unfed >= 1 not yet fed, when
+wheat exists) get nearest-arrival greedy routes over all hands (wheat detours included); a hand with a survival route
+goes there and does only the survival op; every other hand keeps the distance-based greedy. Diagnostic at 23:00 (CUR):
+66 dying tiles/game still had a WATER task queued (dispatch, not policy) and 2.8 had no task (module's choice).
+
+| cell | mean12 | mean11 | clean9 | plants died | animals lost | revenue gap | notes |
+|---|---:|---:|---:|---:|---:|---|---|
+| CUR (= S1f) | 0.862 | 0.854 | 0.833 | 40.7 | 5.9 | -18.2k | |
+| **R16** | **0.874** | **0.866** | **0.844** | **7.6** | 4.7 | -17.3k | +0.012 on all three means; failed buys 0.9, no-effect 0.1 |
+| R12 | 0.851 | 0.845 | 0.827 | 2.6 | 2.7 | -19.9k | reserving from noon saves more plants but costs other work |
+| R19 | 0.862 | 0.853 | 0.831 | 18.8 | 5.6 | -17.9k | too late: no better than CUR |
+
+R16 is the new default (`surv_reserve=True`, `surv_hour=16`).
+
+Step 3, deployment: `scripts/resync_lead_deploy.py` copied the current executor (sched_maint + surv_reserve R16,
+sha256 2a8f6eb72f9e4891, header updated) into `agents/mgt_lead_deploy.py`; its DEPLOY section is unchanged. Also
+`_sm()` no longer needs `__file__` (Kaggle's loader exec's the source; it falls back to cwd/scripts/fragments).
+Smoke test on the 12 p2750 worlds of the earlier local deploy run (ladder_panel, opponent = recorded actions,
+1 worker): copies `agents/mgt_lead_deploy_pre.py` (committed deploy before the resync, executor h5) and
+`agents/mgt_lead_deploy_s1.py` (after the resync), so the old `mgt_lead_deploy` results stay intact.
+
+| build (12 worlds) | mean margin | own cash | W-L | paired vs y3 (95% CI) |
+|---|---:|---:|---|---|
+| mgt_y3 (reference) | +4,672 | 110,322 | 9-3 | - |
+| mgt_lead_deploy (older local run, same 12) | -47,260 | 75,444 | 0-12 | -51,932 |
+| deploy before resync (executor h5) | -29,202 | 84,793 | 0-12 | -33,875 (-39,483 .. -28,017), 0/12 better |
+| **deploy after resync (sched_maint + R16)** | **-19,300** | **92,068** | **1-11** | **-23,973 (-28,989 .. -18,354), 0/12 better** |
+
+The executor upgrade carries into new worlds: +9,902 margin (+7,992 .. +11,852) vs the pre-resync deploy, better in
+12/12 worlds (own cash +7.3k). The deploy mode is still 24k a game behind y3 there: the remaining gap is the
+target builder (plan, market, hires), not the executor. The p2750 before-resync number (-33.9k on these 12)
+matches the committed full-panel v2 figure (-33.7k), so these 12 worlds look representative.
