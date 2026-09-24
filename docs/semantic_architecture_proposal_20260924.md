@@ -325,3 +325,10 @@ ends, under minimum maintenance?*
 boundary; its remaining feed, water and care are pure cost. It applies to every long-lived asset, not only marginal
 ones, and a tape cannot do it (a tape maintains whatever it recorded). To be quantified: the labour (unit-hours,
 hands, wages) and wheat the leaders and our current agents spend on assets past their last reachable harvest.
+Quantified (Q1, `scripts/past_last_harvest.py`, 323 leader games): the leaders spend ~53 maintenance actions a game
+(~109 unit-hours, 6.7% of all maintenance on days 20-29, 96% of it on days 27-29) on assets with no reachable
+production left; Vadim 35, Boey 66. But 40 of the 53 are WATER on one-time crops past their bonus window and not yet
+harvested, which keeps them alive until harvest (2 dry days make any live plant a weed), so for crops the rule must be
+"harvest now, then stop", not "stop watering". The cleanly avoidable part is CARE 3.9, FERTILIZE 5.8, FEED 2.9 a game.
+The rule is right and cheap to implement, but worth a few hundred coins a game at most; the leaders mostly follow it
+already. The larger lever remains the planting rule.
