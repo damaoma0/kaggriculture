@@ -38,4 +38,10 @@ DEFECT FOUND AND FIXED (2026-09-24): the first isolated-directory run on Kaggle 
     SECOND live-V56 panel, 40 fresh seeds disjoint from the first x 2 seats (benchmark_random_v56_paired_b.py):
       lite +911 vs y3 (+151..+1,793), 15 better / 4 worse, wins 54 -> 58; y3 +119 vs m1 (-212..+384) there.
       Pooled live V56, 120 games: about +822 vs y3.
+  More live opponents (40 games each, 20 seeds x 2 seats, benchmark_random_opp_paired.py): pasture2700 +864 vs y3
+    (+12..+1,925), sixday_latest +1,423 (+385..+2,712), v45 -302 (-1,060..+457). Pooled live V56 120 games +822 vs
+    y3 (seed-clustered +82..+1,682), +1,000 vs m1 (+137..+1,922).
+  Timing on Kaggle CPU through the official runner: one core 8/8 (bank >= 46.4); half a core (one core shared with a
+    busy process) 8/8 (bank >= 30.8, longest move 21.3 s); results identical to the unrestricted runs.
+  NOTE: y3's late-Yarn layer IS in this build (_BASE = 'mgt_y3'; pkg/agents/mgt_y3.py == submissions/2026-09-24-mgt_y3/main.py).
 VALIDATION COMPLETE for the thread-free build (submission.tar.gz, hashes in MANIFEST.json). NOT SUBMITTED.
