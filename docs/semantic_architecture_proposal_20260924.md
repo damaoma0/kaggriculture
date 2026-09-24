@@ -287,3 +287,26 @@ if something better comes free. (The measured result agrees: a care-cost re-layo
 **[B] Units planted per shop is THE learning target.** More 3000+ games, harvested and extracted by several parallel
 threads, then the reveal-response analysis: what each leader plants / buys in the days after each shop reveal, per
 shop type, and when they commit relative to the reveal.
+
+## 14. Two kinds of skipping, and abandonment as a planting diagnostic (user, 2026-09-24)
+User, verbatim: "Something worth noticing: I did not dismiss the idea of not maintaining a nonproductive animal or
+plant. Though low value crops are single season and lives shortly; you should not have planted it if you ditch it at
+the end."
+
+**[E] has two skip rules with different logic:**
+- *Temporary skip (labour-economic, momentary):* during a harvest or planting spike, the marginal hand's fib wage
+  exceeds the value of the lowest-value maintenance it would carry. Skip that job now; resume after the spike.
+- *Permanent abandonment (terminal value):* the asset will produce nothing more of value before day 29 even under
+  minimum maintenance: an animal whose remaining productions no longer pay for its feed, a crop whose remaining yield
+  cannot be reached or harvested before the season ends. Stop maintaining it entirely. (The leaders do this: 81.5% of
+  their sheep and 31.8% of their cows starve late in the game; geese never.)
+
+**[B] Planting principle: if you would ditch it at the end, you should not have planted it.** A permanent
+abandonment is evidence about a decision made days earlier, so the agent logs every abandonment from the start:
+asset kind, planted / bought day, the visible shops then and now, its cost (seed or animal price plus the
+maintenance labour spent), the revenue it produced, and the value it forfeits. Two cases separate automatically:
+- abandoned AFTER paying back its cost (an old sheep late in the season): normal end of life, no signal;
+- abandoned BEFORE paying back (a short single-season crop planted too late, too many of a crop for the demand): a
+  planting error. These cases are training signal for the planting rule from our own games, with no leader replay
+  needed, and the planting rule gets a hard constraint: do not plant a crop whose first full harvest cannot be
+  reached and sold before day 29 under minimum maintenance (the lifecycle data gives the ages).
