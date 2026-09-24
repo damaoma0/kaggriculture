@@ -216,3 +216,36 @@ steps it would need anyway.
 2. Retrieval or regression first for the plan model? (Recommendation: retrieval, because it is safe inside the data
    and reuses the router's distance.)
 3. Should the plan evaluator ([C], rival-aware) be part of the design from the start, given its known blind spot?
+
+## 10. Decision (user, 2026-09-24 evening) and the plan to a feasible submission
+The user: the goal is a feasible submission; open more threads; focus on the leader games; rival-awareness designed
+but of lower importance. The MVP that can plausibly land by the 30th:
+
+**Leader-following agent (`agents/mgt_lead.py`).** The plan is a leader game's own per-day BOARD (the layout
+measurement says their layout is already as good as anything we would compute, and the grid is the same), chosen by
+retrieval from the 240-game corpus and re-chosen at reveals. Each day our planner diffs the target's upcoming boards
+against our real board and emits jobs (land, builds, animals, plantings, digs, fertilizer), adds maintenance
+(maximum by default, engine-derived skips) and harvests, and the existing job compiler
+(`scripts/fragments/continuation_executor.py`) packs them into routes and hourly actions. Purchases retry when cash
+allows; selling follows the target's per-day sold units. No recorded action is ever replayed.
+
+Threads (started 2026-09-24 ~19:00):
+- T1 (strongest model): the agent + gate G1 (follow a leader game in its OWN world; cash ratio >= 0.90 on 12 games of
+  the common opening family). Progress log `docs/lead_agent_progress.md`.
+- T2: plan selection, retrieval vs regression (gate G2), `scripts/leader_plan_retrieval.py`.
+- T3: opening families, per-day targets and outcomes, `data/leader_semantics/openings.json`.
+Timeline: G1 by 09-26; retrieval wired in and G4 (60 worlds of the 2750-3000 panel + live V56) by 09-27; full
+acceptance, packaging and the official-runner test 09-28; hand-over 09-29. At every gate the comparison is the
+validated V9-lite + y3 (`docs/v9lite_validation_record_20260924.md`), which stays the fallback. If G1 fails by 09-26,
+the MVP does not ship and the remaining days go to hardening the fallback.
+
+## 11. Rival awareness (designed, not on the critical path)
+What is observable: the rival's whole farm every step (tiles, animals), the market prices and the shops. What it is
+for: the plan's value is margin, and our supply moves the rival's prices (V9's failure mode: own +7.2k, rival +8.8k).
+Design, cheapest first:
+1. Residual demand: when retrieving a plan, discount products the rival already supplies heavily (its board counts
+   per product against the visible shops' demand). One extra term in the retrieval distance; testable on G2's data
+   as "does it predict leaders' plans better" (the leaders ignore the rival, so expect ~0 there) and on panels.
+2. Sell timing against the rival's harvest calendar (its crops' ages are visible): avoid selling into the day its
+   strawberries or wool come in. Extends the existing FlowModel.
+3. Plan evaluation with a rival model (V9-lite machinery on plans): only if 1-2 show value; the known blind spot stays.
