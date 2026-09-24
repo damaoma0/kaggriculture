@@ -1,0 +1,1659 @@
+{
+ "import_s": 0.5054341999348253,
+ "runtime_construct_s": 1.4607484999578446,
+ "params": {
+  "count": 7,
+  "keep": 2,
+  "lazy_keep": true,
+  "worlds": 4,
+  "scout_min": 350.0,
+  "final_min": 350.0,
+  "skip_native_commit": true,
+  "max_hamming": 12
+ },
+ "rows": [
+  {
+   "ckpt": "112200188_288.pkl",
+   "lite": {
+    "seconds": 11.47461530007422,
+    "selected": 140,
+    "rollouts": 14,
+    "turns": 6034,
+    "rollout_s": 10.855534899863414,
+    "stages": {
+     "worlds": [
+      0.35,
+      4,
+      0
+     ],
+     "scout(w0)": [
+      3.792,
+      5,
+      2155
+     ],
+     "4-world(w1-3)": [
+      7.063,
+      9,
+      3879
+     ]
+    },
+    "other_s": 0.2695495004300028
+   },
+   "v9": {
+    "seconds": 22.478230700013228,
+    "selected": 140,
+    "rollouts": 28,
+    "turns": 12068,
+    "rollout_s": 21.58984660031274,
+    "stages": {
+     "worlds": [
+      0.607,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      5.199,
+      7,
+      3017
+     ],
+     "4-world(w1-3)": [
+      7.107,
+      9,
+      3879
+     ],
+     "8-world(w4-7)": [
+      9.284,
+      12,
+      5172
+     ]
+    },
+    "other_s": 0.2814084995770827
+   }
+  },
+  {
+   "ckpt": "112200188_360.pkl",
+   "v9": {
+    "seconds": 9.163043200038373,
+    "selected": null,
+    "rollouts": 15,
+    "turns": 4811,
+    "rollout_s": 7.718526200042106,
+    "stages": {
+     "worlds": [
+      1.151,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      2.472,
+      6,
+      1580
+     ],
+     "4-world(w1-3)": [
+      5.247,
+      9,
+      3231
+     ]
+    },
+    "other_s": 0.2935141996713355
+   },
+   "lite": {
+    "seconds": 2.27007140009664,
+    "selected": null,
+    "rollouts": 3,
+    "turns": 1077,
+    "rollout_s": 1.7244475999614224,
+    "stages": {
+     "worlds": [
+      0.265,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      1.724,
+      3,
+      1077
+     ]
+    },
+    "other_s": 0.28103680012281984
+   }
+  },
+  {
+   "ckpt": "112200188_432.pkl",
+   "lite": {
+    "seconds": 1.4979307999601588,
+    "selected": null,
+    "rollouts": 2,
+    "turns": 574,
+    "rollout_s": 0.9001229000277817,
+    "stages": {
+     "worlds": [
+      0.325,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      0.9,
+      2,
+      574
+     ]
+    },
+    "other_s": 0.27271679998375475
+   },
+   "v9": {
+    "seconds": 7.187203600071371,
+    "selected": null,
+    "rollouts": 15,
+    "turns": 3875,
+    "rollout_s": 6.300011299783364,
+    "stages": {
+     "worlds": [
+      0.6,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      2.049,
+      6,
+      1292
+     ],
+     "4-world(w1-3)": [
+      4.251,
+      9,
+      2583
+     ]
+    },
+    "other_s": 0.2875451003201306
+   }
+  },
+  {
+   "ckpt": "112460119_288.pkl",
+   "v9": {
+    "seconds": 10.794907999923453,
+    "selected": null,
+    "rollouts": 16,
+    "turns": 6178,
+    "rollout_s": 9.534613000112586,
+    "stages": {
+     "worlds": [
+      0.969,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      3.533,
+      7,
+      2299
+     ],
+     "4-world(w1-3)": [
+      6.002,
+      9,
+      3879
+     ]
+    },
+    "other_s": 0.2911517998436466
+   },
+   "lite": {
+    "seconds": 3.4430992000270635,
+    "selected": null,
+    "rollouts": 6,
+    "turns": 1868,
+    "rollout_s": 2.871044100029394,
+    "stages": {
+     "worlds": [
+      0.292,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      2.871,
+      6,
+      1868
+     ]
+    },
+    "other_s": 0.28002800000831485
+   }
+  },
+  {
+   "ckpt": "112460119_360.pkl",
+   "lite": {
+    "seconds": 6.477788100019097,
+    "selected": 349,
+    "rollouts": 11,
+    "turns": 3662,
+    "rollout_s": 5.590750200091861,
+    "stages": {
+     "worlds": [
+      0.611,
+      4,
+      0
+     ],
+     "scout(w0)": [
+      2.242,
+      5,
+      1508
+     ],
+     "4-world(w1-3)": [
+      3.349,
+      6,
+      2154
+     ]
+    },
+    "other_s": 0.2762059000087902
+   },
+   "v9": {
+    "seconds": 13.77579819993116,
+    "selected": 349,
+    "rollouts": 24,
+    "turns": 8329,
+    "rollout_s": 12.775942499865778,
+    "stages": {
+     "worlds": [
+      0.715,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      3.315,
+      7,
+      2226
+     ],
+     "4-world(w1-3)": [
+      4.987,
+      9,
+      3231
+     ],
+     "8-world(w4-7)": [
+      4.474,
+      8,
+      2872
+     ]
+    },
+    "other_s": 0.2847888000542298
+   }
+  },
+  {
+   "ckpt": "112460119_432.pkl",
+   "v9": {
+    "seconds": 7.438065199996345,
+    "selected": null,
+    "rollouts": 16,
+    "turns": 4162,
+    "rollout_s": 6.453631499782205,
+    "stages": {
+     "worlds": [
+      0.697,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      2.452,
+      7,
+      1579
+     ],
+     "4-world(w1-3)": [
+      4.002,
+      9,
+      2583
+     ]
+    },
+    "other_s": 0.28726960020139813
+   },
+   "lite": {
+    "seconds": 2.505071899970062,
+    "selected": null,
+    "rollouts": 6,
+    "turns": 1292,
+    "rollout_s": 2.008923500077799,
+    "stages": {
+     "worlds": [
+      0.218,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      2.009,
+      6,
+      1292
+     ]
+    },
+    "other_s": 0.27829449984710664
+   }
+  },
+  {
+   "ckpt": "112531888_288.pkl",
+   "lite": {
+    "seconds": 4.381246599950828,
+    "selected": null,
+    "rollouts": 6,
+    "turns": 2227,
+    "rollout_s": 3.651021199999377,
+    "stages": {
+     "worlds": [
+      0.452,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      3.651,
+      6,
+      2227
+     ]
+    },
+    "other_s": 0.27840910002123564
+   },
+   "v9": {
+    "seconds": 11.760579800000414,
+    "selected": null,
+    "rollouts": 16,
+    "turns": 6537,
+    "rollout_s": 10.64668830006849,
+    "stages": {
+     "worlds": [
+      0.827,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      4.385,
+      7,
+      2658
+     ],
+     "4-world(w1-3)": [
+      6.262,
+      9,
+      3879
+     ]
+    },
+    "other_s": 0.2873659998876974
+   }
+  },
+  {
+   "ckpt": "112531888_360.pkl",
+   "v9": {
+    "seconds": 9.21959649992641,
+    "selected": null,
+    "rollouts": 16,
+    "turns": 5170,
+    "rollout_s": 8.043762700050138,
+    "stages": {
+     "worlds": [
+      0.882,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      2.967,
+      7,
+      1939
+     ],
+     "4-world(w1-3)": [
+      5.077,
+      9,
+      3231
+     ]
+    },
+    "other_s": 0.29356239980552346
+   },
+   "lite": {
+    "seconds": 2.907423600088805,
+    "selected": null,
+    "rollouts": 5,
+    "turns": 1508,
+    "rollout_s": 2.3637932998826727,
+    "stages": {
+     "worlds": [
+      0.266,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      2.364,
+      5,
+      1508
+     ]
+    },
+    "other_s": 0.2775180002208799
+   }
+  },
+  {
+   "ckpt": "112531888_432.pkl",
+   "lite": {
+    "seconds": 1.155091799912043,
+    "selected": null,
+    "rollouts": 2,
+    "turns": 359,
+    "rollout_s": 0.5622471999377012,
+    "stages": {
+     "worlds": [
+      0.322,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      0.562,
+      2,
+      359
+     ]
+    },
+    "other_s": 0.2703867999371141
+   },
+   "v9": {
+    "seconds": 4.744136799941771,
+    "selected": null,
+    "rollouts": 11,
+    "turns": 2512,
+    "rollout_s": 3.867231299984269,
+    "stages": {
+     "worlds": [
+      0.6,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      1.199,
+      5,
+      790
+     ],
+     "4-world(w1-3)": [
+      2.669,
+      6,
+      1722
+     ]
+    },
+    "other_s": 0.27652949979528785
+   }
+  },
+  {
+   "ckpt": "112543358_288.pkl",
+   "v9": {
+    "seconds": 19.578615800011903,
+    "selected": 456,
+    "rollouts": 28,
+    "turns": 11709,
+    "rollout_s": 18.328356799902394,
+    "stages": {
+     "worlds": [
+      0.965,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      4.036,
+      7,
+      2658
+     ],
+     "4-world(w1-3)": [
+      6.28,
+      9,
+      3879
+     ],
+     "8-world(w4-7)": [
+      8.012,
+      12,
+      5172
+     ]
+    },
+    "other_s": 0.2854090998880565
+   },
+   "lite": {
+    "seconds": 8.28390710009262,
+    "selected": 456,
+    "rollouts": 11,
+    "turns": 4741,
+    "rollout_s": 7.630942999967374,
+    "stages": {
+     "worlds": [
+      0.379,
+      4,
+      0
+     ],
+     "scout(w0)": [
+      3.396,
+      5,
+      2155
+     ],
+     "4-world(w1-3)": [
+      4.235,
+      6,
+      2586
+     ]
+    },
+    "other_s": 0.2740097000496462
+   }
+  },
+  {
+   "ckpt": "112543358_360.pkl",
+   "lite": {
+    "seconds": 1.431903599994257,
+    "selected": null,
+    "rollouts": 3,
+    "turns": 503,
+    "rollout_s": 0.7737488000420853,
+    "stages": {
+     "worlds": [
+      0.392,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      0.774,
+      3,
+      503
+     ]
+    },
+    "other_s": 0.2662892999360338
+   },
+   "v9": {
+    "seconds": 5.881564799929038,
+    "selected": null,
+    "rollouts": 12,
+    "turns": 3160,
+    "rollout_s": 4.873367699910887,
+    "stages": {
+     "worlds": [
+      0.728,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      1.51,
+      6,
+      1006
+     ],
+     "4-world(w1-3)": [
+      3.364,
+      6,
+      2154
+     ]
+    },
+    "other_s": 0.28062560013495386
+   }
+  },
+  {
+   "ckpt": "112543358_432.pkl",
+   "v9": {
+    "seconds": 6.639720099978149,
+    "selected": null,
+    "rollouts": 15,
+    "turns": 3660,
+    "rollout_s": 5.656225000042468,
+    "stages": {
+     "worlds": [
+      0.701,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      1.62,
+      6,
+      1077
+     ],
+     "4-world(w1-3)": [
+      4.036,
+      9,
+      2583
+     ]
+    },
+    "other_s": 0.2829544999403879
+   },
+   "lite": {
+    "seconds": 1.0432621999643743,
+    "selected": null,
+    "rollouts": 2,
+    "turns": 359,
+    "rollout_s": 0.5598385999910533,
+    "stages": {
+     "worlds": [
+      0.215,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      0.56,
+      2,
+      359
+     ]
+    },
+    "other_s": 0.2680801000678912
+   }
+  },
+  {
+   "ckpt": "112612772_288.pkl",
+   "lite": {
+    "seconds": 8.682907100068405,
+    "selected": 575,
+    "rollouts": 12,
+    "turns": 4813,
+    "rollout_s": 7.737187799997628,
+    "stages": {
+     "worlds": [
+      0.665,
+      4,
+      0
+     ],
+     "scout(w0)": [
+      3.498,
+      6,
+      2227
+     ],
+     "4-world(w1-3)": [
+      4.239,
+      6,
+      2586
+     ]
+    },
+    "other_s": 0.2810601000674069
+   },
+   "v9": {
+    "seconds": 17.084036499960348,
+    "selected": 575,
+    "rollouts": 24,
+    "turns": 9985,
+    "rollout_s": 15.994785700226203,
+    "stages": {
+     "worlds": [
+      0.804,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      4.296,
+      7,
+      2658
+     ],
+     "4-world(w1-3)": [
+      6.388,
+      9,
+      3879
+     ],
+     "8-world(w4-7)": [
+      5.31,
+      8,
+      3448
+     ]
+    },
+    "other_s": 0.28536479943431914
+   }
+  },
+  {
+   "ckpt": "112612772_360.pkl",
+   "v9": {
+    "seconds": 15.439777999999933,
+    "selected": 196,
+    "rollouts": 24,
+    "turns": 8329,
+    "rollout_s": 14.166569900233299,
+    "stages": {
+     "worlds": [
+      0.991,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      3.656,
+      7,
+      2226
+     ],
+     "4-world(w1-3)": [
+      5.599,
+      9,
+      3231
+     ],
+     "8-world(w4-7)": [
+      4.912,
+      8,
+      2872
+     ]
+    },
+    "other_s": 0.2820245997281745
+   },
+   "lite": {
+    "seconds": 6.7333740999456495,
+    "selected": 196,
+    "rollouts": 10,
+    "turns": 3590,
+    "rollout_s": 6.105781499878503,
+    "stages": {
+     "worlds": [
+      0.35,
+      4,
+      0
+     ],
+     "scout(w0)": [
+      2.439,
+      4,
+      1436
+     ],
+     "4-world(w1-3)": [
+      3.667,
+      6,
+      2154
+     ]
+    },
+    "other_s": 0.27805720001924783
+   }
+  },
+  {
+   "ckpt": "112612772_432.pkl",
+   "lite": {
+    "seconds": 1.1867665000027046,
+    "selected": null,
+    "rollouts": 3,
+    "turns": 431,
+    "rollout_s": 0.6820115000009537,
+    "stages": {
+     "worlds": [
+      0.231,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      0.682,
+      3,
+      431
+     ]
+    },
+    "other_s": 0.27369290008209646
+   },
+   "v9": {
+    "seconds": 4.749492199975066,
+    "selected": null,
+    "rollouts": 12,
+    "turns": 2584,
+    "rollout_s": 3.9474298001732677,
+    "stages": {
+     "worlds": [
+      0.518,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      1.299,
+      6,
+      862
+     ],
+     "4-world(w1-3)": [
+      2.648,
+      6,
+      1722
+     ]
+    },
+    "other_s": 0.2837340000551194
+   }
+  },
+  {
+   "ckpt": "112613947_288.pkl",
+   "v9": {
+    "seconds": 24.630986299947836,
+    "selected": 489,
+    "rollouts": 28,
+    "turns": 11709,
+    "rollout_s": 23.223302399972454,
+    "stages": {
+     "worlds": [
+      1.126,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      4.814,
+      7,
+      2658
+     ],
+     "4-world(w1-3)": [
+      7.729,
+      9,
+      3879
+     ],
+     "8-world(w4-7)": [
+      10.68,
+      12,
+      5172
+     ]
+    },
+    "other_s": 0.28212700015865266
+   },
+   "lite": {
+    "seconds": 8.105725400033407,
+    "selected": 489,
+    "rollouts": 9,
+    "turns": 3879,
+    "rollout_s": 7.456215399783105,
+    "stages": {
+     "worlds": [
+      0.382,
+      4,
+      0
+     ],
+     "scout(w0)": [
+      2.377,
+      3,
+      1293
+     ],
+     "4-world(w1-3)": [
+      5.079,
+      6,
+      2586
+     ]
+    },
+    "other_s": 0.26747090031858534
+   }
+  },
+  {
+   "ckpt": "112613947_360.pkl",
+   "lite": {
+    "seconds": 0.2721501999767497,
+    "selected": null,
+    "rollouts": 0,
+    "turns": 0,
+    "rollout_s": 0,
+    "stages": {},
+    "other_s": 0.2721501999767497
+   },
+   "v9": {
+    "seconds": 9.322400599950925,
+    "selected": null,
+    "rollouts": 15,
+    "turns": 4524,
+    "rollout_s": 8.08733220002614,
+    "stages": {
+     "worlds": [
+      0.949,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      2.262,
+      6,
+      1293
+     ],
+     "4-world(w1-3)": [
+      5.825,
+      9,
+      3231
+     ]
+    },
+    "other_s": 0.2860567995812744
+   }
+  },
+  {
+   "ckpt": "112613947_432.pkl",
+   "v9": {
+    "seconds": 5.107991799945012,
+    "selected": null,
+    "rollouts": 10,
+    "turns": 2440,
+    "rollout_s": 4.170127499615774,
+    "stages": {
+     "worlds": [
+      0.659,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      1.226,
+      4,
+      718
+     ],
+     "4-world(w1-3)": [
+      2.944,
+      6,
+      1722
+     ]
+    },
+    "other_s": 0.27872310031671077
+   },
+   "lite": {
+    "seconds": 0.2667043999535963,
+    "selected": null,
+    "rollouts": 0,
+    "turns": 0,
+    "rollout_s": 0,
+    "stages": {},
+    "other_s": 0.2667043999535963
+   }
+  },
+  {
+   "ckpt": "112615140_288.pkl",
+   "lite": {
+    "seconds": 10.225061199977063,
+    "selected": 44,
+    "rollouts": 14,
+    "turns": 6034,
+    "rollout_s": 9.318826999748126,
+    "stages": {
+     "worlds": [
+      0.626,
+      4,
+      0
+     ],
+     "scout(w0)": [
+      3.382,
+      5,
+      2155
+     ],
+     "4-world(w1-3)": [
+      5.937,
+      9,
+      3879
+     ]
+    },
+    "other_s": 0.28010380011983216
+   },
+   "v9": {
+    "seconds": 19.751109199947678,
+    "selected": 44,
+    "rollouts": 28,
+    "turns": 12068,
+    "rollout_s": 18.835019700229168,
+    "stages": {
+     "worlds": [
+      0.628,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      4.817,
+      7,
+      3017
+     ],
+     "4-world(w1-3)": [
+      6.036,
+      9,
+      3879
+     ],
+     "8-world(w4-7)": [
+      7.982,
+      12,
+      5172
+     ]
+    },
+    "other_s": 0.2885669998358935
+   }
+  },
+  {
+   "ckpt": "112615140_360.pkl",
+   "v9": {
+    "seconds": 8.847612399957143,
+    "selected": null,
+    "rollouts": 16,
+    "turns": 5170,
+    "rollout_s": 7.869665600010194,
+    "stages": {
+     "worlds": [
+      0.696,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      2.849,
+      7,
+      1939
+     ],
+     "4-world(w1-3)": [
+      5.02,
+      9,
+      3231
+     ]
+    },
+    "other_s": 0.28241129976231605
+   },
+   "lite": {
+    "seconds": 2.2387238999363035,
+    "selected": null,
+    "rollouts": 4,
+    "turns": 1149,
+    "rollout_s": 1.743075700243935,
+    "stages": {
+     "worlds": [
+      0.222,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      1.743,
+      4,
+      1149
+     ]
+    },
+    "other_s": 0.2741235997527838
+   }
+  },
+  {
+   "ckpt": "112615140_432.pkl",
+   "lite": {
+    "seconds": 1.521726100007072,
+    "selected": null,
+    "rollouts": 4,
+    "turns": 718,
+    "rollout_s": 1.0632981999078766,
+    "stages": {
+     "worlds": [
+      0.184,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      1.063,
+      4,
+      718
+     ]
+    },
+    "other_s": 0.27464420010801405
+   },
+   "v9": {
+    "seconds": 6.441325099905953,
+    "selected": null,
+    "rollouts": 16,
+    "turns": 3732,
+    "rollout_s": 5.7079057997325435,
+    "stages": {
+     "worlds": [
+      0.452,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      1.675,
+      7,
+      1149
+     ],
+     "4-world(w1-3)": [
+      4.033,
+      9,
+      2583
+     ]
+    },
+    "other_s": 0.2817941001849249
+   }
+  },
+  {
+   "ckpt": "112616218_288.pkl",
+   "v9": {
+    "seconds": 10.538979700068012,
+    "selected": null,
+    "rollouts": 16,
+    "turns": 6178,
+    "rollout_s": 9.50925900018774,
+    "stages": {
+     "worlds": [
+      0.749,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      3.494,
+      7,
+      2299
+     ],
+     "4-world(w1-3)": [
+      6.016,
+      9,
+      3879
+     ]
+    },
+    "other_s": 0.2802928996970877
+   },
+   "lite": {
+    "seconds": 3.4623970000538975,
+    "selected": null,
+    "rollouts": 6,
+    "turns": 1868,
+    "rollout_s": 2.9332526999060065,
+    "stages": {
+     "worlds": [
+      0.255,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      2.933,
+      6,
+      1868
+     ]
+    },
+    "other_s": 0.27416290005203336
+   }
+  },
+  {
+   "ckpt": "112616218_360.pkl",
+   "lite": {
+    "seconds": 6.766432699980214,
+    "selected": 230,
+    "rollouts": 10,
+    "turns": 3590,
+    "rollout_s": 5.80831300013233,
+    "stages": {
+     "worlds": [
+      0.689,
+      4,
+      0
+     ],
+     "scout(w0)": [
+      2.336,
+      4,
+      1436
+     ],
+     "4-world(w1-3)": [
+      3.473,
+      6,
+      2154
+     ]
+    },
+    "other_s": 0.2694634998915717
+   },
+   "v9": {
+    "seconds": 14.809797400026582,
+    "selected": 230,
+    "rollouts": 24,
+    "turns": 8616,
+    "rollout_s": 13.981775000109337,
+    "stages": {
+     "worlds": [
+      0.547,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      4.119,
+      7,
+      2513
+     ],
+     "4-world(w1-3)": [
+      5.195,
+      9,
+      3231
+     ],
+     "8-world(w4-7)": [
+      4.667,
+      8,
+      2872
+     ]
+    },
+    "other_s": 0.2808194998651743
+   }
+  },
+  {
+   "ckpt": "112616218_432.pkl",
+   "v9": {
+    "seconds": 7.515083100064658,
+    "selected": null,
+    "rollouts": 16,
+    "turns": 3947,
+    "rollout_s": 6.4539282999467105,
+    "stages": {
+     "worlds": [
+      0.775,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      2.2,
+      7,
+      1364
+     ],
+     "4-world(w1-3)": [
+      4.254,
+      9,
+      2583
+     ]
+    },
+    "other_s": 0.28592620021663606
+   },
+   "lite": {
+    "seconds": 1.915378600009717,
+    "selected": null,
+    "rollouts": 3,
+    "turns": 861,
+    "rollout_s": 1.4586200999328867,
+    "stages": {
+     "worlds": [
+      0.18,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      1.459,
+      3,
+      861
+     ]
+    },
+    "other_s": 0.27653770009055734
+   }
+  },
+  {
+   "ckpt": "112616959_288.pkl",
+   "lite": {
+    "seconds": 9.130901099997573,
+    "selected": 89,
+    "rollouts": 12,
+    "turns": 5172,
+    "rollout_s": 8.490482199704275,
+    "stages": {
+     "worlds": [
+      0.364,
+      4,
+      0
+     ],
+     "scout(w0)": [
+      4.166,
+      6,
+      2586
+     ],
+     "4-world(w1-3)": [
+      4.325,
+      6,
+      2586
+     ]
+    },
+    "other_s": 0.2765278001315892
+   },
+   "v9": {
+    "seconds": 18.466417499934323,
+    "selected": 89,
+    "rollouts": 24,
+    "turns": 10344,
+    "rollout_s": 17.26820819976274,
+    "stages": {
+     "worlds": [
+      0.915,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      5.039,
+      7,
+      3017
+     ],
+     "4-world(w1-3)": [
+      6.392,
+      9,
+      3879
+     ],
+     "8-world(w4-7)": [
+      5.837,
+      8,
+      3448
+     ]
+    },
+    "other_s": 0.28331040032207966
+   }
+  },
+  {
+   "ckpt": "112616959_360.pkl",
+   "v9": {
+    "seconds": 6.230224000057206,
+    "selected": null,
+    "rollouts": 12,
+    "turns": 3160,
+    "rollout_s": 5.5327467997558415,
+    "stages": {
+     "worlds": [
+      0.412,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      1.76,
+      6,
+      1006
+     ],
+     "4-world(w1-3)": [
+      3.773,
+      6,
+      2154
+     ]
+    },
+    "other_s": 0.2851295005530119
+   },
+   "lite": {
+    "seconds": 1.5798789000837132,
+    "selected": null,
+    "rollouts": 3,
+    "turns": 503,
+    "rollout_s": 0.9944044000003487,
+    "stages": {
+     "worlds": [
+      0.284,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      0.994,
+      3,
+      503
+     ]
+    },
+    "other_s": 0.3013572000199929
+   }
+  },
+  {
+   "ckpt": "112616959_432.pkl",
+   "lite": {
+    "seconds": 0.2702452000230551,
+    "selected": null,
+    "rollouts": 0,
+    "turns": 0,
+    "rollout_s": 0,
+    "stages": {},
+    "other_s": 0.2702452000230551
+   },
+   "v9": {
+    "seconds": 4.778855200042017,
+    "selected": null,
+    "rollouts": 10,
+    "turns": 2440,
+    "rollout_s": 4.049519099993631,
+    "stages": {
+     "worlds": [
+      0.449,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      1.182,
+      4,
+      718
+     ],
+     "4-world(w1-3)": [
+      2.867,
+      6,
+      1722
+     ]
+    },
+    "other_s": 0.28056660015136003
+   }
+  },
+  {
+   "ckpt": "112617395_288.pkl",
+   "v9": {
+    "seconds": 19.339384499937296,
+    "selected": 307,
+    "rollouts": 24,
+    "turns": 9985,
+    "rollout_s": 18.403675700188614,
+    "stages": {
+     "worlds": [
+      0.655,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      4.758,
+      7,
+      2658
+     ],
+     "4-world(w1-3)": [
+      7.572,
+      9,
+      3879
+     ],
+     "8-world(w4-7)": [
+      6.074,
+      8,
+      3448
+     ]
+    },
+    "other_s": 0.28071519976947457
+   },
+   "lite": {
+    "seconds": 8.76589239994064,
+    "selected": 307,
+    "rollouts": 10,
+    "turns": 4310,
+    "rollout_s": 8.114071700139903,
+    "stages": {
+     "worlds": [
+      0.378,
+      4,
+      0
+     ],
+     "scout(w0)": [
+      3.243,
+      4,
+      1724
+     ],
+     "4-world(w1-3)": [
+      4.871,
+      6,
+      2586
+     ]
+    },
+    "other_s": 0.2737512997118756
+   }
+  },
+  {
+   "ckpt": "112617395_360.pkl",
+   "lite": {
+    "seconds": 0.27354800002649426,
+    "selected": null,
+    "rollouts": 0,
+    "turns": 0,
+    "rollout_s": 0,
+    "stages": {},
+    "other_s": 0.27354800002649426
+   },
+   "v9": {
+    "seconds": 8.585210699937306,
+    "selected": null,
+    "rollouts": 13,
+    "turns": 4380,
+    "rollout_s": 7.796834399690852,
+    "stages": {
+     "worlds": [
+      0.497,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      2.019,
+      4,
+      1149
+     ],
+     "4-world(w1-3)": [
+      5.778,
+      9,
+      3231
+     ]
+    },
+    "other_s": 0.29135910037439317
+   }
+  },
+  {
+   "ckpt": "112617395_432.pkl",
+   "v9": {
+    "seconds": 5.206946299993433,
+    "selected": null,
+    "rollouts": 11,
+    "turns": 2512,
+    "rollout_s": 4.3756565999938175,
+    "stages": {
+     "worlds": [
+      0.536,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      1.363,
+      5,
+      790
+     ],
+     "4-world(w1-3)": [
+      3.013,
+      6,
+      1722
+     ]
+    },
+    "other_s": 0.2956866999156773
+   },
+   "lite": {
+    "seconds": 1.1558297000592574,
+    "selected": null,
+    "rollouts": 2,
+    "turns": 359,
+    "rollout_s": 0.633421599981375,
+    "stages": {
+     "worlds": [
+      0.239,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      0.633,
+      2,
+      359
+     ]
+    },
+    "other_s": 0.2829087001737207
+   }
+  },
+  {
+   "ckpt": "112617649_288.pkl",
+   "lite": {
+    "seconds": 4.023692200076766,
+    "selected": null,
+    "rollouts": 5,
+    "turns": 2155,
+    "rollout_s": 3.328782600001432,
+    "stages": {
+     "worlds": [
+      0.424,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      3.329,
+      5,
+      2155
+     ]
+    },
+    "other_s": 0.271305900067091
+   },
+   "v9": {
+    "seconds": 11.547570199938491,
+    "selected": null,
+    "rollouts": 16,
+    "turns": 6537,
+    "rollout_s": 10.436217600130476,
+    "stages": {
+     "worlds": [
+      0.827,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      4.181,
+      7,
+      2658
+     ],
+     "4-world(w1-3)": [
+      6.255,
+      9,
+      3879
+     ]
+    },
+    "other_s": 0.28396049968432635
+   }
+  },
+  {
+   "ckpt": "112617649_360.pkl",
+   "v9": {
+    "seconds": 7.913427499937825,
+    "selected": null,
+    "rollouts": 16,
+    "turns": 4596,
+    "rollout_s": 6.9223401001654565,
+    "stages": {
+     "worlds": [
+      0.716,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      1.986,
+      7,
+      1365
+     ],
+     "4-world(w1-3)": [
+      4.937,
+      9,
+      3231
+     ]
+    },
+    "other_s": 0.2748788996832445
+   },
+   "lite": {
+    "seconds": 1.6041956000262871,
+    "selected": null,
+    "rollouts": 2,
+    "turns": 718,
+    "rollout_s": 1.0937671000137925,
+    "stages": {
+     "worlds": [
+      0.246,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      1.094,
+      2,
+      718
+     ]
+    },
+    "other_s": 0.2644190000137314
+   }
+  },
+  {
+   "ckpt": "112617649_432.pkl",
+   "lite": {
+    "seconds": 1.1193899000063539,
+    "selected": null,
+    "rollouts": 2,
+    "turns": 359,
+    "rollout_s": 0.5451941000064835,
+    "stages": {
+     "worlds": [
+      0.304,
+      1,
+      0
+     ],
+     "scout(w0)": [
+      0.545,
+      2,
+      359
+     ]
+    },
+    "other_s": 0.2706105000106618
+   },
+   "v9": {
+    "seconds": 4.605816500028595,
+    "selected": null,
+    "rollouts": 12,
+    "turns": 2584,
+    "rollout_s": 3.8568699999013916,
+    "stages": {
+     "worlds": [
+      0.472,
+      8,
+      0
+     ],
+     "scout(w0)": [
+      1.26,
+      6,
+      862
+     ],
+     "4-world(w1-3)": [
+      2.597,
+      6,
+      1722
+     ]
+    },
+    "other_s": 0.2772607998922467
+   }
+  }
+ ],
+ "first_lite_cold_s": 12.065244899946265,
+ "profile_cumulative": "         39032787 function calls (37079106 primitive calls) in 60.149 seconds\n\n   Ordered by: cumulative time\n   List reduced from 468 to 45 due to restriction <45>\n\n   ncalls  tottime  percall  cumtime  percall filename:lineno(function)\n        1    0.001    0.001   61.931   61.931 C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\value_tape_search_v8.py:67(choose)\n       13    0.001    0.000   59.097    4.546 C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\value_tape_search_v8.py:82(extend)\n       28    0.001    0.000   59.095    2.111 C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\value_tape_search_v7.py:54(rollout)\n       28    0.008    0.000   59.095    2.111 C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\value_tape_search_v5.py:126(rollout)\n       28    0.340    0.012   59.086    2.110 <scouting_rollout>:1(rollout)\n    12069    0.057    0.000   35.178    0.003 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:2778(mgt_kaggle_entry)\n    12069    1.564    0.000   35.121    0.003 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:2674(agent)\n    12069    0.027    0.000   24.486    0.002 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:1171(agent)\n    12069    0.107    0.000   24.459    0.002 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:916(agent)\n    12069    0.617    0.000   24.352    0.002 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:460(act)\n1289766/26497    4.467    0.000   10.311    0.000 C:\\Users\\xyygl\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\copy.py:118(deepcopy)\n42238/26322    0.493    0.000    9.813    0.000 C:\\Users\\xyygl\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\copy.py:217(_deepcopy_dict)\n357236/74595    1.412    0.000    8.214    0.000 C:\\Users\\xyygl\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\copy.py:191(_deepcopy_list)\n    10629    0.986    0.000    6.939    0.001 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:1053(_mgt_router)\n    12068    1.570    0.000    6.737    0.001 C:\\Users\\xyygl\\Documents\\kaggriculture\\.venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py:544(_process_market)\n     8620    0.030    0.000    5.184    0.001 C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\value_tape_search_v5.py:104(committed)\n  8558171    4.904    0.000    4.904    0.000 {method 'get' of 'dict' objects}\n    24136    3.015    0.000    4.683    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\.venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py:752(_decay_plants)\n   158145    1.579    0.000    4.386    0.000 <scouting_rollout>:21(unit)\n   336957    1.681    0.000    4.300    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\.venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py:192(market_price)\n173656/166526    0.975    0.000    4.222    0.000 {built-in method builtins.sum}\n    12069    1.568    0.000    4.033    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:517(_weed_repair)\n    12069    0.073    0.000    3.938    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:436(_route_action)\n    29185    0.489    0.000    3.757    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\.venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py:209(_refresh_prices)\n    12069    0.092    0.000    3.634    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:2068(_shp_decide)\n   178120    2.558    0.000    2.831    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\value_tape_search_v9.py:93(__call__)\n  7149909    2.640    0.000    2.711    0.000 {built-in method builtins.isinstance}\n       93    0.495    0.005    2.403    0.026 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:1989(_shp_field_tiles)\n      635    1.307    0.002    2.336    0.004 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:1208(_tc_simulate)\n        8    0.000    0.000    2.114    0.264 C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\value_tape_search_v9.py:129(_world)\n        8    0.000    0.000    2.114    0.264 C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\value_tape_search_v9.py:67(world)\n        8    0.026    0.003    2.114    0.264 C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\rival_trajectory_model_v3.py:59(world)\n      589    0.275    0.000    2.095    0.004 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:1618(_shp_topups)\n   673914    1.176    0.000    2.083    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\.venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py:61(_shape)\n   158145    1.120    0.000    2.068    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\.venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py:312(_apply_unit_action)\n  1886615    2.007    0.000    2.007    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:1105(<genexpr>)\n    12069    0.058    0.000    1.981    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:2193(_shp_daily_hire)\n    12068    0.165    0.000    1.819    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\.venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py:728(_town_consume)\n7924/2824    0.169    0.000    1.739    0.001 C:\\Users\\xyygl\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\copy.py:247(_reconstruct)\n    12069    0.947    0.000    1.663    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:381(__init__)\n     8898    0.641    0.000    1.620    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:2279(_shp_work)\n  1747986    1.386    0.000    1.451    0.000 {built-in method builtins.max}\n  3662287    1.442    0.000    1.442    0.000 {built-in method builtins.len}\n355896/1009    0.947    0.000    1.422    0.001 C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\value_tape_search_v5.py:25(observation_copy)\n   137180    0.613    0.000    1.386    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:330(_is_noop)\n\n\n",
+ "profile_tottime": "         39032787 function calls (37079106 primitive calls) in 60.149 seconds\n\n   Ordered by: internal time\n   List reduced from 468 to 30 due to restriction <30>\n\n   ncalls  tottime  percall  cumtime  percall filename:lineno(function)\n  8558171    4.904    0.000    4.904    0.000 {method 'get' of 'dict' objects}\n1289766/26497    4.467    0.000   10.311    0.000 C:\\Users\\xyygl\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\copy.py:118(deepcopy)\n    24136    3.015    0.000    4.683    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\.venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py:752(_decay_plants)\n  7149909    2.640    0.000    2.711    0.000 {built-in method builtins.isinstance}\n   178120    2.558    0.000    2.831    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\value_tape_search_v9.py:93(__call__)\n  1886615    2.007    0.000    2.007    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:1105(<genexpr>)\n   336957    1.681    0.000    4.300    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\.venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py:192(market_price)\n   158145    1.579    0.000    4.386    0.000 <scouting_rollout>:21(unit)\n    12068    1.570    0.000    6.737    0.001 C:\\Users\\xyygl\\Documents\\kaggriculture\\.venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py:544(_process_market)\n    12069    1.568    0.000    4.033    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:517(_weed_repair)\n    12069    1.564    0.000   35.121    0.003 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:2674(agent)\n  3662287    1.442    0.000    1.442    0.000 {built-in method builtins.len}\n357236/74595    1.412    0.000    8.214    0.000 C:\\Users\\xyygl\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\copy.py:191(_deepcopy_list)\n  1747986    1.386    0.000    1.451    0.000 {built-in method builtins.max}\n      635    1.307    0.002    2.336    0.004 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:1208(_tc_simulate)\n   673914    1.176    0.000    2.083    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\.venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py:61(_shape)\n   158145    1.120    0.000    2.068    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\.venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py:312(_apply_unit_action)\n    10629    0.986    0.000    6.939    0.001 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:1053(_mgt_router)\n173656/166526    0.975    0.000    4.222    0.000 {built-in method builtins.sum}\n355896/1009    0.947    0.000    1.422    0.001 C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\value_tape_search_v5.py:25(observation_copy)\n    12069    0.947    0.000    1.663    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:381(__init__)\n  2148516    0.778    0.000    0.778    0.000 {built-in method builtins.id}\n   506847    0.751    0.000    1.257    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:284(_get)\n  1368160    0.721    0.000    0.721    0.000 {method 'append' of 'list' objects}\n   407770    0.693    0.000    1.061    0.000 C:\\Users\\xyygl\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\copy.py:231(_keep_alive)\n     8898    0.641    0.000    1.620    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:2279(_shp_work)\n    12069    0.617    0.000   24.352    0.002 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:460(act)\n   137180    0.613    0.000    1.386    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:330(_is_noop)\n    12069    0.566    0.000    1.245    0.000 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:565(_projected_shed)\n       93    0.495    0.005    2.403    0.026 C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\mgt_y3.py:1989(_shp_field_tiles)\n\n\n"
+}
