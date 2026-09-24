@@ -260,3 +260,30 @@ restriction changes nothing (cross-family distances are already large). Leave-on
 measures imitating an unseen team; we follow these same teams in new worlds, so leave-one-game-out is the relevant
 test. Design consequence: two target modes in the planner, tile-level target boards through ~day 9 (opening and
 early game, retrieval), composition targets from ~day 12 (regression), laid onto our own board by the planner.
+
+## 13. The user's design rulings (2026-09-24 evening) and what they change
+User, verbatim: "The maintenance-patterns are to be studied both experimentally and semantically. Always maintain
+means minimum maintain that gives full production, and one thing you might overlook is where maintaining takes too
+much labor (penalized by the exponential cost) for example when in a harvest/planting spike we could skip. Layout:
+it's not something we are expecting to win from. It's a simpler way of handling things and don't need to learn the
+leaders' layouts again. If you have better way of placing tiles of course we can do that as well. For units planted
+per shop, this is exactly where we are learning? Though still I believe multithreading on extraction could lead to
+quicker results."
+
+**[E] Maintenance becomes two computable pieces, no learning:**
+1. *Minimum-sufficient schedule.* For every crop (by fertilised / unfertilised, by age) and animal (by production
+   day, care bank), the cheapest set of WATER / FEED / CARE / FERTILIZE visits that still gives FULL production,
+   measured directly with the engine (single-tile experiments), not inferred from replays. That is the default;
+   everything above it is wasted labour, everything below it loses yield.
+2. *Marginal-wage skip rule.* Hands cost fib(n) for the n-th hire of the day, so on a harvest or planting spike the
+   hand needed to also do all maintenance can cost more than the yield it protects. Skip condition: the marginal
+   hand's wage > the value of the lowest-value maintenance it would carry. It drops the cheapest MAINTENANCE, not the
+   whole hand (capping hires outright measured −3,857 at cap 11 because it deleted scripted work).
+The leaders' replayed maintenance (§2b) becomes a check on this calculus, not its source.
+
+**[F] Layout is dropped as a research target.** A centre-weighted default for routing convenience; improve it only
+if something better comes free. (The measured result agrees: a care-cost re-layout is worth nothing, §3 [F].)
+
+**[B] Units planted per shop is THE learning target.** More 3000+ games, harvested and extracted by several parallel
+threads, then the reveal-response analysis: what each leader plants / buys in the days after each shop reveal, per
+shop type, and when they commit relative to the reveal.
