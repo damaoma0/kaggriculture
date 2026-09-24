@@ -49,11 +49,41 @@ Report script: `scripts/report_opening_panel.py`. Frozen-opponent caveat as alwa
 Even perfectly executed, a 109-tape library carries the coverage handicap measured in
 `docs/losses_winners_coverage_20260923.md` (146 random Mother-Goose tapes: −3.2k against 584).
 
-## Why, in one line
-The leaders' opening is learnable as boards but not executable from recordings: their plans are coherent only
-together with their own adaptive, price-aware execution (budget-exact purchases, just-in-time seeds,
-over-requested hires). Our tape format captures the actions, not the adaptation, and our tapes' later plans depend
-on their own early investments.
+## Why it failed: two mechanical desynchronisations, not a measurement of the opening (traced 2026-09-24)
+
+`scripts/trace_opening_o1r.py` (day by day, `mgt_o1r` against `mgt_m1` in the same recorded world; `o1r_traces.json`):
+
+| day | world 110921861 (opening reproduced): o1r board vs DSM / vs its tape; failed commands o1r / m1; cash o1r / m1 | world 111828437 (opening broke): same columns |
+|---|---|---|
+| 1 | 0 / –; 2 / 0; 7 / 25 | 0 / –; 6 / 0; 2 / 22 (DSM had 6) |
+| 3 | 0 / –; 1 / 0 | 9 / –; 17 / 0 (a hand short since day 1) |
+| 6 | 0 / 0 at handoff (7-tile tape); 15 / 0 | 11 / 16 at handoff (fallback, no tape within 8); 53 / 0 |
+| 7-8 | – / 15-17; 22-29 / 0 | – / 42; 47-73 / 0; cows start dying |
+| 10 | revenue 9.3k / 17.8k (melon day) | revenue 3.1k / 16.1k |
+| 15-27 | – / 11-17; 23-36 a day / 3-4 | – / 40-64; 87-110 a day / 0; no cows left |
+| final | 107,883 / 137,122 (rival 66,748 / 44,707) | 26,482 / 169,131 (rival 202,734 / 167,809) |
+
+1. **The opening replay breaks on day 1 in most worlds (132 of 174 in the panel).** The recording is budget-exact:
+   a few coins of price drift (the opponent's own day-0 wheat buy) leave us 2 coins where DSM had 6, one hire fails,
+   every later hand gets the wrong commands, and the board is 9-11 tiles off DSM's by day 6. This is a replay
+   feasibility failure. The hire-trimmed + sell-when-short variant brings all 16 test openings within 8 tiles
+   (`scripts/opening_variant_probe.py`), which shows it is fixable mechanically.
+2. **Even a perfect opening desynchronises at the handoff.** Where the opening reproduced exactly (0 tiles from DSM
+   every day through 6), the tape's own commands fail from day 6 on (15-42 a day against 0) and our board drifts to
+   15-17 tiles from the tape within two days. Mother-Goose's day-6+ commands presuppose her own days 0-5: seeds and
+   feed stock she bought (we hold 0 / 0 / 1 seeds and 5 wheat against 9 / 3 / 4 and 20), pastures and cows at her
+   coordinates, melons at her tiles. Board labels within 8 tiles do not make the plan state compatible.
+3. **So −87k is desynchronisation, and the opening's value was never measured.** The average mixes the collapse
+   worlds (opening broke, fallback handoff: about −99k) and the clean-opening worlds (handoff desync: about −51k).
+   The DSM library (`mgt_dsm_a`, −7.1k) is the only coherent test (DSM opening + DSM continuation), and it is
+   contaminated by the same budget-exact replay (half the replays drift by day 12, 1 in 6 collapse).
+
+**Correction.** The earlier line "their plans are coherent only together with their own price-aware execution"
+overstated what was shown. What the evidence supports: (a) a closed-loop agent adjusts purchases and hires by a few
+coins to reach the same board (DSM's boards identical across games while its actions differ), so a recording is
+budget-exact and fragile; (b) grafting two plan families breaks on hidden state at the handoff. Both are execution /
+feasibility mechanics. Whether the leaders' PRODUCTION PLANS respond to prices is a separate question
+(`results/fresh/newphase_20260923/price_awareness/`).
 
 ## Does this machinery generalise into plan / semantics learning?
 - **Learning side: yes.** Boards are shop-driven (70-100% of count variance by day 9; `plan_jitter/summary.md`),
