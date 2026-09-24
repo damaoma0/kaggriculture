@@ -86,3 +86,10 @@ a much lower score than the team's established ~3000-rated one - see
 `scripts/topup_leader_tape_by_submission.py`). This extraction was run against the
 established >=3000-rated submission directory for every team; any other directories
 under `data/leader_tapes/<team_id>_*` were not extracted.
+
+## KNOWN ISSUE (found 2026-09-24 by the leader-agent thread): day offset in three fields
+`market.*`, `animals.bought` and `labour.hires_arrived` at index d are the events of day d+1 (index 0 holds days 0
+and 1): the extractor's hooks read a day counter that only updates at midnight. `board`, `planted`, `maintenance`,
+`hands_present`, `built`, `dug`, `harvested` are dated correctly. The data is NOT regenerated because
+`agents/mgt_lead.py` corrects for the shift; any other consumer must shift those three fields by one day.
+`openings.json` hire / purchase-per-day entries inherit the shift.
