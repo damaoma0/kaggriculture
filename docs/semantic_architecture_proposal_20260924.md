@@ -332,3 +332,23 @@ harvested, which keeps them alive until harvest (2 dry days make any live plant 
 "harvest now, then stop", not "stop watering". The cleanly avoidable part is CARE 3.9, FERTILIZE 5.8, FEED 2.9 a game.
 The rule is right and cheap to implement, but worth a few hundred coins a game at most; the leaders mostly follow it
 already. The larger lever remains the planting rule.
+
+## 15. Hold-one-out harness (user, 2026-09-24): which component carries the gap?
+User: "For the catastrophically failing semantic runs: can we do hold-one-out experiments? E.g. if we use the
+production plan exactly the same as a leader, how much discrepancy is there between us and them?"
+Design: in the leader's OWN recorded world (seed, forced shops, the opponent's recorded actions), swap exactly one
+component between the leader's version and ours, hold the rest fixed, and measure our cash against the leader's
+recorded cash, per-product revenue gaps, failed commands and per-day board divergence (isolation check: a swap must
+not break its neighbours, the failure mode of the opening graft). One-directional: the leaders are not replayable
+agents, so we can give US their component, not them ours. Harness `scripts/lead_ablation.py` (built on
+`scripts/lead_g1.py`); cells:
+- A baseline = G1: leader plan + leader tiles + leader sell schedule + our maintenance + our labour/dispatch.
+- B maintenance = leader's exact per-tile per-day WATER/FEED/CARE/FERTILIZE (splits policy from dispatch).
+- C market = ours (sell as it reaches the shed).  D hires = leader's exact.  E plan = ours (retrieval + count model,
+  this game held out of the corpus).  F layout = centre-weighted default (optional).
+- Reference row: y3 (tape replay) in the same 12 worlds (`scripts/extract_agent_semantics.py`).
+**The production-plan cell is already measured: it is G1.** With the leader's exact plan, tiles, sell schedule and
+hire counts, our execution reaches 0.757 of the leader's cash (0.747 without the collapsed-opponent game), with
+0 failed commands and the day-6 board within 0-1 tiles; the divergence after day 6 is our execution running late.
+So about a quarter of a leader's cash is lost in EXECUTION even with their plan: execution is the first priority,
+the planting rule is not. Cells B-F split that further.
