@@ -1,0 +1,18 @@
+mgt_v9lite = mgt_y3 + V9-lite at the reveals of days 12/15/18 (NOT SUBMITTED)
+Build: .venv/Scripts/python.exe scripts/package_v9lite.py submissions/2026-09-24-mgt_v9lite
+  -> pkg/ (185 files) and submission.tar.gz (8.88 MB; hashes in MANIFEST.json). Entry v9lite_agent, defined last.
+V9-lite (stream B, scripts/value_tape_search_lite.py) reuses V9's rollouts, worlds, cohort guard and admission rules;
+it skips the commit-to-native clone, drops shortlisted tapes with board Hamming > 12, expands only scouts > +350,
+expands the runner-up only if the best fails, and admits on 4 shop futures instead of 8. The package builds its
+private runtime in a background thread from step 2 and runs one warm rollout at step 240 (off the clock), freezes
+the GC heap during a search, and budgets min({288:30, 360:20, 432:20}[step], bank - 8 - 6 x later reveals).
+Tuning caveat: max_hamming=12 and lazy expansion were chosen on 33 decisions from 14 p2750 worlds (listed as the
+"dev" worlds in results/fresh/v9lite_20260924/); numbers excluding them are given.
+Results (Kaggle, 2026-09-24):
+  p2750, 185 games, 4 games per 4-vCPU kernel (pessimistic): +611 vs y3 (+342..+911), 32 better / 8 worse,
+    wins 87 -> 96; excluding the 14 dev worlds +314 (+120..+524) where the unbudgeted research V9 gets +191;
+    +917 vs m1. Searches: day 12 median 6.1 s (max 9.2), day 15 1.6 (max 6.3), day 18 0.9 (max 5.3); never hit the
+    budget; 0 errors in 555 searches; warm-up ~10.5 s + 2.4 s off the clock.
+  live V56, 20 seeds x 2 seats: +645 vs y3 (+89..+1,327), 6 better / 4 worse / 30 same; +941 vs m1; wins 27-13
+    (y3 29-11).
+Pending: 180 ladder worlds; isolated-directory timing of this package on Kaggle hardware.
