@@ -1,0 +1,8904 @@
+{
+ "engine": "data\\kaggriculture.py",
+ "last_step": 718,
+ "last_refresh_day": 28,
+ "verify_pure_vs_engine": {
+  "trials": 4000,
+  "mismatches": 0,
+  "examples": []
+ },
+ "crops": {
+  "WHEAT": {
+   "none": {
+    "crop": "WHEAT",
+    "fert_days": [],
+    "ref_units": 4,
+    "ref_waterings": 5,
+    "min_waterings": 4,
+    "n_min_schedules": 1,
+    "min_schedules": [
+     [
+      0,
+      2,
+      3,
+      4
+     ]
+    ],
+    "canonical_min": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "marginal": [
+     {
+      "age": 0,
+      "strict_units_lost": 4,
+      "strict_died_age": 0,
+      "repaired_units_lost": 4,
+      "repaired_extra_waterings": -4
+     },
+     {
+      "age": 2,
+      "strict_units_lost": 4,
+      "strict_died_age": 2,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 3,
+      "strict_units_lost": 1,
+      "strict_died_age": null,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": -1
+     },
+     {
+      "age": 4,
+      "strict_units_lost": 1,
+      "strict_died_age": null,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": -1
+     }
+    ],
+    "n_leaves": 23,
+    "harvest_age": 4
+   },
+   "timing_unfert": {
+    "harvest_at": [
+     {
+      "age": 2,
+      "hour": 3,
+      "units": 2,
+      "died_age": null
+     },
+     {
+      "age": 3,
+      "hour": 3,
+      "units": 3,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 3,
+      "units": 4,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 0,
+      "units": 4,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 1,
+      "units": 3,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 2,
+      "units": 3,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 3,
+      "units": 2,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 4,
+      "units": 2,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 6,
+      "units": 1,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 8,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 5,
+      "hour": 10,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 5,
+      "hour": 12,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 5,
+      "hour": 16,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 5,
+      "hour": 23,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 0,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 1,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 2,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 3,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 4,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 6,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 8,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 10,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 12,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 16,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 23,
+      "units": 0,
+      "died_age": 5
+     }
+    ]
+   },
+   "unfert_min_visits": {
+    "visits": 4,
+    "turns": 5,
+    "water": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "harvest": [
+     4
+    ]
+   },
+   "fert_best": {
+    "crop": "WHEAT",
+    "fert_days": [
+     2
+    ],
+    "ref_units": 6,
+    "ref_waterings": 5,
+    "min_waterings": 4,
+    "n_min_schedules": 1,
+    "min_schedules": [
+     [
+      0,
+      2,
+      3,
+      4
+     ]
+    ],
+    "canonical_min": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "marginal": [
+     {
+      "age": 0,
+      "strict_units_lost": 6,
+      "strict_died_age": 0,
+      "repaired_units_lost": 6,
+      "repaired_extra_waterings": -4
+     },
+     {
+      "age": 2,
+      "strict_units_lost": 6,
+      "strict_died_age": 2,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 3,
+      "strict_units_lost": 1,
+      "strict_died_age": null,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": -1
+     },
+     {
+      "age": 4,
+      "strict_units_lost": 1,
+      "strict_died_age": null,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": -1
+     }
+    ],
+    "n_leaves": 23,
+    "harvest_age": 4
+   },
+   "timing_fert": {
+    "harvest_at": [
+     {
+      "age": 2,
+      "hour": 3,
+      "units": 3,
+      "died_age": null
+     },
+     {
+      "age": 3,
+      "hour": 3,
+      "units": 5,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 3,
+      "units": 6,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 0,
+      "units": 6,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 1,
+      "units": 5,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 2,
+      "units": 5,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 3,
+      "units": 4,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 4,
+      "units": 4,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 6,
+      "units": 3,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 8,
+      "units": 2,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 10,
+      "units": 1,
+      "died_age": null
+     },
+     {
+      "age": 5,
+      "hour": 12,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 5,
+      "hour": 16,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 5,
+      "hour": 23,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 0,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 1,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 2,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 3,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 4,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 6,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 8,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 10,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 12,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 16,
+      "units": 0,
+      "died_age": 5
+     },
+     {
+      "age": 6,
+      "hour": 23,
+      "units": 0,
+      "died_age": 5
+     }
+    ]
+   },
+   "fert_min_visits": {
+    "visits": 4,
+    "turns": 6,
+    "water": [
+     0,
+     2,
+     3,
+     4
+    ],
+    "harvest": [
+     4
+    ]
+   },
+   "fert_best_all_plans": [
+    {
+     "fert_days": [
+      1
+     ],
+     "ref_units": 6,
+     "min_waterings": 4,
+     "ref_waterings": 5,
+     "timing": 4
+    },
+    {
+     "fert_days": [
+      2
+     ],
+     "ref_units": 6,
+     "min_waterings": 4,
+     "ref_waterings": 5,
+     "timing": 4
+    },
+    {
+     "fert_days": [
+      3
+     ],
+     "ref_units": 6,
+     "min_waterings": 4,
+     "ref_waterings": 5,
+     "timing": 4
+    }
+   ],
+   "fert_single_by_day": [
+    {
+     "day": 0,
+     "units": 5,
+     "min_waterings": 4
+    },
+    {
+     "day": 1,
+     "units": 6,
+     "min_waterings": 4
+    },
+    {
+     "day": 2,
+     "units": 6,
+     "min_waterings": 4
+    },
+    {
+     "day": 3,
+     "units": 6,
+     "min_waterings": 4
+    },
+    {
+     "day": 4,
+     "units": 5,
+     "min_waterings": 4
+    }
+   ],
+   "pure_dp_unfert": {
+    "units": 4,
+    "waters": 4,
+    "visits": 4,
+    "plan": [
+     [
+      0,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      2,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      3,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      4,
+      [
+       "WATER",
+       "HARVEST"
+      ],
+      4
+     ]
+    ]
+   },
+   "pure_dp_fert": {
+    "units": 6,
+    "waters": 4,
+    "ferts": 1,
+    "visits": 4,
+    "plan": [
+     [
+      0,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      2,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      3,
+      [
+       "WATER",
+       "FERTILIZE"
+      ],
+      0
+     ],
+     [
+      4,
+      [
+       "WATER",
+       "HARVEST"
+      ],
+      6
+     ]
+    ]
+   },
+   "planting_table": [
+    {
+     "P": 0,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 1,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 2,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 3,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 4,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 5,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 6,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 7,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 8,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 9,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 10,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 11,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 12,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 13,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 14,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 15,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 16,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 17,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 18,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 19,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 20,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 21,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 22,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 23,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 24,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 25,
+     "units": 4,
+     "visits": 4,
+     "waters": 4,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 26,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 5,
+     "ferts": 1
+    },
+    {
+     "P": 27,
+     "units": 2,
+     "visits": 2,
+     "waters": 2,
+     "units_fert": 3,
+     "ferts": 1
+    },
+    {
+     "P": 28,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 29,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    }
+   ],
+   "last_P_full": 25,
+   "last_P_full_fert": 25,
+   "last_P_any": 27,
+   "late_engine_check": {
+    "P": 25,
+    "units": 4,
+    "harvests": [
+     [
+      4,
+      4
+     ]
+    ]
+   },
+   "three_waterings": {
+    "0_2_3_harvest3": {
+     "units": 3,
+     "harvests": [
+      [
+       3,
+       3
+      ]
+     ],
+     "died_age": null
+    },
+    "0_2_4_harvest4": {
+     "units": 3,
+     "harvests": [
+      [
+       4,
+       3
+      ]
+     ],
+     "died_age": null
+    }
+   }
+  },
+  "CARROT": {
+   "none": {
+    "crop": "CARROT",
+    "fert_days": [],
+    "ref_units": 3,
+    "ref_waterings": 4,
+    "min_waterings": 3,
+    "n_min_schedules": 1,
+    "min_schedules": [
+     [
+      0,
+      2,
+      3
+     ]
+    ],
+    "canonical_min": [
+     0,
+     2,
+     3
+    ],
+    "marginal": [
+     {
+      "age": 0,
+      "strict_units_lost": 3,
+      "strict_died_age": 0,
+      "repaired_units_lost": 3,
+      "repaired_extra_waterings": -3
+     },
+     {
+      "age": 2,
+      "strict_units_lost": 3,
+      "strict_died_age": 2,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 3,
+      "strict_units_lost": 1,
+      "strict_died_age": null,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": -1
+     }
+    ],
+    "n_leaves": 12,
+    "harvest_age": 3
+   },
+   "timing_unfert": {
+    "harvest_at": [
+     {
+      "age": 2,
+      "hour": 3,
+      "units": 2,
+      "died_age": null
+     },
+     {
+      "age": 3,
+      "hour": 3,
+      "units": 3,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 0,
+      "units": 3,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 1,
+      "units": 2,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 2,
+      "units": 2,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 3,
+      "units": 1,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 4,
+      "units": 1,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 6,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 4,
+      "hour": 8,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 4,
+      "hour": 10,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 4,
+      "hour": 12,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 4,
+      "hour": 16,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 4,
+      "hour": 23,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 0,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 1,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 2,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 3,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 4,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 6,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 8,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 10,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 12,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 16,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 23,
+      "units": 0,
+      "died_age": 4
+     }
+    ]
+   },
+   "unfert_min_visits": {
+    "visits": 3,
+    "turns": 4,
+    "water": [
+     0,
+     2,
+     3
+    ],
+    "harvest": [
+     3
+    ]
+   },
+   "fert_best": {
+    "crop": "CARROT",
+    "fert_days": [
+     0
+    ],
+    "ref_units": 4,
+    "ref_waterings": 4,
+    "min_waterings": 3,
+    "n_min_schedules": 1,
+    "min_schedules": [
+     [
+      0,
+      2,
+      3
+     ]
+    ],
+    "canonical_min": [
+     0,
+     2,
+     3
+    ],
+    "marginal": [
+     {
+      "age": 0,
+      "strict_units_lost": 4,
+      "strict_died_age": 0,
+      "repaired_units_lost": 4,
+      "repaired_extra_waterings": -3
+     },
+     {
+      "age": 2,
+      "strict_units_lost": 4,
+      "strict_died_age": 2,
+      "repaired_units_lost": 2,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 3,
+      "strict_units_lost": 1,
+      "strict_died_age": null,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": -1
+     }
+    ],
+    "n_leaves": 12,
+    "harvest_age": 3
+   },
+   "timing_fert": {
+    "harvest_at": [
+     {
+      "age": 2,
+      "hour": 3,
+      "units": 3,
+      "died_age": null
+     },
+     {
+      "age": 3,
+      "hour": 3,
+      "units": 4,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 0,
+      "units": 4,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 1,
+      "units": 3,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 2,
+      "units": 3,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 3,
+      "units": 2,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 4,
+      "units": 2,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 6,
+      "units": 1,
+      "died_age": null
+     },
+     {
+      "age": 4,
+      "hour": 8,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 4,
+      "hour": 10,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 4,
+      "hour": 12,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 4,
+      "hour": 16,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 4,
+      "hour": 23,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 0,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 1,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 2,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 3,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 4,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 6,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 8,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 10,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 12,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 16,
+      "units": 0,
+      "died_age": 4
+     },
+     {
+      "age": 5,
+      "hour": 23,
+      "units": 0,
+      "died_age": 4
+     }
+    ]
+   },
+   "fert_min_visits": {
+    "visits": 3,
+    "turns": 5,
+    "water": [
+     0,
+     2,
+     3
+    ],
+    "harvest": [
+     3
+    ]
+   },
+   "fert_best_all_plans": [
+    {
+     "fert_days": [
+      0
+     ],
+     "ref_units": 4,
+     "min_waterings": 3,
+     "ref_waterings": 4,
+     "timing": 3
+    },
+    {
+     "fert_days": [
+      1
+     ],
+     "ref_units": 4,
+     "min_waterings": 3,
+     "ref_waterings": 4,
+     "timing": 3
+    },
+    {
+     "fert_days": [
+      2
+     ],
+     "ref_units": 4,
+     "min_waterings": 3,
+     "ref_waterings": 4,
+     "timing": 3
+    },
+    {
+     "fert_days": [
+      3
+     ],
+     "ref_units": 4,
+     "min_waterings": 3,
+     "ref_waterings": 4,
+     "timing": 3
+    }
+   ],
+   "fert_single_by_day": [
+    {
+     "day": 0,
+     "units": 4,
+     "min_waterings": 3
+    },
+    {
+     "day": 1,
+     "units": 4,
+     "min_waterings": 3
+    },
+    {
+     "day": 2,
+     "units": 4,
+     "min_waterings": 3
+    },
+    {
+     "day": 3,
+     "units": 4,
+     "min_waterings": 3
+    }
+   ],
+   "pure_dp_unfert": {
+    "units": 3,
+    "waters": 3,
+    "visits": 3,
+    "plan": [
+     [
+      0,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      2,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      3,
+      [
+       "WATER",
+       "HARVEST"
+      ],
+      3
+     ]
+    ]
+   },
+   "pure_dp_fert": {
+    "units": 4,
+    "waters": 3,
+    "ferts": 1,
+    "visits": 3,
+    "plan": [
+     [
+      0,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      2,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      3,
+      [
+       "WATER",
+       "FERTILIZE",
+       "HARVEST"
+      ],
+      4
+     ]
+    ]
+   },
+   "planting_table": [
+    {
+     "P": 0,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 1,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 2,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 3,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 4,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 5,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 6,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 7,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 8,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 9,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 10,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 11,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 12,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 13,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 14,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 15,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 16,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 17,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 18,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 19,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 20,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 21,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 22,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 23,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 24,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 25,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 26,
+     "units": 3,
+     "visits": 3,
+     "waters": 3,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 27,
+     "units": 2,
+     "visits": 2,
+     "waters": 2,
+     "units_fert": 3,
+     "ferts": 1
+    },
+    {
+     "P": 28,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 29,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    }
+   ],
+   "last_P_full": 26,
+   "last_P_full_fert": 26,
+   "last_P_any": 27,
+   "late_engine_check": {
+    "P": 26,
+    "units": 3,
+    "harvests": [
+     [
+      3,
+      3
+     ]
+    ]
+   }
+  },
+  "TOMATO": {
+   "none": {
+    "crop": "TOMATO",
+    "fert_days": [],
+    "ref_units": 4,
+    "ref_waterings": 11,
+    "min_waterings": 6,
+    "n_min_schedules": 6,
+    "min_schedules": [
+     [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9
+     ],
+     [
+      0,
+      2,
+      3,
+      5,
+      7,
+      9
+     ],
+     [
+      0,
+      2,
+      4,
+      5,
+      7,
+      9
+     ],
+     [
+      0,
+      2,
+      4,
+      6,
+      7,
+      9
+     ],
+     [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9
+     ],
+     [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+     ]
+    ],
+    "canonical_min": [
+     0,
+     2,
+     4,
+     6,
+     8,
+     10
+    ],
+    "marginal": [
+     {
+      "age": 0,
+      "strict_units_lost": 4,
+      "strict_died_age": 0,
+      "repaired_units_lost": 4,
+      "repaired_extra_waterings": -6
+     },
+     {
+      "age": 2,
+      "strict_units_lost": 4,
+      "strict_died_age": 2,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 4,
+      "strict_units_lost": 4,
+      "strict_died_age": 4,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 6,
+      "strict_units_lost": 4,
+      "strict_died_age": 6,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 8,
+      "strict_units_lost": 3,
+      "strict_died_age": 8,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 10,
+      "strict_units_lost": 1,
+      "strict_died_age": 10,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     }
+    ],
+    "n_leaves": 233,
+    "production": [
+     [
+      8,
+      1
+     ],
+     [
+      9,
+      1
+     ],
+     [
+      10,
+      1
+     ],
+     [
+      11,
+      1
+     ]
+    ]
+   },
+   "timing_unfert": {
+    "min_harvest_sets": [
+     [
+      11
+     ]
+    ],
+    "full_units": 4,
+    "min_harvests": 1,
+    "skip_harvest": [
+     {
+      "age": 11,
+      "units_lost": 4
+     }
+    ],
+    "final_harvest_at": [
+     {
+      "age": 11,
+      "hour": 3,
+      "units": 4
+     },
+     {
+      "age": 12,
+      "hour": 0,
+      "units": 4
+     },
+     {
+      "age": 12,
+      "hour": 1,
+      "units": 3
+     },
+     {
+      "age": 12,
+      "hour": 2,
+      "units": 3
+     },
+     {
+      "age": 12,
+      "hour": 3,
+      "units": 2
+     },
+     {
+      "age": 12,
+      "hour": 4,
+      "units": 2
+     },
+     {
+      "age": 12,
+      "hour": 6,
+      "units": 1
+     },
+     {
+      "age": 12,
+      "hour": 8,
+      "units": 0
+     },
+     {
+      "age": 12,
+      "hour": 12,
+      "units": 0
+     },
+     {
+      "age": 12,
+      "hour": 23,
+      "units": 0
+     },
+     {
+      "age": 13,
+      "hour": 0,
+      "units": 0
+     },
+     {
+      "age": 13,
+      "hour": 1,
+      "units": 0
+     },
+     {
+      "age": 13,
+      "hour": 2,
+      "units": 0
+     },
+     {
+      "age": 13,
+      "hour": 3,
+      "units": 0
+     },
+     {
+      "age": 13,
+      "hour": 4,
+      "units": 0
+     },
+     {
+      "age": 13,
+      "hour": 6,
+      "units": 0
+     },
+     {
+      "age": 13,
+      "hour": 8,
+      "units": 0
+     },
+     {
+      "age": 13,
+      "hour": 12,
+      "units": 0
+     },
+     {
+      "age": 13,
+      "hour": 23,
+      "units": 0
+     }
+    ]
+   },
+   "unfert_min_visits": {
+    "visits": 7,
+    "turns": 7,
+    "water": [
+     0,
+     1,
+     3,
+     5,
+     7,
+     9
+    ],
+    "harvest": [
+     11
+    ]
+   },
+   "fert_best": {
+    "crop": "TOMATO",
+    "fert_days": [
+     5,
+     8
+    ],
+    "ref_units": 8,
+    "ref_waterings": 11,
+    "min_waterings": 8,
+    "n_min_schedules": 4,
+    "min_schedules": [
+     [
+      0,
+      1,
+      3,
+      5,
+      7,
+      8,
+      9,
+      10
+     ],
+     [
+      0,
+      2,
+      3,
+      5,
+      7,
+      8,
+      9,
+      10
+     ],
+     [
+      0,
+      2,
+      4,
+      5,
+      7,
+      8,
+      9,
+      10
+     ],
+     [
+      0,
+      2,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10
+     ]
+    ],
+    "canonical_min": [
+     0,
+     2,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "marginal": [
+     {
+      "age": 0,
+      "strict_units_lost": 8,
+      "strict_died_age": 0,
+      "repaired_units_lost": 8,
+      "repaired_extra_waterings": -8
+     },
+     {
+      "age": 2,
+      "strict_units_lost": 8,
+      "strict_died_age": 2,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 4,
+      "strict_units_lost": 8,
+      "strict_died_age": 4,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 6,
+      "strict_units_lost": 8,
+      "strict_died_age": 6,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 7,
+      "strict_units_lost": 1,
+      "strict_died_age": null,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": -1
+     },
+     {
+      "age": 8,
+      "strict_units_lost": 1,
+      "strict_died_age": null,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": -1
+     },
+     {
+      "age": 9,
+      "strict_units_lost": 1,
+      "strict_died_age": null,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": -1
+     },
+     {
+      "age": 10,
+      "strict_units_lost": 1,
+      "strict_died_age": 11,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": -1
+     }
+    ],
+    "n_leaves": 233,
+    "production": [
+     [
+      8,
+      2
+     ],
+     [
+      9,
+      2
+     ],
+     [
+      10,
+      2
+     ],
+     [
+      11,
+      2
+     ]
+    ]
+   },
+   "timing_fert": {
+    "min_harvest_sets": [
+     [
+      9,
+      11
+     ]
+    ],
+    "full_units": 8,
+    "min_harvests": 2,
+    "skip_harvest": [
+     {
+      "age": 9,
+      "units_lost": 4
+     },
+     {
+      "age": 11,
+      "units_lost": 4
+     }
+    ],
+    "final_harvest_at": [
+     {
+      "age": 11,
+      "hour": 3,
+      "units": 8
+     },
+     {
+      "age": 12,
+      "hour": 0,
+      "units": 8
+     },
+     {
+      "age": 12,
+      "hour": 1,
+      "units": 7
+     },
+     {
+      "age": 12,
+      "hour": 2,
+      "units": 7
+     },
+     {
+      "age": 12,
+      "hour": 3,
+      "units": 6
+     },
+     {
+      "age": 12,
+      "hour": 4,
+      "units": 6
+     },
+     {
+      "age": 12,
+      "hour": 6,
+      "units": 5
+     },
+     {
+      "age": 12,
+      "hour": 8,
+      "units": 4
+     },
+     {
+      "age": 12,
+      "hour": 12,
+      "units": 4
+     },
+     {
+      "age": 12,
+      "hour": 23,
+      "units": 4
+     },
+     {
+      "age": 13,
+      "hour": 0,
+      "units": 4
+     },
+     {
+      "age": 13,
+      "hour": 1,
+      "units": 4
+     },
+     {
+      "age": 13,
+      "hour": 2,
+      "units": 4
+     },
+     {
+      "age": 13,
+      "hour": 3,
+      "units": 4
+     },
+     {
+      "age": 13,
+      "hour": 4,
+      "units": 4
+     },
+     {
+      "age": 13,
+      "hour": 6,
+      "units": 4
+     },
+     {
+      "age": 13,
+      "hour": 8,
+      "units": 4
+     },
+     {
+      "age": 13,
+      "hour": 12,
+      "units": 4
+     },
+     {
+      "age": 13,
+      "hour": 23,
+      "units": 4
+     }
+    ]
+   },
+   "fert_min_visits": {
+    "visits": 9,
+    "turns": 12,
+    "water": [
+     0,
+     1,
+     3,
+     5,
+     7,
+     8,
+     9,
+     10
+    ],
+    "harvest": [
+     9,
+     11
+    ]
+   },
+   "fert_best_all_plans": [
+    {
+     "fert_days": [
+      5,
+      8
+     ],
+     "ref_units": 8,
+     "min_waterings": 8,
+     "ref_waterings": 11,
+     "timing": [
+      [
+       8,
+       2
+      ],
+      [
+       9,
+       2
+      ],
+      [
+       10,
+       2
+      ],
+      [
+       11,
+       2
+      ]
+     ]
+    },
+    {
+     "fert_days": [
+      6,
+      8
+     ],
+     "ref_units": 8,
+     "min_waterings": 8,
+     "ref_waterings": 11,
+     "timing": [
+      [
+       8,
+       2
+      ],
+      [
+       9,
+       2
+      ],
+      [
+       10,
+       2
+      ],
+      [
+       11,
+       2
+      ]
+     ]
+    },
+    {
+     "fert_days": [
+      6,
+      9
+     ],
+     "ref_units": 8,
+     "min_waterings": 8,
+     "ref_waterings": 11,
+     "timing": [
+      [
+       8,
+       2
+      ],
+      [
+       9,
+       2
+      ],
+      [
+       10,
+       2
+      ],
+      [
+       11,
+       2
+      ]
+     ]
+    },
+    {
+     "fert_days": [
+      7,
+      8
+     ],
+     "ref_units": 8,
+     "min_waterings": 8,
+     "ref_waterings": 11,
+     "timing": [
+      [
+       8,
+       2
+      ],
+      [
+       9,
+       2
+      ],
+      [
+       10,
+       2
+      ],
+      [
+       11,
+       2
+      ]
+     ]
+    },
+    {
+     "fert_days": [
+      7,
+      9
+     ],
+     "ref_units": 8,
+     "min_waterings": 8,
+     "ref_waterings": 11,
+     "timing": [
+      [
+       8,
+       2
+      ],
+      [
+       9,
+       2
+      ],
+      [
+       10,
+       2
+      ],
+      [
+       11,
+       2
+      ]
+     ]
+    },
+    {
+     "fert_days": [
+      7,
+      10
+     ],
+     "ref_units": 8,
+     "min_waterings": 8,
+     "ref_waterings": 11,
+     "timing": [
+      [
+       8,
+       2
+      ],
+      [
+       9,
+       2
+      ],
+      [
+       10,
+       2
+      ],
+      [
+       11,
+       2
+      ]
+     ]
+    }
+   ],
+   "fert_single_by_day": [
+    {
+     "day": 0,
+     "units": 4,
+     "min_waterings": 6
+    },
+    {
+     "day": 1,
+     "units": 4,
+     "min_waterings": 6
+    },
+    {
+     "day": 2,
+     "units": 4,
+     "min_waterings": 6
+    },
+    {
+     "day": 3,
+     "units": 4,
+     "min_waterings": 6
+    },
+    {
+     "day": 4,
+     "units": 4,
+     "min_waterings": 6
+    },
+    {
+     "day": 5,
+     "units": 5,
+     "min_waterings": 6
+    },
+    {
+     "day": 6,
+     "units": 6,
+     "min_waterings": 7
+    },
+    {
+     "day": 7,
+     "units": 7,
+     "min_waterings": 7
+    },
+    {
+     "day": 8,
+     "units": 7,
+     "min_waterings": 7
+    },
+    {
+     "day": 9,
+     "units": 6,
+     "min_waterings": 7
+    },
+    {
+     "day": 10,
+     "units": 5,
+     "min_waterings": 6
+    }
+   ],
+   "pure_dp_unfert": {
+    "units": 4,
+    "waters": 6,
+    "visits": 7,
+    "plan": [
+     [
+      0,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      2,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      4,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      6,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      8,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      10,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      11,
+      [
+       "HARVEST"
+      ],
+      4
+     ]
+    ]
+   },
+   "pure_dp_fert": {
+    "units": 8,
+    "waters": 8,
+    "ferts": 2,
+    "visits": 9,
+    "plan": [
+     [
+      0,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      2,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      4,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      6,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      7,
+      [
+       "WATER",
+       "FERTILIZE"
+      ],
+      0
+     ],
+     [
+      8,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      9,
+      [
+       "WATER",
+       "HARVEST"
+      ],
+      4
+     ],
+     [
+      10,
+      [
+       "WATER",
+       "FERTILIZE"
+      ],
+      0
+     ],
+     [
+      11,
+      [
+       "HARVEST"
+      ],
+      4
+     ]
+    ]
+   },
+   "planting_table": [
+    {
+     "P": 0,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 1,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 2,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 3,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 4,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 5,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 6,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 7,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 8,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 9,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 10,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 11,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 12,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 13,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 14,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 15,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 16,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 17,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 18,
+     "units": 4,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 19,
+     "units": 3,
+     "visits": 6,
+     "waters": 5,
+     "units_fert": 6,
+     "ferts": 1
+    },
+    {
+     "P": 20,
+     "units": 2,
+     "visits": 6,
+     "waters": 5,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 21,
+     "units": 1,
+     "visits": 5,
+     "waters": 4,
+     "units_fert": 2,
+     "ferts": 1
+    },
+    {
+     "P": 22,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 23,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 24,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 25,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 26,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 27,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 28,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 29,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    }
+   ],
+   "last_P_full": 18,
+   "last_P_full_fert": 18,
+   "last_P_any": 21,
+   "late_engine_check": {
+    "P": 18,
+    "units": 4,
+    "harvests": [
+     [
+      8,
+      1
+     ],
+     [
+      9,
+      1
+     ],
+     [
+      10,
+      1
+     ],
+     [
+      11,
+      1
+     ]
+    ]
+   }
+  },
+  "STRAWBERRY": {
+   "none": {
+    "crop": "STRAWBERRY",
+    "fert_days": [],
+    "ref_units": 4,
+    "ref_waterings": 16,
+    "min_waterings": 8,
+    "n_min_schedules": 1,
+    "min_schedules": [
+     [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10,
+      12,
+      14
+     ]
+    ],
+    "canonical_min": [
+     0,
+     2,
+     4,
+     6,
+     8,
+     10,
+     12,
+     14
+    ],
+    "marginal": [
+     {
+      "age": 0,
+      "strict_units_lost": 4,
+      "strict_died_age": 0,
+      "repaired_units_lost": 4,
+      "repaired_extra_waterings": -8
+     },
+     {
+      "age": 2,
+      "strict_units_lost": 4,
+      "strict_died_age": 2,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 1
+     },
+     {
+      "age": 4,
+      "strict_units_lost": 4,
+      "strict_died_age": 4,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 1
+     },
+     {
+      "age": 6,
+      "strict_units_lost": 4,
+      "strict_died_age": 6,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 1
+     },
+     {
+      "age": 8,
+      "strict_units_lost": 4,
+      "strict_died_age": 8,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 1
+     },
+     {
+      "age": 10,
+      "strict_units_lost": 3,
+      "strict_died_age": 10,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 1
+     },
+     {
+      "age": 12,
+      "strict_units_lost": 2,
+      "strict_died_age": 12,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 1
+     },
+     {
+      "age": 14,
+      "strict_units_lost": 1,
+      "strict_died_age": 14,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 1
+     }
+    ],
+    "n_leaves": 2584,
+    "production": [
+     [
+      10,
+      1
+     ],
+     [
+      12,
+      1
+     ],
+     [
+      14,
+      1
+     ],
+     [
+      16,
+      1
+     ]
+    ]
+   },
+   "timing_unfert": {
+    "min_harvest_sets": [
+     [
+      16
+     ]
+    ],
+    "full_units": 4,
+    "min_harvests": 1,
+    "skip_harvest": [
+     {
+      "age": 16,
+      "units_lost": 4
+     }
+    ],
+    "final_harvest_at": [
+     {
+      "age": 16,
+      "hour": 3,
+      "units": 4
+     },
+     {
+      "age": 17,
+      "hour": 0,
+      "units": 0
+     },
+     {
+      "age": 17,
+      "hour": 1,
+      "units": 0
+     },
+     {
+      "age": 17,
+      "hour": 2,
+      "units": 0
+     },
+     {
+      "age": 17,
+      "hour": 3,
+      "units": 0
+     },
+     {
+      "age": 17,
+      "hour": 4,
+      "units": 0
+     },
+     {
+      "age": 17,
+      "hour": 6,
+      "units": 0
+     },
+     {
+      "age": 17,
+      "hour": 8,
+      "units": 0
+     },
+     {
+      "age": 17,
+      "hour": 12,
+      "units": 0
+     },
+     {
+      "age": 17,
+      "hour": 23,
+      "units": 0
+     },
+     {
+      "age": 18,
+      "hour": 0,
+      "units": 0
+     },
+     {
+      "age": 18,
+      "hour": 1,
+      "units": 0
+     },
+     {
+      "age": 18,
+      "hour": 2,
+      "units": 0
+     },
+     {
+      "age": 18,
+      "hour": 3,
+      "units": 0
+     },
+     {
+      "age": 18,
+      "hour": 4,
+      "units": 0
+     },
+     {
+      "age": 18,
+      "hour": 6,
+      "units": 0
+     },
+     {
+      "age": 18,
+      "hour": 8,
+      "units": 0
+     },
+     {
+      "age": 18,
+      "hour": 12,
+      "units": 0
+     },
+     {
+      "age": 18,
+      "hour": 23,
+      "units": 0
+     }
+    ]
+   },
+   "unfert_min_visits": {
+    "visits": 9,
+    "turns": 9,
+    "water": [
+     0,
+     2,
+     4,
+     6,
+     8,
+     10,
+     12,
+     14
+    ],
+    "harvest": [
+     16
+    ]
+   },
+   "fert_best": {
+    "crop": "STRAWBERRY",
+    "fert_days": [
+     9,
+     13
+    ],
+    "ref_units": 8,
+    "ref_waterings": 16,
+    "min_waterings": 9,
+    "n_min_schedules": 5,
+    "min_schedules": [
+     [
+      0,
+      1,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15
+     ],
+     [
+      0,
+      2,
+      3,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15
+     ],
+     [
+      0,
+      2,
+      4,
+      5,
+      7,
+      9,
+      11,
+      13,
+      15
+     ],
+     [
+      0,
+      2,
+      4,
+      6,
+      7,
+      9,
+      11,
+      13,
+      15
+     ],
+     [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9,
+      11,
+      13,
+      15
+     ]
+    ],
+    "canonical_min": [
+     0,
+     2,
+     4,
+     6,
+     8,
+     9,
+     11,
+     13,
+     15
+    ],
+    "marginal": [
+     {
+      "age": 0,
+      "strict_units_lost": 8,
+      "strict_died_age": 0,
+      "repaired_units_lost": 8,
+      "repaired_extra_waterings": -9
+     },
+     {
+      "age": 2,
+      "strict_units_lost": 8,
+      "strict_died_age": 2,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 4,
+      "strict_units_lost": 8,
+      "strict_died_age": 4,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 6,
+      "strict_units_lost": 8,
+      "strict_died_age": 6,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 8,
+      "strict_units_lost": 8,
+      "strict_died_age": 8,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 9,
+      "strict_units_lost": 7,
+      "strict_died_age": 10,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 11,
+      "strict_units_lost": 6,
+      "strict_died_age": 11,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": 1
+     },
+     {
+      "age": 13,
+      "strict_units_lost": 4,
+      "strict_died_age": 13,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": 1
+     },
+     {
+      "age": 15,
+      "strict_units_lost": 2,
+      "strict_died_age": 15,
+      "repaired_units_lost": 1,
+      "repaired_extra_waterings": 0
+     }
+    ],
+    "n_leaves": 2584,
+    "production": [
+     [
+      10,
+      2
+     ],
+     [
+      12,
+      2
+     ],
+     [
+      14,
+      2
+     ],
+     [
+      16,
+      2
+     ]
+    ]
+   },
+   "timing_fert": {
+    "min_harvest_sets": [
+     [
+      12,
+      16
+     ],
+     [
+      13,
+      16
+     ]
+    ],
+    "full_units": 8,
+    "min_harvests": 2,
+    "skip_harvest": [
+     {
+      "age": 12,
+      "units_lost": 4
+     },
+     {
+      "age": 16,
+      "units_lost": 4
+     }
+    ],
+    "final_harvest_at": [
+     {
+      "age": 16,
+      "hour": 3,
+      "units": 8
+     },
+     {
+      "age": 17,
+      "hour": 0,
+      "units": 8
+     },
+     {
+      "age": 17,
+      "hour": 1,
+      "units": 7
+     },
+     {
+      "age": 17,
+      "hour": 2,
+      "units": 7
+     },
+     {
+      "age": 17,
+      "hour": 3,
+      "units": 6
+     },
+     {
+      "age": 17,
+      "hour": 4,
+      "units": 6
+     },
+     {
+      "age": 17,
+      "hour": 6,
+      "units": 5
+     },
+     {
+      "age": 17,
+      "hour": 8,
+      "units": 4
+     },
+     {
+      "age": 17,
+      "hour": 12,
+      "units": 4
+     },
+     {
+      "age": 17,
+      "hour": 23,
+      "units": 4
+     },
+     {
+      "age": 18,
+      "hour": 0,
+      "units": 4
+     },
+     {
+      "age": 18,
+      "hour": 1,
+      "units": 4
+     },
+     {
+      "age": 18,
+      "hour": 2,
+      "units": 4
+     },
+     {
+      "age": 18,
+      "hour": 3,
+      "units": 4
+     },
+     {
+      "age": 18,
+      "hour": 4,
+      "units": 4
+     },
+     {
+      "age": 18,
+      "hour": 6,
+      "units": 4
+     },
+     {
+      "age": 18,
+      "hour": 8,
+      "units": 4
+     },
+     {
+      "age": 18,
+      "hour": 12,
+      "units": 4
+     },
+     {
+      "age": 18,
+      "hour": 23,
+      "units": 4
+     }
+    ]
+   },
+   "fert_min_visits": {
+    "visits": 10,
+    "turns": 13,
+    "water": [
+     0,
+     1,
+     3,
+     5,
+     7,
+     9,
+     11,
+     13,
+     15
+    ],
+    "harvest": [
+     13,
+     16
+    ]
+   },
+   "fert_best_all_plans": [
+    {
+     "fert_days": [
+      9,
+      13
+     ],
+     "ref_units": 8,
+     "min_waterings": 9,
+     "ref_waterings": 16,
+     "timing": [
+      [
+       10,
+       2
+      ],
+      [
+       12,
+       2
+      ],
+      [
+       14,
+       2
+      ],
+      [
+       16,
+       2
+      ]
+     ]
+    }
+   ],
+   "fert_single_by_day": [
+    {
+     "day": 0,
+     "units": 4,
+     "min_waterings": 8
+    },
+    {
+     "day": 1,
+     "units": 4,
+     "min_waterings": 8
+    },
+    {
+     "day": 2,
+     "units": 4,
+     "min_waterings": 8
+    },
+    {
+     "day": 3,
+     "units": 4,
+     "min_waterings": 8
+    },
+    {
+     "day": 4,
+     "units": 4,
+     "min_waterings": 8
+    },
+    {
+     "day": 5,
+     "units": 4,
+     "min_waterings": 8
+    },
+    {
+     "day": 6,
+     "units": 4,
+     "min_waterings": 8
+    },
+    {
+     "day": 7,
+     "units": 5,
+     "min_waterings": 9
+    },
+    {
+     "day": 8,
+     "units": 5,
+     "min_waterings": 9
+    },
+    {
+     "day": 9,
+     "units": 6,
+     "min_waterings": 9
+    },
+    {
+     "day": 10,
+     "units": 5,
+     "min_waterings": 9
+    },
+    {
+     "day": 11,
+     "units": 6,
+     "min_waterings": 9
+    },
+    {
+     "day": 12,
+     "units": 5,
+     "min_waterings": 9
+    },
+    {
+     "day": 13,
+     "units": 6,
+     "min_waterings": 9
+    },
+    {
+     "day": 14,
+     "units": 5,
+     "min_waterings": 9
+    },
+    {
+     "day": 15,
+     "units": 5,
+     "min_waterings": 9
+    }
+   ],
+   "pure_dp_unfert": {
+    "units": 4,
+    "waters": 8,
+    "visits": 9,
+    "plan": [
+     [
+      0,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      2,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      4,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      6,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      8,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      10,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      12,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      14,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      16,
+      [
+       "HARVEST"
+      ],
+      4
+     ]
+    ]
+   },
+   "pure_dp_fert": {
+    "units": 8,
+    "waters": 9,
+    "ferts": 2,
+    "visits": 10,
+    "plan": [
+     [
+      0,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      2,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      4,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      6,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      8,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      9,
+      [
+       "WATER",
+       "FERTILIZE"
+      ],
+      0
+     ],
+     [
+      11,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      13,
+      [
+       "WATER",
+       "FERTILIZE",
+       "HARVEST"
+      ],
+      4
+     ],
+     [
+      15,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      16,
+      [
+       "HARVEST"
+      ],
+      4
+     ]
+    ]
+   },
+   "planting_table": [
+    {
+     "P": 0,
+     "units": 4,
+     "visits": 9,
+     "waters": 8,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 1,
+     "units": 4,
+     "visits": 9,
+     "waters": 8,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 2,
+     "units": 4,
+     "visits": 9,
+     "waters": 8,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 3,
+     "units": 4,
+     "visits": 9,
+     "waters": 8,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 4,
+     "units": 4,
+     "visits": 9,
+     "waters": 8,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 5,
+     "units": 4,
+     "visits": 9,
+     "waters": 8,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 6,
+     "units": 4,
+     "visits": 9,
+     "waters": 8,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 7,
+     "units": 4,
+     "visits": 9,
+     "waters": 8,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 8,
+     "units": 4,
+     "visits": 9,
+     "waters": 8,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 9,
+     "units": 4,
+     "visits": 9,
+     "waters": 8,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 10,
+     "units": 4,
+     "visits": 9,
+     "waters": 8,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 11,
+     "units": 4,
+     "visits": 9,
+     "waters": 8,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 12,
+     "units": 4,
+     "visits": 9,
+     "waters": 8,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 13,
+     "units": 4,
+     "visits": 9,
+     "waters": 8,
+     "units_fert": 8,
+     "ferts": 2
+    },
+    {
+     "P": 14,
+     "units": 3,
+     "visits": 8,
+     "waters": 7,
+     "units_fert": 6,
+     "ferts": 2
+    },
+    {
+     "P": 15,
+     "units": 3,
+     "visits": 8,
+     "waters": 7,
+     "units_fert": 6,
+     "ferts": 2
+    },
+    {
+     "P": 16,
+     "units": 2,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 17,
+     "units": 2,
+     "visits": 7,
+     "waters": 6,
+     "units_fert": 4,
+     "ferts": 1
+    },
+    {
+     "P": 18,
+     "units": 1,
+     "visits": 6,
+     "waters": 5,
+     "units_fert": 2,
+     "ferts": 1
+    },
+    {
+     "P": 19,
+     "units": 1,
+     "visits": 6,
+     "waters": 5,
+     "units_fert": 2,
+     "ferts": 1
+    },
+    {
+     "P": 20,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 21,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 22,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 23,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 24,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 25,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 26,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 27,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 28,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 29,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    }
+   ],
+   "last_P_full": 13,
+   "last_P_full_fert": 13,
+   "last_P_any": 19,
+   "late_engine_check": {
+    "P": 13,
+    "units": 4,
+    "harvests": [
+     [
+      10,
+      1
+     ],
+     [
+      12,
+      1
+     ],
+     [
+      14,
+      1
+     ],
+     [
+      16,
+      1
+     ]
+    ]
+   }
+  },
+  "MELON": {
+   "none": {
+    "crop": "MELON",
+    "fert_days": [],
+    "ref_units": 6,
+    "ref_waterings": 11,
+    "min_waterings": 8,
+    "n_min_schedules": 1,
+    "min_schedules": [
+     [
+      0,
+      2,
+      4,
+      6,
+      7,
+      8,
+      9,
+      10
+     ]
+    ],
+    "canonical_min": [
+     0,
+     2,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "marginal": [
+     {
+      "age": 0,
+      "strict_units_lost": 6,
+      "strict_died_age": 0,
+      "repaired_units_lost": 6,
+      "repaired_extra_waterings": -8
+     },
+     {
+      "age": 2,
+      "strict_units_lost": 6,
+      "strict_died_age": 2,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 1
+     },
+     {
+      "age": 4,
+      "strict_units_lost": 6,
+      "strict_died_age": 4,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 1
+     },
+     {
+      "age": 6,
+      "strict_units_lost": 6,
+      "strict_died_age": 6,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 1
+     },
+     {
+      "age": 7,
+      "strict_units_lost": 1,
+      "strict_died_age": null,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 8,
+      "strict_units_lost": 1,
+      "strict_died_age": null,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 9,
+      "strict_units_lost": 1,
+      "strict_died_age": null,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 10,
+      "strict_units_lost": 1,
+      "strict_died_age": null,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     }
+    ],
+    "n_leaves": 1076,
+    "harvest_age": 10
+   },
+   "timing_unfert": {
+    "harvest_at": [
+     {
+      "age": 10,
+      "hour": 3,
+      "units": 6,
+      "died_age": null
+     },
+     {
+      "age": 11,
+      "hour": 3,
+      "units": 6,
+      "died_age": null
+     },
+     {
+      "age": 12,
+      "hour": 3,
+      "units": 6,
+      "died_age": null
+     },
+     {
+      "age": 13,
+      "hour": 0,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 1,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 2,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 3,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 4,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 6,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 8,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 10,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 12,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 16,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 23,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 0,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 1,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 2,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 3,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 4,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 6,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 8,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 10,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 12,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 16,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 23,
+      "units": 0,
+      "died_age": 12
+     }
+    ]
+   },
+   "unfert_min_visits": {
+    "visits": 8,
+    "turns": 9,
+    "water": [
+     0,
+     2,
+     4,
+     6,
+     7,
+     8,
+     9,
+     10
+    ],
+    "harvest": [
+     10
+    ]
+   },
+   "fert_best": {
+    "crop": "MELON",
+    "fert_days": [
+     6
+    ],
+    "ref_units": 6,
+    "ref_waterings": 11,
+    "min_waterings": 6,
+    "n_min_schedules": 4,
+    "min_schedules": [
+     [
+      0,
+      2,
+      4,
+      6,
+      7,
+      8
+     ],
+     [
+      0,
+      2,
+      4,
+      6,
+      7,
+      9
+     ],
+     [
+      0,
+      2,
+      4,
+      6,
+      8,
+      9
+     ],
+     [
+      0,
+      2,
+      4,
+      6,
+      8,
+      10
+     ]
+    ],
+    "canonical_min": [
+     0,
+     2,
+     4,
+     6,
+     8,
+     10
+    ],
+    "marginal": [
+     {
+      "age": 0,
+      "strict_units_lost": 6,
+      "strict_died_age": 0,
+      "repaired_units_lost": 6,
+      "repaired_extra_waterings": -6
+     },
+     {
+      "age": 2,
+      "strict_units_lost": 6,
+      "strict_died_age": 2,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 1
+     },
+     {
+      "age": 4,
+      "strict_units_lost": 6,
+      "strict_died_age": 4,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 1
+     },
+     {
+      "age": 6,
+      "strict_units_lost": 6,
+      "strict_died_age": 6,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 1
+     },
+     {
+      "age": 8,
+      "strict_units_lost": 6,
+      "strict_died_age": 8,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     },
+     {
+      "age": 10,
+      "strict_units_lost": 1,
+      "strict_died_age": null,
+      "repaired_units_lost": 0,
+      "repaired_extra_waterings": 0
+     }
+    ],
+    "n_leaves": 1076,
+    "harvest_age": 10
+   },
+   "timing_fert": {
+    "harvest_at": [
+     {
+      "age": 10,
+      "hour": 3,
+      "units": 6,
+      "died_age": null
+     },
+     {
+      "age": 11,
+      "hour": 3,
+      "units": 6,
+      "died_age": null
+     },
+     {
+      "age": 12,
+      "hour": 3,
+      "units": 6,
+      "died_age": null
+     },
+     {
+      "age": 13,
+      "hour": 0,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 1,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 2,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 3,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 4,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 6,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 8,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 10,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 12,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 16,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 13,
+      "hour": 23,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 0,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 1,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 2,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 3,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 4,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 6,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 8,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 10,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 12,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 16,
+      "units": 0,
+      "died_age": 12
+     },
+     {
+      "age": 14,
+      "hour": 23,
+      "units": 0,
+      "died_age": 12
+     }
+    ]
+   },
+   "fert_min_visits": {
+    "visits": 6,
+    "turns": 8,
+    "water": [
+     0,
+     2,
+     4,
+     6,
+     8,
+     10
+    ],
+    "harvest": [
+     10
+    ]
+   },
+   "fert_best_all_plans": [
+    {
+     "fert_days": [
+      5
+     ],
+     "ref_units": 6,
+     "min_waterings": 6,
+     "ref_waterings": 11,
+     "timing": 10
+    },
+    {
+     "fert_days": [
+      6
+     ],
+     "ref_units": 6,
+     "min_waterings": 6,
+     "ref_waterings": 11,
+     "timing": 10
+    },
+    {
+     "fert_days": [
+      7
+     ],
+     "ref_units": 6,
+     "min_waterings": 6,
+     "ref_waterings": 11,
+     "timing": 10
+    },
+    {
+     "fert_days": [
+      8
+     ],
+     "ref_units": 6,
+     "min_waterings": 6,
+     "ref_waterings": 11,
+     "timing": 10
+    }
+   ],
+   "fert_single_by_day": [
+    {
+     "day": 0,
+     "units": 6,
+     "min_waterings": 8
+    },
+    {
+     "day": 1,
+     "units": 6,
+     "min_waterings": 8
+    },
+    {
+     "day": 2,
+     "units": 6,
+     "min_waterings": 8
+    },
+    {
+     "day": 3,
+     "units": 6,
+     "min_waterings": 8
+    },
+    {
+     "day": 4,
+     "units": 6,
+     "min_waterings": 7
+    },
+    {
+     "day": 5,
+     "units": 6,
+     "min_waterings": 6
+    },
+    {
+     "day": 6,
+     "units": 6,
+     "min_waterings": 6
+    },
+    {
+     "day": 7,
+     "units": 6,
+     "min_waterings": 6
+    },
+    {
+     "day": 8,
+     "units": 6,
+     "min_waterings": 6
+    },
+    {
+     "day": 9,
+     "units": 6,
+     "min_waterings": 7
+    },
+    {
+     "day": 10,
+     "units": 6,
+     "min_waterings": 7
+    },
+    {
+     "day": 11,
+     "units": 6,
+     "min_waterings": 8
+    },
+    {
+     "day": 12,
+     "units": 6,
+     "min_waterings": 8
+    }
+   ],
+   "pure_dp_unfert": {
+    "units": 6,
+    "waters": 8,
+    "visits": 8,
+    "plan": [
+     [
+      0,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      2,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      4,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      6,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      7,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      8,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      9,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      10,
+      [
+       "WATER",
+       "HARVEST"
+      ],
+      6
+     ]
+    ]
+   },
+   "pure_dp_fert": {
+    "units": 6,
+    "waters": 8,
+    "ferts": 0,
+    "visits": 8,
+    "plan": [
+     [
+      0,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      2,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      4,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      6,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      7,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      8,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      9,
+      [
+       "WATER"
+      ],
+      0
+     ],
+     [
+      10,
+      [
+       "WATER",
+       "HARVEST"
+      ],
+      6
+     ]
+    ]
+   },
+   "planting_table": [
+    {
+     "P": 0,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 1,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 2,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 3,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 4,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 5,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 6,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 7,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 8,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 9,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 10,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 11,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 12,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 13,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 14,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 15,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 16,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 17,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 18,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 19,
+     "units": 6,
+     "visits": 8,
+     "waters": 8,
+     "units_fert": 6,
+     "ferts": 0
+    },
+    {
+     "P": 20,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 21,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 22,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 23,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 24,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 25,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 26,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 27,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 28,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    },
+    {
+     "P": 29,
+     "units": 0,
+     "visits": 0,
+     "waters": 0,
+     "units_fert": 0,
+     "ferts": 0
+    }
+   ],
+   "last_P_full": 19,
+   "last_P_full_fert": 19,
+   "last_P_any": 19,
+   "late_engine_check": {
+    "P": 19,
+    "units": 6,
+    "harvests": [
+     [
+      10,
+      6
+     ]
+    ]
+   },
+   "fert6_every_other_day": {
+    "units": 6,
+    "harvests": [
+     [
+      10,
+      6
+     ]
+    ],
+    "died_age": null
+   },
+   "unfert_every_other_day_to_12": {
+    "units": 5,
+    "harvests": [
+     [
+      12,
+      5
+     ]
+    ],
+    "died_age": null
+   }
+  }
+ },
+ "animals": {
+  "GOOSE": {
+   "production_refresh_days_P0": [
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28
+   ],
+   "dp_min": {
+    "units": 54,
+    "visits": 30,
+    "turns": 71,
+    "feeds": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     25,
+     26,
+     27,
+     28
+    ],
+    "cares": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     25,
+     26,
+     27
+    ],
+    "harvests": [
+     4,
+     6,
+     8,
+     10,
+     12,
+     14,
+     16,
+     18,
+     20,
+     22,
+     24,
+     26,
+     28,
+     29
+    ],
+    "engine_replay_units": 54
+   },
+   "reference_daily_feed_care_harvest": {
+    "units": 54,
+    "visits": 30,
+    "turns": 90,
+    "feeds": 30
+   },
+   "feed_daily_no_care": {
+    "units": 26
+   },
+   "survival_feeds_only_odd_days": {
+    "units": 26,
+    "escaped": null,
+    "feeds": 15
+   },
+   "placement_table": [
+    {
+     "P": 0,
+     "engine_units": 54,
+     "engine_visits": 30,
+     "engine_feeds": 29,
+     "engine_turns": 71,
+     "pure_units": 54,
+     "pure_visits": 30,
+     "pure_feeds": 29,
+     "pure_cares": 28,
+     "pure_harvests": 14
+    },
+    {
+     "P": 1,
+     "engine_units": 52,
+     "engine_visits": 29,
+     "engine_feeds": 28,
+     "engine_turns": 68,
+     "pure_units": 52,
+     "pure_visits": 29,
+     "pure_feeds": 28,
+     "pure_cares": 27,
+     "pure_harvests": 13
+    },
+    {
+     "P": 2,
+     "engine_units": 50,
+     "engine_visits": 28,
+     "engine_feeds": 27,
+     "engine_turns": 66,
+     "pure_units": 50,
+     "pure_visits": 28,
+     "pure_feeds": 27,
+     "pure_cares": 26,
+     "pure_harvests": 13
+    },
+    {
+     "P": 3,
+     "engine_units": 48,
+     "engine_visits": 27,
+     "engine_feeds": 26,
+     "engine_turns": 63,
+     "pure_units": 48,
+     "pure_visits": 27,
+     "pure_feeds": 26,
+     "pure_cares": 25,
+     "pure_harvests": 12
+    },
+    {
+     "P": 4,
+     "engine_units": 46,
+     "engine_visits": 26,
+     "engine_feeds": 25,
+     "engine_turns": 61,
+     "pure_units": 46,
+     "pure_visits": 26,
+     "pure_feeds": 25,
+     "pure_cares": 24,
+     "pure_harvests": 12
+    },
+    {
+     "P": 5,
+     "engine_units": 44,
+     "engine_visits": 25,
+     "engine_feeds": 24,
+     "engine_turns": 58,
+     "pure_units": 44,
+     "pure_visits": 25,
+     "pure_feeds": 24,
+     "pure_cares": 23,
+     "pure_harvests": 11
+    },
+    {
+     "P": 6,
+     "engine_units": 42,
+     "engine_visits": 24,
+     "engine_feeds": 23,
+     "engine_turns": 56,
+     "pure_units": 42,
+     "pure_visits": 24,
+     "pure_feeds": 23,
+     "pure_cares": 22,
+     "pure_harvests": 11
+    },
+    {
+     "P": 7,
+     "engine_units": 40,
+     "engine_visits": 23,
+     "engine_feeds": 22,
+     "engine_turns": 53,
+     "pure_units": 40,
+     "pure_visits": 23,
+     "pure_feeds": 22,
+     "pure_cares": 21,
+     "pure_harvests": 10
+    },
+    {
+     "P": 8,
+     "engine_units": 38,
+     "engine_visits": 22,
+     "engine_feeds": 21,
+     "engine_turns": 51,
+     "pure_units": 38,
+     "pure_visits": 22,
+     "pure_feeds": 21,
+     "pure_cares": 20,
+     "pure_harvests": 10
+    },
+    {
+     "P": 9,
+     "engine_units": 36,
+     "engine_visits": 21,
+     "engine_feeds": 20,
+     "engine_turns": 48,
+     "pure_units": 36,
+     "pure_visits": 21,
+     "pure_feeds": 20,
+     "pure_cares": 19,
+     "pure_harvests": 9
+    },
+    {
+     "P": 10,
+     "engine_units": 34,
+     "engine_visits": 20,
+     "engine_feeds": 19,
+     "engine_turns": 46,
+     "pure_units": 34,
+     "pure_visits": 20,
+     "pure_feeds": 19,
+     "pure_cares": 18,
+     "pure_harvests": 9
+    },
+    {
+     "P": 11,
+     "engine_units": 32,
+     "engine_visits": 19,
+     "engine_feeds": 18,
+     "engine_turns": 43,
+     "pure_units": 32,
+     "pure_visits": 19,
+     "pure_feeds": 18,
+     "pure_cares": 17,
+     "pure_harvests": 8
+    },
+    {
+     "P": 12,
+     "engine_units": 30,
+     "engine_visits": 18,
+     "engine_feeds": 17,
+     "engine_turns": 41,
+     "pure_units": 30,
+     "pure_visits": 18,
+     "pure_feeds": 17,
+     "pure_cares": 16,
+     "pure_harvests": 8
+    },
+    {
+     "P": 13,
+     "engine_units": 28,
+     "engine_visits": 17,
+     "engine_feeds": 16,
+     "engine_turns": 38,
+     "pure_units": 28,
+     "pure_visits": 17,
+     "pure_feeds": 16,
+     "pure_cares": 15,
+     "pure_harvests": 7
+    },
+    {
+     "P": 14,
+     "engine_units": 26,
+     "engine_visits": 16,
+     "engine_feeds": 15,
+     "engine_turns": 36,
+     "pure_units": 26,
+     "pure_visits": 16,
+     "pure_feeds": 15,
+     "pure_cares": 14,
+     "pure_harvests": 7
+    },
+    {
+     "P": 15,
+     "engine_units": 24,
+     "engine_visits": 15,
+     "engine_feeds": 14,
+     "engine_turns": 33,
+     "pure_units": 24,
+     "pure_visits": 15,
+     "pure_feeds": 14,
+     "pure_cares": 13,
+     "pure_harvests": 6
+    },
+    {
+     "P": 16,
+     "engine_units": 22,
+     "engine_visits": 14,
+     "engine_feeds": 13,
+     "engine_turns": 31,
+     "pure_units": 22,
+     "pure_visits": 14,
+     "pure_feeds": 13,
+     "pure_cares": 12,
+     "pure_harvests": 6
+    },
+    {
+     "P": 17,
+     "engine_units": 20,
+     "engine_visits": 13,
+     "engine_feeds": 12,
+     "engine_turns": 28,
+     "pure_units": 20,
+     "pure_visits": 13,
+     "pure_feeds": 12,
+     "pure_cares": 11,
+     "pure_harvests": 5
+    },
+    {
+     "P": 18,
+     "engine_units": 18,
+     "engine_visits": 12,
+     "engine_feeds": 11,
+     "engine_turns": 26,
+     "pure_units": 18,
+     "pure_visits": 12,
+     "pure_feeds": 11,
+     "pure_cares": 10,
+     "pure_harvests": 5
+    },
+    {
+     "P": 19,
+     "engine_units": 16,
+     "engine_visits": 11,
+     "engine_feeds": 10,
+     "engine_turns": 23,
+     "pure_units": 16,
+     "pure_visits": 11,
+     "pure_feeds": 10,
+     "pure_cares": 9,
+     "pure_harvests": 4
+    },
+    {
+     "P": 20,
+     "engine_units": 14,
+     "engine_visits": 10,
+     "engine_feeds": 9,
+     "engine_turns": 21,
+     "pure_units": 14,
+     "pure_visits": 10,
+     "pure_feeds": 9,
+     "pure_cares": 8,
+     "pure_harvests": 4
+    },
+    {
+     "P": 21,
+     "engine_units": 12,
+     "engine_visits": 9,
+     "engine_feeds": 8,
+     "engine_turns": 18,
+     "pure_units": 12,
+     "pure_visits": 9,
+     "pure_feeds": 8,
+     "pure_cares": 7,
+     "pure_harvests": 3
+    },
+    {
+     "P": 22,
+     "engine_units": 10,
+     "engine_visits": 8,
+     "engine_feeds": 7,
+     "engine_turns": 16,
+     "pure_units": 10,
+     "pure_visits": 8,
+     "pure_feeds": 7,
+     "pure_cares": 6,
+     "pure_harvests": 3
+    },
+    {
+     "P": 23,
+     "engine_units": 8,
+     "engine_visits": 7,
+     "engine_feeds": 6,
+     "engine_turns": 13,
+     "pure_units": 8,
+     "pure_visits": 7,
+     "pure_feeds": 6,
+     "pure_cares": 5,
+     "pure_harvests": 2
+    },
+    {
+     "P": 24,
+     "engine_units": 6,
+     "engine_visits": 6,
+     "engine_feeds": 5,
+     "engine_turns": 11,
+     "pure_units": 6,
+     "pure_visits": 6,
+     "pure_feeds": 5,
+     "pure_cares": 4,
+     "pure_harvests": 2
+    },
+    {
+     "P": 25,
+     "engine_units": 4,
+     "engine_visits": 5,
+     "engine_feeds": 4,
+     "engine_turns": 8,
+     "pure_units": 4,
+     "pure_visits": 5,
+     "pure_feeds": 4,
+     "pure_cares": 3,
+     "pure_harvests": 1
+    },
+    {
+     "P": 26,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 27,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 28,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 29,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    }
+   ],
+   "marginal": [
+    {
+     "day": 0,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 1,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 2,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 3,
+     "production_day": true,
+     "skip_feed_units_lost": 4,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 4,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 5,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 6,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 7,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 8,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 9,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 10,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 11,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 12,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 13,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 14,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 15,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 16,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 17,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 18,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 19,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 20,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 21,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 22,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 23,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 24,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 25,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 26,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 27,
+     "production_day": true,
+     "skip_feed_units_lost": 2,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 28,
+     "production_day": true,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null
+    }
+   ],
+   "skip_harvest": [
+    {
+     "day": 4,
+     "units_lost": 4
+    },
+    {
+     "day": 6,
+     "units_lost": 4
+    },
+    {
+     "day": 8,
+     "units_lost": 4
+    },
+    {
+     "day": 10,
+     "units_lost": 4
+    },
+    {
+     "day": 12,
+     "units_lost": 4
+    },
+    {
+     "day": 14,
+     "units_lost": 4
+    },
+    {
+     "day": 16,
+     "units_lost": 4
+    },
+    {
+     "day": 18,
+     "units_lost": 4
+    },
+    {
+     "day": 20,
+     "units_lost": 4
+    },
+    {
+     "day": 22,
+     "units_lost": 4
+    },
+    {
+     "day": 24,
+     "units_lost": 4
+    },
+    {
+     "day": 26,
+     "units_lost": 4
+    },
+    {
+     "day": 28,
+     "units_lost": 2
+    },
+    {
+     "day": 29,
+     "units_lost": 2
+    }
+   ],
+   "collect_fertilizer": {
+    "daily_collect_total": 29,
+    "every_other_day_total": 14
+   },
+   "payback": [
+    {
+     "P": 0,
+     "labour0": {
+      "units": 54,
+      "feeds": 29,
+      "visits": 30,
+      "net": 1975.0,
+      "profit": 1675.0
+     },
+     "labour10": {
+      "units": 54,
+      "feeds": 29,
+      "visits": 30,
+      "net": 1675.0,
+      "profit": 1375.0
+     },
+     "full_units": 54,
+     "full_feeds": 29,
+     "full_net_base": 1675
+    },
+    {
+     "P": 1,
+     "labour0": {
+      "units": 52,
+      "feeds": 28,
+      "visits": 29,
+      "net": 1900.0,
+      "profit": 1600.0
+     },
+     "labour10": {
+      "units": 52,
+      "feeds": 28,
+      "visits": 29,
+      "net": 1610.0,
+      "profit": 1310.0
+     },
+     "full_units": 52,
+     "full_feeds": 28,
+     "full_net_base": 1600
+    },
+    {
+     "P": 2,
+     "labour0": {
+      "units": 50,
+      "feeds": 27,
+      "visits": 28,
+      "net": 1825.0,
+      "profit": 1525.0
+     },
+     "labour10": {
+      "units": 50,
+      "feeds": 27,
+      "visits": 28,
+      "net": 1545.0,
+      "profit": 1245.0
+     },
+     "full_units": 50,
+     "full_feeds": 27,
+     "full_net_base": 1525
+    },
+    {
+     "P": 3,
+     "labour0": {
+      "units": 48,
+      "feeds": 26,
+      "visits": 27,
+      "net": 1750.0,
+      "profit": 1450.0
+     },
+     "labour10": {
+      "units": 48,
+      "feeds": 26,
+      "visits": 27,
+      "net": 1480.0,
+      "profit": 1180.0
+     },
+     "full_units": 48,
+     "full_feeds": 26,
+     "full_net_base": 1450
+    },
+    {
+     "P": 4,
+     "labour0": {
+      "units": 46,
+      "feeds": 25,
+      "visits": 26,
+      "net": 1675.0,
+      "profit": 1375.0
+     },
+     "labour10": {
+      "units": 46,
+      "feeds": 25,
+      "visits": 26,
+      "net": 1415.0,
+      "profit": 1115.0
+     },
+     "full_units": 46,
+     "full_feeds": 25,
+     "full_net_base": 1375
+    },
+    {
+     "P": 5,
+     "labour0": {
+      "units": 44,
+      "feeds": 24,
+      "visits": 25,
+      "net": 1600.0,
+      "profit": 1300.0
+     },
+     "labour10": {
+      "units": 44,
+      "feeds": 24,
+      "visits": 25,
+      "net": 1350.0,
+      "profit": 1050.0
+     },
+     "full_units": 44,
+     "full_feeds": 24,
+     "full_net_base": 1300
+    },
+    {
+     "P": 6,
+     "labour0": {
+      "units": 42,
+      "feeds": 23,
+      "visits": 24,
+      "net": 1525.0,
+      "profit": 1225.0
+     },
+     "labour10": {
+      "units": 42,
+      "feeds": 23,
+      "visits": 24,
+      "net": 1285.0,
+      "profit": 985.0
+     },
+     "full_units": 42,
+     "full_feeds": 23,
+     "full_net_base": 1225
+    },
+    {
+     "P": 7,
+     "labour0": {
+      "units": 40,
+      "feeds": 22,
+      "visits": 23,
+      "net": 1450.0,
+      "profit": 1150.0
+     },
+     "labour10": {
+      "units": 40,
+      "feeds": 22,
+      "visits": 23,
+      "net": 1220.0,
+      "profit": 920.0
+     },
+     "full_units": 40,
+     "full_feeds": 22,
+     "full_net_base": 1150
+    },
+    {
+     "P": 8,
+     "labour0": {
+      "units": 38,
+      "feeds": 21,
+      "visits": 22,
+      "net": 1375.0,
+      "profit": 1075.0
+     },
+     "labour10": {
+      "units": 38,
+      "feeds": 21,
+      "visits": 22,
+      "net": 1155.0,
+      "profit": 855.0
+     },
+     "full_units": 38,
+     "full_feeds": 21,
+     "full_net_base": 1075
+    },
+    {
+     "P": 9,
+     "labour0": {
+      "units": 36,
+      "feeds": 20,
+      "visits": 21,
+      "net": 1300.0,
+      "profit": 1000.0
+     },
+     "labour10": {
+      "units": 36,
+      "feeds": 20,
+      "visits": 21,
+      "net": 1090.0,
+      "profit": 790.0
+     },
+     "full_units": 36,
+     "full_feeds": 20,
+     "full_net_base": 1000
+    },
+    {
+     "P": 10,
+     "labour0": {
+      "units": 34,
+      "feeds": 19,
+      "visits": 20,
+      "net": 1225.0,
+      "profit": 925.0
+     },
+     "labour10": {
+      "units": 34,
+      "feeds": 19,
+      "visits": 20,
+      "net": 1025.0,
+      "profit": 725.0
+     },
+     "full_units": 34,
+     "full_feeds": 19,
+     "full_net_base": 925
+    },
+    {
+     "P": 11,
+     "labour0": {
+      "units": 32,
+      "feeds": 18,
+      "visits": 19,
+      "net": 1150.0,
+      "profit": 850.0
+     },
+     "labour10": {
+      "units": 32,
+      "feeds": 18,
+      "visits": 19,
+      "net": 960.0,
+      "profit": 660.0
+     },
+     "full_units": 32,
+     "full_feeds": 18,
+     "full_net_base": 850
+    },
+    {
+     "P": 12,
+     "labour0": {
+      "units": 30,
+      "feeds": 17,
+      "visits": 18,
+      "net": 1075.0,
+      "profit": 775.0
+     },
+     "labour10": {
+      "units": 30,
+      "feeds": 17,
+      "visits": 18,
+      "net": 895.0,
+      "profit": 595.0
+     },
+     "full_units": 30,
+     "full_feeds": 17,
+     "full_net_base": 775
+    },
+    {
+     "P": 13,
+     "labour0": {
+      "units": 28,
+      "feeds": 16,
+      "visits": 17,
+      "net": 1000.0,
+      "profit": 700.0
+     },
+     "labour10": {
+      "units": 28,
+      "feeds": 16,
+      "visits": 17,
+      "net": 830.0,
+      "profit": 530.0
+     },
+     "full_units": 28,
+     "full_feeds": 16,
+     "full_net_base": 700
+    },
+    {
+     "P": 14,
+     "labour0": {
+      "units": 26,
+      "feeds": 15,
+      "visits": 16,
+      "net": 925.0,
+      "profit": 625.0
+     },
+     "labour10": {
+      "units": 26,
+      "feeds": 15,
+      "visits": 16,
+      "net": 765.0,
+      "profit": 465.0
+     },
+     "full_units": 26,
+     "full_feeds": 15,
+     "full_net_base": 625
+    },
+    {
+     "P": 15,
+     "labour0": {
+      "units": 24,
+      "feeds": 14,
+      "visits": 15,
+      "net": 850.0,
+      "profit": 550.0
+     },
+     "labour10": {
+      "units": 24,
+      "feeds": 14,
+      "visits": 15,
+      "net": 700.0,
+      "profit": 400.0
+     },
+     "full_units": 24,
+     "full_feeds": 14,
+     "full_net_base": 550
+    },
+    {
+     "P": 16,
+     "labour0": {
+      "units": 22,
+      "feeds": 13,
+      "visits": 14,
+      "net": 775.0,
+      "profit": 475.0
+     },
+     "labour10": {
+      "units": 22,
+      "feeds": 13,
+      "visits": 14,
+      "net": 635.0,
+      "profit": 335.0
+     },
+     "full_units": 22,
+     "full_feeds": 13,
+     "full_net_base": 475
+    },
+    {
+     "P": 17,
+     "labour0": {
+      "units": 20,
+      "feeds": 12,
+      "visits": 13,
+      "net": 700.0,
+      "profit": 400.0
+     },
+     "labour10": {
+      "units": 20,
+      "feeds": 12,
+      "visits": 13,
+      "net": 570.0,
+      "profit": 270.0
+     },
+     "full_units": 20,
+     "full_feeds": 12,
+     "full_net_base": 400
+    },
+    {
+     "P": 18,
+     "labour0": {
+      "units": 18,
+      "feeds": 11,
+      "visits": 12,
+      "net": 625.0,
+      "profit": 325.0
+     },
+     "labour10": {
+      "units": 18,
+      "feeds": 11,
+      "visits": 12,
+      "net": 505.0,
+      "profit": 205.0
+     },
+     "full_units": 18,
+     "full_feeds": 11,
+     "full_net_base": 325
+    },
+    {
+     "P": 19,
+     "labour0": {
+      "units": 16,
+      "feeds": 10,
+      "visits": 11,
+      "net": 550.0,
+      "profit": 250.0
+     },
+     "labour10": {
+      "units": 16,
+      "feeds": 10,
+      "visits": 11,
+      "net": 440.0,
+      "profit": 140.0
+     },
+     "full_units": 16,
+     "full_feeds": 10,
+     "full_net_base": 250
+    },
+    {
+     "P": 20,
+     "labour0": {
+      "units": 14,
+      "feeds": 9,
+      "visits": 10,
+      "net": 475.0,
+      "profit": 175.0
+     },
+     "labour10": {
+      "units": 14,
+      "feeds": 9,
+      "visits": 10,
+      "net": 375.0,
+      "profit": 75.0
+     },
+     "full_units": 14,
+     "full_feeds": 9,
+     "full_net_base": 175
+    },
+    {
+     "P": 21,
+     "labour0": {
+      "units": 12,
+      "feeds": 8,
+      "visits": 9,
+      "net": 400.0,
+      "profit": 100.0
+     },
+     "labour10": {
+      "units": 12,
+      "feeds": 8,
+      "visits": 9,
+      "net": 310.0,
+      "profit": 10.0
+     },
+     "full_units": 12,
+     "full_feeds": 8,
+     "full_net_base": 100
+    },
+    {
+     "P": 22,
+     "labour0": {
+      "units": 10,
+      "feeds": 7,
+      "visits": 8,
+      "net": 325.0,
+      "profit": 25.0
+     },
+     "labour10": {
+      "units": 10,
+      "feeds": 7,
+      "visits": 8,
+      "net": 245.0,
+      "profit": -55.0
+     },
+     "full_units": 10,
+     "full_feeds": 7,
+     "full_net_base": 25
+    },
+    {
+     "P": 23,
+     "labour0": {
+      "units": 8,
+      "feeds": 6,
+      "visits": 7,
+      "net": 250.0,
+      "profit": -50.0
+     },
+     "labour10": {
+      "units": 8,
+      "feeds": 6,
+      "visits": 7,
+      "net": 180.0,
+      "profit": -120.0
+     },
+     "full_units": 8,
+     "full_feeds": 6,
+     "full_net_base": -50
+    },
+    {
+     "P": 24,
+     "labour0": {
+      "units": 6,
+      "feeds": 5,
+      "visits": 6,
+      "net": 175.0,
+      "profit": -125.0
+     },
+     "labour10": {
+      "units": 6,
+      "feeds": 5,
+      "visits": 6,
+      "net": 115.0,
+      "profit": -185.0
+     },
+     "full_units": 6,
+     "full_feeds": 5,
+     "full_net_base": -125
+    },
+    {
+     "P": 25,
+     "labour0": {
+      "units": 4,
+      "feeds": 4,
+      "visits": 5,
+      "net": 100.0,
+      "profit": -200.0
+     },
+     "labour10": {
+      "units": 4,
+      "feeds": 4,
+      "visits": 5,
+      "net": 50.0,
+      "profit": -250.0
+     },
+     "full_units": 4,
+     "full_feeds": 4,
+     "full_net_base": -200
+    },
+    {
+     "P": 26,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -300.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -300.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -300
+    },
+    {
+     "P": 27,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -300.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -300.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -300
+    },
+    {
+     "P": 28,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -300.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -300.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -300
+    },
+    {
+     "P": 29,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -300.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -300.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -300
+    }
+   ],
+   "last_P_payback_full_min_maint": 22,
+   "last_P_payback_best_labour0": 22,
+   "last_P_payback_best_labour10": 21
+  },
+  "COW": {
+   "production_refresh_days_P0": [
+    7,
+    9,
+    11,
+    13,
+    15,
+    17,
+    19,
+    21,
+    23,
+    25,
+    27
+   ],
+   "dp_min": {
+    "units": 36,
+    "visits": 27,
+    "turns": 57,
+    "feeds": [
+     1,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     25,
+     26,
+     27
+    ],
+    "cares": [
+     1,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     25,
+     26
+    ],
+    "harvests": [
+     9,
+     13,
+     17,
+     21,
+     25,
+     29
+    ],
+    "engine_replay_units": 36
+   },
+   "reference_daily_feed_care_harvest": {
+    "units": 36,
+    "visits": 30,
+    "turns": 90,
+    "feeds": 30
+   },
+   "feed_daily_no_care": {
+    "units": 11
+   },
+   "survival_feeds_only_odd_days": {
+    "units": 11,
+    "escaped": null,
+    "feeds": 15
+   },
+   "placement_table": [
+    {
+     "P": 0,
+     "engine_units": 36,
+     "engine_visits": 27,
+     "engine_feeds": 26,
+     "engine_turns": 57,
+     "pure_units": 36,
+     "pure_visits": 27,
+     "pure_feeds": 26,
+     "pure_cares": 25,
+     "pure_harvests": 6
+    },
+    {
+     "P": 1,
+     "engine_units": 36,
+     "engine_visits": 27,
+     "engine_feeds": 26,
+     "engine_turns": 57,
+     "pure_units": 36,
+     "pure_visits": 27,
+     "pure_feeds": 26,
+     "pure_cares": 25,
+     "pure_harvests": 6
+    },
+    {
+     "P": 2,
+     "engine_units": 33,
+     "engine_visits": 25,
+     "engine_feeds": 24,
+     "engine_turns": 53,
+     "pure_units": 33,
+     "pure_visits": 25,
+     "pure_feeds": 24,
+     "pure_cares": 23,
+     "pure_harvests": 6
+    },
+    {
+     "P": 3,
+     "engine_units": 33,
+     "engine_visits": 25,
+     "engine_feeds": 24,
+     "engine_turns": 53,
+     "pure_units": 33,
+     "pure_visits": 25,
+     "pure_feeds": 24,
+     "pure_cares": 23,
+     "pure_harvests": 6
+    },
+    {
+     "P": 4,
+     "engine_units": 30,
+     "engine_visits": 23,
+     "engine_feeds": 22,
+     "engine_turns": 48,
+     "pure_units": 30,
+     "pure_visits": 23,
+     "pure_feeds": 22,
+     "pure_cares": 21,
+     "pure_harvests": 5
+    },
+    {
+     "P": 5,
+     "engine_units": 30,
+     "engine_visits": 23,
+     "engine_feeds": 22,
+     "engine_turns": 48,
+     "pure_units": 30,
+     "pure_visits": 23,
+     "pure_feeds": 22,
+     "pure_cares": 21,
+     "pure_harvests": 5
+    },
+    {
+     "P": 6,
+     "engine_units": 27,
+     "engine_visits": 21,
+     "engine_feeds": 20,
+     "engine_turns": 44,
+     "pure_units": 27,
+     "pure_visits": 21,
+     "pure_feeds": 20,
+     "pure_cares": 19,
+     "pure_harvests": 5
+    },
+    {
+     "P": 7,
+     "engine_units": 27,
+     "engine_visits": 21,
+     "engine_feeds": 20,
+     "engine_turns": 44,
+     "pure_units": 27,
+     "pure_visits": 21,
+     "pure_feeds": 20,
+     "pure_cares": 19,
+     "pure_harvests": 5
+    },
+    {
+     "P": 8,
+     "engine_units": 24,
+     "engine_visits": 19,
+     "engine_feeds": 18,
+     "engine_turns": 39,
+     "pure_units": 24,
+     "pure_visits": 19,
+     "pure_feeds": 18,
+     "pure_cares": 17,
+     "pure_harvests": 4
+    },
+    {
+     "P": 9,
+     "engine_units": 24,
+     "engine_visits": 19,
+     "engine_feeds": 18,
+     "engine_turns": 39,
+     "pure_units": 24,
+     "pure_visits": 19,
+     "pure_feeds": 18,
+     "pure_cares": 17,
+     "pure_harvests": 4
+    },
+    {
+     "P": 10,
+     "engine_units": 21,
+     "engine_visits": 17,
+     "engine_feeds": 16,
+     "engine_turns": 35,
+     "pure_units": 21,
+     "pure_visits": 17,
+     "pure_feeds": 16,
+     "pure_cares": 15,
+     "pure_harvests": 4
+    },
+    {
+     "P": 11,
+     "engine_units": 21,
+     "engine_visits": 17,
+     "engine_feeds": 16,
+     "engine_turns": 35,
+     "pure_units": 21,
+     "pure_visits": 17,
+     "pure_feeds": 16,
+     "pure_cares": 15,
+     "pure_harvests": 4
+    },
+    {
+     "P": 12,
+     "engine_units": 18,
+     "engine_visits": 15,
+     "engine_feeds": 14,
+     "engine_turns": 30,
+     "pure_units": 18,
+     "pure_visits": 15,
+     "pure_feeds": 14,
+     "pure_cares": 13,
+     "pure_harvests": 3
+    },
+    {
+     "P": 13,
+     "engine_units": 18,
+     "engine_visits": 15,
+     "engine_feeds": 14,
+     "engine_turns": 30,
+     "pure_units": 18,
+     "pure_visits": 15,
+     "pure_feeds": 14,
+     "pure_cares": 13,
+     "pure_harvests": 3
+    },
+    {
+     "P": 14,
+     "engine_units": 15,
+     "engine_visits": 13,
+     "engine_feeds": 12,
+     "engine_turns": 26,
+     "pure_units": 15,
+     "pure_visits": 13,
+     "pure_feeds": 12,
+     "pure_cares": 11,
+     "pure_harvests": 3
+    },
+    {
+     "P": 15,
+     "engine_units": 15,
+     "engine_visits": 13,
+     "engine_feeds": 12,
+     "engine_turns": 26,
+     "pure_units": 15,
+     "pure_visits": 13,
+     "pure_feeds": 12,
+     "pure_cares": 11,
+     "pure_harvests": 3
+    },
+    {
+     "P": 16,
+     "engine_units": 12,
+     "engine_visits": 11,
+     "engine_feeds": 10,
+     "engine_turns": 21,
+     "pure_units": 12,
+     "pure_visits": 11,
+     "pure_feeds": 10,
+     "pure_cares": 9,
+     "pure_harvests": 2
+    },
+    {
+     "P": 17,
+     "engine_units": 12,
+     "engine_visits": 11,
+     "engine_feeds": 10,
+     "engine_turns": 21,
+     "pure_units": 12,
+     "pure_visits": 11,
+     "pure_feeds": 10,
+     "pure_cares": 9,
+     "pure_harvests": 2
+    },
+    {
+     "P": 18,
+     "engine_units": 9,
+     "engine_visits": 9,
+     "engine_feeds": 8,
+     "engine_turns": 17,
+     "pure_units": 9,
+     "pure_visits": 9,
+     "pure_feeds": 8,
+     "pure_cares": 7,
+     "pure_harvests": 2
+    },
+    {
+     "P": 19,
+     "engine_units": 9,
+     "engine_visits": 9,
+     "engine_feeds": 8,
+     "engine_turns": 17,
+     "pure_units": 9,
+     "pure_visits": 9,
+     "pure_feeds": 8,
+     "pure_cares": 7,
+     "pure_harvests": 2
+    },
+    {
+     "P": 20,
+     "engine_units": 6,
+     "engine_visits": 7,
+     "engine_feeds": 6,
+     "engine_turns": 12,
+     "pure_units": 6,
+     "pure_visits": 7,
+     "pure_feeds": 6,
+     "pure_cares": 5,
+     "pure_harvests": 1
+    },
+    {
+     "P": 21,
+     "engine_units": 6,
+     "engine_visits": 7,
+     "engine_feeds": 6,
+     "engine_turns": 12,
+     "pure_units": 6,
+     "pure_visits": 7,
+     "pure_feeds": 6,
+     "pure_cares": 5,
+     "pure_harvests": 1
+    },
+    {
+     "P": 22,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 23,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 24,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 25,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 26,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 27,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 28,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 29,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    }
+   ],
+   "marginal": [
+    {
+     "day": 1,
+     "production_day": false,
+     "skip_feed_units_lost": 36,
+     "skip_feed_escaped": 1,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 3,
+     "production_day": false,
+     "skip_feed_units_lost": 36,
+     "skip_feed_escaped": 3,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 4,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 5,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 6,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 7,
+     "production_day": true,
+     "skip_feed_units_lost": 6,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 8,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 9,
+     "production_day": true,
+     "skip_feed_units_lost": 3,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 10,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 11,
+     "production_day": true,
+     "skip_feed_units_lost": 3,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 12,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 13,
+     "production_day": true,
+     "skip_feed_units_lost": 3,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 14,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 15,
+     "production_day": true,
+     "skip_feed_units_lost": 3,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 16,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 17,
+     "production_day": true,
+     "skip_feed_units_lost": 3,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 18,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 19,
+     "production_day": true,
+     "skip_feed_units_lost": 3,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 20,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 21,
+     "production_day": true,
+     "skip_feed_units_lost": 3,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 22,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 23,
+     "production_day": true,
+     "skip_feed_units_lost": 3,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 24,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 25,
+     "production_day": true,
+     "skip_feed_units_lost": 3,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 26,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": null,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 27,
+     "production_day": true,
+     "skip_feed_units_lost": 6,
+     "skip_feed_escaped": 28
+    }
+   ],
+   "skip_harvest": [
+    {
+     "day": 9,
+     "units_lost": 6
+    },
+    {
+     "day": 13,
+     "units_lost": 6
+    },
+    {
+     "day": 17,
+     "units_lost": 6
+    },
+    {
+     "day": 21,
+     "units_lost": 6
+    },
+    {
+     "day": 25,
+     "units_lost": 6
+    },
+    {
+     "day": 29,
+     "units_lost": 6
+    }
+   ],
+   "collect_fertilizer": {
+    "daily_collect_total": 29,
+    "every_other_day_total": 14
+   },
+   "payback": [
+    {
+     "P": 0,
+     "labour0": {
+      "units": 36,
+      "feeds": 26,
+      "visits": 27,
+      "net": 5110.0,
+      "profit": 4710.0
+     },
+     "labour10": {
+      "units": 36,
+      "feeds": 26,
+      "visits": 27,
+      "net": 4840.0,
+      "profit": 4440.0
+     },
+     "full_units": 36,
+     "full_feeds": 26,
+     "full_net_base": 4710
+    },
+    {
+     "P": 1,
+     "labour0": {
+      "units": 36,
+      "feeds": 26,
+      "visits": 27,
+      "net": 5110.0,
+      "profit": 4710.0
+     },
+     "labour10": {
+      "units": 36,
+      "feeds": 26,
+      "visits": 27,
+      "net": 4840.0,
+      "profit": 4440.0
+     },
+     "full_units": 36,
+     "full_feeds": 26,
+     "full_net_base": 4710
+    },
+    {
+     "P": 2,
+     "labour0": {
+      "units": 33,
+      "feeds": 24,
+      "visits": 25,
+      "net": 4680.0,
+      "profit": 4280.0
+     },
+     "labour10": {
+      "units": 33,
+      "feeds": 24,
+      "visits": 25,
+      "net": 4430.0,
+      "profit": 4030.0
+     },
+     "full_units": 33,
+     "full_feeds": 24,
+     "full_net_base": 4280
+    },
+    {
+     "P": 3,
+     "labour0": {
+      "units": 33,
+      "feeds": 24,
+      "visits": 25,
+      "net": 4680.0,
+      "profit": 4280.0
+     },
+     "labour10": {
+      "units": 33,
+      "feeds": 24,
+      "visits": 25,
+      "net": 4430.0,
+      "profit": 4030.0
+     },
+     "full_units": 33,
+     "full_feeds": 24,
+     "full_net_base": 4280
+    },
+    {
+     "P": 4,
+     "labour0": {
+      "units": 30,
+      "feeds": 22,
+      "visits": 23,
+      "net": 4250.0,
+      "profit": 3850.0
+     },
+     "labour10": {
+      "units": 30,
+      "feeds": 22,
+      "visits": 23,
+      "net": 4020.0,
+      "profit": 3620.0
+     },
+     "full_units": 30,
+     "full_feeds": 22,
+     "full_net_base": 3850
+    },
+    {
+     "P": 5,
+     "labour0": {
+      "units": 30,
+      "feeds": 22,
+      "visits": 23,
+      "net": 4250.0,
+      "profit": 3850.0
+     },
+     "labour10": {
+      "units": 30,
+      "feeds": 22,
+      "visits": 23,
+      "net": 4020.0,
+      "profit": 3620.0
+     },
+     "full_units": 30,
+     "full_feeds": 22,
+     "full_net_base": 3850
+    },
+    {
+     "P": 6,
+     "labour0": {
+      "units": 27,
+      "feeds": 20,
+      "visits": 21,
+      "net": 3820.0,
+      "profit": 3420.0
+     },
+     "labour10": {
+      "units": 27,
+      "feeds": 20,
+      "visits": 21,
+      "net": 3610.0,
+      "profit": 3210.0
+     },
+     "full_units": 27,
+     "full_feeds": 20,
+     "full_net_base": 3420
+    },
+    {
+     "P": 7,
+     "labour0": {
+      "units": 27,
+      "feeds": 20,
+      "visits": 21,
+      "net": 3820.0,
+      "profit": 3420.0
+     },
+     "labour10": {
+      "units": 27,
+      "feeds": 20,
+      "visits": 21,
+      "net": 3610.0,
+      "profit": 3210.0
+     },
+     "full_units": 27,
+     "full_feeds": 20,
+     "full_net_base": 3420
+    },
+    {
+     "P": 8,
+     "labour0": {
+      "units": 24,
+      "feeds": 18,
+      "visits": 19,
+      "net": 3390.0,
+      "profit": 2990.0
+     },
+     "labour10": {
+      "units": 24,
+      "feeds": 18,
+      "visits": 19,
+      "net": 3200.0,
+      "profit": 2800.0
+     },
+     "full_units": 24,
+     "full_feeds": 18,
+     "full_net_base": 2990
+    },
+    {
+     "P": 9,
+     "labour0": {
+      "units": 24,
+      "feeds": 18,
+      "visits": 19,
+      "net": 3390.0,
+      "profit": 2990.0
+     },
+     "labour10": {
+      "units": 24,
+      "feeds": 18,
+      "visits": 19,
+      "net": 3200.0,
+      "profit": 2800.0
+     },
+     "full_units": 24,
+     "full_feeds": 18,
+     "full_net_base": 2990
+    },
+    {
+     "P": 10,
+     "labour0": {
+      "units": 21,
+      "feeds": 16,
+      "visits": 17,
+      "net": 2960.0,
+      "profit": 2560.0
+     },
+     "labour10": {
+      "units": 21,
+      "feeds": 16,
+      "visits": 17,
+      "net": 2790.0,
+      "profit": 2390.0
+     },
+     "full_units": 21,
+     "full_feeds": 16,
+     "full_net_base": 2560
+    },
+    {
+     "P": 11,
+     "labour0": {
+      "units": 21,
+      "feeds": 16,
+      "visits": 17,
+      "net": 2960.0,
+      "profit": 2560.0
+     },
+     "labour10": {
+      "units": 21,
+      "feeds": 16,
+      "visits": 17,
+      "net": 2790.0,
+      "profit": 2390.0
+     },
+     "full_units": 21,
+     "full_feeds": 16,
+     "full_net_base": 2560
+    },
+    {
+     "P": 12,
+     "labour0": {
+      "units": 18,
+      "feeds": 14,
+      "visits": 15,
+      "net": 2530.0,
+      "profit": 2130.0
+     },
+     "labour10": {
+      "units": 18,
+      "feeds": 14,
+      "visits": 15,
+      "net": 2380.0,
+      "profit": 1980.0
+     },
+     "full_units": 18,
+     "full_feeds": 14,
+     "full_net_base": 2130
+    },
+    {
+     "P": 13,
+     "labour0": {
+      "units": 18,
+      "feeds": 14,
+      "visits": 15,
+      "net": 2530.0,
+      "profit": 2130.0
+     },
+     "labour10": {
+      "units": 18,
+      "feeds": 14,
+      "visits": 15,
+      "net": 2380.0,
+      "profit": 1980.0
+     },
+     "full_units": 18,
+     "full_feeds": 14,
+     "full_net_base": 2130
+    },
+    {
+     "P": 14,
+     "labour0": {
+      "units": 15,
+      "feeds": 12,
+      "visits": 13,
+      "net": 2100.0,
+      "profit": 1700.0
+     },
+     "labour10": {
+      "units": 15,
+      "feeds": 12,
+      "visits": 13,
+      "net": 1970.0,
+      "profit": 1570.0
+     },
+     "full_units": 15,
+     "full_feeds": 12,
+     "full_net_base": 1700
+    },
+    {
+     "P": 15,
+     "labour0": {
+      "units": 15,
+      "feeds": 12,
+      "visits": 13,
+      "net": 2100.0,
+      "profit": 1700.0
+     },
+     "labour10": {
+      "units": 15,
+      "feeds": 12,
+      "visits": 13,
+      "net": 1970.0,
+      "profit": 1570.0
+     },
+     "full_units": 15,
+     "full_feeds": 12,
+     "full_net_base": 1700
+    },
+    {
+     "P": 16,
+     "labour0": {
+      "units": 12,
+      "feeds": 10,
+      "visits": 11,
+      "net": 1670.0,
+      "profit": 1270.0
+     },
+     "labour10": {
+      "units": 12,
+      "feeds": 10,
+      "visits": 11,
+      "net": 1560.0,
+      "profit": 1160.0
+     },
+     "full_units": 12,
+     "full_feeds": 10,
+     "full_net_base": 1270
+    },
+    {
+     "P": 17,
+     "labour0": {
+      "units": 12,
+      "feeds": 10,
+      "visits": 11,
+      "net": 1670.0,
+      "profit": 1270.0
+     },
+     "labour10": {
+      "units": 12,
+      "feeds": 10,
+      "visits": 11,
+      "net": 1560.0,
+      "profit": 1160.0
+     },
+     "full_units": 12,
+     "full_feeds": 10,
+     "full_net_base": 1270
+    },
+    {
+     "P": 18,
+     "labour0": {
+      "units": 9,
+      "feeds": 8,
+      "visits": 9,
+      "net": 1240.0,
+      "profit": 840.0
+     },
+     "labour10": {
+      "units": 9,
+      "feeds": 8,
+      "visits": 9,
+      "net": 1150.0,
+      "profit": 750.0
+     },
+     "full_units": 9,
+     "full_feeds": 8,
+     "full_net_base": 840
+    },
+    {
+     "P": 19,
+     "labour0": {
+      "units": 9,
+      "feeds": 8,
+      "visits": 9,
+      "net": 1240.0,
+      "profit": 840.0
+     },
+     "labour10": {
+      "units": 9,
+      "feeds": 8,
+      "visits": 9,
+      "net": 1150.0,
+      "profit": 750.0
+     },
+     "full_units": 9,
+     "full_feeds": 8,
+     "full_net_base": 840
+    },
+    {
+     "P": 20,
+     "labour0": {
+      "units": 6,
+      "feeds": 6,
+      "visits": 7,
+      "net": 810.0,
+      "profit": 410.0
+     },
+     "labour10": {
+      "units": 6,
+      "feeds": 6,
+      "visits": 7,
+      "net": 740.0,
+      "profit": 340.0
+     },
+     "full_units": 6,
+     "full_feeds": 6,
+     "full_net_base": 410
+    },
+    {
+     "P": 21,
+     "labour0": {
+      "units": 6,
+      "feeds": 6,
+      "visits": 7,
+      "net": 810.0,
+      "profit": 410.0
+     },
+     "labour10": {
+      "units": 6,
+      "feeds": 6,
+      "visits": 7,
+      "net": 740.0,
+      "profit": 340.0
+     },
+     "full_units": 6,
+     "full_feeds": 6,
+     "full_net_base": 410
+    },
+    {
+     "P": 22,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -400
+    },
+    {
+     "P": 23,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -400
+    },
+    {
+     "P": 24,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -400
+    },
+    {
+     "P": 25,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -400
+    },
+    {
+     "P": 26,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -400
+    },
+    {
+     "P": 27,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -400
+    },
+    {
+     "P": 28,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -400
+    },
+    {
+     "P": 29,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -400.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -400
+    }
+   ],
+   "last_P_payback_full_min_maint": 21,
+   "last_P_payback_best_labour0": 21,
+   "last_P_payback_best_labour10": 21
+  },
+  "SHEEP": {
+   "production_refresh_days_P0": [
+    5,
+    8,
+    11,
+    14,
+    17,
+    20,
+    23,
+    26
+   ],
+   "dp_min": {
+    "units": 34,
+    "visits": 28,
+    "turns": 61,
+    "feeds": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     25,
+     26
+    ],
+    "cares": [
+     0,
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14,
+     15,
+     16,
+     17,
+     18,
+     19,
+     20,
+     21,
+     22,
+     23,
+     24,
+     25
+    ],
+    "harvests": [
+     8,
+     11,
+     14,
+     17,
+     20,
+     23,
+     26,
+     28
+    ],
+    "engine_replay_units": 34
+   },
+   "reference_daily_feed_care_harvest": {
+    "units": 34,
+    "visits": 30,
+    "turns": 90,
+    "feeds": 30
+   },
+   "feed_daily_no_care": {
+    "units": 8
+   },
+   "survival_feeds_only_odd_days": {
+    "units": 8,
+    "escaped": null,
+    "feeds": 15
+   },
+   "placement_table": [
+    {
+     "P": 0,
+     "engine_units": 34,
+     "engine_visits": 28,
+     "engine_feeds": 27,
+     "engine_turns": 61,
+     "pure_units": 34,
+     "pure_visits": 28,
+     "pure_feeds": 27,
+     "pure_cares": 26,
+     "pure_harvests": 8
+    },
+    {
+     "P": 1,
+     "engine_units": 34,
+     "engine_visits": 28,
+     "engine_feeds": 27,
+     "engine_turns": 61,
+     "pure_units": 34,
+     "pure_visits": 28,
+     "pure_feeds": 27,
+     "pure_cares": 26,
+     "pure_harvests": 8
+    },
+    {
+     "P": 2,
+     "engine_units": 34,
+     "engine_visits": 28,
+     "engine_feeds": 27,
+     "engine_turns": 61,
+     "pure_units": 34,
+     "pure_visits": 28,
+     "pure_feeds": 27,
+     "pure_cares": 26,
+     "pure_harvests": 8
+    },
+    {
+     "P": 3,
+     "engine_units": 30,
+     "engine_visits": 25,
+     "engine_feeds": 24,
+     "engine_turns": 54,
+     "pure_units": 30,
+     "pure_visits": 25,
+     "pure_feeds": 24,
+     "pure_cares": 23,
+     "pure_harvests": 7
+    },
+    {
+     "P": 4,
+     "engine_units": 30,
+     "engine_visits": 25,
+     "engine_feeds": 24,
+     "engine_turns": 54,
+     "pure_units": 30,
+     "pure_visits": 25,
+     "pure_feeds": 24,
+     "pure_cares": 23,
+     "pure_harvests": 7
+    },
+    {
+     "P": 5,
+     "engine_units": 30,
+     "engine_visits": 25,
+     "engine_feeds": 24,
+     "engine_turns": 54,
+     "pure_units": 30,
+     "pure_visits": 25,
+     "pure_feeds": 24,
+     "pure_cares": 23,
+     "pure_harvests": 7
+    },
+    {
+     "P": 6,
+     "engine_units": 26,
+     "engine_visits": 22,
+     "engine_feeds": 21,
+     "engine_turns": 47,
+     "pure_units": 26,
+     "pure_visits": 22,
+     "pure_feeds": 21,
+     "pure_cares": 20,
+     "pure_harvests": 6
+    },
+    {
+     "P": 7,
+     "engine_units": 26,
+     "engine_visits": 22,
+     "engine_feeds": 21,
+     "engine_turns": 47,
+     "pure_units": 26,
+     "pure_visits": 22,
+     "pure_feeds": 21,
+     "pure_cares": 20,
+     "pure_harvests": 6
+    },
+    {
+     "P": 8,
+     "engine_units": 26,
+     "engine_visits": 22,
+     "engine_feeds": 21,
+     "engine_turns": 47,
+     "pure_units": 26,
+     "pure_visits": 22,
+     "pure_feeds": 21,
+     "pure_cares": 20,
+     "pure_harvests": 6
+    },
+    {
+     "P": 9,
+     "engine_units": 22,
+     "engine_visits": 19,
+     "engine_feeds": 18,
+     "engine_turns": 40,
+     "pure_units": 22,
+     "pure_visits": 19,
+     "pure_feeds": 18,
+     "pure_cares": 17,
+     "pure_harvests": 5
+    },
+    {
+     "P": 10,
+     "engine_units": 22,
+     "engine_visits": 19,
+     "engine_feeds": 18,
+     "engine_turns": 40,
+     "pure_units": 22,
+     "pure_visits": 19,
+     "pure_feeds": 18,
+     "pure_cares": 17,
+     "pure_harvests": 5
+    },
+    {
+     "P": 11,
+     "engine_units": 22,
+     "engine_visits": 19,
+     "engine_feeds": 18,
+     "engine_turns": 40,
+     "pure_units": 22,
+     "pure_visits": 19,
+     "pure_feeds": 18,
+     "pure_cares": 17,
+     "pure_harvests": 5
+    },
+    {
+     "P": 12,
+     "engine_units": 18,
+     "engine_visits": 16,
+     "engine_feeds": 15,
+     "engine_turns": 33,
+     "pure_units": 18,
+     "pure_visits": 16,
+     "pure_feeds": 15,
+     "pure_cares": 14,
+     "pure_harvests": 4
+    },
+    {
+     "P": 13,
+     "engine_units": 18,
+     "engine_visits": 16,
+     "engine_feeds": 15,
+     "engine_turns": 33,
+     "pure_units": 18,
+     "pure_visits": 16,
+     "pure_feeds": 15,
+     "pure_cares": 14,
+     "pure_harvests": 4
+    },
+    {
+     "P": 14,
+     "engine_units": 18,
+     "engine_visits": 16,
+     "engine_feeds": 15,
+     "engine_turns": 33,
+     "pure_units": 18,
+     "pure_visits": 16,
+     "pure_feeds": 15,
+     "pure_cares": 14,
+     "pure_harvests": 4
+    },
+    {
+     "P": 15,
+     "engine_units": 14,
+     "engine_visits": 13,
+     "engine_feeds": 12,
+     "engine_turns": 26,
+     "pure_units": 14,
+     "pure_visits": 13,
+     "pure_feeds": 12,
+     "pure_cares": 11,
+     "pure_harvests": 3
+    },
+    {
+     "P": 16,
+     "engine_units": 14,
+     "engine_visits": 13,
+     "engine_feeds": 12,
+     "engine_turns": 26,
+     "pure_units": 14,
+     "pure_visits": 13,
+     "pure_feeds": 12,
+     "pure_cares": 11,
+     "pure_harvests": 3
+    },
+    {
+     "P": 17,
+     "engine_units": 14,
+     "engine_visits": 13,
+     "engine_feeds": 12,
+     "engine_turns": 26,
+     "pure_units": 14,
+     "pure_visits": 13,
+     "pure_feeds": 12,
+     "pure_cares": 11,
+     "pure_harvests": 3
+    },
+    {
+     "P": 18,
+     "engine_units": 10,
+     "engine_visits": 10,
+     "engine_feeds": 9,
+     "engine_turns": 19,
+     "pure_units": 10,
+     "pure_visits": 10,
+     "pure_feeds": 9,
+     "pure_cares": 8,
+     "pure_harvests": 2
+    },
+    {
+     "P": 19,
+     "engine_units": 10,
+     "engine_visits": 10,
+     "engine_feeds": 9,
+     "engine_turns": 19,
+     "pure_units": 10,
+     "pure_visits": 10,
+     "pure_feeds": 9,
+     "pure_cares": 8,
+     "pure_harvests": 2
+    },
+    {
+     "P": 20,
+     "engine_units": 10,
+     "engine_visits": 10,
+     "engine_feeds": 9,
+     "engine_turns": 19,
+     "pure_units": 10,
+     "pure_visits": 10,
+     "pure_feeds": 9,
+     "pure_cares": 8,
+     "pure_harvests": 2
+    },
+    {
+     "P": 21,
+     "engine_units": 6,
+     "engine_visits": 7,
+     "engine_feeds": 6,
+     "engine_turns": 12,
+     "pure_units": 6,
+     "pure_visits": 7,
+     "pure_feeds": 6,
+     "pure_cares": 5,
+     "pure_harvests": 1
+    },
+    {
+     "P": 22,
+     "engine_units": 6,
+     "engine_visits": 7,
+     "engine_feeds": 6,
+     "engine_turns": 12,
+     "pure_units": 6,
+     "pure_visits": 7,
+     "pure_feeds": 6,
+     "pure_cares": 5,
+     "pure_harvests": 1
+    },
+    {
+     "P": 23,
+     "engine_units": 6,
+     "engine_visits": 7,
+     "engine_feeds": 6,
+     "engine_turns": 12,
+     "pure_units": 6,
+     "pure_visits": 7,
+     "pure_feeds": 6,
+     "pure_cares": 5,
+     "pure_harvests": 1
+    },
+    {
+     "P": 24,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 25,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 26,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 27,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 28,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    },
+    {
+     "P": 29,
+     "engine_units": 0,
+     "engine_visits": 0,
+     "engine_feeds": 0,
+     "engine_turns": 0,
+     "pure_units": 0,
+     "pure_visits": 0,
+     "pure_feeds": 0,
+     "pure_cares": 0,
+     "pure_harvests": 0
+    }
+   ],
+   "marginal": [
+    {
+     "day": 0,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 1,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 2,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 3,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 4,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 5,
+     "production_day": true,
+     "skip_feed_units_lost": 6,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 6,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 7,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 8,
+     "production_day": true,
+     "skip_feed_units_lost": 4,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 9,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 10,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 11,
+     "production_day": true,
+     "skip_feed_units_lost": 4,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 12,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 13,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 14,
+     "production_day": true,
+     "skip_feed_units_lost": 4,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 15,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 16,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 17,
+     "production_day": true,
+     "skip_feed_units_lost": 4,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 18,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 19,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 20,
+     "production_day": true,
+     "skip_feed_units_lost": 4,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 21,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 22,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 23,
+     "production_day": true,
+     "skip_feed_units_lost": 4,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 24,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 25,
+     "production_day": false,
+     "skip_feed_units_lost": 1,
+     "skip_feed_escaped": 28,
+     "skip_care_units_lost": 1
+    },
+    {
+     "day": 26,
+     "production_day": true,
+     "skip_feed_units_lost": 4,
+     "skip_feed_escaped": 27
+    }
+   ],
+   "skip_harvest": [
+    {
+     "day": 8,
+     "units_lost": 4
+    },
+    {
+     "day": 11,
+     "units_lost": 2
+    },
+    {
+     "day": 14,
+     "units_lost": 2
+    },
+    {
+     "day": 17,
+     "units_lost": 2
+    },
+    {
+     "day": 20,
+     "units_lost": 2
+    },
+    {
+     "day": 23,
+     "units_lost": 2
+    },
+    {
+     "day": 26,
+     "units_lost": 2
+    },
+    {
+     "day": 28,
+     "units_lost": 4
+    }
+   ],
+   "collect_fertilizer": {
+    "daily_collect_total": 29,
+    "every_other_day_total": 14
+   },
+   "payback": [
+    {
+     "P": 0,
+     "labour0": {
+      "units": 34,
+      "feeds": 27,
+      "visits": 28,
+      "net": 6125.0,
+      "profit": 5625.0
+     },
+     "labour10": {
+      "units": 34,
+      "feeds": 27,
+      "visits": 28,
+      "net": 5845.0,
+      "profit": 5345.0
+     },
+     "full_units": 34,
+     "full_feeds": 27,
+     "full_net_base": 5625
+    },
+    {
+     "P": 1,
+     "labour0": {
+      "units": 34,
+      "feeds": 27,
+      "visits": 28,
+      "net": 6125.0,
+      "profit": 5625.0
+     },
+     "labour10": {
+      "units": 34,
+      "feeds": 27,
+      "visits": 28,
+      "net": 5845.0,
+      "profit": 5345.0
+     },
+     "full_units": 34,
+     "full_feeds": 27,
+     "full_net_base": 5625
+    },
+    {
+     "P": 2,
+     "labour0": {
+      "units": 34,
+      "feeds": 27,
+      "visits": 28,
+      "net": 6125.0,
+      "profit": 5625.0
+     },
+     "labour10": {
+      "units": 34,
+      "feeds": 27,
+      "visits": 28,
+      "net": 5845.0,
+      "profit": 5345.0
+     },
+     "full_units": 34,
+     "full_feeds": 27,
+     "full_net_base": 5625
+    },
+    {
+     "P": 3,
+     "labour0": {
+      "units": 30,
+      "feeds": 24,
+      "visits": 25,
+      "net": 5400.0,
+      "profit": 4900.0
+     },
+     "labour10": {
+      "units": 30,
+      "feeds": 24,
+      "visits": 25,
+      "net": 5150.0,
+      "profit": 4650.0
+     },
+     "full_units": 30,
+     "full_feeds": 24,
+     "full_net_base": 4900
+    },
+    {
+     "P": 4,
+     "labour0": {
+      "units": 30,
+      "feeds": 24,
+      "visits": 25,
+      "net": 5400.0,
+      "profit": 4900.0
+     },
+     "labour10": {
+      "units": 30,
+      "feeds": 24,
+      "visits": 25,
+      "net": 5150.0,
+      "profit": 4650.0
+     },
+     "full_units": 30,
+     "full_feeds": 24,
+     "full_net_base": 4900
+    },
+    {
+     "P": 5,
+     "labour0": {
+      "units": 30,
+      "feeds": 24,
+      "visits": 25,
+      "net": 5400.0,
+      "profit": 4900.0
+     },
+     "labour10": {
+      "units": 30,
+      "feeds": 24,
+      "visits": 25,
+      "net": 5150.0,
+      "profit": 4650.0
+     },
+     "full_units": 30,
+     "full_feeds": 24,
+     "full_net_base": 4900
+    },
+    {
+     "P": 6,
+     "labour0": {
+      "units": 26,
+      "feeds": 21,
+      "visits": 22,
+      "net": 4675.0,
+      "profit": 4175.0
+     },
+     "labour10": {
+      "units": 26,
+      "feeds": 21,
+      "visits": 22,
+      "net": 4455.0,
+      "profit": 3955.0
+     },
+     "full_units": 26,
+     "full_feeds": 21,
+     "full_net_base": 4175
+    },
+    {
+     "P": 7,
+     "labour0": {
+      "units": 26,
+      "feeds": 21,
+      "visits": 22,
+      "net": 4675.0,
+      "profit": 4175.0
+     },
+     "labour10": {
+      "units": 26,
+      "feeds": 21,
+      "visits": 22,
+      "net": 4455.0,
+      "profit": 3955.0
+     },
+     "full_units": 26,
+     "full_feeds": 21,
+     "full_net_base": 4175
+    },
+    {
+     "P": 8,
+     "labour0": {
+      "units": 26,
+      "feeds": 21,
+      "visits": 22,
+      "net": 4675.0,
+      "profit": 4175.0
+     },
+     "labour10": {
+      "units": 26,
+      "feeds": 21,
+      "visits": 22,
+      "net": 4455.0,
+      "profit": 3955.0
+     },
+     "full_units": 26,
+     "full_feeds": 21,
+     "full_net_base": 4175
+    },
+    {
+     "P": 9,
+     "labour0": {
+      "units": 22,
+      "feeds": 18,
+      "visits": 19,
+      "net": 3950.0,
+      "profit": 3450.0
+     },
+     "labour10": {
+      "units": 22,
+      "feeds": 18,
+      "visits": 19,
+      "net": 3760.0,
+      "profit": 3260.0
+     },
+     "full_units": 22,
+     "full_feeds": 18,
+     "full_net_base": 3450
+    },
+    {
+     "P": 10,
+     "labour0": {
+      "units": 22,
+      "feeds": 18,
+      "visits": 19,
+      "net": 3950.0,
+      "profit": 3450.0
+     },
+     "labour10": {
+      "units": 22,
+      "feeds": 18,
+      "visits": 19,
+      "net": 3760.0,
+      "profit": 3260.0
+     },
+     "full_units": 22,
+     "full_feeds": 18,
+     "full_net_base": 3450
+    },
+    {
+     "P": 11,
+     "labour0": {
+      "units": 22,
+      "feeds": 18,
+      "visits": 19,
+      "net": 3950.0,
+      "profit": 3450.0
+     },
+     "labour10": {
+      "units": 22,
+      "feeds": 18,
+      "visits": 19,
+      "net": 3760.0,
+      "profit": 3260.0
+     },
+     "full_units": 22,
+     "full_feeds": 18,
+     "full_net_base": 3450
+    },
+    {
+     "P": 12,
+     "labour0": {
+      "units": 18,
+      "feeds": 15,
+      "visits": 16,
+      "net": 3225.0,
+      "profit": 2725.0
+     },
+     "labour10": {
+      "units": 18,
+      "feeds": 15,
+      "visits": 16,
+      "net": 3065.0,
+      "profit": 2565.0
+     },
+     "full_units": 18,
+     "full_feeds": 15,
+     "full_net_base": 2725
+    },
+    {
+     "P": 13,
+     "labour0": {
+      "units": 18,
+      "feeds": 15,
+      "visits": 16,
+      "net": 3225.0,
+      "profit": 2725.0
+     },
+     "labour10": {
+      "units": 18,
+      "feeds": 15,
+      "visits": 16,
+      "net": 3065.0,
+      "profit": 2565.0
+     },
+     "full_units": 18,
+     "full_feeds": 15,
+     "full_net_base": 2725
+    },
+    {
+     "P": 14,
+     "labour0": {
+      "units": 18,
+      "feeds": 15,
+      "visits": 16,
+      "net": 3225.0,
+      "profit": 2725.0
+     },
+     "labour10": {
+      "units": 18,
+      "feeds": 15,
+      "visits": 16,
+      "net": 3065.0,
+      "profit": 2565.0
+     },
+     "full_units": 18,
+     "full_feeds": 15,
+     "full_net_base": 2725
+    },
+    {
+     "P": 15,
+     "labour0": {
+      "units": 14,
+      "feeds": 12,
+      "visits": 13,
+      "net": 2500.0,
+      "profit": 2000.0
+     },
+     "labour10": {
+      "units": 14,
+      "feeds": 12,
+      "visits": 13,
+      "net": 2370.0,
+      "profit": 1870.0
+     },
+     "full_units": 14,
+     "full_feeds": 12,
+     "full_net_base": 2000
+    },
+    {
+     "P": 16,
+     "labour0": {
+      "units": 14,
+      "feeds": 12,
+      "visits": 13,
+      "net": 2500.0,
+      "profit": 2000.0
+     },
+     "labour10": {
+      "units": 14,
+      "feeds": 12,
+      "visits": 13,
+      "net": 2370.0,
+      "profit": 1870.0
+     },
+     "full_units": 14,
+     "full_feeds": 12,
+     "full_net_base": 2000
+    },
+    {
+     "P": 17,
+     "labour0": {
+      "units": 14,
+      "feeds": 12,
+      "visits": 13,
+      "net": 2500.0,
+      "profit": 2000.0
+     },
+     "labour10": {
+      "units": 14,
+      "feeds": 12,
+      "visits": 13,
+      "net": 2370.0,
+      "profit": 1870.0
+     },
+     "full_units": 14,
+     "full_feeds": 12,
+     "full_net_base": 2000
+    },
+    {
+     "P": 18,
+     "labour0": {
+      "units": 10,
+      "feeds": 9,
+      "visits": 10,
+      "net": 1775.0,
+      "profit": 1275.0
+     },
+     "labour10": {
+      "units": 10,
+      "feeds": 9,
+      "visits": 10,
+      "net": 1675.0,
+      "profit": 1175.0
+     },
+     "full_units": 10,
+     "full_feeds": 9,
+     "full_net_base": 1275
+    },
+    {
+     "P": 19,
+     "labour0": {
+      "units": 10,
+      "feeds": 9,
+      "visits": 10,
+      "net": 1775.0,
+      "profit": 1275.0
+     },
+     "labour10": {
+      "units": 10,
+      "feeds": 9,
+      "visits": 10,
+      "net": 1675.0,
+      "profit": 1175.0
+     },
+     "full_units": 10,
+     "full_feeds": 9,
+     "full_net_base": 1275
+    },
+    {
+     "P": 20,
+     "labour0": {
+      "units": 10,
+      "feeds": 9,
+      "visits": 10,
+      "net": 1775.0,
+      "profit": 1275.0
+     },
+     "labour10": {
+      "units": 10,
+      "feeds": 9,
+      "visits": 10,
+      "net": 1675.0,
+      "profit": 1175.0
+     },
+     "full_units": 10,
+     "full_feeds": 9,
+     "full_net_base": 1275
+    },
+    {
+     "P": 21,
+     "labour0": {
+      "units": 6,
+      "feeds": 6,
+      "visits": 7,
+      "net": 1050.0,
+      "profit": 550.0
+     },
+     "labour10": {
+      "units": 6,
+      "feeds": 6,
+      "visits": 7,
+      "net": 980.0,
+      "profit": 480.0
+     },
+     "full_units": 6,
+     "full_feeds": 6,
+     "full_net_base": 550
+    },
+    {
+     "P": 22,
+     "labour0": {
+      "units": 6,
+      "feeds": 6,
+      "visits": 7,
+      "net": 1050.0,
+      "profit": 550.0
+     },
+     "labour10": {
+      "units": 6,
+      "feeds": 6,
+      "visits": 7,
+      "net": 980.0,
+      "profit": 480.0
+     },
+     "full_units": 6,
+     "full_feeds": 6,
+     "full_net_base": 550
+    },
+    {
+     "P": 23,
+     "labour0": {
+      "units": 6,
+      "feeds": 6,
+      "visits": 7,
+      "net": 1050.0,
+      "profit": 550.0
+     },
+     "labour10": {
+      "units": 6,
+      "feeds": 6,
+      "visits": 7,
+      "net": 980.0,
+      "profit": 480.0
+     },
+     "full_units": 6,
+     "full_feeds": 6,
+     "full_net_base": 550
+    },
+    {
+     "P": 24,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -500.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -500.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -500
+    },
+    {
+     "P": 25,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -500.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -500.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -500
+    },
+    {
+     "P": 26,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -500.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -500.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -500
+    },
+    {
+     "P": 27,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -500.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -500.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -500
+    },
+    {
+     "P": 28,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -500.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -500.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -500
+    },
+    {
+     "P": 29,
+     "labour0": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -500.0
+     },
+     "labour10": {
+      "units": 0,
+      "feeds": 0,
+      "visits": 0,
+      "net": 0.0,
+      "profit": -500.0
+     },
+     "full_units": 0,
+     "full_feeds": 0,
+     "full_net_base": -500
+    }
+   ],
+   "last_P_payback_full_min_maint": 23,
+   "last_P_payback_best_labour0": 23,
+   "last_P_payback_best_labour10": 23
+  }
+ },
+ "required_actions_examples": {
+  "WHEAT_age1_after_planting_water": {
+   "WATER": 0
+  },
+  "WHEAT_age2": {
+   "WATER": 3,
+   "HARVEST": 0
+  },
+  "SHEEP_day5_prod_day": {
+   "FEED": 6,
+   "CARE": 1
+  },
+  "SHEEP_day6_bank0": {
+   "FEED": 1,
+   "CARE": 1,
+   "HARVEST": 0
+  },
+  "COW_day1": {
+   "FEED": 0,
+   "CARE": 0
+  },
+  "COW_day6_bank5": {
+   "FEED": 0,
+   "CARE": 0
+  }
+ },
+ "real_game_checks": {
+  "wheat_fert_age2_water_0234": {
+   "shed": 6,
+   "unit_inventory": 0,
+   "total": 6,
+   "steps": 720,
+   "final_tile": null,
+   "status": [
+    "DONE",
+    "DONE"
+   ]
+  },
+  "sheep_P0_dp_min": {
+   "shed": 34,
+   "unit_inventory": 0,
+   "total": 34,
+   "steps": 720,
+   "final_tile": {
+    "kind": "PASTURE"
+   },
+   "status": [
+    "DONE",
+    "DONE"
+   ],
+   "dp_units": 34,
+   "wheat_bought": 27,
+   "wool_total": 34
+  }
+ },
+ "runtime_s": 65.4
+}
