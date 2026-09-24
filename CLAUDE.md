@@ -10,7 +10,11 @@ https://www.kaggle.com/competitions/kaggriculture
   `scripts/value_tape_search_lite.py`) with a bank-aware budget; warm-up thread OFF (it crashed the official runner).
   vs y3: 2750-3000 +611 (+342..+911; +314 excl. its 14 tuning worlds), 180 worlds +671 (+343..+1,052), live V56
   +645 (40 games) and +911 (80 fresh games). Official runner on Kaggle CPU from an empty dir 8/8 (bank >= 46.8).
-  NOT SUBMITTED: options in `docs/submission_decision_20260924.md`. Rejected today: crop strand penalty (live V56
+  VALIDATION COMPLETE (`docs/v9lite_validation_record_20260924.md`): searches-off = y3 185/185, empty-dir official
+  runner incl. 4-parallel / half-core, no repo imports; y3's Yarn layer is IN it and adds +290 on top of V9-lite
+  (p2750); no sheep stranding. NOT uploaded here: the user's other system submits. A plain upload retires t10.
+  NEW MISSION (2026-09-24): semantic architecture, `docs/semantic_architecture_proposal_20260924.md`; 3000+ corpus
+  `data/leader_semantics/` (240 games, cash reproduced 240/240). Layout by care cost measured worthless. Rejected today: crop strand penalty (live V56
   -785), DSM hire reserve (-34k); opening closed for the deadline (`docs/new_opening_20260924.md`).
 - 2026-09-24 ACCEPTANCE TEST = the 2750-3000 exact panel `data/ladder_panel/p2750/` (185 games: 81 of our own vs
   2750-3000 teams, 104 team-vs-team; `scripts/build_p2750_panel.py`, `scripts/report_p2750.py`; submission arg
