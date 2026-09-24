@@ -86,3 +86,60 @@ milk +1.5k and wool +0.7k (animals are on par or better). Spend 19.9k vs 22.6k.
    day-0 animal placements top priority.
 3. Fertilizer: we apply about half the leader's (~100 vs 206 per game); that is most of the per-tile gap
    on strawberries/tomatoes/wheat.
+
+## Round 2 (2026-09-24, after commit 11990a5)
+
+Interface: `Target` unchanged. File now has three delimited sections: `TARGET (interface)` (documents the fields a
+target must supply), `PLANNER (target -> tile jobs)`, `EXECUTOR + MARKET` (target-agnostic except `_market`, which
+reads `_T.cum_sold`, `_T.hands`, `_T.land_day`, `_T.fert`). New CFG keys: `dispatch` ("greedy" default, "route"
+experimental), `prio3`, `late_p1`, `fert_prio`, `pick_cap`, `hires_first`, `hires_at_front`, `deliver_value_late`,
+route knobs (`two_opt`, `travel_w`, `reach_w`, `insert_by_finish`, `pick_k`, `steal_radius`). `--cfg` in
+`scripts/lead_g1.py` now separates keys with `;`.
+
+| tag | change | mean12 | mean11 (w/o 112708229) |
+|---|---|---:|---:|
+| final (round 1) | | 0.721 | 0.698 |
+| r1-r5 | route dispatcher: sweep sectors around the shed, NN + 2-opt, pickups for the route at spawn, closed-loop pruning / insertion / stealing (fixed: shed PICKUP/PLACE ping-pong of fertilizer; hour-0 farmer grabbing all wheat) | 0.506 (r5) | - |
+| g1 | 3-tier priorities: prio 0 = dies tonight / plant+place pipelines, 1 = window water, harvest at overflow/decay risk, feed; 2 = rest; no value deliveries after the late hour | 0.699 | 0.669 (one game collapsed: melon harvest deferred -> no cash day 10 -> no hires) |
+| g2 | + one-time crop harvests back to prio 1; hires funded first (sell beyond quota if needed) | 0.722 | 0.696 |
+| g3 | + FERTILIZE prio 1, fertilizer pickup cap 4, late delivery of loads >= $1000 | 0.720 | 0.693 |
+| g4 | + HIRE orders at the front of hour 0 when cash covers them (sells were crowding hires out of the 10-order cap) | 0.735 | 0.710 |
+| g5 | + when cash does not cover hires: fewest sells needed, then hires | 0.733 | 0.707 |
+| g6w / **g6p = final2** | water everything daily / no late penalty on prio-1 work | 0.710 / **0.747** | 0.690 / **0.717** |
+
+Route dispatcher verdict: not refuted but far worse as built (0.506). Plans were feasible on paper, but hands
+spend the day on 4-op animal tiles, the plan is rebuilt when hires arrive at hour 1 and 2, and late insertions /
+steals send hands across the farm. It is kept behind `CFG["dispatch"]="route"`; the zone and route failures both
+traced partly to the hour-0 farmer picking up the whole day's wheat (fixed only in route mode via `pick_k`).
+
+### final2 table (defaults; deterministic)
+| game | team | final | target | ratio | Hamming d6/d12/d20 | failed buys | hires (leader) | plants died | animals lost | FERTILIZE | cash/leader d9/d12/d20 |
+|---|---|---:|---:|---:|---|---:|---:|---:|---:|---:|---|
+| 112655730 | DSM | 63960 | 97066 | 0.659 | 1/25/26 | 2 | 291 (291) | 54 | 0 | 178 | 0.26/0.31/0.56 |
+| 112661570 | DSM | 86013 | 107042 | 0.804 | 1/19/40 | 3 | 287 (287) | 48 | 2 | 163 | 0.89/0.27/0.56 |
+| 112667461 | DSM | 99256 | 160169 | 0.620 | 1/16/22 | 5 | 292 (292) | 53 | 1 | 162 | 0.20/0.37/0.60 |
+| 112673479 | DSM | 61734 | 103786 | 0.595 | 1/16/33 | 1 | 279 (279) | 55 | 0 | 153 | 0.23/0.36/0.58 |
+| 112708229 | Vadim | 90275 | 83602 | 1.080* | 1/17/25 | 1 | 290 (290) | 46 | 0 | 132 | 0.35/0.67/0.80 |
+| 112714050 | Vadim | 54484 | 73589 | 0.740 | 1/19/27 | 1 | 280 (280) | 39 | 1 | 123 | 0.63/0.43/0.71 |
+| 112715010 | Vadim | 60571 | 73089 | 0.829 | 1/21/20 | 1 | 271 (271) | 19 | 3 | 147 | 0.50/0.75/0.79 |
+| 112721923 | Vadim | 80232 | 95661 | 0.839 | 1/26/32 | 1 | 285 (285) | 52 | 2 | 117 | 0.28/0.36/0.74 |
+| 112444381 | UMG | 121943 | 158088 | 0.771 | 0/18/16 | 1 | 280 (280) | 31 | 3 | 167 | 0.11/0.37/0.59 |
+| 112445586 | UMG | 52269 | 78200 | 0.668 | 1/9/18 | 0 | 281 (281) | 24 | 3 | 173 | 0.56/0.59/0.63 |
+| 112447950 | UMG | 73580 | 105308 | 0.699 | 1/16/13 | 1 | 275 (275) | 35 | 3 | 176 | 0.30/0.66/0.62 |
+| 112449129 | UMG | 65733 | 98814 | 0.665 | 0/27/27 | 1 | 284 (284) | 42 | 2 | 182 | 0.03/0.20/0.47 |
+| **mean** | | | | **0.747** (11 games without *: **0.717**) | | | | 41.5 | 1.7 | 158 | |
+
+\* opponent replay collapsed (24k vs its recorded 83k). No-effect commands 0 everywhere; max 0.092 s per step.
+
+Whole-game action mix (g3, per game, ours vs leader): moves 3158/3116, WATER 941/1261, HARVEST 402/583, COLLECT
+381/467, FEED 418/381, CARE 391/380, PLANT 266/295, FERTILIZE 146/207, PICKUP 327/191, PASS 378/267.
+Unit-steps: 7141 (g5) vs the leader's 7365: some hires still land after hour 0 on cash-bound days.
+
+### What still loses money (in order)
+1. Days 6-12 cash trough (cash/leader at day 9 is 0.03-0.89): day-8 milk is 6 vs 12 (one cow placed a day late),
+   day-10 melons 27.5 vs 36 units, strawberries start a day late. Every purchase after it (land, strawberries, geese)
+   is delayed, and the ratio then stays flat.
+2. Crop yield per tile: WATER -320 and HARVEST -181 actions a game vs the leader; 20-55 plants still die unwatered
+   (age-2 must-water day of wheat/carrots dominates); fertilizer is plentiful (about 16 units unused at 23:00
+   daily) but only 117-182 applications vs the leader's ~207.
+3. Extra PICKUP actions (+136/game): small wheat/fertilizer pickups; a bigger wheat cap (6) did not help.
