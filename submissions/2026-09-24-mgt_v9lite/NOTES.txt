@@ -33,5 +33,9 @@ DEFECT FOUND AND FIXED (2026-09-24): the first isolated-directory run on Kaggle 
     p2750 185 games: identical to the warm-thread build in 185/185 (+611 vs y3); day 12 median 11.6 s, p90 15.3,
       max 18.2 (budget 30, never hit); 0 errors in 555 searches.
     live V56 40 games: identical to the warm-thread build in 40/40 (+645 vs y3).
-  Queued: a second, disjoint 40-seed live-V56 panel (m1, y3, lite; benchmark_random_v56_paired_b.py) and the 180
-  ladder worlds on this exact build.
+    180 ladder worlds: identical to the warm-thread build in 180/180 (+671 vs y3, +343..+1,052, wins 130 -> 134);
+      max search 17.7 s, 0 errors in 540 searches.
+    SECOND live-V56 panel, 40 fresh seeds disjoint from the first x 2 seats (benchmark_random_v56_paired_b.py):
+      lite +911 vs y3 (+151..+1,793), 15 better / 4 worse, wins 54 -> 58; y3 +119 vs m1 (-212..+384) there.
+      Pooled live V56, 120 games: about +822 vs y3.
+VALIDATION COMPLETE for the thread-free build (submission.tar.gz, hashes in MANIFEST.json). NOT SUBMITTED.
