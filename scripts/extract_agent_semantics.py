@@ -1,6 +1,6 @@
 """AGENT variant of extract_leader_semantics.py: the leader's seat is played LIVE by one of our agents (same world:
 seed, forced shops, the opponent's recorded actions), and the game is extracted in the leader corpus's format, so our
-agent's semantics compare like for like with the leader's. usage: extract_agent_semantics.py <agent.py> <out_dir> <tape.json.gz>...
+agent's semantics compare like for like with the leader's. usage: extract_agent_semantics.py <agent.py|LEADER> <out_dir> <tape.json.gz>...  (LEADER = replay the recorded leader)
 """
 """Semantic extraction for leader tapes (2026-09-24 harvest task, Part 2).
 
@@ -176,9 +176,15 @@ def replay_one(path, team, agent_path=None):
                     d['maintenance'][op].append(tidx)
         return result
 
+    rival_sales = [dict() for _ in range(30)]          # rival's successful SELLs per day: {item: [units, revenue]}
+
     def commit_hook(op, item, price, farm, private, market, shed_capacity=100):
         pid = pid_of(farm)
         result = old_commit(op, item, price, farm, private, market, shed_capacity)
+        if pid == 1 - seat and result and op == 'SELL':
+            r = rival_sales[day_now[0]].setdefault(item, [0, 0.0])
+            r[0] += 1
+            r[1] += price
         if pid == seat and result:
             d = days[day_now[0]]
             if op == 'SELL':
@@ -270,6 +276,7 @@ def replay_one(path, team, agent_path=None):
                   final_cash=final, opponent=opponent, cash_match=cash_match),
         shops=[dict(shop=s, reveal_day=3 * (i + 1)) for i, s in enumerate(shops_flat)],
         days=days,
+        rival_sales=rival_sales,               # NOTE: like 'market', index d holds day d+1's events (see README)
     )
 
 
@@ -344,7 +351,7 @@ def agent_main():
     out.mkdir(parents=True, exist_ok=True)
     for p in sys.argv[3:]:
         p = Path(p)
-        r = replay_one(p, 'agent', agent_path=agent)
+        r = replay_one(p, 'agent', agent_path=None if agent == 'LEADER' else agent)
         with gzip.open(out / p.name, 'wt', encoding='utf-8') as f:
             json.dump(r, f, separators=(',', ':'))
         print(p.name, 'final', r['meta']['final_cash'], 'recorded', r['meta']['rewards'], flush=True)
