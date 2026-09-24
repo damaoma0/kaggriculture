@@ -5,6 +5,13 @@ competing on profit against other agents in a shared market. Competition page:
 https://www.kaggle.com/competitions/kaggriculture
 
 ## Conventions
+- 2026-09-24 evening: CANDIDATE `mgt_v9lite` (`submissions/2026-09-24-mgt_v9lite/`, multi-file tar.gz, build
+  `scripts/package_v9lite.py`) = y3 + the other system's V9 value selector made ~3x cheaper (V9-lite,
+  `scripts/value_tape_search_lite.py`) with a bank-aware budget; warm-up thread OFF (it crashed the official runner).
+  vs y3: 2750-3000 +611 (+342..+911; +314 excl. its 14 tuning worlds), 180 worlds +671 (+343..+1,052), live V56
+  +645 (40 games) and +911 (80 fresh games). Official runner on Kaggle CPU from an empty dir 8/8 (bank >= 46.8).
+  NOT SUBMITTED: options in `docs/submission_decision_20260924.md`. Rejected today: crop strand penalty (live V56
+  -785), DSM hire reserve (-34k); opening closed for the deadline (`docs/new_opening_20260924.md`).
 - 2026-09-24 ACCEPTANCE TEST = the 2750-3000 exact panel `data/ladder_panel/p2750/` (185 games: 81 of our own vs
   2750-3000 teams, 104 team-vs-team; `scripts/build_p2750_panel.py`, `scripts/report_p2750.py`; submission arg
   `p2750` to ladder_panel.py / remote_panel.py). Win rates there: m1 45.4%, t10 42.2% (t10 −352 vs m1, CI
