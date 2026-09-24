@@ -13,17 +13,22 @@
 # sell in 10-26% of the steps they have stock, in lots of ~3, mostly right after a consumption tick (t % 4 == 1) and
 # more often when the price is at its 24-step high (P 0.44-0.56 vs 0.15-0.21 when >10% below it).
 #
-# RULE (per product p, per step; everything observable):
+# RULE (per product p in 'hold' mode, per step; everything observable). DEFAULT: only STRAWBERRY is held; every other
+# product is sold at once above the caller's reserve (holding milk / wool / eggs / carrots / tomatoes too cost margin
+# against frozen 2750-3000 rivals; see SMK_P below):
+#   flow gate: rival sales rate over the last H steps (inventory change - our sales + consumption) >= consumption rate /
+#          kappa -> sell everything now (the market is not recovering; holding would only help the rival)
 #   ref  = max published price of p over the last W steps (including now)
 #   thr  = q_p * ref
 #   sell the units whose exact marginal price f(inventory + j) is >= thr ("sell down the price to q of the recent
 #          high"), at most have - keep_p; discretionary sells only at post-tick steps (t % 4 == 1) when post_tick
 #   hold at the $1 floor (a floor sale earns 1 and moves nothing)
 #   forced: stock above smax_p is sold regardless of price; total held above cap_total -> sell the excess
-#   liquidation: from liq_step on, thr falls linearly to 0 at the last executed step (718); all left is sold at 718
+#   liquidation: from liq_step on, thr falls linearly to 0 at the last executed step (718); all left is sold from 717
 #
 # Entry point
-#   sell_orders(obs, player, stock, reserve, state, params=None) -> [["SELL", item, n], ...]
+#   sell_orders(obs, player, stock, reserve, state, params=None, sold_total=None) -> [["SELL", item, n], ...]
+#     sold_total {product: units we have ordered to sell so far, ALL sources} (separates our sales from the rival's)
 #     stock   {product: units in our shed}            (obs private shed is fine)
 #     reserve {product: units that must not be sold} (wheat the herd eats, fertilizer for pending jobs)
 #     state   dict owned by the caller, kept across steps (price history); pass {} at game start
@@ -33,7 +38,8 @@
 #     leader worlds: median 25 / 30 / 34 / 37 / 40 at days 0 / 4 / 8 / 10 / 12, flat ~37-41 after). Buy ahead while it
 #     is cheap: cover the herd's next `cover_days` of feed (plus optional `arb_units` to resell later) when the buy quote
 #     is <= buy_max_price and day <= buy_last_day, bounded by shed room and by the cash left after every other purchase
-#     minus cash_reserve. The sell side keeps the caller's herd reserve and sells the surplus by the hold rule.
+#     minus cash_reserve. DEFAULT OFF (negative in G1 and p2750). Wheat SELLS keep the caller's herd reserve and sell
+#     the surplus at once (holding it sold later at lower prices in G1).
 
 SMK_LAST_STEP = 718
 SMK_PRODUCTS = ["WHEAT", "CARROT", "TOMATO", "STRAWBERRY", "MELON", "EGG", "MILK", "WOOL", "FERTILIZER"]
@@ -60,19 +66,29 @@ SMK_G = {
     "H": 48,              # steps of market flow for the rival-rate estimate
     "kappa": 1.0,         # hold only while town consumption > kappa x the rival's sales rate (else sell at once)
 }
-# per-product parameters. mode 'asap' = everything above the reserve at once (the deploy rule: wheat above the herd's
-# keep, fertilizer, melon - everyone harvests melons on day 10 and the first seller wins); 'hold' = the rule above.
-# Chosen by an exact market-only replay (54 leader worlds x {leader, y3} production, rival sales fixed; see
-# docs/sem_market_progress.md): the largest own-revenue gain that does not lower the margin on either production.
-SMK_P = {
-    "WHEAT":      {"mode": "asap"},
+# per-product parameters. mode 'asap' = everything above the reserve at once (the deploy rule); 'hold' = the rule above.
+# Hold parameters were chosen by an exact market-only replay (54 leader worlds x {leader, y3} production, rival sales
+# fixed; docs/sem_market_progress.md): the largest own-revenue gain whose margin gain is >= 0 on both productions.
+# LIVE (p2750, frozen 2750-3000 rivals, c1 build): all six hold products -1,545 margin / game over 59 worlds (95% CI
+# -3,474..-106; own +716, rival +2,261), strawberry alone +113 (-299..+557) with own +812 (+425..+1,233) over 40 fresh
+# worlds. So the DEFAULT holds strawberries only; SMK_P_HOLD keeps the learned parameters of the others (research).
+SMK_P_HOLD = {
     "CARROT":     {"mode": "hold", "q": 1.00, "keep": 0, "smax": 30},
     "TOMATO":     {"mode": "hold", "q": 1.00, "keep": 0, "smax": 30},
     "STRAWBERRY": {"mode": "hold", "q": 1.00, "keep": 0, "smax": 30},
-    "MELON":      {"mode": "asap"},
     "EGG":        {"mode": "hold", "q": 1.00, "keep": 0, "smax": 30},
     "MILK":       {"mode": "hold", "q": 0.90, "keep": 0, "smax": 10},
     "WOOL":       {"mode": "hold", "q": 0.95, "keep": 0, "smax": 30},
+}
+SMK_P = {
+    "WHEAT":      {"mode": "asap"},     # keeps the caller's herd reserve; hold-selling wheat lost on price in G1
+    "CARROT":     {"mode": "asap"},
+    "TOMATO":     {"mode": "asap"},
+    "STRAWBERRY": dict(SMK_P_HOLD["STRAWBERRY"]),
+    "MELON":      {"mode": "asap"},     # everyone harvests melons on day 10: the first seller wins
+    "EGG":        {"mode": "asap"},
+    "MILK":       {"mode": "asap"},
+    "WOOL":       {"mode": "asap"},
     "FERTILIZER": {"mode": "asap"},
 }
 
