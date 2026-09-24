@@ -20,4 +20,7 @@ Packaged (budgeted) build on p2750, 185 games, 4 games per 4-vCPU kernel (pessim
   (+38..+323), 9 better / 4 worse, wins 87 -> 89; +470 vs m1; -308 vs the unbudgeted research build (16 worlds lost).
   Searches: day 12 median 15.9 s (hits its ~17 s budget almost always -> native route); day 15 median 6.6 s (max
   12.8); day 18 median 4.5 s (max 9.2); 0 errors in 555 searches.
-Pending: the same panel at one game per kernel (less contention); stream B's cheaper search (V9-lite).
+Same panel at ONE game per 4-vCPU kernel: identical to the unbudgeted research build in all 185 games, +472 vs y3
+  (+253..+740); day 12 median 11.5 s (max 16.3, budget hit once), day 15 median 3.7, day 18 median 2.6.
+  => the package keeps 35% (4 games per machine) to 100% (a whole machine) of V9's gain, depending on CPU share.
+Pending: V9-lite package (agents/mgt_v9litepkg.py, stream B) on p2750 at 4 games per machine and against live V56.
