@@ -14,4 +14,10 @@ Checks so far (2026-09-24):
 Research-wrapper results (unbudgeted):
   p2750 (185, frozen opponents): +779 vs m1 (+523..+1,071), +472 vs y3 (+253..+740), wins 87 -> 93 (y3 -> v9y3)
   live V56, 20 seeds x 2 seats: +615 vs m1 (+127..+1,215), +320 vs y3 (-104..+890), wins 29 -> 27
-Pending: packaged (budgeted) build on the p2750 panel with per-search times; package timing on Kaggle CPU (8 games).
+Package timing on Kaggle CPU (isolated dir, official runner, 4 seeds x 2 seats vs V56, one game at a time): 8/8 DONE,
+  bank end 45.4-50.8 of 60, largest single step 9.6 s (no V9 switches in these games).
+Packaged (budgeted) build on p2750, 185 games, 4 games per 4-vCPU kernel (pessimistic contention): +164 vs y3
+  (+38..+323), 9 better / 4 worse, wins 87 -> 89; +470 vs m1; -308 vs the unbudgeted research build (16 worlds lost).
+  Searches: day 12 median 15.9 s (hits its ~17 s budget almost always -> native route); day 15 median 6.6 s (max
+  12.8); day 18 median 4.5 s (max 9.2); 0 errors in 555 searches.
+Pending: the same panel at one game per kernel (less contention); stream B's cheaper search (V9-lite).
