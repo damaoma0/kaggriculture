@@ -1,0 +1,17 @@
+mgt_v9y3 = mgt_y3 + the other agent system's value selector V9 at the reveals of days 12/15/18 (NOT SUBMITTED)
+Build: .venv/Scripts/python.exe scripts/package_v9y3.py submissions/2026-09-24-mgt_v9y3
+  -> pkg/ (unpacked agent, 184 files) and submission.tar.gz (8.88 MB; hashes in MANIFEST.json)
+Entry: pkg/main.py = scripts/package_v9y3_main.py (entry v9y3_agent, defined last; verified with get_last_callable).
+Base y3 inside the package is submissions/2026-09-24-mgt_y3/main.py byte for byte. V9 modules unchanged.
+Deployment changes vs the research wrapper agents/mgt_v9y3.py: package root from sys.path; bank-aware search budget
+min(20, (remainingOverageTime - 8) / reveals left), none below 3 s (an unfinished search keeps the native route);
+gzip fallback if the libraries arrive decompressed; a failing search keeps the native route for the rest of the game.
+Checks so far (2026-09-24):
+  isolated run (archive extracted to an empty dir, other cwd, kaggle_environments file loader), vs V56, seed 0,
+  both seats, local laptop under load: DONE/DONE, rewards identical to y3 and the research wrapper, bank end 23.1-23.9
+  of 60; same with the libraries decompressed (--gunzip).
+  research wrapper on Kaggle CPU, one game at a time, 3 seeds x 2 seats vs V56: bank end >= 35.9 (no switches).
+Research-wrapper results (unbudgeted):
+  p2750 (185, frozen opponents): +779 vs m1 (+523..+1,071), +472 vs y3 (+253..+740), wins 87 -> 93 (y3 -> v9y3)
+  live V56, 20 seeds x 2 seats: +615 vs m1 (+127..+1,215), +320 vs y3 (-104..+890), wins 29 -> 27
+Pending: packaged (budgeted) build on the p2750 panel with per-search times; package timing on Kaggle CPU (8 games).
