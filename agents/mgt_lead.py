@@ -83,6 +83,7 @@ CFG = {
     "p1_min_value": 0.0,      # maintenance ops worth <= this (coins) count as priority 2 (deferred after late_hour)
     "deliver_units": 10,      # a unit carrying this many products walks them to the shed for same-day sale
     "release_stale_d": False, # drop a delivery assignment once nothing deliverable is carried (1 idle step per DROP)
+    "fert_hold": 0,           # 1: collected fertilizer is not delivered while fertilize jobs remain today (applied in the field); 2: never delivered mid-day
     "helper_split": False,    # a unit left free by the greedy joins a held animal tile and takes its last op
     "helper_crops": False,    # helper split also on ongoing crops (strawberry / tomato: HARVEST is independent of water)
     "idle_trace": None,       # research: directory for the idle-pass / dropped-job trace (one jsonl per game)
@@ -778,9 +779,11 @@ def agent(obs, config=None):
                   and _T.cum_sold[d_].get(p, 0) - S["sold"][p] - shed.get(p, 0) > 0}
     fert_short = demand.get("FERTILIZER", 0) > shed.get("FERTILIZER", 0)
 
+    fert_keep = fert_short or (CFG["fert_hold"] == 1 and demand.get("FERTILIZER", 0) > 0) or CFG["fert_hold"] == 2
+
     def deliverable(inv):
         return {k: v for k, v in inv.items() if v > 0 and k in PRODUCTS and k != "WHEAT"
-                and not (k == "FERTILIZER" and fert_short)}
+                and not (k == "FERTILIZER" and fert_keep)}
 
     def usable_ops(u, ops, need):
         """ops this unit can run at the tile now (items carried or obtainable at the shed)."""

@@ -841,3 +841,121 @@ idle unit's reach. Dropped maintenance (~15k/game of module value) is a capacity
 recover at most ~0.4k/game. Rejected this round: c27 / c27f (later wheat/carrot cutoffs), fill, h2, z2, z4, nd, pv60,
 hs1, hs2, hp.
 Check: the new default deploy (copy `mgt_lpv_dep6`, Kaggle pvs13) reproduces pv30 on the 12 smoke worlds 12/12.
+
+## Where the 12% goes: work / output / cash ledger, leader vs our leader-plan agent (G1 worlds, 2026-09-25)
+`scripts/lead_ledger.py`: the leader's OWN recorded actions (tape `actions`) and our `mgt_lead` (current defaults,
+= Gcut) played through the same engine hooks in the same world (seed, forced shops, recorded opponent). The leader
+replay reproduces the recorded cash 12/12; ours / leader = 0.881 (= G1). First pass (Kaggle ledg1), per game:
+| per game | d0-5 lead / ours | d6-11 | d12-17 | d18-23 | d24-29 | all |
+|---|---|---|---|---|---|---|
+| unit-steps | 843 / 844 | 1,488 / 1,486 | 1,693 / 1,706 | 1,707 / 1,720 | 1,634 / 1,664 | 7,366 / 7,420 |
+| hires / wages | 31 / 31 | 59 / 59 | 68 / 68 | 69 / 69 | 66 / 67 | 293 / 294; 6,153 / 6,265 |
+| moves | 375 / 313 | 718 / 760 | 657 / 809 | 657 / 799 | 709 / 819 | 3,116 / 3,500 |
+| maintenance ops (effective) | 166 / 164 | 527 / 408 | 900 / 707 | 890 / 728 | 776 / 623 | **3,259 / 2,630** |
+| all effective actions | 248 / 247 | 732 / 613 | 1,026 / 877 | 1,040 / 907 | 907 / 777 | 3,953 / 3,421 |
+| idle (PASS) + no-effect | 221 / 284 | 39 / 113 | 10 / 19 | 10 / 14 | 19 / 68 | 297 / 499 |
+| moves per maintenance op | 2.26 / 1.91 | 1.36 / 1.86 | **0.73 / 1.14** | **0.74 / 1.10** | 0.91 / 1.31 | 0.96 / 1.33 |
+| shed arrivals per unit-day | 0.60 / 0.56 | 0.64 / 0.99 | **0.13 / 0.37** | **0.11 / 0.35** | 0.41 / 0.55 | 0.34 / 0.55 |
+| pickups (items per pickup) | 20 / 23 (2.1 / 1.6) | 57 / 70 (2.6 / 1.7) | 42 / 77 (3.3 / 2.5) | 38 / 71 (2.6 / 2.7) | 25 / 66 (2.4 / 2.5) | 184 / 307 (2.7 / 2.3) |
+| PLACE (mostly product deposits at the shed) | 23 / 12 | 49 / 40 | 6 / 23 | 4 / 21 | 6 / 27 | 88 / 123 |
+| WATER / FERTILIZE / HARVEST | | | | | | 1,254 / 953; 207 / 127; 578 / 480 |
+| FEED / CARE / COLLECT / PLANT | | | | | | 379 / 354; 375 / 323; 466 / 394; 295 / 231 |
+**Finding (up front): the leader does MORE maintenance than we do (+24% effective maintenance ops, +31% waters, +63%
+fertilizes, +20% harvests), with 11% FEWER moves, fewer idle steps, the same unit-steps and the same wages.** (a)
+"thinner maintenance" is false; (c) "more unit-steps" is false (hire hours ~0.3 both). (b) holds: on saturated days
+12-23 the leader needs 0.73 moves per maintenance op, we need 1.12 (+53%). Most of our extra walking is shed trips: we
+arrive at the shed 3x as often on days 12-23 (0.36 vs 0.12 per unit-day), with 1.8x the pickups and 4-5x the
+product deposits (PLACE); we pick up 709 items a game vs 490 while feeding and fertilizing less, so ~220 picked items a
+game are not used. Per tile-day the leader waters wheat 0.98 vs 0.90, fertilizes wheat 0.18 vs 0.11, waters
+strawberries 0.73 vs 0.53; we feed / care / harvest cows and sheep MORE late (days 18-29), and the leader lets more
+animals go (cows 1.5 vs 0.7, geese 2.1 vs 0.5, sheep 5.3 vs 3.5 per game).
+Output per game (harvested): wheat 681 / 495, carrot 204 / 126, egg 263 / 196, strawberry 208 / 159, tomato 105 / 69,
+melon 60 / 58; milk 169 / 183 and wool 121 / 127 are higher for us. Plantings: wheat 171 / 135, carrot 70 / 50 (our
+late wheat / carrot events are cut by plant_cutoff and not all executed).
+Cash decomposition of the gap (13,450 a game, 100% explained): revenue +17,222 (volume +23.4k: wheat +8.5k, strawberry
++7.0k, carrot +3.6k, egg +3.3k, tomato +2.8k, melon +0.5k, milk -1.6k, wool -0.7k; price -6.2k: we sell fewer units at
+higher prices), spend -3,884 in our favour (wheat bought 3.2k vs 6.2k, seeds -1.2k, animals +0.4k), wages +112.
+So the 12% is output volume of crops and eggs, lost because we perform 24% fewer maintenance ops with the same
+unit-steps; the unit-steps go into walking, mostly extra shed trips. Placement / distance metrics: ledg2 running.
+Placement and distance (Kaggle ledg2, same 12 worlds, per game):
+| | d0-5 | d6-11 | d12-17 | d18-23 | d24-29 | all |
+|---|---|---|---|---|---|---|
+| our occupied tile-days on the leader's tile with the same asset that day | 92.4% | 97.6% | 90.8% | 84.1% | 73.4% | 86.3% |
+| our plantings on a tile the leader planted with that crop (<= 3 days before) | 100% | 94.6% | 88.9% | 81.8% | 85.8% | 89.4% |
+| mean shed distance of occupied tiles, leader / ours | 3.99 / 3.95 | 3.95 / 3.95 | 3.86 / 3.89 | 3.86 / 3.80 | 3.74 / 3.64 | 3.85 / 3.82 |
+| mean shed distance of the tiles operated on | 3.65 / 3.65 | 3.50 / 3.32 | 3.60 / 3.45 | 3.74 / 3.41 | 3.74 / 3.43 | 3.66 / 3.43 |
+| mean distance between a unit's consecutive tile ops | 0.76 / 0.90 | 0.76 / 1.09 | 0.56 / 0.79 | 0.56 / 0.76 | 0.61 / 0.84 | 0.61 / 0.85 |
+| moves = between-op walking + other (shed detours, walk out) | 375 = 118+257 / 313 = 136+177 | 718 = 390+328 / 760 = 412+348 | 657 = 461+196 / 809 = 495+314 | 657 = 476+182 / 799 = 503+296 | 709 = 438+271 / 819 = 452+367 | 3,116 = 1,882+1,234 / 3,500 = 1,998+1,502 |
+The layout is the same (planner remaps 43.6 plant events a game, but 86% of our tile-days sit on the leader's tile and
+the occupied tiles are equally far from the shed); we even operate on tiles nearer the shed (3.43 vs 3.66: far jobs are
+the ones we drop). Per maintenance op on days 12-17 the leader walks 0.51 between ops + 0.22 other, we walk 0.70 +
+0.44: our extra walking is half route order (consecutive ops 39% farther apart) and half shed detours (28 vs 10 shed
+arrivals a game in days 12-17).
+nd (no mid-day delivery trips) traced before building on it: on the 12 smoke worlds nd - fx1 = margin -8,395 but own
+cash only -1,537; the rival's cash rises +6,858 (the frozen rival's recorded sales meet higher prices when our products
+reach the market later). Own loss: strawberry -937, tomato -644, melon -401, wheat -401 revenue; milk +655, egg +317.
+Paired one-world trace (midnight overflow, carried inventory, sale timing, failed buys) and item flows in progress.
+**nd traced (Kaggle wtr1, `scripts/lead_world_trace.py`, two paired smoke worlds, nd vs fx1, reproduce the panel to
+the dollar):** first divergence day 8 hour 11-12 (a hand collects fertilizer instead of walking to deliver).
+| world | margin | own cash | rival cash | items lost to the shed cap at midnight (fx1 / nd) | units carried at midnight, days 12-27 (fx1 / nd, mean) |
+|---|---|---|---|---|---|
+| 111416249 | -23,399 | -10,180 | +13,219 | 29 / **175** (wheat 72, tomato 41, milk 24, strawberry 16) | 85 / 102 |
+| 111688786 | -7,446 | -1,798 | +5,648 | 11 / **118** (wheat 77, strawberry 14, wool 7) | |
+Two mechanisms, both real: (1) without mid-day deposits every carried product lands in the shed at the midnight dump
+and the 100-item shed cap discards the overflow (5-15x more lost items); (2) our products reach the market a day later
+and the frozen rival's recorded sales meet the higher prices (rival strawberry 139 vs 123 a unit, tomato 82 vs 78,
+milk 223 vs 219); the rival's gain is larger than our own loss. So mid-day delivery is not waste: it keeps the shed
+under its cap and sells ahead of the rival (how the leader avoids the cap with few deposits is not measured here).
+The shed-trip fix must keep deliveries and target the other half of the extra walking (pickups, route order).
+Item flows (Kaggle ledg4, same 12 G1 worlds, per game, leader / ours):
+| | leader | ours |
+|---|---|---|
+| items picked up at the shed: wheat / fertilizer / animals | 442 / **24** / 24 | 473 / **196** / 40 |
+| fertilizer collected from animals / applied (FERTILIZE) | 466 / **207** | 394 / **127** |
+| items deposited at the shed (PLACE/DROP): fertilizer / wheat / egg / milk / wool / strawberry | 86 / 96 / 55 / 112 / 79 / 40 | 124 / 33 / 33 / 101 / 90 / 47 |
+| deposit visits | 134 | 179 |
+**The ~220 unused picked items are fertilizer.** The leader applies the fertilizer its units collect from animals in
+the field (24 fertilizer picked at the shed for 207 applications). We route it through the shed: units deliver
+collected fertilizer (124 deposited; `deliverable()` counts fertilizer unless the shed is short, and it counts toward
+the >= 10-unit delivery trigger), then other units walk back to pick fertilizer up (196) and apply less (127). The
+leader also delivers mid-day (134 deposit visits, mostly DROP), so "no deliveries" is not what it does.
+Midnight shed cap (Kaggle ledg5 = the 12 G1 worlds for three sides; wtr2 = the 12 smoke worlds for the current deploy):
+| per game | items discarded by the 100 cap at midnight | shed before dump / carried / shed after (days 12-28) | units sold a day (days 12-28) |
+|---|---|---|---|
+| leader (G1 worlds) | 9.1 (wheat 3.3, carrot 2.5, strawberry 1.2) | 6 / 82 / 87 | 85 |
+| our leader-plan agent (G1) | 34.8 (wheat 16.1, egg 5.2, tomato 4.3, carrot 3.3, fertilizer 3.1) | 12 / 78 / 88 | 60 |
+| current deploy (G1 worlds; reproduces its E2 cell, 0.885) | 41.8 (wheat 28.2, strawberry 3.3, egg 3.1) | 12 / 79 / 89 | 60 |
+| current deploy (smoke worlds; reproduces pv30 12/12) | 21.8 (wheat 12.8, egg 2.2, strawberry 1.8) = ~1.2k coins at our own prices | | |
+How the leader stays under the cap: it sells its stock every day (its shed holds 6 items before the midnight dump,
+85 units sold a day); its units carry ~82 items at midnight and the dump fills the shed to ~87, which it sells next
+day. We carry the same amount but keep 12 in the shed and sell 60 a day, so the dump pushes us to 88-95 and wheat
+spills. Cap losses are real but ~1.2-2k a game; the fertilizer round trip is the larger walking defect.
+**Build step (the biggest bucket: maintenance ops lost to walking, of which the fertilizer shed round trip is the
+identifiable defect): `fert_hold`.** 1 = collected fertilizer is not delivered while fertilize jobs remain today (units
+carry it to the jobs; the executor's cost already skips the shed detour when the item is carried); 2 = never
+delivered mid-day. Deploy variants ff1 / ff2 on smoke (pvs14) and G1 (g1l, deploy E2 cells + leader-plan G cells).
+| variant | smoke vs current (pv30) (95% CI), better | G1 deploy / leader-plan |
+|---|---|---|
+| **ff1: fertilizer kept on the unit while fertilize jobs remain** | **+792 (+106 .. +1,775), 8/12** | 0.881 / 0.873 / 0.865 (pv30 0.885 / 0.875 / 0.862); leader-plan 0.884 / 0.875 / 0.851 (0.881 / 0.871 / 0.853) |
+| ff2: fertilizer never delivered mid-day | -10,154 (-12,787 .. -7,293), 1/12 | 0.886 / 0.859 / 0.867; leader-plan 0.838 / 0.825 / 0.831 |
+ff1 goes to the full panel (smoke CI excludes zero; pfff1, 2 shards). G1 is neutral within noise both ways.
+ff2's out-of-proportion loss, cheap split (no trace needed): smoke -10,154 = own -3,594 (well under the ~11.5k of
+fertilizer revenue; spread over egg -1.0k, wheat -0.8k, wool -0.7k, tomato -0.6k, fertilizer -0.6k) + rival +6,560
+(milk +2.7k, strawberry +1.8k, wool +1.0k). Fertilizer revenue on days 0-9 falls 4.6k -> 3.1k. G1 leader-plan (Gff2):
+own -3,587 a game, opponent +5,085; in the worst world (112715010, -20.6k) cash on days 3 / 6 / 9 is 27 / 67 / 314
+against 431 / 1,068 / 1,611, and idle passes rise at every hour band (h06 10 -> 41, h12 117 -> 239, h18 370 -> 469)
+with fewer actions of every kind. Mechanism: fertilizer is the opening's cash flow (sold from day 2); never
+delivering it mid-day starves the opening of cash, purchases stall and units idle; later, with fertilizer excluded
+from the delivery trigger, other products ride to midnight as in nd (rival gains, cap). ff1 does not hit this
+(no fertilize jobs in the opening, so fertilizer is still delivered there): G1 leader-plan own +363, with +4.5
+fertilizes, +8.8 collects, +7.6 harvests, +6.8 feeds and -20 shed pick/place/drop actions a game.
+**Full panel ff1 (Kaggle pfff1, 185 p2750 worlds): +462 vs pv30 (95% CI +67 .. +888), better 89 / worse 85 / same 11;
+-16,338 vs y3 (pv30 -16,800), W-L 16-169 (15-170).** Sold units: egg 149 (144), strawberry 168 (166), fertilizer 236
+(234), wheat 325 (333); revenue 115.4k (115.1k). **Deploy default now fert_hold 1** (`agents/mgt_lead_deploy.py`
+executor CFG; mgt_lead.py keeps 0, leader-plan G1 neutral 0.884 vs 0.881). Deploy vs y3: pv30 -16,800 -> ff1 -16,338.
+Round summary: the 12% (13.45k a game) is output volume (crops and eggs), because with the same unit-steps and wages we
+perform 24% fewer maintenance ops than the leader; the unit-steps go into walking (1.14 vs 0.73 moves per maintenance
+op on days 12-17): half from route order (consecutive ops 0.79 vs 0.56 tiles apart), half shed detours, of which the
+identifiable defect was the fertilizer round trip (196 fertilizer picked at the shed vs the leader's 24). The layout
+is the same (86% of tile-days on the leader's tiles, same shed distance). ff1 removes part of the round trip
+(+4.5 fertilizes a game in G1); the route-order half is untouched.

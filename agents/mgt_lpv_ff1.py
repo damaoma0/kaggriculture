@@ -1,7 +1,7 @@
 """mgt_lead_deploy: mgt_lead's executor playing worlds it has never seen, choosing its own targets.
 
 Research agent (2026-09-24). The EXECUTOR SECTION below is a verbatim copy of agents/mgt_lead.py (owned by the
-E1 thread; copied from agents/mgt_lead.py = E1 scheduler build + idle tracer / helper split / p1 threshold / fert_hold (2026-09-25), sha256 159dbda9dcaa70d2; executor CFG defaults that differ in this copy: sell_source "sem", p1_min_value 30, release_stale_d True, fert_hold 1; re-sync by copying that file between the two marker lines. Only the
+E1 thread; copied from agents/mgt_lead.py = E1 scheduler build + idle tracer / helper split / p1 threshold (2026-09-25), sha256 26fc70382a2bfb5b; executor CFG defaults that differ in this copy: sell_source "sem", p1_min_value 30, release_stale_d True; re-sync by copying that file between the two marker lines. Only the
 DEPLOY section after it is new: it builds the Target the executor follows (retrieval of leader games at days
 0/3/6/9, count-model composition from day 12, sell-everything rule, hands from the day's work) and holds the
 entry point, which is the LAST callable in the file (Kaggle's loader and scripts/ladder_panel.py call that one).
@@ -94,7 +94,7 @@ CFG = {
     "p1_min_value": 30.0,     # maintenance ops worth <= this (coins) count as priority 2 (deferred after late_hour); DEPLOY default 30 (2026-09-25: full panel +382, CI +61..+702; mgt_lead.py keeps 0)
     "deliver_units": 10,      # a unit carrying this many products walks them to the shed for same-day sale
     "release_stale_d": True,  # drop a delivery assignment once nothing deliverable is carried (1 idle step per DROP); DEPLOY default (with p1_min_value 30)
-    "fert_hold": 1,           # 1: collected fertilizer is not delivered while fertilize jobs remain today (applied in the field); 2: never delivered mid-day. DEPLOY default 1 (2026-09-25: full panel +462 vs pv30, CI +67..+888; mgt_lead.py keeps 0)
+    "fert_hold": 0,           # 1: collected fertilizer is not delivered while fertilize jobs remain today (applied in the field); 2: never delivered mid-day
     "helper_split": False,    # a unit left free by the greedy joins a held animal tile and takes its last op
     "helper_crops": False,    # helper split also on ongoing crops (strawberry / tomato: HARVEST is independent of water)
     "idle_trace": None,       # research: directory for the idle-pass / dropped-job trace (one jsonl per game)
@@ -133,6 +133,7 @@ def _curve():
 CURVE = _curve()
 CURVE_POS = {idx: i for i, idx in enumerate(CURVE)}
 
+CFG.update({'fert_hold': 1})   # variant ff1 (executor)
 _SMNS = None
 
 
@@ -2091,6 +2092,7 @@ DEP_CFG = {
     "wc_swap": 0,                       # composition: turn this base share of the count model's wheat plantings into carrots ...
     "wc_swap_per_shop": 0.15,           # ... + this per carrot-demanding shop instance (max 0.7), when carrots can still be harvested
 }
+DEP_CFG.update({})   # variant ff1
 try:                                    # research overrides (ablations): DEP_CFG_JSON='{"key": value}'
     import os as _dep_os0
     import json as _dep_json0
