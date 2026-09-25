@@ -21,8 +21,8 @@
     "idle": 0,
     "errors": 0,
     "last_error": "",
-    "step_max": 416,
-    "plan_max": 325.55,
+    "step_max": 459,
+    "plan_max": 356.85,
     "jobs0": 83,
     "ops0": 144,
     "agree": [
@@ -31,26 +31,26 @@
     ]
    },
    "active": {
-    "dropped": 3,
-    "dropped_value": 154,
-    "dropped_prod": 3,
+    "dropped": 5,
+    "dropped_value": 313,
+    "dropped_prod": 5,
     "dropped_hard": 0,
-    "work": 124,
-    "moves": 150,
-    "moves_per_op": 1.21,
+    "work": 120,
+    "moves": 158,
+    "moves_per_op": 1.317,
     "shed_arrivals": 4,
-    "passes": 18,
-    "fb_unit": 1,
+    "passes": 15,
+    "fb_unit": 0,
     "fb": {
      "pickup": 0,
-     "noop": 1,
+     "noop": 0,
      "notask": 0
     },
-    "idle": 12,
+    "idle": 16,
     "errors": 0,
     "last_error": "",
-    "step_max": 952,
-    "plan_max": 872.93,
+    "step_max": 1017,
+    "plan_max": 595.65,
     "jobs0": 83,
     "ops0": 144,
     "agree": [
@@ -80,8 +80,8 @@
     "idle": 0,
     "errors": 0,
     "last_error": "",
-    "step_max": 1042,
-    "plan_max": 625.99,
+    "step_max": 1048,
+    "plan_max": 626.45,
     "jobs0": 61,
     "ops0": 116,
     "agree": [
@@ -108,8 +108,8 @@
     "idle": 21,
     "errors": 0,
     "last_error": "",
-    "step_max": 996,
-    "plan_max": 635.66,
+    "step_max": 983,
+    "plan_max": 620.4,
     "jobs0": 61,
     "ops0": 116,
     "agree": [
@@ -139,13 +139,13 @@
     "idle": 0,
     "errors": 0,
     "last_error": "",
-    "step_max": 1105,
-    "plan_max": 621.95,
+    "step_max": 1079,
+    "plan_max": 561.67,
     "jobs0": 86,
     "ops0": 159,
     "agree": [
-     58,
-     234
+     67,
+     233
     ]
    },
    "active": {
@@ -168,9 +168,186 @@
     "errors": 0,
     "last_error": "",
     "step_max": 1026,
-    "plan_max": 490.25,
+    "plan_max": 618.75,
     "jobs0": 86,
     "ops0": 159,
+    "agree": [
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "seed": 4,
+   "shadow": {
+    "dropped": 11,
+    "dropped_value": 603,
+    "dropped_prod": 11,
+    "dropped_hard": 0,
+    "work": 106,
+    "moves": 176,
+    "moves_per_op": 1.66,
+    "shed_arrivals": 8,
+    "passes": 0,
+    "fb_unit": 0,
+    "fb": {
+     "pickup": 0,
+     "noop": 0,
+     "notask": 0
+    },
+    "idle": 0,
+    "errors": 0,
+    "last_error": "",
+    "step_max": 1014,
+    "plan_max": 576.89,
+    "jobs0": 67,
+    "ops0": 123,
+    "agree": [
+     55,
+     239
+    ]
+   },
+   "active": {
+    "dropped": 3,
+    "dropped_value": 151,
+    "dropped_prod": 3,
+    "dropped_hard": 0,
+    "work": 121,
+    "moves": 162,
+    "moves_per_op": 1.339,
+    "shed_arrivals": 7,
+    "passes": 6,
+    "fb_unit": 2,
+    "fb": {
+     "pickup": 0,
+     "noop": 2,
+     "notask": 0
+    },
+    "idle": 10,
+    "errors": 0,
+    "last_error": "",
+    "step_max": 952,
+    "plan_max": 577.67,
+    "jobs0": 67,
+    "ops0": 123,
+    "agree": [
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "seed": 5,
+   "shadow": {
+    "dropped": 18,
+    "dropped_value": 1506,
+    "dropped_prod": 18,
+    "dropped_hard": 0,
+    "work": 111,
+    "moves": 177,
+    "moves_per_op": 1.595,
+    "shed_arrivals": 7,
+    "passes": 2,
+    "fb_unit": 0,
+    "fb": {
+     "pickup": 0,
+     "noop": 0,
+     "notask": 0
+    },
+    "idle": 0,
+    "errors": 0,
+    "last_error": "",
+    "step_max": 1075,
+    "plan_max": 435.33,
+    "jobs0": 82,
+    "ops0": 153,
+    "agree": [
+     58,
+     262
+    ]
+   },
+   "active": {
+    "dropped": 7,
+    "dropped_value": 408,
+    "dropped_prod": 7,
+    "dropped_hard": 0,
+    "work": 124,
+    "moves": 151,
+    "moves_per_op": 1.218,
+    "shed_arrivals": 3,
+    "passes": 14,
+    "fb_unit": 0,
+    "fb": {
+     "pickup": 0,
+     "noop": 0,
+     "notask": 0
+    },
+    "idle": 10,
+    "errors": 0,
+    "last_error": "",
+    "step_max": 958,
+    "plan_max": 526.68,
+    "jobs0": 82,
+    "ops0": 153,
+    "agree": [
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "seed": 6,
+   "shadow": {
+    "dropped": 5,
+    "dropped_value": 133,
+    "dropped_prod": 5,
+    "dropped_hard": 0,
+    "work": 111,
+    "moves": 164,
+    "moves_per_op": 1.477,
+    "shed_arrivals": 12,
+    "passes": 3,
+    "fb_unit": 0,
+    "fb": {
+     "pickup": 0,
+     "noop": 0,
+     "notask": 0
+    },
+    "idle": 0,
+    "errors": 0,
+    "last_error": "",
+    "step_max": 1015,
+    "plan_max": 606.26,
+    "jobs0": 65,
+    "ops0": 118,
+    "agree": [
+     57,
+     224
+    ]
+   },
+   "active": {
+    "dropped": 2,
+    "dropped_value": 191,
+    "dropped_prod": 2,
+    "dropped_hard": 0,
+    "work": 118,
+    "moves": 153,
+    "moves_per_op": 1.297,
+    "shed_arrivals": 5,
+    "passes": 17,
+    "fb_unit": 0,
+    "fb": {
+     "pickup": 0,
+     "noop": 0,
+     "notask": 0
+    },
+    "idle": 18,
+    "errors": 0,
+    "last_error": "",
+    "step_max": 955,
+    "plan_max": 607.68,
+    "jobs0": 65,
+    "ops0": 118,
     "agree": [
      0,
      0
