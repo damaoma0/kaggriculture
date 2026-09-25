@@ -57,6 +57,15 @@ ARMS = {
                         sd_early_animal=1, **SHIP)),
     'S11caw': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
                          sd_early_animal=1, sd_sector_w=40.0, sd_hop_w=20.0, **SHIP)),
+    # round 3 (base = S11ca + the water-before-harvest fix): spawn steering / hires by demand / both
+    'S11cf': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                        sd_early_animal=1, sd_water_first=1, **SHIP)),
+    'S11cfs': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_spawn_steer=1, **SHIP)),
+    'S11cfd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_hire_demand=1, **SHIP)),
+    'S11cfsd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                          sd_early_animal=1, sd_water_first=1, sd_spawn_steer=1, sd_hire_demand=1, **SHIP)),
     'S11a': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_early_animal=1, **SHIP)),      # + early animal
     'S11wh2': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=80.0, sd_hop_w=40.0, **SHIP)),
 }
@@ -75,7 +84,23 @@ LABEL = {
     'S11c': 'S11c: S11f + the measured same-day delivery credit (melon 53.8 a unit on days 6-11) + final delivery trip',
     'S11ca': 'S11ca: S11c + sd_early_animal',
     'S11caw': 'S11caw: S11ca + sectors 40 + contiguity 20',
+    'S11cf': 'S11cf: S11ca + water before harvesting a one-time crop in its window (the coop-tile melon fix)',
+    'S11cfs': 'S11cfs: S11cf + spawn steering (farmer hour-0 stand, hour-0 / hour-1 hire split)',
+    'S11cfd': 'S11cfd: S11cf + hires by demand (planned value vs fib wage at hour 0)',
+    'S11cfsd': 'S11cfsd: S11cf + spawn steering + hires by demand',
 }
+
+
+_MODS = []
+
+
+def _load_module_rec(path, tag):
+    m = _ORIG_LM(path, tag)
+    _MODS.append(m)
+    return m
+
+
+_ORIG_LM = X.load_module
 
 
 def stream_job(args):
@@ -84,8 +109,14 @@ def stream_job(args):
     import traceback
     _, game, arm = args
     try:
+        del _MODS[:]
         r = X.ledger_play(game, arm, 'stream')
         r['arm'] = LABEL.get(arm, arm)
+        cfg = ARMS.get(arm, (None, {}))[1]
+        if cfg.get('sd_sector_w') and _MODS:     # the viewer's sector overlay: homes by day, rebalancing changes
+            L_ = (getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}
+            r['sectors'] = {d: v for d, v in (L_.get('sector_log') or {}).items() if d in ('11', '12')}
+            r['sector_changes'] = [c for c in (L_.get('sector_changes') or []) if 264 <= c[0] < 312]
         d = ROOT / 'results/fresh/day12_viz' / (arm.lower() + '_streams')
         d.mkdir(parents=True, exist_ok=True)
         (d / f"{game.split(':')[1]}.json").write_text(json.dumps(r, default=str), encoding='utf-8')
@@ -103,6 +134,7 @@ def setup():
     wl = json.loads((ROOT / 'results/fresh/xfix_20260925/worlds42.json').read_text(encoding='utf-8'))
     X.load_worlds = lambda: wl
     X.ARMS.update(ARMS)
+    X.load_module = _load_module_rec
 
 
 def main():
@@ -130,7 +162,9 @@ def main():
         games = [w['game'] for w in X.load_worlds()['worlds']]
     if sel:
         games = [g for g in games if g.split(':')[1] in sel]
-    if mode == 'both':                                   # day-11 traces (42 worlds) + the viewer streams (12 G1 worlds)
+    if mode == 'stream':
+        jobs = [('stream', g, a) for a in arms if a != 'LEADER' for g in lead_g1.GAMES]
+    elif mode == 'both':                                 # day-11 traces (42 worlds) + the viewer streams (12 G1 worlds)
         jobs = [('trace', g, a) for a in arms for g in games]
         jobs += [('stream', g, a) for a in arms if a != 'LEADER' for g in lead_g1.GAMES]
     else:

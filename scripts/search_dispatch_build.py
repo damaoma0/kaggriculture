@@ -84,6 +84,10 @@ CFG_KEYS = '''    # ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only;
     "sd_sector_w": 0.0,       # sectors: coins per op outside the unit's home quadrant (0 = off)
     "sd_sector_hours": [1, 8, 14],   # sectors: hours of the home rebalancing
     "sd_sector_ratio": 2.0,
+    "sd_water_first": 0,      # a one-time crop's harvest task waters first when the water still adds a unit today
+    "sd_hire_demand": 0,      # hour 0: hire the k in [want - 6, want] with the best planned value net of the fib wages
+    "sd_hire_evals": 3000,    # route evaluations per tried k
+    "sd_spawn_steer": 0,      # hour 0: farmer stand + hour-0 / hour-1 hire split so the spawn quadrants match the work
     "sd_early_animal": 0,     # a BUILD job's animal is bought while its tile still waits for the crop harvest
     "sd_seed_fix": 0,         # the warm start drops plantings the seeds held no longer cover (the plan never over-commits seeds)
     "sd_hop_central": 2,      # contiguity: tiles within this distance of the shed are en-route (no hop cost to / from them)

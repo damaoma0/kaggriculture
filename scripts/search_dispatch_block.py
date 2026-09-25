@@ -56,6 +56,14 @@
 # at sd_mr_floor x p; glut goods lose most, wheat / carrot / egg little.
 # sd_early_animal: a BUILD job's animal is bought while the tile still waits for its crop's harvest (the executor's
 # market buys animals only for tasks that PLACE them; with harvest_before_build that task appears after the harvest).
+# sd_water_first: a task that harvests a one-time crop in its growth window, unwatered today and below cap, waters first
+# (the PLANT pipeline's rule; the BUILD / REMOVE harvest paths lacked it: the coop tile's melon was cut at 5 units).
+# sd_hire_demand: at hour 0 the planner plans the day with k virtual hires for k in [want - 6, want] (sd_hire_evals
+# route evaluations each) and hires the k with the best planned value net of the fib wages (the executor's market hires
+# that many). sd_spawn_steer: the farmer's hour-0 stand (stay, a neighbouring shed tile or off the shed) and the split of
+# the hires between hour 0 and hour 1 are chosen so the spawn quadrants (least-occupied shed tile, NW NE SW SE order)
+# match the plan's work per quadrant. Both act through the market's hire count (CFG hire_extra for the day) and the
+# farmer's hour-0 command.
 # v5: sd_surv_fb = from this hour the executor's own survival routes (surv_reserve: a plant dying / an animal escaping
 # tonight, nearest-arrival routes) keep their units and tiles: the planner plans neither (guaranteed fallback).
 # sectors (2026-09-25, research copy agents/mgt_lead_sector.py): each unit has a home quadrant (a hand: the quadrant of
@@ -380,12 +388,14 @@ def _sd_sector(P, L, hour, n):
     """home quadrants of the units (P.uhome) and the rebalancing at the sectors' hours."""
     home = L.setdefault("home", {})
     uh = []
+    L.setdefault("sector_log", {}).setdefault(str(L.get("day")), {})["0"] = "NW"
     for u in range(P.U):
         if u == 0:
             uh.append(0)                           # the farmer: the second quadrant (NW)
         elif u < n:
             if u not in home:
-                home[u] = _sd_qi(P.up[u]) if P.ut0[u] <= hour + 1 else _sd_qi(P.up[u])
+                home[u] = _sd_qi(P.up[u])
+                L.setdefault("sector_log", {}).setdefault(str(L.get("day")), {})[str(u)] = ("NW", "NE", "SW", "SE")[home[u]]
             uh.append(home[u])
         else:
             uh.append(_sd_qi(P.up[u]))             # virtual hires: their spawn tile
@@ -416,6 +426,7 @@ def _sd_sector(P, L, hour, n):
                     key=lambda u: (abs(P.up[u] % 10 - tx) + abs(P.up[u] // 10 - ty), u))
             uh[u] = qh
             home[u] = qh
+            L.setdefault("sector_changes", []).append([int(L.get("day", 0)) * 24 + int(hour), int(u), ("NW", "NE", "SW", "SE")[qh]])
             L["st"]["sector_moves"] = L["st"].get("sector_moves", 0) + 1
     P.uhome = uh
 
@@ -719,8 +730,11 @@ def _sd_build(S, L, ctx):
             cols["ctrl"][u] = False
     P.n_real = n
     if hour == 0 and n == 1 and day < last_day:            # hour 0: the day's hires spawn at hour 1 (virtual units)
-        for q in _sd_spawn(pos, _sd_want_hands(day)):
-            unit(1, q[1] * 10 + q[0], Counter(), False, True, None)
+        vu = ctx.get("vunits")
+        if vu is None:
+            vu = [(q, 1) for q in _sd_spawn(pos, _sd_want_hands(day))]
+        for q, t0v in vu:
+            unit(t0v, q[1] * 10 + q[0], Counter(), False, True, None)
     (P.ut0, P.up, P.uw, P.uf, P.ua, P.uan, P.udu, P.udv, P.uty, P.ue, P.uctrl, P.uvirt, P.uswk, P.uswn) = (
         cols["t0"], cols["p"], cols["w"], cols["f"], cols["a"], cols["an"], cols["du"], cols["dv"], cols["ty"],
         cols["e"], cols["ctrl"], cols["virt"], cols["swk"], cols["swn"])
@@ -1667,6 +1681,65 @@ def _sd_step(S, L, ctx):
     return {"P": P, "ctrl": ctrl, "first": first_job, "claimed": claimed}
 
 
+def _sd_hire_plan(S, L, ctx):
+    """hour 0: the day's hire count (sd_hire_demand) and the spawn steering (sd_spawn_steer); L["hire"]."""
+    day, hour, pos = ctx["day"], ctx["hour"], ctx["pos"]
+    st = L["st"]
+    L.setdefault("hire_extra0", CFG["hire_extra"])
+    CFG["hire_extra"] = L["hire_extra0"]           # the executor's own count this morning
+    if L["day"] != day:                            # the day's first step: no stale walks / predicted jobs in the tries
+        L["walk"] = {}
+        L["pred_seen"] = {}
+    want = _sd_want_hands(day)
+    ks = list(range(max(1, want - 6), want + 1)) if CFG["sd_hire_demand"] else [want]
+    rng = _sd_random.Random(int(CFG["sd_seed"]) * 7919 + day)
+    best, plans = None, {}
+    cap = 10                                       # the engine executes 10 market orders a step: hires beyond wait for hour 1
+    for k in ks:
+        vu = [(q, 1) for q in _sd_spawn(pos, min(k, cap))] + [(q, 2) for q in _sd_spawn([], k - min(k, cap))]
+        P = _sd_build(S, L, dict(ctx, vunits=vu))
+        _sd_construct(P)
+        _sd_search(P, rng, time.perf_counter() + 10.0, int(CFG["sd_hire_evals"]))
+        net = _sd_obj(P) - sum(_fib(i) for i in range(k))
+        plans[k] = P
+        if best is None or net > best[0] + 1e-6:
+            best = (net, k)
+    k = best[1]
+    st["hire_k"] = st.get("hire_k", 0) + k
+    st["hire_want"] = st.get("hire_want", 0) + want
+    F, k0 = tuple(pos[0]), min(k, cap)
+    vunits = [(q, 1) for q in _sd_spawn(pos, k0)] + [(q, 2) for q in _sd_spawn([], k - k0)]
+    if CFG["sd_spawn_steer"]:
+        P = plans[k]
+        W = [0.0] * 4
+        for j in range(P.J):
+            if P.real[j]:
+                W[_sd_qi(P.jb[j][0])] += P.jb[j][1]
+        tot = sum(W) or 1.0
+        tgt = [(k + 1) * W[q] / tot for q in range(4)]
+        tgt[0] -= 1.0                              # the farmer works the second quadrant (NW)
+        f0 = tuple(pos[0])
+        opts = [(f0, 0.0)] + [((f0[0] + dx, f0[1] + dy), 0.1) for dx, dy in ((1, 0), (0, 1), (-1, 0), (0, -1))]
+        cand = None
+        for Fp, fc in opts:
+            if not (0 <= Fp[0] < 10 and 0 <= Fp[1] < 10):
+                continue
+            for k0_ in range(min(k, cap), max(-1, min(k, cap) - 5), -1):
+                sp0 = _sd_spawn([Fp], k0_)
+                sp1 = _sd_spawn([], k - k0_)       # at hour 1 the hour-0 units have left the shed tiles
+                cnt = [0] * 4
+                for q in sp0 + sp1:
+                    cnt[_sd_qi(q[1] * 10 + q[0])] += 1
+                sc = sum(abs(cnt[q] - tgt[q]) for q in range(4)) + 0.25 * (k - k0_) + fc
+                key = (round(sc, 6), -k0_)
+                if cand is None or key < cand[0]:
+                    cand = (key, Fp, k0_, [(q, 1) for q in sp0] + [(q, 2) for q in sp1], cnt)
+        _, F, k0, vunits, cnt = cand
+        st["steer_moves"] = st.get("steer_moves", 0) + (1 if F != f0 else 0)
+        st["steer_h1"] = st.get("steer_h1", 0) + (k - k0)
+    L["hire"] = {"day": day, "k": int(k), "k0": int(k0), "F": F, "vunits": vunits}
+
+
 def _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs, shed, seeds, prices, assign, taken,
             surv_route, deliv_u, fert_keep, demand, prev):
     """HOOK 1 (after the delivery rule and the survival routes, before the greedy matching): plan; in active mode the
@@ -1685,6 +1758,17 @@ def _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs
             S["log"]["sd_err:" + L["st"]["last_error"][:100]] += 1
         except Exception:
             pass
+    if CFG["sd_water_first"]:
+        for idx, (ops_, need_, prio_) in list(tasks.items()):
+            if ops_ and ops_[0][0] == "HARVEST" and not any(o[0] == "WATER" for o in ops_):
+                t_ = _tile(tiles, idx)
+                if _is_plant(t_) and not t_.get("watered_today"):
+                    c_ = CROPS.get(t_.get("crop"))
+                    if c_ and not c_["ongoing"]:
+                        a_ = day - int(t_.get("planted_day", day))
+                        if (c_["maxday"] + 1) // 2 <= a_ <= c_["maxday"] and int(t_.get("yield_units", 0) or 0) < c_["max"]:
+                            tasks[idx] = ([["WATER"]] + [list(o) for o in ops_], need_, prio_)
+                            L["st"]["water_first"] = L["st"].get("water_first", 0) + 1
     win = CFG["sd_days"]
     if L["off"] or (win is not None and not (int(win[0]) <= day <= int(win[1]))):
         return run
@@ -1705,6 +1789,17 @@ def _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs
     ctx = {"keep": keep, "stiles": stiles, "obs": obs, "day": day, "hour": hour, "step": step, "tiles": tiles, "tasks": tasks, "invs": invs, "pos": pos,
            "shed": shed, "seeds": seeds, "assign": assign, "last_day": last_day, "jobs": jobs, "prices": prices,
            "deliv_u": deliv_u, "fert_keep": fert_keep, "demand": demand}
+    if (hour == 0 and len(pos) == 1 and day < last_day and CFG["dispatch_search"] == "active"
+            and (CFG["sd_hire_demand"] or CFG["sd_spawn_steer"])):
+        try:
+            _sd_hire_plan(S, L, ctx)
+        except Exception as exc:
+            L["st"]["errors"] += 1
+            L["st"]["last_error"] = ("hire %s: %s" % (type(exc).__name__, exc))[:300]
+            L.pop("hire", None)
+    hp = L.get("hire")
+    if hp and hp.get("day") == day and hour == 0:
+        ctx["vunits"] = hp["vunits"]
     r = _sd_step(S, L, ctx)
     if r is None:
         return run
@@ -1885,6 +1980,13 @@ def _sd_post(S, run, obs, me, step, day, hour, last_day, tiles, pos, tasks, assi
                 st["agree_n"] += 1
                 st["agree"] += 1 if g == k else 0
         _sd_track(S, L, obs, me, step, day, hour, last_day, len(pos), pos, actions, tiles)
+        hp = L.get("hire")
+        if hp and hp.get("day") == day and CFG["dispatch_search"] == "active" and hour <= 12:
+            if hour == 0 and tuple(pos[0]) != tuple(hp["F"]) and actions:
+                actions[0] = _step_toward(tuple(pos[0]), tuple(hp["F"]))
+            CFG["hire_extra"] = int((hp["k0"] if hour == 0 else hp["k"]) - _T.hands[min(day, _T.n - 1)])
+        elif "hire_extra0" in L:
+            CFG["hire_extra"] = L["hire_extra0"]
         if CFG["sd_early_animal"] and run.get("active"):
             # a BUILD job with an animal whose tile still holds a harvestable one-time crop has only a HARVEST task
             # (harvest_before_build), so the market would buy the animal only after that harvest: count it now (the

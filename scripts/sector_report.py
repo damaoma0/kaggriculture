@@ -90,6 +90,12 @@ def hand_metrics(r):
                 last.pop(u, None)
     hands = len(spawn)
     m['hands'] = hands
+    for t_, hs in (r.get('hires') or {}).items():
+        if lo <= int(t_) < hi:
+            for h_ in hs:
+                if h_[0]:
+                    m['hired'] += 1
+                    m['wages'] += float(h_[1])
     m['extra_visits'] = sum(len(v) - 1 for v in visits.values() if len(v) > 1)
     m['extra_visits_patch'] = sum(len(v) - 1 for v in pvisits.values() if len(v) > 1)
     main = {u: q.most_common(1)[0][0] for u, q in ops_q.items() if q}
@@ -152,6 +158,7 @@ def trace(arms):
                 hrs.append(g['goose_h'])
                 if e in g1:
                     hrs1.append(g['goose_h'])
+        ghr.append(f"{a}: hires on day 11 {tot['hired'] / max(1, len(A)):.1f} a world, wages {tot['wages'] / max(1, len(A)):,.0f}")
         ghr.append(f"{a}: goose placed on day 11 in {len(hrs)} of {len(A)} worlds (hours {sorted(Counter(hrs).items())}); "
                    f"G1 worlds: {len(hrs1)} of {sum(1 for e in A if e in g1)} (hours {sorted(Counter(hrs1).items())})")
         n = max(1, len(A))
