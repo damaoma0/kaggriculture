@@ -1,0 +1,108 @@
+{
+ "static": {
+  "lead": {
+   "out": "agents/mgt_lead_search.py",
+   "source": "agents/mgt_lead.py",
+   "source_sha256": "9e00c3a449c029988666d281a0b5c625ab99468f83dc31db53cbe98ff60b6545",
+   "compiles": true,
+   "inserted_blocks": [
+    {
+     "before_source_line": 2,
+     "lines": 4,
+     "first": "mgt_lead_search (2026-09-25, built by scripts/search_dispatch_build.py from agents/mgt_lead.py as of"
+    },
+    {
+     "before_source_line": 139,
+     "lines": 30,
+     "first": "# ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only; scripts/search_dispatch_block.py) ---"
+    },
+    {
+     "before_source_line": 858,
+     "lines": 2,
+     "first": "if CFG[\"dispatch_search\"] != \"off\":   # SEARCH DISPATCH HOOK 4"
+    },
+    {
+     "before_source_line": 1187,
+     "lines": 1,
+     "first": "_sd_run = _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs, shed, seeds,"
+    },
+    {
+     "before_source_line": 1256,
+     "lines": 5,
+     "first": "continue"
+    },
+    {
+     "before_source_line": 1463,
+     "lines": 2,
+     "first": "if _sd_run is not None:   # SEARCH DISPATCH HOOK 3"
+    },
+    {
+     "before_source_line": 1468,
+     "lines": 2,
+     "first": "if CFG[\"dispatch_search\"] != \"off\":   # SEARCH DISPATCH HOOK 5"
+    },
+    {
+     "before_source_line": 2403,
+     "lines": 32,
+     "first": "# ============================================================================================"
+    },
+    {
+     "before_source_line": 2404,
+     "lines": 1479,
+     "first": "_SD_SP = (\"GOOSE\", \"COW\", \"SHEEP\")"
+    }
+   ],
+   "deleted_or_replaced": 0
+  },
+  "deploy": {
+   "out": "agents/mgt_lpv_search.py",
+   "source": "agents/mgt_lead_deploy.py",
+   "source_sha256": "e33d0459486b947943109e664cae594136002f36392aefdcdebdffda2d778434",
+   "compiles": true,
+   "kaggle_loader_entry": "mgt_lead_deploy_agent",
+   "inserted_blocks": [
+    {
+     "before_source_line": 2,
+     "lines": 4,
+     "first": "mgt_lpv_search (2026-09-25, built by scripts/search_dispatch_build.py from agents/mgt_lead_deploy.py"
+    },
+    {
+     "before_source_line": 149,
+     "lines": 30,
+     "first": "# ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only; scripts/search_dispatch_block.py) ---"
+    },
+    {
+     "before_source_line": 1194,
+     "lines": 1,
+     "first": "_sd_run = _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs, shed, seeds,"
+    },
+    {
+     "before_source_line": 1263,
+     "lines": 5,
+     "first": "continue"
+    },
+    {
+     "before_source_line": 1470,
+     "lines": 2,
+     "first": "if _sd_run is not None:   # SEARCH DISPATCH HOOK 3"
+    },
+    {
+     "before_source_line": 3109,
+     "lines": 1513,
+     "first": "# ============================================================================================"
+    },
+    {
+     "before_source_line": 3112,
+     "lines": 2,
+     "first": "if CFG[\"dispatch_search\"] != \"off\":   # SEARCH DISPATCH HOOK 4"
+    },
+    {
+     "before_source_line": 3130,
+     "lines": 2,
+     "first": "if CFG[\"dispatch_search\"] != \"off\":   # SEARCH DISPATCH HOOK 5"
+    }
+   ],
+   "deleted_or_replaced": 0
+  }
+ }
+}

@@ -1,0 +1,11 @@
+
+== planner time on synthetic days (first plan = hour 1; then 8 warm steps with the plan executed)
+  ~60 jobs (seed 1): 63 jobs / 107 ops, first plan 252 ms, warm mean 46.3 ms max 49.69 ms, whole step max 331 ms, time-capped 0 of 9
+  ~60 jobs (seed 2): 55 jobs / 102 ops, first plan 204 ms, warm mean 156.3 ms max 305.13 ms, whole step max 319 ms, time-capped 3 of 9
+  ~60 jobs (seed 3): 69 jobs / 123 ops, first plan 595 ms, warm mean 279.0 ms max 333.12 ms, whole step max 1015 ms, time-capped 5 of 9
+  ~80 jobs (seed 1): 76 jobs / 134 ops, first plan 458 ms, warm mean 265.0 ms max 299.61 ms, whole step max 1018 ms, time-capped 1 of 9
+  ~80 jobs (seed 2): 79 jobs / 132 ops, first plan 572 ms, warm mean 248.5 ms max 264.98 ms, whole step max 1007 ms, time-capped 1 of 9
+  ~80 jobs (seed 3): 91 jobs / 162 ops, first plan 651 ms, warm mean 268.4 ms max 340.64 ms, whole step max 969 ms, time-capped 2 of 9
+  ~96 jobs (seed 1): 82 jobs / 150 ops, first plan 561 ms, warm mean 262.1 ms max 343.28 ms, whole step max 1036 ms, time-capped 2 of 9
+  ~96 jobs (seed 2): 78 jobs / 143 ops, first plan 516 ms, warm mean 250.0 ms max 271.33 ms, whole step max 992 ms, time-capped 1 of 9
+  ~96 jobs (seed 3): 82 jobs / 145 ops, first plan 629 ms, warm mean 251.8 ms max 273.99 ms, whole step max 1012 ms, time-capped 1 of 9

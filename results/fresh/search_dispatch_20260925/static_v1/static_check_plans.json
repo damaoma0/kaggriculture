@@ -1,0 +1,136 @@
+{
+ "plans": [
+  {
+   "seed": 1,
+   "jobs": 81,
+   "real": 81,
+   "ops": 141,
+   "units": 13,
+   "plan_ms": 148.61,
+   "evals": 30205,
+   "errors": 0,
+   "greedy_errors": 0,
+   "plan": {
+    "busy": 219.0,
+    "value": 27801.1,
+    "jobs": 70,
+    "unplanned": 11,
+    "unplanned_value": 4400.0,
+    "obj": 57691.7,
+    "travel": 100,
+    "pickups": 6
+   },
+   "greedy": {
+    "busy": 215.0,
+    "value": 24774.5,
+    "jobs": 65,
+    "unplanned": 16,
+    "unplanned_value": 7426.6,
+    "obj": 49667.0,
+    "travel": 109,
+    "pickups": 2
+   },
+   "hard_unplanned": 0,
+   "preds": 0
+  },
+  {
+   "seed": 2,
+   "jobs": 57,
+   "real": 57,
+   "ops": 103,
+   "units": 13,
+   "plan_ms": 148.28,
+   "evals": 28815,
+   "errors": 0,
+   "greedy_errors": 0,
+   "plan": {
+    "busy": 191.0,
+    "value": 17902.4,
+    "jobs": 57,
+    "unplanned": 0,
+    "unplanned_value": 0,
+    "obj": 32806.9,
+    "travel": 88,
+    "pickups": 3
+   },
+   "greedy": {
+    "busy": 234.0,
+    "value": 17194.5,
+    "jobs": 54,
+    "unplanned": 3,
+    "unplanned_value": 708.0,
+    "obj": 32077.5,
+    "travel": 137,
+    "pickups": 0
+   },
+   "hard_unplanned": 0,
+   "preds": 0
+  },
+  {
+   "seed": 3,
+   "jobs": 85,
+   "real": 85,
+   "ops": 157,
+   "units": 13,
+   "plan_ms": 163.41,
+   "evals": 30229,
+   "errors": 0,
+   "greedy_errors": 0,
+   "plan": {
+    "busy": 250.0,
+    "value": 22203.0,
+    "jobs": 75,
+    "unplanned": 10,
+    "unplanned_value": 4000.0,
+    "obj": 42078.0,
+    "travel": 113,
+    "pickups": 2
+   },
+   "greedy": {
+    "busy": 258.0,
+    "value": 21125.3,
+    "jobs": 71,
+    "unplanned": 14,
+    "unplanned_value": 5077.6,
+    "obj": 40869.1,
+    "travel": 130,
+    "pickups": 2
+   },
+   "hard_unplanned": 0,
+   "preds": 0
+  },
+  {
+   "seed": 4,
+   "jobs": 56,
+   "real": 56,
+   "ops": 111,
+   "units": 13,
+   "plan_ms": 150.67,
+   "evals": 30439,
+   "errors": 0,
+   "greedy_errors": 0,
+   "plan": {
+    "busy": 192.0,
+    "value": 17138.2,
+    "jobs": 55,
+    "unplanned": 1,
+    "unplanned_value": 400.0,
+    "obj": 42042.2,
+    "travel": 83,
+    "pickups": 3
+   },
+   "greedy": {
+    "busy": 204.0,
+    "value": 14023.5,
+    "jobs": 46,
+    "unplanned": 10,
+    "unplanned_value": 3514.7,
+    "obj": 33921.4,
+    "travel": 119,
+    "pickups": 4
+   },
+   "hard_unplanned": 0,
+   "preds": 0
+  }
+ ]
+}

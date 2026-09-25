@@ -1,0 +1,5 @@
+
+== synthetic single days (day 12, hours 1-23): greedy (shadow) vs planner (active), same start
+seed 1: 83 jobs / 144 ops | dropped at 23h: greedy 7 (489) vs planner 3 (154); production 7 vs 3; hard 0 vs 0 | tile ops 117 vs 124 | moves/op 1.376 vs 1.21 | shed arrivals 9 vs 4 | planner fallbacks 1 {'pickup': 0, 'noop': 1, 'notask': 0} idle 12 errors 0  | step max 416 / 952 ms | shadow agreement 91/234
+seed 2: 61 jobs / 116 ops | dropped at 23h: greedy 5 (247) vs planner 7 (851); production 5 vs 7; hard 0 vs 0 | tile ops 102 vs 103 | moves/op 1.745 vs 1.573 | shed arrivals 7 vs 8 | planner fallbacks 1 {'pickup': 0, 'noop': 1, 'notask': 0} idle 21 errors 0  | step max 1042 / 996 ms | shadow agreement 54/242
+seed 3: 86 jobs / 159 ops | dropped at 23h: greedy 10 (903) vs planner 8 (500); production 10 vs 8; hard 0 vs 0 | tile ops 114 vs 121 | moves/op 1.465 vs 1.264 | shed arrivals 8 vs 4 | planner fallbacks 1 {'pickup': 0, 'noop': 1, 'notask': 0} idle 16 errors 0  | step max 1105 / 1026 ms | shadow agreement 58/234

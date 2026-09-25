@@ -1,0 +1,19 @@
+agents/mgt_lead_search.py: compiles; diff vs results/fresh/search_dispatch_20260925/source/mgt_lead_9e00c3a4.py (2403 lines) -> 3960 lines: 9 inserted blocks, 1557 inserted lines, 0 deleted / replaced blocks
+   +     4 lines before source line 2: mgt_lead_search (2026-09-25, built by scripts/search_dispatch_build.py from agents/mgt_lead.py as of
+   +    30 lines before source line 139: # ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only; scripts/search_dispatch_block.py) ---
+   +     2 lines before source line 858: if CFG["dispatch_search"] != "off":   # SEARCH DISPATCH HOOK 4
+   +     1 lines before source line 1187: _sd_run = _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs, shed, seeds,
+   +     5 lines before source line 1256: continue
+   +     2 lines before source line 1463: if _sd_run is not None:   # SEARCH DISPATCH HOOK 3
+   +     2 lines before source line 1468: if CFG["dispatch_search"] != "off":   # SEARCH DISPATCH HOOK 5
+   +    32 lines before source line 2403: # ============================================================================================
+   +  1479 lines before source line 2404: _SD_SP = ("GOOSE", "COW", "SHEEP")
+agents/mgt_lpv_search.py: compiles; diff vs results/fresh/search_dispatch_20260925/source/mgt_lead_deploy_e33d0459.py (3131 lines) -> 4690 lines: 8 inserted blocks, 1559 inserted lines, 0 deleted / replaced blocks; Kaggle loader entry mgt_lead_deploy_agent
+   +     4 lines before source line 2: mgt_lpv_search (2026-09-25, built by scripts/search_dispatch_build.py from agents/mgt_lead_deploy.py
+   +    30 lines before source line 149: # ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only; scripts/search_dispatch_block.py) ---
+   +     1 lines before source line 1194: _sd_run = _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs, shed, seeds,
+   +     5 lines before source line 1263: continue
+   +     2 lines before source line 1470: if _sd_run is not None:   # SEARCH DISPATCH HOOK 3
+   +  1513 lines before source line 3109: # ============================================================================================
+   +     2 lines before source line 3112: if CFG["dispatch_search"] != "off":   # SEARCH DISPATCH HOOK 4
+   +     2 lines before source line 3130: if CFG["dispatch_search"] != "off":   # SEARCH DISPATCH HOOK 5
