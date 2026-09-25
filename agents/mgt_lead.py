@@ -83,6 +83,9 @@ CFG = {
     "p1_min_value": 0.0,      # maintenance ops worth <= this (coins) count as priority 2 (deferred after late_hour)
     "deliver_units": 10,      # a unit carrying this many products walks them to the shed for same-day sale
     "release_stale_d": False, # drop a delivery assignment once nothing deliverable is carried (1 idle step per DROP)
+    "hand_stock": 0,          # 1: wheat picked only for the unit's current task (+ hs_buffer), no opportunistic wheat pickups; from hs_drop_hour a unit AT the shed places wheat above its task need (no extra trips)
+    "hs_buffer": 1,
+    "hs_drop_hour": 18,
     "cap_deliver": 0,         # 1: on a projected midnight overflow (cap_hour.., same projection as cap_guard) the units carrying the most products (wheat / fertilizer included) deliver them; cap_guard then sells the excess
     "cap_guard": 0,           # 1: midnight shed-cap guard from cap_hour: shed + carried + cap_rate x hours left - sells <= 100 - cap_margin (wheat above the reserve first, then cheapest)
     "cap_hour": 16,
@@ -1090,8 +1093,17 @@ def agent(obs, config=None):
                 actions[u] = list(hop) if hop else ["PASS"]
             continue
         if p in SHED and idx != "D" and hour < 22:
+            if CFG["hand_stock"] and hour >= CFG["hs_drop_hour"] and inv.get("WHEAT", 0) > 0:
+                keep_w = tasks[idx][1].get("WHEAT", 0) if (idx is not None and idx in tasks) else 0
+                surplus = inv.get("WHEAT", 0) - keep_w - CFG["hs_buffer"]
+                if surplus > 0:
+                    actions[u] = ["PLACE", "WHEAT", int(surplus)]
+                    S["log"]["hs_drop"] += int(surplus)
+                    continue
             want = zneed[u] if CFG["zone_penalty"] else Counter(
                 {k: min(CFG["pick_cap"].get(k, 3), max(0, demand[k] - carried[k])) for k in ("WHEAT", "FERTILIZER")})
+            if CFG["hand_stock"]:
+                want["WHEAT"] = 0
             if CFG["spawn_allot"] and hour <= 2 and n > 1:
                 # full-day allotment at spawn: this hand's share of the day's feeding
                 share = -(-demand["WHEAT"] // n) + 1
@@ -1154,6 +1166,8 @@ def agent(obs, config=None):
             k = miss[0]
             cover = max(0, demand[k] - carried[k])
             amt = min(shed_left[k], max(need[k] - inv.get(k, 0), min(cover, zneed[u][k] - inv.get(k, 0))))
+            if CFG["hand_stock"] and k == "WHEAT":
+                amt = min(shed_left[k], max(0, need[k] - inv.get(k, 0)) + CFG["hs_buffer"])
             amt = max(1, amt)
             shed_left[k] -= amt
             carried[k] += amt

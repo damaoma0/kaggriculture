@@ -106,6 +106,8 @@ CELLS = {
     'Gcg1': dict(cfg={'cap_guard': 1}),
     'E2cg3': dict(cfg={}, deploy='full', path='agents/mgt_lpv_cg3.py'),
     'E2cg4': dict(cfg={}, deploy='full', path='agents/mgt_lpv_cg4.py'),
+    'E2ws1': dict(cfg={}, deploy='full', path='agents/mgt_lpv_ws1.py'),
+    'E2ws2': dict(cfg={}, deploy='full', path='agents/mgt_lpv_ws2.py'),
     'Gc27': dict(cfg={'plant_cutoff': {'STRAWBERRY': 13, 'TOMATO': 18, 'MELON': 19, 'WHEAT': 27, 'CARROT': 27}}),
     'E2h': dict(cfg={}, deploy='full', swap={'hires': 'leader'}),
     'E2p': dict(cfg={}, deploy='full', swap={'plan': 'leader'}),

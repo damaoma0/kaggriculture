@@ -991,3 +991,57 @@ output than they save: cg3 sells 7.4 fewer eggs, 5.0 fewer strawberries, 4.4 few
 (own cash -1,441), and G1 falls to 0.870. Starting at hour 19 (cg4) halves the discards and halves the cost, still
 negative on smoke. The cheaper lever is upstream: less stock in hands at midnight (morning feed-wheat pickups sized to
 the day's feeding; the wheat keep), not evening trips. cap_guard / cap_deliver stay in the executor, default off.
+
+## Route order from stored action streams (2026-09-25, no new games)
+`scripts/lead_route_order.py` rebuilds every unit's position from the engine spawn rule and the recorded moves (moves
+never fail in these streams) and reads the tile-op sequence per unit-day. Validation: for the leader it reproduces the
+ledger exactly (3,116 moves, 7,366 unit-steps a game; consecutive-op distance 0.62 vs the ledger's 0.61). Our per-step
+actions in the G1 worlds were not stored, so "ours" is the current default deploy in the 12 smoke worlds (stored world
+traces); "opp" is the recorded 2750-3000 opponent in the same 12 smoke worlds (same-world reference).
+| per game | leader (G1) | ours (smoke) | opp 2750+ (smoke) | leader d12-23 | ours d12-23 | opp d12-23 |
+|---|---|---|---|---|---|---|
+| unit-steps / moves / tile ops | 7,366 / 3,116 / 3,659 | 7,857 / 3,697 / 2,813 | 7,039 / 2,940 / 3,124 | 3,400 / 1,315 / 1,965 | 3,565 / 1,714 / 1,506 | 3,237 / 1,342 / 1,577 |
+| distance between consecutive ops | 0.62 | 0.87 | 0.64 | 0.56 | 0.80 | 0.60 |
+| moves walked between consecutive ops | 0.66 | 0.97 | 0.68 | 0.58 | 0.87 | 0.62 |
+| pairs with a shed stop between (share / moves each) | 3.4% / 2.7 | 5.8% / 4.2 | 3.1% / 3.7 | 1.5% / 2.1 | 3.6% / 4.6 | 2.1% / 3.8 |
+| moves between ops without a shed stop | 0.59 | 0.77 | 0.58 | 0.55 | 0.73 | 0.56 |
+| next-op distance 0 / 1 / 2 / 3+ (%) | 53 / 37 / 7 / 3 | 55 / 22 / 13 / 10 | 54 / 35 / 8 / 4 | 55 / 36 / 6 / 2 | 56 / 23 / 13 / 8 | 56 / 34 / 7 / 3 |
+| ops per tile visit | 1.94 | 1.93 | 1.95 | 2.04 | 2.00 | 2.02 |
+| **tile visits per sweep (run of adjacent tiles)** | **2.85** | **1.59** | 2.57 | **3.20** | **1.69** | 2.71 |
+| quadrants per unit-day / share in main quadrant | 1.26 / 92% | 1.31 / 91% | 1.26 / 93% | 1.25 / 92% | 1.31 / 91% | 1.26 / 92% |
+| op bounding box per unit-day (tiles) | 13.7 | 13.3 | 11.3 | 15.1 | 14.9 | 11.9 |
+| tiles worked by >= 2 units the same day | 13% | 9% | 7% | 12% | 8% | 5% |
+| start split: distinct first-op quadrants per unit / shed distance of first op | 0.27 / 1.14 | 0.21 / 1.35 | 0.24 / 2.08 | 0.29 / 0.94 | 0.23 / 1.17 | 0.26 / 2.18 |
+| wheat pickups a game (amounts) | 153 (1: 8, 2: 49, 3: 58, 4: 30, 5+: 8) | **242 (1: 113, 2: 19, 3: 109)** | 155 (1-5 spread) | | | |
+| fertilizer pickups a game | 8 (all 3) | 57 (43 at 4) | 38 | | | |
+**Reading.** Region stickiness, start split, tile overlap and ops per tile visit are the same (the leader even shares
+more tiles between units). What differs is the sweep: the leader's (and the same-world 2750+ opponents') next tile is
+adjacent 35-37% of the time and a unit works ~3 adjacent tiles in a row; ours is adjacent 22% of the time, jumps 2+
+tiles 23% of the time (leader 10%) and works 1.6 tiles per run. On top, our wheat pickups are bimodal: 113 one-wheat
+pickups a game (the task-sized "miss" pickup: one trip per FEED job without wheat in hand) and 109 at the 3-wheat
+pick_cap; 43 of our 57 fertilizer pickups hit the 4-unit cap. The pick_cap does truncate batches, but the bigger shed
+cost is the 1-wheat trips.
+**What a route-order change must reproduce:** after a tile, continue to an adjacent open tile (adjacent share 22% ->
+~36%, sweep length 1.6 -> ~3), and batch wheat so feeding does not cost one shed trip per job. **Expected size:** at the
+leader's walk per consecutive-op pair (0.66 vs our 0.97) we would save ~770 moves a game (~430 outside shed stops, the
+rest in shed stops). At ff1's observed conversion (~34 shed/walk unit-steps turned into ~38 ops for +363 own cash in
+G1 and +462 margin on the full panel, i.e. ~10-13 coins per unit-step) that is an order-of-magnitude +3k to +8k a game;
+an estimate, not a measurement (the conversion should fall as the cheapest recoveries go first).
+Candidate changes for after Q's tieval result (not run): sweep continuation in the greedy (adjacent open tile of the
+unit's last op preferred), batched wheat pickups sized to the open FEED jobs near the unit's route, and the
+coordinator's fertilizer-chain credit (collect from an animal on the shed->crop path instead of a shed pickup).
+
+## Less stock in hands at midnight: hand_stock (2026-09-25)
+`hand_stock` 1 (executor option, default off in both files): wheat picked only for the unit's current task + 1 (no
+opportunistic wheat pickups when passing the shed); from hour 18 a unit already AT the shed places its wheat above its
+task need (no extra trips). ws1 = with the shed guard (cap_guard 1), ws2 = alone. Kaggle wtr5 (smoke, discards) / g1o.
+| variant | smoke vs current (95% CI), better/worse | own / rival | discards / game (current 25.8) | G1 deploy (current 0.881 / 0.873 / 0.865), better/worse |
+|---|---|---|---|---|
+| ws1: hand_stock + guard | +665 (-643 .. +1,913), 8/4 | +370 / -295 | 28.8 | **0.896 / 0.886 / 0.876**, 7/5 |
+| ws2: hand_stock | +729 (-549 .. +1,948), 8/4 | +405 / -324 | 30.7 | **0.896 / 0.885 / 0.876**, 8/4 |
+**Finding: it does not reduce the cap discards (they rise slightly), yet it gains on both panels, through the
+pickups.** In G1 ws2 makes 24 fewer shed pickups a game, places ~38 surplus wheat at the shed on evening passes, and
+spends the freed steps on maintenance (+11 waters, +3 fertilizes a game); smoke: wheat pickups 226 vs 242 a game. The
+total stock (shed + hands) is unchanged by where it sits, which is why discards do not fall: only selling or buying
+less changes it. The smoke CI still includes zero, so by the rule no full panel was started; G1 +0.015 (8/12) and
+smoke +729 (8/12) point the same way; a full panel of ws2 is the decisive test if wanted.
