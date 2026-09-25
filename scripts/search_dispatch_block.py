@@ -63,7 +63,10 @@
 # that many). sd_spawn_steer: the farmer's hour-0 stand (stay, a neighbouring shed tile or off the shed) and the split of
 # the hires between hour 0 and hour 1 are chosen so the spawn quadrants (least-occupied shed tile, NW NE SW SE order)
 # match the plan's work per quadrant. Both act through the market's hire count (CFG hire_extra for the day) and the
-# farmer's hour-0 command.
+# farmer's hour-0 command. sd_hp_parity: the planner values the executor's harvest_policy jobs as the executor does
+# (a melon harvest in the leaders' window = held units x price x hp_frac; a melon window water = the melon price);
+# sd_split_place: a BUILD + PLACE plan part is split into the structure job (sd_build_value) and the placement job
+# (plan_value, successor of the structure): the leader builds the coop at h13 and places the goose at h14.
 # v5: sd_surv_fb = from this hour the executor's own survival routes (surv_reserve: a plant dying / an animal escaping
 # tonight, nearest-arrival routes) keep their units and tiles: the planner plans neither (guaranteed fallback).
 # sectors (2026-09-25, research copy agents/mgt_lead_sector.py): each unit has a home quadrant (a hand: the quadrant of
@@ -365,6 +368,18 @@ def _sd_opvals(S, idx, t, ops, plan, day, E, last_day):
             break
         if v is None:
             v = 50.0                                  # the executor's own-rule tasks (no solve yet): 50 an op
+        if CFG["sd_hp_parity"] and _is_plant(t):     # parity with the executor's harvest_policy task values
+            try:
+                pr_ = float((S.get("prices") or {}).get(t.get("crop"), 0) or 0)
+                if (c == "HARVEST" and CFG.get("harvest_policy") == "leader_tendency"
+                        and t.get("crop") in CFG.get("hp_crops", ()) and _hp_window(t, day, idx)):
+                    v = max(v, float(t.get("yield_units", 0) or 0) * pr_ * float(CFG["hp_frac"]))
+                elif (c == "WATER" and CFG.get("harvest_policy") == "leader_tendency" and t.get("crop") == "MELON"
+                      and "MELON" in CFG.get("hp_crops", ()) and 6 <= day - int(t.get("planted_day", day)) <= 10
+                      and int(t.get("yield_units", 0) or 0) < CROPS["MELON"]["max"] and not t.get("watered_today")):
+                    v = max(v, pr_ or 200.0)
+            except Exception:
+                pass
         if day < last_day and ((c == "WATER" and _is_plant(t) and not t.get("watered_today")
                                 and t.get("consecutive_unwatered", 0) >= 1)
                                or (c == "FEED" and _animal(t) and not t.get("fed_today")
@@ -579,8 +594,19 @@ def _sd_build(S, L, ctx):
             vals, dls = tuple([0.0] * (nn - 1) + [pv]), tuple([last] * nn)
             gw, gf, gdu, gdv, gty, gcv = gains(t, pc) if (pc == ["HARVEST"]) else (0, 0, 0, 0.0, 0, 0.0)
             key = idx if j1 is None else ("B", idx)
-            add(key, idx, planp, vals, dls, -1, 0, hour, -1 if j1 is None else j1, 0, True, crop_i, gw, gf, gdu, gdv,
-                gty, gcv)
+            ip = next((i_ for i_ in range(1, nn) if pc[i_] == "PLACE" and pc[i_ - 1] in ("BUILD_COOP", "BUILD_PASTURE")),
+                      None) if CFG["sd_split_place"] else None
+            if ip is None:
+                add(key, idx, planp, vals, dls, -1, 0, hour, -1 if j1 is None else j1, 0, True, crop_i, gw, gf, gdu, gdv,
+                    gty, gcv)
+            else:                                  # the structure first (short, no pickup), the placement as its successor
+                ja = add(key, idx, planp[:ip], tuple([0.0] * (ip - 1) + [float(CFG["sd_build_value"])]),
+                         tuple([last] * ip), -1, 0, hour, -1 if j1 is None else j1, 0, True, None, 0, 0, 0, 0.0, 0, 0.0)
+                add(("G", idx), idx, planp[ip:], tuple([0.0] * (nn - ip - 1) + [pv]), tuple([last] * (nn - ip)), -1, 0,
+                    hour, ja, 0, True, None, 0, 0, 0, 0.0, 0, 0.0)
+                jb = JB[ja]
+                JB[ja] = jb[:13] + (True,) + jb[14:]
+                L["st"]["split_place"] = L["st"].get("split_place", 0) + 1
             if j1 is not None:
                 jb = JB[j1]
                 JB[j1] = jb[:13] + (True,) + jb[14:]      # the prefix is a predecessor: its finish is tracked

@@ -88,6 +88,9 @@ CFG_KEYS = '''    # ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only;
     "sd_hire_demand": 0,      # hour 0: hire the k in [want - 6, want] with the best planned value net of the fib wages
     "sd_hire_evals": 3000,    # route evaluations per tried k
     "sd_spawn_steer": 0,      # hour 0: farmer stand + hour-0 / hour-1 hire split so the spawn quadrants match the work
+    "sd_hp_parity": 0,        # the executor's harvest_policy values (melon harvest in window, melon window water) in the plan
+    "sd_split_place": 0,      # a BUILD + PLACE plan part = structure job + placement job (successor)
+    "sd_build_value": 150.0,  # value of the structure job when split
     "sd_early_animal": 0,     # a BUILD job's animal is bought while its tile still waits for the crop harvest
     "sd_seed_fix": 0,         # the warm start drops plantings the seeds held no longer cover (the plan never over-commits seeds)
     "sd_hop_central": 2,      # contiguity: tiles within this distance of the shed are en-route (no hop cost to / from them)

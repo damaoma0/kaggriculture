@@ -40,6 +40,7 @@ DVC_M = {'MELON': [[0, 0.0], [6, 53.8], [12, 3.1], [18, 8.6], [24, 0.5]],
          'WOOL': [[0, 0.0], [6, 26.4], [12, 9.3], [18, 7.1], [24, 5.8]],
          'MILK': [[0, 0.0], [6, 13.4], [12, 7.2], [18, 0.8], [24, 0.0]],
          'STRAWBERRY': [[0, 0.0], [6, 0.0], [12, 2.9], [18, 4.8], [24, 0.0]]}
+HVM = {'decay': {'bonus': 500.0}, 'MELON': {'bonus': 80.0, 'full': 1, 'by_hour': 8, 'hour_w': 20.0}}
 ARMS = {
     'N0': (S2, dict(dispatch_search='off')),
     'N11': (S2, dict(dispatch_search='active', sd_days=[11, 23], **SHIP)),
@@ -66,6 +67,19 @@ ARMS = {
                          sd_early_animal=1, sd_water_first=1, sd_hire_demand=1, **SHIP)),
     'S11cfsd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
                           sd_early_animal=1, sd_water_first=1, sd_spawn_steer=1, sd_hire_demand=1, **SHIP)),
+    # round 3b (parity audit): base S11cf + the melon harvest tendency in the planner (sd_hv_pref melon + decay), the
+    # executor's harvest_policy values (sd_hp_parity), the coop build split from the goose placement (sd_split_place)
+    'S11cg': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                        sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_split_place=1, **SHIP)),
+    'S11cgs': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_split_place=1,
+                         sd_spawn_steer=1, **SHIP)),
+    'S11cgd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_split_place=1,
+                         sd_hire_demand=1, **SHIP)),
+    'S11cgsd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                          sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_split_place=1,
+                          sd_spawn_steer=1, sd_hire_demand=1, **SHIP)),
     'S11a': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_early_animal=1, **SHIP)),      # + early animal
     'S11wh2': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=80.0, sd_hop_w=40.0, **SHIP)),
 }
@@ -88,6 +102,10 @@ LABEL = {
     'S11cfs': 'S11cfs: S11cf + spawn steering (farmer hour-0 stand, hour-0 / hour-1 hire split)',
     'S11cfd': 'S11cfd: S11cf + hires by demand (planned value vs fib wage at hour 0)',
     'S11cfsd': 'S11cfsd: S11cf + spawn steering + hires by demand',
+    'S11cg': 'S11cg: S11cf + melon harvest tendency in the planner (early, full) + executor harvest values + coop split from goose',
+    'S11cgs': 'S11cgs: S11cg + spawn steering',
+    'S11cgd': 'S11cgd: S11cg + hires by demand',
+    'S11cgsd': 'S11cgsd: S11cg + spawn steering + hires by demand',
 }
 
 
@@ -141,12 +159,15 @@ def main():
     argv = sys.argv[1:]
     mode, arms = argv[0], argv[1].split(',')
     sel, spec, workers = None, 'all', int(os.environ.get('LP_WORKERS', 4))
+    extra_streams = []
     i = 2
     while i < len(argv):
         if argv[i] == '--games':
             sel = argv[i + 1].split(','); i += 2
         elif argv[i] == '--worlds':
             spec = argv[i + 1]; i += 2
+        elif argv[i] == '--streams':
+            extra_streams = argv[i + 1].split(','); i += 2
         elif argv[i] == '--workers':
             workers = int(argv[i + 1]); i += 2
         else:
@@ -169,6 +190,7 @@ def main():
         jobs += [('stream', g, a) for a in arms if a != 'LEADER' for g in lead_g1.GAMES]
     else:
         jobs = [(mode, g, a) for a in arms for g in games]
+    jobs += [('stream', g, a) for a in extra_streams for g in lead_g1.GAMES]    # streams only (e.g. sector overlays)
     print(len(jobs), 'jobs', flush=True)
     t0 = time.time()
     errs = 0
