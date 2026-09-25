@@ -130,6 +130,7 @@ CELLS = {
     'Gold': dict(cfg={'tie_value': 0, 'hand_stock': 0}),
     'Gnew': dict(cfg={}),
     'Gex': dict(cfg={'exact_removals': True}),
+    'E2sy1': dict(cfg={}, deploy='full', path='agents/mgt_lpv_sy1.py'),
     'Gc27': dict(cfg={'plant_cutoff': {'STRAWBERRY': 13, 'TOMATO': 18, 'MELON': 19, 'WHEAT': 27, 'CARROT': 27}}),
     'E2h': dict(cfg={}, deploy='full', swap={'hires': 'leader'}),
     'E2p': dict(cfg={}, deploy='full', swap={'plan': 'leader'}),

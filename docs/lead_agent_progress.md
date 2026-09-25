@@ -1317,3 +1317,27 @@ and the price gap grew by ~2.0k (milk: we sell more milk into crashed prices, 98
 - Market (~5k net against us): milk price -4.6k (partly returned on margin: the rival loses 2.8k of milk revenue to
   our extra milk), melon -1.2k and fertilizer -1.2k price; strawberry price +2.1k in our favour; y3's wheat trading
   (buys 2.7k more wheat) is part of its wheat margin.
+
+## Wool under early Yarn Stores: sheep response (stored data first; 2026-09-25)
+`scripts/lead_yarn_response.py` (stored records only). A: p2750 panel, 144 clean worlds (rival tape intact):
+| first Yarn Store reveal | worlds | sheep bought ours / y3 | wool sold ours / y3 | wool revenue reveal..+5 ours / y3 | wool revenue +6..end ours / y3 | margin gap |
+|---|---|---|---|---|---|---|
+| by day 12 | 71 | **8.4 / 10.4** | **193 / 238** | 4,441 / 3,480 | **26,396 / 31,597** | -16,773 |
+| after day 12 | 38 | 3.1 / 4.5 | 87 / 87 | 1,406 / 1,225 | 3,365 / 3,937 | -13,405 |
+| none | 35 | 3.0 / 4.4 | 69 / 67 | | | -13,727 |
+Leaders (data/leader_semantics/reveal_rules_540.json): a Yarn Store revealed on day 6 / 9 / 12 / 15 / 18 brings +6.3 /
++6.1 / +4.2 / +2.6 / +1.6 sheep within 3 days, same day (median delay 0, 40% anticipated), saturating with prior
+Yarn Stores (x0.41 with two). B: G1 worlds (ledger replays): with a day 3-6 reveal the deploy buys as many sheep in the
+first five days as the leader (9-10) but holds 10-11 vs 11-13 at reveal+6 and 11-13 vs 13-17 at reveal+9 (the leader
+keeps adding; our count model adds sheep only to day 17).
+**Reading: under early Yarn Stores we are ~2 sheep (and 45 wool) short of y3; wool per sheep is the same (193 / 8.4 ~
+23 vs 238 / 10.4 ~ 23), so the gap is sheep count, not care.** Our early wool sales are even higher (reveal..+5); the
+shortfall is from reveal+6 on (-5.2k wool revenue). Variant sy1 (deploy option `sheep_yarn_mult` 1.3: the count model's
+sheep target x1.3 while a Yarn Store is open): smoke + G1 in one kernel (Kaggle sy1; 2 builder kernels running).
+**sy1 result (Kaggle sy1, smoke + G1 in one kernel): inert.** Smoke identical to the current default on all 12 worlds
+(margin +0; sheep bought 5.3 vs 5.3, wool sold 127 vs 127; the 4 early-Yarn worlds 10.0 sheep / 220 wool both); G1
+0.911 / 0.901 / 0.889 vs 0.910 / 0.901 / 0.889. The x1.3 sheep target never produced an extra sheep. Likely reason (not
+verified): the count model only adds sheep from day 12 to day 17 (`last_animal`) and only above the sheep already held,
+while in early-Yarn worlds the sheep come from the retrieved leader plans of days 0-11; a lever for the missing ~2
+sheep would have to act in the retrieval phase or extend the add window. Stopped here (resources to the exact-opening
+testing).
