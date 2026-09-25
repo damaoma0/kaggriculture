@@ -705,3 +705,139 @@ revenue 114.7k (114.3k). Adopted as the deploy default (`pred_mult` {"ME": 3.0})
 small even tripled (+8 units); y3's melon lead is its day-0 opening (12 melons), which the family-A opening's cash
 cannot fund without fewer animals. Deploy vs y3 on the full panel: sem -19,055 -> rpc1 -17,833 -> cutoffs -17,497 ->
 melons x3 -17,182.
+
+## Land use vs yield: ours (current deploy, melons x3) vs y3, 40 panel worlds (2026-09-25)
+`lead_cycles.py` now also records the whole farm at each day start (empty, weed, locked, crop, animal, empty
+structure) and animal harvests; `lead_cycles.py land <agents>` gives, per day window, the share of UNLOCKED tiles by
+use and units harvested per unlocked tile-day. Extracted on Kaggle (landc0/1, landy0/1; 12 smoke + 28 random p2750
+worlds; `mgt_lpv_cur5` = the current deploy).
+| days | unlocked ours / y3 | empty | weed | wheat | carrot | tomato | strawberry | melon | animal | empty struct |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 6-11 | 54.2 / 45.8 | 10.2 / 2.5% | 0 / 0 | 19.9 / 19.0 | 0.2 / 0 | 1.5 / 0 | 27.1 / 28.2 | 16.9 / 22.6 | 22.8 / 23.8 | 1.2 / 3.9 |
+| 12-17 | 75 / 75 | 2.4 / 5.1% | 0.5 / 0.2 | 30.0 / 25.7 | 1.2 / 0.3 | 8.0 / 8.6 | 29.8 / 33.5 | 2.4 / 2.3 | 23.9 / 23.7 | 1.7 / 0.6 |
+| 18-23 | 75 / 75 | 1.4 / 1.9% | 3.4 / 0.4 | 30.4 / 22.1 | 0.9 / 2.8 | 9.0 / 15.8 | 25.6 / 31.8 | 3.8 / 1.0 | 24.1 / 23.8 | 1.4 / 0.4 |
+| 24-29 | 75 / 75 | **15.2 / 7.2%** | **7.0 / 1.0** | 38.0 / 34.5 | **2.4 / 16.6** | 2.3 / 5.4 | 8.3 / 12.4 | 1.3 / 0 | 22.9 / 21.6 | 2.7 / 1.2 |
+Units harvested per unlocked tile-day (days 6-29): ours 0.838, y3 0.933 (-10%); base-price value 74.5 vs 82.8.
+Units per game: ours 1,404 (wheat 610, milk 210, strawberry 165, egg 142, wool 135, melon 74, tomato 46, carrot 23),
+y3 1,515 (wheat 588, strawberry 196, milk 186, wool 157, egg 114, carrot 108, tomato 83, melon 82).
+Reading: through day 23 our land is as fully used as y3's (days 6-11 we have MORE unlocked, partly empty, because we
+buy NE earlier). In days 24-29 we leave 22% of unlocked tiles empty or weed vs y3's 8% (about 63 idle tile-days a
+game; y3 grows carrots there: 17% of its tiles). Before that, the gap is crop mix at equal land (more wheat, fewer
+tomatoes/strawberries in days 18-23). Testing the end-season fill (`fill_free`, weeds count as free, cutoffs apply).
+
+### End-season fill under the current cutoffs: neutral (Kaggle pvs6 / g1e)
+| variant | smoke vs current (95% CI), better | smoke units wheat / carrot | G1 deploy (12 / 11 / clean9) |
+|---|---|---|---|
+| current (`mgt_lpv_cur5`; = the ME x3 smoke run 12/12) | | 310 / 31 | 0.882 / 0.874 / 0.861 |
+| fl1 `fill_free` 1 (keep 4 empty, max 10/day) | +75 (+0 .. +224), 1/12 | 311 / 31 | 0.881 / 0.874 / 0.861 |
+| fl2 keep 0, max 20/day, carrot share 0.5 | -93 (-270 .. +63), 5/12 | 309 / 32 | 0.881 / 0.873 / 0.859 |
+The fill barely fires: units are unchanged. Why (day-by-day, same 40 worlds): our idle land is on days 27-29
+(empty 11 / 20 / 29 tiles vs y3 1.6 / 4.2 / 21), i.e. AFTER our wheat 25 / carrot 26 cutoffs, so the fill (which
+respects them) cannot touch it. y3 keeps planting past them and harvests on day 29: per game it plants 9.1 carrots on
+day 27 (8.8 harvested, 19.3 units), 6.0 wheat on day 26 (23.6 units) and 4.0 wheat on day 27 (7.4 units), plus 7.5
+carrots on day 26 (27.8 units) where we plant 2.8. Our cutoffs are "last FULL-harvest day"; a day-27 wheat/carrot
+planting is 2 days old on day 29 (= first yield day) and our executor harvests any yielding one-time crop on day 29,
+sem_maintenance does not abandon it (full_units > 0 by step 718). Testing wheat/carrot cutoffs 27 (`c27`, deploy
+last_plant + executor plant_cutoff) and c27 + fill through day 27 (`c27f`, keep 0, max 20, carrot share 0.5) on
+smoke + G1 (Kaggle pvs7 / g1f; Gc27 = leader-plan agent with the same cutoffs) and c27 on the full panel (pfc27).
+
+### Later wheat / carrot cutoffs (27): negative (Kaggle pvs7 / g1f)
+| variant | smoke vs current (95% CI), better/worse | smoke sold wheat / carrot | G1 (12 / 11 / clean9) |
+|---|---|---|---|
+| current deploy (`cur5`) | | 310 / 30 | 0.882 / 0.874 / 0.861 |
+| c27 (wheat, carrot cutoffs 27) | **-884 (-1,464 .. -323), 3/9** | 321 / 22 | 0.866 / 0.859 / 0.845 |
+| c27f (c27 + fill through day 27, keep 0, max 20, carrots 0.5) | -928 (-1,552 .. -330), 3/9 | 320 / 22 | 0.867 / 0.860 / 0.846 |
+| leader-plan agent `mgt_lead` (current defaults, cutoffs 25/26; = Gcut 12/12) | | | 0.881 / 0.871 / 0.853 |
+| leader-plan agent, cutoffs 27 (Gc27) | | | 0.872 / 0.865 / 0.846 |
+Where c27 loses (smoke, per game): wheat revenue +388 for +198 wheat seed and +241 wages, carrot -340, and small
+losses on fertilizer / egg / milk / melon / tomato (-485 together). G1 agent logs: carrot cuts 4.2 -> 0.7 (the day-27
+carrots are planted), but skipped maintenance value 44.8k -> 48.2k, wheat dying while assigned 11.6 -> 13.4, unmet
+carrot / wheat orders up, idle-hand passes down (h12 203 -> 182, h18 598 -> 562). The fill again adds nothing
+(the extra free tiles are taken by same-day wheat replants). Days 26-29 are LABOUR-bound for our executor: the idle
+tiles are not free capacity, every extra planting is paid for by jobs dropped elsewhere.
+**Full panel c27 (Kaggle pfc27, 185 p2750 worlds): -1,152 vs current (95% CI -1,267 .. -1,037), better in 17/185;
+-18,334 vs y3, W-L 12-173.** Sold units wheat 341 (332), carrot 18 (27): the later wheat cutoff lets same-day wheat
+replants take the day 26-27 tiles and the extra wheat sells into a falling late price; carrots fall. Rejected.
+**Land use vs yield, conclusion:** utilisation through day 23 equals y3's; the extra idle tile-days after day 26 cannot
+be filled profitably by our executor (fill neutral, later cutoffs negative). The remaining plan-side gap is yield per
+tile / crop mix, not land; plan-side work stops here as instructed.
+
+## Idle passes vs dropped maintenance: trace (2026-09-25)
+Tracer in the executor (`CFG idle_trace`, off by default; mgt_lead.py and the deploy copy): at every PASS it records
+the open tasks and, per task, why that unit did not take it (taken by another unit + both distances / item neither
+carried nor in the shed / plant pipeline too late / valid cost); at hour 23 a fresh sem_maintenance solve values the
+jobs still open (non-optional, value > 0, minus what hour 23 itself does) in coins. Report: `scripts/lead_idle_report.py`.
+The tracer is passive: smoke 12/12 and G1 12/12 identical to the current deploy, leader-plan agent G1 12/12 identical
+to Gcut (the "Gbase" 0.874 in the previous table was a stale pre-cutoff directory; fixed above).
+Note: the log's `skipped_value` (44.8k/game) mixes module coins with placeholder values (400 per plan job, 50 per
+legacy op); the traced dropped value in module coins is **14.9k/game (smoke), 13.1k (G1 deploy), 24.5k (G1
+leader-plan agent)**.
+First result (smoke, deploy): idle passes and dropped jobs are on DIFFERENT days. Days 0-8 (opening, few assets):
+40-88 idle passes a day, nothing dropped. Days 9-27: 4-17 idle passes a day, nearly all after 18h, and 0.3-2.0k of jobs
+dropped a day. Of the dropped value, 11.4k is on jobs that were held by another unit at every idle pass that
+coexisted with them (the owner did not finish), 2.5k had no idle unit at all, 0.66k had an idle unit with a valid
+cost (units parked on a stale delivery assignment), plant-late 0.24k, missing items 0.15k, not in the task list
+0.04k. Idle passes: 342/game "every open task already taken", 261 "nothing open" (226 of them after 18h),
+111 "plant too late + rest taken", 49 "items missing". Refined run (owner distance, work account) in progress.
+Refined trace (owner distance + work account; smoke trs2 and G1 trg2, both identical to the current deploy):
+| | smoke (12) | G1 deploy (12) |
+|---|---|---|
+| dropped maintenance value per game (module coins) | 14,893 | 13,140 |
+| ... with an idle unit able to reach it before 23h ("taken" + "valid") | 1,285 | 2,292 |
+| ... of which the idle unit was nearer than the job's owner | 397 | 417 |
+| ... no reachable idle unit (capacity / order) | 13,608 | 10,848 |
+| days 9-26 unit-steps: walking / maintenance ops / plan ops / shed pick-drop-place / idle | 46.6 / 35.9 / 3.1 / 6.5 / 3.1% | 46.3 / 36.0 / 3.2 / 6.6 / 3.3% |
+| executed ops worth < 30 coins / 0 / not in the module list (share of unit-steps) | 3.0 / 0.6 / 5.7% | 2.7 / 0.6 / 5.8% |
+**Answer to "dropped jobs coexist with idle hands": they mostly do not.** Idle hands cluster on the slack opening
+days (0-8) and in the last hours of saturated days, when every remaining job is already held by a unit and too far for
+the idle one to reach before the day ends. At most 1.3k (smoke) / 2.3k (G1) of dropped value per game had an idle
+unit that could have done it in time. The "valid" idle units are a one-step bug (a unit that DROPs two or more
+products keeps its delivery assignment for one more step and passes; 4-7 steps a game). Dropped jobs are spread over
+the farm like the tiles (not concentrated in far corners); by value: 16.9 jobs/game >= 200 coins (5.9k), 23.6 at
+100-200 (3.6k). The lever is capacity (walking is 46% of unit time on saturated days) and order (low-value work done
+while high-value work is dropped). Tests in flight: release of the stale delivery assignment (fx1); value threshold
+for priority 1 (pv30 / pv60, ops worth less count as priority 2 = after 15h); no mid-day delivery trips unless cash
+binds (nd); +1 hand on count-model days (h2); zone penalty 2 / 4 (z2 / z4).
+Capacity / zone tests (Kaggle pvs8 / g1g):
+| variant | smoke vs current (95% CI), better | G1 deploy (12 / 11 / clean9) |
+|---|---|---|
+| current | | 0.882 / 0.874 / 0.861 |
+| h2: +1 hand on count-model days (hands_add 2) | -279 (-2,041 .. +1,731), 4/12 | 0.861 / 0.851 / 0.844 |
+| z2: zone penalty 2 | -15,011 (-19,917 .. -11,143), 0/12 | 0.863 / 0.853 / 0.827 |
+| z4: zone penalty 4 | -18,271 (-22,603 .. -13,958), 0/12 | 0.854 / 0.841 / 0.801 |
+Rejected. A 13th hand's wage (233/day) is not recovered by the work it adds; zones (shed pickups sized to the whole
+zone's need, units held to their chunk) are far worse than the free greedy.
+Dispatcher fixes (Kaggle pvs9 / g1h; all include fx1 except the current row):
+| variant | smoke vs current (95% CI), better/worse | G1 deploy (12 / 11 / clean9) |
+|---|---|---|
+| current | | 0.882 / 0.874 / 0.861 |
+| fx1: release a delivery assignment once nothing deliverable is carried | +224 (-153 .. +633), 5/4 | 0.882 / 0.874 / 0.860 |
+| **pv30: fx1 + maintenance ops worth <= 30 coins are priority 2 (after 15h only when nothing better)** | **+764 (+89 .. +1,450), 8/4** | **0.885 / 0.875 / 0.862** |
+| pv60: same with 60 | -489 (-2,109 .. +1,095), 6/6 | 0.882 / 0.875 / 0.858 |
+| nd: no mid-day delivery trips unless cash binds | -8,171 (-11,751 .. -5,132), 0/12 | 0.887 / 0.880 / 0.861 |
+nd shows how much same-day selling is worth under the sem sell module (G1 sells on the leader's quota and does not
+see it). pv30 goes to the full panel (pfpv30); helper split (hs1: a unit left free joins a held animal tile and takes
+its last collect / harvest / care) on smoke + G1 (pvs10 / g1i).
+| **hs1: fx1 + helper split (animal tiles)** | **+1,754 (+410 .. +3,667), 10/2; vs fx1 +1,531 (+273 .. +3,472)** | **0.884 / 0.876 / 0.864** |
+hs1 adds ~31 helper steps per G1 game (the free unit walks to a held animal tile with >= 2 open ops and does its last
+collect / harvest / care while the owner does the feed): the tail ops the owner ran out of hours for. Full panel
+queued (pfhs1); hp = hs1 + pv30 on smoke + G1 (pvs11 / g1j).
+| hp: hs1 + pv30 | +945 (-153 .. +2,316), 7/5; vs hs1 -810 (-1,758 .. +78), 3/9 | 0.884 / 0.874 / 0.863 |
+**Full panel pv30 (Kaggle pfpv30, 185 p2750 worlds): +382 vs current (95% CI +61 .. +702), better in 105/185;
+-16,800 vs y3 (current -17,182), W-L 15-170 (12-173).** Egg 144 (141), wheat 333 (332), revenue 115.1k (114.7k).
+| hs2: hs1 + helper also on strawberry / tomato tiles | identical to hs1 (12/12); crop helper fires ~1 step a game (G1 helper steps 32.3 vs 31.5) | 0.884 / 0.876 / 0.864 |
+**Full panel hs1 (Kaggle pfhs1): +202 vs current (95% CI -170 .. +571), better in 106/185; vs pv30 -180 (-584 .. +223);
+-16,980 vs y3, W-L 13-172.** Its +1,754 smoke gain did not hold. Re-traced (trh, identical to hs1 12/12): dropped
+maintenance value 15.3k/game vs 14.9k without it (stale-delivery drops 0.66k -> 0.01k, but "no idle unit" drops rose
+2.5k -> 3.8k): the helper steps do not reduce what is dropped.
+**Deploy default now pv30** (`agents/mgt_lead_deploy.py` executor CFG: p1_min_value 30, release_stale_d True; chosen on
+full-panel evidence over hs1). `agents/mgt_lead.py` keeps 0 / False (leader-plan agent not measured with it); the
+executor code is otherwise identical in both files (differences: these two defaults, sell_source, the SEM_MARKET block).
+Deploy vs y3 on the full panel: melons x3 -17,182 -> pv30 -16,800.
+**Conclusion of the idle-pass trace:** the dispatcher does connect free hands to open jobs; idle hands and dropped
+jobs are on different days or in the last hours when every remaining job is already held by a unit and out of the
+idle unit's reach. Dropped maintenance (~15k/game of module value) is a capacity-and-order effect of saturated days
+9-27 (walking = 46% of unit time), not a matching defect: a 13th hand, zones, helper splits and deferring low-value work
+recover at most ~0.4k/game. Rejected this round: c27 / c27f (later wheat/carrot cutoffs), fill, h2, z2, z4, nd, pv60,
+hs1, hs2, hp.
+Check: the new default deploy (copy `mgt_lpv_dep6`, Kaggle pvs13) reproduces pv30 on the 12 smoke worlds 12/12.
