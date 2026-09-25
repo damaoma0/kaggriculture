@@ -959,3 +959,35 @@ op on days 12-17): half from route order (consecutive ops 0.79 vs 0.56 tiles apa
 identifiable defect was the fertilizer round trip (196 fertilizer picked at the shed vs the leader's 24). The layout
 is the same (86% of tile-days on the leader's tiles, same shed distance). ff1 removes part of the round trip
 (+4.5 fertilizes a game in G1); the route-order half is untouched.
+Check: the new default deploy (fert_hold 1; copy `mgt_lpv_dep7`, Kaggle pvs15) reproduces ff1 on the 12 smoke worlds 12/12.
+
+## Midnight shed cap: cap-aware sell guard (2026-09-25)
+Why the old guard misses: it fires only at hour >= 20 when shed + carried > 95, sells down to 90, and ignores what the
+units still harvest in the last hours (our shed + carried averages 12 + 79 = 91 at midnight, so it seldom fires, and
+the late harvest then spills). The deploy keeps all feed wheat to the end (`wheat_keep_days` 99), so the shed holds
+wheat the sell rule never releases; the sem wheat buy-ahead is off (`SMK_WHEAT.on` False), so it is not the filler.
+`cap_guard` 1 (executor option, default 0 in both files): from `cap_hour` (16) projected midnight load = shed + carried
++ `cap_rate` x hours left - this step's sells; above 100 - `cap_margin` the excess is sold from the shed, wheat above
+the feed reserve first, then other products cheapest first. cg1 = rate 2.5 / margin 3, cg2 = rate 4 / margin 5.
+Smoke with discards per game (Kaggle wtr3, lead_world_trace: current default vs cg1 vs cg2) and G1 (g1m) running.
+| variant | smoke vs current (ff1) (95% CI), better/worse | discards / game (current 25.8) | G1 deploy (ff1 0.881 / 0.873 / 0.865) |
+|---|---|---|---|
+| cg1: shed guard, rate 2.5, margin 3 | -269 (-984 .. +413), 6/6 | 27.5 | 0.879 / 0.871 / 0.862 (leader-plan 0.877 vs 0.881) |
+| cg2: shed guard, rate 4, margin 5 | -374 (-1,016 .. +335), 3/9 | 29.8 | 0.884 / 0.875 / 0.865 |
+**Finding: a shed-side guard cannot work, the overflowing stock is in the units' hands.** On the 32 overflow nights
+(of 348) of the current default the shed holds ~3 items before the dump while the units carry ~106 (wheat 55,
+fertilizer 20, egg 10, strawberry 8, milk 6, tomato 4); on 26 of them the carried items alone exceed 100. The units
+carry the morning's feed wheat plus the day's harvested wheat (wheat is never deliverable) and, with fert_hold 1, the
+fertilizer they hold for fertilize jobs (ff1 raised discards 21.8 -> 25.8 a game). The deploy's wheat keep is held in
+hands, not in the shed. So the cap fix must bring the excess to the shed before midnight and sell it: `cap_deliver`
+1 (with cap_guard): on a projected overflow from cap_hour, the units carrying the most products (wheat and fertilizer
+included) deliver them, nearest first, until the projection fits; the guard then sells above the feed reserve.
+cg3 = from hour 16, cg4 = from hour 19; smoke (wtr4) and G1 (g1n) running.
+| cg3: cap delivery + guard from hour 16 | -2,092 (-3,464 .. -808), 2/10; own -1,441, rival +651 | **0.3** | 0.870 / 0.862 / 0.852 |
+| cg4: cap delivery + guard from hour 19 | -1,153 (-2,726 .. +173), 4/8; own -708, rival +445 | 14.4 | 0.888 / 0.879 / 0.867 |
+**Cap step rejected (no variant passes the full-panel rule).** The cap losses are real (current default 25.8 items a
+game on smoke, ~1.2k coins) and cap delivery removes them (cg3: 0.3 a game), but the evening delivery trips cost more
+output than they save: cg3 sells 7.4 fewer eggs, 5.0 fewer strawberries, 4.4 fewer tomatoes and 27 fewer wheat a game
+(own cash -1,441), and G1 falls to 0.870. Starting at hour 19 (cg4) halves the discards and halves the cost, still
+negative on smoke. The cheaper lever is upstream: less stock in hands at midnight (morning feed-wheat pickups sized to
+the day's feeding; the wheat keep), not evening trips. cap_guard / cap_deliver stay in the executor, default off.

@@ -94,11 +94,6 @@ CFG = {
     "p1_min_value": 30.0,     # maintenance ops worth <= this (coins) count as priority 2 (deferred after late_hour); DEPLOY default 30 (2026-09-25: full panel +382, CI +61..+702; mgt_lead.py keeps 0)
     "deliver_units": 10,      # a unit carrying this many products walks them to the shed for same-day sale
     "release_stale_d": True,  # drop a delivery assignment once nothing deliverable is carried (1 idle step per DROP); DEPLOY default (with p1_min_value 30)
-    "cap_deliver": 0,         # 1: on a projected midnight overflow (cap_hour.., same projection as cap_guard) the units carrying the most products (wheat / fertilizer included) deliver them; cap_guard then sells the excess
-    "cap_guard": 0,           # 1: midnight shed-cap guard from cap_hour: shed + carried + cap_rate x hours left - sells <= 100 - cap_margin (wheat above the reserve first, then cheapest)
-    "cap_hour": 16,
-    "cap_rate": 2.5,          # expected items still coming into the units' hands per remaining hour
-    "cap_margin": 3,
     "fert_hold": 1,           # 1: collected fertilizer is not delivered while fertilize jobs remain today (applied in the field); 2: never delivered mid-day. DEPLOY default 1 (2026-09-25: full panel +462 vs pv30, CI +67..+888; mgt_lead.py keeps 0)
     "helper_split": False,    # a unit left free by the greedy joins a held animal tile and takes its last op
     "helper_crops": False,    # helper split also on ongoing crops (strawberry / tomato: HARVEST is independent of water)
@@ -931,37 +926,9 @@ def agent(obs, config=None):
         actions, taken = _dispatch_route(S, day, hour, last_day, tiles, pos, invs, tasks, shed, seeds,
                                           demand, carried, prices, quota_open, fert_short)
     # delivery for same-day sale when cash binds (or a unit carries a lot)
-    capd = S.setdefault("capd", set())
-    if S.get("capd_day") != day:
-        S["capd_day"] = day
-        capd.clear()
-
-    def deliv_u(u):
-        if u in capd:           # cap delivery: everything sellable, wheat and fertilizer included
-            return {k: v for k, v in invs[u].items() if v > 0 and k in PRODUCTS}
-        return deliverable(invs[u])
     if CFG["release_stale_d"]:
-        for u in [u for u, v in assign.items() if v == "D" and u < n and not deliv_u(u)]:
+        for u in [u for u, v in assign.items() if v == "D" and u < n and not deliverable(invs[u])]:
             assign.pop(u, None)
-    for u in list(capd):
-        if u >= n or assign.get(u) != "D":
-            capd.discard(u)
-    if CFG["cap_deliver"] and day < last_day and CFG["cap_hour"] <= hour < 22 and CFG["dispatch"] != "route":
-        need = (sum(shed.values()) + sum(sum(i.values()) for i in invs) + CFG["cap_rate"] * (23 - hour)
-                - (100 - CFG["cap_margin"]) - sum(sum(invs[u].values()) for u in capd))
-        if need > 0:
-            cand = sorted((u for u in range(n) if u not in assign),
-                          key=lambda u: (-sum(v for k, v in invs[u].items() if k in PRODUCTS), _dist(pos[u], _near_shed(pos[u]))))
-            for u in cand:
-                if need <= 0:
-                    break
-                c = sum(v for k, v in invs[u].items() if k in PRODUCTS)
-                if c <= 0 or _dist(pos[u], _near_shed(pos[u])) + 1 > 22 - hour:
-                    continue
-                assign[u] = "D"
-                capd.add(u)
-                need -= c
-                S["log"]["capd_units"] += 1
     for u in range(n):
         if CFG["dispatch"] == "route":
             break
@@ -1119,7 +1086,7 @@ def agent(obs, config=None):
                 actions[u] = ["PICKUP", got[0], int(got[1])]
                 continue
         if idx is None or idx == "D":
-            dv = deliv_u(u)
+            dv = deliverable(inv)
             if dv and hour < 23:
                 s = _near_shed(p)
                 if p != s:
@@ -1922,23 +1889,7 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     # shed overflow guard: midnight drop discards above 100
     total = sum(shed.values()) + sum(sum(i.values()) for i in invs)
     sold_now = sum(o[2] for o in sells)
-    if CFG["cap_guard"] and not endgame and hour >= CFG["cap_hour"]:
-        proj = total - sold_now + CFG["cap_rate"] * (23 - hour)
-        extra = int(proj - (100 - CFG["cap_margin"]) + 0.999)
-        if extra > 0:
-            S["log"]["cap_need"] += extra
-            order = ["WHEAT"] + sorted((q for q in PRODUCTS if q != "WHEAT"), key=lambda q: prices.get(q, 0))
-            for p in order:
-                if extra <= 0:
-                    break
-                already = sum(o[2] for o in sells if o[1] == p)
-                can = shed.get(p, 0) - reserve.get(p, 0) - already
-                k = min(can, extra)
-                if k > 0:
-                    sells.append(["SELL", p, int(k)])
-                    S["log"]["cap_sold_" + p] += int(k)
-                    extra -= k
-    elif not endgame and hour >= 20 and total - sold_now > 95:
+    if not endgame and hour >= 20 and total - sold_now > 95:
         extra = total - sold_now - 90
         for p in sorted(PRODUCTS, key=lambda q: -(shed.get(q, 0))):
             if extra <= 0:
@@ -2140,6 +2091,7 @@ DEP_CFG = {
     "wc_swap": 0,                       # composition: turn this base share of the count model's wheat plantings into carrots ...
     "wc_swap_per_shop": 0.15,           # ... + this per carrot-demanding shop instance (max 0.7), when carrots can still be harvested
 }
+DEP_CFG.update({})   # variant dep7
 try:                                    # research overrides (ablations): DEP_CFG_JSON='{"key": value}'
     import os as _dep_os0
     import json as _dep_json0
