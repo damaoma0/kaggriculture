@@ -150,6 +150,7 @@ def _curve():
 CURVE = _curve()
 CURVE_POS = {idx: i for i, idx in enumerate(CURVE)}
 
+CFG.update({'retire_visit': 30.0})   # variant rt30 (executor)
 _SMNS = None
 
 
@@ -2379,6 +2380,7 @@ DEP_CFG = {
     "wc_swap": 0,                       # composition: turn this base share of the count model's wheat plantings into carrots ...
     "wc_swap_per_shop": 0.15,           # ... + this per carrot-demanding shop instance (max 0.7), when carrots can still be harvested
 }
+DEP_CFG.update({})   # variant rt30
 try:                                    # research overrides (ablations): DEP_CFG_JSON='{"key": value}'
     import os as _dep_os0
     import json as _dep_json0

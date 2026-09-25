@@ -1152,3 +1152,26 @@ worth >= 200 after hour 0), hands 11.0 (all) / 8.3 (marginal) a day; search cost
 simulations), well inside the 60 s bank. **Hires by demand rejected in this form**: the plan's hand count (corpus
 regression + hands_add) beats our own-greedy simulated demand in both panels; the hour-0 job list does not see the
 day's later plan work and values maintenance per day, so it misjudges the crew both ways. Options stay, default off.
+
+## Animal retirement: when leaders stop feeding (stored data only, 2026-09-25)
+`scripts/lead_retirement.py`: per animal life from data/leader_semantics (boards, with each tile's structure from the
+build events because an empty COOP also reads 'co'; maintenance FEED / CARE tile lists; the day's market sales). 300
+games of the three G1 leaders (DSM, Vadim, UMG):
+| species | stop type | per game | stop day (median) | age | productions still possible | product price vs base at the stop (median) | price < 25% of base |
+|---|---|---|---|---|---|---|---|
+| COW | retired with >= 3 days left | 2.24 | 22 | 15 | 4.3 | 0.19 | 66% |
+| COW | stopped in the last 2 days | 0.53 | 27 | 17 | 2.0 | 0.14 | 77% |
+| SHEEP | retired with >= 3 days left | 2.62 | 24 | 17 | 2.3 | 0.17 | 69% |
+| SHEEP | stopped in the last 2 days | 3.19 | 27 | 26 | 1.0 | 0.46 | 28% |
+| GOOSE | retired with >= 3 days left | 0.68 | 22 | 13 | 7.8 | 0.84 | 0% |
+(animals fed to the end sell at 0.45-0.82 of base.) **The leaders retire cows and sheep with days to spare when the
+product price has crashed (~0.2x base), not at a fixed age.** Our sem_maintenance end-of-life is price-aware (future
+production at today's price against feed wheat) but charges nothing for the visits, so at ~30 a milk unit a cow still
+covers one wheat a day and is kept. A cow at the leaders' typical stop (4.3 productions left at ~30) yields ~320;
+a week of feed (~270) plus ~17 unit-steps of labour (~200) costs more; at half of base price the same cow yields ~860.
+**Proposed rule (`retire_visit`, deploy only): a labour charge per visit to an animal in the maintenance solve**
+(maintenance_jobs already supports `visit_cost`; a wrapper on the loaded module applies it to animals only), so an
+animal whose remaining production at today's price no longer covers feed + visits gets no feed / care jobs and is let
+go. Synthetic check: cows on day 22 with milk at 30 get no FEED jobs with a 15 or 30 charge (the current default feeds
+them), and are fed at milk 90. Rough value: +0.4-0.9k a game from 2-3 extra retirements plus less selling into
+crashed markets (an estimate, not a measurement). Variants rt15 / rt30 on smoke + G1 after the tw0 / rs1 panels.
