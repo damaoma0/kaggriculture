@@ -663,3 +663,45 @@ Units: carrot 31 (21), wheat 335 (330), strawberry 168 (171), tomato 43 (48); ow
 Adopted as defaults: executor `plant_cutoff` {strawberry 13, tomato 18, melon 19, wheat 25, carrot 26} (applies to the
 G1 agent too: 0.881 / 0.871 / 0.853) and the deploy's `last_plant` = the same days. Deploy trajectory on the full panel
 vs y3: sem -19,055 -> rpc1 -17,833 -> cutoffs -17,497.
+
+## Per-product gap on the current build (cutoffs) vs y3, full panel (2026-09-25)
+y3 re-run as `mgt_y3_cal` on all 185 games (Kaggle y3cal0-2; identical to the stored y3 results 185/185) so both
+sides have daily revenue. `lead_newworld_gap.py mgt_lpv_cut mgt_y3_cal`: revenue -18.9k a game (114.3k vs 133.2k;
+spend 26.5k vs 28.9k) = VOLUME -15.8k + PRICE -3.1k.
+| product | units | rev gap | volume | price | d0-11 | d12-17 | d18-23 | d24-29 |
+|---|---|---:|---:|---:|---:|---:|---:|---:|
+| carrot | 31 vs 129 | -4,486 | -4,619 | +133 | 0 | +270 | -468 | -4,289 |
+| melon | 66 vs 82 | -3,546 | -3,071 | -476 | -4,394 | +741 | -448 | +555 |
+| tomato | 43 vs 81 | -2,983 | -3,048 | +65 | 0 | +2 | -364 | -2,620 |
+| wool | 135 vs 157 | -2,619 | -3,251 | +632 | +1,595 | -1,782 | -1,426 | -1,007 |
+| wheat | 335 vs 392 | -2,462 | -2,089 | -373 | -656 | -1,846 | -171 | +210 |
+| strawberry | 168 vs 198 | -2,283 | -4,068 | +1,785 | 0 | +3,515 | -3,199 | -2,600 |
+| milk | 207 vs 185 | -1,052 | +2,721 | -3,773 | -1,997 | +2,259 | -438 | -877 |
+| fertilizer | 234 vs 223 | -429 | +604 | -1,034 | -162 | -952 | +430 | +255 |
+| egg | 139 vs 118 | +970 | +1,017 | -47 | +222 | +94 | +227 | +427 |
+| total | | -18,891 | -15,804 | -3,087 | -5,392 | +2,301 | -5,856 | -9,944 |
+Value per tile-day (units x price / days a tile is held): carrot ~50, tomato ~47, wheat after rpc1 ~47, strawberry
+~64, melon ~112. Carrots and tomatoes only replace wheat at equal value, which is why every carrot-for-wheat swap
+tested neutral (wc_swap, um1). Melon is where a tile is worth most, and y3 plants 12 melons on day 0 (+~2 later;
+13.8 a game, 82 units) against our 6 on day 0 + 4 on day 1 (+~2 in the count-model phase; 12.1, 71 units).
+
+Hypothesis (b) tested first and rejected: "the capped wheat replant keeps harvested tiles occupied, so the count
+model's tomato/strawberry/melon targets go unmet". Logged unmet targets (leader worlds, per game): wheat 102, carrot
+47, tomato 2.0, melon 0.8, strawberry 0.5. Option `replant_unmet` (a harvested wheat/carrot tile takes the
+highest-value crop whose target went unmet today) therefore mostly planted carrots on wheat tiles: smoke -213
+(-1,525 .. +1,093), 4/12 better; carrots 34 -> 137, wheat 322 -> 180; G1 deploy 0.874 -> 0.864. The tomato decline
+(71 -> 43 since rpc1/cutoffs) is the count model's autoregressive tomato target (+0.68 per current tomato tile,
++4.2 per tomato-demanding shop) starting from a low tomato count, plus the tomato cutoff at day 18.
+Now testing (d) melons: count-model melon target x2 / x3 (`pred_mult` ME) in the composition phase.
+Melon target (composition phase, `pred_mult` ME), all on Kaggle:
+| variant | smoke vs current (cutoffs) (95% CI), better | G1 deploy (12 / 11 / clean9) | melon / wheat / tomato units |
+|---|---|---|---|
+| current (cutoffs) | | 0.874 / 0.869 / 0.862 | 66 / 322 / 52 (smoke) |
+| ME x2 | +229 (-857 .. +1,200), 6/12 | 0.872 / 0.866 / 0.856 | 72 / 323 / 46 |
+| ME x3 | +403 (-834 .. +1,439), 9/12 | 0.882 / 0.874 / 0.861 | 74 / 310 / 51 |
+**Full panel ME x3 (Kaggle leadv11; its 12 smoke worlds equal the smoke run 12/12): -17,182 vs y3 (95% CI -19,759 ..
+-14,385), -16,875 vs m1, W-L 12-173; vs cutoffs +315 (+23 .. +609), better in 101/185.** Melons 74 (66; y3 82),
+revenue 114.7k (114.3k). Adopted as the deploy default (`pred_mult` {"ME": 3.0}). The count model's melon target is
+small even tripled (+8 units); y3's melon lead is its day-0 opening (12 melons), which the family-A opening's cash
+cannot fund without fewer animals. Deploy vs y3 on the full panel: sem -19,055 -> rpc1 -17,833 -> cutoffs -17,497 ->
+melons x3 -17,182.

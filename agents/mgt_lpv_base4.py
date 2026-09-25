@@ -1874,7 +1874,7 @@ DEP_CFG = {
     "max_new_per_crop": 12,
     "switch_days": (3, 6, 9),
     "hands_add": 1,                     # extra hands on top of the regression, composition days (+2.0k/+3.1k margin on 12 worlds)
-    "pred_mult": {"ME": 3.0},           # label -> multiplier on the count model's prediction; melons x3 (2026-09-25: melon is the highest-value crop per tile-day, full panel +315 vs cutoffs)
+    "pred_mult": {},                    # label -> multiplier on the count model's prediction (research)
     "co_fix": False,                    # 'co' = cow OR empty coop in the corpus labels: compare with our cows + empty coops
     "land_max": 2,                      # quadrants we buy: never the $4000 SE one (12 worlds: +5.6k margin; 1 quadrant +1.3k)
     "cm_file": "count_model_540.json",  # count model: clean 540-game refit (2026-09-25; the 600-game fit included 60 quarantined scripted Boey games; count_model.json = the 240-game fit)
@@ -1892,6 +1892,7 @@ DEP_CFG = {
     "wc_swap": 0,                       # composition: turn this base share of the count model's wheat plantings into carrots ...
     "wc_swap_per_shop": 0.15,           # ... + this per carrot-demanding shop instance (max 0.7), when carrots can still be harvested
 }
+DEP_CFG.update({})   # variant base4
 try:                                    # research overrides (ablations): DEP_CFG_JSON='{"key": value}'
     import os as _dep_os0
     import json as _dep_json0
