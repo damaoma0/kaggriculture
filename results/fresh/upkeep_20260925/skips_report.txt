@@ -1,0 +1,342 @@
+Leader upkeep skips, days 12-29: 300 games ({'UMG': 100, 'all': 300, 'DSM': 100, 'Vadim': 100}), 0 files unreadable / cash mismatch
+
+== A. Module jobs vs what the leader did (per game; RP = production-affecting, RZ = no unit at stake, OH = optional harvest, CF = collect fertilizer)
+| asset | cmd | job kind | class | jobs / game | done by leader | skipped / game | units lost / game (module) | coins lost / game (module, net of inputs) |
+|---|---|---|---|---|---|---|---|---|
+| ALL | * | * | CF | 347.4 | 98% | 6.2 | 6.2 | 155 |
+| ALL | COLLECT_FERTILIZER | * | CF | 347.4 | 98% | 6.2 | 6.2 | 155 |
+| ALL | * | * | OH | 659.2 | 49% | 336.4 | 0.0 | 0 |
+| ALL | HARVEST | * | OH | 659.2 | 49% | 336.4 | 0.0 | 0 |
+| ALL | * | * | RP | 1711.6 | 85% | 248.6 | 380.2 | 14,843 |
+| ALL | CARE | * | RP | 282.5 | 83% | 46.8 | 47.9 | 3,009 |
+| ALL | FEED | * | RP | 305.6 | 84% | 48.5 | 96.1 | 3,554 |
+| ALL | FERTILIZE | * | RP | 198.2 | 50% | 99.2 | 120.9 | 3,242 |
+| ALL | HARVEST | * | RP | 220.1 | 94% | 13.8 | 32.7 | 1,076 |
+| ALL | WATER | * | RP | 705.2 | 94% | 40.4 | 82.5 | 3,963 |
+| ALL | * | * | RZ | 2.6 | 85% | 0.4 | 0.0 | 0 |
+| ALL | CARE | * | RZ | 1.3 | 79% | 0.3 | 0.0 | 0 |
+| ALL | FEED | * | RZ | 1.2 | 92% | 0.1 | 0.0 | 0 |
+| COW | COLLECT_FERTILIZER | endoflife | CF | 1.1 | 97% | 0.0 | 0.0 | 0 |
+| COW | COLLECT_FERTILIZER | production | CF | 144.4 | 99% | 2.1 | 2.1 | 57 |
+| COW | HARVEST | harvest | OH | 78.2 | 62% | 29.9 | 0.0 | 0 |
+| COW | CARE | bank | RP | 117.3 | 79% | 24.2 | 24.3 | 1,771 |
+| COW | FEED | bank | RP | 56.5 | 62% | 21.4 | 21.4 | 901 |
+| COW | FEED | production | RP | 32.0 | 99% | 0.4 | 0.9 | 66 |
+| COW | FEED | survival | RP | 36.1 | 93% | 2.4 | 18.7 | 721 |
+| COW | HARVEST | endoflife | RP | 2.9 | 85% | 0.4 | 1.6 | 11 |
+| COW | HARVEST | harvest | RP | 2.9 | 50% | 1.5 | 2.2 | 38 |
+| GOOSE | COLLECT_FERTILIZER | production | CF | 106.7 | 98% | 2.4 | 2.4 | 63 |
+| GOOSE | HARVEST | harvest | OH | 72.8 | 61% | 28.1 | 0.0 | 0 |
+| GOOSE | CARE | bank | RP | 98.8 | 87% | 13.1 | 13.5 | 549 |
+| GOOSE | FEED | bank | RP | 2.4 | 66% | 0.8 | 0.8 | 10 |
+| GOOSE | FEED | production | RP | 89.5 | 85% | 13.2 | 23.0 | 564 |
+| GOOSE | FEED | survival | RP | 12.3 | 89% | 1.3 | 10.2 | 408 |
+| GOOSE | HARVEST | endoflife | RP | 5.1 | 99% | 0.1 | 0.1 | 4 |
+| GOOSE | HARVEST | harvest | RP | 24.3 | 98% | 0.5 | 0.7 | 30 |
+| SHEEP | COLLECT_FERTILIZER | endoflife | CF | 6.8 | 98% | 0.2 | 0.2 | 1 |
+| SHEEP | COLLECT_FERTILIZER | production | CF | 88.4 | 98% | 1.4 | 1.4 | 34 |
+| SHEEP | HARVEST | harvest | OH | 48.5 | 47% | 25.8 | 0.0 | 0 |
+| SHEEP | CARE | bank | RP | 66.4 | 86% | 9.5 | 10.1 | 688 |
+| SHEEP | FEED | bank | RP | 38.9 | 84% | 6.1 | 6.1 | 373 |
+| SHEEP | FEED | production | RP | 21.6 | 96% | 0.8 | 2.2 | 102 |
+| SHEEP | FEED | survival | RP | 16.2 | 88% | 2.0 | 13.0 | 410 |
+| SHEEP | HARVEST | endoflife | RP | 3.1 | 66% | 1.1 | 4.6 | 28 |
+| SHEEP | HARVEST | harvest | RP | 4.5 | 34% | 3.0 | 3.3 | 29 |
+| SHEEP | CARE | bank | RZ | 1.1 | 75% | 0.3 | 0.0 | 0 |
+| SHEEP | FEED | production | RZ | 1.1 | 94% | 0.1 | 0.0 | 0 |
+| crop:CARROT | HARVEST | harvest | OH | 56.0 | 18% | 46.1 | 0.0 | 0 |
+| crop:CARROT | FERTILIZE | bonus | RP | 29.4 | 2% | 28.9 | 28.9 | 652 |
+| crop:CARROT | HARVEST | harvest | RP | 48.9 | 97% | 1.6 | 4.8 | 214 |
+| crop:CARROT | WATER | bonus | RP | 53.3 | 90% | 5.1 | 8.8 | 359 |
+| crop:CARROT | WATER | survival | RP | 50.9 | 98% | 1.0 | 3.7 | 151 |
+| crop:STRAWBERRY | HARVEST | harvest | OH | 101.0 | 86% | 14.3 | 0.0 | 0 |
+| crop:STRAWBERRY | FERTILIZE | bonus | RP | 56.0 | 84% | 8.9 | 9.1 | 860 |
+| crop:STRAWBERRY | HARVEST | endoflife | RP | 29.0 | 96% | 1.1 | 1.9 | 157 |
+| crop:STRAWBERRY | WATER | production | RP | 70.5 | 93% | 5.2 | 5.2 | 593 |
+| crop:STRAWBERRY | WATER | survival | RP | 95.8 | 99% | 0.8 | 4.5 | 501 |
+| crop:TOMATO | HARVEST | harvest | OH | 43.7 | 83% | 7.3 | 0.0 | 0 |
+| crop:TOMATO | FERTILIZE | bonus | RP | 31.4 | 77% | 7.1 | 7.1 | 374 |
+| crop:TOMATO | HARVEST | endoflife | RP | 17.0 | 93% | 1.3 | 2.3 | 161 |
+| crop:TOMATO | HARVEST | harvest | RP | 5.0 | 95% | 0.3 | 0.4 | 27 |
+| crop:TOMATO | WATER | production | RP | 57.9 | 91% | 5.1 | 5.1 | 372 |
+| crop:TOMATO | WATER | survival | RP | 41.5 | 99% | 0.5 | 4.2 | 257 |
+| crop:WHEAT | HARVEST | harvest | OH | 259.1 | 29% | 184.8 | 0.0 | 0 |
+| crop:WHEAT | FERTILIZE | bonus | RP | 81.4 | 33% | 54.2 | 75.7 | 1,356 |
+| crop:WHEAT | HARVEST | harvest | RP | 77.1 | 96% | 2.9 | 10.6 | 373 |
+| crop:WHEAT | WATER | bonus | RP | 206.6 | 90% | 19.8 | 33.7 | 1,171 |
+| crop:WHEAT | WATER | survival | RP | 128.6 | 98% | 2.9 | 17.3 | 558 |
+
+== A2. RP skips by team: skip rate, module value of the skipped jobs per game
+  DSM: 1734 RP jobs / game, skipped 12.9% (223.1 / game), module value 13,489 / game
+  UMG: 1558 RP jobs / game, skipped 13.2% (205.7 / game), module value 13,581 / game
+  Vadim: 1843 RP jobs / game, skipped 17.2% (316.9 / game), module value 17,460 / game
+
+== B. Leader ops NOT on the module list (per game)
+| asset | cmd | per game |
+|---|---|---|
+| crop:STRAWBERRY | WATER | 76.3 |
+| crop:WHEAT | FERTILIZE | 62.6 |
+| crop:TOMATO | WATER | 23.9 |
+| crop:CARROT | FERTILIZE | 17.1 |
+| crop:STRAWBERRY | FERTILIZE | 16.7 |
+| SHEEP | CARE | 11.5 |
+| crop:WHEAT | WATER | 7.8 |
+| COW | CARE | 7.8 |
+| SHEEP | COLLECT_FERTILIZER | 6.9 |
+| crop:CARROT | WATER | 5.5 |
+| COW | COLLECT_FERTILIZER | 5.2 |
+| SHEEP | FEED | 5.1 |
+| GOOSE | COLLECT_FERTILIZER | 3.0 |
+| crop:TOMATO | FERTILIZE | 2.7 |
+| COW | FEED | 1.5 |
+| GOOSE | CARE | 1.5 |
+
+== C. RP skip rate by context (rows with >= 200 jobs)
+  COW:CARE (117.3 RP jobs / game)
+    price/base           .25-.5: 39% (n=9714)  .5-.8: 21% (n=6973)  .8-1.2: 10% (n=5294)  <.25: 24% (n=4737)  >1.2: 3% (n=8478)
+    prods_left           1: 54% (n=1584)  2: 26% (n=3888)  3+: 18% (n=29724)
+    shed_dist            1-2: 19% (n=30137)  3-4: 28% (n=5020)
+    days                 12-17: 11% (n=15796)  18-23: 27% (n=13330)  24-29: 31% (n=6070)
+    plantings that day   1-5: 14% (n=1374)  16+: 25% (n=6500)  6-15: 20% (n=27322)
+    units at game max    no: 20% (n=21362)  yes: 21% (n=13834)
+  COW:FEED (124.6 RP jobs / game)
+    price/base           .25-.5: 37% (n=10461)  .5-.8: 21% (n=7332)  .8-1.2: 10% (n=5456)  <.25: 19% (n=5525)  >1.2: 3% (n=8604)
+    prods_left           1: 29% (n=3692)  2: 25% (n=3909)  3+: 18% (n=29776)
+    shed_dist            1-2: 18% (n=32114)  3-4: 28% (n=5223)
+    days                 12-17: 11% (n=15848)  18-23: 26% (n=13333)  24-29: 25% (n=8197)
+    plantings that day   0: 22% (n=413)  1-5: 14% (n=1597)  16+: 23% (n=6538)  6-15: 19% (n=28830)
+    units at game max    no: 19% (n=23327)  yes: 20% (n=14051)
+  COW:HARVEST (5.8 RP jobs / game)
+    price/base           .25-.5: 15% (n=314)  <.25: 42% (n=1254)
+    prods_left           0: 2% (n=678)  2: 52% (n=250)  3+: 63% (n=613)
+    shed_dist            1-2: 34% (n=1644)
+    days                 18-23: 65% (n=531)  24-29: 18% (n=1179)
+    plantings that day   0: 3% (n=708)  16+: 61% (n=414)  6-15: 51% (n=576)
+    units at game max    no: 28% (n=1433)  yes: 55% (n=295)
+  GOOSE:CARE (98.8 RP jobs / game)
+    price/base           .8-1.2: 13% (n=29487)
+    prods_left           2: 23% (n=1625)  3+: 13% (n=28015)
+    shed_dist            1-2: 11% (n=18719)  3-4: 17% (n=10889)
+    days                 12-17: 7% (n=11443)  18-23: 15% (n=11214)  24-29: 20% (n=6983)
+    plantings that day   1-5: 11% (n=782)  16+: 16% (n=6799)  6-15: 13% (n=22059)
+    units at game max    no: 13% (n=18512)  yes: 14% (n=11128)
+  GOOSE:FEED (104.2 RP jobs / game)
+    price/base           .8-1.2: 15% (n=31060)
+    prods_left           1: 70% (n=1512)  2: 17% (n=1740)  3+: 12% (n=28015)
+    shed_dist            1-2: 13% (n=19769)  3-4: 18% (n=11465)
+    days                 12-17: 7% (n=11443)  18-23: 14% (n=11214)  24-29: 26% (n=8610)
+    plantings that day   0: 70% (n=1282)  1-5: 23% (n=1012)  16+: 15% (n=6799)  6-15: 11% (n=22174)
+    units at game max    no: 16% (n=20087)  yes: 12% (n=11180)
+  GOOSE:HARVEST (29.3 RP jobs / game)
+    price/base           .8-1.2: 2% (n=8711)
+    prods_left           0: 1% (n=1514)  1: 1% (n=387)  2: 3% (n=349)  3+: 2% (n=6552)
+    shed_dist            1-2: 1% (n=6311)  3-4: 4% (n=2486)
+    days                 12-17: 1% (n=2782)  18-23: 3% (n=2518)  24-29: 2% (n=3502)
+    plantings that day   0: 1% (n=1816)  1-5: 1% (n=258)  16+: 3% (n=1457)  6-15: 2% (n=5271)
+    units at game max    no: 2% (n=6014)  yes: 2% (n=2788)
+  SHEEP:CARE (66.4 RP jobs / game)
+    price/base           .25-.5: 28% (n=3236)  .5-.8: 13% (n=2876)  .8-1.2: 4% (n=9419)  <.25: 30% (n=4029)  >1.2: 2% (n=357)
+    prods_left           1: 22% (n=2261)  2: 18% (n=3877)  3+: 12% (n=13779)
+    shed_dist            1-2: 14% (n=15134)  3-4: 16% (n=4704)
+    days                 12-17: 9% (n=9395)  18-23: 19% (n=8016)  24-29: 22% (n=2506)
+    plantings that day   1-5: 5% (n=777)  16+: 24% (n=3047)  6-15: 13% (n=16093)
+    units at game max    no: 15% (n=11912)  yes: 14% (n=8005)
+  SHEEP:FEED (76.7 RP jobs / game)
+    price/base           .25-.5: 27% (n=3445)  .5-.8: 13% (n=3153)  .8-1.2: 4% (n=9727)  <.25: 15% (n=6306)  >1.2: 2% (n=390)
+    prods_left           1: 17% (n=3667)  2: 11% (n=4352)  3+: 10% (n=14870)
+    shed_dist            1-2: 10% (n=17915)  3-4: 16% (n=5021)
+    days                 12-17: 8% (n=9916)  18-23: 12% (n=9055)  24-29: 19% (n=4050)
+    plantings that day   1-5: 5% (n=872)  16+: 18% (n=4029)  6-15: 10% (n=18078)
+    units at game max    no: 12% (n=13919)  yes: 10% (n=9102)
+  SHEEP:HARVEST (7.6 RP jobs / game)
+    price/base           <.25: 65% (n=1861)
+    prods_left           0: 19% (n=635)  1: 64% (n=496)  2: 73% (n=510)  3+: 65% (n=646)
+    shed_dist            1-2: 56% (n=2152)
+    days                 12-17: 42% (n=249)  18-23: 76% (n=900)  24-29: 39% (n=1138)
+    plantings that day   0: 11% (n=442)  16+: 75% (n=614)  6-15: 62% (n=1123)
+    units at game max    no: 50% (n=1671)  yes: 62% (n=616)
+  crop:CARROT:FERTILIZE (29.4 RP jobs / game)
+    price/base           .8-1.2: 98% (n=3156)  >1.2: 99% (n=5470)
+    prods_left           1: 98% (n=8815)
+    shed_dist            1-2: 100% (n=1928)  3-4: 99% (n=4234)  5-6: 98% (n=2208)  7+: 96% (n=445)
+    days                 12-17: 100% (n=501)  18-23: 100% (n=2347)  24-29: 98% (n=5967)
+    plantings that day   0: 97% (n=2589)  1-5: 97% (n=220)  16+: 100% (n=2712)  6-15: 99% (n=3294)
+    units at game max    no: 98% (n=6898)  yes: 100% (n=1917)
+  crop:CARROT:HARVEST (48.9 RP jobs / game)
+    price/base           .5-.8: 2% (n=321)  .8-1.2: 3% (n=5163)  >1.2: 3% (n=9182)
+    prods_left           1: 3% (n=14666)
+    shed_dist            1-2: 1% (n=2725)  3-4: 2% (n=7071)  5-6: 5% (n=4026)  7+: 12% (n=844)
+    days                 12-17: 4% (n=1745)  18-23: 4% (n=3224)  24-29: 3% (n=9697)
+    plantings that day   0: 2% (n=4331)  1-5: 2% (n=472)  16+: 3% (n=4142)  6-15: 4% (n=5721)
+    units at game max    no: 3% (n=11654)  yes: 3% (n=3012)
+  crop:CARROT:WATER (104.1 RP jobs / game)
+    price/base           .5-.8: 19% (n=430)  .8-1.2: 8% (n=10140)  >1.2: 4% (n=20674)
+    prods_left           1: 6% (n=31244)
+    shed_dist            1-2: 4% (n=5207)  3-4: 5% (n=14450)  5-6: 7% (n=9453)  7+: 12% (n=2134)
+    days                 12-17: 3% (n=4185)  18-23: 3% (n=7635)  24-29: 7% (n=19424)
+    plantings that day   0: 14% (n=6601)  1-5: 2% (n=1094)  16+: 3% (n=9608)  6-15: 4% (n=13941)
+    units at game max    no: 7% (n=24060)  yes: 3% (n=7184)
+  crop:STRAWBERRY:FERTILIZE (56.0 RP jobs / game)
+    price/base           .25-.5: 44% (n=1272)  .5-.8: 28% (n=1577)  .8-1.2: 20% (n=2047)  <.25: 64% (n=446)  >1.2: 8% (n=11450)
+    prods_left           1: 22% (n=3767)  2: 20% (n=4776)  3+: 11% (n=8249)
+    shed_dist            1-2: 14% (n=280)  3-4: 14% (n=6652)  5-6: 16% (n=7608)  7+: 20% (n=2252)
+    days                 12-17: 8% (n=6533)  18-23: 19% (n=6890)  24-29: 24% (n=3369)
+    plantings that day   0: 34% (n=268)  1-5: 11% (n=614)  16+: 25% (n=2866)  6-15: 14% (n=13044)
+    units at game max    no: 18% (n=9426)  yes: 13% (n=7366)
+  crop:STRAWBERRY:HARVEST (29.4 RP jobs / game)
+    price/base           .25-.5: 9% (n=1287)  .5-.8: 4% (n=1423)  .8-1.2: 3% (n=1634)  <.25: 17% (n=531)  >1.2: 2% (n=3945)
+    prods_left           0: 4% (n=8690)
+    shed_dist            3-4: 3% (n=3382)  5-6: 4% (n=3853)  7+: 8% (n=1441)
+    days                 18-23: 4% (n=5092)  24-29: 5% (n=3728)
+    plantings that day   0: 4% (n=1560)  1-5: 4% (n=309)  16+: 6% (n=1972)  6-15: 3% (n=4979)
+    units at game max    no: 5% (n=5685)  yes: 3% (n=3135)
+  crop:STRAWBERRY:WATER (166.3 RP jobs / game)
+    price/base           .25-.5: 12% (n=2863)  .5-.8: 7% (n=3943)  .8-1.2: 6% (n=5422)  <.25: 15% (n=1180)  >1.2: 2% (n=36497)
+    prods_left           1: 6% (n=9077)  2: 5% (n=9500)  3+: 2% (n=31328)
+    shed_dist            1-2: 3% (n=1104)  3-4: 3% (n=21805)  5-6: 4% (n=21007)  7+: 4% (n=5989)
+    days                 12-17: 1% (n=23716)  18-23: 5% (n=18937)  24-29: 8% (n=7252)
+    plantings that day   0: 7% (n=645)  1-5: 2% (n=2041)  16+: 7% (n=7199)  6-15: 3% (n=40020)
+    units at game max    no: 4% (n=28680)  yes: 3% (n=21225)
+  crop:TOMATO:FERTILIZE (31.4 RP jobs / game)
+    price/base           .5-.8: 16% (n=430)  .8-1.2: 20% (n=4255)  >1.2: 25% (n=4750)
+    prods_left           1: 26% (n=3549)  2: 30% (n=803)  3+: 19% (n=5083)
+    shed_dist            1-2: 17% (n=717)  3-4: 17% (n=2341)  5-6: 20% (n=3810)  7+: 33% (n=2567)
+    days                 12-17: 20% (n=928)  18-23: 25% (n=5256)  24-29: 21% (n=3251)
+    plantings that day   0: 22% (n=550)  1-5: 27% (n=321)  16+: 22% (n=2342)  6-15: 23% (n=6222)
+    units at game max    no: 23% (n=5714)  yes: 22% (n=3721)
+  crop:TOMATO:HARVEST (22.0 RP jobs / game)
+    price/base           .5-.8: 8% (n=555)  .8-1.2: 7% (n=3100)  >1.2: 7% (n=2952)
+    prods_left           0: 7% (n=5113)  1: 4% (n=607)  2: 6% (n=887)
+    shed_dist            1-2: 4% (n=426)  3-4: 7% (n=1525)  5-6: 6% (n=2650)  7+: 9% (n=2006)
+    days                 18-23: 5% (n=2902)  24-29: 8% (n=3701)
+    plantings that day   0: 6% (n=1469)  16+: 7% (n=1770)  6-15: 7% (n=3214)
+    units at game max    no: 7% (n=4708)  yes: 6% (n=1899)
+  crop:TOMATO:WATER (99.4 RP jobs / game)
+    price/base           .5-.8: 6% (n=1034)  .8-1.2: 5% (n=14443)  >1.2: 6% (n=14349)
+    prods_left           1: 10% (n=4986)  2: 6% (n=5059)  3+: 4% (n=19781)
+    shed_dist            1-2: 3% (n=2334)  3-4: 4% (n=7621)  5-6: 5% (n=11857)  7+: 8% (n=8014)
+    days                 12-17: 3% (n=6393)  18-23: 7% (n=15458)  24-29: 6% (n=7975)
+    plantings that day   0: 4% (n=952)  1-5: 6% (n=974)  16+: 6% (n=6247)  6-15: 6% (n=21653)
+    units at game max    no: 6% (n=17814)  yes: 5% (n=12012)
+  crop:WHEAT:FERTILIZE (81.4 RP jobs / game)
+    price/base           .8-1.2: 69% (n=3427)  >1.2: 66% (n=20995)
+    prods_left           1: 67% (n=24422)
+    shed_dist            1-2: 72% (n=4188)  3-4: 62% (n=11874)  5-6: 69% (n=6649)  7+: 76% (n=1711)
+    days                 12-17: 73% (n=8384)  18-23: 59% (n=5652)  24-29: 66% (n=10386)
+    plantings that day   0: 77% (n=4669)  1-5: 55% (n=1023)  16+: 66% (n=4482)  6-15: 64% (n=14248)
+    units at game max    no: 68% (n=17395)  yes: 63% (n=7027)
+  crop:WHEAT:HARVEST (77.1 RP jobs / game)
+    price/base           .8-1.2: 4% (n=4646)  >1.2: 4% (n=18481)
+    prods_left           1: 4% (n=23127)
+    shed_dist            1-2: 1% (n=3883)  3-4: 2% (n=11353)  5-6: 6% (n=6288)  7+: 13% (n=1603)
+    days                 12-17: 4% (n=6134)  18-23: 3% (n=5343)  24-29: 4% (n=11650)
+    plantings that day   0: 5% (n=5732)  1-5: 4% (n=788)  16+: 3% (n=3760)  6-15: 4% (n=12847)
+    units at game max    no: 4% (n=16729)  yes: 3% (n=6398)
+  crop:WHEAT:WATER (335.2 RP jobs / game)
+    price/base           .8-1.2: 12% (n=11963)  >1.2: 6% (n=88603)
+    prods_left           1: 7% (n=100566)
+    shed_dist            1-2: 3% (n=15709)  3-4: 6% (n=50420)  5-6: 9% (n=26904)  7+: 13% (n=7533)
+    days                 12-17: 5% (n=33980)  18-23: 6% (n=29146)  24-29: 9% (n=37440)
+    plantings that day   0: 20% (n=9265)  1-5: 6% (n=3624)  16+: 5% (n=20947)  6-15: 5% (n=66730)
+    units at game max    no: 8% (n=67921)  yes: 5% (n=32645)
+
+== D. Realized output loss per asset-day (days < 29) vs the module's estimate for the skipped jobs
+| asset | skipped RP jobs that day | asset-days / game | module units lost / asset-day | realized L0 / asset-day | realized LF / asset-day |
+|---|---|---|---|---|---|
+| COW | skip:none | 117.9 | 0.00 | 0.12 | 0.12 |
+| COW | skip:CARE+FEED | 22.9 | 2.61 | 1.70 | 1.70 |
+| COW | skip:HARVEST | 1.2 | 2.33 | 1.85 | 1.85 |
+| COW | skip:FEED | 1.1 | 2.93 | 2.46 | 2.46 |
+| GOOSE | skip:none | 87.7 | 0.00 | 0.00 | 0.00 |
+| GOOSE | skip:CARE+FEED | 11.0 | 3.47 | 2.38 | 2.38 |
+| GOOSE | skip:FEED | 4.1 | 1.60 | 1.34 | 1.34 |
+| GOOSE | skip:CARE | 1.7 | 1.04 | 1.00 | 1.00 |
+| SHEEP | skip:none | 86.9 | 0.00 | 0.16 | 0.16 |
+| SHEEP | skip:CARE+FEED | 7.3 | 3.08 | 2.06 | 2.06 |
+| SHEEP | skip:HARVEST | 3.8 | 1.93 | 2.18 | 2.18 |
+| SHEEP | skip:CARE | 2.0 | 1.15 | 1.00 | 1.00 |
+| SHEEP | skip:FEED | 1.3 | 4.41 | 4.42 | 4.42 |
+| crop:CARROT | skip:none | 127.6 | 0.00 | -0.06 | 0.16 |
+| crop:CARROT | skip:FERTILIZE | 22.1 | 1.00 | 0.00 | 1.00 |
+| crop:CARROT | skip:WATER | 1.8 | 2.56 | 2.10 | 2.66 |
+| crop:STRAWBERRY | skip:none | 346.3 | 0.00 | -0.28 | 0.01 |
+| crop:STRAWBERRY | skip:FERTILIZE | 5.5 | 1.03 | 0.07 | 1.09 |
+| crop:STRAWBERRY | skip:FERTILIZE+WATER | 3.3 | 2.40 | 0.36 | 1.50 |
+| crop:STRAWBERRY | skip:WATER | 2.7 | 1.91 | 1.18 | 1.93 |
+| crop:STRAWBERRY | skip:HARVEST | 1.0 | 1.69 | 0.85 | 0.90 |
+| crop:TOMATO | skip:none | 165.8 | 0.00 | -0.34 | 0.00 |
+| crop:TOMATO | skip:FERTILIZE | 4.2 | 1.00 | 0.01 | 1.02 |
+| crop:TOMATO | skip:FERTILIZE+WATER | 2.9 | 2.09 | 0.05 | 1.09 |
+| crop:TOMATO | skip:WATER | 2.6 | 2.33 | 1.17 | 2.33 |
+| crop:TOMATO | skip:HARVEST | 1.1 | 1.82 | 0.98 | 1.00 |
+| crop:WHEAT | skip:none | 395.3 | 0.00 | -0.27 | 0.26 |
+| crop:WHEAT | skip:FERTILIZE | 40.2 | 1.46 | 0.47 | 1.94 |
+| crop:WHEAT | skip:WATER | 9.4 | 2.60 | 2.08 | 2.62 |
+| crop:WHEAT | skip:FERTILIZE+WATER | 6.6 | 3.53 | 1.04 | 2.06 |
+| crop:WHEAT | skip:HARVEST | 1.1 | 3.69 | 2.98 | 3.10 |
+
+== E. End of life: assets that end without a completed harvest (dug live / neglected)
+| asset | how | per game | median day | median age | median units forfeited (V0 - harvested that day) | median productions left | median price/base |
+|---|---|---|---|---|---|---|---|
+| crop:STRAWBERRY | dug live | 19.04 | 21 | 16 | 0 | 0 | 0.97 |
+| crop:TOMATO | dug live | 8.81 | 23 | 11 | 0 | 0 | 1.18 |
+| crop:STRAWBERRY | died (unwatered) or decayed | 6.26 | 23 | 17 | 0 | 0 | 0.98 |
+| SHEEP | escaped (unfed) | 5.81 | 28 | 22 | 0 | 0 | 0.15 |
+| crop:WHEAT | died (unwatered) or decayed | 4.04 | 21 | 2 | 4 | 1 | 1.56 |
+| crop:TOMATO | died (unwatered) or decayed | 3.70 | 24 | 12 | 0 | 0 | 1.15 |
+| COW | escaped (unfed) | 2.77 | 24 | 17 | 8 | 2 | 0.14 |
+| crop:CARROT | died (unwatered) or decayed | 1.61 | 25 | 2 | 3 | 1 | 1.29 |
+| GOOSE | escaped (unfed) | 1.33 | 27 | 18 | 3 | 2 | 0.84 |
+
+== F. What the labour did on high- vs low-skip days (terciles of skipped RP jobs within each game; days 12-23)
+| skip tercile | day-games | RP jobs | skipped | skipped value | units | plantings | PLANT | HARVEST | WATER | FERTILIZE | FEED | CARE | COLLECT_FERTILIZER | PICKUP | DIG | moves | PASS | no-effect |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| low | 1200 | 91.5 | 5.8 | 378 | 12.5 | 11.0 | 11.0 | 24.0 | 57.3 | 10.1 | 19.5 | 19.3 | 21.4 | 7.1 | 1.2 | 110 | 1.0 | 0.7 |
+| mid | 1200 | 96.3 | 11.3 | 766 | 12.6 | 11.8 | 11.8 | 26.7 | 56.7 | 11.2 | 17.9 | 17.4 | 21.2 | 6.8 | 2.4 | 111 | 0.9 | 0.7 |
+| high | 1200 | 101.8 | 19.3 | 1,337 | 12.6 | 12.3 | 12.3 | 30.3 | 56.0 | 11.9 | 15.4 | 14.7 | 21.1 | 6.2 | 3.6 | 112 | 0.8 | 0.5 |
+
+== G. Leader idle unit-steps, days 12-23 (per day): units 12.6, PASS 0.9, no-effect commands 0.6
+   share of day-games with 0 PASS: 58%
+
+== H. Every leader WATER op classified by its engine effect that day (per game)
+  WHEAT: 320.3 / game: window bonus 54%, survival (dry yesterday) 44%, one-time, no bonus (preventive) 2%
+  STRAWBERRY: 236.6 / game: survival (dry yesterday) 41%, ongoing, no production (preventive) 32%, fertilized production day 17%, production day, unfertilized (preventive) 10%
+  TOMATO: 117.7 / game: survival (dry yesterday) 37%, fertilized production day 26%, ongoing, no production (preventive) 20%, production day, unfertilized (preventive) 18%
+  CARROT: 103.6 / game: survival (dry yesterday) 50%, window bonus 45%, one-time, no bonus (preventive) 5%
+  MELON: 0.0 / game: window bonus 100%
+
+== I. Age of the crop at FERTILIZE: leader ops vs module jobs (share by age)
+  CARROT: leader 17.6 / game, module 29.4 / game; age: 1: 22% / 0%, 2: 75% / 8%, 3: 3% / 92%
+  STRAWBERRY: leader 64.1 / game, module 56.0 / game; age: 4: 0% / 0%, 5: 0% / 0%, 6: 0% / 0%, 7: 0% / 0%, 8: 5% / 0%, 9: 32% / 41%, 10: 2% / 0%, 11: 7% / 10%, 12: 53% / 50%
+  TOMATO: leader 27.1 / game, module 31.4 / game; age: 3: 0% / 0%, 4: 0% / 0%, 5: 1% / 0%, 6: 7% / 0%, 7: 44% / 46%, 8: 8% / 9%, 9: 8% / 8%, 10: 32% / 37%
+  WHEAT: leader 90.1 / game, module 81.4 / game; age: 1: 12% / 0%, 2: 61% / 14%, 3: 27% / 75%, 4: 0% / 11%
+
+== K. One-time crops harvested before their full potential V0 (hour-0 potential with every watering; per game)
+  CARROT: 48.7 harvests / game, 3.07 units each vs potential 3.25; early 19% (9.3 units forfeited / game), of which replanted the same day 57%; age at early harvest: 2: 88%, 3: 12%, 4: 0%
+  MELON: 0.0 harvests / game, 6.00 units each vs potential 6.00; early 0% (0.0 units forfeited / game), of which replanted the same day 0%; age at early harvest: 
+  WHEAT: 134.9 harvests / game, 4.53 units each vs potential 5.17; early 54% (85.8 units forfeited / game), of which replanted the same day 84%; age at early harvest: 2: 17%, 3: 81%, 4: 2%, 5: 0%
+
+== J. Module value of RP jobs the leader did vs skipped (median coins; same job class)
+| asset:cmd | done n / game | skipped n / game | median value done | median value skipped |
+|---|---|---|---|---|
+| crop:WHEAT:WATER | 312.5 | 22.7 | 80 | 70 |
+| crop:STRAWBERRY:WATER | 160.4 | 6.0 | 402 | 116 |
+| COW:FEED | 100.4 | 24.2 | 214 | 32 |
+| COW:CARE | 93.1 | 24.2 | 116 | 61 |
+| GOOSE:FEED | 88.8 | 15.4 | 61 | 46 |
+| crop:CARROT:WATER | 98.1 | 6.0 | 114 | 78 |
+| crop:TOMATO:WATER | 93.8 | 5.6 | 86 | 73 |
+| GOOSE:CARE | 85.8 | 13.1 | 46 | 43 |
+| crop:WHEAT:FERTILIZE | 27.2 | 54.2 | 34 | 25 |
+| crop:WHEAT:HARVEST | 74.2 | 2.9 | 148 | 128 |
+| SHEEP:FEED | 67.9 | 8.9 | 185 | 51 |
+| SHEEP:CARE | 56.9 | 9.5 | 174 | 66 |
+| crop:STRAWBERRY:FERTILIZE | 47.1 | 8.9 | 167 | 87 |
+| crop:CARROT:HARVEST | 47.3 | 1.6 | 168 | 135 |
+| crop:TOMATO:FERTILIZE | 24.3 | 7.1 | 48 | 49 |
+| crop:STRAWBERRY:HARVEST | 28.1 | 1.3 | 240 | 75 |
+| crop:CARROT:FERTILIZE | 0.4 | 28.9 | 36 | 23 |
+| GOOSE:HARVEST | 28.8 | 0.5 | 84 | 46 |
+| crop:TOMATO:HARVEST | 20.5 | 1.5 | 136 | 128 |
+| SHEEP:HARVEST | 3.5 | 4.1 | 72 | 5 |
+| COW:HARVEST | 3.9 | 1.9 | 60 | 19 |

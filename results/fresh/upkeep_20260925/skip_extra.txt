@@ -1,0 +1,16 @@
+300 games, days 12-28, asset-days with >= 1 skipped production-affecting job
+| asset | skip asset-days / game | realized L0 coins / game | realized LF coins / game | module coins / game |
+|---|---|---|---|---|
+| crop:WHEAT | 58.3 | 1,899 | 4,596 | 2,933 |
+| COW | 26.6 | 2,502 | 2,502 | 3,506 |
+| crop:STRAWBERRY | 12.6 | 558 | 1,874 | 2,101 |
+| GOOSE | 17.3 | 1,541 | 1,541 | 1,560 |
+| crop:CARROT | 26.1 | 301 | 1,397 | 1,001 |
+| SHEEP | 14.7 | 1,206 | 1,206 | 1,628 |
+| crop:TOMATO | 10.9 | 323 | 1,079 | 1,165 |
+| all | 166.4 | 8,330 | 14,195 | 13,895 |
+
+Animal asset-days with a skipped FEED/CARE (per game):
+  COW: 25.4: fed again within 2 days (intermittent) 85%, never fed again (retired) 15%
+  SHEEP: 10.9: fed again within 2 days (intermittent) 71%, never fed again (retired) 29%
+  GOOSE: 17.1: fed again within 2 days (intermittent) 65%, never fed again (retired) 35%
