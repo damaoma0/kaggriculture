@@ -627,3 +627,39 @@ other crops as much as the uncapped rp1 (smoke +1,985 vs +898).
 +1,222 (+759 .. +1,702), better in 118/185.** Units: wheat 330 (sem 238, y3 392), carrot 21, tomato 48 (sem 71),
 melon 66 (71), strawberry 171 (175); revenue 114.4k (sem 114.2k) with lower spend. Adopted as the deploy default
 (`replant_same_day` 1, `replant_cap` 1.0).
+
+## Harvest value and planting cutoffs (2026-09-25)
+Harvest value: the maintenance module already gives a one-time crop at full yield a HARVEST worth the whole crop
+(carrot age 3, 3 units + window water: value 180 = 4 x 45, deadline 23; once decaying: deadline 0, "-1 unit per 2 h").
+The dying carrots (smoke worlds) were not undervalued but UNVISITED on their age-3 day: they start age 4 unwatered
+(consecutive_unwatered 1) at 2 units instead of 3, and decay kills them by hour 2, before the hands arrive. The greedy
+dispatcher never reads job values (only priority classes and distance), so a whole-crop harvest competes like any
+other task. Tested `atrisk_bonus` (new executor option: a distance bonus in the greedy cost, all day, for a one-time
+crop at/after full yield with a harvest pending; no end-of-day reservation).
+Planting cutoffs: new executor option `plant_cutoff` (crop -> last planting day with a full harvest; applies to every
+planting event incl. retrieval-phase and catch-up plantings; skipped would-be plantings logged as `cut_<crop>`) plus
+the deploy's count-model `last_plant` set to the same days (wheat 25, carrot 26, tomato 18, strawberry 13, melon 19).
+Abandonment verdicts of the maintenance module are now logged at the end (`abandon_<verdict>_<kind>`).
+All on Kaggle (pvs3 smoke panel, g1b leader-world cells; base3 reproduces the earlier rpc1 smoke run 12/12).
+
+| variant | smoke vs y3 | smoke vs current (rpc1) (95% CI), better | G1 deploy (12 / 11 / clean9) | units wheat / carrot / straw / tomato |
+|---|---:|---|---|---|
+| current (rpc1) | -16,908 | | 0.869 / 0.863 / 0.858 | 312 / 22 / 159 / 58 |
+| atrisk_bonus 4 | -24,679 | -7,771 (-10,166 .. -5,645), 0/12 | 0.850 / 0.841 / 0.823 | 399 / 23 / 153 / 42 |
+| atrisk_bonus 8 | -28,322 | -11,413 (-13,872 .. -8,930), 0/12 | 0.847 / 0.838 / 0.818 | 421 / 25 / 144 / 38 |
+| cutoffs | -17,024 | -116 (-734 .. +448), 6/12 | 0.874 / 0.869 / 0.862 | 322 / 34 / 154 / 52 |
+G1 leader-plan agent (the G1 build itself, leader's plan): base 0.874 / 0.866 / 0.844, cutoffs 0.881 / 0.871 / 0.853,
+atrisk 4 0.858 / 0.850 / 0.831.
+Would-be plantings skipped per game (cutoffs): deploy strawberry 9.6, tomato 2.6, wheat 12.9, carrot 4.6 (catch-up and
+replant events past the day); leader-plan agent strawberry 12.8, tomato 7.5, wheat 22.8, carrot 12.2 (the leaders' own
+late plantings). Abandonment 'error' entries per game: leader-plan agent wheat 2.4, carrot 0.5, cow 1.8, sheep 0.7 ->
+with cutoffs wheat 0, carrot 0 (cow 1.0, sheep 1.0 remain); deploy strawberry 0.2 -> 0 (errors were already rare there;
+most abandonments are end-of-life: strawberry ~23, tomato ~6, sheep ~3 a game).
+The at-risk bonus is rejected: every mature wheat tile qualifies, so hands chase wheat harvests and tomatoes collapse.
+Cutoffs: neutral on the 12 smoke worlds, +0.005 (deploy) / +0.007 (leader plan) in the leader worlds.
+**Full panel cutoffs (Kaggle leadv10, 185 games; its 12 smoke worlds equal the smoke run 12/12): -17,497 vs y3 (95% CI
+-20,119 .. -14,687), -17,190 vs m1, W-L 11-174; vs the current deploy (rpc1) +336 (+99 .. +578), better in 108/185.**
+Units: carrot 31 (21), wheat 335 (330), strawberry 168 (171), tomato 43 (48); own cash 90.8k (90.5k).
+Adopted as defaults: executor `plant_cutoff` {strawberry 13, tomato 18, melon 19, wheat 25, carrot 26} (applies to the
+G1 agent too: 0.881 / 0.871 / 0.853) and the deploy's `last_plant` = the same days. Deploy trajectory on the full panel
+vs y3: sem -19,055 -> rpc1 -17,833 -> cutoffs -17,497.

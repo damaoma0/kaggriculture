@@ -1,7 +1,7 @@
 """mgt_lead_deploy: mgt_lead's executor playing worlds it has never seen, choosing its own targets.
 
 Research agent (2026-09-24). The EXECUTOR SECTION below is a verbatim copy of agents/mgt_lead.py (owned by the
-E1 thread; copied from agents/mgt_lead.py = E1 scheduler build (sched_maint + surv_reserve R16), sha256 f8ef96458b87f51d); re-sync by copying that file between the two marker lines. Only the
+E1 thread; copied from agents/mgt_lead.py = E1 scheduler build (sched_maint + surv_reserve R16), sha256 27ca363e449d93c8); re-sync by copying that file between the two marker lines. Only the
 DEPLOY section after it is new: it builds the Target the executor follows (retrieval of leader games at days
 0/3/6/9, count-model composition from day 12, sell-everything rule, hands from the day's work) and holds the
 entry point, which is the LAST callable in the file (Kaggle's loader and scripts/ladder_panel.py call that one).
@@ -86,7 +86,9 @@ CFG = {
     "sched_maint": True,      # (default on since 2026-09-24: S1f 0.862/0.854/0.833 vs A29 0.792/0.780/0.785) scheduler: maintenance jobs (value, deadline) from scripts/fragments/sem_maintenance.py
     "surv_reserve": True,     # (default on since R16: 0.874/0.866/0.844 vs 0.862/0.854/0.833) from surv_hour: survival jobs (dies / escapes tonight) get nearest-first routes, only their op
     "surv_hour": 16,
-    "surv_harvest": False,    # survival routes also take one-time crops at/after full-yield age (missed harvests decay)
+    "surv_harvest": False,
+    "atrisk_bonus": 0,        # greedy cost bonus (steps) for a one-time crop at/after full yield with a harvest pending (decays tomorrow)
+    "plant_cutoff": {"STRAWBERRY": 13, "TOMATO": 18, "MELON": 19, "WHEAT": 25, "CARROT": 26},   # last planting day with a full harvest before the end (min_maintenance); later plantings incl. catch-ups are skipped (2026-09-25: full panel +336, G1 +0.007)    # survival routes also take one-time crops at/after full-yield age (missed harvests decay)
     "sched_dispatch": False,  # scheduler: dispatch by value density among jobs finishable before their deadline
     "sched_hire": False,      # scheduler: hire the n-th hand while the value only it adds exceeds fib(n)
     "mj_every": 3,            # re-solve maintenance jobs at most every N hours when the asset set changed
@@ -413,8 +415,15 @@ def _plan(obs, S, tiles, day):
             reserved.add(m2)
         jobs[m] = ("BUILD", kind, want_animal.get(tt))
     # plantings (today's events + recent catch-up)
+    cut = CFG["plant_cutoff"]
     for (pd, tt, crop) in T.events:
         if pd > d or d - pd > CFG["late"].get(crop, LATE[crop]):
+            continue
+        if cut and d > cut.get(crop, 99):
+            ck = ("cut", pd, tt)
+            if ck not in S["done"]:
+                S["done"].add(ck)
+                S["log"]["cut_" + crop] += 1       # would-be planting skipped: no full harvest reachable
             continue
         key = (pd, tt)
         if key in S["done"]:
@@ -651,6 +660,9 @@ def _sched_tile_ops(idx, t, day):
         if v > 0:
             dl = min(dl, int(j.get("deadline", 23)))
         prio = min(prio, 0 if j.get("kind") == "survival" else 1 if v > 0 else 2)
+    if _is_plant(t) and not CROPS[t["crop"]]["ongoing"] and t.get("yield_units", 0) > 0 \
+            and day - t["planted_day"] >= CROPS[t["crop"]]["maxday"] and any(o[0] == "HARVEST" for o in ops):
+        S.setdefault("atrisk", set()).add(idx)
     # CARE pays only when fed: keep FEED before CARE on the tile
     ops.sort(key=lambda o: {"FERTILIZE": 0, "FEED": 0, "WATER": 1, "CARE": 1, "HARVEST": 2, "COLLECT_FERTILIZER": 3}.get(o[0], 5))
     S["tval"][idx] = (val, dl)
@@ -729,6 +741,7 @@ def agent(obs, config=None):
                 S["mj_known"] = set(sig)
                 S["log"]["mj_calls"] += 1
     S["tval"] = {}
+    S["atrisk"] = set()
 
     # ---- tile tasks
     tasks = {}
@@ -858,6 +871,8 @@ def agent(obs, config=None):
             return c + prio * (6 if hour >= 14 else 3)
         # urgency only matters when the day runs short: plant/place pipelines and
         # death-preventing work first late in the day
+        if CFG["atrisk_bonus"] and idx in S.get("atrisk", ()):
+            c -= CFG["atrisk_bonus"]  # the whole crop is lost if this harvest waits until tomorrow
         if CFG["place_bonus"] and day <= CFG["place_bonus_days"] and any(o[0] == "PLACE" for o in ops):
             c -= CFG["place_bonus"]  # animals first (the leaders place every animal early in the day)
         if hour >= CFG["late_hour"] and prio >= 2:
@@ -1098,6 +1113,10 @@ def agent(obs, config=None):
         nf = sum(1 for ops, need, prio in tasks.values() if any(o[0] == "FERTILIZE" for o in ops))
         lg["fert_tasks_h%02d" % hour] += nf
         lg["fert_stock_h%02d" % hour] += shed.get("FERTILIZER", 0) + carried.get("FERTILIZER", 0)
+    if step >= 718 and not S.get("abandon_logged"):
+        S["abandon_logged"] = True
+        for e in S.get("abandon", []):
+            S["log"]["abandon_%s_%s" % (e.get("verdict"), e.get("kind"))] += 1
     if hour == 23 and day < last_day and S.get("tval"):
         S["log"]["skipped_value"] += int(sum(v for i, (v, dl) in S["tval"].items() if i in tasks))
         S["log"]["skipped_jobs"] += len(tasks)
@@ -1846,7 +1865,7 @@ DEP_CFG = {
     "k_day3": 1, "k_late": 5, "lam": 1.0,
     "compose_from": 12,
     "h_short": 1, "h_long": 3,          # count-model horizon: WH/CA vs ST/TO/ME and animals
-    "last_plant": {"STRAWBERRY": 18, "TOMATO": 20, "MELON": 17, "WHEAT": 26, "CARROT": 26},
+    "last_plant": {"STRAWBERRY": 13, "TOMATO": 18, "MELON": 19, "WHEAT": 25, "CARROT": 26},   # last full-harvest planting days (min_maintenance), 2026-09-25
     "last_animal": {"SHEEP": 17, "COW": 18, "GOOSE": 20},
     "hands_coef": (6.186, 0.040, 0.123),  # hands ~ b0 + b1*crop tiles + b2*animal tiles (corpus days 12-28)
     "nofeed_from": 99,                  # no-feed hook off (plan-volume c1, 2026-09-25: the executor's maintenance module already stops end-of-life animals; the hook starved producing ones: +4.8k/world p2750, +0.024 G1)
