@@ -24,6 +24,7 @@ usage: upkeep_day.py run <team:ep,...|g1> [--days 12-23] [--sel A0,A,...] [--src
        upkeep_day.py report [--tag NAME]
 """
 import copy
+import gc
 import gzip
 import importlib.util
 import json
@@ -352,9 +353,21 @@ def summarize(rec, w, seat, d, snap_state, mj0, tiles0=None):
     stock0 = sum(v * float(pr0.get(k, 0)) for k, v in end['shed'].items() if k in pr0)
     fv0, fvu = fv_farm(w.farms[seat]['tiles'], d + 1, pr0, 0.0)
     fvc, _ = fv_farm(w.farms[seat]['tiles'], d + 1, pr0, VISIT_COST)
+    # FV0/FVc are a per-tile DP forecast that assumes every future FEED/CARE/WATER/HARVEST gets done by SOME
+    # unlimited crew (visit_cost is a price, not a capacity cap): they cannot see a selection that leaves behind more
+    # simultaneous obligations than the SAME finite crew can actually clear tomorrow. tomorrow_jobs_* is a cheap,
+    # same-day-computable check on that assumption: the module's own job list (units, value) from tomorrow's REAL
+    # morning state (same call run_world makes to size day d's own opening list), so a selection whose FV0 edge
+    # comes with a materially bigger/costlier list than A0's is spending future labour it may not have -- exactly
+    # the failure mode reported for the day-11 harvest / upkeep-penalty tests (looked better "next morning", lost
+    # -858 / -7,179 in full games to un-replanted early harvests and starved animals FV0 did not price in).
+    tmr_jl = SMV['maintenance_jobs'](w.obs(seat), seat, prices=None, fertilize='auto', include_optional=True, collect=True, log=[])
+    tmr_jobs_rp = sum(1 for j in tmr_jl if not j.get('optional') and j['units'] > 0 and j['cmd'] != 'COLLECT_FERTILIZER')
+    tmr_jobs_value = round(sum(max(0.0, j['value']) for j in tmr_jl if not j.get('optional')), 1)
     return dict(ops=dict(ops), hv=dict(hv), hv_value=sum(v * float(pr0.get(k, 0)) for k, v in hv.items()),
                 maint_value_done=round(maint_val, 1), maint_done=dict(maint_n), undone_rp=undone, units=len(steps),
                 unit_steps=sum(steps.values()), moves=moves, passes=passes, noeff=noeff, plant=plant,
+                tomorrow_jobs_rp=tmr_jobs_rp, tomorrow_jobs_value=tmr_jobs_value,
                 wages=wages, sold=sold, spent=spent, money=end['money'], stock=end['stock'], live=end['live'],
                 bank=end['bank'], FV0=round(fv0, 1), FVc=round(fvc, 1), FVunits=round(fvu, 1),
                 stock0=round(stock0, 1), shed=end['shed'],
@@ -515,6 +528,11 @@ def run_world(game, days, sels, src, tag):
         a0 = res['sel'].get('A0', {}).get('score0')
         print(game, d, ' '.join(f"{k}:{v['score0'] - a0:+.0f}" for k, v in res['sel'].items() if a0 is not None),
               flush=True)
+        # each t_day() call forces a fresh exec() of the maintenance-module source (tmod()._SMNS reset to None), and
+        # exec'd namespaces are self-referential (functions' __globals__ point back at the namespace dict): only the
+        # cyclic collector frees them, and on a shared, memory-tight machine that must happen every day, not whenever
+        # Python gets around to it (observed: free memory 1.33 -> 0.96 GB over 6 world-days without this).
+        gc.collect()
 
 
 def _boot(vals_by_world, reps=2000, seed=7):
@@ -546,8 +564,23 @@ def report(tag):
     worlds = sorted({r['episode'] for r in rows})
     print(f'Single-day upkeep scenarios [{tag}]: {n} world-days, {len(worlds)} worlds, days '
           f'{min(r["day"] for r in rows)}-{max(r["day"] for r in rows)}; differences vs A0 (status quo T), world-clustered 95% CI')
-    print('| selection | n | score (cash + stock + FV0) | 95% CI | better / worse | cash+stock | FV0 | FVc (15/visit) | harvested value | module value of jobs done | RP-kind jobs done | unit-steps idle (PASS) | deaths + escapes | care bank |')
-    print('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|')
+    print()
+    print('CAUTION (coordinator, from the day-11 fix tests): a harvest policy closed 77% of a gap and a busy-day')
+    print('upkeep penalty 50%, judged by cash next morning; in full games the harvest policy lost -858 (wheat')
+    print('harvested early without replanting) and the combination -7,179 (animals starved: milk 215->131, wool')
+    print('124->95, fertilizer 386->224). "score" below (cash+stock+FV0) is NOT that same shortcut -- FV0/FVc is a')
+    print('per-tile DP forecast from the REAL end-of-day state, so a wiped care bank, an escaped animal or an empty')
+    print('unreplanted tile already reads as reduced future value -- but the DP still assumes every future job gets')
+    print('done by SOME unlimited crew (FVc prices a visit at 15 coins; it does not cap how many visits exist). The')
+    print('columns are grouped so a selection whose only edge is "forward estimate" can be told apart from one with')
+    print('a REALIZED edge: REALIZED (this day\'s cash+stock, harvested value) | FORWARD ESTIMATE, capacity-unaware')
+    print('(FV0, FVc) | FORWARD BURDEN (the module\'s own job list on tomorrow\'s real morning state: more/costlier')
+    print('= more strain on the same finite crew, a risk flag on the forward estimate) | HARD OUTCOMES (replanting,')
+    print('deaths/escapes, care bank: these are read directly off the engine, not forecast).')
+    print()
+    print('| selection | n | score (cash+stock+FV0) | 95% CI | better/worse || cash+stock | harvested value '
+          '|| FV0 | FVc (15/visit) || tomorrow jobs (n) | tomorrow jobs (value) || planted | deaths+escapes | care bank | module value done |')
+    print('|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|')
     for sel in sels:
         per_w = defaultdict(list)
         comp = defaultdict(list)
@@ -570,17 +603,21 @@ def report(tag):
             comp['lost'].append(sum(v for k, v in b.get('lost', {}).items() if k.startswith(('died', 'escaped')))
                                 - sum(v for k, v in a.get('lost', {}).items() if k.startswith(('died', 'escaped'))))
             comp['bank'].append(b['bank'] - a['bank'])
+            comp['plant'].append(b['plant'] - a['plant'])
+            comp['tjrp'].append(b.get('tomorrow_jobs_rp', 0) - a.get('tomorrow_jobs_rp', 0))
+            comp['tjval'].append(b.get('tomorrow_jobs_value', 0) - a.get('tomorrow_jobs_value', 0))
         xs = [x for v in per_w.values() for x in v]
         if not xs:
             continue
         lo, hi = _boot(per_w)
         m = lambda k: sum(comp[k]) / len(comp[k])
-        print(f"| {sel} | {len(xs)} | {sum(xs) / len(xs):+,.0f} | {lo:+,.0f} .. {hi:+,.0f} | {bw[0]} / {bw[1]} | {m('cash'):+,.0f} | {m('fv0'):+,.0f} | "
-              f"{m('fvc'):+,.0f} | {m('hv'):+,.0f} | {m('mv'):+,.0f} | {m('md'):+.1f} | {m('idle'):+.1f} | {m('lost'):+.2f} | {m('bank'):+.1f} |")
+        print(f"| {sel} | {len(xs)} | {sum(xs) / len(xs):+,.0f} | {lo:+,.0f} .. {hi:+,.0f} | {bw[0]} / {bw[1]} || {m('cash'):+,.0f} | {m('hv'):+,.0f} || "
+              f"{m('fv0'):+,.0f} | {m('fvc'):+,.0f} || {m('tjrp'):+.1f} | {m('tjval'):+,.0f} || "
+              f"{m('plant'):+.1f} | {m('lost'):+.2f} | {m('bank'):+.1f} | {m('mv'):+,.0f} |")
     print()
     print('A0 itself (per world-day means): ' + ', '.join(
         f"{k} {stt.mean(r['sel']['A0'][k] for r in rows if 'A0' in r['sel']):,.1f}"
-        for k in ('passes', 'unit_steps', 'maint_value_done', 'hv_value', 'FV0')))
+        for k in ('passes', 'unit_steps', 'maint_value_done', 'hv_value', 'FV0', 'plant', 'tomorrow_jobs_rp', 'tomorrow_jobs_value')))
     ref = 'LEADER' if any('LEADER' in r['sel'] for r in rows) else 'TREC'
     print()
     print(f'Production-affecting module jobs (hour-0 list) left undone: A0 vs {ref} on the same state (per world-day)')

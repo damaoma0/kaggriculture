@@ -1,0 +1,74 @@
+Single-day upkeep scenarios [leader]: 144 world-days, 12 worlds, days 12-23; differences vs A0 (status quo T), world-clustered 95% CI
+
+CAUTION (coordinator, from the day-11 fix tests): a harvest policy closed 77% of a gap and a busy-day
+upkeep penalty 50%, judged by cash next morning; in full games the harvest policy lost -858 (wheat
+harvested early without replanting) and the combination -7,179 (animals starved: milk 215->131, wool
+124->95, fertilizer 386->224). "score" below (cash+stock+FV0) is NOT that same shortcut -- FV0/FVc is a
+per-tile DP forecast from the REAL end-of-day state, so a wiped care bank, an escaped animal or an empty
+unreplanted tile already reads as reduced future value -- but the DP still assumes every future job gets
+done by SOME unlimited crew (FVc prices a visit at 15 coins; it does not cap how many visits exist). The
+columns are grouped so a selection whose only edge is "forward estimate" can be told apart from one with
+a REALIZED edge: REALIZED (this day's cash+stock, harvested value) | FORWARD ESTIMATE, capacity-unaware
+(FV0, FVc) | FORWARD BURDEN (the module's own job list on tomorrow's real morning state: more/costlier
+= more strain on the same finite crew, a risk flag on the forward estimate) | HARD OUTCOMES (replanting,
+deaths/escapes, care bank: these are read directly off the engine, not forecast).
+
+| selection | n | score (cash+stock+FV0) | 95% CI | better/worse || cash+stock | harvested value || FV0 | FVc (15/visit) || tomorrow jobs (n) | tomorrow jobs (value) || planted | deaths+escapes | care bank | module value done |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| LEADER | 144 | +1,124 | +751 .. +1,542 | 125 / 19 || +670 | +566 || +454 | +1,083 || -11.3 | -7,434 || +2.5 | +0.29 | -0.2 | +457 |
+| A0 | 144 | +0 | +0 .. +0 | 0 / 0 || +0 | +0 || +0 | +0 || +0.0 | +0 || +0.0 | +0.00 | +0.0 | +0 |
+| A | 144 | -100 | -163 .. -45 | 21 / 51 || +80 | +145 || -180 | -100 || -0.3 | +45 || -0.0 | -0.01 | +0.0 | -36 |
+| Cm | 144 | +53 | -134 .. +231 | 77 / 65 || +186 | -133 || -134 | +72 || +1.2 | +1,302 || +0.5 | +0.38 | -2.0 | -250 |
+| C | 144 | -557 | -778 .. -350 | 33 / 111 || -714 | -958 || +157 | -470 || -2.1 | -341 || -0.8 | +0.37 | -2.3 | -930 |
+| D10 | 144 | -78 | -162 .. -7 | 45 / 57 || +159 | +167 || -237 | -72 || -0.2 | +61 || -0.0 | +0.05 | -0.9 | -21 |
+| D20 | 144 | -92 | -184 .. +7 | 54 / 75 || +216 | +172 || -308 | -83 || -0.1 | +541 || -0.1 | +0.06 | -1.6 | -43 |
+| D30 | 144 | -84 | -181 .. +17 | 61 / 75 || +273 | +191 || -356 | -80 || +0.0 | +847 || +0.0 | +0.05 | -2.7 | -15 |
+| D50 | 144 | -317 | -436 .. -193 | 44 / 99 || +606 | +427 || -923 | -319 || -0.1 | +2,159 || +0.3 | +0.11 | -7.9 | -287 |
+| D80 | 144 | -666 | -831 .. -492 | 29 / 115 || +958 | +530 || -1,624 | -676 || +0.0 | +7,221 || +0.5 | +0.24 | -12.3 | -1,136 |
+| V10 | 144 | -94 | -177 .. -17 | 42 / 59 || +131 | +177 || -225 | -83 || -0.1 | -106 || -0.1 | +0.15 | -0.2 | -42 |
+| V20 | 144 | -139 | -246 .. -38 | 45 / 66 || +171 | +197 || -310 | -88 || -0.2 | -98 || +0.0 | +0.57 | -0.8 | -97 |
+| F | 144 | -144 | -230 .. -64 | 42 / 68 || +106 | +169 || -250 | -143 || -0.1 | -59 || -0.1 | -0.01 | +0.2 | -54 |
+| FV10 | 144 | -194 | -292 .. -106 | 41 / 75 || +143 | +206 || -337 | -179 || -0.1 | -21 || -0.2 | +0.08 | +0.0 | -76 |
+| R10 | 144 | -152 | -238 .. -71 | 42 / 70 || +118 | +176 || -270 | -142 || -0.0 | -57 || -0.1 | +0.06 | +0.0 | -61 |
+| R15 | 144 | -165 | -252 .. -85 | 40 / 73 || +113 | +176 || -278 | -148 || -0.0 | -54 || -0.1 | +0.15 | -0.1 | -72 |
+
+A0 itself (per world-day means): passes 4.7, unit_steps 285.5, maint_value_done 20,467.3, hv_value 5,908.6, FV0 69,490.3, plant 9.2, tomorrow_jobs_rp 104.3, tomorrow_jobs_value 27,421.7
+
+Production-affecting module jobs (hour-0 list) left undone: A0 vs LEADER on the same state (per world-day)
+| asset:cmd | A0 undone | LEADER undone | both | A0 value undone | LEADER value undone |
+|---|---|---|---|---|---|
+| SHEEP:FEED | 0.55 | 0.58 | 0.13 | 167 | 45 |
+| SHEEP:CARE | 0.70 | 0.73 | 0.20 | 101 | 54 |
+| WHEAT:WATER | 1.42 | 0.68 | 0.22 | 86 | 60 |
+| STRAWBERRY:WATER | 0.68 | 0.27 | 0.08 | 104 | 37 |
+| STRAWBERRY:FERTILIZE | 0.61 | 0.48 | 0.19 | 83 | 53 |
+| GOOSE:FEED | 0.92 | 0.68 | 0.16 | 63 | 70 |
+| COW:FEED | 0.18 | 1.02 | 0.10 | 22 | 81 |
+| COW:CARE | 0.22 | 1.06 | 0.10 | 28 | 74 |
+| WHEAT:FERTILIZE | 1.79 | 2.07 | 1.53 | 42 | 47 |
+| GOOSE:CARE | 1.10 | 0.75 | 0.17 | 52 | 35 |
+| TOMATO:WATER | 0.57 | 0.25 | 0.09 | 47 | 35 |
+| WHEAT:HARVEST | 0.39 | 0.07 | 0.03 | 54 | 10 |
+| CARROT:HARVEST | 0.25 | 0.07 | 0.03 | 44 | 9 |
+| CARROT:FERTILIZE | 0.92 | 0.99 | 0.92 | 20 | 21 |
+| TOMATO:FERTILIZE | 0.49 | 0.27 | 0.17 | 23 | 13 |
+| CARROT:WATER | 0.23 | 0.13 | 0.01 | 17 | 11 |
+| SHEEP:HARVEST | 0.02 | 0.31 | 0.02 | 0 | 1 |
+| all | 11.56 | 10.59 | 4.18 | 1,032 | 669 |
+saturated days (A0 idle <= 5 unit-steps): 92 of 144
+   LEADER: +1,178 (n=92)
+   A0: +0 (n=92)
+   A: -156 (n=92)
+   Cm: +47 (n=92)
+   C: -520 (n=92)
+   D10: -155 (n=92)
+   D20: -146 (n=92)
+   D30: -111 (n=92)
+   D50: -413 (n=92)
+   D80: -787 (n=92)
+   V10: -147 (n=92)
+   V20: -213 (n=92)
+   F: -227 (n=92)
+   FV10: -280 (n=92)
+   R10: -234 (n=92)
+   R15: -245 (n=92)
