@@ -39,6 +39,9 @@ XOPEN_DIR = ROOT / 'results/fresh/xopen_20260925/g1'
 XDYN_DIR = ROOT / 'results/fresh/day12_viz/xdyn_streams'
 FHMRP_DIR = ROOT / 'results/fresh/day12_viz/fhmrp_streams'
 KNOWN_STREAM_DIRS = {'xdyn_streams', 'fhmrp_streams'}
+# Duplicate arms (identical policy to one already shown under another name/mode) -- hidden from discovery
+# rather than shown as a redundant extra mode. Update this list on request, not by re-deriving equivalence here.
+DUPLICATE_STREAM_DIRS = {'n0_streams', 's11f_streams'}  # n0 == current T (fhmrp); s11f == n11
 
 
 def discover_dynamic_arms():
@@ -49,7 +52,7 @@ def discover_dynamic_arms():
         return []
     arms = []
     for p in sorted(base.glob('*_streams')):
-        if not p.is_dir() or p.name in KNOWN_STREAM_DIRS:
+        if not p.is_dir() or p.name in KNOWN_STREAM_DIRS or p.name in DUPLICATE_STREAM_DIRS:
             continue
         key = p.name[:-len('_streams')] if p.name.endswith('_streams') else p.name
         label = key
@@ -279,10 +282,12 @@ def build_exact_arm(directory, ep, leader_tape, leader_frames, seed, shops, seat
         if handoff_ok and cc_ok is not False:
             break
     best = max(tried, key=lambda r: (r['handoff_ok'] and r['cc_ok'] is not False, r['handoff_ok']))
+    # Optional {day: {hand_index: quadrant}} from a sector-planner arm; quadrant one of NE/NW/SW/SE.
+    sectors = stream['meta'].get('sectors') if isinstance(stream['meta'].get('sectors'), dict) else None
     return dict(available=True, frames=best['frames'], final_at_d12end=best['final'],
                 opp_final_at_d12end=best['opp_final'], handoff_ok=best['handoff_ok'],
                 offset_used=best['offset'], cash_checks=best['cash_checks'],
-                offsets_tried=[t['offset'] for t in tried])
+                offsets_tried=[t['offset'] for t in tried], sectors=sectors)
 
 
 # ---------------------------------------------------------------- per-game orchestration ---------------------
@@ -452,7 +457,16 @@ select{max-width:100%}.row{display:flex;gap:8px;align-items:center;flex-wrap:wra
 .panel{background:var(--panel);border:1px solid var(--line);padding:16px;border-radius:12px;min-width:0}
 .panelhead{display:flex;justify-content:space-between;gap:8px;align-items:baseline;margin-bottom:10px}
 .panelhead h2{margin:0}
+.boardwrap{position:relative}
 .board{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px}
+.routesvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.routeline{fill:none;stroke-width:.11;stroke-linecap:round;stroke-linejoin:round;opacity:.92}
+.quadline{stroke:#efc777;stroke-width:.045;stroke-dasharray:.12,.09;opacity:.85}
+.tile.shared{background-image:repeating-linear-gradient(45deg,#5a5a4a 0 5px,#33332b 5px 10px)!important}
+#handPicker{display:flex;gap:5px;flex-wrap:wrap;margin:0 0 12px}
+#handPicker button{padding:3px 8px;font-size:11.5px;border-width:2px}
+#handPicker button.active{outline:2px solid #f7f7e6;outline-offset:1px}
+.sectorstats{font-size:11.5px;color:var(--muted);margin-top:8px}
 .tile{aspect-ratio:1;border:1px solid transparent;padding:0;border-radius:4px;position:relative;
   font-size:clamp(10px,1.25vw,15px);background:#27372b;overflow:visible}
 .tile.selected{outline:2px solid #f7f7e6;outline-offset:1px}
@@ -525,13 +539,19 @@ html,body{overflow-x:hidden}
 <label>Speed <select id="speed"><option value="700">Slow</option><option value="220" selected>Normal</option><option value="80">Fast</option></select></label>
 <strong id="clock"></strong>
 </div>
+<div class="row">
+<label class="row" style="gap:5px"><input type="checkbox" id="sectorsToggle"> Sectors</label>
+<span class="muted" id="sectorsHint">Colour tiles by which hand worked them that day; click a hand below to draw its route.</span>
+</div>
+<div id="handPicker" hidden></div>
 <div id="status" class="muted" aria-live="polite"></div>
 <input id="seek" type="range" min="0" max="48" value="0" aria-label="Replay hour">
 </section>
 <div class="layout">
 <section class="panel">
 <div class="panelhead"><h2 id="titleL">Leader (recorded)</h2><span class="tag">cash <strong id="cashL"></strong></span></div>
-<div id="boardL" class="board" aria-label="Leader farm board"></div>
+<div class="boardwrap"><div id="boardL" class="board" aria-label="Leader farm board"></div><svg id="routeL" class="routesvg" viewBox="0 0 10 10" preserveAspectRatio="none"></svg></div>
+<div class="sectorstats" id="sectorStatsL"></div>
 <div class="stats" id="statsL"></div>
 <div class="breakdown" id="breakdownL"></div>
 <div class="detail">
@@ -544,7 +564,8 @@ html,body{overflow-x:hidden}
 </section>
 <section class="panel">
 <div class="panelhead"><h2 id="titleR">T</h2><span class="tag">cash <strong id="cashR"></strong></span></div>
-<div id="boardR" class="board" aria-label="Other side farm board"></div>
+<div class="boardwrap"><div id="boardR" class="board" aria-label="Other side farm board"></div><svg id="routeR" class="routesvg" viewBox="0 0 10 10" preserveAspectRatio="none"></svg></div>
+<div class="sectorstats" id="sectorStatsR"></div>
 <div class="stats" id="statsR"></div>
 <div class="breakdown" id="breakdownR"></div>
 <div class="detail">
@@ -573,7 +594,8 @@ html,body{overflow-x:hidden}
 <section class="panel" style="margin-top:18px">
 <h2>Legend</h2>
 <div id="legend"></div>
-<p class="muted">Unit badge: <strong>F</strong> = farmer, otherwise hand index; after the colon, that hour's action (&uarr;&darr;&rarr;&larr; move, P plant, W water, H harvest, Fd feed, C care, Fz fertilize, Cf collect fertilizer, D dig, Pk pickup, Dr drop, Pl place, Bc/Bp build coop/pasture). A gold outline on a tile means the two boards disagree there this hour. Click any tile to inspect it below both boards.</p>
+<p class="muted">Unit badge: <strong>F</strong> = farmer, otherwise hand index; after the colon, that hour's action (&uarr;&darr;&rarr;&larr; move, P plant, W water, H harvest, Fd feed, C care, Fz fertilize, Cf collect fertilizer, D dig, Pk pickup, Dr drop, Pl place, Bc/Bp build coop/pasture). A gold outline on a tile means the two boards disagree there this hour. Click any tile to inspect it below both boards.
+Sectors mode colours every tile worked that day (water/fertilize/harvest/plant/feed/care/collect fertilizer) by which hand did it; a hatch pattern means 2+ different hands worked it, faded tiles are within 2 steps of the shed (central, on-the-way -- not counted as overlap). Click a hand below the transport controls to draw its route for the day, split into numbered trips at each shed stop (pickup/drop/place) that follows field work.</p>
 </section>
 </main>
 <footer id="provenance">Built by scripts/build_day12_side_by_side.py &middot; replayed through scripts/upkeep_engine.py (official kaggriculture 1.32.7 engine, loaded by path). Space: play/pause. Arrow keys: one hour; Shift+arrow: one day.</footer>
@@ -614,6 +636,7 @@ function drawBoard(elId,g,mine,other){
     const diff=mine.board[i]!==other.board[i];
     b.className='tile'+(tile==='LOCKED'?' locked':'')+(selected===i?' selected':'')+(diff?' diff':'');
     b.style.background=style?style[1]:'';
+    b.style.opacity='';
     const label=style?style[0]+(isObj&&tile.yield_units?tile.yield_units:''):'';
     let age='';
     if(isObj){
@@ -635,6 +658,141 @@ function drawBoard(elId,g,mine,other){
       b.append(wrap);
     }
     b.title=`(${i%10}, ${Math.floor(i/10)})`+(isObj?' '+Object.entries(tile).map(([k,v])=>`${k}=${v}`).join(' '):tile?' '+tile:' empty');
+  }
+}
+
+// ---------------------------------------------------------------- sectors: patches, routes, stats -----------
+const HAND_COLORS=['#e8c15a','#7fb8e0','#e08b7f','#8fd19e','#c48fe0','#e0a5c4','#9fd1d1','#d1b88f','#8f9fd1','#d1d18f','#b88fd1','#8fd1b8','#d18f9f','#d1c48f','#8fc4d1','#c4d18f'];
+const FIELD_OPS=new Set(['WATER','FERTILIZE','HARVEST','PLANT','FEED','CARE','COLLECT_FERTILIZER']);
+const SHED_TILES=[[4,4],[5,4],[4,5],[5,5]];
+let sectorsOn=false,selectedHand=null;
+function handColor(u){return HAND_COLORS[u%HAND_COLORS.length];}
+function shedDist(x,y){return Math.min(...SHED_TILES.map(([sx,sy])=>Math.abs(x-sx)+Math.abs(y-sy)));}
+function isCentral(x,y){return shedDist(x,y)<=2;}
+function dayFrames(frames,day){return frames.filter(f=>Math.floor(f.step/24)===day);}
+function unitOpAt(frame,u){
+  if(u>=frame.units.length)return null;
+  const act=frame.action;if(!act)return 'PASS';
+  const a=u===0?act.farmer:(act.hands||[])[u-1];
+  return Array.isArray(a)&&a.length?a[0]:'PASS';
+}
+function handTrack(frames,day,u){
+  const pts=[];
+  for(const f of dayFrames(frames,day)){
+    if(u>=f.units.length)continue;
+    const[x,y]=f.units[u];
+    pts.push({x,y,op:unitOpAt(f,u)});
+  }
+  return pts;
+}
+function splitTrips(pts){
+  const trips=[];let cur=[],did=false;
+  for(const p of pts){
+    cur.push(p);
+    if(FIELD_OPS.has(p.op))did=true;
+    if(did&&['PICKUP','DROP','PLACE'].includes(p.op)){trips.push(cur);cur=[];did=false;}
+  }
+  if(cur.length)trips.push(cur);
+  return trips;
+}
+function buildPatch(frames,day){
+  const owners=new Map();
+  for(const f of dayFrames(frames,day)){
+    for(let u=0;u<f.units.length;u++){
+      const op=unitOpAt(f,u);
+      if(!FIELD_OPS.has(op))continue;
+      const[x,y]=f.units[u],ti=y*10+x;
+      if(!owners.has(ti))owners.set(ti,new Set());
+      owners.get(ti).add(u);
+    }
+  }
+  return owners;
+}
+function maxUnitsThatDay(frames,day){
+  return dayFrames(frames,day).reduce((m,f)=>Math.max(m,f.units.length),0);
+}
+function sectorStats(frames,day){
+  const n=maxUnitsThatDay(frames,day);
+  const tripBuckets={1:0,2:0,'3+':0};
+  let adjPairs=0,adjHits=0,idle=0;
+  for(let u=0;u<n;u++){
+    const pts=handTrack(frames,day,u);
+    if(!pts.length)continue;
+    const trips=splitTrips(pts).filter(t=>t.some(p=>FIELD_OPS.has(p.op)));
+    if(trips.length){const k=trips.length>=3?'3+':trips.length;tripBuckets[k]=(tripBuckets[k]||0)+1;}
+    idle+=pts.filter(p=>p.op==='PASS'||!p.op).length;
+    const jobs=pts.filter(p=>FIELD_OPS.has(p.op)&&!isCentral(p.x,p.y));
+    for(let i=1;i<jobs.length;i++){
+      adjPairs++;
+      if(Math.abs(jobs[i].x-jobs[i-1].x)+Math.abs(jobs[i].y-jobs[i-1].y)===1)adjHits++;
+    }
+  }
+  let sharedAll=0,sharedNonCentral=0;
+  buildPatch(frames,day).forEach((owners,ti)=>{
+    if(owners.size>=2){sharedAll++;if(!isCentral(ti%10,Math.floor(ti/10)))sharedNonCentral++;}
+  });
+  return {tripBuckets,adj:adjPairs?adjHits/adjPairs:null,sharedAll,sharedNonCentral,idle};
+}
+function applySectorOverlay(elId,frames,day){
+  const el=$(elId),patch=buildPatch(frames,day);
+  for(let i=0;i<100;i++){
+    const b=el.children[i],x=i%10,y=Math.floor(i/10),central=isCentral(x,y),owners=patch.get(i);
+    b.classList.toggle('central',central);
+    b.classList.toggle('shared',!!(owners&&owners.size>=2&&!central));
+    let bg='#1c2620',content='';
+    if(owners&&owners.size===1){const u=[...owners][0];bg=handColor(u);content=u===0?'F':String(u);}
+    else if(owners&&owners.size>=2){bg=central?'#3a4a3e':'';content=String(owners.size)+'×';}
+    b.style.background=bg;
+    b.style.opacity=central?.55:1;
+    const unitsSpan=b.querySelector('.units');
+    b.replaceChildren(document.createTextNode(content));
+    if(unitsSpan)b.append(unitsSpan);
+  }
+}
+function drawRoute(svgId,frames,day,u,showQuadrants){
+  const svg=$(svgId);
+  let html=showQuadrants?'<line class="quadline" x1="5" y1="0" x2="5" y2="10"/><line class="quadline" x1="0" y1="5" x2="10" y2="5"/>':'';
+  if(u!=null){
+    const trips=splitTrips(handTrack(frames,day,u));
+    trips.forEach((trip,ti)=>{
+      if(!trip.length)return;
+      const pts=trip.map(p=>`${p.x+.5},${p.y+.5}`).join(' ');
+      html+=`<polyline class="routeline" points="${pts}" style="stroke:${handColor(u)}"/>`;
+      html+=`<circle cx="${trip[0].x+.5}" cy="${trip[0].y+.5}" r=".16" fill="${handColor(u)}"/>`;
+      const mid=trip[Math.floor(trip.length/2)];
+      html+=`<text x="${mid.x+.5}" y="${mid.y+.5-.18}" font-size=".34" fill="#fff" text-anchor="middle" stroke="#0b120d" stroke-width=".04" paint-order="stroke">${ti+1}</text>`;
+    });
+  }
+  svg.innerHTML=html;
+}
+function renderSectorStats(tag,frames,day){
+  const el=$('sectorStats'+tag);
+  if(!sectorsOn){el.textContent='';return;}
+  const s=sectorStats(frames,day),tb=s.tripBuckets;
+  el.textContent=`Trips/hand: 1×${tb[1]||0} 2×${tb[2]||0} 3+×${tb['3+']||0} · Adjacency (non-central): ${s.adj==null?'—':Math.round(s.adj*100)+'%'} · Shared tiles: ${s.sharedAll} (${s.sharedNonCentral} excl. central) · Idle: ${s.idle}`;
+}
+function armSectorsFor(g,side){
+  const arm=side==='L'?g.leader:g[MODE_ARM[mode]];
+  return (arm&&arm.sectors)||null;
+}
+function renderHandPicker(LF,RF,day){
+  const wrap=$('handPicker');
+  if(!sectorsOn){wrap.hidden=true;wrap.innerHTML='';return;}
+  wrap.hidden=false;
+  const n=Math.max(maxUnitsThatDay(LF,day),maxUnitsThatDay(RF,day));
+  const g=games[gi];
+  const secL=(armSectorsFor(g,'L')||{})[day]||{};
+  const secR=(armSectorsFor(g,'R')||{})[day]||{};
+  wrap.replaceChildren();
+  for(let u=0;u<n;u++){
+    const qs=[...new Set([secL[u],secR[u]].filter(Boolean))];
+    const btn=document.createElement('button');
+    btn.type='button';
+    btn.textContent=(u===0?'F':String(u))+(qs.length?` (${qs.join('/')})`:'');
+    btn.style.borderColor=handColor(u);
+    if(selectedHand===u)btn.classList.add('active');
+    btn.onclick=()=>{selectedHand=selectedHand===u?null:u;render();};
+    wrap.append(btn);
   }
 }
 
@@ -754,6 +912,16 @@ function render(){
   renderUnitDiff(lf,rf);
   renderDiffStats(LF,RF,cur);
   renderVerify(g);
+  const showQuad=sectorsOn&&!!((armSectorsFor(g,'L')||{})[day]||(armSectorsFor(g,'R')||{})[day]);
+  if(sectorsOn){
+    applySectorOverlay('boardL',LF,day);
+    applySectorOverlay('boardR',RF,day);
+  }
+  drawRoute('routeL',LF,day,sectorsOn?selectedHand:null,showQuad);
+  drawRoute('routeR',RF,day,sectorsOn?selectedHand:null,showQuad);
+  renderSectorStats('L',LF,day);
+  renderSectorStats('R',RF,day);
+  renderHandPicker(LF,RF,day);
 }
 
 function jumpToDay(day){
@@ -771,6 +939,7 @@ function selectWorld(idx){
   }
   if(mode!=='t0'&&!(g[MODE_ARM[mode]]&&g[MODE_ARM[mode]].available))mode='t0';
   $('mode').value=mode;
+  selectedHand=null;
   cur=0;stop();render();
 }
 
@@ -804,11 +973,12 @@ $('play').onclick=()=>{if(timer){stop();render();return;}timer=setInterval(tick,
 $('seek').oninput=()=>jump(+$('seek').value);
 $('prev').onclick=()=>jump(cur-1);
 $('next').onclick=()=>jump(cur+1);
+$('sectorsToggle').onchange=()=>{sectorsOn=$('sectorsToggle').checked;if(!sectorsOn)selectedHand=null;render();};
 $('jumpD11').onclick=()=>jumpToDay(11);
 $('jumpD12').onclick=()=>jumpToDay(12);
 $('speed').onchange=()=>{if(timer){stop();$('play').click();}};
 $('world').onchange=()=>selectWorld(games.findIndex(g=>String(g.episode)===$('world').value));
-$('mode').onchange=()=>{mode=$('mode').value;cur=0;stop();render();};
+$('mode').onchange=()=>{mode=$('mode').value;selectedHand=null;cur=0;stop();render();};
 document.addEventListener('keydown',e=>{
   if(!DATA||['INPUT','SELECT','BUTTON','TEXTAREA'].includes(e.target.tagName))return;
   if(e.code==='Space'){e.preventDefault();$('play').click();}
