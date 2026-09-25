@@ -1,7 +1,7 @@
 """mgt_lead_deploy: mgt_lead's executor playing worlds it has never seen, choosing its own targets.
 
 Research agent (2026-09-24). The EXECUTOR SECTION below is a verbatim copy of agents/mgt_lead.py (owned by the
-E1 thread; copied from agents/mgt_lead.py = E1 scheduler build + idle tracer / helper split / p1 threshold / fert_hold (2026-09-25), sha256 159dbda9dcaa70d2; executor CFG defaults that differ in this copy: sell_source "sem", p1_min_value 30, release_stale_d True, fert_hold 1; TEMPORARY DIVERGENCE (2026-09-25): the tie_value option (CFG + one line in the greedy loop) the maint_goal option (module wrapper, _mj_fert, units-based priority, tracer units) and the hire_demand option (_dem_* search) exist only in this copy, agents/mgt_lead.py is frozen while a leader-world workflow uses it; port it there when that ends; re-sync by copying that file between the two marker lines. Only the
+E1 thread; copied from agents/mgt_lead.py = E1 scheduler build + idle tracer / helper split / p1 threshold / fert_hold (2026-09-25), sha256 159dbda9dcaa70d2; executor CFG defaults that differ in this copy: sell_source "sem", p1_min_value 30, release_stale_d True, fert_hold 1; TEMPORARY DIVERGENCE (2026-09-25): the tie_value option (CFG + one line in the greedy loop) and the maint_goal option (module wrapper, _mj_fert, units-based priority, tracer units) exist only in this copy, agents/mgt_lead.py is frozen while a leader-world workflow uses it; port it there when that ends; re-sync by copying that file between the two marker lines. Only the
 DEPLOY section after it is new: it builds the Target the executor follows (retrieval of leader games at days
 0/3/6/9, count-model composition from day 12, sell-everything rule, hands from the day's work) and holds the
 entry point, which is the LAST callable in the file (Kaggle's loader and scripts/ladder_panel.py call that one).
@@ -94,9 +94,6 @@ CFG = {
     "p1_min_value": 30.0,     # maintenance ops worth <= this (coins) count as priority 2 (deferred after late_hour); DEPLOY default 30 (2026-09-25: full panel +382, CI +61..+702; mgt_lead.py keeps 0)
     "deliver_units": 10,      # a unit carrying this many products walks them to the shed for same-day sale
     "release_stale_d": True,  # drop a delivery assignment once nothing deliverable is carried (1 idle step per DROP); DEPLOY default (with p1_min_value 30)
-    "hire_demand": "off",     # DEPLOY ONLY: "off" = target hands; "all" = smallest k (morning search, own greedy simulation) completing every production-affecting job reachable at k_max; "marginal" = add hands while the marginal completed value covers the k-th fib wage
-    "dem_kmax": 14,
-    "dem_rehire_value": 200,  # later hire only if new production-affecting jobs worth this appeared (re-searched)
     "maint_goal": "value",    # DEPLOY ONLY: "max_production" = every job that changes production is required (inputs free in the maintenance solve, fertilize whenever it raises units, priority by units not coins); only no-production jobs may be skipped
     "tie_value": 1,           # DEPLOY ONLY (not yet in mgt_lead.py): equal-cost tasks go to the tile worth most today (thread Q, 2026-09-25: full panel +1,420 vs ff1, CI +513..+2,328; G1 0.902)
     "hand_stock": 0,          # 1: wheat picked only for the unit's current task (+ hs_buffer), no opportunistic wheat pickups; from hs_drop_hour a unit AT the shed places wheat above its task need (no extra trips)
@@ -146,6 +143,7 @@ def _curve():
 CURVE = _curve()
 CURVE_POS = {idx: i for i, idx in enumerate(CURVE)}
 
+CFG.update({'maint_goal': 'max_production'})   # variant mp1 (executor)
 _SMNS = None
 
 
@@ -1899,143 +1897,6 @@ def _smk_wheat_buys(obs, day, shed, carried, reserve, farm, cash, sells, buys):
 # ===== END SEM_MARKET SELL BLOCK ===========================================================================
 
 
-def _dem_jobs(S, tasks):
-    """(tile, n_ops, wheat, fert, prio, value, production-affecting) per open task."""
-    out = []
-    mj = S.get("mj", {})
-    for idx, (ops, need, prio) in tasks.items():
-        v, dl = S.get("tval", {}).get(idx, (50.0 * len(ops), 23))
-        plan = any(o[0] in ("PLANT", "PLACE", "BUILD_COOP", "BUILD_PASTURE", "DIG") for o in ops)
-        mjs = [j for j in mj.get(idx, ()) if not j.get("optional")]
-        prod = plan or (not mjs) or any(j.get("units", 0) > 0 or j.get("kind") == "survival" for j in mjs)
-        out.append((idx, len(ops), int(need.get("WHEAT", 0)), int(need.get("FERTILIZER", 0)), prio, float(v), bool(prod)))
-    return out
-
-
-def _dem_sim(jobs, units, h0):
-    """event simulation of our greedy: units = [(pos, first free hour)]; returns (value done, production jobs done)."""
-    import heapq
-    upos = [tuple(u[0]) for u in units]
-    cw = [0] * len(units)
-    cf = [0] * len(units)
-    heap = [(u[1], i) for i, u in enumerate(units)]
-    heapq.heapify(heap)
-    rem = set(range(len(jobs)))
-    val = 0.0
-    nprod = 0
-    while heap and rem:
-        t, i = heapq.heappop(heap)
-        if t >= 24:
-            continue
-        p = upos[i]
-        best = None
-        for j in rem:
-            idx, nops, w, f, prio, v, prod = jobs[j]
-            tgt = (idx % 10, idx // 10)
-            pick = w > cw[i] or f > cf[i]
-            if pick:
-                sh = _near_shed(p)
-                trav = abs(p[0] - sh[0]) + abs(p[1] - sh[1]) + 1 + abs(sh[0] - tgt[0]) + abs(sh[1] - tgt[1])
-            else:
-                trav = abs(p[0] - tgt[0]) + abs(p[1] - tgt[1])
-            if t + trav + nops > 24:
-                continue
-            c = trav + (10 if (t >= CFG["late_hour"] and prio >= 2) else 0)
-            if best is None or c < best[0]:
-                best = (c, j, trav, pick)
-        if best is None:
-            continue                      # nothing this unit can still finish today
-        c, j, trav, pick = best
-        idx, nops, w, f, prio, v, prod = jobs[j]
-        rem.discard(j)
-        val += v
-        nprod += 1 if prod else 0
-        if pick:
-            cw[i] = max(cw[i], w + 1)
-            cf[i] = max(cf[i], f)
-        cw[i] = max(0, cw[i] - w)
-        cf[i] = max(0, cf[i] - f)
-        upos[i] = (idx % 10, idx // 10)
-        heapq.heappush(heap, (t + trav + nops, i))
-    return val, nprod
-
-
-def _dem_choose(S, jobs, base_units, h_spawn, hires_today, kmax):
-    spawn_pts = [(4, 4), (5, 4), (4, 5), (5, 5)]
-    cache = {}
-
-    def run(k):
-        if k not in cache:
-            units = list(base_units) + [(spawn_pts[i % 4], h_spawn) for i in range(k)]
-            cache[k] = _dem_sim(jobs, units, h_spawn)
-        return cache[k]
-    if CFG["hire_demand"] == "all":
-        target = run(kmax)[1]
-        lo, hi = 0, kmax
-        while lo < hi:                    # smallest k reaching the production jobs done at k_max (bisection)
-            mid = (lo + hi) // 2
-            if run(mid)[1] >= target:
-                hi = mid
-            else:
-                lo = mid + 1
-        return lo, len(cache)
-    k = 0
-    while k < kmax:                       # marginal: the (k+1)-th hand must pay its fib wage in completed job value
-        gain = run(k + 1)[0] - run(k)[0]
-        if gain < _fib(hires_today + k):
-            break
-        k += 1
-    return k, len(cache)
-
-
-def _demand_hands(S, day, hour, tasks, pos, farm):
-    """hands wanted today (hires issued from hour 0; a later hire only when the job list grew unforeseeably)."""
-    st = S.setdefault("dem", {})
-    kmax = CFG["dem_kmax"]
-    if st.get("day") != day:
-        t0 = time.time()
-        jobs = _dem_jobs(S, tasks)
-        # cash at hour 0: the day's wages must leave the day's plan purchases (seeds, animals) and the feed-wheat gap
-        reserve = 0.0
-        for ops, need, prio in tasks.values():
-            for o in ops:
-                if o[0] == "PLANT" and len(o) > 1:
-                    reserve += CROPS.get(o[1], {}).get("seed", 50)
-                elif o[0] == "PLACE" and len(o) > 1:
-                    reserve += ANIMALS.get(o[1], {}).get("cost", 500)
-        money = float(farm.get("money", 0))
-        hires_today = int(farm.get("hires_today", 0))
-        kcash, spent = 0, 0.0
-        while kcash < kmax and spent + _fib(hires_today + kcash) <= money - reserve:
-            spent += _fib(hires_today + kcash)
-            kcash += 1
-        k, nsim = _dem_choose(S, jobs, [(tuple(pos[0]), hour)], hour + 1, hires_today, max(0, kcash))
-        if kcash < kmax:
-            S["log"]["dem_cash_capped"] += 1
-        st.update(day=day, k=k, seen=set(tasks))
-        S["log"]["dem_ms"] += int(1000 * (time.time() - t0))
-        S["log"]["dem_sims"] += nsim
-        S["log"]["dem_k_sum"] += k
-        return k
-    if 0 < hour <= 12:
-        new = [i for i in tasks if i not in st["seen"]]
-        if new:
-            st["seen"] |= set(new)
-            jobs = _dem_jobs(S, {i: tasks[i] for i in new})
-            if sum(j[5] for j in jobs if j[6]) >= CFG["dem_rehire_value"]:
-                t0 = time.time()
-                have = len(pos) - 1
-                alljobs = _dem_jobs(S, tasks)
-                units = [(tuple(q), hour) for q in pos]
-                k2, nsim = _dem_choose(S, alljobs, units, hour + 1, int(farm.get("hires_today", 0)), max(0, kmax - have))
-                S["log"]["dem_ms"] += int(1000 * (time.time() - t0))
-                S["log"]["dem_sims"] += nsim
-                if have + k2 > st["k"]:
-                    S["log"]["dem_rehire"] += 1
-                    st["k"] = have + k2
-    return st["k"]
-
-
 def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, demand, prices,
             unlocked, farm, pos, last_day):
     T = _T
@@ -2126,9 +1987,7 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     hires = []
     if (not endgame or CFG["hands_d29_fix"]) and hour <= 12 and CFG["hires_first"]:
         want = T.hands[d] + CFG["hire_extra"]
-        if CFG["hire_demand"] in ("all", "marginal"):
-            want = _demand_hands(S, day, hour, tasks, pos, farm)
-        elif CFG["sched_hire"]:
+        if CFG["sched_hire"]:
             want = _sched_hands(S, day, hour, tasks, jobs)
         elif CFG["hands_d29_fix"] and d == T.n - 1 and T.hands[d] == 0 and d > 0:
             # semantics artifact: hands_present of the last day is 0 (the end-of-day hook never runs on day 29)
@@ -2313,6 +2172,7 @@ DEP_CFG = {
     "wc_swap": 0,                       # composition: turn this base share of the count model's wheat plantings into carrots ...
     "wc_swap_per_shop": 0.15,           # ... + this per carrot-demanding shop instance (max 0.7), when carrots can still be harvested
 }
+DEP_CFG.update({})   # variant mp1
 try:                                    # research overrides (ablations): DEP_CFG_JSON='{"key": value}'
     import os as _dep_os0
     import json as _dep_json0

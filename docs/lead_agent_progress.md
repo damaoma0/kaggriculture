@@ -1060,3 +1060,60 @@ fertilizer may collect it from an animal whose fertilizer is ready when that rou
 shed has none; not while other work is open on the tile it stands on, which the first static check caught). Static
 checks: parse, Kaggle loader entry, and synthetic day-12 observations exercising the batch and chain branches (no games).
 Smoke with discards and route metrics (wtr6: dep8, tw0, rs1-rs3) and G1 (g1p) running.
+Verification: the new default (tie_value; copy `mgt_lpv_dep8`) equals Q's `mgt_lpv_tievalff` to the dollar on all 12
+smoke worlds (Kaggle wtr6) and on G1 (0.902 / 0.892 / 0.885, g1p).
+| build (smoke vs new default; route metrics from the stored actions) | vs default (95% CI), better/worse | vs tw0 | discards / game | sweep len | adjacent next op | 2+ jumps | wheat pickups | G1 deploy |
+|---|---|---|---|---|---|---|---|---|
+| new default (tie_value) | | | 43.6 | 1.62 | 22% | 22% | 243 | 0.902 / 0.892 / 0.885 |
+| tw0 = default + ws2 | +1,278 (-1,545 .. +3,696), 9/3 | | 38.2 | 1.63 | 22% | 22% | 231 | 0.910 / 0.901 / 0.889 |
+| rs1 = tw0 + sweep continuation | +980 (-1,800 .. +3,403), 8/4 | -298 (-1,535 .. +1,027) | 35.8 | 1.67 | 23% | 21% | 233 | **0.919 / 0.909 / 0.898** |
+| rs2 = rs1 + batched wheat, pick_cap 6/8 | -3,370 (-5,564 .. -993), 2/10 | -4,648 | **111.7** | 1.76 | 26% | 21% | 184 | 0.876 / 0.867 / 0.855 |
+| rs3 = rs2 + fertilizer chain | -3,522 (-5,892 .. -1,189), 3/9 | -4,800 | 108.7 | 1.76 | 26% | 20% | 184 | 0.881 / 0.872 / 0.856 |
+Findings: (1) batched wheat puts the extra wheat in hands at midnight and the cap discards triple (38 -> 112 items a
+game): rs2 / rs3 rejected; the fertilizer chain adds nothing measurable on top. (2) The sweep bonus barely moves the
+sweep (adjacent next op 22% -> 23%, run length 1.63 -> 1.67): breaking near-ties does not reproduce the leader's 37%;
+our greedy already takes an adjacent open task when one exists, so the leader's sweeps come from there being open work
+on the adjacent tiles (it waters / fertilizes more per tile-day), which is the max-production question (next item).
+rs1 is +0.009 on G1 but -298 (n.s.) vs tw0 on smoke. (3) Unexpected: the value tie-break alone raises the cap discards
+from 25.8 (ff1) to 43.6 items a game on smoke (not traced yet); ws2 on top brings it to 38.
+Next: max-production maintenance (maint_goal "max_production", deploy only): smoke with the dropped-job trace (wtr7:
+mpt0 = default + tracer, mpt1 = + max_production) and G1 (g1q).
+**tie_value's extra cap discards, traced from stored world traces (dep7 = ff1-era default, wtr3; dep8 = tie_value
+default, wtr6; same 12 smoke worlds; no new games):** discards 25.8 -> 43.6 items a game (~1.35k -> ~2.3k coins at our
+own prices), wheat 16.7 -> 30.4, tomato +1.4, fertilizer +2.4; overflow nights 32 -> 41 of 348; on them the shed holds
+~2 items and the units carry ~110 (wheat 58, fertilizer 20, egg 11). Why: the value term sends units to high-value
+harvests / collects late in the day (harvest + collect ops in hours 18-23: 112 -> 125 a game; harvested units 1,387 ->
+1,423) and evening deposits fall (DROP / PLACE at the shed in hours 18-23: 44.8 -> 39.2); wheat comes in 4-6 unit lumps
+and is never deliverable, so it rides to midnight. ws2's evening wheat drop at the shed already recovers 5.4 of the
+17.8 (tw0 38.2 a game). The rest is stock in hands, so a no-trip fix must be on the sell side: a cap-aware wheat keep
+(each morning, when the dump has filled the shed, sell the wheat above what tonight's projected load leaves room for,
+instead of keeping all feed wheat to the end) is the candidate; untested.
+
+## Maintenance goal "max_production" (user ruling 1): rejected (2026-09-25)
+`maint_goal` "max_production" (deploy only): the maintenance solve treats inputs as free (a wrapper on the loaded
+module's `sm_tile_plan`, the file is not edited) so it plans the maximal-units combination, fertilizes whenever it
+raises units (`fertilize=True`), and priority is by units (any job that loses units is priority 1, whatever its coin
+value); survival-only watering, end-of-life stops and plant cutoffs unchanged. Kaggle wtr7 (smoke, with the dropped-job
+tracer; the tracer is passive: mpt0 = default 12/12) and g1q.
+| | smoke vs current default (95% CI), better/worse | own / rival | G1 deploy | production-affecting jobs dropped / game |
+|---|---|---|---|---|
+| current default | | | 0.902 / 0.892 / 0.885 | 122.4 (184.8 units) |
+| max_production | **-5,451 (-8,791 .. -2,336), 2/10** | -4,293 / +1,158 | **0.864 / 0.838 / 0.840** | 118.7 (178.8 units) |
+**Finding: making every production-affecting job required does not reduce what is dropped (122 -> 119 jobs a game):
+the crew is capacity-bound, so the mode only changes WHICH jobs get done.** G1 split: +29 feeds, +31 cares, +21
+fertilizes, +19 pickups a game, paid for with -47 waters, -10 harvests, -7 plantings; wheat goes into feed (sold -79,
+harvested -24), fertilizer into crops (sold -18), eggs -16, tomatoes -9; milk +15 and wool +19 units do not cover it
+(own -3,199 a game in G1). Units are not the right currency when capacity binds: a unit of milk / wool bought with feed
+and labour is worth less than the wheat, egg and tomato units it displaces. Rejected; the option stays (default
+"value").
+
+## Hires by demand (user ruling 2): morning search (2026-09-25)
+`hire_demand` (deploy only; mgt_lead.py frozen): at hour 0 the day's open task list (maintenance incl. plan jobs and
+harvests) is simulated with our own greedy (event simulation: each free unit takes the cheapest reachable task, shed
+detour when it lacks wheat / fertilizer, the late-hour penalty for priority 2, travel + ops; hires spawn at the shed
+and act from hour 1) for candidate k; "all" = the smallest k (bisection) that completes as many production-affecting
+jobs as k_max = 14 does; "marginal" = add hands while the (k+1)-th hand's completed value covers its fib wage. All k
+hires are issued at hour 0; a later hire only if new production-affecting jobs worth >= 200 appear in hours 1-12 (the
+same search re-run; logged as dem_rehire). Cash at hour 0: k is capped so the wages leave the day's seed / animal
+purchases (dem_cash_capped). Static checks: parse, loader entry, synthetic day-12 farms (72 / 29 tasks: all -> 14 / 12
+hands, marginal -> 11 / 10; 9-16 simulations, 2-19 ms a day). Smoke (wtr8) and G1 (g1r) running.
