@@ -149,7 +149,7 @@ def _curve():
 CURVE = _curve()
 CURVE_POS = {idx: i for i, idx in enumerate(CURVE)}
 
-CFG.update({'hire_demand': 'marginal'})   # variant dm1 (executor)
+CFG.update({'maint_goal': 'max_production', 'hire_demand': 'all', 'idle_trace': 'results/fresh/lead_idle/mdm0'})   # variant mdm0 (executor)
 _SMNS = None
 
 
@@ -2369,7 +2369,7 @@ DEP_CFG = {
     "wc_swap": 0,                       # composition: turn this base share of the count model's wheat plantings into carrots ...
     "wc_swap_per_shop": 0.15,           # ... + this per carrot-demanding shop instance (max 0.7), when carrots can still be harvested
 }
-DEP_CFG.update({})   # variant dm1
+DEP_CFG.update({})   # variant mdm0
 try:                                    # research overrides (ablations): DEP_CFG_JSON='{"key": value}'
     import os as _dep_os0
     import json as _dep_json0

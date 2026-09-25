@@ -1,7 +1,7 @@
 """mgt_lead_deploy: mgt_lead's executor playing worlds it has never seen, choosing its own targets.
 
 Research agent (2026-09-24). The EXECUTOR SECTION below is a verbatim copy of agents/mgt_lead.py (owned by the
-E1 thread; copied from agents/mgt_lead.py = E1 scheduler build + idle tracer / helper split / p1 threshold / fert_hold (2026-09-25), sha256 159dbda9dcaa70d2; executor CFG defaults that differ in this copy: sell_source "sem", p1_min_value 30, release_stale_d True, fert_hold 1; TEMPORARY DIVERGENCE (2026-09-25): the tie_value option (CFG + one line in the greedy loop) the maint_goal option (module wrapper, _mj_fert, units-based priority, tracer units) and the hire_demand option (_dem_* search) exist only in this copy, agents/mgt_lead.py is frozen while a leader-world workflow uses it; port it there when that ends; re-sync by copying that file between the two marker lines. Only the
+E1 thread; copied from agents/mgt_lead.py = E1 scheduler build + idle tracer / helper split / p1 threshold / fert_hold (2026-09-25), sha256 159dbda9dcaa70d2; executor CFG defaults that differ in this copy: sell_source "sem", p1_min_value 30, release_stale_d True, fert_hold 1; TEMPORARY DIVERGENCE (2026-09-25): the tie_value option (CFG + one line in the greedy loop) the maint_goal option (module wrapper, _mj_fert, units-based priority, tracer units) the hire_demand option (_dem_* search) and the cap_fix option exist only in this copy, agents/mgt_lead.py is frozen while a leader-world workflow uses it; port it there when that ends; re-sync by copying that file between the two marker lines. Only the
 DEPLOY section after it is new: it builds the Target the executor follows (retrieval of leader games at days
 0/3/6/9, count-model composition from day 12, sell-everything rule, hands from the day's work) and holds the
 entry point, which is the LAST callable in the file (Kaggle's loader and scripts/ladder_panel.py call that one).
@@ -94,6 +94,9 @@ CFG = {
     "p1_min_value": 30.0,     # maintenance ops worth <= this (coins) count as priority 2 (deferred after late_hour); DEPLOY default 30 (2026-09-25: full panel +382, CI +61..+702; mgt_lead.py keeps 0)
     "deliver_units": 10,      # a unit carrying this many products walks them to the shed for same-day sale
     "release_stale_d": True,  # drop a delivery assignment once nothing deliverable is carried (1 idle step per DROP); DEPLOY default (with p1_min_value 30)
+    "cap_fix": 0,             # DEPLOY ONLY: no-extra-trip shed-cap fix: hours cap_fix_hour..23 units on / next to a shed deposit everything deliverable (wheat above the next-day herd need included) and the same step sells what the midnight projection cannot hold; each morning the feed-wheat keep is capped to what tonight leaves room for
+    "cap_fix_hour": 21,
+    "cap_harvest_est": 40,    # expected units still to be harvested into hands during a day (morning wheat cap)
     "hire_demand": "off",     # DEPLOY ONLY: "off" = target hands; "all" = smallest k (morning search, own greedy simulation) completing every production-affecting job reachable at k_max; "marginal" = add hands while the marginal completed value covers the k-th fib wage
     "dem_kmax": 14,
     "dem_rehire_value": 200,  # later hire only if new production-affecting jobs worth this appeared (re-searched)
@@ -796,6 +799,7 @@ def agent(obs, config=None):
         demand.update(need)
 
     # ---- dispatch
+    S["capfix_drop"] = Counter()
     n = len(pos)
     actions = [["PASS"] for _ in range(n)]
     prev = S["assign"]
@@ -818,8 +822,12 @@ def agent(obs, config=None):
 
     fert_keep = fert_short or (CFG["fert_hold"] == 1 and demand.get("FERTILIZER", 0) > 0) or CFG["fert_hold"] == 2
 
+    n_herd = sum(1 for r_ in tiles for t_ in r_ if _animal(t_))
+    wheat_over = (CFG["cap_fix"] and hour >= CFG["cap_fix_hour"] and day < last_day
+                  and shed.get("WHEAT", 0) + carried.get("WHEAT", 0) > n_herd)
+
     def deliverable(inv):
-        return {k: v for k, v in inv.items() if v > 0 and k in PRODUCTS and k != "WHEAT"
+        return {k: v for k, v in inv.items() if v > 0 and k in PRODUCTS and (k != "WHEAT" or wheat_over)
                 and not (k == "FERTILIZER" and fert_keep)}
 
     def usable_ops(u, ops, need):
@@ -1110,6 +1118,24 @@ def agent(obs, config=None):
                 assign.pop(u, None)
                 continue
         idx = assign.get(u)
+        if CFG["cap_fix"] and CFG["cap_fix_hour"] <= hour <= 23 and day < last_day and u not in surv_route:
+            dvc = deliverable(inv)
+            s_c = _near_shed(p)
+            if dvc and _dist(p, s_c) <= 1:
+                if p != s_c:
+                    actions[u] = _step_toward(p, s_c)
+                else:
+                    if all(k in dvc for k in inv):
+                        actions[u] = ["DROP"]
+                        for k, v in dvc.items():
+                            S.setdefault("capfix_drop", Counter())[k] += v
+                    else:
+                        k = max(dvc, key=lambda q: dvc[q])
+                        actions[u] = ["PLACE", k, int(inv[k])]
+                        S.setdefault("capfix_drop", Counter())[k] += int(inv[k])
+                    S["log"]["capfix_deposits"] += 1
+                assign.pop(u, None)
+                continue
         if u in helper:
             hidx = helper[u]
             htgt = (hidx % 10, hidx // 10)
@@ -1899,9 +1925,13 @@ def _smk_wheat_buys(obs, day, shed, carried, reserve, farm, cash, sells, buys):
 # ===== END SEM_MARKET SELL BLOCK ===========================================================================
 
 
-def _dem_jobs(S, tasks):
-    """(tile, n_ops, wheat, fert, prio, value, production-affecting) per open task."""
+def _dem_jobs(S, tasks, plan_jobs=None):
+    """(tile, n_ops, wheat, fert, prio, value, production-affecting) per open task; plan PLANT jobs whose seeds are not
+    bought yet (no task before the hour-0 purchase) are added as plant + water."""
     out = []
+    for idx, job in (plan_jobs or {}).items():
+        if idx not in tasks and job and job[0] == "PLANT":
+            out.append((idx, 2, 0, 0, 0, float(CFG["plan_value"]), True))
     mj = S.get("mj", {})
     for idx, (ops, need, prio) in tasks.items():
         v, dl = S.get("tval", {}).get(idx, (50.0 * len(ops), 23))
@@ -1988,25 +2018,23 @@ def _dem_choose(S, jobs, base_units, h_spawn, hires_today, kmax):
     return k, len(cache)
 
 
-def _demand_hands(S, day, hour, tasks, pos, farm):
+def _demand_hands(S, day, hour, tasks, pos, farm, obs_=None, plan_jobs=None):
     """hands wanted today (hires issued from hour 0; a later hire only when the job list grew unforeseeably)."""
     st = S.setdefault("dem", {})
     kmax = CFG["dem_kmax"]
     if st.get("day") != day:
         t0 = time.time()
-        jobs = _dem_jobs(S, tasks)
-        # cash at hour 0: the day's wages must leave the day's plan purchases (seeds, animals) and the feed-wheat gap
-        reserve = 0.0
-        for ops, need, prio in tasks.values():
-            for o in ops:
-                if o[0] == "PLANT" and len(o) > 1:
-                    reserve += CROPS.get(o[1], {}).get("seed", 50)
-                elif o[0] == "PLACE" and len(o) > 1:
-                    reserve += ANIMALS.get(o[1], {}).get("cost", 500)
+        jobs = _dem_jobs(S, tasks, plan_jobs)
+        # cash at hour 0: hires come first (as in the target-hands rule, which sells stock to fund them); k is capped by
+        # cash + the sellable shed stock at 85% of today's price (2026-09-25: reserving the day's purchases first zeroed
+        # the hands on cash-bound opening days and started a death spiral)
         money = float(farm.get("money", 0))
+        prices_ = dict(_g(_g(obs_, "market", {}), "prices", {})) if obs_ is not None else {}
+        shed_ = dict(_g(_g(obs_, "private", {}), "shed", {})) if obs_ is not None else {}
+        fund = money + sum(float(prices_.get(k_, 0)) * 0.85 * float(v_) for k_, v_ in shed_.items() if k_ in PRODUCTS)
         hires_today = int(farm.get("hires_today", 0))
         kcash, spent = 0, 0.0
-        while kcash < kmax and spent + _fib(hires_today + kcash) <= money - reserve:
+        while kcash < kmax and spent + _fib(hires_today + kcash) <= fund:
             spent += _fib(hires_today + kcash)
             kcash += 1
         k, nsim = _dem_choose(S, jobs, [(tuple(pos[0]), hour)], hour + 1, hires_today, max(0, kcash))
@@ -2093,6 +2121,33 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     # shed overflow guard: midnight drop discards above 100
     total = sum(shed.values()) + sum(sum(i.values()) for i in invs)
     sold_now = sum(o[2] for o in sells)
+    if CFG["cap_fix"] and not endgame:
+        dropped = S.get("capfix_drop") or Counter()
+        if hour >= CFG["cap_fix_hour"]:
+            proj = total - sold_now
+            extra = int(proj - 97 + 0.999)
+            if extra > 0:
+                order = ["WHEAT"] + sorted((q for q in PRODUCTS if q != "WHEAT"), key=lambda q: prices.get(q, 0))
+                for p_ in order:
+                    if extra <= 0:
+                        break
+                    already = sum(o[2] for o in sells if o[1] == p_)
+                    can = shed.get(p_, 0) + dropped.get(p_, 0) - reserve.get(p_, 0) - already
+                    k_ = min(can, extra)
+                    if k_ > 0:
+                        sells.append(["SELL", p_, int(k_)])
+                        S["log"]["capfix_sold_" + p_] += int(k_)
+                        extra -= k_
+        elif hour <= 3:
+            n_an = sum(1 for r_ in farm["tiles"] for t_ in r_ if _animal(t_))
+            other = sum(v for k_, v in shed.items() if k_ != "WHEAT") + sum(v for k_, v in carried.items() if k_ != "WHEAT")
+            keep_cap = max(2 * n_an, 100 - other - CFG["cap_harvest_est"])
+            already = sum(o[2] for o in sells if o[1] == "WHEAT")
+            k_ = min(shed.get("WHEAT", 0) - reserve.get("WHEAT", 0) - already,
+                     shed.get("WHEAT", 0) + carried.get("WHEAT", 0) - already - keep_cap)
+            if k_ > 0:
+                sells.append(["SELL", "WHEAT", int(k_)])
+                S["log"]["capfix_morning_wheat"] += int(k_)
     if CFG["cap_guard"] and not endgame and hour >= CFG["cap_hour"]:
         proj = total - sold_now + CFG["cap_rate"] * (23 - hour)
         extra = int(proj - (100 - CFG["cap_margin"]) + 0.999)
@@ -2127,7 +2182,7 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     if (not endgame or CFG["hands_d29_fix"]) and hour <= 12 and CFG["hires_first"]:
         want = T.hands[d] + CFG["hire_extra"]
         if CFG["hire_demand"] in ("all", "marginal"):
-            want = _demand_hands(S, day, hour, tasks, pos, farm)
+            want = _demand_hands(S, day, hour, tasks, pos, farm, obs, jobs)
         elif CFG["sched_hire"]:
             want = _sched_hands(S, day, hour, tasks, jobs)
         elif CFG["hands_d29_fix"] and d == T.n - 1 and T.hands[d] == 0 and d > 0:

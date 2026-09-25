@@ -1117,3 +1117,32 @@ hires are issued at hour 0; a later hire only if new production-affecting jobs w
 same search re-run; logged as dem_rehire). Cash at hour 0: k is capped so the wages leave the day's seed / animal
 purchases (dem_cash_capped). Static checks: parse, loader entry, synthetic day-12 farms (72 / 29 tasks: all -> 14 / 12
 hands, marginal -> 11 / 10; 9-16 simulations, 2-19 ms a day). Smoke (wtr8) and G1 (g1r) running.
+**First demand-hire run was broken (not a policy result): G1 0.418 (all) / 0.405 (marginal), smoke -93k / -111k,
+119 / 146 of 360 days with ZERO hands.** Traced: (1) my hour-0 cash guard reserved the day's seed / animal purchases
+before wages, so on cash-bound days (morning cash 79-272) k = 0 -> no maintenance -> crops / animals fail -> cash never
+recovers (death spiral); the target-hands rule it replaced hires first and sells stock to fund the wages. (2) At hour 0
+the day's plantings are not in the task list yet (a PLANT task exists only once its seeds are bought, which happens at
+hour 0), so the search sized day 0 at 1 hand vs the plan's 5. (3) Once cash exists, "all" often chose k_max = 14
+(days 16+), ~600 a day more wages. Fixes: k capped by cash + the sellable shed stock at 85% of price (hires first, as
+before); the planner's PLANT jobs without seeds yet are added to the search as plant + water (day 0 now 4 hands).
+The combination runs pushed before the fix (wtr9 / g1s mdm0 / mdm1) are invalid; cf1 in the same kernels is valid.
+Re-run with the fixes: smoke wtr10 (dm0, dm1, mdm0, mdm1); G1 next.
+Fixed runs (Kaggle wtr10 smoke; cf1 from wtr9 / g1s, valid):
+| build (smoke vs current default) | vs default (95% CI), better/worse | own / rival | discards / game | hands a day, days 0-11 / 12-29 | production jobs dropped / game |
+|---|---|---|---|---|---|
+| current default (tie_value) | | | 43.6 | 8.6 / 11.7 | 122.4 (184.8 units) |
+| **cf1: cap_fix + ws2** | +306 (-3,445 .. +3,268), 8/4 | -415 / -722 | **23.7** | 8.6 / 11.7 | |
+| dm0: hire_demand all | -8,433 (-11,221 .. -5,154), 1/11 | -10,371 / -1,938 | 51.1 | 7.2 / 13.6 | |
+| dm1: hire_demand marginal | -20,368 (-25,433 .. -15,925), 0/12 | -9,972 / +10,396 | 18.2 | 6.1 / 9.4 | |
+| mdm0: max_production + all | -28,307 (-35,910 .. -22,219), 0/12 | -16,947 / +11,360 | 98.2 | 7.9 / 13.4 | 78.7 (159.8 units) |
+| mdm1: max_production + marginal | -39,605 (-48,380 .. -32,184), 0/12 | -19,328 / +20,278 | 26.3 | 5.6 / 9.7 | 240.7 (476.1 units) |
+cf1 G1: 0.907 / 0.897 / 0.885 (default 0.902 / 0.892 / 0.885). **cap_fix halves the discards (43.6 -> 23.7 a game) but
+is not clearly positive on margin (+306, n.s.; below ws2 alone, tw0 +1,278 n.s.)**: no full panel.
+**Demand-sized crews are strongly negative even after the fixes.** The morning search, on our own greedy, sizes the
+opening crews below the plan (7.2 vs 8.6 hands on days 0-11: the opening's plan work and cash timing are not captured
+by an hour-0 task list) and the late crews above it (13.6 vs 11.7 at 144-377 a day for the 13th / 14th hand); the
+marginal version stops far too early (its per-day job values understate what a missed maintenance day costs later).
+The combination with max_production does complete more production jobs (79 dropped a game instead of 122, with ~13.4
+hands late) but loses 28k a game: the extra production is feed-heavy milk / wool bought with wages and wheat.
+What binds with 14 hands: the k_max = 14 cap late in the season and walking (the crew is at the cap and still drops
+79 production jobs a game); cash binds only in the opening. G1 for the fixed demand / combination variants: g1t.
