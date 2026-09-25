@@ -39,11 +39,17 @@ def ci(d):
     return f'{m:+,.0f} (t {m - h:+,.0f}..{m + h:+,.0f}; boot {bs[100]:+,.0f}..{bs[3899]:+,.0f}) {sum(x > 0 for x in d)}/{sum(x < 0 for x in d)}'
 
 
+def cen(p):
+    """steps from the tile to the nearest shed-access tile (central tiles: <= 2, the animals near the shed)."""
+    return min(abs(p[0] - x) + abs(p[1] - y) for x, y in SHED)
+
+
 def hand_metrics(r):
     D = 11
     lo, hi = D * 24, D * 24 + 24
     visits, ops_q, spawn = {}, {}, {}
     seg, trips, last = {}, Counter(), {}
+    pvisits = {}
     m = Counter()
     goose = Counter()
     for t in range(lo, hi):
@@ -60,6 +66,8 @@ def hand_metrics(r):
             spawn.setdefault(u, quad(p))
             if p not in SHED:
                 visits.setdefault(p, set()).add(u)
+                if cen(p) > 2:
+                    pvisits.setdefault(p, set()).add(u)
             if c == 'PASS':
                 m['idle'] += 1
             elif c in MOVES:
@@ -71,7 +79,7 @@ def hand_metrics(r):
                     seg[u] = True
                     trips[u] += 1
                 q0 = last.get(u)
-                if q0 is not None and q0 != p:
+                if q0 is not None and q0 != p and cen(q0) > 2 and cen(p) > 2:     # adjacency within the patch
                     g = abs(q0[0] - p[0]) + abs(q0[1] - p[1])
                     m['gap_n'] += 1
                     m['gap_sum'] += g
@@ -83,6 +91,7 @@ def hand_metrics(r):
     hands = len(spawn)
     m['hands'] = hands
     m['extra_visits'] = sum(len(v) - 1 for v in visits.values() if len(v) > 1)
+    m['extra_visits_patch'] = sum(len(v) - 1 for v in pvisits.values() if len(v) > 1)
     main = {u: q.most_common(1)[0][0] for u, q in ops_q.items() if q}
     m['main_ops'] = sum(ops_q[u][main[u]] for u in main)
     m['one_quad'] = sum(1 for u, q in ops_q.items() if len(q) == 1)
@@ -123,7 +132,7 @@ def trace(arms):
                 extra += f', margin {ci([margin(A[e]) - margin(R[base][e]) for e in cb])}'
         lines.append(f'{a} ({len(c)}): cash gap to leader {st.mean(dc):+,.0f}, margin gap {st.mean(dm):+,.0f}{extra}')
     lines.append('')
-    lines.append('| arm | coop built / goose placed (worlds) | hands | extra hand-visits | idle (PASS) | moves / hand | field ops / hand | '
+    lines.append('| arm | coop built / goose placed (worlds) | hands | extra hand-visits (all / patch only) | idle (PASS) | moves / hand | field ops / hand | '
                  'main-quadrant share | one-quadrant hands | main = spawn | spawn first / second / third / fourth | '
                  'trips 1 / 2 / 3+ | work-tile gap 1 / 2 / 3 / 4+ (mean) |')
     lines.append('|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|---|---|')
@@ -147,7 +156,7 @@ def trace(arms):
                    f"G1 worlds: {len(hrs1)} of {sum(1 for e in A if e in g1)} (hours {sorted(Counter(hrs1).items())})")
         n = max(1, len(A))
         hd = max(1, tot['hands'])
-        lines.append(f"| {a} | {gs['coop']} / {gs['goose']} of {len(A)} | {tot['hands'] / n:.1f} | {tot['extra_visits'] / n:.1f} | "
+        lines.append(f"| {a} | {gs['coop']} / {gs['goose']} of {len(A)} | {tot['hands'] / n:.1f} | {tot['extra_visits'] / n:.1f} / {tot['extra_visits_patch'] / n:.1f} | "
                      f"{tot['idle'] / n:.1f} | {tot['moves'] / hd:.1f} | {tot['field'] / hd:.1f} | "
                      f"{tot['main_ops'] / max(1, tot['field']):.0%} | {tot['one_quad'] / max(1, tot['worked']):.0%} | "
                      f"{tot['main_is_spawn'] / max(1, tot['worked']):.0%} | {tot['spawn_first'] / n:.1f} / "

@@ -211,7 +211,7 @@ def verify_plan(mod, P):
                 an = [an[i] + pa[i] for i in range(3)]
                 picked = True
                 pj = False
-            if getattr(P, 'hopw', 0) and pj and D[pos][b] > 1:
+            if getattr(P, 'hopw', 0) and pj and D[pos][b] > 1 and P.ds[pos] > P.hopc and P.ds[b] > P.hopc:
                 val -= P.hopw * (D[pos][b] - 1)
             t += D[pos][b]
             pos = b

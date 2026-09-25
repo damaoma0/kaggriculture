@@ -35,6 +35,10 @@ import xfix_run as X  # noqa: E402
 OUT = ROOT / 'results/fresh/sector_20260925'
 SHIP = dict(sd_surv_fb=20, sd_evals0=24000, sd_evals=8000, sd_budget0=2.0, sd_budget=1.0, sd_step_cap=3.0)
 S2, SEC = 'agents/mgt_lead_search2.py', 'agents/mgt_lead_sector.py'
+DVC_M = {'MELON': [[0, 0.0], [6, 53.8], [12, 3.1], [18, 8.6], [24, 0.5]],
+         'WOOL': [[0, 0.0], [6, 26.4], [12, 9.3], [18, 7.1], [24, 5.8]],
+         'MILK': [[0, 0.0], [6, 13.4], [12, 7.2], [18, 0.8], [24, 0.0]],
+         'STRAWBERRY': [[0, 0.0], [6, 0.0], [12, 2.9], [18, 4.8], [24, 0.0]]}
 ARMS = {
     'N0': (S2, dict(dispatch_search='off')),
     'N11': (S2, dict(dispatch_search='active', sd_days=[11, 23], **SHIP)),
@@ -45,6 +49,13 @@ ARMS = {
     'S11w': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, **SHIP)),       # + sectors
     'S11h': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_hop_w=20.0, **SHIP)),          # + contiguity
     'S11wh': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0, **SHIP)),
+    # the measured same-day credit (coordinator table: melon 53.8 a unit on days 6-11, wool 26.4, milk 13.4, ...) + the
+    # final delivery trip: v1 carried the day-11 melons to midnight (17.2 melons in the shed next morning vs 5.7)
+    'S11c': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1, **SHIP)),
+    'S11ca': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                        sd_early_animal=1, **SHIP)),
+    'S11caw': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_sector_w=40.0, sd_hop_w=20.0, **SHIP)),
     'S11a': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_early_animal=1, **SHIP)),      # + early animal
     'S11WH': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=80.0, sd_hop_w=40.0, **SHIP)),
 }
@@ -59,6 +70,10 @@ LABEL = {
     'S11h': 'S11h: S11f + contiguity (20 coins per extra step of a hop between job tiles)',
     'S11wh': 'S11wh: S11f + sectors 40 + contiguity 20',
     'S11WH': 'S11WH: S11f + sectors 80 + contiguity 40',
+    'S11a': 'S11a: S11f + the goose bought before the melon harvest on its coop tile (sd_early_animal)',
+    'S11c': 'S11c: S11f + the measured same-day delivery credit (melon 53.8 a unit on days 6-11) + final delivery trip',
+    'S11ca': 'S11ca: S11c + sd_early_animal',
+    'S11caw': 'S11caw: S11ca + sectors 40 + contiguity 20',
 }
 
 

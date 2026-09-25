@@ -86,6 +86,7 @@ CFG_KEYS = '''    # ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only;
     "sd_sector_ratio": 2.0,
     "sd_early_animal": 0,     # a BUILD job's animal is bought while its tile still waits for the crop harvest
     "sd_seed_fix": 0,         # the warm start drops plantings the seeds held no longer cover (the plan never over-commits seeds)
+    "sd_hop_central": 2,      # contiguity: tiles within this distance of the shed are en-route (no hop cost to / from them)
     "sd_hop_w": 0.0,          # contiguity: coins per step of a hop beyond one between consecutive job tiles (0 = off)   # sectors: rebalance while a quadrant's ops per home hand exceed this x another's
     "sd_hv_pref": {},         # v3: the leaders' harvest timing as soft bonuses on HARVEST ops (see the block header); {} = off
     "sd_keep": 0,             # research: keep the last plan object (static checks)

@@ -64,7 +64,8 @@
 # hours sd_sector_hours the homes rebalance: while one quadrant's remaining ops per home hand exceed sd_sector_ratio x
 # another's, the hand of the lighter quadrant nearest to the heavier one moves its home there. Pickups stay sized to each
 # route's own need (the route evaluation's running balance), never to a sector's. sd_hop_w = coins per step of a hop
-# beyond one between consecutive job tiles of a route (user: each trip works a chain of adjacent tiles).
+# beyond one between consecutive job tiles of a route (user: each trip works a chain of adjacent tiles), applied in the
+# patch only: tiles within sd_hop_central steps of the shed (the animals) are en-route ops on the way out / back.
 # ============================================================================================
 import random as _sd_random
 
@@ -728,6 +729,7 @@ def _sd_build(S, L, ctx):
     P.U = U
     P.secw = float(CFG["sd_sector_w"])
     P.hopw = float(CFG["sd_hop_w"])
+    P.hopc = int(CFG["sd_hop_central"])
     if P.secw:
         _sd_sector(P, L, hour, n)
     else:
@@ -887,7 +889,7 @@ def _sd_eval1(P, u, r, aw_ok, af_ok):
         cv, dvh1 = P.ucv[u], P.dv_h1
     hlw = P.hlw
     secw, uhq = P.secw, P.uhome[u]
-    hopw, pj = P.hopw, False
+    hopw, pj, hopc = P.hopw, False, P.hopc
     for k in range(L_):
         j = r[k]
         jb = JB[j]
@@ -901,7 +903,7 @@ def _sd_eval1(P, u, r, aw_ok, af_ok):
             cw += pw
             cf += pf
             can += pa[0] + pa[1] + pa[2]
-        if hopw and pj and D[prev][b] > 1:          # contiguity: a hop of more than one step between job tiles
+        if hopw and pj and D[prev][b] > 1 and P.ds[prev] > hopc and P.ds[b] > hopc:   # contiguity in the patch
             val -= hopw * (D[prev][b] - 1)
         t += D[prev][b]
         rel = jb[9]
