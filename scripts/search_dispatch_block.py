@@ -1485,6 +1485,29 @@ def _sd_force_hard(P, deadline):
     return placed
 
 
+def _sd_seed_repair(P):
+    """sd_seed_fix: the warm start re-adds the previous step's planting jobs without a seed check (seeds used or not
+    bought since): drop the latest-placed real planting of an over-committed crop until the plan fits the seeds held."""
+    for c in list(P.seed_used):
+        over = P.seed_used[c] - P.seeds.get(c, 0)
+        while over > 0:
+            best = None
+            for u in range(P.U):
+                for i, j in enumerate(P.routes[u]):
+                    if P.cropi[j] == c and P.real[j] and (best is None or (i, u) > (best[1], best[0])):
+                        best = (u, i)
+            if best is None:
+                break
+            u, i = best
+            r2 = P.routes[u][:i] + P.routes[u][i + 1:]
+            ev = _sd_eval(P, u, r2)
+            if not ev[0]:
+                r2, ev = _sd_repair(P, u, r2)
+            _sd_commit(P, u, r2, ev)
+            over -= 1
+    _sd_fix_pairs(P, range(P.U))
+
+
 def _sd_search(P, rng, t_end, evals_max):
     """improve the plan inside the budget; returns (iterations, rr tried, rr accepted, time capped)."""
     ev_end = P.nev + evals_max
@@ -1583,6 +1606,8 @@ def _sd_step(S, L, ctx):
                     r, ev = _sd_repair(P, u, r)
                     _sd_commit(P, u, r, ev)
             _sd_fix_pairs(P, range(P.U))
+            if CFG["sd_seed_fix"]:
+                _sd_seed_repair(P)
         else:
             _sd_construct(P)
         P.obj_start = _sd_obj(P)

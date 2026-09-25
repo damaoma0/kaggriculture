@@ -14,11 +14,13 @@ Arms (agents/mgt_lead_search2.py = mgt_lead.py at git f8b48ef, the current T, + 
   N11   planner days 11-23, the shipping settings (v1 + survival fallback, deterministic budgets)
   N12   planner days 12-23, the shipping settings (= the deploy candidate's window)
   S0 / S11  the sector copy with the sector term off (must equal N0 / N11)
+  S11f  the day-11 planner + the seed fix (sd_seed_fix); the S11w.. arms all include it
   S11w / S11h / S11wh / S11WH  day-11 planner + sectors (sd_sector_w 40) / contiguity (sd_hop_w 20) / both / both x2
 Offline measurement: the wall-clock caps are raised (2 / 1 / 3 s) so the deterministic evaluation budgets decide even
 under the harness's instrumentation (on Kaggle's runner the shipping caps 0.75 / 0.6 / 0.8 s essentially never fire).
 
-usage: sector_run.py trace|full <arm,...> [--worlds all] [--games ep,...] [--workers 4]
+  both   trace (42 worlds) + stream: the viewer's days-11-12 streams of the 12 G1 worlds -> results/fresh/day12_viz/<arm>_streams/
+usage: sector_run.py trace|both|full <arm,...> [--worlds all] [--games ep,...] [--workers 4]
 """
 import json
 import os
@@ -39,11 +41,44 @@ ARMS = {
     'N12': (S2, dict(dispatch_search='active', sd_days=[12, 23], **SHIP)),
     'S0': (SEC, dict(dispatch_search='off')),                                        # must equal N0
     'S11': (SEC, dict(dispatch_search='active', sd_days=[11, 23], **SHIP)),          # must equal N11 (sector off)
-    'S11w': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_sector_w=40.0, **SHIP)),       # sectors only
-    'S11h': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_hop_w=20.0, **SHIP)),          # contiguity only
-    'S11wh': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_sector_w=40.0, sd_hop_w=20.0, **SHIP)),
-    'S11WH': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_sector_w=80.0, sd_hop_w=40.0, **SHIP)),
+    'S11f': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, **SHIP)),          # seed fix only
+    'S11w': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, **SHIP)),       # + sectors
+    'S11h': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_hop_w=20.0, **SHIP)),          # + contiguity
+    'S11wh': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0, **SHIP)),
+    'S11WH': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=80.0, sd_hop_w=40.0, **SHIP)),
 }
+
+
+LABEL = {
+    'N0': 'N0: current T (mgt_lead.py f8b48ef: melon 8 AM + replant_leader), greedy dispatcher',
+    'N11': 'N11: route-search planner on days 11-23 (v1 + survival fallback, deterministic budgets)',
+    'N12': 'N12: route-search planner on days 12-23 (the deploy candidate window)',
+    'S11f': 'S11f: N11 + seed over-commit repair',
+    'S11w': 'S11w: S11f + sectors (home quadrant = spawn quadrant, 40 coins an op outside home, rebalanced at 1/8/14h)',
+    'S11h': 'S11h: S11f + contiguity (20 coins per extra step of a hop between job tiles)',
+    'S11wh': 'S11wh: S11f + sectors 40 + contiguity 20',
+    'S11WH': 'S11WH: S11f + sectors 80 + contiguity 40',
+}
+
+
+def stream_job(args):
+    """the viewer's stream of one G1 world: leader tape for t < 264, the arm for 264..311, {} after (xfix_run's stream
+    format) -> results/fresh/day12_viz/<arm>_streams/<ep>.json with a one-line label in "arm"."""
+    import traceback
+    _, game, arm = args
+    try:
+        r = X.ledger_play(game, arm, 'stream')
+        r['arm'] = LABEL.get(arm, arm)
+        d = ROOT / 'results/fresh/day12_viz' / (arm.lower() + '_streams')
+        d.mkdir(parents=True, exist_ok=True)
+        (d / f"{game.split(':')[1]}.json").write_text(json.dumps(r, default=str), encoding='utf-8')
+        return 'stream', game, arm, (r.get('cash') or [None])[-1], None
+    except Exception as exc:
+        return 'stream', game, arm, None, f'{type(exc).__name__}: {exc} ' + traceback.format_exc()[-2000:]
+
+
+def run_one(j):
+    return stream_job(j) if j[0] == 'stream' else X.job(j)
 
 
 def setup():
@@ -78,13 +113,17 @@ def main():
         games = [w['game'] for w in X.load_worlds()['worlds']]
     if sel:
         games = [g for g in games if g.split(':')[1] in sel]
-    jobs = [(mode, g, a) for a in arms for g in games]
+    if mode == 'both':                                   # day-11 traces (42 worlds) + the viewer streams (12 G1 worlds)
+        jobs = [('trace', g, a) for a in arms for g in games]
+        jobs += [('stream', g, a) for a in arms if a != 'LEADER' for g in lead_g1.GAMES]
+    else:
+        jobs = [(mode, g, a) for a in arms for g in games]
     print(len(jobs), 'jobs', flush=True)
     t0 = time.time()
     errs = 0
     from concurrent.futures import ProcessPoolExecutor, as_completed
     with ProcessPoolExecutor(max_workers=workers) as pool:
-        for f in as_completed([pool.submit(X.job, j) for j in jobs]):
+        for f in as_completed([pool.submit(run_one, j) for j in jobs]):
             m, g, a, fin, err = f.result()
             errs += bool(err)
             print(time.strftime('%H:%M:%S'), m, a, g, ('FAILED ' + err) if err else f'{fin}', flush=True)
