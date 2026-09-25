@@ -121,6 +121,7 @@ CELLS = {
     'E2cf1': dict(cfg={}, deploy='full', path='agents/mgt_lpv_cf1.py'),
     'E2rt15': dict(cfg={}, deploy='full', path='agents/mgt_lpv_rt15.py'),
     'E2rt30': dict(cfg={}, deploy='full', path='agents/mgt_lpv_rt30.py'),
+    'E2dep9': dict(cfg={}, deploy='full', path='agents/mgt_lpv_dep9.py'),
     'Gc27': dict(cfg={'plant_cutoff': {'STRAWBERRY': 13, 'TOMATO': 18, 'MELON': 19, 'WHEAT': 27, 'CARROT': 27}}),
     'E2h': dict(cfg={}, deploy='full', swap={'hires': 'leader'}),
     'E2p': dict(cfg={}, deploy='full', swap={'plan': 'leader'}),

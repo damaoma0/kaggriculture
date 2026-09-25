@@ -1175,3 +1175,15 @@ animal whose remaining production at today's price no longer covers feed + visit
 go. Synthetic check: cows on day 22 with milk at 30 get no FEED jobs with a 15 or 30 charge (the current default feeds
 them), and are fed at milk 90. Rough value: +0.4-0.9k a game from 2-3 extra retirements plus less selling into
 crashed markets (an estimate, not a measurement). Variants rt15 / rt30 on smoke + G1 after the tw0 / rs1 panels.
+
+## tw0 / rs1 full panels: ws2 adopted (2026-09-25)
+Kaggle pfrs (3 shards, 185 p2750 worlds), paired against the current default (tie_value; Q's `mgt_lpv_tievalff` =
+the default to the dollar):
+| build | vs current default (95% CI), better in | vs y3 | W-L |
+|---|---|---|---|
+| **tw0 = default + ws2 (hand_stock 1)** | **+983 (+334 .. +1,559), 121/185** | -13,934 | 13-172 |
+| rs1 = tw0 + sweep continuation | +889 (+211 .. +1,510), 110/185; vs tw0 -95 (-543 .. +364) | -14,029 | 17-168 |
+**Deploy default now hand_stock 1** (deploy only; mgt_lead.py keeps 0). The sweep bonus adds nothing on top (vs tw0 -95,
+n.s.). Deploy vs y3 on the full panel: ff1 -16,338 -> tie_value -14.9k (Q) -> ws2 -13,934. Egg 168 (160), wheat 352
+(345). Retirement variants rt15 / rt30 rebuilt on the new default; smoke (wtr11, with the new default's copy dep9 as the
+reproduction check against tw0) and G1 (g1u) running.
