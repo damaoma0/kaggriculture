@@ -20,3 +20,15 @@ Each fix: did it do its local job, where the money went, what undermines it. Non
 
 Labour-bound, re-test on top of the planner: 1, 5, 6 (animal-bonus part), 7 (COLLECT excluded), 10.
 Needing redesign rather than labour: 3 (flat fallback), 4 / 11 (fertilize + replant package), 8 (lists as additions), 9 (cohort matching).
+
+## Re-tests on top of Fhmrp (current T defaults), 52-world full games (kgr-xf9a/b, 2026-09-27)
+
+| test | own vs Fhmrp (t-CI), better | clean worlds | rival | margin | mechanism |
+|---|---|---:|---:|---:|---|
+| harvest package: wheat/carrot tendency + replant + fert_follow (items 1/4/11) | -918 (-1,481..-355), 16/52 | -899 | +841 | -1,759 | FERTILIZE +45 but wheat harvested -9 (carrots +8); fertilizer sold -35 (-1.1k), water -39, PASS +37. Age-3 harvest with the leader's fertilize dates does not reach the leader's units on our cohorts: the package fails like its parts |
+| busy penalty redesigned: COLLECT excluded, x0.65 only on FEED+CARE pairs (item 7) | -1,007 (-2,440..+426) | -1,164 | +1,791 | -2,955 | far milder than -6.3k (CARE -7, FEED -4, milk -6, strawberries -3); the freed upkeep time buys nothing. Labour-bound -> planner list |
+| delivery credit + flat fallback (item 3) | -184 (-608..+240) | -196 | -94 | -89 | inert: the flat trigger already covers what the credit adds |
+| fert_release alone (item 6) | -215 (-655..+226) | -223 | +450 | -673 | DROP +13, fertilizer held 29.0 -> 26.8 a night, but wheat -8 (extra deposit walks) |
+| leader maintenance lists as extra ops on sched_maint (item 8) | -2,231 (-3,682..-780) | -1,755 | +1,455 | -3,686 | water +55, FERTILIZE +26, CARE +19, wheat +30, but fertilizer sold -26, strawberries -8, milk -821, harvests -10, PASS -90: the extra maintenance fills every idle step and displaces harvests (distance-first dispatcher takes nearby upkeep before harvests). Labour-bound -> planner list |
+
+Common thread: every labour-using fix loses under the greedy dispatcher (see the day-11 dispatch diagnosis: per-step nearest-job matching, overlapping trips, 61% vs the leader's 81% adjacent successive job tiles). Re-test 2 and 5 on the planner / sector planner.
