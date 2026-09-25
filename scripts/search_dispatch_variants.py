@@ -11,6 +11,7 @@ Variants (settings from scripts/search_dispatch_run.py, the leader-world arms):
   v2a12  active, days 12-23 + V2      v2all  active, every day + V2
   v3a12  active, days 12-23 + V3      v3all  active, every day + V3
   v4a12  active, days 12-23 + V4      v4all  active, every day + V4 (measured credit)
+  v1a12d / v1a12d2  v1 a12 with deterministic budgets (evals 30000 / 8000; time caps 2 / 1 / 3 s as safety only)
 """
 import hashlib
 import json
@@ -22,6 +23,9 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 
 
+DET = dict(sd_evals0=30000, sd_evals=8000, sd_budget0=2.0, sd_budget=1.0, sd_step_cap=3.0)
+
+
 def settings():
     import search_dispatch_run as R
     return {
@@ -29,6 +33,10 @@ def settings():
         'v1a12': dict(dispatch_search='active', sd_days=[12, 23]),
         'v1all': dict(dispatch_search='active'),
         'v1fa12': dict(dispatch_search='active', sd_days=[12, 23], sd_surv_fb=20),
+        # deterministic budgets (coordinator 2026-09-25): the route-evaluation budgets bind, the wall-clock caps are safety
+        # only (time_capped counts every firing; the 60 s overage bank absorbs a rare slow step)
+        'v1a12d': dict(dispatch_search='active', sd_days=[12, 23], **DET),
+        'v1a12d2': dict(dispatch_search='active', sd_days=[12, 23], **DET),     # identical twin: reproducibility check
         'v2a12': dict(dispatch_search='active', sd_days=[12, 23], **R.V2),
         'v2all': dict(dispatch_search='active', **R.V2),
         'v3a12': dict(dispatch_search='active', sd_days=[12, 23], **R.V3),
