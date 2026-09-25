@@ -1,0 +1,599 @@
+{
+ "static": {
+  "lead": {
+   "out": "agents/mgt_lead_search.py",
+   "source": "agents/mgt_lead.py",
+   "source_sha256": "9e00c3a449c029988666d281a0b5c625ab99468f83dc31db53cbe98ff60b6545",
+   "compiles": true,
+   "inserted_blocks": [
+    {
+     "before_source_line": 2,
+     "lines": 4,
+     "first": "mgt_lead_search (2026-09-25, built by scripts/search_dispatch_build.py from agents/mgt_lead.py as of"
+    },
+    {
+     "before_source_line": 139,
+     "lines": 45,
+     "first": "# ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only; scripts/search_dispatch_block.py) ---"
+    },
+    {
+     "before_source_line": 858,
+     "lines": 2,
+     "first": "if CFG[\"dispatch_search\"] != \"off\":   # SEARCH DISPATCH HOOK 4"
+    },
+    {
+     "before_source_line": 1187,
+     "lines": 1,
+     "first": "_sd_run = _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs, shed, seeds,"
+    },
+    {
+     "before_source_line": 1256,
+     "lines": 5,
+     "first": "continue"
+    },
+    {
+     "before_source_line": 1463,
+     "lines": 2,
+     "first": "if _sd_run is not None:   # SEARCH DISPATCH HOOK 3"
+    },
+    {
+     "before_source_line": 1468,
+     "lines": 2,
+     "first": "if CFG[\"dispatch_search\"] != \"off\":   # SEARCH DISPATCH HOOK 5"
+    },
+    {
+     "before_source_line": 2403,
+     "lines": 60,
+     "first": "# ============================================================================================"
+    },
+    {
+     "before_source_line": 2404,
+     "lines": 1900,
+     "first": "_SD_SP = (\"GOOSE\", \"COW\", \"SHEEP\")"
+    }
+   ],
+   "deleted_or_replaced": 0
+  },
+  "deploy": {
+   "out": "agents/mgt_lpv_search.py",
+   "source": "agents/mgt_lead_deploy.py",
+   "source_sha256": "e33d0459486b947943109e664cae594136002f36392aefdcdebdffda2d778434",
+   "compiles": true,
+   "kaggle_loader_entry": "mgt_lead_deploy_agent",
+   "inserted_blocks": [
+    {
+     "before_source_line": 2,
+     "lines": 4,
+     "first": "mgt_lpv_search (2026-09-25, built by scripts/search_dispatch_build.py from agents/mgt_lead_deploy.py"
+    },
+    {
+     "before_source_line": 149,
+     "lines": 45,
+     "first": "# ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only; scripts/search_dispatch_block.py) ---"
+    },
+    {
+     "before_source_line": 1194,
+     "lines": 1,
+     "first": "_sd_run = _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs, shed, seeds,"
+    },
+    {
+     "before_source_line": 1263,
+     "lines": 5,
+     "first": "continue"
+    },
+    {
+     "before_source_line": 1470,
+     "lines": 2,
+     "first": "if _sd_run is not None:   # SEARCH DISPATCH HOOK 3"
+    },
+    {
+     "before_source_line": 3109,
+     "lines": 1962,
+     "first": "# ============================================================================================"
+    },
+    {
+     "before_source_line": 3112,
+     "lines": 2,
+     "first": "if CFG[\"dispatch_search\"] != \"off\":   # SEARCH DISPATCH HOOK 4"
+    },
+    {
+     "before_source_line": 3130,
+     "lines": 2,
+     "first": "if CFG[\"dispatch_search\"] != \"off\":   # SEARCH DISPATCH HOOK 5"
+    }
+   ],
+   "deleted_or_replaced": 0
+  }
+ },
+ "plans": [
+  {
+   "seed": 1,
+   "jobs": 81,
+   "real": 81,
+   "ops": 141,
+   "units": 13,
+   "plan_ms": 323.78,
+   "evals": 60525,
+   "errors": 0,
+   "greedy_errors": 0,
+   "plan": {
+    "busy": 232.0,
+    "value": 31041.1,
+    "jobs": 70,
+    "unplanned": 11,
+    "unplanned_value": 4400.0,
+    "obj": 61030.3,
+    "travel": 113,
+    "pickups": 5
+   },
+   "greedy": {
+    "busy": 225.0,
+    "value": 21242.0,
+    "jobs": 64,
+    "unplanned": 17,
+    "unplanned_value": 14199.2,
+    "obj": 41044.1,
+    "travel": 121,
+    "pickups": 1
+   },
+   "hard_unplanned": 0,
+   "preds": 0
+  },
+  {
+   "seed": 2,
+   "jobs": 57,
+   "real": 57,
+   "ops": 103,
+   "units": 13,
+   "plan_ms": 849.17,
+   "evals": 41199,
+   "errors": 0,
+   "greedy_errors": 0,
+   "plan": {
+    "busy": 202.0,
+    "value": 20122.4,
+    "jobs": 57,
+    "unplanned": 0,
+    "unplanned_value": 0,
+    "obj": 35035.8,
+    "travel": 99,
+    "pickups": 4
+   },
+   "greedy": {
+    "busy": 227.0,
+    "value": 19230.0,
+    "jobs": 53,
+    "unplanned": 4,
+    "unplanned_value": 892.4,
+    "obj": 34116.6,
+    "travel": 134,
+    "pickups": 0
+   },
+   "hard_unplanned": 0,
+   "preds": 0
+  },
+  {
+   "seed": 3,
+   "jobs": 85,
+   "real": 85,
+   "ops": 157,
+   "units": 13,
+   "plan_ms": 625.99,
+   "evals": 18147,
+   "errors": 0,
+   "greedy_errors": 0,
+   "plan": {
+    "busy": 255.0,
+    "value": 28803.0,
+    "jobs": 75,
+    "unplanned": 10,
+    "unplanned_value": 4000.0,
+    "obj": 48691.0,
+    "travel": 118,
+    "pickups": 2
+   },
+   "greedy": {
+    "busy": 263.0,
+    "value": 27705.3,
+    "jobs": 71,
+    "unplanned": 14,
+    "unplanned_value": 5097.6,
+    "obj": 47597.5,
+    "travel": 135,
+    "pickups": 2
+   },
+   "hard_unplanned": 0,
+   "preds": 0
+  },
+  {
+   "seed": 4,
+   "jobs": 56,
+   "real": 56,
+   "ops": 111,
+   "units": 13,
+   "plan_ms": 611.72,
+   "evals": 18593,
+   "errors": 0,
+   "greedy_errors": 0,
+   "plan": {
+    "busy": 226.0,
+    "value": 18888.2,
+    "jobs": 55,
+    "unplanned": 1,
+    "unplanned_value": 400.0,
+    "obj": 43855.6,
+    "travel": 117,
+    "pickups": 6
+   },
+   "greedy": {
+    "busy": 204.0,
+    "value": 15743.5,
+    "jobs": 46,
+    "unplanned": 10,
+    "unplanned_value": 3544.7,
+    "obj": 35641.4,
+    "travel": 119,
+    "pickups": 4
+   },
+   "hard_unplanned": 0,
+   "preds": 0
+  }
+ ],
+ "timing": [
+  {
+   "label": "~60",
+   "seed": 1,
+   "jobs0": 63,
+   "ops0": 107,
+   "units": 13,
+   "first_ms": 484.32,
+   "warm_mean": 306.7,
+   "warm_max": 336.24,
+   "step_max": 992.2464000992477,
+   "capped": 9,
+   "evals": 68288
+  },
+  {
+   "label": "~60",
+   "seed": 2,
+   "jobs0": 55,
+   "ops0": 102,
+   "units": 13,
+   "first_ms": 430.4,
+   "warm_mean": 289.3,
+   "warm_max": 318.49,
+   "step_max": 980.0282999640331,
+   "capped": 7,
+   "evals": 69682
+  },
+  {
+   "label": "~60",
+   "seed": 3,
+   "jobs0": 69,
+   "ops0": 123,
+   "units": 13,
+   "first_ms": 666.42,
+   "warm_mean": 242.4,
+   "warm_max": 259.94,
+   "step_max": 953.6983999423683,
+   "capped": 1,
+   "evals": 86008
+  },
+  {
+   "label": "~80",
+   "seed": 1,
+   "jobs0": 76,
+   "ops0": 134,
+   "units": 13,
+   "first_ms": 593.33,
+   "warm_mean": 276.8,
+   "warm_max": 313.18,
+   "step_max": 998.9463000092655,
+   "capped": 3,
+   "evals": 82722
+  },
+  {
+   "label": "~80",
+   "seed": 2,
+   "jobs0": 79,
+   "ops0": 132,
+   "units": 13,
+   "first_ms": 574.89,
+   "warm_mean": 251.6,
+   "warm_max": 277.91,
+   "step_max": 1005.5612999713048,
+   "capped": 1,
+   "evals": 82564
+  },
+  {
+   "label": "~80",
+   "seed": 3,
+   "jobs0": 91,
+   "ops0": 162,
+   "units": 13,
+   "first_ms": 655.63,
+   "warm_mean": 253.6,
+   "warm_max": 262.74,
+   "step_max": 999.635300016962,
+   "capped": 1,
+   "evals": 83765
+  },
+  {
+   "label": "~96",
+   "seed": 1,
+   "jobs0": 82,
+   "ops0": 150,
+   "units": 13,
+   "first_ms": 545.36,
+   "warm_mean": 290.7,
+   "warm_max": 307.76,
+   "step_max": 1014.3159000435844,
+   "capped": 5,
+   "evals": 78857
+  },
+  {
+   "label": "~96",
+   "seed": 2,
+   "jobs0": 78,
+   "ops0": 143,
+   "units": 13,
+   "first_ms": 350.13,
+   "warm_mean": 266.0,
+   "warm_max": 333.91,
+   "step_max": 1004.6686000423506,
+   "capped": 3,
+   "evals": 71428
+  },
+  {
+   "label": "~96",
+   "seed": 3,
+   "jobs0": 82,
+   "ops0": 145,
+   "units": 13,
+   "first_ms": 625.71,
+   "warm_mean": 249.6,
+   "warm_max": 273.16,
+   "step_max": 1010.6916000368074,
+   "capped": 1,
+   "evals": 84305
+  }
+ ],
+ "days": [
+  {
+   "seed": 1,
+   "shadow": {
+    "dropped": 7,
+    "dropped_value": 489,
+    "dropped_prod": 7,
+    "dropped_hard": 0,
+    "work": 117,
+    "moves": 161,
+    "moves_per_op": 1.376,
+    "shed_arrivals": 9,
+    "passes": 7,
+    "fb_unit": 0,
+    "fb": {
+     "pickup": 0,
+     "noop": 0,
+     "notask": 0
+    },
+    "idle": 0,
+    "errors": 0,
+    "last_error": "",
+    "step_max": 1067,
+    "plan_max": 577.55,
+    "jobs0": 83,
+    "ops0": 144,
+    "agree": [
+     73,
+     234
+    ]
+   },
+   "active": {
+    "dropped": 4,
+    "dropped_value": 182,
+    "dropped_prod": 4,
+    "dropped_hard": 0,
+    "work": 123,
+    "moves": 161,
+    "moves_per_op": 1.309,
+    "shed_arrivals": 4,
+    "passes": 10,
+    "fb_unit": 0,
+    "fb": {
+     "pickup": 0,
+     "noop": 0,
+     "notask": 0
+    },
+    "idle": 8,
+    "errors": 0,
+    "last_error": "",
+    "step_max": 997,
+    "plan_max": 581.18,
+    "jobs0": 83,
+    "ops0": 144,
+    "agree": [
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "seed": 2,
+   "shadow": {
+    "dropped": 5,
+    "dropped_value": 247,
+    "dropped_prod": 5,
+    "dropped_hard": 0,
+    "work": 102,
+    "moves": 178,
+    "moves_per_op": 1.745,
+    "shed_arrivals": 7,
+    "passes": 4,
+    "fb_unit": 0,
+    "fb": {
+     "pickup": 0,
+     "noop": 0,
+     "notask": 0
+    },
+    "idle": 0,
+    "errors": 0,
+    "last_error": "",
+    "step_max": 1061,
+    "plan_max": 639.8,
+    "jobs0": 61,
+    "ops0": 116,
+    "agree": [
+     54,
+     242
+    ]
+   },
+   "active": {
+    "dropped": 7,
+    "dropped_value": 851,
+    "dropped_prod": 7,
+    "dropped_hard": 0,
+    "work": 103,
+    "moves": 162,
+    "moves_per_op": 1.573,
+    "shed_arrivals": 8,
+    "passes": 19,
+    "fb_unit": 1,
+    "fb": {
+     "pickup": 0,
+     "noop": 1,
+     "notask": 0
+    },
+    "idle": 21,
+    "errors": 0,
+    "last_error": "",
+    "step_max": 985,
+    "plan_max": 628.47,
+    "jobs0": 61,
+    "ops0": 116,
+    "agree": [
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "seed": 3,
+   "shadow": {
+    "dropped": 10,
+    "dropped_value": 903,
+    "dropped_prod": 10,
+    "dropped_hard": 0,
+    "work": 114,
+    "moves": 167,
+    "moves_per_op": 1.465,
+    "shed_arrivals": 8,
+    "passes": 7,
+    "fb_unit": 0,
+    "fb": {
+     "pickup": 0,
+     "noop": 0,
+     "notask": 0
+    },
+    "idle": 0,
+    "errors": 0,
+    "last_error": "",
+    "step_max": 1104,
+    "plan_max": 624.28,
+    "jobs0": 86,
+    "ops0": 159,
+    "agree": [
+     43,
+     233
+    ]
+   },
+   "active": {
+    "dropped": 8,
+    "dropped_value": 500,
+    "dropped_prod": 8,
+    "dropped_hard": 0,
+    "work": 121,
+    "moves": 153,
+    "moves_per_op": 1.264,
+    "shed_arrivals": 4,
+    "passes": 20,
+    "fb_unit": 1,
+    "fb": {
+     "pickup": 0,
+     "noop": 1,
+     "notask": 0
+    },
+    "idle": 16,
+    "errors": 0,
+    "last_error": "",
+    "step_max": 1001,
+    "plan_max": 494.4,
+    "jobs0": 86,
+    "ops0": 159,
+    "agree": [
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "seed": 4,
+   "shadow": {
+    "dropped": 11,
+    "dropped_value": 603,
+    "dropped_prod": 11,
+    "dropped_hard": 0,
+    "work": 106,
+    "moves": 176,
+    "moves_per_op": 1.66,
+    "shed_arrivals": 8,
+    "passes": 0,
+    "fb_unit": 0,
+    "fb": {
+     "pickup": 0,
+     "noop": 0,
+     "notask": 0
+    },
+    "idle": 0,
+    "errors": 0,
+    "last_error": "",
+    "step_max": 1048,
+    "plan_max": 611.29,
+    "jobs0": 67,
+    "ops0": 123,
+    "agree": [
+     55,
+     239
+    ]
+   },
+   "active": {
+    "dropped": 3,
+    "dropped_value": 151,
+    "dropped_prod": 3,
+    "dropped_hard": 0,
+    "work": 121,
+    "moves": 162,
+    "moves_per_op": 1.339,
+    "shed_arrivals": 7,
+    "passes": 6,
+    "fb_unit": 2,
+    "fb": {
+     "pickup": 0,
+     "noop": 2,
+     "notask": 0
+    },
+    "idle": 10,
+    "errors": 0,
+    "last_error": "",
+    "step_max": 987,
+    "plan_max": 613.94,
+    "jobs0": 67,
+    "ops0": 123,
+    "agree": [
+     0,
+     0
+    ]
+   }
+  }
+ ]
+}

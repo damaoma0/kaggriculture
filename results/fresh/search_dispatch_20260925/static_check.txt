@@ -1,0 +1,42 @@
+agents/mgt_lead_search.py: compiles; diff vs results/fresh/search_dispatch_20260925/source/mgt_lead_9e00c3a4.py (2403 lines) -> 4424 lines: 9 inserted blocks, 2021 inserted lines, 0 deleted / replaced blocks
+   +     4 lines before source line 2: mgt_lead_search (2026-09-25, built by scripts/search_dispatch_build.py from agents/mgt_lead.py as of
+   +    45 lines before source line 139: # ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only; scripts/search_dispatch_block.py) ---
+   +     2 lines before source line 858: if CFG["dispatch_search"] != "off":   # SEARCH DISPATCH HOOK 4
+   +     1 lines before source line 1187: _sd_run = _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs, shed, seeds,
+   +     5 lines before source line 1256: continue
+   +     2 lines before source line 1463: if _sd_run is not None:   # SEARCH DISPATCH HOOK 3
+   +     2 lines before source line 1468: if CFG["dispatch_search"] != "off":   # SEARCH DISPATCH HOOK 5
+   +    60 lines before source line 2403: # ============================================================================================
+   +  1900 lines before source line 2404: _SD_SP = ("GOOSE", "COW", "SHEEP")
+agents/mgt_lpv_search.py: compiles; diff vs results/fresh/search_dispatch_20260925/source/mgt_lead_deploy_e33d0459.py (3131 lines) -> 5154 lines: 8 inserted blocks, 2023 inserted lines, 0 deleted / replaced blocks; Kaggle loader entry mgt_lead_deploy_agent
+   +     4 lines before source line 2: mgt_lpv_search (2026-09-25, built by scripts/search_dispatch_build.py from agents/mgt_lead_deploy.py
+   +    45 lines before source line 149: # ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only; scripts/search_dispatch_block.py) ---
+   +     1 lines before source line 1194: _sd_run = _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs, shed, seeds,
+   +     5 lines before source line 1263: continue
+   +     2 lines before source line 1470: if _sd_run is not None:   # SEARCH DISPATCH HOOK 3
+   +  1962 lines before source line 3109: # ============================================================================================
+   +     2 lines before source line 3112: if CFG["dispatch_search"] != "off":   # SEARCH DISPATCH HOOK 4
+   +     2 lines before source line 3130: if CFG["dispatch_search"] != "off":   # SEARCH DISPATCH HOOK 5
+
+== synthetic day-12 plans (hour 1, 13 units)
+seed 1: 81 jobs (141 ops, 0 predicted), 13 units, plan 324 ms / 60525 evals | verifier errors 0 (greedy sim 0) | busy steps plan 232.0 vs greedy 225.0 (+3.1%), travel 113 vs 121, value 31041 vs 21242, unplanned 11 (4400) vs 17 (14199), hard unplanned 0
+seed 2: 57 jobs (103 ops, 0 predicted), 13 units, plan 849 ms / 41199 evals | verifier errors 0 (greedy sim 0) | busy steps plan 202.0 vs greedy 227.0 (-11.0%), travel 99 vs 134, value 20122 vs 19230, unplanned 0 (0) vs 4 (892), hard unplanned 0
+seed 3: 85 jobs (157 ops, 0 predicted), 13 units, plan 626 ms / 18147 evals | verifier errors 0 (greedy sim 0) | busy steps plan 255.0 vs greedy 263.0 (-3.0%), travel 118 vs 135, value 28803 vs 27705, unplanned 10 (4000) vs 14 (5098), hard unplanned 0
+seed 4: 56 jobs (111 ops, 0 predicted), 13 units, plan 612 ms / 18593 evals | verifier errors 0 (greedy sim 0) | busy steps plan 226.0 vs greedy 204.0 (+10.8%), travel 117 vs 119, value 18888 vs 15743, unplanned 1 (400) vs 10 (3545), hard unplanned 0
+
+== planner time on synthetic days (first plan = hour 1; then 8 warm steps with the plan executed)
+  ~60 jobs (seed 1): 63 jobs / 107 ops, first plan 484 ms, warm mean 306.7 ms max 336.24 ms, whole step max 992 ms, time-capped 9 of 9
+  ~60 jobs (seed 2): 55 jobs / 102 ops, first plan 430 ms, warm mean 289.3 ms max 318.49 ms, whole step max 980 ms, time-capped 7 of 9
+  ~60 jobs (seed 3): 69 jobs / 123 ops, first plan 666 ms, warm mean 242.4 ms max 259.94 ms, whole step max 954 ms, time-capped 1 of 9
+  ~80 jobs (seed 1): 76 jobs / 134 ops, first plan 593 ms, warm mean 276.8 ms max 313.18 ms, whole step max 999 ms, time-capped 3 of 9
+  ~80 jobs (seed 2): 79 jobs / 132 ops, first plan 575 ms, warm mean 251.6 ms max 277.91 ms, whole step max 1006 ms, time-capped 1 of 9
+  ~80 jobs (seed 3): 91 jobs / 162 ops, first plan 656 ms, warm mean 253.6 ms max 262.74 ms, whole step max 1000 ms, time-capped 1 of 9
+  ~96 jobs (seed 1): 82 jobs / 150 ops, first plan 545 ms, warm mean 290.7 ms max 307.76 ms, whole step max 1014 ms, time-capped 5 of 9
+  ~96 jobs (seed 2): 78 jobs / 143 ops, first plan 350 ms, warm mean 266.0 ms max 333.91 ms, whole step max 1005 ms, time-capped 3 of 9
+  ~96 jobs (seed 3): 82 jobs / 145 ops, first plan 626 ms, warm mean 249.6 ms max 273.16 ms, whole step max 1011 ms, time-capped 1 of 9
+
+== synthetic single days (day 12, hours 1-23): greedy (shadow) vs planner (active), same start
+seed 1: 83 jobs / 144 ops | dropped at 23h: greedy 7 (489) vs planner 4 (182); production 7 vs 4; hard 0 vs 0 | tile ops 117 vs 123 | moves/op 1.376 vs 1.309 | shed arrivals 9 vs 4 | planner fallbacks 0 {'pickup': 0, 'noop': 0, 'notask': 0} idle 8 errors 0  | step max 1067 / 997 ms | shadow agreement 73/234
+seed 2: 61 jobs / 116 ops | dropped at 23h: greedy 5 (247) vs planner 7 (851); production 5 vs 7; hard 0 vs 0 | tile ops 102 vs 103 | moves/op 1.745 vs 1.573 | shed arrivals 7 vs 8 | planner fallbacks 1 {'pickup': 0, 'noop': 1, 'notask': 0} idle 21 errors 0  | step max 1061 / 985 ms | shadow agreement 54/242
+seed 3: 86 jobs / 159 ops | dropped at 23h: greedy 10 (903) vs planner 8 (500); production 10 vs 8; hard 0 vs 0 | tile ops 114 vs 121 | moves/op 1.465 vs 1.264 | shed arrivals 8 vs 4 | planner fallbacks 1 {'pickup': 0, 'noop': 1, 'notask': 0} idle 16 errors 0  | step max 1104 / 1001 ms | shadow agreement 43/233
+seed 4: 67 jobs / 123 ops | dropped at 23h: greedy 11 (603) vs planner 3 (151); production 11 vs 3; hard 0 vs 0 | tile ops 106 vs 121 | moves/op 1.66 vs 1.339 | shed arrivals 8 vs 7 | planner fallbacks 2 {'pickup': 0, 'noop': 2, 'notask': 0} idle 10 errors 0  | step max 1048 / 987 ms | shadow agreement 55/239
