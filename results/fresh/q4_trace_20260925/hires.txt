@@ -1,0 +1,9 @@
+mgt_lpv_q4 vs mgt_lpv_dep6: hands present per day (max over the day), mean of 12 worlds; implied wage = sum fib(0..h-1)
+day      0     1     2     3     4     5     6     7     8     9    10    11    12    13    14    15    16    17    18    19    20    21    22    23    24    25    26    27    28    29
+lpv_q4  5.0   5.0   7.0   7.0   7.0   7.0   9.0   9.8  10.0  11.0  13.0  12.3  12.8  12.9  12.9  12.9  12.8  13.0  13.0  13.0  13.0  12.8  12.8  12.5  12.5  12.2  12.0  11.7  10.9  10.0
+v_dep6  5.0   5.0   7.0   7.0   7.0   7.0   9.0   9.8  10.0  11.0  13.0  12.3  12.0  12.0  11.9  11.9  11.9  11.9  11.9  11.9  11.9  11.9  11.9  11.9  11.9  11.9  11.7  11.0  10.7   9.8
+delta +0.0  +0.0  +0.0  +0.0  +0.0  +0.0  +0.0  +0.0  +0.0  +0.0  +0.0  +0.0  +0.8  +0.9  +1.0  +1.0  +0.9  +1.1  +1.1  +1.1  +1.1  +0.9  +0.8  +0.6  +0.6  +0.3  +0.3  +0.7  +0.2  +0.2
+extra hand-days by hire index (+ = with-SE hired it, - = baseline only), per game: hand #10: 0.25 (fib 55), hand #11: 0.33 (fib 89), hand #12: 2.00 (fib 144), hand #13: 11.17 (fib 233), hand #10 (baseline only): 0.08 (fib 55)
+implied extra wage per game 2,929; panel HIRE spend delta 2,929
+  mgt_lpv_q4: implied wages 10,819 vs panel HIRE 10,819
+  mgt_lpv_dep6: implied wages 7,890 vs panel HIRE 7,890

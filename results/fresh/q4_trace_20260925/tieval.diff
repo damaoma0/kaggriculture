@@ -1,0 +1,26 @@
+# tieval: value-aware tie-break in the executor's greedy dispatcher (q4 thread, 2026-09-25)
+# Unified diff against the CURRENT agents/mgt_lead_deploy.py (sha256 959740a1a16d4ad086b10d2480b2f3e7f2e22b057d21bcc4878ad82f2503ee8a, read 09:37).
+# One added line in the greedy loop (`while free: best = None; for u in free: for idx in tasks: ...`):
+# after line 1031 `c = cost2(u, idx)` and lines 1032-1033 `if c is None: continue`; the new line becomes 1034.
+# S['tval'][idx] = (value of the tile's jobs today, deadline), set in _tile_ops / the task loop; costs lie on a 0.5 grid
+# and the term is <= 0.4, so only ties change.
+# MEASURED on the earlier deploy snapshot sha256 2d9dc60bef6705954e6508527530dd6f928ebe6232781284089324fca1e297c1
+# (fert_hold 1, cap_guard 0; before E1 added hand_stock / cap_deliver) as agents/mgt_lpv_tievalff.py:
+#   full p2750 panel vs mgt_lpv_ff1 +1,420/game (t CI +513..+2,328), 124/61 (excl. 3 broken-tape worlds +1,309, +398..+2,221);
+#   G1 0.902/0.892/0.885 vs 0.881/0.873/0.865. Control (same line x0) = mgt_lpv_ff1 to the dollar on 3/3 smoke worlds.
+--- a/agents/mgt_lead_deploy.py
++++ b/agents/mgt_lead_deploy.py
+@@ -1028,12 +1028,13 @@
+             for idx in tasks:
+                 if idx in taken:
+                     continue
+                 c = cost2(u, idx)
+                 if c is None:
+                     continue
++                c = c + (-min(4000.0, S['tval'].get(idx, (0.0, 23))[0]) * 1e-4)   # value-aware tie-break: equal-cost tasks go to the tile worth most today (q4 thread, 2026-09-25)
+                 if best is None or c < best[0]:
+                     best = (c, u, idx)
+         if best is None:
+             break
+         _, u, idx = best
+         assign[u] = idx

@@ -1,0 +1,92 @@
+mgt_lpv_q4 vs mgt_lpv_dep6: 12 paired worlds (C:\Users\xyygl\Documents\kaggriculture\results\fresh\lead_cycles)
+  mgt_lpv_q4: traced run = plain ladder-panel run in 12/12 worlds (own and rival cash)
+  mgt_lpv_dep6: traced run = plain ladder-panel run in 12/12 worlds (own and rival cash)
+
+== decomposition of d margin per game, mean (t 95% CI)
+  spend: land                                                  -4,000 (-4,000 .. -4,000)
+  spend: seeds for SE plantings                                -1,158 (-1,232 .. -1,083)
+  spend: seeds, rest                                           -142 (-241 .. -43)
+  spend: animals placed on SE                                  -100 (-194 .. -6)
+  spend: animals, rest                                         -342 (-606 .. -77)
+  spend: wages                                                 -2,929 (-3,371 .. -2,486)
+  spend: bought wheat / fertilizer                             -164 (-405 .. +77)
+  income: SE output (all products)                             +11,761 (+10,762 .. +12,760)
+  income: other quadrants output change (all products)         -7,057 (-9,065 .. -5,049)
+  income: harvested-not-sold change (feed / stock / unsold)    -2,753 (-4,634 .. -871)
+  income: fertilizer volume (collected - used - held)          -2,559 (-3,522 .. -1,595)
+  price: our units (price change on baseline units)            +2,714 (+1,254 .. +4,173)
+  rival: price effect (its baseline units)                     -1,934 (-3,053 .. -814)
+  rival: volume / spend change                                 +176 (-11 .. +363)
+  sum of lines                                                 -8,484 (-11,931 .. -5,038)
+  residual (d margin - sum)                                    +0.00 (-0.00 .. +0.00)
+  MEASURED d margin                                            -8,484 (-11,931 .. -5,038)
+    d own cash / d rival cash                                  -6,727 (-9,432 .. -4,023) / +1,757 (+601 .. +2,914)
+
+== by product: SE output | other-quadrant change | harvested-not-sold | our price effect (per game)
+  WHEAT         +6,467 |   -3,192 |     -684 |     -481
+  CARROT          +374 |     +303 |     -158 |      +15
+  TOMATO        +1,475 |     +199 |     -119 |     -233
+  STRAWBERRY    +1,944 |     -328 |     -976 |     +680
+  MELON           +908 |     -665 |      -47 |     -166
+  EGG             +592 |   -2,188 |     -243 |     +193
+  MILK              +0 |     -659 |     -352 |     +899
+  WOOL              +0 |     -526 |     -175 |     +360
+  FERTILIZER        +0 |       +0 |       +0 |   +1,446
+  rival by product (price / volume): wheat +794 / +0, carrot +52 / +0, tomato +288 / +0, strawberry -1,207 / +0, melon -103 / +0, egg -25 / +0, milk -420 / +0, wool -323 / +0, fertilizer -990 / +0
+
+== units per game: harvested on SE (with-SE) | other quadrants with-SE vs baseline all | sold with-SE vs baseline
+  WHEAT       SE  183.4 | other  550.8 vs  641.6: d -90.8 (-118.9 .. -62.7) | sold  396.6 vs  325.2
+  CARROT      SE    8.5 | other   36.9 vs   27.5: d +9.4 (-3.4 .. +22.2) | sold   39.3 vs   25.8
+  TOMATO      SE   18.1 | other   53.5 vs   49.7: d +3.8 (-4.1 .. +11.7) | sold   73.2 vs   53.1
+  STRAWBERRY  SE   12.0 | other  152.8 vs  153.8: d -1.0 (-12.3 .. +10.3) | sold  156.2 vs  152.8
+  MELON       SE    5.2 | other   69.0 vs   72.3: d -3.3 (-10.8 .. +4.2) | sold   74.0 vs   72.3
+  EGG         SE   10.9 | other  121.6 vs  162.0: d -40.4 (-64.2 .. -16.6) | sold  128.9 vs  163.2
+  MILK        SE    0.0 | other  214.8 vs  218.2: d -3.4 (-10.2 .. +3.3) | sold  210.6 vs  217.0
+  WOOL        SE    0.0 | other  125.0 vs  128.2: d -3.2 (-7.3 .. +0.9) | sold  123.2 vs  128.1
+  FERTILIZER  sold 198.3 vs 242.6
+
+== crops on the other three quadrants: plantings | died | units harvested | units per planting (with-SE vs baseline)
+  WHEAT       plant 124.9 vs 136.2 (-11.2 (-16.0 .. -6.5)) | died 11.2 vs  7.8 | units  550.8 vs  641.6 | upp 4.41 vs 4.71 || SE: plant 51.0, died 11.2, units 183.4, upp 3.60
+  CARROT      plant  13.3 vs   8.6 (+4.8 (+1.4 .. +8.1)) | died  2.1 vs  0.4 | units   36.9 vs   27.5 | upp 2.77 vs 3.20 || SE: plant 3.6, died 0.8, units 8.5, upp 2.37
+  TOMATO      plant  10.3 vs   8.7 (+1.7 (+0.6 .. +2.7)) | died 10.2 vs  8.3 | units   53.5 vs   49.7 | upp 5.18 vs 5.73 || SE: plant 4.1, died 4.0, units 18.1, upp 4.43
+  STRAWBERRY  plant  22.3 vs  21.8 (+0.6 (-0.6 .. +1.8)) | died 21.8 vs 21.4 | units  152.8 vs  153.8 | upp 6.84 vs 7.07 || SE: plant 2.9, died 2.7, units 12.0, upp 4.11
+  MELON       plant  12.0 vs  12.9 (-0.9 (-2.0 .. +0.2)) | died  0.2 vs  0.5 | units   69.0 vs   72.3 | upp 5.75 vs 5.60 || SE: plant 1.0, died 0.1, units 5.2, upp 5.25
+
+== animals by quadrant group: animal-days | fed share | lost | output per animal-day (with-SE vs baseline)
+  GOOSE  other: days   74.4 vs   98.9, fed 89.8% vs 90.1%, lost 0.08 vs 0.08, out/day 1.634 vs 1.638 || SE: days 6.2, fed 94.6%, lost 0.00, out/day 1.770
+  COW    other: days  208.2 vs  207.1, fed 75.1% vs 75.9%, lost 0.08 vs 0.08, out/day 1.032 vs 1.054 || SE: days 0.0, fed 0.0%, lost 0.00, out/day 0.000
+  SHEEP  other: days  127.2 vs  126.6, fed 79.5% vs 80.9%, lost 3.50 vs 3.58, out/day 0.982 vs 1.013 || SE: days 0.0, fed 0.0%, lost 0.00, out/day 0.000
+
+== labour unit-steps per game by quadrant (ops + walking charged to the next op), with-SE vs baseline
+  NW    total  2190.8 vs  2309.3 (-119 (-154 .. -83)): BUILD_COOP 0/1, BUILD_PASTURE 5/5, CARE 111/122, COLLECT_FERTILIZER 145/153, DIG 10/10, FEED 122/135, FERTILIZE 59/61, HARVEST 156/167, PLACE 5/6, PLANT 71/73, WATER 377/383, walk 1129/1193
+  NE    total  1871.7 vs  2014.5 (-143 (-193 .. -93)): BUILD_COOP 2/2, BUILD_PASTURE 8/8, CARE 143/146, COLLECT_FERTILIZER 171/172, DIG 11/9, FEED 156/159, FERTILIZE 43/47, HARVEST 143/153, PLACE 9/9, PLANT 51/54, WATER 228/246, walk 909/1010
+  SW    total  1164.3 vs  1266.1 (-102 (-140 .. -63)): BUILD_COOP 2/3, BUILD_PASTURE 2/1, CARE 54/63, COLLECT_FERTILIZER 65/70, DIG 10/8, FEED 58/68, FERTILIZE 42/42, HARVEST 104/118, PLACE 4/4, PLANT 61/61, WATER 249/254, walk 514/574
+  SE    total   813.4 vs     0.0 (+813 (+767 .. +860)): BUILD_COOP 0/0, BUILD_PASTURE 0/0, CARE 6/0, COLLECT_FERTILIZER 6/0, DIG 11/0, FEED 6/0, FERTILIZE 37/0, HARVEST 63/0, PLACE 0/0, PLANT 63/0, WATER 239/0, walk 382/0
+  shed  total  1009.7 vs   994.8 (+15 (-22 .. +52)): DROP 88/87, PICKUP 343/330, PLACE 118/112, walk 461/466
+  other total  1100.7 vs  1265.1 (-164 (-207 .. -122)): PASS 662/794, walk_unattributed 438/471
+  hand-days (max hands present per day, summed) 326.8 vs 313.2: +13.7 (+11.3 .. +16.1)
+     days  0- 9: +0.0 (+0.0 .. +0.0)
+     days 10-11: +0.0 (+0.0 .. +0.0)
+     days 12-17: +5.7 (+4.5 .. +6.8)
+     days 18-23: +5.6 (+4.5 .. +6.7)
+     days 24-29: +2.4 (+1.4 .. +3.4)
+
+== dropped maintenance value at 23h (idle trace, module coins), per game, with-SE vs baseline
+  NW:   1,752 vs     828 (+925 (+464 .. +1,386)); by cmd CARE 152/127, COLLECT_FERTILIZER 101/83, FEED 50/60, FERTILIZE 610/243, HARVEST 313/85, WATER 528/230
+  NE:  11,499 vs   7,692 (+3,807 (+1,028 .. +6,585)); by cmd CARE 2,444/1,896, COLLECT_FERTILIZER 1,017/624, FEED 4,147/2,872, FERTILIZE 891/416, HARVEST 1,324/674, WATER 1,675/1,210
+  SW:   7,153 vs   6,232 (+921 (-190 .. +2,032)); by cmd CARE 114/113, COLLECT_FERTILIZER 45/67, FEED 49/52, FERTILIZE 1,461/1,530, HARVEST 1,919/1,430, WATER 3,565/3,040
+  SE:   7,458 vs       0 (+7,458 (+6,300 .. +8,616)); by cmd CARE 4/0, FERTILIZE 1,428/0, HARVEST 2,084/0, WATER 3,941/0
+
+== per world: d margin | land | wages | seeds | SE output | other quadrants | not-sold | fert | our price | rival
+  110937191  -14,979 | -4,000 | -1,165 | -1,260 |  +9,480 | -11,567 | -5,035 | -3,876 | +7,852 | -4,658
+  111374151   -8,294 | -4,000 | -3,173 | -1,350 | +11,178 |  -8,372 | -1,863 |   -229 | +1,781 | -1,837
+  111376633     -720 | -4,000 | -3,228 | -1,280 | +12,728 |    -702 | -1,398 | -1,963 | -1,247 | +1,367
+  111416249   -2,381 | -4,000 | -3,029 | -1,340 | +12,314 |  -5,462 |   +930 | -3,219 |   +425 | +1,000
+  111554912   -6,210 | -4,000 | -3,969 | -1,240 | +14,626 |  -6,325 | -2,048 | -2,237 | +1,020 | -1,623
+  111577649   -4,823 | -4,000 | -2,940 | -1,220 | +12,661 | -10,182 | +2,005 | -1,697 | +3,381 | -1,718
+  111681195   -7,528 | -4,000 | -3,029 | -1,490 | +12,139 |  -6,365 | -2,833 | -3,947 | +3,455 | -1,302
+  111688786  -10,315 | -4,000 | -3,372 | -1,510 | +13,470 |  -5,901 | -6,008 | -1,536 | +1,982 | -2,326
+  111871547   -6,547 | -4,000 | -3,084 | -1,130 |  +9,659 |  -4,479 | -2,068 | -3,038 | +4,186 | -2,038
+  111902048  -11,581 | -4,000 | -2,097 | -1,240 | +11,225 |  -9,234 |   -672 | -4,041 | +3,910 | -4,662
+  111916514   -7,819 | -4,000 | -3,173 |   -970 | +11,799 |  -4,937 | -6,830 |   -109 | +1,964 |   -758
+  111941962  -20,617 | -4,000 | -2,885 | -1,560 |  +9,858 | -11,160 | -7,214 | -4,815 | +3,855 | -2,532

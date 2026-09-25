@@ -1,0 +1,44 @@
+== mgt_lpv_dep6: THIRD quadrant, 12 worlds; unlocked on day-start 10.0 (range 10-10)
+
+1. tile states per day start (mean tiles of 25)
+day            crop         animal empty structur           weed empty: never u empty: after h empty: after d empty: animal    empty: other
+ 10             9.0            1.7            0.5            0.1           13.8            0.0            0.0            0.0            0.0
+ 11            18.3            3.2            0.2            0.0            3.2            0.0            0.0            0.0            0.0
+ 12            19.2            3.8            0.5            0.0            1.5            0.0            0.0            0.0            0.0
+ 13            20.2            3.8            0.5            0.0            0.4            0.1            0.0            0.0            0.0
+ 14            19.8            3.8            0.5            0.0            0.2            0.7            0.0            0.0            0.0
+ 15            19.1            3.9            0.4            0.3            0.2            1.1            0.0            0.0            0.0
+ 16            19.5            3.9            0.4            0.8            0.1            0.3            0.0            0.0            0.0
+ 17            19.7            3.9            0.4            0.3            0.1            0.6            0.0            0.0            0.0
+ 18            19.0            3.9            0.4            0.4            0.1            1.1            0.1            0.0            0.0
+ 19            18.8            3.9            0.4            0.6            0.1            1.1            0.1            0.0            0.0
+ 20            19.1            3.9            0.4            0.6            0.1            0.8            0.1            0.0            0.0
+ 21            19.0            4.0            0.3            1.0            0.1            0.4            0.2            0.0            0.0
+ 22            18.2            4.1            0.2            1.5            0.1            0.8            0.0            0.0            0.0
+ 23            17.4            4.1            0.2            2.5            0.1            0.7            0.0            0.0            0.0
+ 24            17.4            4.1            0.2            2.5            0.1            0.7            0.0            0.0            0.0
+ 25            18.2            4.1            0.2            1.7            0.1            0.8            0.0            0.0            0.0
+ 26            17.0            4.1            0.2            1.9            0.1            1.7            0.0            0.0            0.0
+ 27            12.9            4.1            0.2            3.3            0.1            4.3            0.0            0.0            0.0
+ 28             8.1            4.1            0.2            5.8            0.1            6.7            0.0            0.0            0.0
+ 29             5.4            4.1            0.2            6.2            0.1            8.9            0.0            0.0            0.0
+tile-days per game: crop 335.3, animal 76.6, (empty/weed on days 27-29, past every cutoff) 36.3, empty: after harvest 30.7, weed 29.6, empty: never used since unlock 20.3, empty structure 7.1, empty: after death / weed cleared 0.4
+
+2. plantings on the quadrant by source and crop, per game
+  plan (days <= 11)                    wheat 12.0, tomato 3.8, strawberry 2.6, carrot 0.8  (total 19.2)
+  count model: same-day replant        wheat 23.2, carrot 2.1  (total 25.2)
+  count model: compose (day >= 12)     wheat 11.0, tomato 2.2, carrot 1.2, melon 1.0, strawberry 0.8  (total 16.2)
+
+3. dropped maintenance value at 23h by quadrant and op (module coins per game; kind = the module job kind)
+  first  total     828: FERTILIZE 243, WATER 230, CARE 127, HARVEST 85, COLLECT_FERTILIZER 83, FEED 60 | executed ops WATER 383, HARVEST 167, FERTILIZE 61, FEED 135, CARE 122, COLLECT_FERTILIZER 153, PLANT 73
+         by op/kind: FERTILIZE/bonus 243, CARE/bank 127, WATER/bonus 118, WATER/production 112, COLLECT_FERTILIZER/production 83, HARVEST/harvest 58, FEED/production 33, HARVEST/endoflife 28
+  second total   7,692: FEED 2,872, CARE 1,896, WATER 1,210, HARVEST 674, COLLECT_FERTILIZER 624, FERTILIZE 416 | executed ops WATER 246, HARVEST 153, FERTILIZE 47, FEED 159, CARE 146, COLLECT_FERTILIZER 172, PLANT 54
+         by op/kind: FEED/production 2,044, CARE/bank 1,896, WATER/bonus 631, COLLECT_FERTILIZER/production 623, FEED/bank 503, HARVEST/harvest 454, WATER/production 419, FERTILIZE/bonus 416
+  third  total   6,232: WATER 3,040, FERTILIZE 1,530, HARVEST 1,430, CARE 113, COLLECT_FERTILIZER 67, FEED 52 | executed ops WATER 254, HARVEST 118, FERTILIZE 42, FEED 68, CARE 63, COLLECT_FERTILIZER 70, PLANT 61
+         by op/kind: FERTILIZE/bonus 1,530, WATER/bonus 1,382, HARVEST/harvest 1,126, WATER/production 1,086, WATER/survival 572, HARVEST/endoflife 303, CARE/bank 113, COLLECT_FERTILIZER/production 67
+
+4. animals on the quadrant per day start (mean tiles)
+  goose   1.2  2.1  2.4  2.4  2.4  2.5  2.5  2.5  2.5  2.5  2.5  2.6  2.7  2.7  2.7  2.7  2.7  2.7  2.7  2.7   (animal-days 50)
+  cow     0.4  1.2  1.4  1.4  1.4  1.4  1.4  1.4  1.4  1.4  1.4  1.4  1.4  1.4  1.4  1.4  1.4  1.4  1.4  1.4   (animal-days 27)
+  sheep   0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0  0.0   (animal-days 0)
+         days   10   11   12   13   14   15   16   17   18   19   20   21   22   23   24   25   26   27   28   29

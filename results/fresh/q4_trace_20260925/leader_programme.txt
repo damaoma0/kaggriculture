@@ -1,0 +1,68 @@
+540 games
+
+== SE purchase and first SE planting (days)
+DSM    SE in 100/100; buy day {10: 100}; first SE planting minus buy day {0: 100}
+DECEM  SE in 100/100; buy day {10: 98, 11: 2}; first SE planting minus buy day {0: 99, 1: 1}
+Vadim  SE in  96/100; buy day {10: 95, 11: 1}; first SE planting minus buy day {0: 94, 1: 2}
+MG     SE in  59/100; buy day {10: 58, 11: 1}; first SE planting minus buy day {0: 57, 1: 2}
+MMPQ   SE in   0/100; buy day {}; first SE planting minus buy day {}
+Boey   SE in   0/40; buy day {}; first SE planting minus buy day {}
+
+== SE tile-days per game by use, per window (SE-buying games; 25 tiles x days in window)
+DSM (n=100)
+   days 10-11: L 25.0, . 17.1, WH 5.1, ST 1.5, CA 0.7, TO 0.3, go 0.3, sh 0.1, co 0.1  (total 50)
+   days 12-17: WH 60.6, . 37.6, ST 22.6, TO 12.4, CA 10.5, sh 3.1, go 1.8, co 1.4, pa 0.0  (total 150)
+   days 18-23: WH 47.3, . 31.7, ST 27.3, TO 20.6, CA 14.3, sh 5.1, co 1.9, go 1.8, pa 0.0  (total 150)
+   days 24-29: . 51.4, WH 38.2, ST 21.7, CA 21.6, TO 8.5, sh 4.1, co 1.8, go 1.7, pa 1.0  (total 150)
+DECEM (n=100)
+   days 10-11: L 25.5, . 18.3, WH 4.6, CA 0.5, ST 0.5, go 0.4, co 0.1, sh 0.1, TO 0.1  (total 50)
+   days 12-17: WH 54.3, . 51.2, ST 15.7, TO 10.9, CA 9.8, sh 3.7, go 2.6, co 1.7, pa 0.0  (total 150)
+   days 18-23: WH 45.4, . 34.8, TO 22.4, ST 21.0, CA 15.8, sh 5.9, go 2.6, co 1.9, pa 0.1  (total 150)
+   days 24-29: . 53.8, WH 37.5, CA 20.6, ST 18.3, TO 10.1, sh 4.3, go 2.3, co 1.9, pa 1.2  (total 150)
+Vadim (n=96)
+   days 10-11: L 25.3, . 18.0, WH 4.4, CA 1.0, ST 0.8, TO 0.2, go 0.2, sh 0.1, co 0.0  (total 50)
+   days 12-17: WH 60.0, . 42.9, ST 16.9, CA 14.9, TO 9.5, sh 3.3, go 1.2, co 1.2  (total 150)
+   days 18-23: WH 52.1, . 33.2, ST 21.9, CA 18.8, TO 15.1, sh 5.9, co 1.6, go 1.3, pa 0.1  (total 150)
+   days 24-29: . 51.1, WH 45.1, CA 21.7, ST 18.2, TO 5.4, sh 4.8, co 1.4, go 1.2, pa 1.0  (total 150)
+MG (n=59)
+   days 10-11: L 25.4, . 20.0, WH 3.7, ST 0.3, CA 0.3, go 0.1, co 0.1, sh 0.1, TO 0.0  (total 50)
+   days 12-17: WH 69.1, . 56.1, ST 10.4, TO 7.3, CA 4.2, sh 2.2, go 0.5, co 0.2  (total 150)
+   days 18-23: WH 65.3, . 39.1, TO 15.5, ST 14.7, CA 10.7, sh 4.1, go 0.5, co 0.1, pa 0.0  (total 150)
+   days 24-29: . 54.6, WH 51.5, CA 19.2, ST 12.9, TO 7.3, sh 3.3, pa 0.5, go 0.5, co 0.1  (total 150)
+
+== SE plantings per game by crop and window
+DSM    10-11: WH 9.9, ST 2.3, CA 1.4, TO 0.9 | 12-17: WH 16.0, CA 4.4, TO 2.6, ST 2.4 | 18-23: WH 13.4, CA 5.7, TO 0.3 | 24-29: WH 6.9, CA 5.4 || total WH 46.2, CA 16.8, ST 4.7, TO 3.9
+DECEM  10-11: WH 8.8, ST 1.2, CA 1.1, TO 0.2 | 12-17: WH 14.4, CA 4.5, TO 3.7, ST 2.4 | 18-23: WH 12.9, CA 5.8, TO 0.1, ST 0.0 | 24-29: WH 7.0, CA 5.4, TO 0.0 || total WH 43.2, CA 16.8, TO 4.1, ST 3.6
+Vadim  10-11: WH 8.5, CA 2.0, ST 1.3, TO 0.5 | 12-17: WH 16.9, CA 5.9, ST 2.5, TO 2.2 | 18-23: WH 14.9, CA 6.5, TO 0.1 | 24-29: WH 7.5, CA 5.4 || total WH 47.8, CA 19.8, ST 3.9, TO 2.7
+MG     10-11: WH 8.3, ST 0.6, CA 0.4, TO 0.0 | 12-17: WH 20.4, TO 2.6, CA 2.2, ST 1.9 | 18-23: WH 18.4, CA 4.7, TO 0.2 | 24-29: WH 9.0, CA 4.8 || total WH 56.0, CA 12.1, TO 2.9, ST 2.5
+
+== SE tile ops per game (took effect) and share of all tile ops
+DSM    SE ops 517 of 3162 (16.4%): PLANT 72/296, HARVEST 94/587, WATER 268/1290, FEED 19/379, CARE 19/374, FERTILIZE 45/237
+DECEM  SE ops 489 of 3180 (15.4%): PLANT 68/300, HARVEST 89/593, WATER 246/1313, FEED 22/373, CARE 22/369, FERTILIZE 41/231
+Vadim  SE ops 494 of 3119 (15.8%): PLANT 74/308, HARVEST 90/581, WATER 262/1302, FEED 18/377, CARE 18/372, FERTILIZE 30/179
+MG     SE ops 469 of 3117 (15.0%): PLANT 73/300, HARVEST 82/584, WATER 257/1325, FEED 10/346, CARE 10/345, FERTILIZE 37/217
+
+== SE output (equal-share split of each day's harvested units over that product's harvested tiles), per game
+DSM    SE units wheat 203/745, carrot 50/178, strawberry 31/238, tomato 25/135, wool 12/138, egg 7/203, milk 4/201
+       SE value 18,780 (median 18,583) of revenue 146,817 (12.8%); SE seeds 1,461, SE animals placed {'GOOSE': 0.3, 'SHEEP': 0.88, 'COW': 0.32} cost 658; land 4,000 -> SE value - (land + seeds + animals) = 12,660 (before wages); unmapped harvested tiles 0.0/game
+DECEM  SE units wheat 184/742, carrot 50/178, tomato 25/131, strawberry 23/227, wool 13/138, egg 11/198, milk 4/194
+       SE value 16,441 (median 15,585) of revenue 138,133 (11.9%); SE seeds 1,336, SE animals placed {'GOOSE': 0.43, 'SHEEP': 1.03, 'COW': 0.33} cost 776; land 4,000 -> SE value - (land + seeds + animals) = 10,330 (before wages); unmapped harvested tiles 0.0/game
+Vadim  SE units wheat 179/676, carrot 52/168, strawberry 23/213, tomato 18/124, wool 13/148, egg 5/184, milk 3/199
+       SE value 15,678 (median 15,044) of revenue 138,147 (11.3%); SE seeds 1,397, SE animals placed {'COW': 0.26, 'SHEEP': 1.05, 'GOOSE': 0.22} cost 696; land 4,000 -> SE value - (land + seeds + animals) = 9,585 (before wages); unmapped harvested tiles 0.0/game
+MG     SE units wheat 233/738, carrot 35/168, tomato 17/121, strawberry 16/240, wool 9/108, egg 2/189
+       SE value 15,329 (median 14,639) of revenue 142,575 (10.8%); SE seeds 1,196, SE animals placed {'SHEEP': 0.73, 'GOOSE': 0.08, 'COW': 0.02} cost 397; land 4,000 -> SE value - (land + seeds + animals) = 9,736 (before wages); unmapped harvested tiles 0.0/game
+
+== hands_present by day (mean), SE games vs no-SE games
+DSM    SE   n=100 days 6-16:  8.0  8.8  9.0 10.0 11.8 11.4 11.4 11.2 11.6 11.8 12.0 | mean d12-28 11.6, hand-days d0-28 288
+DECEM  SE   n=100 days 6-16:  8.0  8.9  9.0 10.0 11.9 11.2 11.2 11.3 11.5 11.7 11.8 | mean d12-28 11.5, hand-days d0-28 287
+Vadim  SE   n= 96 days 6-16:  8.0  8.8  9.0 10.1 12.1 11.3 11.4 11.2 11.6 11.9 11.9 | mean d12-28 11.6, hand-days d0-28 288
+Vadim  noSE n=  4 days 6-16:  8.0  8.8  9.0 10.0 11.0 11.0 10.2 11.0 11.0 11.0 11.0 | mean d12-28 10.9, hand-days d0-28 273
+MG     SE   n= 59 days 6-16:  8.0  9.0  9.0 10.0 12.1 11.0 11.2 11.1 11.4 11.6 12.0 | mean d12-28 11.4, hand-days d0-28 285
+MG     noSE n= 41 days 6-16:  8.0  9.0  9.0 10.0 12.1 11.0 11.1 11.0 11.1 11.1 11.4 | mean d12-28 11.1, hand-days d0-28 279
+MMPQ   noSE n=100 days 6-16:  7.7  7.8  9.1  9.6 11.2  9.7 10.1  9.4  9.8 10.5 10.7 | mean d12-28 10.2, hand-days d0-28 259
+Boey   noSE n= 40 days 6-16:  9.0  6.4  9.8  9.2 11.0  9.9 11.1 10.5 10.8 11.2 11.1 | mean d12-28 10.9, hand-days d0-28 269
+
+== MG with vs without SE (within-team, confounded by world)
+  SE   n=59: crop tile-days d12-29 WH 484, ST 395, TO 191, CA 158, co 152, go 109, sh 81, ME 0 | animals d20 co 8.8, go 6.2, sh 5.2 | revenue 142,575, final 110,611, margin +14,757
+  noSE n=41: crop tile-days d12-29 WH 394, ST 274, CA 151, co 143, sh 117, TO 108, go 99, ME 0 | animals d20 co 8.2, sh 7.4, go 5.6 | revenue 130,533, final 104,244, margin +16,425
+wrote results/fresh/q4_trace_20260925/leader_programme.json
