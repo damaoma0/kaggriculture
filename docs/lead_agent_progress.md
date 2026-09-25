@@ -1239,3 +1239,26 @@ Caveats: the rival is FROZEN (its recorded actions do not react to our prices; a
 so the true externality may be smaller); within-world variation in our units comes from builds that also change other
 things (the per-product slope absorbs correlated changes, e.g. more strawberries together with more tomatoes); timing
 (same units sold earlier / later) is not separated from quantity.
+
+## Routing churn fixes (after the search-ceiling report; 2026-09-25)
+Options (deploy only, default off): `reach_guard` (a task that cannot be finished today, hour + travel + ops > 24, is
+not assigned), `commit` (the current target keeps a bonus = steps already walked toward it, <= 6: no reassignment
+churn), `pick_plan` (one pickup per item type sized to the unit's task + the open tasks it is nearest to, <= 6; no
+opportunistic pickups). Variants on the new default (ws2 on); Kaggle wtr12 / g1v (2 kernels; none else running).
+| variant | smoke vs default (95% CI), better/worse | own / rival | moves / op d12-23 | walk after last job / unit-day d12-23 | shed arrivals | tile ops / game | discards | G1 |
+|---|---|---|---|---|---|---|---|---|
+| default (ws2) | | | 1.06 | 1.87 | 190 | 2,924 | 38.2 | 0.910 / 0.901 / 0.889 |
+| rc1: reach guard | -558 (-2,586 .. +995), 7/5 | -86 / +472 | 1.00 | **1.08** | 183 | 2,881 | 40.2 | 0.911 / 0.898 / 0.883 |
+| rc2: + commit | -705 (-2,260 .. +611), 5/7 | +133 / +838 | 1.00 | 1.07 | 189 | 2,880 | 37.0 | 0.915 / 0.906 / 0.893 |
+| rc3: + planned pickups | -4,600 (-6,732 .. -2,713), 2/10 | -1,743 / +2,858 | 1.04 | 1.14 | 195 | 2,833 | 55.7 | 0.876 / 0.863 / 0.866 |
+**Finding: the guard removes 42% of the walking after a unit's last job (1.87 -> 1.08 moves a unit-day), but tile ops
+FALL (-43 a game): the guard requires ALL of a task's ops to fit, so animal tasks (feed + care + harvest + collect, plus
+a wheat pickup) are dropped whole even when the feed alone would fit (per game: feeds -19, cares -14, collects -9,
+fertilizes -5; waters +10).** Planned pickups (rc3) put more wheat in hands again (discards 56 a game) and lose
+(rejected, as rs2). Refinement rc4 = guard on the FIRST op only (hour + travel + 1 > 24; partial work allowed) +
+commit: smoke wtr13, G1 g1w.
+| rc4: reach guard on the FIRST op + commit | +97 (-1,490 .. +1,838), 5/7 | +532 / +436 | 1.01 | **0.93** | 188 | 2,897 | 35.3 | 0.917 / 0.908 / 0.892 |
+**Finding: halving the walk after a unit's last job (1.87 -> 0.93 moves a unit-day) does not buy work (tile ops -27 a
+game; margin +97, n.s.; G1 +0.007).** That walk happens when nothing finishable is left in reach: the freed steps become
+idle steps, not the ~27 extra jobs a day the search-ceiling model projected (the model assumes the dropped jobs are
+reachable in those steps; at that hour they are not). Not adopted (CI includes zero); options stay default off.
