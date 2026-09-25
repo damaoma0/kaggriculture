@@ -12,6 +12,7 @@ Variants (settings from scripts/search_dispatch_run.py, the leader-world arms):
   v3a12  active, days 12-23 + V3      v3all  active, every day + V3
   v4a12  active, days 12-23 + V4      v4all  active, every day + V4 (measured credit)
   v1a12d / v1a12d2  v1 a12 with deterministic budgets (evals 60000 / 8000 bind; time caps 2 / 1 / 3 s as safety only)
+  v1fa12d / v1fa12d2  v1 a12 + survival fallback, deterministic, evals 24000 / 8000 (caps 0.75 / 0.6 / 0.8 s safety)
 """
 import hashlib
 import json
@@ -23,6 +24,7 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 
 
+DET2 = dict(sd_evals0=24000, sd_evals=8000, sd_budget0=0.75, sd_budget=0.6, sd_step_cap=0.8)
 DET = dict(sd_evals0=60000, sd_evals=8000, sd_budget0=2.0, sd_budget=1.0, sd_step_cap=3.0)   # evals = the v1 budgets; SDa12_w48 (+2,141) ran uncapped on a fast host
 
 
@@ -37,6 +39,11 @@ def settings():
         # only (time_capped counts every firing; the 60 s overage bank absorbs a rare slow step)
         'v1a12d': dict(dispatch_search='active', sd_days=[12, 23], **DET),
         'v1a12d2': dict(dispatch_search='active', sd_days=[12, 23], **DET),     # identical twin: reproducibility check
+        # the shipping candidate (coordinator): v1 a12 + survival fallback, deterministic, first plan calibrated so no step
+        # passes ~0.8 s on a slow Kaggle host (60k evaluations took 1.52 s there -> 24k ~0.6 s); caps 0.75 / 0.6 / 0.8 s
+        # are safety only (time_capped counts them)
+        'v1fa12d': dict(dispatch_search='active', sd_days=[12, 23], sd_surv_fb=20, **DET2),
+        'v1fa12d2': dict(dispatch_search='active', sd_days=[12, 23], sd_surv_fb=20, **DET2),   # identical twin
         'v2a12': dict(dispatch_search='active', sd_days=[12, 23], **R.V2),
         'v2all': dict(dispatch_search='active', **R.V2),
         'v3a12': dict(dispatch_search='active', sd_days=[12, 23], **R.V3),
