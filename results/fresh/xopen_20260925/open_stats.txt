@@ -1,0 +1,70 @@
+== (a) EXEMPLAR PLAN, DSM seat of 112655730, days 0-12 (its own world; ledger = correctly dated)
+day   cash    rev  seeds anim  land wheat fert wages hands | planted | animals placed | built | dug | failed orders (own world)
+  0   3000    140   580  2300     0   247    0     7     4 | {'ME': 6, 'WH': 9} | {'co': 2, 'sh': 3} | {'PAS': 5} | 0 | {'WHEAT': 5}
+  1      6    496   320     0     0   174    0     7     4 | {'ME': 4, 'WH': 1} | {} | {} | 0 | {'MELON': 5}
+  2      1    517   400     0     0    90    0    20     6 | {'ST': 4} | {} | {} | 0 | {'WHEAT': 2, 'MELON': 3, 'STRAW': 6}
+  3      8    626   600     0     0     0    0    20     6 | {'ST': 6} | {} | {} | 0 | {'STRAW': 8}
+  4     14    467   100     0     0     0    0    12     5 | {} | {} | {} | 0 | {'STRAW': 1}
+  5    369    456     0     0     0    62    0    20     6 | {} | {} | {} | 0 | {}
+  6    743   3892   950  2400  1000   223    0    54     8 | {'ST': 9, 'WH': 5} | {'co': 3, 'go': 4} | {'PAS': 3, 'COO': 4} | 0 | {'COW': 2, 'STRAW': 7, 'WHEAT': 2}
+  7      8   1118    60   300     0   437    0    88     9 | {'WH': 3} | {'go': 1} | {'COO': 1} | 0 | {}
+  8    241   2680    30     0     0   465    0    88     9 | {'WH': 4} | {} | {} | 0 | {}
+  9   2338   2268   300  1700  2000   296    0   143    10 | {'WH': 17, 'ST': 2, 'TO': 1} | {'co': 2, 'go': 3} | {'PAS': 2, 'COO': 3} | 0 | {'STRAW': 3}
+ 10    167   9198   690   300  4000  1738    0   232    11 | {'ST': 4, 'WH': 12, 'TO': 1} | {'go': 1} | {'COO': 1} | 0 | {'WHEAT': 1, 'STRAW': 1}
+ 11   2405   5424   550   300     0     0    0   376    12 | {'WH': 14, 'TO': 2, 'ST': 3} | {'go': 1} | {'COO': 1} | 0 | {}
+ 12   6603   3386   330   400     0     0    0   376    12 | {'WH': 13, 'TO': 3} | {'co': 1} | {'PAS': 1} | 0 | {}
+SE-quadrant work (bought day 10 for 4000): d10 ST x1, WH x7; d11 WH x9, ST x1; d12 WH x4, BUILD_PASTURE x1; d13 WH x2, TO x1; d14 WH x5, TO x1; d15 WH x2, ST x2, TO x2
+failed buy orders in its own world days 0-10: 46 (the leader over-asks; the engine drops what cash cannot pay)
+
+== (b) HOW SHOP-DEPENDENT ARE THE OPENINGS (corpus boards, day-start labels)
+median Hamming of a game's board to its team medoid (min total Hamming) on day d; p90 in brackets
+team           d3         d6         d9         d11        d12    
+16623559     0.0 ( 3)   0.0 ( 2)  10.0 (14)  23.0 (31)  26.5 (34)
+16681125     2.0 ( 5)   7.0 (29)  19.0 (45)  19.0 (35)  20.0 (34)
+16730612     0.0 ( 4)   0.0 ( 1)   7.0 (12)  26.0 (50)  39.0 (48)
+16732748     0.0 ( 2)   0.0 ( 0)   7.0 (16)  21.0 (30)  23.0 (31)
+16770421     0.0 ( 0)   0.0 ( 0)   9.0 (16)  24.5 (35)  28.0 (37)
+16915014     0.0 ( 1)   2.0 ( 4)  17.0 (41)  20.0 (26)  20.0 (26)
+DSM games vs the exemplar board: d3 median 0 (p10 0, p90 2), d6 median 0 (p10 0, p90 0), d9 median 9 (p10 1, p90 16), d11 median 22 (p10 15, p90 33)
+counts on the day-11 board by whether a demand shop was revealed by day 9 (all 540 games; mean with / without, n with):
+  sh (WOOL      ): 11.32 /  3.24  (n 186 / 354)
+  go (EGG       ):  5.39 /  3.33  (n 300 / 240)
+  co (MILK      ):  9.84 /  5.46  (n 412 / 128)
+  ST (STRAWBERRY): 23.88 / 11.12  (n 481 / 59)
+  TO (TOMATO    ):  2.73 /  1.12  (n 322 / 218)
+  CA (CARROT    ):  3.37 /  0.07  (n 308 / 232)
+
+== (c) COMPATIBLE RE-RETRIEVAL POOL: corpus games (other than the exemplar, any team) whose board on day d is
+   within Hamming k of the exemplar's board on day d (an exact follower's board ~ the exemplar's)
+  day 3: k<=0: 177 games (16732748 85, 16770421 92) | k<=2: 258 games (16623559 70, 16732748 89, 16770421 99) | k<=4: 374 games (16623559 99, 16730612 76, 16732748 99, 16770421 100) | k<=8: 399 games (16623559 100, 16730612 100, 16732748 99, 16770421 100)
+  day 6: k<=0: 283 games (16623559 3, 16730612 87, 16732748 94, 16770421 99) | k<=2: 396 games (16623559 99, 16730612 98, 16732748 99, 16770421 100) | k<=4: 399 games (16623559 100, 16730612 100, 16732748 99, 16770421 100) | k<=8: 399 games (16623559 100, 16730612 100, 16732748 99, 16770421 100)
+  day 9: k<=0:   6 games (16732748 6) | k<=2:  29 games (16730612 9, 16732748 12, 16770421 8) | k<=4:  66 games (16623559 3, 16730612 21, 16732748 26, 16770421 16) | k<=8: 161 games (16623559 31, 16730612 50, 16732748 44, 16770421 36)
+
+== (d) THE DEPLOY'S RETRIEVAL IN THE 185 p2750 WORLDS (mgt_lpv_tievalff 'switches')
+  day 3: 185 switches; Hamming retrieved vs exemplar on day 3 median 5 (p10 4, p90 6), on day 6 median 1 (p90 1); same team as exemplar 0; within 2 tiles on the switch day 0
+  day 6: 185 switches; Hamming retrieved vs exemplar on day 6 median 0 (p10 0, p90 0), on day 9 median 8 (p90 17); same team as exemplar 69; within 2 tiles on the switch day 180
+  day 9: 149 switches; Hamming retrieved vs exemplar on day 9 median 9 (p10 4, p90 17), on day 12 median 28 (p90 44); same team as exemplar 44; within 2 tiles on the switch day 9
+
+== (e) WEEDS on the exemplar's plan (p = 0.005 per empty unlocked tile per day; engine rule)
+  expected weed spawns on its empty tiles, nights 0-10: 0.16 a game; on tiles it plants / builds on by day 12: 0.13
+  the exemplar's own DIGs days 0-10: 0 (in a new world they meet no weed; DIG on an empty tile is a no-op)
+
+== (f) THE EXEMPLAR'S PLAN CARRIED WITH LOWER REVENUE (effective reinvestment R fixed, days 0-10; deferred
+   purchases retried the next day; wages / feed are part of R, so this is the load the failsafe must cut)
+  uniform haircut h on every day's revenue: deferred coins at the end of day t (days 0-10), cash day 11
+  h          0      1      2      3      4      5      6      7      8      9     10   C11
+  0.00       0      0      0      0      0      0      0      0      0      0      0   2405
+  0.05       1     31     50     75      0      0    322    145      0    466      0   1312
+  0.10       8     63    107    164      0      0    651    530      0   1099      0    219
+  0.15      15     94    165    253      0      0    981    916      0   1732    874      0
+  0.20      22    126    223    342     80      0   1311   1301      0   2365   1967      0
+  0.30      36    190    338    520    305     68   1970   2073    780   3631   4152      0
+  same without the day-10 SE quadrant (land_max 2: R[10] - 4000):
+  0.05       1     31     50     75      0      0    322    145      0    466      0   5312
+  0.10       8     63    107    164      0      0    651    530      0   1099      0   4219
+  0.15      15     94    165    253      0      0    981    916      0   1732      0   3126
+  0.20      22    126    223    342     80      0   1311   1301      0   2365      0   2033
+  0.30      36    190    338    520    305     68   1970   2073    780   3631    152      0
+  185 worlds, per-world revenue ratio (proxy): share of worlds with deferred purchases at the end of day t:
+          100%   100%   100%   100%    30%     0%    83%    82%     0%    36%    74%
+  largest deferred amount in a world: median 861, p90 2354, max 3161; cash at day 11 median 0, p10 0

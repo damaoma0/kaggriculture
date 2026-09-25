@@ -1,0 +1,28 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/xopen_compile.py",
+   "--games",
+   "exemplar,pool,g1",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/xopen_20260925/plans/*"
+  ],
+  "workers": 4
+ },
+ "games": 172,
+ "pip_seconds": 71.37322497367859,
+ "run_seconds": 944.3230204582214,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "170 games to compile"
+ ],
+ "stderr_tail": []
+}

@@ -1,0 +1,32 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/xopen_g1.py",
+   "run",
+   "--arms",
+   "LEADER,T,X5,X8,X11,Xdyn",
+   "--worlds",
+   "results/fresh/lead_sem4_20260925/worlds.json",
+   "--skip-g1",
+   "--games",
+   "112581436,112649864,112910112,112463584,112642010,112776500,112910261,112633424,112750983,112933566,112437125,112470312,112585733"
+  ],
+  "collect": [
+   "results/fresh/xopen_20260925/g1/**/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 78,
+ "pip_seconds": 38.79889535903931,
+ "run_seconds": 385.91435718536377,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "AMD EPYC 7B12",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "completed 78 jobs in 386s"
+ ],
+ "stderr_tail": []
+}

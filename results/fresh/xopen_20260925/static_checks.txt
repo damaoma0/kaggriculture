@@ -1,0 +1,50 @@
+== 1. parse and Kaggle loader entry
+PASS mgt_lead_xopen: loader entry: mgt_lead_xopen_agent
+PASS mgt_lpv_xopen: loader entry: mgt_lpv_xopen_agent
+PASS mgt_lpv_xopen_off: loader entry: mgt_lpv_xopen_agent
+PASS mgt_lpv_xopen_d11: loader entry: mgt_lpv_xopen_agent
+PASS mgt_lpv_xopen_naive: loader entry: mgt_lpv_xopen_agent
+PASS mgt_lpv_xopen_d9: loader entry: mgt_lpv_xopen_agent
+PASS mgt_lpv_xo0: loader entry: mgt_lead_deploy_agent
+PASS E1 file contains the frozen mgt_lead.py verbatim
+   (info) live agents/mgt_lead.py sha cef4907bcd7900f4, built from 8d578ef8099b2000; live agents/mgt_lead_deploy.py sha 91ee3b80c5576b99, built from 25bcb41f9d6aa8e6
+PASS mgt_lpv_xo0 = the frozen deploy copy it was built from
+PASS mgt_lpv_xopen contains the deploy copy verbatim
+PASS mgt_lpv_xopen_off contains the deploy copy verbatim
+
+== 2. E1: off == the copied mgt_lead.py; replay verbatim; handoff
+PASS E1 xopen_day=-1: same actions as the frozen mgt_lead.py (7 synthetic observations)
+PASS E1 replay mode: tape actions verbatim (steps 0, 1, 2, 30, 263)
+PASS E1 handoff at day 11: T acts, state handed over: D=11 reason=fixed sold={'WHEAT': 15, 'FERTILIZER': 68, 'WOOL': 30, 'MILK': 12, 'MELON': 36} hires=[['HIRE'], ['HIRE'], ['HIRE']]
+PASS E1 report
+
+== 3. dynamic cash-safe rule on the 12 G1 leaders' own recorded paths
+   handoff day distribution: {11: 11, 12: 1}
+PASS dynamic rule on the G1 leaders' own paths = design (11: 11, 12: 1): {11: 11, 12: 1}
+
+== 4. follower core: synthetic unit tests
+PASS B1 per-crop PLANT cut: 2 of 3 recorded plantings go ahead with 2 seeds: cmds [['PLANT', 'WHEAT'], ['PLANT', 'WHEAT'], ['PASS']], planted 2
+PASS B1 engine check: the uncut 3 PLANTs with 2 seeds plant nothing (why the cut is needed): planted 0
+PASS B2 hand 1 spawned on another shed tile: keeps role 1, walks to the recorded tile (lagged): {'role': 1, 'mode': 'walk', 'i': 25, 'goal': (5, 4), 'gs': 25}
+PASS B2 hand 1 hired a step late: role 1 lagged or rendezvous: {'role': 1, 'mode': 'walk', 'i': 25, 'goal': (5, 4), 'gs': 25}
+PASS B3 recorded HARVEST of a one-time crop planted on another day: substituted: [['WATER']]
+PASS B3 recorded DIG of our live plant (other planting day): substituted: [['WATER']]
+PASS B3 same (crop, planted day): the recorded HARVEST runs verbatim: [['HARVEST']]
+PASS B4 substitute does not feed with the wheat the role needs later (carried = recorded): ['PASS']
+PASS B4 substitute feeds with surplus wheat (carried 2, role carried 1): ['FEED']
+PASS B4 released units may take 1 of 4 shed wheat (an in-sync role picks 3 later today): {'WHEAT': 1}
+   B5 sell+buy wheat, seeds, hire: inferred buy {'SEED:STRAWBERRY': 2, 'PRODUCT:WHEAT': 5} sell {'WHEAT': 4, 'FERTILIZER': 2} hires 1 land 0 amb [] | true seeds {'SEED:STRAWBERRY': 2} animals {} hires 1 money 500->474 -> OK
+   B5 cash-limited buys: inferred buy {'SEED:MELON': 1, 'PRODUCT:WHEAT': 3} sell {'EGG': 1} hires 2 land 0 amb [] | true seeds {'SEED:MELON': 1} animals {} hires 2 money 130->21 -> OK
+   B5 land + animals + sells: inferred buy {'ANIMAL:COW': 2, 'PRODUCT:FERTILIZER': 2} sell {'WOOL': 2, 'MILK': 3} hires 0 land 1 amb [] | true seeds {} animals {'ANIMAL:COW': 2} hires 0 money 5200->4074 -> OK
+   B5 wheat sold below the stock, bought after: inferred buy {'SEED:WHEAT': 2, 'PRODUCT:WHEAT': 3} sell {'WHEAT': 5} hires 0 land 0 amb ['pf_multi_WHEAT'] | true seeds {'SEED:WHEAT': 2} animals {} hires 0 money 60->84 -> OK
+PASS B5 fill inference = the engine's fills (4 synthetic market steps)
+PASS A.5 caps: 6 asked / 2 filled strawberry seeds -> we ask 2; 2 HIRE asked / 1 filled -> 1: [['HIRE'], ['BUY_SEED', 'STRAWBERRY', 2]]
+PASS failsafe: tier-0 hire (committed role) and 1 feed wheat first; strawberry seed before wheat buy-ahead: list [['HIRE'], ['BUY_PRODUCT', 'WHEAT', 1], ['BUY_SEED', 'STRAWBERRY', 1], ['BUY_PRODUCT', 'WHEAT', 5]]; cuts [('PRODUCT:WHEAT', 5, 0.0495)]
+   ratios: land 0.0385 (loss 38.5), wheat buy-ahead 0.0495
+PASS failsafe: wheat buy-ahead has a small positive delay cost per coin (cut early): 0.0495
+
+== 5. E2: mode off == the verbatim deploy copy; follow mode starts
+PASS E2 mode off: same actions as the verbatim deploy (steps 0-2)
+PASS E2 follow mode, step 0 (state = the recording's): the recorded action verbatim: {"farmer": ["PASS"], "hands": [], "market": [["BUY_ANIMAL", "COW", 1], ["BUY_PRODUCT", "WHEAT", 5]]}
+
+0 failures: []

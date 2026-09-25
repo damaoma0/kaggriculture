@@ -1,0 +1,4830 @@
+[
+ {
+  "key": "16730612_112444381",
+  "seat": 1,
+  "final": 158088.0,
+  "recorded": 158088.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 0,
+  "T1": 720,
+  "wall": 26.4
+ },
+ {
+  "key": "16730612_112445586",
+  "seat": 1,
+  "final": 78200.0,
+  "recorded": 78200.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 0,
+  "T1": 720,
+  "wall": 26.7
+ },
+ {
+  "key": "16730612_112447950",
+  "seat": 0,
+  "final": 105308.0,
+  "recorded": 105308.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 0,
+  "T1": 720,
+  "wall": 26.6
+ },
+ {
+  "key": "16730612_112449129",
+  "seat": 1,
+  "final": 98814.0,
+  "recorded": 98814.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 647,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "TOMATO": 1,
+     "STRAWBERRY": 10
+    },
+    "hook_sell": {
+     "STRAWBERRY": 6,
+     "TOMATO": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 0,
+  "T1": 720,
+  "wall": 27.9
+ },
+ {
+  "key": "16732748_112568233",
+  "seat": 0,
+  "final": 132257.0,
+  "recorded": 132257.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 575,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "TOMATO": 1,
+     "STRAWBERRY": 1
+    },
+    "hook_sell": {
+     "TOMATO": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.4
+ },
+ {
+  "key": "16732748_112569426",
+  "seat": 0,
+  "final": 162117.0,
+  "recorded": 162117.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.0
+ },
+ {
+  "key": "16732748_112571815",
+  "seat": 0,
+  "final": 131264.0,
+  "recorded": 131264.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 23.0
+ },
+ {
+  "key": "16732748_112574236",
+  "seat": 0,
+  "final": 94242.0,
+  "recorded": 94242.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 599,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "TOMATO": 2,
+     "STRAWBERRY": 2,
+     "MILK": 2
+    },
+    "hook_sell": {
+     "MILK": 2,
+     "TOMATO": 2
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.4
+ },
+ {
+  "key": "16732748_112575429",
+  "seat": 0,
+  "final": 117987.0,
+  "recorded": 117987.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 575,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 1,
+     "STRAWBERRY": 1
+    },
+    "hook_sell": {
+     "EGG": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 23.5
+ },
+ {
+  "key": "16732748_112576658",
+  "seat": 0,
+  "final": 95739.0,
+  "recorded": 95739.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 23.8
+ },
+ {
+  "key": "16732748_112579036",
+  "seat": 1,
+  "final": 105492.0,
+  "recorded": 105492.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 623,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "STRAWBERRY": 2
+    },
+    "hook_sell": {},
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 23.3
+ },
+ {
+  "key": "16732748_112580238",
+  "seat": 1,
+  "final": 105733.0,
+  "recorded": 105733.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 24.1
+ },
+ {
+  "key": "16732748_112581436",
+  "seat": 0,
+  "final": 107790.0,
+  "recorded": 107790.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 623,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 1,
+     "STRAWBERRY": 2
+    },
+    "hook_sell": {
+     "EGG": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 23.1
+ },
+ {
+  "key": "16732748_112582639",
+  "seat": 0,
+  "final": 87331.0,
+  "recorded": 87331.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 25.0
+ },
+ {
+  "key": "16732748_112583842",
+  "seat": 0,
+  "final": 129709.0,
+  "recorded": 129709.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 599,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 1,
+     "STRAWBERRY": 3
+    },
+    "hook_sell": {
+     "STRAWBERRY": 1,
+     "EGG": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.9
+ },
+ {
+  "key": "16732748_112585076",
+  "seat": 1,
+  "final": 72828.0,
+  "recorded": 72828.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.2
+ },
+ {
+  "key": "16732748_112587591",
+  "seat": 0,
+  "final": 133622.0,
+  "recorded": 133622.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 527,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "TOMATO": 1,
+     "STRAWBERRY": 1
+    },
+    "hook_sell": {
+     "TOMATO": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.6
+ },
+ {
+  "key": "16732748_112588103",
+  "seat": 0,
+  "final": 124424.0,
+  "recorded": 124424.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.1
+ },
+ {
+  "key": "16732748_112592389",
+  "seat": 1,
+  "final": 109763.0,
+  "recorded": 109763.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.4
+ },
+ {
+  "key": "16732748_112593664",
+  "seat": 1,
+  "final": 151887.0,
+  "recorded": 151887.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.4
+ },
+ {
+  "key": "16732748_112594857",
+  "seat": 0,
+  "final": 142679.0,
+  "recorded": 142679.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.0
+ },
+ {
+  "key": "16732748_112596061",
+  "seat": 0,
+  "final": 117623.0,
+  "recorded": 117623.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.0
+ },
+ {
+  "key": "16732748_112597248",
+  "seat": 1,
+  "final": 128931.0,
+  "recorded": 128931.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.7
+ },
+ {
+  "key": "16732748_112598450",
+  "seat": 0,
+  "final": 132474.0,
+  "recorded": 132474.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 647,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "STRAWBERRY": 3
+    },
+    "hook_sell": {},
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.2
+ },
+ {
+  "key": "16732748_112600855",
+  "seat": 0,
+  "final": 138415.0,
+  "recorded": 138415.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 671,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 1,
+     "STRAWBERRY": 2,
+     "TOMATO": 5,
+     "FERTILIZER": 1
+    },
+    "hook_sell": {
+     "TOMATO": 5,
+     "EGG": 1,
+     "FERTILIZER": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.8
+ },
+ {
+  "key": "16732748_112603263",
+  "seat": 0,
+  "final": 102627.0,
+  "recorded": 102627.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.2
+ },
+ {
+  "key": "16732748_112604454",
+  "seat": 0,
+  "final": 116899.0,
+  "recorded": 116899.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 359,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "WOOL": 6,
+     "EGG": 1,
+     "WHEAT": 2
+    },
+    "hook_sell": {
+     "WOOL": 6,
+     "EGG": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow",
+     "pf_WHEAT"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.5
+ },
+ {
+  "key": "16732748_112606801",
+  "seat": 0,
+  "final": 128793.0,
+  "recorded": 128793.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 2,
+  "infer_bad_first": [
+   {
+    "step": 359,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "FERTILIZER": 1,
+     "EGG": 1,
+     "MILK": 6
+    },
+    "hook_sell": {
+     "MILK": 6,
+     "EGG": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow",
+     "pf_FERTILIZER"
+    ]
+   },
+   {
+    "step": 647,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "STRAWBERRY": 4,
+     "CARROT": 2,
+     "FERTILIZER": 10
+    },
+    "hook_sell": {
+     "STRAWBERRY": 2,
+     "CARROT": 2,
+     "FERTILIZER": 10
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.7
+ },
+ {
+  "key": "16732748_112608021",
+  "seat": 1,
+  "final": 124240.0,
+  "recorded": 124240.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 23.4
+ },
+ {
+  "key": "16732748_112610623",
+  "seat": 1,
+  "final": 92709.0,
+  "recorded": 92709.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 623,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "TOMATO": 1,
+     "STRAWBERRY": 1,
+     "CARROT": 2
+    },
+    "hook_sell": {
+     "TOMATO": 1,
+     "CARROT": 2
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.6
+ },
+ {
+  "key": "16732748_112616236",
+  "seat": 0,
+  "final": 100716.0,
+  "recorded": 100716.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 23.6
+ },
+ {
+  "key": "16732748_112621294",
+  "seat": 1,
+  "final": 120700.0,
+  "recorded": 120700.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.1
+ },
+ {
+  "key": "16732748_112621356",
+  "seat": 1,
+  "final": 105551.0,
+  "recorded": 105551.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 23.0
+ },
+ {
+  "key": "16732748_112626851",
+  "seat": 1,
+  "final": 107272.0,
+  "recorded": 107272.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.7
+ },
+ {
+  "key": "16732748_112632523",
+  "seat": 0,
+  "final": 153554.0,
+  "recorded": 153554.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.0
+ },
+ {
+  "key": "16732748_112637448",
+  "seat": 0,
+  "final": 110294.0,
+  "recorded": 110294.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 647,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 2,
+     "TOMATO": 2,
+     "STRAWBERRY": 2,
+     "FERTILIZER": 2,
+     "WHEAT": 3
+    },
+    "hook_sell": {
+     "TOMATO": 2,
+     "EGG": 2,
+     "WHEAT": 3,
+     "FERTILIZER": 2
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.3
+ },
+ {
+  "key": "16732748_112637547",
+  "seat": 1,
+  "final": 110500.0,
+  "recorded": 110500.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.0
+ },
+ {
+  "key": "16732748_112638041",
+  "seat": 0,
+  "final": 99139.0,
+  "recorded": 99139.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 599,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 1,
+     "CARROT": 3,
+     "STRAWBERRY": 4
+    },
+    "hook_sell": {
+     "STRAWBERRY": 4,
+     "EGG": 1,
+     "CARROT": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.9
+ },
+ {
+  "key": "16732748_112639210",
+  "seat": 0,
+  "final": 94870.0,
+  "recorded": 94870.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 503,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "STRAWBERRY": 2,
+     "CARROT": 6
+    },
+    "hook_sell": {
+     "CARROT": 6
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.4
+ },
+ {
+  "key": "16732748_112644250",
+  "seat": 1,
+  "final": 122872.0,
+  "recorded": 122872.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.5
+ },
+ {
+  "key": "16732748_112649864",
+  "seat": 0,
+  "final": 110966.0,
+  "recorded": 110966.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.7
+ },
+ {
+  "key": "16732748_112655730",
+  "seat": 0,
+  "final": 97066.0,
+  "recorded": 97066.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 0,
+  "T1": 720,
+  "wall": 22.7
+ },
+ {
+  "key": "16732748_112661570",
+  "seat": 0,
+  "final": 107042.0,
+  "recorded": 107042.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 2,
+  "infer_bad_first": [
+   {
+    "step": 575,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "TOMATO": 6,
+     "STRAWBERRY": 3
+    },
+    "hook_sell": {
+     "TOMATO": 6,
+     "STRAWBERRY": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   },
+   {
+    "step": 623,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "TOMATO": 3,
+     "FERTILIZER": 3
+    },
+    "hook_sell": {
+     "TOMATO": 2,
+     "FERTILIZER": 3
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 0,
+  "T1": 720,
+  "wall": 21.1
+ },
+ {
+  "key": "16732748_112667461",
+  "seat": 1,
+  "final": 160169.0,
+  "recorded": 160169.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 0,
+  "T1": 720,
+  "wall": 19.8
+ },
+ {
+  "key": "16732748_112673479",
+  "seat": 1,
+  "final": 103786.0,
+  "recorded": 103786.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 0,
+  "T1": 720,
+  "wall": 21.5
+ },
+ {
+  "key": "16732748_112680142",
+  "seat": 1,
+  "final": 109689.0,
+  "recorded": 109689.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.2
+ },
+ {
+  "key": "16732748_112686298",
+  "seat": 1,
+  "final": 104624.0,
+  "recorded": 104624.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 527,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "CARROT": 1,
+     "STRAWBERRY": 2
+    },
+    "hook_sell": {
+     "STRAWBERRY": 1,
+     "CARROT": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.3
+ },
+ {
+  "key": "16732748_112693025",
+  "seat": 1,
+  "final": 130565.0,
+  "recorded": 130565.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.7
+ },
+ {
+  "key": "16732748_112699920",
+  "seat": 1,
+  "final": 80003.0,
+  "recorded": 80003.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 671,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 2,
+     "STRAWBERRY": 6,
+     "TOMATO": 1,
+     "FERTILIZER": 1
+    },
+    "hook_sell": {
+     "STRAWBERRY": 4,
+     "TOMATO": 1,
+     "EGG": 2,
+     "FERTILIZER": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.2
+ },
+ {
+  "key": "16732748_112699923",
+  "seat": 1,
+  "final": 102241.0,
+  "recorded": 102241.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.3
+ },
+ {
+  "key": "16732748_112707103",
+  "seat": 1,
+  "final": 142729.0,
+  "recorded": 142729.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.3
+ },
+ {
+  "key": "16732748_112715010",
+  "seat": 0,
+  "final": 76791.0,
+  "recorded": 76791.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.9
+ },
+ {
+  "key": "16732748_112715012",
+  "seat": 1,
+  "final": 109906.0,
+  "recorded": 109906.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.2
+ },
+ {
+  "key": "16732748_112721924",
+  "seat": 0,
+  "final": 105897.0,
+  "recorded": 105897.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.2
+ },
+ {
+  "key": "16732748_112730098",
+  "seat": 1,
+  "final": 99518.0,
+  "recorded": 99518.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 647,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "TOMATO": 1,
+     "WHEAT": 4
+    },
+    "hook_sell": {
+     "WHEAT": 4
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.2
+ },
+ {
+  "key": "16732748_112738202",
+  "seat": 0,
+  "final": 141111.0,
+  "recorded": 141111.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.0
+ },
+ {
+  "key": "16732748_112746392",
+  "seat": 1,
+  "final": 93379.0,
+  "recorded": 93379.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.5
+ },
+ {
+  "key": "16732748_112753593",
+  "seat": 1,
+  "final": 124463.0,
+  "recorded": 124463.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.3
+ },
+ {
+  "key": "16732748_112753598",
+  "seat": 1,
+  "final": 103171.0,
+  "recorded": 103171.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 2,
+  "infer_bad_first": [
+   {
+    "step": 503,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "TOMATO": 4
+    },
+    "hook_sell": {
+     "TOMATO": 2
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   },
+   {
+    "step": 647,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "STRAWBERRY": 6,
+     "WHEAT": 4
+    },
+    "hook_sell": {
+     "WHEAT": 4
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.0
+ },
+ {
+  "key": "16732748_112760459",
+  "seat": 0,
+  "final": 108093.0,
+  "recorded": 108093.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.4
+ },
+ {
+  "key": "16732748_112768484",
+  "seat": 1,
+  "final": 100591.0,
+  "recorded": 100591.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.8
+ },
+ {
+  "key": "16732748_112776500",
+  "seat": 1,
+  "final": 116530.0,
+  "recorded": 116530.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 575,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 4,
+     "MILK": 6,
+     "FERTILIZER": 2
+    },
+    "hook_sell": {
+     "MILK": 6,
+     "EGG": 4,
+     "FERTILIZER": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow",
+     "pf_FERTILIZER"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.6
+ },
+ {
+  "key": "16732748_112783716",
+  "seat": 0,
+  "final": 126578.0,
+  "recorded": 126578.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.4
+ },
+ {
+  "key": "16732748_112791769",
+  "seat": 0,
+  "final": 108697.0,
+  "recorded": 108697.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 575,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 4,
+     "CARROT": 3
+    },
+    "hook_sell": {
+     "EGG": 4,
+     "CARROT": 2
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.0
+ },
+ {
+  "key": "16732748_112799998",
+  "seat": 0,
+  "final": 101355.0,
+  "recorded": 101355.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.9
+ },
+ {
+  "key": "16732748_112807804",
+  "seat": 1,
+  "final": 100546.0,
+  "recorded": 100546.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 198,
+    "infer_buy": {},
+    "hook_buy": {
+     "PRODUCT:WHEAT": 2
+    },
+    "infer_sell": {
+     "WHEAT": 4,
+     "MILK": 6
+    },
+    "hook_sell": {
+     "MILK": 6,
+     "WHEAT": 6
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "pf_multi_WHEAT"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.1
+ },
+ {
+  "key": "16732748_112816214",
+  "seat": 0,
+  "final": 139784.0,
+  "recorded": 139784.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.2
+ },
+ {
+  "key": "16732748_112824299",
+  "seat": 0,
+  "final": 127896.0,
+  "recorded": 127896.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 599,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "STRAWBERRY": 2,
+     "CARROT": 4,
+     "FERTILIZER": 3
+    },
+    "hook_sell": {
+     "CARROT": 4,
+     "FERTILIZER": 3
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.6
+ },
+ {
+  "key": "16732748_112832436",
+  "seat": 1,
+  "final": 95591.0,
+  "recorded": 95591.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.9
+ },
+ {
+  "key": "16732748_112840397",
+  "seat": 0,
+  "final": 83784.0,
+  "recorded": 83784.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 551,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "CARROT": 1,
+     "STRAWBERRY": 1
+    },
+    "hook_sell": {
+     "CARROT": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.2
+ },
+ {
+  "key": "16732748_112840619",
+  "seat": 0,
+  "final": 84790.0,
+  "recorded": 84790.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 623,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "STRAWBERRY": 1,
+     "CARROT": 4
+    },
+    "hook_sell": {
+     "CARROT": 4
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.3
+ },
+ {
+  "key": "16732748_112848531",
+  "seat": 1,
+  "final": 75602.0,
+  "recorded": 75602.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 194,
+    "infer_buy": {},
+    "hook_buy": {
+     "PRODUCT:WHEAT": 5
+    },
+    "infer_sell": {
+     "WHEAT": 9
+    },
+    "hook_sell": {
+     "WHEAT": 14
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "pf_multi_WHEAT"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.6
+ },
+ {
+  "key": "16732748_112849912",
+  "seat": 1,
+  "final": 120866.0,
+  "recorded": 120866.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 671,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "TOMATO": 1,
+     "EGG": 1,
+     "STRAWBERRY": 6
+    },
+    "hook_sell": {
+     "STRAWBERRY": 4,
+     "TOMATO": 1,
+     "EGG": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.3
+ },
+ {
+  "key": "16732748_112857901",
+  "seat": 1,
+  "final": 90974.0,
+  "recorded": 90974.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.6
+ },
+ {
+  "key": "16732748_112866114",
+  "seat": 0,
+  "final": 86805.0,
+  "recorded": 86805.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.1
+ },
+ {
+  "key": "16732748_112874297",
+  "seat": 1,
+  "final": 119530.0,
+  "recorded": 119530.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.5
+ },
+ {
+  "key": "16732748_112882443",
+  "seat": 1,
+  "final": 89379.0,
+  "recorded": 89379.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 551,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 2,
+     "STRAWBERRY": 3,
+     "FERTILIZER": 2,
+     "WHEAT": 6
+    },
+    "hook_sell": {
+     "WHEAT": 6,
+     "EGG": 2,
+     "FERTILIZER": 2
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.2
+ },
+ {
+  "key": "16732748_112891507",
+  "seat": 1,
+  "final": 112517.0,
+  "recorded": 112517.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.1
+ },
+ {
+  "key": "16732748_112900803",
+  "seat": 0,
+  "final": 144602.0,
+  "recorded": 144602.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 575,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 4,
+     "TOMATO": 9,
+     "WHEAT": 3
+    },
+    "hook_sell": {
+     "TOMATO": 9,
+     "EGG": 4,
+     "WHEAT": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow",
+     "pf_WHEAT"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.9
+ },
+ {
+  "key": "16732748_112900827",
+  "seat": 0,
+  "final": 100434.0,
+  "recorded": 100434.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.4
+ },
+ {
+  "key": "16732748_112910112",
+  "seat": 1,
+  "final": 139902.0,
+  "recorded": 139902.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.0
+ },
+ {
+  "key": "16732748_112920694",
+  "seat": 0,
+  "final": 110119.0,
+  "recorded": 110119.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.1
+ },
+ {
+  "key": "16732748_112920737",
+  "seat": 0,
+  "final": 118427.0,
+  "recorded": 118427.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.5
+ },
+ {
+  "key": "16732748_112931179",
+  "seat": 0,
+  "final": 90475.0,
+  "recorded": 90475.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.1
+ },
+ {
+  "key": "16732748_112941751",
+  "seat": 0,
+  "final": 106787.0,
+  "recorded": 106787.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.6
+ },
+ {
+  "key": "16732748_112952255",
+  "seat": 1,
+  "final": 137840.0,
+  "recorded": 137840.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.1
+ },
+ {
+  "key": "16770421_112607783",
+  "seat": 0,
+  "final": 129609.0,
+  "recorded": 129609.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.3
+ },
+ {
+  "key": "16770421_112608949",
+  "seat": 0,
+  "final": 99610.0,
+  "recorded": 99610.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.8
+ },
+ {
+  "key": "16770421_112611284",
+  "seat": 0,
+  "final": 85808.0,
+  "recorded": 85808.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.5
+ },
+ {
+  "key": "16770421_112613630",
+  "seat": 1,
+  "final": 146379.0,
+  "recorded": 146379.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 2,
+  "infer_bad_first": [
+   {
+    "step": 503,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "WOOL": 4,
+     "FERTILIZER": 3,
+     "STRAWBERRY": 1
+    },
+    "hook_sell": {
+     "WOOL": 4,
+     "FERTILIZER": 3
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   },
+   {
+    "step": 599,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "WOOL": 4,
+     "FERTILIZER": 2,
+     "WHEAT": 7,
+     "MILK": 5
+    },
+    "hook_sell": {
+     "WOOL": 4,
+     "FERTILIZER": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow",
+     "pf_FERTILIZER",
+     "pf_WHEAT"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.2
+ },
+ {
+  "key": "16770421_112616031",
+  "seat": 1,
+  "final": 81846.0,
+  "recorded": 81846.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.7
+ },
+ {
+  "key": "16770421_112617125",
+  "seat": 1,
+  "final": 76251.0,
+  "recorded": 76251.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.2
+ },
+ {
+  "key": "16770421_112619077",
+  "seat": 1,
+  "final": 116495.0,
+  "recorded": 116495.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.7
+ },
+ {
+  "key": "16770421_112619540",
+  "seat": 1,
+  "final": 107055.0,
+  "recorded": 107055.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 623,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "CARROT": 2,
+     "STRAWBERRY": 2,
+     "WHEAT": 1
+    },
+    "hook_sell": {
+     "CARROT": 2,
+     "WHEAT": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.2
+ },
+ {
+  "key": "16770421_112620708",
+  "seat": 1,
+  "final": 98675.0,
+  "recorded": 98675.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 2,
+  "infer_bad_first": [
+   {
+    "step": 263,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "WHEAT": 6
+    },
+    "hook_sell": {},
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow",
+     "pf_WHEAT"
+    ]
+   },
+   {
+    "step": 623,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 4,
+     "TOMATO": 2,
+     "WHEAT": 3
+    },
+    "hook_sell": {
+     "TOMATO": 2,
+     "EGG": 4,
+     "WHEAT": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow",
+     "pf_WHEAT"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.8
+ },
+ {
+  "key": "16770421_112624149",
+  "seat": 1,
+  "final": 101304.0,
+  "recorded": 101304.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.6
+ },
+ {
+  "key": "16770421_112624741",
+  "seat": 0,
+  "final": 97997.0,
+  "recorded": 97997.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 23.9
+ },
+ {
+  "key": "16770421_112625278",
+  "seat": 1,
+  "final": 107661.0,
+  "recorded": 107661.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 25.3
+ },
+ {
+  "key": "16770421_112626444",
+  "seat": 0,
+  "final": 141992.0,
+  "recorded": 141992.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 24.0
+ },
+ {
+  "key": "16770421_112628802",
+  "seat": 1,
+  "final": 97167.0,
+  "recorded": 97167.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 25.4
+ },
+ {
+  "key": "16770421_112631138",
+  "seat": 1,
+  "final": 112078.0,
+  "recorded": 112078.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.6
+ },
+ {
+  "key": "16770421_112632279",
+  "seat": 1,
+  "final": 96962.0,
+  "recorded": 96962.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.3
+ },
+ {
+  "key": "16770421_112633424",
+  "seat": 0,
+  "final": 131331.0,
+  "recorded": 131331.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 623,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "FERTILIZER": 1,
+     "STRAWBERRY": 2
+    },
+    "hook_sell": {
+     "STRAWBERRY": 1,
+     "FERTILIZER": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.5
+ },
+ {
+  "key": "16770421_112634605",
+  "seat": 0,
+  "final": 128569.0,
+  "recorded": 128569.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.1
+ },
+ {
+  "key": "16770421_112635740",
+  "seat": 0,
+  "final": 83296.0,
+  "recorded": 83296.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 359,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 1,
+     "CARROT": 13,
+     "WHEAT": 1
+    },
+    "hook_sell": {
+     "CARROT": 13,
+     "EGG": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow",
+     "pf_WHEAT"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.9
+ },
+ {
+  "key": "16770421_112636898",
+  "seat": 0,
+  "final": 128937.0,
+  "recorded": 128937.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.6
+ },
+ {
+  "key": "16770421_112638041",
+  "seat": 1,
+  "final": 92566.0,
+  "recorded": 92566.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 647,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "STRAWBERRY": 2
+    },
+    "hook_sell": {
+     "STRAWBERRY": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 23.0
+ },
+ {
+  "key": "16770421_112638320",
+  "seat": 0,
+  "final": 137179.0,
+  "recorded": 137179.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.8
+ },
+ {
+  "key": "16770421_112639210",
+  "seat": 1,
+  "final": 89618.0,
+  "recorded": 89618.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.7
+ },
+ {
+  "key": "16770421_112640789",
+  "seat": 1,
+  "final": 75307.0,
+  "recorded": 75307.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 623,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 2,
+     "STRAWBERRY": 1,
+     "FERTILIZER": 1
+    },
+    "hook_sell": {
+     "EGG": 2,
+     "FERTILIZER": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.3
+ },
+ {
+  "key": "16770421_112650164",
+  "seat": 0,
+  "final": 89222.0,
+  "recorded": 89222.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 695,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "STRAWBERRY": 1
+    },
+    "hook_sell": {},
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.5
+ },
+ {
+  "key": "16770421_112661732",
+  "seat": 1,
+  "final": 139904.0,
+  "recorded": 139904.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.0
+ },
+ {
+  "key": "16770421_112661735",
+  "seat": 1,
+  "final": 101825.0,
+  "recorded": 101825.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.9
+ },
+ {
+  "key": "16770421_112667584",
+  "seat": 0,
+  "final": 81207.0,
+  "recorded": 81207.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 623,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "TOMATO": 1,
+     "STRAWBERRY": 1,
+     "CARROT": 5
+    },
+    "hook_sell": {
+     "CARROT": 5,
+     "TOMATO": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.9
+ },
+ {
+  "key": "16770421_112669827",
+  "seat": 1,
+  "final": 88090.0,
+  "recorded": 88090.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 2,
+  "infer_bad_first": [
+   {
+    "step": 479,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "WHEAT": 1
+    },
+    "hook_sell": {},
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow",
+     "pf_WHEAT"
+    ]
+   },
+   {
+    "step": 647,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "TOMATO": 1,
+     "STRAWBERRY": 8
+    },
+    "hook_sell": {
+     "STRAWBERRY": 6,
+     "TOMATO": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.7
+ },
+ {
+  "key": "16770421_112676552",
+  "seat": 1,
+  "final": 92258.0,
+  "recorded": 92258.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 19.9
+ },
+ {
+  "key": "16770421_112680136",
+  "seat": 1,
+  "final": 144930.0,
+  "recorded": 144930.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.9
+ },
+ {
+  "key": "16770421_112684654",
+  "seat": 0,
+  "final": 120819.0,
+  "recorded": 120819.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.2
+ },
+ {
+  "key": "16770421_112685100",
+  "seat": 1,
+  "final": 113542.0,
+  "recorded": 113542.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.4
+ },
+ {
+  "key": "16770421_112691826",
+  "seat": 0,
+  "final": 83226.0,
+  "recorded": 83226.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 599,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 1,
+     "MILK": 1,
+     "FERTILIZER": 14
+    },
+    "hook_sell": {
+     "EGG": 1,
+     "FERTILIZER": 13,
+     "MILK": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow",
+     "pf_FERTILIZER"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.6
+ },
+ {
+  "key": "16770421_112698752",
+  "seat": 0,
+  "final": 102280.0,
+  "recorded": 102280.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.5
+ },
+ {
+  "key": "16770421_112698755",
+  "seat": 0,
+  "final": 168461.0,
+  "recorded": 168461.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 19.6
+ },
+ {
+  "key": "16770421_112699923",
+  "seat": 0,
+  "final": 95595.0,
+  "recorded": 95595.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.5
+ },
+ {
+  "key": "16770421_112699938",
+  "seat": 0,
+  "final": 90171.0,
+  "recorded": 90171.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 647,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "STRAWBERRY": 2
+    },
+    "hook_sell": {
+     "STRAWBERRY": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.2
+ },
+ {
+  "key": "16770421_112706563",
+  "seat": 1,
+  "final": 113691.0,
+  "recorded": 113691.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.6
+ },
+ {
+  "key": "16770421_112708229",
+  "seat": 1,
+  "final": 83602.0,
+  "recorded": 83602.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 0,
+  "T1": 720,
+  "wall": 22.5
+ },
+ {
+  "key": "16770421_112714050",
+  "seat": 0,
+  "final": 73589.0,
+  "recorded": 73589.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 0,
+  "T1": 720,
+  "wall": 21.3
+ },
+ {
+  "key": "16770421_112715010",
+  "seat": 1,
+  "final": 73089.0,
+  "recorded": 73089.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 0,
+  "T1": 720,
+  "wall": 21.1
+ },
+ {
+  "key": "16770421_112721923",
+  "seat": 1,
+  "final": 95661.0,
+  "recorded": 95661.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 527,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 1,
+     "CARROT": 3
+    },
+    "hook_sell": {
+     "EGG": 1,
+     "CARROT": 2
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 0,
+  "T1": 720,
+  "wall": 21.2
+ },
+ {
+  "key": "16770421_112725466",
+  "seat": 0,
+  "final": 72497.0,
+  "recorded": 72497.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.3
+ },
+ {
+  "key": "16770421_112728906",
+  "seat": 1,
+  "final": 86880.0,
+  "recorded": 86880.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 599,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "TOMATO": 1,
+     "EGG": 4,
+     "WHEAT": 13
+    },
+    "hook_sell": {
+     "WHEAT": 10,
+     "EGG": 4
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow",
+     "pf_WHEAT"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.0
+ },
+ {
+  "key": "16770421_112730098",
+  "seat": 0,
+  "final": 93280.0,
+  "recorded": 93280.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.0
+ },
+ {
+  "key": "16770421_112738199",
+  "seat": 0,
+  "final": 112260.0,
+  "recorded": 112260.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.1
+ },
+ {
+  "key": "16770421_112746391",
+  "seat": 1,
+  "final": 100310.0,
+  "recorded": 100310.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.7
+ },
+ {
+  "key": "16770421_112746392",
+  "seat": 0,
+  "final": 88034.0,
+  "recorded": 88034.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 671,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "STRAWBERRY": 2
+    },
+    "hook_sell": {
+     "STRAWBERRY": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.8
+ },
+ {
+  "key": "16770421_112750983",
+  "seat": 1,
+  "final": 75331.0,
+  "recorded": 75331.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 2,
+  "infer_bad_first": [
+   {
+    "step": 551,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "WOOL": 4,
+     "TOMATO": 1,
+     "STRAWBERRY": 6,
+     "MILK": 1
+    },
+    "hook_sell": {
+     "STRAWBERRY": 6,
+     "TOMATO": 1,
+     "MILK": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   },
+   {
+    "step": 647,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "CARROT": 1,
+     "FERTILIZER": 1,
+     "WHEAT": 5
+    },
+    "hook_sell": {
+     "WHEAT": 5,
+     "CARROT": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow",
+     "pf_FERTILIZER"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.6
+ },
+ {
+  "key": "16770421_112752289",
+  "seat": 1,
+  "final": 78842.0,
+  "recorded": 78842.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.2
+ },
+ {
+  "key": "16770421_112752308",
+  "seat": 0,
+  "final": 152523.0,
+  "recorded": 152523.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 19.6
+ },
+ {
+  "key": "16770421_112759366",
+  "seat": 0,
+  "final": 101442.0,
+  "recorded": 101442.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.9
+ },
+ {
+  "key": "16770421_112768485",
+  "seat": 0,
+  "final": 102721.0,
+  "recorded": 102721.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.1
+ },
+ {
+  "key": "16770421_112776501",
+  "seat": 0,
+  "final": 100967.0,
+  "recorded": 100967.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 671,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 1,
+     "STRAWBERRY": 2
+    },
+    "hook_sell": {
+     "EGG": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.5
+ },
+ {
+  "key": "16770421_112781455",
+  "seat": 1,
+  "final": 74444.0,
+  "recorded": 74444.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.3
+ },
+ {
+  "key": "16770421_112789466",
+  "seat": 0,
+  "final": 97612.0,
+  "recorded": 97612.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 2,
+  "infer_bad_first": [
+   {
+    "step": 471,
+    "infer_buy": {
+     "SEED:WHEAT": 1
+    },
+    "hook_buy": {
+     "PRODUCT:WHEAT": 1,
+     "SEED:WHEAT": 1
+    },
+    "infer_sell": {},
+    "hook_sell": {
+     "WHEAT": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": []
+   },
+   {
+    "step": 575,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "WOOL": 6,
+     "FERTILIZER": 1
+    },
+    "hook_sell": {
+     "WOOL": 2,
+     "FERTILIZER": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.8
+ },
+ {
+  "key": "16770421_112797700",
+  "seat": 1,
+  "final": 107111.0,
+  "recorded": 107111.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 623,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "FERTILIZER": 3,
+     "STRAWBERRY": 2
+    },
+    "hook_sell": {
+     "FERTILIZER": 3,
+     "STRAWBERRY": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.8
+ },
+ {
+  "key": "16770421_112799877",
+  "seat": 1,
+  "final": 101008.0,
+  "recorded": 101008.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.4
+ },
+ {
+  "key": "16770421_112805778",
+  "seat": 1,
+  "final": 108661.0,
+  "recorded": 108661.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.9
+ },
+ {
+  "key": "16770421_112813923",
+  "seat": 1,
+  "final": 125722.0,
+  "recorded": 125722.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.0
+ },
+ {
+  "key": "16770421_112817427",
+  "seat": 0,
+  "final": 116758.0,
+  "recorded": 116758.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 19.7
+ },
+ {
+  "key": "16770421_112822037",
+  "seat": 0,
+  "final": 100237.0,
+  "recorded": 100237.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.6
+ },
+ {
+  "key": "16770421_112826613",
+  "seat": 1,
+  "final": 108943.0,
+  "recorded": 108943.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 695,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 2,
+     "STRAWBERRY": 2,
+     "FERTILIZER": 1
+    },
+    "hook_sell": {
+     "EGG": 2,
+     "FERTILIZER": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 23.2
+ },
+ {
+  "key": "16770421_112834716",
+  "seat": 1,
+  "final": 125197.0,
+  "recorded": 125197.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.6
+ },
+ {
+  "key": "16770421_112842753",
+  "seat": 1,
+  "final": 97092.0,
+  "recorded": 97092.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 671,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "FERTILIZER": 1,
+     "WHEAT": 1,
+     "STRAWBERRY": 4
+    },
+    "hook_sell": {
+     "STRAWBERRY": 4,
+     "FERTILIZER": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow",
+     "pf_WHEAT"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.3
+ },
+ {
+  "key": "16770421_112857906",
+  "seat": 0,
+  "final": 106689.0,
+  "recorded": 106689.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.8
+ },
+ {
+  "key": "16770421_112866114",
+  "seat": 1,
+  "final": 81474.0,
+  "recorded": 81474.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.6
+ },
+ {
+  "key": "16770421_112866121",
+  "seat": 0,
+  "final": 103760.0,
+  "recorded": 103760.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.1
+ },
+ {
+  "key": "16770421_112874302",
+  "seat": 1,
+  "final": 145803.0,
+  "recorded": 145803.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.6
+ },
+ {
+  "key": "16770421_112882451",
+  "seat": 1,
+  "final": 108830.0,
+  "recorded": 108830.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.0
+ },
+ {
+  "key": "16770421_112900827",
+  "seat": 1,
+  "final": 95101.0,
+  "recorded": 95101.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.8
+ },
+ {
+  "key": "16770421_112900835",
+  "seat": 0,
+  "final": 93930.0,
+  "recorded": 93930.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.8
+ },
+ {
+  "key": "16770421_112910169",
+  "seat": 0,
+  "final": 101437.0,
+  "recorded": 101437.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.6
+ },
+ {
+  "key": "16770421_112910261",
+  "seat": 1,
+  "final": 113643.0,
+  "recorded": 113643.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.2
+ },
+ {
+  "key": "16770421_112920738",
+  "seat": 1,
+  "final": 136412.0,
+  "recorded": 136412.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 695,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "STRAWBERRY": 1,
+     "CARROT": 3,
+     "FERTILIZER": 1,
+     "WHEAT": 9
+    },
+    "hook_sell": {
+     "WHEAT": 9,
+     "CARROT": 3,
+     "FERTILIZER": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.4
+ },
+ {
+  "key": "16770421_112925082",
+  "seat": 0,
+  "final": 102721.0,
+  "recorded": 102721.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.3
+ },
+ {
+  "key": "16770421_112933347",
+  "seat": 0,
+  "final": 124603.0,
+  "recorded": 124603.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 21.4
+ },
+ {
+  "key": "16770421_112933566",
+  "seat": 1,
+  "final": 95380.0,
+  "recorded": 95380.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.4
+ },
+ {
+  "key": "16770421_112944126",
+  "seat": 1,
+  "final": 83537.0,
+  "recorded": 83537.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 242,
+    "infer_buy": {
+     "PRODUCT:WHEAT": 19
+    },
+    "hook_buy": {
+     "PRODUCT:WHEAT": 12
+    },
+    "infer_sell": {
+     "WHEAT": 15
+    },
+    "hook_sell": {
+     "WHEAT": 8
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": []
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 20.8
+ },
+ {
+  "key": "16770421_112952255",
+  "seat": 0,
+  "final": 128891.0,
+  "recorded": 128891.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.0
+ },
+ {
+  "key": "16770421_112963152",
+  "seat": 1,
+  "final": 100404.0,
+  "recorded": 100404.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 22.2
+ },
+ {
+  "key": "16770421_112968339",
+  "seat": 0,
+  "final": 85579.0,
+  "recorded": 85579.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 0,
+  "infer_bad_first": [],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 14.7
+ },
+ {
+  "key": "16770421_112972542",
+  "seat": 1,
+  "final": 88424.0,
+  "recorded": 88424.0,
+  "cash_match": true,
+  "opp_match": true,
+  "vr_err_days2_28": 0.0,
+  "spawn_bad": 0,
+  "spawn_bad_first": [],
+  "sim_bad": 0,
+  "sim_bad_first": [],
+  "infer_bad": 1,
+  "infer_bad_first": [
+   {
+    "step": 575,
+    "infer_buy": {},
+    "hook_buy": {},
+    "infer_sell": {
+     "EGG": 1,
+     "STRAWBERRY": 4,
+     "CARROT": 2,
+     "FERTILIZER": 1
+    },
+    "hook_sell": {
+     "EGG": 1,
+     "CARROT": 2,
+     "FERTILIZER": 1
+    },
+    "hires": [
+     0,
+     0
+    ],
+    "land": [
+     0,
+     0
+    ],
+    "amb": [
+     "midnight_overflow"
+    ]
+   }
+  ],
+  "unattributed_events": 0,
+  "T0": 144,
+  "T1": 336,
+  "wall": 13.4
+ }
+]

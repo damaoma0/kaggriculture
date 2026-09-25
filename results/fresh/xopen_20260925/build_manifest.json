@@ -1,0 +1,72 @@
+{
+ "mgt_lead_xopen": {
+  "source": "agents/mgt_lead.py",
+  "source_sha256": "8d578ef8099b2000a4ee537f4151b4be5485f1a6198cb6add94d0e3c75ab7a75",
+  "entry": "mgt_lead_xopen_agent",
+  "sha256": "32084415c3d27e1b6b2225096fb13298082f2aedb83d9e645785ecff7248470d",
+  "core_sha256": "c842b44d4bcaba4a4809c4e34d679e022434b2627f694fd070c6eb4a23c08baa",
+  "glue_sha256": "5745bc815fa94358f9809c03de0740ab12e4fd18d4a96e8a88140c40b9a6448f"
+ },
+ "mgt_lpv_xo0": {
+  "source": "agents/mgt_lead_deploy.py",
+  "source_sha256": "25bcb41f9d6aa8e6a3f0477c65a851a336fc0dcc958403f005d7c8b630250e80",
+  "sha256": "25bcb41f9d6aa8e6a3f0477c65a851a336fc0dcc958403f005d7c8b630250e80",
+  "verbatim": true
+ },
+ "mgt_lpv_xopen": {
+  "source": "agents/mgt_lead_deploy.py",
+  "source_sha256": "25bcb41f9d6aa8e6a3f0477c65a851a336fc0dcc958403f005d7c8b630250e80",
+  "entry": "mgt_lpv_xopen_agent",
+  "overrides": {},
+  "sha256": "44c64840258ca57928450600c890b7d748f35b8c9c57bff480411dd40e893fee",
+  "core_sha256": "c842b44d4bcaba4a4809c4e34d679e022434b2627f694fd070c6eb4a23c08baa",
+  "glue_sha256": "8cb37a2f322f5a7bbac4f3b8ae1fac74cdc0da60f38725d90fee2fb2328098ea"
+ },
+ "mgt_lpv_xopen_off": {
+  "source": "agents/mgt_lead_deploy.py",
+  "source_sha256": "25bcb41f9d6aa8e6a3f0477c65a851a336fc0dcc958403f005d7c8b630250e80",
+  "entry": "mgt_lpv_xopen_agent",
+  "overrides": {
+   "mode": "off"
+  },
+  "sha256": "17b6cc32b7ff3080a688e27774fc9def9c6df0cc1adc0362169341702da4476f",
+  "core_sha256": "c842b44d4bcaba4a4809c4e34d679e022434b2627f694fd070c6eb4a23c08baa",
+  "glue_sha256": "8cb37a2f322f5a7bbac4f3b8ae1fac74cdc0da60f38725d90fee2fb2328098ea"
+ },
+ "mgt_lpv_xopen_d11": {
+  "source": "agents/mgt_lead_deploy.py",
+  "source_sha256": "25bcb41f9d6aa8e6a3f0477c65a851a336fc0dcc958403f005d7c8b630250e80",
+  "entry": "mgt_lpv_xopen_agent",
+  "overrides": {
+   "dyn": false,
+   "D_fixed": 11
+  },
+  "sha256": "f7b48ac3dcea3ea1d1b16fdf466b756f5e8ca2708b40c7d56ac913bc2c8eb7ef",
+  "core_sha256": "c842b44d4bcaba4a4809c4e34d679e022434b2627f694fd070c6eb4a23c08baa",
+  "glue_sha256": "8cb37a2f322f5a7bbac4f3b8ae1fac74cdc0da60f38725d90fee2fb2328098ea"
+ },
+ "mgt_lpv_xopen_naive": {
+  "source": "agents/mgt_lead_deploy.py",
+  "source_sha256": "25bcb41f9d6aa8e6a3f0477c65a851a336fc0dcc958403f005d7c8b630250e80",
+  "entry": "mgt_lpv_xopen_agent",
+  "overrides": {
+   "failsafe": "naive"
+  },
+  "sha256": "86556f996dedc0a11ed4d97d5263b833f4fc185a4576df509eac1977b3e8f42e",
+  "core_sha256": "c842b44d4bcaba4a4809c4e34d679e022434b2627f694fd070c6eb4a23c08baa",
+  "glue_sha256": "8cb37a2f322f5a7bbac4f3b8ae1fac74cdc0da60f38725d90fee2fb2328098ea"
+ },
+ "built": "2026-09-25 15:36:47",
+ "mgt_lpv_xopen_d9": {
+  "source": "agents/mgt_lead_deploy.py",
+  "source_sha256": "25bcb41f9d6aa8e6a3f0477c65a851a336fc0dcc958403f005d7c8b630250e80",
+  "entry": "mgt_lpv_xopen_agent",
+  "overrides": {
+   "dyn": false,
+   "D_fixed": 9
+  },
+  "sha256": "dc85251c98077609fc4856e10b62014c4e8500bf8a1e19a3de262a21f1ddeb50",
+  "core_sha256": "c842b44d4bcaba4a4809c4e34d679e022434b2627f694fd070c6eb4a23c08baa",
+  "glue_sha256": "8cb37a2f322f5a7bbac4f3b8ae1fac74cdc0da60f38725d90fee2fb2328098ea"
+ }
+}
