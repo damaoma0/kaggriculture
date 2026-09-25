@@ -721,10 +721,18 @@ function sectorStats(frames,day){
     const trips=splitTrips(pts).filter(t=>t.some(p=>FIELD_OPS.has(p.op)));
     if(trips.length){const k=trips.length>=3?'3+':trips.length;tripBuckets[k]=(tripBuckets[k]||0)+1;}
     idle+=pts.filter(p=>p.op==='PASS'||!p.op).length;
-    const jobs=pts.filter(p=>FIELD_OPS.has(p.op)&&!isCentral(p.x,p.y));
-    for(let i=1;i<jobs.length;i++){
-      adjPairs++;
-      if(Math.abs(jobs[i].x-jobs[i-1].x)+Math.abs(jobs[i].y-jobs[i-1].y)===1)adjHits++;
+    // adjacency within a trip's patch: successive DISTINCT non-central job tiles (several ops on one tile count once)
+    for(const t of trips){
+      const jobs=[];
+      for(const p of t){
+        if(!FIELD_OPS.has(p.op)||isCentral(p.x,p.y))continue;
+        const last=jobs[jobs.length-1];
+        if(!last||last.x!==p.x||last.y!==p.y)jobs.push(p);
+      }
+      for(let i=1;i<jobs.length;i++){
+        adjPairs++;
+        if(Math.abs(jobs[i].x-jobs[i-1].x)+Math.abs(jobs[i].y-jobs[i-1].y)===1)adjHits++;
+      }
     }
   }
   let sharedAll=0,sharedNonCentral=0;
@@ -769,7 +777,7 @@ function renderSectorStats(tag,frames,day){
   const el=$('sectorStats'+tag);
   if(!sectorsOn){el.textContent='';return;}
   const s=sectorStats(frames,day),tb=s.tripBuckets;
-  el.textContent=`Trips/hand: 1×${tb[1]||0} 2×${tb[2]||0} 3+×${tb['3+']||0} · Adjacency (non-central): ${s.adj==null?'—':Math.round(s.adj*100)+'%'} · Shared tiles: ${s.sharedAll} (${s.sharedNonCentral} excl. central) · Idle: ${s.idle}`;
+  el.textContent=`Trips/hand: 1×${tb[1]||0} 2×${tb[2]||0} 3+×${tb['3+']||0} · Next job on adjacent tile (within trips, non-central): ${s.adj==null?'—':Math.round(s.adj*100)+'%'} · Shared tiles: ${s.sharedAll} (${s.sharedNonCentral} excl. central) · Idle: ${s.idle}`;
 }
 function armSectorsFor(g,side){
   const arm=side==='L'?g.leader:g[MODE_ARM[mode]];
