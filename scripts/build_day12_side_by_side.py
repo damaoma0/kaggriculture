@@ -179,13 +179,22 @@ def load_xdyn(ep):
     if not p.exists():
         return None
     raw = json.loads(p.read_text(encoding='utf-8'))
-    actions, offset = (raw.get('actions'), raw.get('start_step', raw.get('offset'))) if isinstance(raw, dict) else (raw, None)
+    meta = raw if isinstance(raw, dict) else {}
+    actions = meta.get('actions') if isinstance(raw, dict) else raw
     if not actions:
         return None
-    candidates = [offset] if offset is not None else [0 if len(actions) >= DAY13_MORNING else DAY11_START]
-    if offset is None and 0 not in candidates:
+    # 'first_step'/'last_step' (if present) are descriptive metadata about which absolute steps carry the
+    # real hand-off actions -- NOT a slicing offset into `actions`. Only an explicit 'offset'/'start_step'
+    # key (meaning "actions[0] IS step <offset>") changes the indexing; otherwise infer from length: a
+    # length >= a full day-13-morning span means `actions` is already absolute-indexed from step 0.
+    explicit_offset = meta.get('start_step', meta.get('offset'))
+    candidates = [explicit_offset] if explicit_offset is not None else [0 if len(actions) >= DAY13_MORNING else DAY11_START]
+    if explicit_offset is None and 0 not in candidates:
         candidates.append(0)
-    return dict(actions=actions, candidates=candidates)
+    # Some producers report per-day starting cash (index = day number) as an independent oracle,
+    # e.g. cash[12] = cash at the start of day 12. Cross-checked against our own replay below.
+    cash_by_day = meta.get('cash') if isinstance(meta.get('cash'), list) else None
+    return dict(actions=actions, candidates=candidates, cash_by_day=cash_by_day, meta=meta)
 
 
 def xdyn_action_at(xdyn, offset, t):
@@ -245,7 +254,17 @@ def process_game(game, ctx):
 
     xdyn = load_xdyn(ep)
     if xdyn is not None:
-        handoff_ok, x_frames, x_final, used_offset = False, None, None, None
+        cb = xdyn['cash_by_day']
+        checkpoints = [(11, 0), (12, DAY12_START - DAY11_START), (13, DAY13_MORNING - DAY11_START)]
+
+        def cash_check_for(frames):
+            if not cb:
+                return None
+            return {day: dict(reported=cb[day], ours=frames[idx]['cash'],
+                               match=day < len(cb) and abs(cb[day] - frames[idx]['cash']) < 0.01)
+                    for day, idx in checkpoints if day < len(cb)}
+
+        tried = []
         for offset in xdyn['candidates']:
             def x_provider(t, _off=offset):
                 if t < DAY11_START:
@@ -253,16 +272,23 @@ def process_game(game, ctx):
                 return xdyn_action_at(xdyn, _off, t), UE.tape_action(leader_tape['opp_actions'], t)
             frames, final_seat, final_opp = run_side(seed, shops, seat, x_provider, DAY11_START, DAY12_END, DAY13_MORNING, lookup, table, ctx)
             f0 = frames[0]
-            ok = (f0['board'] == leader_frames[0]['board'] and f0['units'] == leader_frames[0]['units'] and
-                  f0['inv'] == leader_frames[0]['inv'] and f0['shed'] == leader_frames[0]['shed'] and
-                  abs(f0['cash'] - leader_frames[0]['cash']) < 0.01)
-            if ok:
-                handoff_ok, x_frames, x_final, x_opp_final, used_offset = True, frames, final_seat, final_opp, offset
+            handoff_ok = (f0['board'] == leader_frames[0]['board'] and f0['units'] == leader_frames[0]['units'] and
+                          f0['inv'] == leader_frames[0]['inv'] and f0['shed'] == leader_frames[0]['shed'] and
+                          abs(f0['cash'] - leader_frames[0]['cash']) < 0.01)
+            cc = cash_check_for(frames)
+            cc_ok = all(v['match'] for v in cc.values()) if cc else None
+            tried.append(dict(offset=offset, frames=frames, final=final_seat, opp_final=final_opp,
+                               handoff_ok=handoff_ok, cash_checks=cc, cc_ok=cc_ok))
+            # A cash oracle (when present) is a far stronger discriminator than the handoff check alone: the
+            # handoff state only depends on steps < 264, so a WRONG offset can still pass handoff_ok trivially
+            # while producing garbage from step 264 on (caught here, not there).
+            if handoff_ok and cc_ok is not False:
                 break
-        if x_frames is None:
-            x_frames, x_final, x_opp_final, used_offset = frames, final_seat, final_opp, xdyn['candidates'][-1]
-        result['x'] = dict(available=True, frames=x_frames, final_at_d12end=x_final, opp_final_at_d12end=x_opp_final,
-                            handoff_ok=handoff_ok, offset_used=used_offset)
+        best = max(tried, key=lambda r: (r['handoff_ok'] and r['cc_ok'] is not False, r['handoff_ok']))
+        result['x'] = dict(available=True, frames=best['frames'], final_at_d12end=best['final'],
+                            opp_final_at_d12end=best['opp_final'], handoff_ok=best['handoff_ok'],
+                            offset_used=best['offset'], cash_checks=best['cash_checks'],
+                            offsets_tried=[t['offset'] for t in tried])
 
     result['tiles'] = table
     return result
@@ -285,8 +311,10 @@ def main():
         check_memory(f'before {game}')
         r = process_game(game, ctx)
         results.append(r)
+        cc = r['x'].get('cash_checks')
+        cc_str = f" cash_checks={ {d: v['match'] for d, v in cc.items()} }" if cc else ''
         print(f'  {game}: leader {r["verify"]["leader_cash_ok"]} T {r["verify"]["t_cash_ok"]} '
-              f'x_available={r["x"]["available"]}' + (f" handoff_ok={r['x'].get('handoff_ok')}" if r['x']['available'] else ''),
+              f'x_available={r["x"]["available"]}' + (f" handoff_ok={r['x'].get('handoff_ok')}{cc_str}" if r['x']['available'] else ''),
               flush=True)
     print(f'engine wall: {time.time() - t0:.1f}s', flush=True)
     check_memory('after replays')
@@ -300,16 +328,18 @@ def main():
 
 
 def print_verify_table(results):
-    lines = ['', '| game (team) | leader cash | ok | T cash | ok | spot-check (leader/T eff,harv,plant,sold,rev) | x avail | handoff ok |',
-             '|---|---:|---|---:|---|---|---|---|']
+    lines = ['', '| game (team) | leader cash | ok | T cash | ok | spot-check (leader/T eff,harv,plant,sold,rev) | x avail | handoff ok | x cash checkpoints (d11/12/13) |',
+             '|---|---:|---|---:|---|---|---|---|---|']
     for r in results:
         v = r['verify']
         sl = all(v['spot_leader'][k]['match'] for k in v['spot_leader'])
         st = all(v['spot_t'][k]['match'] for k in v['spot_t'])
+        cc = r['x'].get('cash_checks')
+        cc_str = '/'.join('OK' if cc[d]['match'] else f"MISMATCH({cc[d]['reported']}!={cc[d]['ours']})" for d in sorted(cc)) if cc else '-'
         lines.append(f"| {r['episode']} ({r['team']}) | {v['leader_cash']:.0f} ({v['leader_target']:.0f}) | "
                       f"{'OK' if v['leader_cash_ok'] else 'MISMATCH'} | {v['t_cash']:.0f} ({v['t_target']:.0f}) | "
                       f"{'OK' if v['t_cash_ok'] else 'MISMATCH'} | {'OK/OK' if sl and st else f'{sl}/{st}'} | "
-                      f"{r['x']['available']} | {r['x'].get('handoff_ok', '-')} |")
+                      f"{r['x']['available']} | {r['x'].get('handoff_ok', '-')} | {cc_str} |")
     table = '\n'.join(lines)
     print(table)
     (OUT_DIR / 'verify_table.md').write_text(table, encoding='utf-8')
@@ -538,7 +568,13 @@ function renderVerify(g){
     `Leader cash reproduced: ${fmt(v.leader_cash)} vs recorded ${fmt(v.leader_target)} (${v.leader_cash_ok?'OK':'MISMATCH'})`,
     `T cash reproduced: ${fmt(v.t_cash)} vs recorded ${fmt(v.t_target)} (${v.t_cash_ok?'OK':'MISMATCH'})`,
   ];
-  if(g.x&&g.x.available)parts.push(`Day-11 handoff boards identical: ${g.x.handoff_ok?'OK':'MISMATCH'}`);
+  if(g.x&&g.x.available){
+    parts.push(`Day-11 handoff boards identical: ${g.x.handoff_ok?'OK':'MISMATCH'}`);
+    if(g.x.cash_checks){
+      const cc=g.x.cash_checks, allok=Object.values(cc).every(c=>c.match);
+      parts.push(`Exact-start cash vs its own producer's record (d11/12/13): ${allok?'OK':'MISMATCH'}`);
+    }
+  }
   $('verify').textContent=parts.join(' · ');
 }
 
