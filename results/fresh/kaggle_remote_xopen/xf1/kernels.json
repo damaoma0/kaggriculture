@@ -1,0 +1,7 @@
+{
+ "kernels": [
+  "kgr-xf1-s0"
+ ],
+ "cmd": "scripts/lead_multi_run.py scripts/xfix_run.py trace LEADER,T :: scripts/xfix_run.py day11 T,Tc",
+ "pushed": 1790348559.568154
+}

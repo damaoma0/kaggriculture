@@ -1,0 +1,7 @@
+{
+ "kernels": [
+  "kgr-xf6a-s0"
+ ],
+ "cmd": "scripts/lead_multi_run.py scripts/xfix_run.py stream T --worlds g1 :: scripts/xfix_run.py state11 LEADER,T,Frp,Fhm,Fhmrp,Fpb,Fid,Ffr,Fday :: scripts/xfix_run.py full Fhmrppf --worlds all",
+ "pushed": 1790359050.358561
+}

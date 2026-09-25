@@ -1,0 +1,7 @@
+{
+ "kernels": [
+  "kgr-xf10a-s0"
+ ],
+ "cmd": "scripts/lead_multi_run.py scripts/xfix_run.py day11 Rsf :: scripts/xfix_run.py state11 Rsf :: scripts/xfix_run.py full Rsf --worlds all",
+ "pushed": 1790375971.8113167
+}

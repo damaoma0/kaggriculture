@@ -1,0 +1,7 @@
+{
+ "kernels": [
+  "kgr-xfport-s0"
+ ],
+ "cmd": "scripts/lead_multi_run.py scripts/xopen_e2.py run mgt_lead_deploy,mgt_lpv_xfprev,mgt_lpv_xfon smoke :: scripts/xfix_run.py full Pold,Pnew,Pdefoff --worlds g1",
+ "pushed": 1790362621.3573344
+}
