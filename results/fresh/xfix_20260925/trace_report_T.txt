@@ -1,0 +1,247 @@
+day-11 trace: leader vs T from the leader's exact morning state, 8 worlds
+
+==================== 112445586 (16730612:112445586): cash next morning leader 13,838 / T 12,377 (-1,461)
+  ops leader : BUILD_COOP 1, CARE:co 4, CARE:go 11, CARE:sh 3, COLLECT_FERTILIZER:co 6, COLLECT_FERTILIZER:go 11, COLLECT_FERTILIZER:sh 3, DROP 3, FEED:co 4, FEED:go 11, FEED:sh 3, FERTILIZE:ST 3, FERTILIZE:WH 6, HARVEST:CA 1, HARVEST:ME 4, HARVEST:WH 7, HARVEST:go 6, MOVE 113, PASS 0, PICKUP 10, PLACE:GOOSE 1, PLANT:STRAWBERRY 1, PLANT:WHEAT 10, WATER:CA 4, WATER:ME 4, WATER:ST 10, WATER:WH 34
+  ops T      : BUILD_COOP 1, CARE:co 5, CARE:go 10, CARE:sh 3, COLLECT_FERTILIZER:co 6, COLLECT_FERTILIZER:go 9, COLLECT_FERTILIZER:sh 3, FEED:co 5, FEED:go 10, FEED:sh 3, FERTILIZE:ST 3, FERTILIZE:WH 3, HARVEST:ME 3, HARVEST:WH 5, HARVEST:go 5, MOVE 126, PASS 12, PICKUP 13, PLACE:GOOSE 1, PLACE:shed 2, PLANT:STRAWBERRY 1, PLANT:WHEAT 6, WATER:CA 4, WATER:ME 3, WATER:ST 5, WATER:WH 29, noeff:PASS 12
+  T PASS by hour: h20:1 h21:3 h22:1 h23:7
+       4 x no_task (plant_late 1, taken 8)
+       1 x no_task (plant_late 1, taken 10)
+  T idle-trace day record: passes {'no_task': [12, 12]}; work {'shed_PICKUP': 13, 'move': 126, 'op_FEED': 18, 'opv_ge100': 39, 'opval': 10188.499999999998, 'opv_lt30': 7, 'op_COLLECT_FERTILIZER': 18, 'opv_lt100': 51, 'op_CARE': 18, 'op_WATER': 41, 'op_HARVEST': 13, 'opv_none': 14, 'opv_0': 3, 'plan_PLANT': 7, 'shed_PLACE': 3, 'op_FERTILIZE': 6, 'plan_BUILD_COOP': 1, 'pass': 12}
+  HARVEST tiles: leader 18, T 13; leader-only:
+     tile  4 ME@1 y6 w1 c0 f-1              leader h 6; T: task hours 24, with HARVEST 24, first [['WATER'], ['HARVEST']] prio 1 tval [197.0, 23]
+     tile 29 go@7 y3 fed0 care0 fa1 b1 u0   leader h11; T: task hours 24, with HARVEST 24, first [['FEED'], ['CARE'], ['HARVEST'], ['COLLECT_FERTILIZER']] prio 1 tval [249.8, 23]
+     tile 60 WH@9 y2 w1 c1 f-1              leader h11; T: task hours 14, with HARVEST 0, first [['WATER']] prio 0 tval [168.0, 23]
+     tile 92 WH@9 y2 w1 c1 f-1              leader h20; T: task hours 18, with HARVEST 0, first [['WATER']] prio 0 tval [168.0, 23]
+     tile 93 CA@9 y2 w1 c1 f-1              leader h19; T: task hours 24, with HARVEST 24, first [['WATER'], ['HARVEST'], ['PLANT', 'WHEAT'], ['WATER']] prio 0 tval [400.0, 23]
+  FERTILIZE: leader 9 (Counter({'WH': 6, 'ST': 3})), T 6
+     tile 51 WH@9 y1 w0 c1 f-1              leader h 5; T: in plan fert True; task hours 11, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 84 WH@9 y1 w0 c1 f-1              leader h12; T: in plan fert True; task hours 12, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 83 WH@9 y1 w0 c1 f-1              leader h15; T: in plan fert True; task hours 14, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 94 WH@9 y1 w0 c1 f-1              leader h15; T: in plan fert True; task hours 21, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 39 WH@9 y1 w0 c0 f-1              leader h18; T: in plan fert True; task hours 20, with FERTILIZE 0; ops [['WATER']] prio 1
+  PLANT: leader 11, T 7; leader-only 4: t60 WHEAT h12 (.); T job None; t93 WHEAT h20 (.); T job ['PLANT', 'WHEAT', [11, 93]]; t4 WHEAT h20 (.); T job None; t92 WHEAT h21 (.); T job None
+  BUILD_COOP: leader 1, T 1; leader-only 0: 
+  animal PLACE: leader [(14, 32, 'GOOSE')]; T [(18, 32, 'GOOSE')]
+  market leader : revenue 5,671; BUY_ANIMAL:GOOSE 1, BUY_PRODUCT:WHEAT 6, BUY_SEED:WHEAT 10, SELL:EGG 6, SELL:FERTILIZER 14, SELL:MELON 18, SELL:MILK 3, SELL:WHEAT 18
+  market T      : revenue 3,910; BUY_ANIMAL:GOOSE 1, BUY_SEED:WHEAT 4, SELL:EGG 6, SELL:FERTILIZER 8, SELL:MELON 11, SELL:MILK 3, SELL:WHEAT 18
+  midnight carried leader Counter({'WHEAT': 33, 'EGG': 15, 'FERTILIZER': 11, 'MELON': 6, 'CARROT': 2}) shed {}
+  midnight carried T   Counter({'WHEAT': 20, 'FERTILIZER': 18, 'EGG': 12, 'MELON': 6}) shed {'WHEAT': 3}
+  next-morning tiles with another asset/planting day: 4: t4 WH@11 y1 w0 c0 f-1 | ME@1 y6 w0 c0 f-1; t60 WH@11 y1 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t92 WH@11 y1 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t93 WH@11 y1 w0 c0 f-1 | CA@9 y2 w0 c0 f-1
+
+==================== 112621362 (16730612:112621362): cash next morning leader 9,268 / T 6,728 (-2,540)
+  ops leader : CARE:co 12, CARE:go 1, CARE:sh 3, COLLECT_FERTILIZER:co 14, COLLECT_FERTILIZER:go 3, COLLECT_FERTILIZER:sh 3, DROP 4, FEED:co 11, FEED:go 1, FEED:sh 3, FERTILIZE:ST 4, FERTILIZE:WH 7, HARVEST:ME 4, HARVEST:WH 7, MOVE 119, PASS 6, PICKUP 8, PLANT:TOMATO 4, PLANT:WHEAT 11, WATER:ME 4, WATER:ST 7, WATER:TO 8, WATER:WH 30, noeff:PASS 6
+  ops T      : CARE:co 11, CARE:go 1, CARE:sh 3, COLLECT_FERTILIZER:co 14, COLLECT_FERTILIZER:go 1, COLLECT_FERTILIZER:sh 3, FEED:co 11, FEED:go 1, FEED:sh 3, FERTILIZE:ST 4, HARVEST:ME 3, HARVEST:WH 3, MOVE 132, PASS 17, PICKUP 8, PLACE:shed 2, PLANT:TOMATO 4, PLANT:WHEAT 10, WATER:ME 4, WATER:ST 6, WATER:TO 6, WATER:WH 29, noeff:PASS 17
+  T PASS by hour: h20:2 h21:3 h22:4 h23:8
+       4 x no_task (plant_late 1, taken 6)
+       3 x no_task (plant_late 1, taken 8)
+       2 x no_task (plant_late 1, taken 10)
+  T idle-trace day record: passes {'no_task': [17, 17]}; work {'shed_PICKUP': 8, 'op_COLLECT_FERTILIZER': 18, 'opv_lt100': 28, 'opval': 19075.099999999995, 'move': 132, 'op_FEED': 15, 'opv_ge100': 62, 'plan_PLANT': 14, 'op_CARE': 15, 'op_WATER': 45, 'opv_none': 9, 'op_HARVEST': 6, 'opv_0': 3, 'shed_PLACE': 2, 'op_FERTILIZE': 4, 'opv_lt30': 1, 'pass': 17}
+  HARVEST tiles: leader 11, T 6; leader-only:
+     tile  4 ME@1 y6 w1 c0 f-1              leader h 6; T: task hours 24, with HARVEST 24, first [['WATER'], ['HARVEST']] prio 1 tval [213.0, 23]
+     tile 18 WH@8 y5 w1 c0 f12              leader h21; T: task hours 19, with HARVEST 0, first [['WATER']] prio 1 tval [41.0, 23]
+     tile 39 WH@9 y2 w1 c1 f-1              leader h14; T: task hours 13, with HARVEST 0, first [['WATER']] prio 0 tval [172.2, 23]
+     tile 60 WH@9 y2 w1 c1 f-1              leader h11; T: task hours 10, with HARVEST 0, first [['WATER']] prio 0 tval [172.2, 23]
+     tile 93 WH@9 y2 w1 c1 f-1              leader h15; T: task hours 19, with HARVEST 0, first [['WATER']] prio 0 tval [172.2, 23]
+  FERTILIZE: leader 11 (Counter({'WH': 7, 'ST': 4})), T 4
+     tile 51 WH@9 y1 w0 c1 f-1              leader h 5; T: in plan fert True; task hours 6, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 73 WH@9 y1 w0 c1 f-1              leader h 8; T: in plan fert True; task hours 16, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 84 WH@9 y1 w0 c1 f-1              leader h10; T: in plan fert True; task hours 19, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 83 WH@9 y1 w0 c0 f-1              leader h11; T: in plan fert True; task hours 21, with FERTILIZE 0; ops [['WATER']] prio 1
+     tile 16 WH@9 y1 w0 c1 f-1              leader h12; T: in plan fert True; task hours 13, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 94 WH@9 y1 w0 c1 f-1              leader h13; T: in plan fert True; task hours 20, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 57 WH@10 y1 w0 c0 f-1             leader h22; T: in plan fert True; task hours 0, with FERTILIZE 0
+  PLANT: leader 15, T 14; leader-only 8: t33 WHEAT h6 (.); T job None; t60 TOMATO h12 (.); T job None; t3 WHEAT h13 (.); T job None; t39 WHEAT h15 (.); T job None; t93 TOMATO h16 (.); T job None; t4 WHEAT h19 (.); T job None
+     T-only PLANT: t65 (2, 'WHEAT'); t67 (5, 'WHEAT'); t68 (7, 'WHEAT'); t77 (8, 'WHEAT'); t69 (10, 'WHEAT'); t78 (11, 'TOMATO'); t97 (17, 'TOMATO')
+  animal PLACE: leader []; T []
+  market leader : revenue 7,437; BUY_SEED:TOMATO 2, BUY_SEED:WHEAT 15, SELL:FERTILIZER 15, SELL:MELON 24, SELL:MILK 2, SELL:WHEAT 28
+  market T      : revenue 4,847; BUY_SEED:TOMATO 2, BUY_SEED:WHEAT 10, SELL:FERTILIZER 11, SELL:MELON 12, SELL:MILK 2, SELL:WHEAT 28
+  midnight carried leader Counter({'WHEAT': 51, 'FERTILIZER': 9}) shed {'MILK': 4}
+  midnight carried T   Counter({'FERTILIZER': 18, 'WHEAT': 14, 'MELON': 6}) shed {'WHEAT': 26, 'MILK': 4}
+  next-morning tiles with another asset/planting day: 17: t3 WH@11 y1 w0 c0 f-1 | .; t4 WH@11 y1 w0 c0 f-1 | ME@1 y6 w0 c0 f-1; t18 . | WH@8 y5 w0 c0 f12; t32 WH@11 y1 w0 c0 f-1 | .; t33 WH@11 y1 w0 c0 f-1 | .; t39 WH@11 y1 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t60 TO@11 y0 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t62 WEED | WH@9 y2 w0 c0 f-1; t65 . | WH@11 y1 w0 c0 f-1; t67 . | WH@11 y1 w0 c0 f-1
+
+==================== 112649864 (16732748:112649864): cash next morning leader 6,149 / T 4,895 (-1,254)
+  ops leader : BUILD_COOP 1, CARE:co 10, CARE:go 6, CARE:sh 3, COLLECT_FERTILIZER:co 11, COLLECT_FERTILIZER:go 6, COLLECT_FERTILIZER:sh 3, DROP 3, FEED:co 9, FEED:go 6, FEED:sh 3, FERTILIZE:ST 5, FERTILIZE:WH 8, HARVEST:ME 4, HARVEST:WH 7, HARVEST:go 2, MOVE 119, PASS 0, PICKUP 10, PLACE:GOOSE 1, PLANT:CARROT 7, PLANT:STRAWBERRY 3, PLANT:TOMATO 3, PLANT:WHEAT 5, WATER:CA 7, WATER:ME 4, WATER:ST 22, WATER:TO 5, WATER:WH 23
+  ops T      : CARE:co 8, CARE:go 6, CARE:sh 3, COLLECT_FERTILIZER:co 10, COLLECT_FERTILIZER:go 5, COLLECT_FERTILIZER:sh 3, FEED:co 8, FEED:go 6, FEED:sh 3, FERTILIZE:ST 4, HARVEST:ME 4, HARVEST:WH 2, HARVEST:go 1, MOVE 147, PASS 15, PICKUP 10, PLACE:shed 2, PLANT:CARROT 6, PLANT:TOMATO 1, PLANT:WHEAT 4, WATER:CA 6, WATER:ME 3, WATER:ST 17, WATER:TO 3, WATER:WH 21, noeff:PASS 15
+  T PASS by hour: h20:2 h21:2 h22:3 h23:8
+       3 x no_task (plant_late 1, taken 6)
+       2 x no_task (plant_late 1, taken 11)
+       2 x no_task (plant_late 1, taken 9)
+  T idle-trace day record: passes {'no_task': [15, 15]}; work {'shed_PICKUP': 10, 'op_COLLECT_FERTILIZER': 18, 'opv_lt100': 31, 'opval': 43912.400000000016, 'move': 147, 'op_FEED': 17, 'opv_ge100': 64, 'op_CARE': 17, 'plan_PLANT': 11, 'op_WATER': 50, 'opv_lt30': 2, 'opv_none': 12, 'op_HARVEST': 7, 'opv_0': 4, 'shed_PLACE': 2, 'op_FERTILIZE': 4, 'pass': 15}
+  HARVEST tiles: leader 13, T 7; leader-only:
+     tile 39 WH@8 y5 w1 c0 f12              leader h15; T: task hours 24, with HARVEST 24, first [['WATER'], ['HARVEST'], ['PLANT', 'WHEAT'], ['WATER']] prio 0 tval [400.0, 23]
+     tile 48 go@6 y2 fed1 care1 fa0 b1 u0   leader h13; T: task hours 24, with HARVEST 24, first [['FEED'], ['CARE'], ['HARVEST'], ['COLLECT_FERTILIZER']] prio 1 tval [202.1, 23]
+     tile 60 WH@9 y2 w1 c1 f-1              leader h11; T: task hours 14, with HARVEST 0, first [['WATER']] prio 0 tval [155.8, 23]
+     tile 61 WH@9 y2 w1 c1 f-1              leader h20; T: task hours 8, with HARVEST 0, first [['WATER']] prio 0 tval [155.8, 23]
+     tile 80 WH@9 y2 w1 c1 f-1              leader h18; T: task hours 18, with HARVEST 0, first [['WATER']] prio 0 tval [155.8, 23]
+     tile 81 WH@9 y2 w1 c1 f-1              leader h18; T: task hours 16, with HARVEST 0, first [['WATER']] prio 0 tval [155.8, 23]
+  FERTILIZE: leader 13 (Counter({'WH': 8, 'ST': 5})), T 4
+     tile 51 WH@9 y1 w0 c1 f-1              leader h 5; T: in plan fert True; task hours 10, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 63 WH@9 y1 w0 c1 f-1              leader h 7; T: in plan fert True; task hours 4, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 73 WH@9 y1 w0 c1 f-1              leader h10; T: in plan fert True; task hours 10, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 27 WH@9 y1 w0 c1 f-1              leader h13; T: in plan fert True; task hours 14, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 94 WH@9 y1 w0 c1 f-1              leader h14; T: in plan fert True; task hours 14, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 16 WH@9 y1 w0 c1 f-1              leader h15; T: in plan fert True; task hours 13, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 62 WH@9 y1 w0 c1 f-1              leader h16; T: in plan fert True; task hours 6, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile  1 ST@3 y0 w0 c0 f-1              leader h22; T: in plan fert True; task hours 0, with FERTILIZE 0
+     tile 92 WH@9 y1 w0 c1 f-1              leader h22; T: in plan fert True; task hours 16, with FERTILIZE 0; ops [['WATER']] prio 0
+  PLANT: leader 18, T 11; leader-only 7: t60 TOMATO h12 (.); T job None; t3 STRAWBERRY h14 (.); T job None; t39 WHEAT h16 (.); T job ['PLANT', 'WHEAT', [11, 39]]; t81 STRAWBERRY h19 (.); T job None; t80 TOMATO h19 (.); T job None; t4 STRAWBERRY h21 (.); T job None
+  BUILD_COOP: leader 1, T 0; leader-only 1: t32  h13 (.); T job ['BUILD', 'COOP', 'GOOSE']
+  animal PLACE: leader [(14, 32, 'GOOSE')]; T []
+  market leader : revenue 4,825; BUY_ANIMAL:GOOSE 1, BUY_SEED:CARROT 6, BUY_SEED:STRAWBERRY 2, BUY_SEED:TOMATO 2, BUY_SEED:WHEAT 10, SELL:FERTILIZER 16, SELL:MELON 18, SELL:WHEAT 4
+  market T      : revenue 3,171; BUY_ANIMAL:GOOSE 1, BUY_SEED:CARROT 5, BUY_SEED:WHEAT 2, SELL:FERTILIZER 12, SELL:MELON 11, SELL:WHEAT 4
+  midnight carried leader Counter({'WHEAT': 33, 'FERTILIZER': 7, 'MELON': 6, 'EGG': 4}) shed {'WHEAT': 1, 'EGG': 6, 'MILK': 6}
+  midnight carried T   Counter({'FERTILIZER': 18, 'MELON': 12, 'WHEAT': 9, 'EGG': 2}) shed {'WHEAT': 13, 'EGG': 6, 'MILK': 6, 'GOOSE': 1}
+  next-morning tiles with another asset/planting day: 8: t3 ST@11 y0 w0 c0 f-1 | .; t4 ST@11 y0 w0 c0 f-1 | .; t32 go@11 y0 fed0 care0 fa1 b1 u0 | .; t39 WH@11 y1 w0 c0 f-1 | WH@8 y3 w0 c1 f12; t60 TO@11 y0 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t61 CA@11 y1 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t80 TO@11 y0 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t81 ST@11 y0 w0 c0 f-1 | WH@9 y2 w0 c0 f-1
+
+==================== 112655730 (16732748:112655730): cash next morning leader 6,603 / T 6,102 (-501)
+  ops leader : BUILD_COOP 1, CARE:co 6, CARE:go 9, CARE:sh 3, COLLECT_FERTILIZER:co 7, COLLECT_FERTILIZER:go 9, COLLECT_FERTILIZER:sh 3, DROP 3, FEED:co 5, FEED:go 9, FEED:sh 3, FERTILIZE:ST 5, FERTILIZE:WH 9, HARVEST:ME 4, HARVEST:WH 6, HARVEST:go 2, MOVE 121, PASS 0, PICKUP 10, PLACE:GOOSE 1, PLANT:STRAWBERRY 3, PLANT:TOMATO 2, PLANT:WHEAT 14, WATER:ME 4, WATER:ST 18, WATER:TO 4, WATER:WH 35
+  ops T      : CARE:co 5, CARE:go 6, CARE:sh 3, COLLECT_FERTILIZER:co 7, COLLECT_FERTILIZER:go 6, COLLECT_FERTILIZER:sh 3, DROP 1, FEED:co 5, FEED:go 6, FEED:sh 3, FERTILIZE:ST 3, HARVEST:ME 3, HARVEST:WH 2, HARVEST:go 3, MOVE 145, PASS 15, PICKUP 11, PLACE:shed 2, PLANT:STRAWBERRY 3, PLANT:TOMATO 2, PLANT:WHEAT 12, WATER:ME 3, WATER:ST 15, WATER:TO 3, WATER:WH 31, noeff:PASS 15
+  T PASS by hour: h20:1 h21:3 h22:5 h23:6
+       5 x no_task (plant_late 2, taken 8)
+       3 x no_task (plant_late 2, taken 10)
+       1 x no_task (plant_late 3, taken 12)
+  T idle-trace day record: passes {'no_task': [15, 15]}; work {'shed_PICKUP': 11, 'op_COLLECT_FERTILIZER': 16, 'opv_lt100': 30, 'opval': 31965.699999999993, 'move': 145, 'op_FEED': 14, 'opv_ge100': 59, 'plan_PLANT': 17, 'op_CARE': 14, 'op_WATER': 52, 'opv_lt30': 2, 'opv_none': 13, 'op_HARVEST': 8, 'opv_0': 3, 'op_FERTILIZE': 3, 'shed_DROP': 1, 'shed_PLACE': 2, 'pass': 15}
+  HARVEST tiles: leader 12, T 8; leader-only:
+     tile  3 ME@1 y6 w1 c0 f-1              leader h13; T: task hours 24, with HARVEST 24, first [['WATER'], ['HARVEST']] prio 1 tval [213.0, 23]
+     tile 28 WH@8 y5 w1 c0 f12              leader h21; T: task hours 24, with HARVEST 24, first [['WATER'], ['HARVEST'], ['PLANT', 'WHEAT'], ['WATER']] prio 0 tval [400.0, 23]
+     tile 29 WH@7 y4 w1 c0 f-1              leader h18; T: task hours 24, with HARVEST 24, first [['WATER'], ['HARVEST'], ['PLANT', 'WHEAT'], ['WATER']] prio 0 tval [400.0, 23]
+     tile 48 go@7 y4 fed0 care0 fa0 b1 u0   leader h 9; T: task hours 24, with HARVEST 24, first [['FEED'], ['CARE'], ['HARVEST'], ['COLLECT_FERTILIZER']] prio 1 tval [306.8, 23]
+     tile 60 WH@9 y2 w1 c1 f-1              leader h11; T: task hours 10, with HARVEST 0, first [['WATER']] prio 0 tval [172.2, 23]
+     tile 80 WH@9 y2 w1 c1 f-1              leader h18; T: task hours 18, with HARVEST 0, first [['WATER']] prio 0 tval [172.2, 23]
+  FERTILIZE: leader 14 (Counter({'WH': 9, 'ST': 5})), T 3
+     tile 51 WH@9 y1 w0 c1 f-1              leader h 5; T: in plan fert True; task hours 6, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 63 WH@9 y1 w0 c1 f-1              leader h 7; T: in plan fert True; task hours 4, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 73 WH@9 y1 w0 c1 f-1              leader h10; T: in plan fert True; task hours 13, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 49 WH@9 y1 w0 c1 f-1              leader h11; T: in plan fert True; task hours 15, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 84 WH@9 y1 w0 c1 f-1              leader h12; T: in plan fert True; task hours 18, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 39 WH@9 y1 w0 c1 f-1              leader h14; T: in plan fert True; task hours 17, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 16 WH@9 y1 w0 c1 f-1              leader h15; T: in plan fert True; task hours 23, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 94 WH@9 y1 w0 c1 f-1              leader h15; T: in plan fert True; task hours 19, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 62 WH@9 y1 w0 c1 f-1              leader h16; T: in plan fert True; task hours 6, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile  0 ST@2 y0 w0 c1 f-1              leader h19; T: in plan fert True; task hours 24, with FERTILIZE 24 prio 0 tval [1642.6, 23] ops [['FERTILIZE'], ['WATER']]
+     tile  1 ST@3 y0 w0 c0 f-1              leader h22; T: in plan fert True; task hours 0, with FERTILIZE 0
+  PLANT: leader 19, T 17; leader-only 6: t60 TOMATO h12 (.); T job None; t3 STRAWBERRY h14 (.); T job None; t33 WHEAT h17 (.); T job None; t80 TOMATO h19 (.); T job None; t29 WHEAT h19 (.); T job ['PLANT', 'WHEAT', [11, 29]]; t28 WHEAT h22 (.); T job ['PLANT', 'WHEAT', [11, 28]]
+     T-only PLANT: t88 (11, 'WHEAT'); t89 (14, 'TOMATO'); t98 (15, 'TOMATO'); t99 (17, 'STRAWBERRY')
+  BUILD_COOP: leader 1, T 0; leader-only 1: t32  h13 (.); T job ['BUILD', 'COOP', 'GOOSE']
+  animal PLACE: leader [(14, 32, 'GOOSE')]; T []
+  market leader : revenue 5,424; BUY_ANIMAL:GOOSE 1, BUY_SEED:STRAWBERRY 3, BUY_SEED:TOMATO 2, BUY_SEED:WHEAT 15, SELL:EGG 10, SELL:FERTILIZER 15, SELL:MELON 18, SELL:WHEAT 10
+  market T      : revenue 4,793; BUY_ANIMAL:GOOSE 1, BUY_SEED:STRAWBERRY 2, BUY_SEED:TOMATO 2, BUY_SEED:WHEAT 12, SELL:EGG 10, SELL:FERTILIZER 11, SELL:MELON 17, SELL:WHEAT 10
+  midnight carried leader Counter({'WHEAT': 39, 'MELON': 6, 'EGG': 6, 'FERTILIZER': 5}) shed {'EGG': 3, 'MILK': 6}
+  midnight carried T   Counter({'FERTILIZER': 17, 'WHEAT': 14, 'EGG': 6, 'GOOSE': 1}) shed {'WHEAT': 15, 'EGG': 3, 'MILK': 6}
+  next-morning tiles with another asset/planting day: 11: t3 ST@11 y0 w0 c0 f-1 | ME@1 y6 w0 c0 f-1; t28 WH@11 y1 w0 c0 f-1 | WH@8 y3 w0 c1 f12; t29 WH@11 y1 w0 c0 f-1 | WH@7 y3 w0 c1 f-1; t32 go@11 y0 fed0 care0 fa1 b1 u0 | .; t33 WH@11 y1 w0 c0 f-1 | .; t60 TO@11 y0 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t80 TO@11 y0 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t88 . | WH@11 y1 w0 c0 f-1; t89 . | TO@11 y0 w0 c0 f-1; t98 . | TO@11 y0 w0 c0 f-1
+
+==================== 112699923 (16770421:112699923): cash next morning leader 7,111 / T 5,377 (-1,734)
+  ops leader : BUILD_COOP 2, CARE:co 4, CARE:go 3, CARE:sh 11, COLLECT_FERTILIZER:co 5, COLLECT_FERTILIZER:go 4, COLLECT_FERTILIZER:sh 11, DROP 3, FEED:co 4, FEED:go 3, FEED:sh 12, FERTILIZE:ST 4, HARVEST:ME 4, HARVEST:WH 8, MOVE 126, PASS 0, PICKUP 10, PLACE:GOOSE 2, PLANT:CARROT 10, PLANT:STRAWBERRY 1, PLANT:TOMATO 2, PLANT:WHEAT 6, WATER:CA 10, WATER:ME 4, WATER:ST 15, WATER:TO 6, WATER:WH 26
+  ops T      : CARE:co 4, CARE:go 4, CARE:sh 10, COLLECT_FERTILIZER:co 5, COLLECT_FERTILIZER:go 4, COLLECT_FERTILIZER:sh 10, FEED:co 4, FEED:go 4, FEED:sh 10, FERTILIZE:ST 4, FERTILIZE:WH 4, HARVEST:ME 3, HARVEST:WH 5, MOVE 135, PASS 10, PICKUP 11, PLACE:shed 2, PLANT:CARROT 10, PLANT:STRAWBERRY 1, PLANT:TOMATO 2, PLANT:WHEAT 5, WATER:CA 10, WATER:ME 3, WATER:ST 9, WATER:TO 6, WATER:WH 23, noeff:PASS 10
+  T PASS by hour: h21:1 h22:3 h23:6
+       3 x no_task (plant_late 1, taken 9)
+       1 x no_task (plant_late 1, taken 12)
+  T idle-trace day record: passes {'no_task': [10, 10]}; work {'shed_PICKUP': 11, 'move': 135, 'op_FEED': 18, 'opv_ge100': 75, 'opval': 33829.80000000001, 'opv_lt30': 7, 'op_COLLECT_FERTILIZER': 19, 'opv_lt100': 32, 'op_CARE': 18, 'op_WATER': 51, 'plan_PLANT': 18, 'op_HARVEST': 8, 'opv_none': 5, 'opv_0': 3, 'shed_PLACE': 2, 'op_FERTILIZE': 8, 'pass': 10}
+  HARVEST tiles: leader 12, T 8; leader-only:
+     tile  3 ME@1 y6 w1 c0 f-1              leader h13; T: task hours 24, with HARVEST 24, first [['WATER'], ['HARVEST']] prio 1 tval [213.0, 23]
+     tile  9 WH@8 y3 w1 c0 f-1              leader h20; T: task hours 24, with HARVEST 24, first [['WATER'], ['HARVEST'], ['PLANT', 'WHEAT'], ['WATER']] prio 0 tval [400.0, 23]
+     tile 81 WH@9 y2 w1 c1 f-1              leader h21; T: task hours 19, with HARVEST 0, first [['WATER']] prio 0 tval [163.8, 23]
+     tile 94 WH@9 y2 w1 c1 f-1              leader h12; T: task hours 12, with HARVEST 0, first [['WATER']] prio 0 tval [163.8, 23]
+  FERTILIZE: leader 4 (Counter({'ST': 4})), T 8
+  PLANT: leader 19, T 18; leader-only 5: t94 CARROT h13 (.); T job None; t3 STRAWBERRY h14 (.); T job None; t33 WHEAT h14 (.); T job None; t9 WHEAT h21 (.); T job ['PLANT', 'WHEAT', [11, 9]]; t81 TOMATO h22 (.); T job None
+     T-only PLANT: t69 (10, 'WHEAT'); t79 (13, 'STRAWBERRY'); t89 (16, 'TOMATO'); t98 (16, 'CARROT')
+  BUILD_COOP: leader 2, T 0; leader-only 2: t32  h12 (.); T job ['BUILD', 'COOP', 'GOOSE']; t62  h22 (.); T job ['BUILD', 'COOP', 'GOOSE']
+  animal PLACE: leader [(13, 32, 'GOOSE'), (23, 62, 'GOOSE')]; T []
+  market leader : revenue 5,779; BUY_ANIMAL:GOOSE 1, BUY_SEED:CARROT 6, BUY_SEED:STRAWBERRY 2, BUY_SEED:TOMATO 2, BUY_SEED:WHEAT 10, SELL:FERTILIZER 18, SELL:MELON 18, SELL:MILK 6, SELL:WHEAT 11
+  market T      : revenue 3,785; BUY_ANIMAL:GOOSE 1, BUY_SEED:CARROT 4, BUY_SEED:STRAWBERRY 1, BUY_SEED:TOMATO 1, BUY_SEED:WHEAT 3, SELL:FERTILIZER 10, SELL:MELON 11, SELL:MILK 6, SELL:WHEAT 11
+  midnight carried leader Counter({'WHEAT': 46, 'FERTILIZER': 16, 'MELON': 6}) shed {}
+  midnight carried T   Counter({'WHEAT': 21, 'FERTILIZER': 19, 'MELON': 6}) shed {'WHEAT': 18, 'GOOSE': 2}
+  next-morning tiles with another asset/planting day: 12: t3 ST@11 y0 w0 c0 f-1 | ME@1 y6 w0 c0 f-1; t9 WH@11 y1 w0 c0 f-1 | WH@8 y2 w0 c1 f-1; t32 go@11 y0 fed0 care0 fa1 b0 u1 | .; t33 WH@11 y1 w0 c0 f-1 | .; t62 go@11 y0 fed0 care0 fa1 b0 u1 | .; t69 . | WH@11 y1 w0 c0 f-1; t79 . | ST@11 y0 w0 c0 f-1; t81 TO@11 y0 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t88 . | WEED; t89 WEED | TO@11 y0 w0 c0 f-1
+
+==================== 112714050 (16770421:112714050): cash next morning leader 8,482 / T 6,817 (-1,665)
+  ops leader : BUILD_COOP 1, CARE:co 5, CARE:go 10, CARE:sh 3, COLLECT_FERTILIZER:co 7, COLLECT_FERTILIZER:go 12, COLLECT_FERTILIZER:sh 3, DROP 3, FEED:co 5, FEED:go 10, FEED:sh 3, FERTILIZE:ST 3, HARVEST:ME 4, HARVEST:WH 5, HARVEST:go 2, MOVE 120, PASS 0, PICKUP 10, PLACE:GOOSE 1, PLANT:CARROT 3, PLANT:STRAWBERRY 1, PLANT:WHEAT 11, WATER:CA 3, WATER:ME 4, WATER:ST 9, WATER:WH 36
+  ops T      : CARE:co 6, CARE:go 9, CARE:sh 3, COLLECT_FERTILIZER:co 7, COLLECT_FERTILIZER:go 9, COLLECT_FERTILIZER:sh 3, FEED:co 6, FEED:go 10, FEED:sh 3, FERTILIZE:ST 4, FERTILIZE:WH 3, HARVEST:ME 2, HARVEST:WH 4, HARVEST:go 3, MOVE 128, PASS 0, PICKUP 12, PLACE:shed 2, PLANT:CARROT 3, PLANT:STRAWBERRY 1, PLANT:WHEAT 10, WATER:CA 3, WATER:ME 3, WATER:ST 7, WATER:WH 35
+  T PASS by hour: 
+  T idle-trace day record: passes {}; work {'shed_PICKUP': 12, 'move': 128, 'op_FEED': 19, 'opv_ge100': 54, 'opval': 26882.800000000003, 'op_COLLECT_FERTILIZER': 19, 'opv_lt100': 49, 'plan_PLANT': 14, 'op_CARE': 18, 'opv_lt30': 7, 'op_WATER': 48, 'op_HARVEST': 9, 'opv_none': 8, 'opv_0': 2, 'shed_PLACE': 2, 'op_FERTILIZE': 7}
+  HARVEST tiles: leader 11, T 9; leader-only:
+     tile  3 ME@1 y6 w1 c0 f-1              leader h13; T: task hours 24, with HARVEST 24, first [['WATER'], ['HARVEST']] prio 1 tval [213.0, 23]
+     tile  4 ME@1 y6 w1 c0 f-1              leader h 6; T: task hours 24, with HARVEST 24, first [['WATER'], ['HARVEST']] prio 1 tval [213.0, 23]
+     tile 29 WH@7 y3 w0 c0 f-1              leader h22; T: task hours 24, with HARVEST 24, first [['WATER'], ['HARVEST']] prio 1 tval [195.0, 23]
+     tile 37 go@6 y2 fed1 care1 fa0 b1 u0   leader h23; T: task hours 24, with HARVEST 24, first [['FEED'], ['CARE'], ['HARVEST'], ['COLLECT_FERTILIZER']] prio 1 tval [202.1, 23]
+     tile 48 go@7 y4 fed0 care0 fa0 b1 u0   leader h12; T: task hours 24, with HARVEST 24, first [['FEED'], ['CARE'], ['HARVEST'], ['COLLECT_FERTILIZER']] prio 1 tval [292.2, 23]
+  FERTILIZE: leader 3 (Counter({'ST': 3})), T 7
+  PLANT: leader 15, T 14; leader-only 3: t3 STRAWBERRY h14 (.); T job None; t4 WHEAT h17 (.); T job None; t33 WHEAT h20 (.); T job None
+     T-only PLANT: t79 (17, 'STRAWBERRY'); t78 (20, 'WHEAT')
+  BUILD_COOP: leader 1, T 0; leader-only 1: t32  h13 (.); T job ['BUILD', 'COOP', 'GOOSE']
+  animal PLACE: leader [(14, 32, 'GOOSE')]; T []
+  market leader : revenue 7,236; BUY_ANIMAL:GOOSE 1, BUY_PRODUCT:FERTILIZER 5, BUY_PRODUCT:WHEAT 26, BUY_SEED:STRAWBERRY 1, BUY_SEED:TOMATO 3, BUY_SEED:WHEAT 16, SELL:EGG 15, SELL:FERTILIZER 25, SELL:MELON 18, SELL:MILK 3, SELL:WHEAT 26
+  market T      : revenue 3,947; BUY_ANIMAL:GOOSE 1, BUY_SEED:STRAWBERRY 1, BUY_SEED:WHEAT 3, SELL:EGG 15, SELL:FERTILIZER 11, SELL:MELON 11, SELL:MILK 3
+  midnight carried leader Counter({'WHEAT': 27, 'FERTILIZER': 19, 'MELON': 6, 'EGG': 6}) shed {}
+  midnight carried T   Counter({'FERTILIZER': 21, 'WHEAT': 15, 'EGG': 6}) shed {'WHEAT': 8, 'GOOSE': 1}
+  next-morning tiles with another asset/planting day: 9: t3 ST@11 y0 w0 c0 f-1 | ME@1 y6 w0 c0 f-1; t4 WH@11 y1 w0 c0 f-1 | ME@1 y6 w0 c0 f-1; t29 . | WH@7 y3 w0 c1 f-1; t32 go@11 y0 fed0 care0 fa1 b0 u1 | .; t33 WH@11 y1 w0 c0 f-1 | .; t78 . | WH@11 y1 w0 c0 f-1; t79 . | ST@11 y0 w0 c0 f-1; t90 WEED | WH@9 y2 w0 c0 f-1; t92 WEED | WH@9 y2 w0 c0 f-1
+
+==================== 112826614 (16623559:112826614): cash next morning leader 8,507 / T 7,138 (-1,369)
+  ops leader : BUILD_COOP 1, CARE:co 7, CARE:go 5, CARE:sh 3, COLLECT_FERTILIZER:co 10, COLLECT_FERTILIZER:go 6, COLLECT_FERTILIZER:sh 3, DROP 3, FEED:co 7, FEED:go 5, FEED:sh 3, FERTILIZE:ST 4, FERTILIZE:WH 7, HARVEST:ME 4, HARVEST:WH 7, HARVEST:go 2, MOVE 114, PASS 0, PICKUP 10, PLACE:GOOSE 1, PLANT:STRAWBERRY 1, PLANT:TOMATO 3, PLANT:WHEAT 11, WATER:ME 5, WATER:ST 12, WATER:TO 6, WATER:WH 34
+  ops T      : CARE:co 8, CARE:go 6, CARE:sh 3, COLLECT_FERTILIZER:co 10, COLLECT_FERTILIZER:go 6, COLLECT_FERTILIZER:sh 3, FEED:co 8, FEED:go 6, FEED:sh 3, FERTILIZE:ST 3, FERTILIZE:WH 1, HARVEST:ME 3, HARVEST:WH 4, HARVEST:go 2, MOVE 122, PASS 11, PICKUP 10, PLACE:shed 2, PLANT:STRAWBERRY 1, PLANT:TOMATO 3, PLANT:WHEAT 11, WATER:ME 3, WATER:ST 9, WATER:TO 4, WATER:WH 34, noeff:PASS 11
+  T PASS by hour: h20:1 h21:2 h22:2 h23:6
+       2 x no_task (taken 9)
+       2 x no_task (taken 8)
+       1 x no_task (taken 11)
+  T idle-trace day record: passes {'no_task': [11, 11]}; work {'shed_PICKUP': 10, 'move': 122, 'op_FEED': 17, 'opv_ge100': 60, 'opval': 24994.800000000003, 'opv_lt30': 4, 'plan_PLANT': 15, 'op_COLLECT_FERTILIZER': 19, 'opv_lt100': 37, 'op_CARE': 17, 'op_WATER': 50, 'opv_none': 12, 'op_HARVEST': 9, 'opv_0': 3, 'shed_PLACE': 2, 'op_FERTILIZE': 4, 'pass': 11}
+  HARVEST tiles: leader 13, T 9; leader-only:
+     tile  4 ME@1 y6 w1 c0 f-1              leader h 6; T: task hours 24, with HARVEST 24, first [['WATER'], ['HARVEST']] prio 1 tval [213.0, 23]
+     tile 71 WH@9 y2 w1 c1 f-1              leader h21; T: task hours 11, with HARVEST 0, first [['WATER']] prio 0 tval [176.3, 23]
+     tile 80 WH@9 y2 w1 c1 f-1              leader h15; T: task hours 15, with HARVEST 0, first [['WATER']] prio 0 tval [176.3, 23]
+     tile 81 WH@9 y2 w1 c1 f-1              leader h20; T: task hours 17, with HARVEST 0, first [['WATER']] prio 0 tval [176.3, 23]
+  FERTILIZE: leader 11 (Counter({'WH': 7, 'ST': 4})), T 4
+     tile 51 WH@9 y1 w0 c1 f-1              leader h 5; T: in plan fert True; task hours 10, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 63 WH@9 y1 w0 c1 f-1              leader h 8; T: in plan fert True; task hours 5, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 84 WH@9 y1 w0 c1 f-1              leader h10; T: in plan fert True; task hours 11, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 73 WH@9 y1 w0 c1 f-1              leader h11; T: in plan fert True; task hours 7, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 49 WH@9 y1 w0 c1 f-1              leader h11; T: in plan fert True; task hours 14, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 94 WH@9 y1 w0 c1 f-1              leader h13; T: in plan fert True; task hours 19, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile  1 ST@3 y0 w1 c0 f-1              leader h23; T: in plan fert True; task hours 0, with FERTILIZE 0
+  PLANT: leader 15, T 15; leader-only 5: t3 STRAWBERRY h14 (.); T job None; t33 WHEAT h14 (.); T job None; t80 TOMATO h16 (.); T job None; t81 TOMATO h21 (.); T job None; t71 TOMATO h22 (.); T job None
+     T-only PLANT: t68 (7, 'WHEAT'); t78 (10, 'TOMATO'); t77 (13, 'STRAWBERRY'); t87 (16, 'TOMATO'); t96 (21, 'TOMATO')
+  BUILD_COOP: leader 1, T 0; leader-only 1: t32  h13 (.); T job ['BUILD', 'COOP', 'GOOSE']
+  animal PLACE: leader [(14, 32, 'GOOSE')]; T []
+  market leader : revenue 6,727; BUY_ANIMAL:GOOSE 1, BUY_PRODUCT:WHEAT 2, BUY_SEED:STRAWBERRY 2, BUY_SEED:TOMATO 4, BUY_SEED:WHEAT 15, SELL:EGG 7, SELL:FERTILIZER 14, SELL:MELON 18, SELL:MILK 5, SELL:WHEAT 19
+  market T      : revenue 5,006; BUY_ANIMAL:GOOSE 1, BUY_SEED:STRAWBERRY 1, BUY_SEED:TOMATO 2, BUY_SEED:WHEAT 8, SELL:EGG 7, SELL:FERTILIZER 10, SELL:MELON 11, SELL:MILK 5, SELL:WHEAT 19
+  midnight carried leader Counter({'WHEAT': 45, 'FERTILIZER': 8, 'MELON': 6, 'EGG': 4}) shed {'MILK': 1}
+  midnight carried T   Counter({'FERTILIZER': 19, 'WHEAT': 18, 'MELON': 6, 'EGG': 4, 'GOOSE': 1}) shed {'WHEAT': 17, 'MILK': 1}
+  next-morning tiles with another asset/planting day: 12: t3 ST@11 y0 w0 c0 f-1 | .; t4 . | ME@1 y6 w0 c0 f-1; t32 go@11 y0 fed0 care0 fa1 b0 u1 | .; t33 WH@11 y1 w0 c0 f-1 | .; t68 . | WH@11 y1 w0 c0 f-1; t71 TO@11 y0 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t77 . | ST@11 y0 w0 c0 f-1; t78 . | TO@11 y0 w0 c0 f-1; t80 TO@11 y0 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t81 TO@11 y0 w0 c0 f-1 | WH@9 y2 w0 c0 f-1
+
+==================== 112910261 (16623559:112910261): cash next morning leader 6,543 / T 5,787 (-756)
+  ops leader : BUILD_COOP 1, CARE:co 12, CARE:go 1, CARE:sh 3, COLLECT_FERTILIZER:co 15, COLLECT_FERTILIZER:go 1, COLLECT_FERTILIZER:sh 3, DROP 4, FEED:co 11, FEED:go 1, FEED:sh 3, FERTILIZE:ST 3, FERTILIZE:WH 6, HARVEST:ME 4, HARVEST:WH 7, MOVE 115, PASS 0, PICKUP 10, PLACE:GOOSE 1, PLANT:STRAWBERRY 3, PLANT:TOMATO 2, PLANT:WHEAT 14, WATER:ME 5, WATER:ST 15, WATER:TO 2, WATER:WH 32
+  ops T      : CARE:co 10, CARE:go 1, CARE:sh 3, COLLECT_FERTILIZER:co 15, COLLECT_FERTILIZER:go 1, COLLECT_FERTILIZER:sh 3, FEED:co 10, FEED:go 1, FEED:sh 3, FERTILIZE:ST 3, HARVEST:ME 4, HARVEST:WH 2, MOVE 126, PASS 19, PICKUP 10, PLACE:shed 3, PLANT:STRAWBERRY 3, PLANT:TOMATO 1, PLANT:WHEAT 14, WATER:ME 4, WATER:ST 8, WATER:TO 1, WATER:WH 31, noeff:PASS 19
+  T PASS by hour: h19:1 h20:2 h21:2 h22:3 h23:11
+       3 x no_task (plant_late 1, taken 3)
+       2 x no_task (plant_late 1, taken 7)
+       2 x no_task (plant_late 1, taken 5)
+       1 x no_task (plant_late 1, taken 10)
+  T idle-trace day record: passes {'no_task': [19, 19]}; work {'shed_PICKUP': 10, 'op_COLLECT_FERTILIZER': 19, 'opv_lt100': 27, 'opval': 32802.9, 'plan_PLANT': 18, 'move': 126, 'op_FEED': 14, 'opv_ge100': 55, 'op_WATER': 44, 'opv_none': 13, 'op_CARE': 14, 'op_HARVEST': 6, 'opv_0': 5, 'shed_PLACE': 3, 'op_FERTILIZE': 3, 'pass': 19}
+  HARVEST tiles: leader 11, T 6; leader-only:
+     tile 60 WH@9 y2 w1 c1 f-1              leader h11; T: task hours 10, with HARVEST 0, first [['WATER']] prio 0 tval [166.0, 23]
+     tile 61 WH@9 y2 w1 c1 f-1              leader h20; T: task hours 8, with HARVEST 0, first [['WATER']] prio 0 tval [166.0, 23]
+     tile 71 WH@9 y2 w1 c1 f-1              leader h20; T: task hours 14, with HARVEST 0, first [['WATER']] prio 0 tval [166.0, 23]
+     tile 90 WH@9 y2 w1 c1 f-1              leader h20; T: task hours 21, with HARVEST 0, first [['WATER']] prio 0 tval [166.0, 23]
+     tile 93 WH@9 y2 w1 c1 f-1              leader h17; T: task hours 19, with HARVEST 0, first [['WATER']] prio 0 tval [166.0, 23]
+  FERTILIZE: leader 9 (Counter({'WH': 6, 'ST': 3})), T 3
+     tile 51 WH@9 y1 w0 c1 f-1              leader h 5; T: in plan fert True; task hours 7, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 63 WH@9 y1 w0 c1 f-1              leader h 7; T: in plan fert True; task hours 5, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 73 WH@9 y1 w0 c1 f-1              leader h10; T: in plan fert True; task hours 7, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 84 WH@9 y1 w0 c1 f-1              leader h10; T: in plan fert True; task hours 11, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 94 WH@9 y1 w0 c1 f-1              leader h13; T: in plan fert True; task hours 13, with FERTILIZE 0; ops [['WATER']] prio 0
+     tile 62 WH@9 y1 w0 c1 f-1              leader h16; T: in plan fert True; task hours 6, with FERTILIZE 0; ops [['WATER']] prio 0
+  PLANT: leader 19, T 18; leader-only 7: t60 TOMATO h12 (.); T job None; t3 STRAWBERRY h14 (.); T job None; t33 WHEAT h17 (.); T job None; t93 STRAWBERRY h18 (.); T job None; t71 WHEAT h21 (.); T job None; t90 TOMATO h21 (.); T job None
+     T-only PLANT: t78 (12, 'WHEAT'); t87 (14, 'WHEAT'); t79 (15, 'WHEAT'); t88 (17, 'TOMATO'); t89 (18, 'STRAWBERRY'); t98 (20, 'STRAWBERRY')
+  BUILD_COOP: leader 1, T 0; leader-only 1: t32  h13 (.); T job ['BUILD', 'COOP', 'GOOSE']
+  animal PLACE: leader [(14, 32, 'GOOSE')]; T []
+  market leader : revenue 5,462; BUY_ANIMAL:GOOSE 1, BUY_SEED:STRAWBERRY 2, BUY_SEED:TOMATO 2, BUY_SEED:WHEAT 15, SELL:FERTILIZER 17, SELL:MELON 18, SELL:MILK 2, SELL:WHEAT 9
+  market T      : revenue 4,676; BUY_ANIMAL:GOOSE 1, BUY_SEED:STRAWBERRY 2, BUY_SEED:TOMATO 2, BUY_SEED:WHEAT 12, SELL:FERTILIZER 11, SELL:MELON 17, SELL:MILK 2, SELL:WHEAT 9
+  midnight carried leader Counter({'WHEAT': 36, 'FERTILIZER': 7, 'MELON': 6}) shed {'WHEAT': 9, 'MILK': 4}
+  midnight carried T   Counter({'FERTILIZER': 19, 'WHEAT': 12, 'MELON': 6, 'GOOSE': 1}) shed {'WHEAT': 24, 'MILK': 4}
+  next-morning tiles with another asset/planting day: 14: t3 ST@11 y0 w0 c0 f-1 | .; t32 go@11 y0 fed0 care0 fa1 b0 u1 | .; t33 WH@11 y1 w0 c0 f-1 | .; t60 TO@11 y0 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t61 WH@11 y1 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t71 WH@11 y1 w0 c0 f-1 | WH@9 y2 w0 c0 f-1; t78 . | WH@11 y1 w0 c0 f-1; t79 . | WH@11 y1 w0 c0 f-1; t87 . | WH@11 y1 w0 c0 f-1; t88 . | TO@11 y0 w0 c0 f-1
+
+==================== pooled over the worlds (totals)
+  ops leader: BUILD_COOP 8, CARE:co 60, CARE:go 46, CARE:sh 32, COLLECT_FERTILIZER:co 75, COLLECT_FERTILIZER:go 52, COLLECT_FERTILIZER:sh 32, DROP 26, FEED:co 56, FEED:go 46, FEED:sh 33, FERTILIZE:ST 31, FERTILIZE:WH 43, HARVEST:CA 1, HARVEST:ME 32, HARVEST:WH 54, HARVEST:go 14, MOVE 947, PASS 6, PICKUP 78, PLACE:GOOSE 8, PLANT:CARROT 20, PLANT:STRAWBERRY 13, PLANT:TOMATO 16, PLANT:WHEAT 82, WATER:CA 24, WATER:ME 34, WATER:ST 108, WATER:TO 31, WATER:WH 250, noeff:PASS 6
+  ops T: BUILD_COOP 1, CARE:co 57, CARE:go 43, CARE:sh 31, COLLECT_FERTILIZER:co 74, COLLECT_FERTILIZER:go 41, COLLECT_FERTILIZER:sh 31, DROP 1, FEED:co 57, FEED:go 44, FEED:sh 31, FERTILIZE:ST 28, FERTILIZE:WH 11, HARVEST:ME 25, HARVEST:WH 27, HARVEST:go 14, MOVE 1061, PASS 99, PICKUP 85, PLACE:GOOSE 1, PLACE:shed 17, PLANT:CARROT 19, PLANT:STRAWBERRY 10, PLANT:TOMATO 13, PLANT:WHEAT 72, WATER:CA 23, WATER:ME 26, WATER:ST 76, WATER:TO 23, WATER:WH 233, noeff:PASS 99
+  leader-only harvests by asset / T task status: WH no HARVEST task 22, ME HARVEST in task 7, go HARVEST in task 5, WH HARVEST in task 5, CA HARVEST in task 1
+  leader-only fertilize by asset / T task status: WH no FERT task planfert 41, ST no FERT task planfert 3, ST FERT in task p0 planfert 1
+  market leader: BUY_ANIMAL:GOOSE 7, BUY_PRODUCT:FERTILIZER 5, BUY_PRODUCT:WHEAT 34, BUY_SEED:CARROT 12, BUY_SEED:STRAWBERRY 12, BUY_SEED:TOMATO 17, BUY_SEED:WHEAT 106, SELL:EGG 38, SELL:FERTILIZER 134, SELL:MELON 150, SELL:MILK 21, SELL:WHEAT 125
+  market T: BUY_ANIMAL:GOOSE 7, BUY_SEED:CARROT 9, BUY_SEED:STRAWBERRY 7, BUY_SEED:TOMATO 9, BUY_SEED:WHEAT 54, SELL:EGG 38, SELL:FERTILIZER 84, SELL:MELON 101, SELL:MILK 21, SELL:WHEAT 99

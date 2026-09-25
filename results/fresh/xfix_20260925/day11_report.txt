@@ -1,0 +1,38 @@
+day-11 single-day test from the leader's exact morning state, 42 worlds; T's cash gap next morning -749
+| arm | n | cash next morning vs leader | vs T (paired, 95% CI) | better/worse vs T | gap closed |
+|---|---:|---|---|---|---:|
+| T | 42 | -749 | +0 (+0..+0) | 0/0 | 0% |
+| Fhm | 42 | -171 | +578 (+404..+752) | 41/1 | 77% |
+| Fhmrp | 42 | -196 | +553 (+381..+726) | 41/1 | 74% |
+
+per-game means on day 11 (leader first, then each arm):
+  FERTILIZE:WHEAT        LEADER 5.4 | T 0.9 | Fhm 0.7 | Fhmrp 0.7
+  FERTILIZE:STRAWBERRY   LEADER 4.1 | T 3.0 | Fhm 3.2 | Fhmrp 3.4
+  FERTILIZE:TOMATO       LEADER 0.0 | T 0.0 | Fhm 0.0 | Fhmrp 0.0
+  HARVEST:WHEAT          LEADER 6.0 | T 2.3 | Fhm 2.2 | Fhmrp 5.2
+  HARVEST:MELON          LEADER 4.0 | T 3.2 | Fhm 4.0 | Fhmrp 4.0
+  WATER:STRAWBERRY       LEADER 16.9 | T 10.3 | Fhm 10.2 | Fhmrp 10.5
+  WATER:WHEAT            LEADER 27.3 | T 26.0 | Fhm 24.2 | Fhmrp 24.7
+  PLANT                  LEADER 14.8 | T 12.6 | Fhm 11.1 | Fhmrp 12.8
+  BUILD_COOP             LEADER 1.0 | T 0.1 | Fhm 0.0 | Fhmrp 0.0
+  BUILD_PASTURE          LEADER 0.0 | T 0.0 | Fhm 0.0 | Fhmrp 0.0
+  COLLECT_FERTILIZER     LEADER 19.6 | T 18.0 | Fhm 17.1 | Fhmrp 16.5
+  DROP                   LEADER 3.1 | T 0.4 | Fhm 2.6 | Fhmrp 2.6
+  PLACE                  LEADER 1.0 | T 2.6 | Fhm 1.5 | Fhmrp 1.4
+  PASS                   LEADER 1.1 | T 13.6 | Fhm 11.3 | Fhmrp 9.5
+  moves                  LEADER 116.2 | T 134.3 | Fhm 141.2 | Fhmrp 139.1
+  sold MELON             LEADER 18.6 | T 15.4 | Fhm 18.6 | Fhmrp 18.6
+  sold FERTILIZER        LEADER 16.0 | T 11.2 | Fhm 11.0 | Fhmrp 11.0
+  sold WHEAT             LEADER 11.5 | T 10.7 | Fhm 10.5 | Fhmrp 10.7
+  sold EGG               LEADER 4.2 | T 4.2 | Fhm 4.1 | Fhmrp 4.1
+  sold MILK              LEADER 2.6 | T 2.6 | Fhm 2.6 | Fhmrp 2.6
+  revenue                LEADER 5,674 | T 4,646 | Fhm 5,237 | Fhmrp 5,241
+  spend (trades)         LEADER 838 | T 559 | Fhm 572 | Fhmrp 600
+  fertilizer carried mid LEADER 9.9 | T 18.4 | Fhm 17.8 | Fhmrp 17.2
+  melon carried mid      LEADER 5.7 | T 3.1 | Fhm 0.0 | Fhmrp 0.0
+  discarded at midnight  LEADER 0.0 | T 0.0 | Fhm 0.0 | Fhmrp 0.0
+  animals next morning   LEADER 20.6 | T 19.7 | Fhm 19.7 | Fhmrp 19.7
+  T: next-morning tiles of another kind than the leader's: 9.7; agent log: 
+  Fhm: next-morning tiles of another kind than the leader's: 8.7; agent log: 
+  Fhmrp: next-morning tiles of another kind than the leader's: 2.7; agent log: replant_leader_CARROT 0.1, replant_leader_MELON 2.6, replant_leader_WHEAT 6.0
+  (T: 9.7 tiles)

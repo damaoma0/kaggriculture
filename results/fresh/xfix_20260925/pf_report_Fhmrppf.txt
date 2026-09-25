@@ -1,0 +1,61 @@
+planting fates in Fhmrppf (52 games): count per game (value per game = base potential units x leader price)
+
+== WHEAT: 176.6 leader plantings a game
+  fate | d0-5 | d6-11 | d12-17 | d18-23 | d24-29 | all (value)
+  leader tile, late                  |   2.3 |   7.2 |   3.4 |   5.2 |   1.5 |  19.7 (2,705)
+  leader tile, same day              |   7.6 |  34.5 |  33.5 |  29.9 |  10.5 | 116.0 (15,935)
+  remapped: live crop growing        |   0.0 |   0.3 |   0.9 |   0.9 |   0.1 |   2.2 (308)
+  remapped: live crop harvestable    |   0.0 |   0.0 |   0.1 |   6.3 |   1.1 |   7.5 (1,052)
+  remapped: structure                |   0.0 |   0.0 |   0.1 |   1.4 |   0.7 |   2.3 (310)
+  remapped: tile taken               |   0.0 |   0.1 |   0.1 |   0.4 |   0.1 |   0.6 (87)
+  skipped: cohort_gone               |   0.0 |   0.0 |   0.0 |   0.0 |   0.0 |   0.0 (6)
+  skipped: plant_cutoff              |   0.0 |   0.0 |   0.0 |   0.0 |  17.1 |  17.1 (1,605)
+  skipped: window_expired            |   0.0 |   4.1 |   1.1 |   4.8 |   1.2 |  11.1 (1,556)
+
+== CARROT: 59.3 leader plantings a game
+  fate | d0-5 | d6-11 | d12-17 | d18-23 | d24-29 | all (value)
+  leader tile, late                  |   0.0 |   0.6 |   0.7 |   1.9 |   1.5 |   4.8 (631)
+  leader tile, same day              |   0.0 |   2.2 |   8.0 |  12.8 |  12.4 |  35.4 (4,662)
+  remapped: live crop growing        |   0.0 |   0.1 |   0.3 |   0.3 |   0.8 |   1.4 (200)
+  remapped: live crop harvestable    |   0.0 |   0.0 |   0.0 |   2.8 |   2.7 |   5.4 (708)
+  remapped: structure                |   0.0 |   0.0 |   0.1 |   0.4 |   1.6 |   2.1 (285)
+  remapped: tile taken               |   0.0 |   0.0 |   0.0 |   0.1 |   0.1 |   0.2 (29)
+  skipped: plant_cutoff              |   0.0 |   0.0 |   0.0 |   0.0 |   5.0 |   5.0 (561)
+  skipped: window_expired            |   0.0 |   0.2 |   0.3 |   2.3 |   2.1 |   4.9 (653)
+
+== TOMATO: 18.5 leader plantings a game
+  fate | d0-5 | d6-11 | d12-17 | d18-23 | d24-29 | all (value)
+  leader tile, late                  |   0.0 |   2.0 |   1.5 |   0.0 |   0.0 |   3.5 (985)
+  leader tile, same day              |   0.0 |   2.1 |   7.6 |   0.4 |   0.0 |  10.2 (3,048)
+  remapped: live crop growing        |   0.0 |   0.4 |   0.3 |   0.0 |   0.0 |   0.7 (193)
+  remapped: live crop harvestable    |   0.0 |   0.0 |   0.1 |   1.7 |   0.0 |   1.7 (480)
+  remapped: structure                |   0.0 |   0.0 |   0.0 |   0.0 |   0.0 |   0.0 (6)
+  remapped: tile taken               |   0.0 |   0.0 |   0.1 |   0.0 |   0.0 |   0.1 (27)
+  skipped: plant_cutoff              |   0.0 |   0.0 |   0.1 |   2.1 |   0.1 |   2.3 (555)
+
+== STRAWBERRY: 32.6 leader plantings a game
+  fate | d0-5 | d6-11 | d12-17 | d18-23 | d24-29 | all (value)
+  leader tile, late                  |   1.5 |   4.1 |   0.6 |   0.0 |   0.0 |   6.1 (3,604)
+  leader tile, same day              |   8.2 |  10.8 |   4.2 |   0.0 |   0.0 |  23.2 (13,495)
+  remapped: live crop growing        |   0.0 |   0.2 |   0.0 |   0.0 |   0.0 |   0.2 (142)
+  remapped: live crop harvestable    |   0.0 |   0.0 |   0.0 |   0.0 |   0.0 |   0.0 (28)
+  remapped: structure                |   0.0 |   0.0 |   0.0 |   0.0 |   0.0 |   0.0 (8)
+  remapped: tile taken               |   0.0 |   0.2 |   0.0 |   0.0 |   0.0 |   0.2 (123)
+  skipped: plant_cutoff              |   0.0 |   0.0 |   2.8 |   0.0 |   0.0 |   2.8 (1,192)
+
+== MELON: 10.2 leader plantings a game
+  fate | d0-5 | d6-11 | d12-17 | d18-23 | d24-29 | all (value)
+  leader tile, late                  |   0.2 |   0.0 |   0.0 |   0.0 |   0.0 |   0.2 (204)
+  leader tile, same day              |  10.1 |   0.0 |   0.0 |   0.0 |   0.0 |  10.1 (12,838)
+
+== all crops, per game: count (value) and the code path
+  leader tile, late                    34.2 (  8,129)  <- _plan keeps the job on the leader tile; not executed on day pd (labour / seeds / land)
+  leader tile, same day               194.8 ( 49,977)  <- planted as the leader did
+  remapped: live crop growing           4.5 (    843)  <- _plan: our tile holds a crop not finished and not at harvest age (maxday-1) -> _free_tile
+  remapped: live crop harvestable      14.8 (  2,268)  <- _plan: one-time crop harvestable but younger than maxday-1 (leader harvested it early) -> _free_tile
+  remapped: structure                   4.4 (    610)  <- _plan: our tile holds a structure / animal -> _free_tile
+  remapped: tile taken                  1.2 (    267)  <- _plan: another job (build / planting) already on the tile this step -> _free_tile
+  skipped: cohort_gone                  0.0 (      6)  <- _plan: pd < d and the leader board no longer shows the crop on its tile (no catch-up)
+  skipped: plant_cutoff                27.3 (  3,913)  <- _plan: CFG plant_cutoff (no full harvest reachable by day 29)
+  skipped: window_expired              16.0 (  2,209)  <- _plan: late window (CFG late: strawberry 6, tomato 5, melon 3, wheat / carrot 1 days) passed
+  late by days (leader tile): 1: 30.3, 2: 3.4, 3: 0.5, 4: 0.1
