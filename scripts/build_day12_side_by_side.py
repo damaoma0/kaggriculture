@@ -38,6 +38,30 @@ TTAPE_DIR = ROOT / 'results/fresh/upkeep_20260925/ttape'
 XOPEN_DIR = ROOT / 'results/fresh/xopen_20260925/g1'
 XDYN_DIR = ROOT / 'results/fresh/day12_viz/xdyn_streams'
 FHMRP_DIR = ROOT / 'results/fresh/day12_viz/fhmrp_streams'
+KNOWN_STREAM_DIRS = {'xdyn_streams', 'fhmrp_streams'}
+
+
+def discover_dynamic_arms():
+    """Any other results/fresh/day12_viz/*_streams directory becomes an extra "Exact start -- <label>"
+    comparison, same build_exact_arm checks as x/fhmrp. Label comes from one stream file's 'arm' field."""
+    base = ROOT / 'results/fresh/day12_viz'
+    if not base.exists():
+        return []
+    arms = []
+    for p in sorted(base.glob('*_streams')):
+        if not p.is_dir() or p.name in KNOWN_STREAM_DIRS:
+            continue
+        key = p.name[:-len('_streams')] if p.name.endswith('_streams') else p.name
+        label = key
+        for f in sorted(p.glob('*.json'))[:1]:
+            try:
+                meta = json.loads(f.read_text(encoding='utf-8'))
+                if isinstance(meta, dict) and meta.get('arm'):
+                    label = str(meta['arm'])
+            except Exception:
+                pass
+        arms.append(dict(key=key, label=label, dir=p))
+    return arms
 OUT_DIR = ROOT / 'results/fresh/day12_viz'
 OUT_HTML = ROOT / 'viz/day12_leader_vs_T.html'
 DAY11_START, DAY12_START, DAY12_END, DAY13_MORNING = 264, 288, 311, 312
@@ -270,7 +294,7 @@ def spot_check(computed, ledger_days, day=12):
     return out
 
 
-def process_game(game, ctx):
+def process_game(game, ctx, dynamic_arms=()):
     team_id, ep_s = game.split(':')
     ep = int(ep_s)
     leader_tape = UE.load_tape(team_id, ep)
@@ -311,6 +335,8 @@ def process_game(game, ctx):
                   x=build_exact_arm(XDYN_DIR, ep, leader_tape, leader_frames, seed, shops, seat, lookup, table, ctx),
                   fhmrp=build_exact_arm(FHMRP_DIR, ep, leader_tape, leader_frames, seed, shops, seat, lookup, table, ctx),
                   verify=verify)
+    for arm in dynamic_arms:
+        result[arm['key']] = build_exact_arm(arm['dir'], ep, leader_tape, leader_frames, seed, shops, seat, lookup, table, ctx)
 
     result['tiles'] = table
     return result
@@ -327,11 +353,16 @@ def main():
     E = UE.engine()
     ctx = install_hooks(E)
 
+    dynamic_arms = discover_dynamic_arms()
+    if dynamic_arms:
+        print('dynamic arms:', [(a['key'], a['label']) for a in dynamic_arms], flush=True)
+    arm_names = ['x', 'fhmrp'] + [a['key'] for a in dynamic_arms]
+
     results = []
     t0 = time.time()
     for i, game in enumerate(games):
         check_memory(f'before {game}')
-        r = process_game(game, ctx)
+        r = process_game(game, ctx, dynamic_arms)
         results.append(r)
 
         def arm_str(name):
@@ -342,15 +373,15 @@ def main():
             cc_str = f" cash_checks={ {d: v['match'] for d, v in cc.items()} }" if cc else ''
             return f"{name}_available=True handoff_ok={a.get('handoff_ok')}{cc_str}"
         print(f'  {game}: leader {r["verify"]["leader_cash_ok"]} T {r["verify"]["t_cash_ok"]} '
-              f'{arm_str("x")} {arm_str("fhmrp")}', flush=True)
+              + ' '.join(arm_str(name) for name in arm_names), flush=True)
     print(f'engine wall: {time.time() - t0:.1f}s', flush=True)
     check_memory('after replays')
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     (OUT_DIR / 'day12_data.json').write_text(json.dumps(results, separators=(',', ':')), encoding='utf-8')
 
-    print_verify_table(results)
-    write_html(results)
+    print_verify_table(results, arm_names)
+    write_html(results, dynamic_arms)
     check_memory('after html write')
 
 
@@ -361,19 +392,19 @@ def _cc_str(a):
     return '/'.join('OK' if cc[d]['match'] else f"MISMATCH({cc[d]['reported']}!={cc[d]['ours']})" for d in sorted(cc))
 
 
-def print_verify_table(results):
-    lines = ['', '| game (team) | leader cash | ok | T cash | ok | spot-check (leader/T eff,harv,plant,sold,rev) | '
-                 'x avail | x handoff | x cash (d11/12/13) | fhmrp avail | fhmrp handoff | fhmrp cash (d11/12/13) |',
-             '|---|---:|---|---:|---|---|---|---|---|---|---|---|']
+def print_verify_table(results, arm_names=('x', 'fhmrp')):
+    arm_cols = ''.join(f' {n} avail | {n} handoff | {n} cash (d11/12/13) |' for n in arm_names)
+    arm_sep = '---|---|---|' * len(arm_names)
+    lines = ['', '| game (team) | leader cash | ok | T cash | ok | spot-check (leader/T eff,harv,plant,sold,rev) |' + arm_cols,
+             '|---|---:|---|---:|---|---|' + arm_sep]
     for r in results:
         v = r['verify']
         sl = all(v['spot_leader'][k]['match'] for k in v['spot_leader'])
         st = all(v['spot_t'][k]['match'] for k in v['spot_t'])
+        arm_vals = ''.join(f" {r[n]['available']} | {r[n].get('handoff_ok', '-')} | {_cc_str(r[n])} |" for n in arm_names)
         lines.append(f"| {r['episode']} ({r['team']}) | {v['leader_cash']:.0f} ({v['leader_target']:.0f}) | "
                       f"{'OK' if v['leader_cash_ok'] else 'MISMATCH'} | {v['t_cash']:.0f} ({v['t_target']:.0f}) | "
-                      f"{'OK' if v['t_cash_ok'] else 'MISMATCH'} | {'OK/OK' if sl and st else f'{sl}/{st}'} | "
-                      f"{r['x']['available']} | {r['x'].get('handoff_ok', '-')} | {_cc_str(r['x'])} | "
-                      f"{r['fhmrp']['available']} | {r['fhmrp'].get('handoff_ok', '-')} | {_cc_str(r['fhmrp'])} |")
+                      f"{'OK' if v['t_cash_ok'] else 'MISMATCH'} | {'OK/OK' if sl and st else f'{sl}/{st}'} |" + arm_vals)
     table = '\n'.join(lines)
     print(table)
     (OUT_DIR / 'verify_table.md').write_text(table, encoding='utf-8')
@@ -387,8 +418,9 @@ def print_verify_table(results):
 
 
 # ---------------------------------------------------------------- HTML export ---------------------------------
-def write_html(results):
-    payload = dict(built=time.strftime('%Y-%m-%d %H:%M'), games=results)
+def write_html(results, dynamic_arms=()):
+    payload = dict(built=time.strftime('%Y-%m-%d %H:%M'), games=results,
+                   dynamic_arms=[dict(key=a['key'], label=a['label']) for a in dynamic_arms])
     body = json.dumps(payload, separators=(',', ':')).encode('utf-8')
     compressed = gzip.compress(body, mtime=0)
     b64 = base64.b64encode(compressed).decode('ascii')
@@ -555,9 +587,9 @@ const fmt=n=>Number(n||0).toLocaleString('en-GB',{maximumFractionDigits:0});
 const signed=n=>(n>0?'+':'')+fmt(n);
 const nice=s=>String(s).toLowerCase().replaceAll('_',' ');
 const sumv=o=>Object.values(o||{}).reduce((a,b)=>a+b,0);
-const MODE_STATUS={t0:'T from step 0 · day 12',exact:'Exact start · day 11-12',fhmrp:'Exact start (current T) · day 11-12'};
-const MODE_TITLE={t0:'T · from step 0',exact:'Our agent · exact start from day 11',fhmrp:'Our agent (current T) · exact start from day 11'};
-const MODE_ARM={t0:'t',exact:'x',fhmrp:'fhmrp'};
+let MODE_STATUS={t0:'T from step 0 · day 12',exact:'Exact start · day 11-12',fhmrp:'Exact start (current T) · day 11-12'};
+let MODE_TITLE={t0:'T · from step 0',exact:'Our agent · exact start from day 11',fhmrp:'Our agent (current T) · exact start from day 11'};
+let MODE_ARM={t0:'t',exact:'x',fhmrp:'fhmrp'};
 
 let DATA=null, games=[], gi=0, mode='t0', cur=0, timer=null, selected=44;
 
@@ -732,8 +764,11 @@ function jumpToDay(day){
 
 function selectWorld(idx){
   gi=idx;const g=games[gi];$('world').value=String(g.episode);
-  $('modeX').disabled=!(g.x&&g.x.available);
-  $('modeF').disabled=!(g.fhmrp&&g.fhmrp.available);
+  for(const opt of $('mode').options){
+    if(opt.value==='t0')continue;
+    const arm=g[MODE_ARM[opt.value]];
+    opt.disabled=!(arm&&arm.available);
+  }
   if(mode!=='t0'&&!(g[MODE_ARM[mode]]&&g[MODE_ARM[mode]].available))mode='t0';
   $('mode').value=mode;
   cur=0;stop();render();
@@ -746,6 +781,12 @@ async function boot(){
     const stream=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
     DATA=JSON.parse(await new Response(stream).text());
     games=DATA.games;
+    (DATA.dynamic_arms||[]).forEach(({key,label})=>{
+      MODE_ARM[key]=key;
+      MODE_STATUS[key]=`Exact start — ${label} · day 11-12`;
+      MODE_TITLE[key]=`Our agent (${label}) · exact start from day 11`;
+      const o=document.createElement('option');o.value=key;o.textContent=`Exact start — ${label} (day 11-12)`;$('mode').append(o);
+    });
     games.forEach(g=>{const o=document.createElement('option');o.value=String(g.episode);o.textContent=`${g.team} · ${g.episode}`;$('world').append(o);});
     for(let i=0;i<100;i++)for(const side of ['boardL','boardR']){const b=document.createElement('button');b.type='button';b.className='tile';b.onclick=(j=>()=>{selected=j;render();})(i);$(side).append(b);}
     Object.entries(TYPES).forEach(([name,[icon]])=>{const e=document.createElement('span');e.className='chip';e.textContent=icon+' '+nice(name);$('legend').append(e);});
