@@ -1,3 +1,14 @@
+"""mgt_lead_deploy: mgt_lead's executor playing worlds it has never seen, choosing its own targets.
+
+Research agent (2026-09-24). The EXECUTOR SECTION below is a verbatim copy of agents/mgt_lead.py (owned by the
+E1 thread; copied from agents/mgt_lead.py = the 2026-09-25 port (all executor options; exact_removals off), sha256 939271cff22289ab; executor CFG defaults that differ in this copy: sell_source "sem", p1_min_value 30, release_stale_d True, fert_hold 1 (tie_value 1 and hand_stock 1 are mgt_lead.py defaults too); the SEM_MARKET block and its two call sites are this copy's only code difference; re-sync by copying that file between the two marker lines. Only the
+DEPLOY section after it is new: it builds the Target the executor follows (retrieval of leader games at days
+0/3/6/9, count-model composition from day 12, sell-everything rule, hands from the day's work) and holds the
+entry point, which is the LAST callable in the file (Kaggle's loader and scripts/ladder_panel.py call that one).
+"""
+# ============================================================================================
+# ===== BEGIN EXECUTOR SECTION (verbatim agents/mgt_lead.py) ==================================
+# ============================================================================================
 """mgt_lead: follow a leader's per-day BOARD plan with our own closed-loop execution.
 
 Research agent (2026-09-24). Not a replay of the leader's actions: every step reads the live
@@ -16,15 +27,6 @@ hands_present are correctly dated.
 the deploy; maint_goal, hire_demand, cap_fix, retire_visit, reach_guard / reach_first, commit, pick_plan OFF) and
 from agents/mgt_lead_exact.py (thread sem4: exact_removals, OFF by default; 48 four-quadrant leader worlds T-T0
 -289, CI -1,120..+542). With tie_value 0, hand_stock 0 every decision is the previous mgt_lead (sha256 a1cd70e6).
-
-2026-09-25 xfix port (thread xfix; results/fresh/xfix_20260925, scripts/xfix_*.py): tile-exact fixes found by tracing
-T's day 11 from the leader's exact morning state, each behind its own CFG key, all OFF by default except the confirmed pair
-(harvest_policy leader_tendency on melons + replant_leader: default ON = the new T baseline; with both off the file
-is the previous mgt_lead.py, sha256 e0849ddd, to the dollar). CONFIRMED in full games (52 leader worlds, own cash vs T, clean worlds):
-harvest_policy "leader_tendency" with hp_crops ["MELON"] (+816, t-CI +94..+1,538) and, with replant_leader,
-+2,264 (+1,063..+3,465; margin +4,145). Measured and REJECTED (kept off): the wheat / carrot tendency, fert_follow,
-fert_gross, fert_shadow (flat), fert_release, idle_deliver, deliver_credit, upkeep_scale, busy_upkeep_pen,
-lead_harvest_bonus, place_bonus_days 29. pf_log = planting-fate log (logging only).
 """
 import time
 from collections import Counter
@@ -97,9 +99,9 @@ CFG = {
     "plant_cutoff": {"STRAWBERRY": 13, "TOMATO": 18, "MELON": 19, "WHEAT": 25, "CARROT": 26},   # last planting day with a full harvest before the end (min_maintenance); later plantings incl. catch-ups are skipped (2026-09-25: full panel +336, G1 +0.007)    # survival routes also take one-time crops at/after full-yield age (missed harvests decay)
     "sched_dispatch": False,  # scheduler: dispatch by value density among jobs finishable before their deadline
     "sched_hire": False,      # scheduler: hire the n-th hand while the value only it adds exceeds fib(n)
-    "p1_min_value": 0.0,      # maintenance ops worth <= this (coins) count as priority 2 (deferred after late_hour)
+    "p1_min_value": 30.0,     # maintenance ops worth <= this (coins) count as priority 2 (deferred after late_hour); DEPLOY default 30 (2026-09-25: full panel +382, CI +61..+702; mgt_lead.py keeps 0)
     "deliver_units": 10,      # a unit carrying this many products walks them to the shed for same-day sale
-    "release_stale_d": False, # drop a delivery assignment once nothing deliverable is carried (1 idle step per DROP)
+    "release_stale_d": True,  # drop a delivery assignment once nothing deliverable is carried (1 idle step per DROP); DEPLOY default (with p1_min_value 30)
     "cap_fix": 0,             # no-extra-trip shed-cap fix: hours cap_fix_hour..23 units on / next to a shed deposit everything deliverable (wheat above the next-day herd need included) and the same step sells what the midnight projection cannot hold; each morning the feed-wheat keep is capped to what tonight leaves room for
     "cap_fix_hour": 21,
     "cap_harvest_est": 40,    # expected units still to be harvested into hands during a day (morning wheat cap)
@@ -123,7 +125,7 @@ CFG = {
     "cap_hour": 16,
     "cap_rate": 2.5,          # expected items still coming into the units' hands per remaining hour
     "cap_margin": 3,
-    "fert_hold": 0,           # 1: collected fertilizer is not delivered while fertilize jobs remain today (applied in the field); 2: never delivered mid-day
+    "fert_hold": 1,           # 1: collected fertilizer is not delivered while fertilize jobs remain today (applied in the field); 2: never delivered mid-day. DEPLOY default 1 (2026-09-25: full panel +462 vs pv30, CI +67..+888; mgt_lead.py keeps 0)
     "helper_split": False,    # a unit left free by the greedy joins a held animal tile and takes its last op
     "helper_crops": False,    # helper split also on ongoing crops (strawberry / tomato: HARVEST is independent of water)
     "idle_trace": None,       # research: directory for the idle-pass / dropped-job trace (one jsonl per game)
@@ -138,7 +140,7 @@ CFG = {
     "hire_idle": 0.0,         # hiring model: extra coins a hand must earn (idle risk)
     "maint_safety": False,    # ablation B2: with maint_source="leader", still save plants/animals that die tonight
     "hands_d29_fix": True,    # A29 (default on since 2026-09-24): hire the day-28 count on day 29 (the corpus records 0 hands on day 29 because the day-end hook never runs on the last day)
-    "sell_source": "leader",  # ablation: "shed" = mgt_lead_deploy's sell-as-it-reaches-the-shed rule
+    "sell_source": "sem",  # sem = scripts/fragments/sem_market.py hold-and-batch rule; leader = the deploy quota (sell on arrival); shed = G1 ablation rule
     "hire_source": "ours",    # ablation: "leader_steps" = the leader's HIRE orders at the leader's steps
     "route_once": True,
     "add_radius": 3,
@@ -147,36 +149,7 @@ CFG = {
     "keep_bonus": 1.5,
     "exact_removals": False,  # sem4: issue the leader's DIGs of live plants on our tile for that cohort (48 four-quadrant leader worlds: T-T0 -289, CI -1,120..+542; default off)
     "rm_late": 1,             # sem4: a removal stays open on the leader's removal day and this many days after
-    # ---- xfix (2026-09-25), tile-exact fixes, all off by default
-    "replant_leader": 1,      # (default ON since the xfix port) # 1: a leader planting stays on the leader's tile when our tile holds the same one-time crop the leader harvested there today / yesterday (harvest now at any harvestable age, then plant) instead of remapping the planting to a free tile (the leader harvests melons at age 10 and wheat at age 2 to replant)
-    "fert_follow": 0,         # 1: the leader's per-tile FERTILIZE targets of the day (the plan's fert set) become FERTILIZE ops on our live plants under sched_maint (the maintenance module's own ops otherwise replace them)
-    "fert_follow_prio": 1,    # priority of a followed fertilize (0 / 1)
-    "fert_gross": 0,          # 1: a FERTILIZE job's priority is judged on its gross value (units x price), not net of the fertilizer at its market quote
-    "fert_shadow": 0,         # 1: the maintenance module values fertilizer at price - 0.2 x forecast own remaining sales (the leader plan's remaining fertilizer sales); 2: + 0.2 x the rival's (not modelled: = 1)
-    "idle_deliver": 0,        # 1: a unit left without a task carries its sellable stock (fertilizer included, beyond today's open fertilize need) to the shed while a same-day sale is still possible (arrival by hour 22) and the shed has room (DROP deletes overflow)
-    "lead_harvest_bonus": 0,  # steps: cost bonus for a task that harvests a one-time crop (melon / wheat / carrot) with no yield left to gain, or a melon, on a tile the leader harvests today (melons: no shop demand, 250 - 0.01 x excess^2, the first units sold win; the leader harvests them at h4-7 and sells by h11)
-    "harvest_policy": "leader_tendency",   # (default ON since the xfix port) # "leader_tendency" (user ruling, 2026-09-25; 540 leader tapes): SOFT value / priority bonuses toward the leaders' harvest windows, independent of the target: melons at the first allowed age (10) after watering to 6, early in the day (dispatch bonus before hp_melon_hour) and delivered for a same-day sale; wheat at age >= 2 on days 0-11 where a plan job replants the tile, at age >= 3 from day 12; carrots at age 3; tomatoes / strawberries at every production; water before a harvest that day; one-time crops at their last age join the survival routes (never decay)
-    "hp_crops": ["MELON"],   # (xfix port default: melons only; the wheat / carrot / ongoing tendencies measured worse) # crops the harvest tendency applies to
-    "hp_frac": 0.5,           # harvest value inside the tendency window = held units x price x this (prio 1 above p1_min_value)
-    "hp_melon_bonus": 6,      # dispatch cost bonus (steps) for a melon harvest task before hp_melon_hour
-    "hp_melon_hour": 8,       # the melon dispatch bonus applies before this hour (user ruling: before 8 AM; the leaders harvest melons at median h6, IQR 5-8; noon measured the same)
-    "upkeep_scale": 1.0,      # x on the maintenance module's non-survival animal FEED / CARE job values (upkeep thread: the per-job losses overstate the pair's joint loss by ~35%; 0.65)
-    "busy_upkeep_pen": 0,     # steps added to a non-survival animal-upkeep-only task (FEED / CARE / COLLECT) while the open tasks exceed busy_ratio x crew (upkeep thread: on busy days the leader skips upkeep for harvests / digs / plantings)
-    "busy_ratio": 3.0,
-    "deliver_credit": 0,      # 1: deliver when the carried units' same-day-sale credit exceeds the trip (dc_step_value x 2 x shed distance) instead of the flat deliver_units / deliver_value trigger (credit per unit: results/fresh/harvest_timing_20260925/market/credit_tables.json: melon ~54 before noon on days 6-11 else ~12, wool 26/9/7/6, milk 13/7/1/0, strawberry -1/3/5/-2 by day window 6-11/12-17/18-23/24-28, others 0)
-    "dc_step_value": 12.0,    # coins of displaced work per unit-step
-    "fert_release": 0,        # 1: fertilizer is kept in hand only while today's open fertilize need exceeds the stock in hands (the surplus is deliverable), and the market's fertilizer reserve counts our own ongoing plants due tomorrow, not the leader's tomorrow targets we do not follow (they held 18.4 vs the leader's 9.9 at midnight)
-    "pf_log": 0,              # 1: planting-fate log (logging only): for every leader planting event (day, tile, crop) its fate in T and the code path; S["pf"]
 }
-
-
-def _dcredit(p, day, hour):
-    """xfix deliver_credit: coins per unit of selling at the harvest hour instead of after the midnight dump."""
-    w = 0 if day <= 11 else 1 if day <= 17 else 2 if day <= 23 else 3
-    if p == "MELON":
-        return 54.0 if (day <= 11 and hour < 12) else 12.0
-    return {"WOOL": (26.0, 9.0, 7.0, 6.0), "MILK": (13.0, 7.0, 1.0, 0.0),
-            "STRAWBERRY": (-1.0, 3.0, 5.0, -2.0)}.get(p, (0.0, 0.0, 0.0, 0.0))[w]
 
 def _curve():
     order = []
@@ -586,9 +559,6 @@ def _plan(obs, S, tiles, day):
     cut = CFG["plant_cutoff"]
     for (pd, tt, crop) in T.events:
         if pd > d or d - pd > CFG["late"].get(crop, LATE[crop]):
-            if (CFG["pf_log"] and pd <= d and d - pd == CFG["late"].get(crop, LATE[crop]) + 1
-                    and (pd, tt) not in S["done"]):
-                _pf_set(S, (pd, tt), crop, d, "window_expired")
             continue
         if cut and d > cut.get(crop, 99) and not (
                 CFG["cut_mode"] == "leader_harvest"
@@ -597,22 +567,15 @@ def _plan(obs, S, tiles, day):
             if ck not in S["done"]:
                 S["done"].add(ck)
                 S["log"]["cut_" + crop] += 1       # would-be planting skipped: no full harvest reachable
-                if CFG["pf_log"]:
-                    _pf_set(S, (pd, tt), crop, d, "plant_cutoff")
             continue
         key = (pd, tt)
         if key in S["done"]:
             continue
         if pd < d and T.board[d][tt] != CROP_LABEL[crop]:
-            if CFG["pf_log"]:
-                _pf_set(S, key, crop, d, "cohort_gone")
             continue  # the target's own cohort is gone; no catch-up
         m = S["pmap"].get(key, tt)
         cur = _tile(tiles, m)
-        why_ = None
         if _is_plant(cur) and cur["crop"] == crop and cur["planted_day"] >= pd:
-            if CFG["pf_log"]:
-                _pf_set(S, key, crop, d, "planted", tile=m, planted_day=cur["planted_day"], remapped=(m != tt))
             S["done"].add(key)
             if CFG["exact_removals"]:        # sem4 bookkeeping: which plant fulfilled this event
                 S["owner"][key] = (m, cur["planted_day"])
@@ -620,49 +583,29 @@ def _plan(obs, S, tiles, day):
             continue
         if m in jobs:
             m = None
-            why_ = "tile_taken_by_another_job"
         if m is not None:
             if cur == "LOCKED":
                 m = None
-                why_ = "locked"
             elif cur is None or _is_weed(cur):
                 pass
             elif _is_plant(cur):
                 age, harv, fin = _plant_state(cur, day)
                 c = CROPS[cur["crop"]]
-                # xfix replant_leader: the leader harvested this very crop on this tile today / yesterday to replant it
-                # (melons at age 10, wheat at age 2): harvest now and plant here instead of remapping the planting
-                lead_rp = (CFG["replant_leader"] and m == tt and not c["ongoing"] and harv
-                           and cur.get("yield_units", 0) > 0 and T.board[d][tt] == CROP_LABEL.get(cur["crop"])
-                           and any(tt in hs for hs in getattr(T, "harv_tiles", [])[max(0, d - 1):d + 1]))
-                if lead_rp and (pd, tt) not in S.setdefault("rp_seen", set()):
-                    S["rp_seen"].add((pd, tt))
-                    S["log"]["replant_leader_" + cur["crop"]] += 1
-                if not (fin or (not c["ongoing"] and harv and age >= c["maxday"] - 1) or m in rm or lead_rp):
+                if not (fin or (not c["ongoing"] and harv and age >= c["maxday"] - 1) or m in rm):
                     m = None
-                    why_ = "live_%s_age%d_%s" % (cur["crop"], age, "harvestable" if harv else "growing")
             else:
                 m = None
-                why_ = "structure"
         if m is None and tt in rm_lt and pd >= rm_lt[tt][1] and rm_lt[tt][0] not in jobs:
             m = rm_lt[tt][0]                 # sem4: plant on our tile of the cohort the leader removed from tt
             S["pmap"][key] = m
         if m is None:
             if cur == "LOCKED" and _T.land_day.get(_quad(tt % 10, tt // 10), 99) <= day:
-                if CFG["pf_log"]:
-                    _pf_set(S, key, crop, d, "wait_land")
                 continue  # land coming (we buy it today); wait rather than remap
             m2 = _free_tile(tiles, (tt % 10, tt // 10), reserved | set(jobs))
             if m2 is None:
-                if CFG["pf_log"]:
-                    _pf_set(S, key, crop, d, "no_free_tile", why=why_)
                 continue
             S["pmap"][key] = m2
             m = m2
-            if CFG["pf_log"]:
-                _pf_set(S, key, crop, d, "job", tile=m, remap=why_)
-        elif CFG["pf_log"]:
-            _pf_set(S, key, crop, d, "job", tile=m)
         jobs[m] = ("PLANT", crop, key)
     for m, crop in rm.items():               # sem4: removals with no planting / structure on the tile today
         if m not in jobs:
@@ -775,15 +718,6 @@ def _tile_ops(idx, t, job, fert, day, last_day, seeds):
     if CFG["sched_maint"] and _S is not None and (_is_plant(t) or _animal(t)):
         r = _sched_tile_ops(idx, t, day)
         if r is not None:
-            if (CFG["fert_follow"] and _is_plant(t) and idx in fert and day < last_day
-                    and t.get("fertilized_until_day", -1) < day and not any(o[0] == "FERTILIZE" for o in r[0])):
-                # xfix fert_follow: the leader fertilizes this tile today (its plan's FERTILIZE list, mapped to our tile)
-                need2 = Counter(r[1])
-                need2["FERTILIZER"] += 1
-                v0, dl0 = _S["tval"].get(idx, (0.0, 23))
-                pr = (_S.get("prices") or {}).get(t["crop"], 0) or 0
-                _S["tval"][idx] = (v0 + 2.0 * float(pr), dl0)
-                return [["FERTILIZE"]] + list(r[0]), need2, min(r[2], CFG["fert_follow_prio"])
             return r
     if _is_plant(t):
         c = CROPS[t["crop"]]
@@ -861,36 +795,6 @@ def _tile_ops(idx, t, job, fert, day, last_day, seeds):
     return ops, need, prio
 
 
-def _pf_set(S, key, crop, d, st, **kw):
-    """xfix pf_log (logging only): the leader planting event's status on day d (the day's last call wins; the first
-    remap reason is kept)."""
-    r = S.setdefault("pf", {}).setdefault(key, {"crop": crop, "pd": key[0], "tt": key[1], "days": {}})
-    r["days"][d] = st
-    for k, v in kw.items():
-        if k == "remap" and r.get("remap"):
-            continue
-        r[k] = v
-
-
-def _hp_window(t, day, idx):
-    """xfix harvest_policy leader_tendency: is this plant inside the leaders' harvest window today?"""
-    c = CROPS[t["crop"]]
-    age = day - t["planted_day"]
-    if age < c["first"] or t.get("yield_units", 0) <= 0 or t["crop"] not in CFG["hp_crops"]:
-        return False
-    if c["ongoing"]:
-        return True                                   # every production (a next-morning sale is fine)
-    if t["crop"] == "MELON":
-        return True                                   # the first allowed day
-    if t["crop"] == "WHEAT":
-        if day <= 11:
-            return age >= 2 and _S is not None and idx in _S.get("hp_jobs", ())   # early only where the plan replants
-        return age >= 3
-    if t["crop"] == "CARROT":
-        return age >= 3
-    return False
-
-
 def _sched_done(cmd, t, day):
     if cmd == "WATER":
         return bool(t.get("watered_today"))
@@ -927,31 +831,16 @@ def _sched_tile_ops(idx, t, day):
             # (y3-style: wheat / carrot from one day before full yield, replanted the same day by the target)
             lead_h = (CFG["harvest_source"] == "leader" and _is_plant(t) and t["crop"] in ("WHEAT", "CARROT")
                       and idx in S.get("lead_harv", ()))
-            hpw = CFG["harvest_policy"] == "leader_tendency" and _is_plant(t) and _hp_window(t, day, idx)
-            if _is_plant(t) and not CROPS[t["crop"]]["ongoing"] and not lead_h and not hpw:
+            if _is_plant(t) and not CROPS[t["crop"]]["ongoing"] and not lead_h:
                 c_ = CROPS[t["crop"]]
                 if not (CFG["early_onetime"] and t["crop"] in ("WHEAT", "CARROT")
                         and day - t["planted_day"] >= c_["maxday"] - 1):
                     continue
-            frac = 1.0 if lead_h else (CFG["hp_frac"] if hpw else CFG["opt_harvest_frac"])
-            v = float(j.get("held", 0)) * float(j.get("price", 0)) * frac
+            v = float(j.get("held", 0)) * float(j.get("price", 0)) * (1.0 if lead_h else CFG["opt_harvest_frac"])
             if lead_h:
                 S["log"]["lead_harvest_" + t["crop"]] += 1
-            if hpw:
-                S["log"]["hp_harvest_op_" + t["crop"]] += 1
         else:
             v = max(0.0, float(j.get("value", 0.0)))
-            if (cmd == "HARVEST" and CFG["harvest_policy"] == "leader_tendency" and _is_plant(t)
-                    and _hp_window(t, day, idx)):
-                # xfix harvest_policy: a harvest the module keeps at ~0 (same units tomorrow at a constant price) is
-                # worth its units now inside the leaders' window (melons race to the market; the tile is replanted)
-                v = max(v, float(t.get("yield_units", 0)) * float(j.get("price", 0)) * CFG["hp_frac"])
-            if cmd in ("FEED", "CARE") and CFG["upkeep_scale"] != 1.0 and j.get("kind") != "survival":
-                v *= CFG["upkeep_scale"]      # xfix: the module's per-job FEED / CARE losses double-count the pair
-        vp = v
-        if CFG["fert_gross"] and cmd == "FERTILIZE":
-            # xfix fert_gross: judge a fertilize on its gross value (the fertilizer in hand is sunk / depth-priced)
-            vp = max(v, float(j.get("units", 0) or 0) * float(j.get("price", 0) or 0))
         ops.append([cmd])
         for k, n in (j.get("needs") or {}).items():
             need[k] += n
@@ -959,20 +848,9 @@ def _sched_tile_ops(idx, t, day):
         if v > 0:
             dl = min(dl, int(j.get("deadline", 23)))
         if CFG.get("maint_goal") == "max_production":
-            prio = min(prio, 0 if j.get("kind") == "survival" else 1 if (j.get("units", 0) > 0 or vp > CFG["p1_min_value"]) else 2)
+            prio = min(prio, 0 if j.get("kind") == "survival" else 1 if (j.get("units", 0) > 0 or v > CFG["p1_min_value"]) else 2)
         else:
-            prio = min(prio, 0 if j.get("kind") == "survival" else 1 if vp > CFG["p1_min_value"] else 2)
-    if (CFG["harvest_policy"] == "leader_tendency" and _is_plant(t) and t["crop"] == "MELON" and "MELON" in CFG["hp_crops"]
-            and 6 <= day - t["planted_day"] <= 10 and t.get("yield_units", 0) < CROPS["MELON"]["max"]
-            and not t.get("watered_today") and day < 29):
-        # xfix harvest_policy: every melon window water counts toward 6 units at age 10 (the leaders harvest at the first
-        # allowed day and sell that morning; the module sees the cap reached by age 12 anyway and values it ~0)
-        pm = float((S.get("prices") or {}).get("MELON", 0) or 0) or 200.0
-        if not any(o[0] == "WATER" for o in ops):
-            ops.append(["WATER"])
-            S["log"]["hp_melon_water_added"] += 1
-        val += pm
-        prio = min(prio, 1)
+            prio = min(prio, 0 if j.get("kind") == "survival" else 1 if v > CFG["p1_min_value"] else 2)
     if _is_plant(t) and not CROPS[t["crop"]]["ongoing"] and t.get("yield_units", 0) > 0 \
             and day - t["planted_day"] >= CROPS[t["crop"]]["maxday"] and any(o[0] == "HARVEST" for o in ops):
         S.setdefault("atrisk", set()).add(idx)
@@ -1027,16 +905,9 @@ def agent(obs, config=None):
         S["day"] = day
         S["assign"] = {}
         S["walk"] = {}
-    if CFG["fert_follow"] or CFG["harvest_policy"] == "leader_tendency":
-        S["prices"] = prices
     unlocked = list(farm.get("unlocked_quadrants", ["NW"]))
 
     jobs, fert = _plan(obs, S, tiles, day)
-    if CFG["harvest_policy"] == "leader_tendency":
-        S["hp_jobs"] = set(jobs)
-        S["hp_melon"] = {i_ for i_ in range(100) if _is_plant(_tile(tiles, i_)) and _tile(tiles, i_)["crop"] == "MELON"
-                         and day - _tile(tiles, i_)["planted_day"] >= CROPS["MELON"]["first"]
-                         and _tile(tiles, i_).get("yield_units", 0) > 0}
     if CFG["sched_maint"]:
         sig = []
         for idx in range(100):
@@ -1047,26 +918,8 @@ def agent(obs, config=None):
                 sig.append((idx, t["animal"], t.get("placed_day")))
         sig = tuple(sig)
         if S.get("mj_day") != day or (S.get("mj_sig") != sig and hour - S.get("mj_hour", -99) >= CFG["mj_every"]):
-            mj_prices = None
-            if CFG["fert_shadow"]:
-                # xfix fert_shadow: no shop buys fertilizer; its price only falls by 0.2 per unit sold (both players), so a
-                # unit we hold is worth the quote minus 0.2 x our own remaining sales (the plan's; else an animal-based forecast)
-                d_s = min(day, _T.n - 1)
-                rem = None
-                try:
-                    tot = float(_T.cum_sold[_T.n - 1].get("FERTILIZER", 0))
-                    if tot < 1e5:
-                        rem = max(0.0, tot - float(_T.cum_sold[d_s].get("FERTILIZER", 0)))
-                except Exception:
-                    rem = None
-                if rem is None:
-                    n_an = sum(1 for r_ in tiles for t_ in r_ if _animal(t_))
-                    rem = 0.7 * n_an * max(0, 28 - day)
-                p_f = float(prices.get("FERTILIZER", 100) or 100)
-                mj_prices = {"FERTILIZER": max(1.0, p_f - 0.2 * rem)}
-                S["log"]["fert_shadow_sum"] += int(mj_prices["FERTILIZER"])
             try:
-                jl = _sm()["maintenance_jobs"](obs, me, prices=mj_prices, fertilize=_mj_fert(), include_optional=True,
+                jl = _sm()["maintenance_jobs"](obs, me, prices=None, fertilize=_mj_fert(), include_optional=True,
                                               collect=CFG["mj_collect"], log=S.setdefault("abandon", []))
             except Exception as exc:  # never crash: fall back to the previous list
                 S["log"]["mj_error"] += 1
@@ -1094,18 +947,6 @@ def agent(obs, config=None):
             if idx not in S["tval"]:
                 S["tval"][idx] = ((CFG["plan_value"] if jobs.get(idx) else 50.0 * len(ops)), 23)
 
-    if CFG["lead_harvest_bonus"]:
-        lhb = set()
-        d_h = min(day, _T.n - 1)
-        hs_ = getattr(_T, "harv_tiles", None)
-        if hs_ and d_h < len(hs_):
-            for tt in hs_[d_h]:
-                t_ = _tile(tiles, tt)
-                if (_is_plant(t_) and not CROPS[t_["crop"]]["ongoing"] and t_.get("yield_units", 0) > 0
-                        and day - t_["planted_day"] >= CROPS[t_["crop"]]["first"]
-                        and (t_["crop"] == "MELON" or _onetime_should_harvest(t_, day))):
-                    lhb.add(tt)
-        S["lh_bonus"] = lhb
     carried = Counter()
     for inv in invs:
         carried.update(inv)
@@ -1136,8 +977,6 @@ def agent(obs, config=None):
     fert_short = demand.get("FERTILIZER", 0) > shed.get("FERTILIZER", 0)
 
     fert_keep = fert_short or (CFG["fert_hold"] == 1 and demand.get("FERTILIZER", 0) > 0) or CFG["fert_hold"] == 2
-    if CFG["fert_release"] and CFG["fert_hold"] == 1 and not fert_short:
-        fert_keep = demand.get("FERTILIZER", 0) >= carried.get("FERTILIZER", 0)    # xfix: only the surplus is deliverable
 
     n_herd = sum(1 for r_ in tiles for t_ in r_ if _animal(t_))
     wheat_over = (CFG["cap_fix"] and hour >= CFG["cap_fix_hour"] and day < last_day
@@ -1237,14 +1076,6 @@ def agent(obs, config=None):
             c -= CFG["atrisk_bonus"]  # the whole crop is lost if this harvest waits until tomorrow
         if CFG["place_bonus"] and day <= CFG["place_bonus_days"] and any(o[0] == "PLACE" for o in ops):
             c -= CFG["place_bonus"]  # animals first (the leaders place every animal early in the day)
-        if CFG["lead_harvest_bonus"] and idx in S.get("lh_bonus", ()) and any(o[0] == "HARVEST" for o in ops):
-            c -= CFG["lead_harvest_bonus"]   # xfix: the leader harvests (and sells) this crop today: first thing
-        if (CFG["busy_upkeep_pen"] and prio >= 1 and len(tasks) > CFG["busy_ratio"] * n
-                and all(o[0] in ("FEED", "CARE", "COLLECT_FERTILIZER") for o in ops)):
-            c += CFG["busy_upkeep_pen"]      # xfix: busy day: harvests / plantings / digs before animal upkeep
-        if (CFG["harvest_policy"] == "leader_tendency" and hour < CFG["hp_melon_hour"] and idx in S.get("hp_melon", ())
-                and any(o[0] == "HARVEST" for o in ops)):
-            c -= CFG["hp_melon_bonus"]       # xfix harvest_policy: melons early in the day (race to the market)
         if hour >= CFG["late_hour"] and prio >= 2:
             c += 10
         elif CFG["prio3"] and hour >= CFG["late_hour"] and prio == 1:
@@ -1330,17 +1161,8 @@ def agent(obs, config=None):
         dv = deliverable(invs[u])
         val = sum(prices.get(k, 0) * v for k, v in dv.items() if k in quota_open)
         late = CFG["prio3"] and hour >= CFG["late_hour"]
-        hp_mel = (CFG["harvest_policy"] == "leader_tendency" and dv.get("MELON", 0) > 0 and "MELON" in quota_open
-                  and hour + _dist(pos[u], _near_shed(pos[u])) <= 22)     # xfix: melons sold the same day
-        credit_ok = False
-        if CFG["deliver_credit"] and dv:
-            cr = sum(v * _dcredit(k, day, hour) for k, v in dv.items() if k in quota_open)
-            credit_ok = cr > CFG["dc_step_value"] * 2 * _dist(pos[u], _near_shed(pos[u]))
-            if credit_ok:
-                S["log"]["dc_deliveries"] += 1
-        flat = (((sum(dv.values()) >= CFG["deliver_units"] or val >= CFG["deliver_value"]) and not late)
-                or (val >= CFG["deliver_value_late"] and hour < 20)) if not CFG["deliver_credit"] else False
-        if dv and hour < 22 and (flat or credit_ok or (S.get("short") and val > 0) or hp_mel):
+        if dv and hour < 22 and (((sum(dv.values()) >= CFG["deliver_units"] or val >= CFG["deliver_value"]) and not late)
+                                 or (S.get("short") and val > 0) or (val >= CFG["deliver_value_late"] and hour < 20)):
             assign[u] = "D"
     surv_route = {}
     if CFG["surv_reserve"] and hour >= CFG["surv_hour"] and day < last_day and CFG["dispatch"] != "route":
@@ -1348,8 +1170,7 @@ def agent(obs, config=None):
         surv = []
         for idx in tasks:
             t_ = _tile(tiles, idx)
-            if ((CFG["surv_harvest"] or CFG["harvest_policy"] == "leader_tendency")
-                    and _is_plant(t_) and not CROPS[t_["crop"]]["ongoing"] and t_.get("yield_units", 0) > 0
+            if (CFG["surv_harvest"] and _is_plant(t_) and not CROPS[t_["crop"]]["ongoing"] and t_.get("yield_units", 0) > 0
                     and day - t_["planted_day"] >= CROPS[t_["crop"]]["maxday"]
                     and any(o[0] == "HARVEST" for o in tasks[idx][0])):
                 surv.append((idx, "HARVEST"))   # a one-time crop past full yield starts decaying tomorrow morning
@@ -1442,16 +1263,6 @@ def agent(obs, config=None):
         S["log"]["helper_steps"] += len(helper)
 
     assign0 = dict(assign)
-    if CFG["pf_log"]:
-        asg_ = set(v for v in assign0.values() if v != "D")
-        for m_, j_ in jobs.items():
-            if j_[0] == "PLANT" and j_[2] in S.get("pf", {}):
-                r_ = S["pf"][j_[2]]
-                r_["job_steps"] = r_.get("job_steps", 0) + 1
-                r_["seed_steps"] = r_.get("seed_steps", 0) + (1 if seeds.get(j_[1], 0) > 0 else 0)
-                r_["assign_steps"] = r_.get("assign_steps", 0) + (1 if m_ in asg_ else 0)
-                if m_ in tasks and any(o[0] == "PLANT" for o in tasks[m_][0]):
-                    r_["task_steps"] = r_.get("task_steps", 0) + 1
     shed_left0 = Counter(shed_left)
     plant_count = Counter()
     endgame = day >= last_day
@@ -1532,18 +1343,6 @@ def agent(obs, config=None):
                 continue
         if idx is None or idx == "D":
             dv = deliv_u(u)
-            if (not dv and idx is None and CFG["idle_deliver"] and day < last_day
-                    and hour + _dist(p, _near_shed(p)) <= 22):
-                # xfix idle_deliver: no task left for this unit: carry its sellable stock (not wheat; fertilizer beyond the
-                # open fertilize need) to the shed so it sells today instead of after the midnight dump
-                f_open = max(0, demand.get("FERTILIZER", 0) - sum(invs[v].get("FERTILIZER", 0) for v in range(n) if v != u)
-                             - shed_left.get("FERTILIZER", 0))
-                dv = {k: v for k, v in inv.items() if v > 0 and k in PRODUCTS and k != "WHEAT"
-                      and (k != "FERTILIZER" or v > f_open)}
-                if dv and sum(shed.values()) + sum(inv.values()) > 95:
-                    dv = {}                  # a DROP / PLACE at a full shed deletes what does not fit
-                if dv:
-                    S["log"]["idle_deliver"] += 1
             if dv and hour < 23:
                 s = _near_shed(p)
                 if p != s:
@@ -1641,13 +1440,6 @@ def agent(obs, config=None):
             actions[u] = list(act)
 
     # ---- diagnostics
-    if CFG["pf_log"]:
-        for u_ in range(n):
-            a_ = actions[u_]
-            if a_ and a_[0] == "HARVEST":
-                t_ = _tile(tiles, pos[u_][1] * 10 + pos[u_][0])
-                if _is_plant(t_) and t_["crop"] == "MELON" and t_.get("yield_units", 0) > 0                         and day - t_["planted_day"] >= CROPS["MELON"]["first"]:
-                    S["log"]["melon_units_h%02d" % hour] += int(t_["yield_units"])    # xfix log: melon units by hour
     if hour in (1, 23) and day < last_day:
         lg = S["log"]
         nf = sum(1 for ops, need, prio in tasks.values() if any(o[0] == "FERTILIZE" for o in ops))
@@ -2249,6 +2041,70 @@ def _sched_hands(S, day, hour, tasks, jobs=None):
     return k
 
 
+# ===== BEGIN SEM_MARKET SELL BLOCK (2026-09-24; mgt_lead_deploy_sell only) =================================
+# CFG["sell_source"] == "sem": the hold-and-batch rule of scripts/fragments/sem_market.py replaces the sell quota
+# (sell-on-arrival / leader cumulative units). The rest of _market (hire funding, shed-overflow guard, buys, order
+# assembly) is unchanged. Wheat keeps the deploy's herd reserve (its cum_sold quota), fertilizer the executor's
+# pending-fertilize reserve. Merge = copy this block + the two-line call site marked SEM_MARKET CALL SITE in _market.
+_SMKNS = None
+SEM_MARKET_PARAMS = None                 # research override: {"W":.., "P": {product: {...}}}; env SEM_MARKET_JSON
+try:
+    import os as _smk_os0
+    import json as _smk_json0
+    if _smk_os0.environ.get("SEM_MARKET_JSON"):
+        SEM_MARKET_PARAMS = _smk_json0.loads(_smk_os0.environ["SEM_MARKET_JSON"])
+except Exception:
+    SEM_MARKET_PARAMS = None
+
+
+def _smk():
+    """scripts/fragments/sem_market.py (stdlib-only; pasted into the single-file agent later)."""
+    global _SMKNS
+    if _SMKNS is None:
+        import os
+        here = globals().get("__file__")          # undefined under Kaggle's loader (exec of the source)
+        cands = [os.path.join(os.path.dirname(os.path.abspath(here)), "..", "scripts", "fragments", "sem_market.py")] if here else []
+        cands.append(os.path.join(os.getcwd(), "scripts", "fragments", "sem_market.py"))
+        path = next((c for c in cands if os.path.isfile(c)), cands[-1])
+        ns = {}
+        with open(path, encoding="utf-8") as fh:
+            exec(compile(fh.read(), "sem_market", "exec"), ns)
+        _SMKNS = ns
+    return _SMKNS
+
+
+def _smk_sells(S, obs, T, d, shed, reserve, endgame):
+    res = Counter() if endgame else Counter(reserve)
+    if not endgame:
+        # wheat: the deploy's quota keeps what the herd eats (cum_sold = sold + shed - keep)
+        w_have = shed.get("WHEAT", 0) - res.get("WHEAT", 0)
+        w_ok = max(0, min(w_have, T.cum_sold[d].get("WHEAT", 0) - S["sold"]["WHEAT"]))
+        res["WHEAT"] = shed.get("WHEAT", 0) - w_ok
+    me = int(_g(obs, "player", 0))
+    return _smk()["sell_orders"](obs, me, dict(shed), dict(res), S.setdefault("smk", {}), SEM_MARKET_PARAMS,
+                                 sold_total=dict(S["sold"]))
+
+
+def _smk_wheat_buys(obs, day, shed, carried, reserve, farm, cash, sells, buys):
+    """wheat buy-ahead (sem_market.wheat_buy) with the cash left after this step's other purchases."""
+    tiles = farm["tiles"]
+    nofeed = _DEP.get("nofeed", ()) if isinstance(globals().get("_DEP"), dict) else ()
+    n_fed = sum(1 for row in tiles for t in row if _animal(t))
+    n_fed -= sum(1 for idx in nofeed if _animal(_tile(tiles, idx)))
+    n_fed += sum(int(shed.get(sp, 0)) for sp in ANIMALS)            # bought, not yet placed
+    in_shed = sum(int(v) for v in shed.values())
+    in_shed -= sum(o[2] for o in sells if o[0] == "SELL")
+    in_shed += sum(o[2] for o in buys if o[0] in ("BUY_PRODUCT", "BUY_ANIMAL"))
+    room = 100 - in_shed
+    stock_w = int(shed.get("WHEAT", 0)) + int(carried.get("WHEAT", 0)) + sum(o[2] for o in buys if o[:2] == ["BUY_PRODUCT", "WHEAT"])
+    w = _smk()
+    room = min(room, int(((SEM_MARKET_PARAMS or {}).get("wheat") or {}).get("room_total", w["SMK_WHEAT"]["room_total"])) - in_shed)
+    k = w["wheat_buy"](obs, int(_g(obs, "player", 0)), stock_w, reserve.get("WHEAT", 0), max(0, n_fed), max(0, room),
+                       cash, None, SEM_MARKET_PARAMS)
+    return [["BUY_PRODUCT", "WHEAT", int(k)]] if k > 0 else []
+# ===== END SEM_MARKET SELL BLOCK ===========================================================================
+
+
 def _dem_jobs(S, tasks, plan_jobs=None):
     """(tile, n_ops, wheat, fert, prio, value, production-affecting) per open task; plan PLANT jobs whose seeds are not
     bought yet (no task before the hour-0 purchase) are added as plant + water."""
@@ -2401,8 +2257,6 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                            + (n_anim * CFG["wheat_days"] if day < last_day - 1 else 0))
     n_plants = sum(1 for r in farm["tiles"] for t in r if _is_plant(t))
     tomorrow = min(len(T.fert[d + 1]) if d + 1 < T.n else 0, n_plants)
-    if CFG["fert_release"] and not CFG.get("fert_follow"):
-        tomorrow = 0                  # xfix: the leader's tomorrow targets are not ours (the module decides our fertilize)
     if CFG["fert_ongoing"]:
         if CFG["fert_reserve_soon"]:
             n_on = 0
@@ -2442,6 +2296,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             n = min(have, quota)
         if n > 0:
             sells.append(["SELL", p, int(n)])
+    if CFG["sell_source"] == "sem":      # SEM_MARKET CALL SITE (see the SEM_MARKET SELL BLOCK above _market)
+        sells = _smk_sells(S, obs, T, d, shed, reserve, endgame)
     # shed overflow guard: midnight drop discards above 100
     total = sum(shed.values()) + sum(sum(i.values()) for i in invs)
     sold_now = sum(o[2] for o in sells)
@@ -2611,6 +2467,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             cash -= k * CROPS[crop]["seed"]
     # assemble within the 10-order cap: sells first (cash), then hires, then buys
     buys = wheat_buy + buys
+    if CFG["sell_source"] == "sem" and not endgame:   # SEM_MARKET CALL SITE 2 (wheat buy-ahead, lowest priority)
+        buys = buys + _smk_wheat_buys(obs, day, shed, carried, reserve, farm, cash, sells, buys)
     if CFG["hire_source"] == "leader_steps":
         # the leader's own HIRE orders, at the leader's steps (they fail on cash exactly as orders do)
         hires = [["HIRE"]] * int(getattr(T, "hire_steps", {}).get(int(_g(obs, "step", 0)), 0))
@@ -2649,5 +2507,663 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             S["sold"][o[1]] += o[2]
     S["short"] = short
     return orders
+# ============================================================================================
+# ===== END EXECUTOR SECTION ==================================================================
+# ============================================================================================
+# ===== DEPLOY TARGET CONSTRUCTION (mgt_lead_deploy only) ======================================
+# Everything below builds and updates the Target (_T) that the executor above follows, in a world
+# the corpus has never seen:
+#   day 0      family A's opening (DSM 112655730, the family's exemplar game)
+#   days 3/6/9 re-select a leader game with leader_plan_retrieval.retrieve (lam=1.0; k=1 at day 3,
+#              k=5 -> the neighbours' medoid at days 6/9); the switch keeps our live assets (structures
+#              of the new plan are mapped onto ours of the same kind, plantings remap to free tiles)
+#   day 12+    composition targets from the leader count model (ridge, data/leader_semantics/count_model.json):
+#              crop deficits -> planting events on free tiles (preferring the last retrieved game's tiles),
+#              animal deficits -> structures/animals; animals stop being fed when their remaining output
+#              cannot pay for the wheat (hook on _tile_ops, the executor code itself is unchanged)
+#   selling    every product as soon as it is in the shed (the leaders hold ~4 units of wool/milk/eggs and
+#              sell each harvest within a day), except wheat: keep what the herd eats until the end
+#   hands      days 0-11: the followed game's hands; day 12+: corpus regression on our crop/animal counts
+# ============================================================================================
+import os as _dep_os
+import sys as _dep_sys
+import gzip as _dep_gzip
+import json as _dep_json
+import glob as _dep_glob
+
+DEP_CFG = {
+    "k_day3": 1, "k_late": 5, "lam": 1.0,
+    "compose_from": 12,
+    "h_short": 1, "h_long": 3,          # count-model horizon: WH/CA vs ST/TO/ME and animals
+    "last_plant": {"STRAWBERRY": 13, "TOMATO": 18, "MELON": 19, "WHEAT": 25, "CARROT": 26},   # last full-harvest planting days (min_maintenance), 2026-09-25
+    "last_animal": {"SHEEP": 17, "COW": 18, "GOOSE": 20},
+    "hands_coef": (6.186, 0.040, 0.123),  # hands ~ b0 + b1*crop tiles + b2*animal tiles (corpus days 12-28)
+    "nofeed_from": 99,                  # no-feed hook off (plan-volume c1, 2026-09-25: the executor's maintenance module already stops end-of-life animals; the hook starved producing ones: +4.8k/world p2750, +0.024 G1)
+    "wheat_margin": 10,
+    "wheat_keep_days": 99,              # hold the wheat the herd eats to the end (2 days: -3.1k own cash on 12 worlds)
+    "max_new_per_crop": 12,
+    "switch_days": (3, 6, 9),
+    "hands_add": 1,                     # extra hands on top of the regression, composition days (+2.0k/+3.1k margin on 12 worlds)
+    "sheep_yarn_mult": 1.0,             # x on the count model's sheep target while a Yarn Store is open (early-Yarn worlds: 2 sheep / 45 wool short of y3 at the same wool per sheep)
+    "pred_mult": {"ME": 3.0},           # label -> multiplier on the count model's prediction; melons x3 (2026-09-25: melon is the highest-value crop per tile-day, full panel +315 vs cutoffs)
+    "co_fix": False,                    # 'co' = cow OR empty coop in the corpus labels: compare with our cows + empty coops
+    "land_max": 2,                      # quadrants we buy: never the $4000 SE one (12 worlds: +5.6k margin; 1 quadrant +1.3k)
+    "cm_file": "count_model_540.json",  # count model: clean 540-game refit (2026-09-25; the 600-game fit included 60 quarantined scripted Boey games; count_model.json = the 240-game fit)
+    "hands_add_early": 1,               # extra hand on the days before compose_from (c1)
+    "fill_free": 0,                     # late-season fill: plant wheat / carrots on free tiles beyond fill_keep_empty (0 = off)
+    "fill_keep_empty": 4,
+    "fill_max": 10,                     # at most this many fill plantings a day
+    "fill_last": {"WHEAT": 25, "CARROT": 26},   # last planting day with a full harvest (sem_maintenance / min_maintenance)
+    "fill_carrot_base": 0.2,            # carrot share of the fill ...
+    "fill_carrot_per_shop": 0.15,       # ... + this per visible carrot-demanding shop instance (Pet Cafe counts 2), max 0.6
+    "replant_same_day": 1,              # a wheat / carrot tile harvested during the day is replanted the same day (rpc1, 2026-09-25: full panel +1,222 vs sem)
+    "replant_from": 12,                 # ... from this day (12 = the count-model phase only)
+    "replant_unmet": 0,                 # a harvested wheat / carrot tile first takes the highest-value crop whose count target went unmet today (no free tile)
+    "replant_cap": 1.0,                 # ... but no wheat replant once wheat tiles reach cap x the count model's wheat target (0 = no cap)
+    "wc_swap": 0,                       # composition: turn this base share of the count model's wheat plantings into carrots ...
+    "wc_swap_per_shop": 0.15,           # ... + this per carrot-demanding shop instance (max 0.7), when carrots can still be harvested
+}
+try:                                    # research overrides (ablations): DEP_CFG_JSON='{"key": value}'
+    import os as _dep_os0
+    import json as _dep_json0
+    DEP_CFG.update(_dep_json0.loads(_dep_os0.environ.get("DEP_CFG_JSON") or "{}"))
+except Exception:
+    pass
 
 
+def _dep_find_root():
+    cands = [_dep_os.getcwd()]
+    for p in list(_dep_sys.path):
+        if isinstance(p, str) and p:
+            cands += [p, _dep_os.path.dirname(p)]
+    for c in cands:
+        try:
+            if _dep_os.path.isfile(_dep_os.path.join(c, "data", "leader_semantics", "count_model.json")):
+                return c
+        except Exception:
+            pass
+    return _dep_os.getcwd()
+
+
+_DEP_ROOT = _dep_find_root()
+_DEP_SEM_DIR = _dep_os.path.join(_DEP_ROOT, "data", "leader_semantics")
+if _dep_os.path.join(_DEP_ROOT, "scripts") not in _dep_sys.path:
+    _dep_sys.path.insert(0, _dep_os.path.join(_DEP_ROOT, "scripts"))
+import leader_plan_retrieval as _dep_lpr  # noqa: E402  (stdlib-only module)
+_dep_lpr.load_corpus()               # parse the 240-game index once, at import
+
+with open(_dep_os.path.join(_DEP_SEM_DIR, DEP_CFG.get("cm_file", "count_model.json"))) as _dep_fh:
+    _DEP_CM = _dep_json.load(_dep_fh)
+_DEP_LABELS = tuple(_DEP_CM["meta"]["labels"])
+_DEP_DEMAND = {'BAKERY': {'EGG': 1, 'WHEAT': 1}, 'PIZZA_SHOP': {'MILK': 1, 'TOMATO': 1, 'WHEAT': 1},
+               'BRUNCH_SPOT': {'EGG': 1, 'WHEAT': 1, 'STRAWBERRY': 1}, 'YARN_STORE': {'WOOL': 2},
+               'ICE_CREAM_SHOP': {'STRAWBERRY': 1, 'MILK': 1, 'WHEAT': 1}, 'PET_CAFE': {'CARROT': 2},
+               'SMOOTHIE_SHOP': {'STRAWBERRY': 1, 'MILK': 1},
+               'FARMERS_MARKET': {'WHEAT': 1, 'CARROT': 1, 'TOMATO': 1, 'STRAWBERRY': 1}}
+_DEP_CM_PRODUCTS = ('STRAWBERRY', 'TOMATO', 'WOOL', 'CARROT', 'MILK', 'EGG', 'WHEAT')
+_DEP_EXEMPLAR = 112655730           # family A exemplar (openings.json), DSM
+_DEP_EXEMPLAR_TEAM = DEP_CFG.get("exemplar_team", "16732748")   # DSM's own seat of that game (it exists under both teams)
+_DEP_SEM_CACHE = {}
+_DEP_ANIMAL_LABEL = {"SHEEP": "sh", "COW": "co", "GOOSE": "go"}
+
+
+def _dep_sem_path(ep, team=None):
+    if team is not None:
+        p = _dep_os.path.join(_DEP_SEM_DIR, str(team), "%s.json.gz" % ep)
+        if _dep_os.path.isfile(p):
+            return p
+    # sorted: glob order is filesystem-dependent and 48 corpus episodes exist under two teams (leaders who met)
+    hits = sorted(_dep_glob.glob(_dep_os.path.join(_DEP_SEM_DIR, "*", "%s.json.gz" % ep)))
+    return hits[0] if hits else None
+
+
+def _dep_load_sem(ep, team=None):
+    key = (int(ep), None if team is None else str(team))
+    if key not in _DEP_SEM_CACHE:
+        with _dep_gzip.open(_dep_sem_path(int(ep), team), "rt", encoding="utf-8") as fh:
+            _DEP_SEM_CACHE[key] = _dep_json.load(fh)
+    return _DEP_SEM_CACHE[key]
+
+
+def _dep_predict(shops, counts, day, horizon):
+    dv = [0] * len(_DEP_CM_PRODUCTS)
+    for s in shops:
+        for p, k in _DEP_DEMAND.get(s, {}).items():
+            dv[_DEP_CM_PRODUCTS.index(p)] += k
+    cnt = [float(counts.get(l, 0)) for l in _DEP_LABELS]
+    day = max(0, min(29, int(day)))
+    df = day / 29.0
+    feat = list(dv) + cnt + [df] + [df * x for x in dv]
+    unlocked = 100 - int(counts.get(" L", 0))
+    co = _DEP_CM["coefficients"][str(int(horizon))]
+    out = {}
+    for l in _DEP_LABELS:
+        c = co[l]
+        v = c["bias"]
+        for w, x in zip(c["coef"], feat):
+            v += w * x
+        out[l] = max(0.0, min(float(unlocked), v))
+    return out
+
+
+def _dep_label(t):
+    if t == "LOCKED":
+        return " L"
+    if t is None:
+        return " ."
+    kind = t.get("kind")
+    if kind == "PLANT":
+        return str(t.get("crop"))[:2]
+    if kind == "WEED":
+        return " ."
+    if t.get("animal"):
+        return str(t["animal"])[:2].lower()
+    return str(kind)[:2].lower()
+
+
+def _dep_labels(tiles):
+    return [_dep_label(t) for row in tiles for t in row]
+
+
+def _dep_shops(obs):
+    out = []
+    for s in list(_g(_g(obs, "town", {}), "unlocked_shops", []) or []):
+        if isinstance(s, dict):
+            s = s.get("name") or s.get("type") or s.get("kind")
+        out.append(str(s))
+    return out
+
+
+class _DepTarget:
+    """Mutable Target with the executor's interface (n, board, plant, fert, hands, cash, final,
+    struct_by_day, animals_by_day, land_day, cum_sold, events)."""
+
+    def __init__(self, t):
+        self.n = t.n
+        self.board = [list(b) for b in t.board]
+        self.plant = [dict(x) for x in t.plant]
+        self.fert = [set(x) for x in t.fert]
+        self.hands = list(t.hands)
+        self.cash = list(t.cash)
+        self.final = t.final
+        self.struct_by_day = [dict(x) for x in t.struct_by_day]
+        self.animals_by_day = [dict(x) for x in t.animals_by_day]
+        self.land_day = dict(t.land_day)
+        self.cum_sold = [Counter() for _ in range(t.n)]
+        self.events = list(t.events)
+        self.removals = [list(x) for x in getattr(t, "removals", [[] for _ in range(t.n)])]   # exact_removals (off by default)
+        self.harv_tiles = [set(x) for x in getattr(t, "harv_tiles", [set() for _ in range(t.n)])]   # cut_mode leader_harvest
+
+
+_DEP = {}
+_DEP_BASE = None
+_MGT_REPORT = {}     # numeric diagnostics, copied into the ladder-panel result ("router")
+_MGT_HISTORY = []    # (day, followed episode) -> the ladder-panel result's "switches"
+
+
+def _dep_struct_map(T, D, tiles):
+    """map the plan's structure tiles (days >= D) onto our structures of the same kind."""
+    want = {}
+    for d in range(D, T.n):
+        want.update(T.struct_by_day[d])
+    ours = {}
+    for idx in range(100):
+        t = _tile(tiles, idx)
+        if isinstance(t, dict) and t.get("kind") in ("COOP", "PASTURE"):
+            ours[idx] = t["kind"]
+    smap, claimed = {}, set()
+    for tt, kind in want.items():
+        if ours.get(tt) == kind:
+            smap[tt] = tt
+            claimed.add(tt)
+    for tt in sorted(want):
+        if tt in smap:
+            continue
+        kind = want[tt]
+        best = None
+        for idx, k in ours.items():
+            if k != kind or idx in claimed:
+                continue
+            key = (_dist((idx % 10, idx // 10), (tt % 10, tt // 10)), idx)
+            if best is None or key < best[0]:
+                best = (key, idx)
+        if best is not None:
+            smap[tt] = best[1]
+            claimed.add(best[1])
+    return smap
+
+
+def _dep_switch(T, t2, D, tiles):
+    S = _S
+    late = CFG["late"]
+    for d in range(D, T.n):
+        T.board[d] = list(t2.board[d])
+        T.plant[d] = dict(t2.plant[d])
+        T.fert[d] = set(t2.fert[d])
+        T.hands[d] = t2.hands[d]
+        T.struct_by_day[d] = dict(t2.struct_by_day[d])
+        T.animals_by_day[d] = dict(t2.animals_by_day[d])
+    done = S["done"] if S is not None else set()
+    pending = [e for e in T.events if e[0] < D and (e[0], e[1]) not in done
+               and D - e[0] <= late.get(e[2], LATE[e[2]])]
+    T.events = [e for e in T.events if e[0] < D] + [e for e in t2.events if e[0] >= D]
+    for (pd, tt, crop) in pending:            # keep our pending catch-ups valid under the new board
+        for d in range(D, min(T.n, pd + late.get(crop, LATE[crop]) + 1)):
+            T.board[d][tt] = CROP_LABEL[crop]
+    for q, dq in t2.land_day.items():
+        T.land_day[q] = dq
+    if S is not None:
+        S["smap"] = _dep_struct_map(T, D, tiles)
+
+
+def _dep_retrieve(day, shops, labels, k):
+    """-> (team_id, episode) of the leader game to follow (team-aware: a met pair of leaders shares an episode id)."""
+    res = _dep_lpr.retrieve(shops, labels, day, k=k, lam=DEP_CFG["lam"])
+    if not res:
+        return None
+    if len(res) == 1:
+        return (str(res[0][0]), res[0][1])
+    corpus = {(str(g["team_id"]), g["episode"]): g for g in _dep_lpr.load_corpus()}
+    dd = min(29, day + 3)
+    best = None
+    for tm, ep, _w in res:
+        b = corpus[(str(tm), ep)]["boards"][dd]
+        cost = sum(w2 * _dep_lpr.hamming(b, corpus[(str(tm2), ep2)]["boards"][dd]) for tm2, ep2, w2 in res)
+        if best is None or cost < best[0]:
+            best = (cost, (str(tm), ep))
+    return best[1]
+
+
+def _dep_crop_alive_at(t, day_at):
+    """does our plant tile t still show its crop at the start of day_at (lifecycle by engine rules)?"""
+    c = CROPS[t["crop"]]
+    age = day_at - t["planted_day"]
+    if c["ongoing"]:
+        return age <= _ongoing_last_age(t["crop"])
+    return age < c["maxday"]
+
+
+def _dep_free_tiles(tiles, reserved, pref_board, label):
+    cands = []
+    for idx in range(100):
+        if idx in reserved:
+            continue
+        t = _tile(tiles, idx)
+        if t == "LOCKED":
+            continue
+        if t is None or _is_weed(t):
+            pref = 0 if (pref_board is not None and pref_board[idx] == label) else 1
+            x, y = idx % 10, idx // 10
+            cands.append((pref, abs(x - 4.5) + abs(y - 4.5), idx))
+    cands.sort()
+    return [c[2] for c in cands]
+
+
+def _dep_compose(obs, day):
+    """composition targets for today from the count model."""
+    T = _T
+    S = _S
+    me = int(_g(obs, "player", 0))
+    farm = _g(obs, "farms")[me]
+    tiles = farm["tiles"]
+    shops = _dep_shops(obs)
+    labels = _dep_labels(tiles)
+    counts = Counter(labels)
+    d = day
+    first = not _DEP.get("composing")
+    if first:
+        _DEP["composing"] = True
+        T.events = [e for e in T.events if e[0] < d]
+        for dd in range(d, T.n):
+            T.plant[dd] = {}
+            T.fert[dd] = set()
+    # the plan from today: our live board
+    struct, anim = {}, {}
+    for idx in range(100):
+        t = _tile(tiles, idx)
+        if isinstance(t, dict) and t.get("kind") in ("COOP", "PASTURE"):
+            struct[idx] = t["kind"]
+            if t.get("animal"):
+                anim[idx] = t["animal"]
+    # keep structures/animals we asked for on earlier compose days and not yet built/placed
+    for idx, kind in _DEP.get("new_struct", {}).items():
+        if idx not in struct:
+            cur = _tile(tiles, idx)
+            if cur is None or _is_weed(cur) or (_is_plant(cur) and _plant_state(cur, day)[2]):
+                struct[idx] = kind
+    na0 = _DEP.get("new_anim", {})
+    for idx in list(na0):
+        if idx in anim:
+            na0.pop(idx)             # placed: from now on it is simply one of our animals
+    for idx, sp in na0.items():
+        if struct.get(idx) and idx not in anim and d <= DEP_CFG["last_animal"][sp] + 2:
+            anim[idx] = sp
+    starving = {_animal(_tile(tiles, i)) for i in _DEP.get("nofeed", ())}
+    # the executor's reservations for today..today+2
+    reserved = set(struct)
+    for dd in range(d, min(T.n, d + 3)):
+        reserved |= set(T.plant[dd])
+    lead_t = _DEP.get("lead_t")
+    pred_s = _dep_predict(shops, counts, d, DEP_CFG["h_short"])
+    _DEP["wh_pred"] = (d, pred_s.get("WH", 0.0))
+    pred_l = _dep_predict(shops, counts, d, DEP_CFG["h_long"])
+    for lab_, mult_ in DEP_CFG["pred_mult"].items():
+        pred_s[lab_] = pred_s.get(lab_, 0) * mult_
+        pred_l[lab_] = pred_l.get(lab_, 0) * mult_
+    if DEP_CFG["sheep_yarn_mult"] != 1.0 and "YARN_STORE" in shops:
+        pred_s["sh"] = pred_s.get("sh", 0) * DEP_CFG["sheep_yarn_mult"]
+        pred_l["sh"] = pred_l.get("sh", 0) * DEP_CFG["sheep_yarn_mult"]
+    done = S["done"] if S is not None else set()
+    log = _DEP["log"]
+    for crop in ("STRAWBERRY", "TOMATO", "MELON", "WHEAT", "CARROT"):
+        if d > DEP_CFG["last_plant"][crop]:
+            continue
+        lab = CROP_LABEL[crop]
+        h = DEP_CFG["h_short"] if crop in ("WHEAT", "CARROT") else DEP_CFG["h_long"]
+        pred = pred_s if h == DEP_CFG["h_short"] else pred_l
+        surv = 0
+        for idx in range(100):
+            t = _tile(tiles, idx)
+            if _is_plant(t) and t["crop"] == crop and _dep_crop_alive_at(t, d + h):
+                surv += 1
+        pend = 0
+        for (pd, tt, c2) in T.events:
+            if c2 == crop and pd <= d and d - pd <= CFG["late"].get(crop, LATE[crop]) and (pd, tt) not in done:
+                m = S["pmap"].get((pd, tt), tt) if S is not None else tt
+                cur = _tile(tiles, m)
+                if not (_is_plant(cur) and cur["crop"] == crop and cur["planted_day"] >= pd):
+                    pend += 1
+        need = int(pred[lab] - surv - pend + 0.5)
+        need = min(need, DEP_CFG["max_new_per_crop"])
+        if need <= 0:
+            continue
+        pref = None
+        if lead_t is not None:
+            pref = lead_t.board[min(lead_t.n - 1, d + h)]
+        free = _dep_free_tiles(tiles, reserved, pref, lab)
+        if len(free) < need:
+            _DEP.setdefault("unmet", {})[crop] = (d, need - len(free))
+            log["unmet_" + crop] += need - len(free)
+            if S is not None:
+                S["log"]["unmet_" + crop] += need - len(free)     # visible in the G1 harness's agent_log
+        k_swap = 0
+        if crop == "WHEAT" and DEP_CFG["wc_swap"] and d <= DEP_CFG["last_plant"]["CARROT"]:
+            car_dem = sum(_DEP_DEMAND.get(sh, {}).get("CARROT", 0) for sh in shops)
+            share = min(0.7, DEP_CFG["wc_swap"] + DEP_CFG["wc_swap_per_shop"] * car_dem)
+            k_swap = int(round(need * share))
+        for i_, idx in enumerate(free[:need]):
+            crop_i = "CARROT" if i_ < k_swap else crop
+            T.events.append((d, idx, crop_i))
+            T.plant[d][idx] = crop_i
+            reserved.add(idx)
+            for dd in range(d, min(T.n, d + CFG["late"].get(crop_i, LATE[crop_i]) + 1)):
+                T.board[dd][idx] = CROP_LABEL[crop_i]
+            log["plant_" + crop_i] += 1
+    # late-season fill: the count model's wheat / carrot targets fall off late, leaving free tiles idle
+    if DEP_CFG["fill_free"] and d <= max(DEP_CFG["fill_last"].values()):
+        free = _dep_free_tiles(tiles, reserved, None, None)
+        n_fill = min(DEP_CFG["fill_max"], max(0, len(free) - DEP_CFG["fill_keep_empty"]))
+        car_dem = sum(_DEP_DEMAND.get(sh, {}).get("CARROT", 0) for sh in shops)
+        share = min(0.6, DEP_CFG["fill_carrot_base"] + DEP_CFG["fill_carrot_per_shop"] * car_dem)
+        k_car = int(round(n_fill * share)) if d <= DEP_CFG["fill_last"]["CARROT"] else 0
+        for i, idx in enumerate(free[:n_fill]):
+            crop = "CARROT" if i < k_car else "WHEAT"
+            if d > DEP_CFG["fill_last"][crop]:
+                continue
+            T.events.append((d, idx, crop))
+            T.plant[d][idx] = crop
+            reserved.add(idx)
+            for dd in range(d, min(T.n, d + CFG["late"].get(crop, LATE[crop]) + 1)):
+                T.board[dd][idx] = CROP_LABEL[crop]
+            log["fill_" + crop] += 1
+    # animals
+    ns = _DEP.setdefault("new_struct", {})
+    na = _DEP.setdefault("new_anim", {})
+    for sp in ("SHEEP", "COW", "GOOSE"):
+        if d > DEP_CFG["last_animal"][sp] or sp in starving:
+            continue
+        lab = _DEP_ANIMAL_LABEL[sp]
+        have = sum(1 for v in anim.values() if v == sp)
+        if sp == "COW" and DEP_CFG["co_fix"]:
+            have += sum(1 for idx, k in struct.items() if k == "COOP" and idx not in anim)
+        need = int(pred_l[lab] - have + 0.5)
+        if need <= 0:
+            continue
+        kind = ANIMALS[sp]["structure"]
+        empties = [idx for idx, k in struct.items() if k == kind and idx not in anim]
+        for idx in empties[:need]:
+            anim[idx] = sp
+            na[idx] = sp
+            need -= 1
+            log["animal_" + sp] += 1
+        if need > 0:
+            pref = lead_t.board[min(lead_t.n - 1, d + 3)] if lead_t is not None else None
+            free = _dep_free_tiles(tiles, reserved, pref, lab)
+            for idx in free[:need]:
+                struct[idx] = kind
+                anim[idx] = sp
+                ns[idx] = kind
+                na[idx] = sp
+                reserved.add(idx)
+                log["animal_" + sp] += 1
+                log["build_" + kind] += 1
+    for dd in range(d, T.n):
+        T.struct_by_day[dd] = dict(struct)
+        T.animals_by_day[dd] = dict(anim)
+    if S is not None:
+        for idx in struct:
+            S["smap"][idx] = idx
+    # land: the model expects fewer locked tiles than we have
+    nq = len(list(farm.get("unlocked_quadrants", ["NW"]))) - 1
+    if nq < 3 and pred_l[" L"] <= counts.get(" L", 0) - 13 and d <= 20:
+        q = LAND_ORDER[nq]
+        if T.land_day.get(q, 99) > d:
+            T.land_day[q] = d
+            log["land"] += 1
+    # hands from today's work
+    crops = sum(1 for idx in range(100) if _is_plant(_tile(tiles, idx))) + len(T.plant[d])
+    b0, b1, b2 = DEP_CFG["hands_coef"]
+    T.hands[d] = max(0, min(14, int(b0 + b1 * crops + b2 * len(anim) + 0.5) + DEP_CFG["hands_add"]))
+
+
+def _dep_nofeed(obs, day):
+    """animals whose remaining output cannot pay for their feed."""
+    me = int(_g(obs, "player", 0))
+    tiles = _g(obs, "farms")[me]["tiles"]
+    prices = dict(_g(_g(obs, "market", {}), "prices", {}))
+    pw = float(prices.get("WHEAT", 25)) + 1
+    out = set()
+    if day < DEP_CFG["nofeed_from"]:
+        return out
+    for idx in range(100):
+        t = _tile(tiles, idx)
+        sp = _animal(t)
+        if not sp:
+            continue
+        a = ANIMALS[sp]
+        pd0 = t.get("placed_day", 0) or 0
+        prods = [p for p in range(day, 29) if p - pd0 >= a["first"] and (p - pd0 - a["first"]) % a["interval"] == 0]
+        if not prods:
+            out.add(idx)
+            continue
+        b = int(t.get("pending_care_bonus", 0) or 0)
+        cur, units = day, 0
+        for p in prods:
+            b += p - cur
+            units += min(a["max_held"], 1 + b)
+            b = 1
+            cur = p + 1
+        unfed = sum(1 for p in prods if p <= day + 1)
+        value = (units - unfed) * float(prices.get(a["product"], 0)) * 0.8
+        cost = (prods[-1] - day + 1) * pw
+        if value < cost:
+            out.add(idx)
+    return out
+
+
+_dep_orig_tile_ops = _tile_ops
+
+
+def _dep_tile_ops(idx, t, job, fert, day, last_day, seeds):
+    ops, need, prio = _dep_orig_tile_ops(idx, t, job, fert, day, last_day, seeds)
+    if job is None and idx in _DEP.get("nofeed", ()) and _animal(t):
+        k = sum(1 for o in ops if o[0] == "FEED")
+        ops = [o for o in ops if o[0] not in ("FEED", "CARE")]
+        if k and need.get("WHEAT", 0):
+            need["WHEAT"] -= k
+            if need["WHEAT"] <= 0:
+                del need["WHEAT"]
+        if not any(o[0] in ("HARVEST",) for o in ops):
+            prio = 3 if not ops else min(prio, 2)
+    return ops, need, prio
+
+
+_tile_ops = _dep_tile_ops
+
+
+def _dep_sell_quota(obs, day):
+    """cumulative sell quota for the executor: everything, except wheat the herd still eats."""
+    T = _T
+    d = min(day, T.n - 1)
+    S = _S
+    step = int(_g(obs, "step", 0))
+    sold = S["sold"] if (S is not None and step > 0) else Counter()
+    me = int(_g(obs, "player", 0))
+    tiles = _g(obs, "farms")[me]["tiles"]
+    private = _g(obs, "private", {})
+    shed = dict(_g(private, "shed", {}))
+    n_anim = sum(1 for row in tiles for t in row if _animal(t))
+    nofeed = _DEP.get("nofeed", ())
+    n_fed = n_anim - sum(1 for idx in nofeed if _animal(_tile(tiles, idx)))
+    keep = n_fed * min(DEP_CFG["wheat_keep_days"], max(0, 28 - day)) + DEP_CFG["wheat_margin"]
+    cs = Counter()
+    for p in PRODUCTS:
+        if p == "WHEAT":
+            cs[p] = sold[p] + max(0, int(shed.get("WHEAT", 0) or 0) - keep)
+        else:
+            cs[p] = sold[p] + 10 ** 6
+    T.cum_sold[d] = cs
+
+
+def _dep_init():
+    global _T, _DEP_BASE
+    if _DEP_BASE is None:
+        _DEP_BASE = Target(_dep_load_sem(_DEP_EXEMPLAR, _DEP_EXEMPLAR_TEAM))
+    _T = _DepTarget(_DEP_BASE)
+    _DEP.clear()
+    _DEP.update({"switched": set(), "composed": set(), "lead_t": _DEP_BASE, "nofeed": set(),
+                 "log": Counter(), "picks": [], "errors": 0, "tmax": 0.0})
+    _MGT_REPORT.clear()
+    del _MGT_HISTORY[:]
+    _MGT_HISTORY.append((0, _DEP_EXEMPLAR))
+
+
+def _dep_update(obs, day, hour):
+    T = _T
+    me = int(_g(obs, "player", 0))
+    farm = _g(obs, "farms")[me]
+    tiles = farm["tiles"]
+    if day in DEP_CFG["switch_days"] and day not in _DEP["switched"] and day < DEP_CFG["compose_from"]:
+        shops = _dep_shops(obs)
+        if len(shops) >= day // 3 or hour >= 2:
+            _DEP["switched"].add(day)
+            k = DEP_CFG["k_day3"] if day == 3 else DEP_CFG["k_late"]
+            pick = _dep_retrieve(day, shops, _dep_labels(tiles), k)
+            ep = None if pick is None else pick[1]
+            if ep is not None:
+                t2 = Target(_dep_load_sem(ep, pick[0]))
+                _dep_switch(T, t2, day, tiles)
+                _DEP["lead_t"] = t2
+                _DEP["picks"].append((day, int(ep)))
+                _MGT_HISTORY.append((day, int(ep)))
+    if day >= DEP_CFG["compose_from"] and day not in _DEP["composed"]:
+        _DEP["composed"].add(day)
+        _dep_compose(obs, day)
+        _DEP["nofeed"] = _dep_nofeed(obs, day)
+    for i in range(DEP_CFG["land_max"], 3):
+        T.land_day[LAND_ORDER[i]] = 99
+    if DEP_CFG["replant_same_day"] and day >= DEP_CFG["replant_from"]:
+        if hour == 0 or _DEP.get("ds_day") != day:
+            _DEP["ds_day"] = day
+            _DEP["ds_crops"] = {i: _tile(tiles, i)["crop"] for i in range(100)
+                                if _is_plant(_tile(tiles, i)) and _tile(tiles, i)["crop"] in ("WHEAT", "CARROT")}
+        else:
+            capped = False
+            if DEP_CFG["replant_cap"] and _DEP.get("wh_pred", (None,))[0] == day:
+                n_wh = sum(1 for j in range(100) if _is_plant(_tile(tiles, j)) and _tile(tiles, j)["crop"] == "WHEAT")
+                n_wh += sum(1 for j, c in T.plant[day].items() if c == "WHEAT" and _tile(tiles, j) is None)
+                capped = n_wh >= DEP_CFG["replant_cap"] * _DEP["wh_pred"][1]
+            for i, crop in _DEP["ds_crops"].items():
+                if DEP_CFG["replant_unmet"] and _tile(tiles, i) is None and i not in T.plant[day]:
+                    um = _DEP.get("unmet", {})
+                    alt = None
+                    for c2 in ("STRAWBERRY", "MELON", "TOMATO", "CARROT"):
+                        dd_, k_ = um.get(c2, (None, 0))
+                        if dd_ == day and k_ > 0 and day <= DEP_CFG["last_plant"][c2]:
+                            alt = c2
+                            break
+                    if alt is not None:
+                        um[alt] = (day, um[alt][1] - 1)
+                        T.events.append((day, i, alt))
+                        T.plant[day][i] = alt
+                        for dd in range(day, min(T.n, day + CFG["late"].get(alt, LATE[alt]) + 1)):
+                            T.board[dd][i] = CROP_LABEL[alt]
+                        _DEP["log"]["replant_unmet_" + alt] += 1
+                        if _S is not None:
+                            _S["log"]["replant_unmet_" + alt] += 1
+                        continue
+                if crop == "WHEAT" and capped:
+                    continue
+                if _tile(tiles, i) is None and i not in T.plant[day] and day <= DEP_CFG["last_plant"][crop]:
+                    T.events.append((day, i, crop))
+                    T.plant[day][i] = crop
+                    for dd in range(day, min(T.n, day + CFG["late"].get(crop, LATE[crop]) + 1)):
+                        T.board[dd][i] = CROP_LABEL[crop]
+                    _DEP["log"]["replant_" + crop] += 1
+    if DEP_CFG["hands_add_early"] and day < DEP_CFG["compose_from"] and ("he", day) not in _DEP:
+        _DEP[("he", day)] = True
+        T.hands[day] = min(14, T.hands[day] + DEP_CFG["hands_add_early"])
+    _dep_sell_quota(obs, day)
+
+
+_DEP_TRACE_PATH = _dep_os.environ.get("DEP_TRACE")     # research only: per-day state dump
+
+
+def _dep_trace(obs, day, hour, step):
+    me = int(_g(obs, "player", 0))
+    farm = _g(obs, "farms")[me]
+    tr = _DEP.setdefault("trace", [])
+    lt = _DEP.get("lead_t")
+    tr.append({"day": day, "money": farm["money"], "hands": len(farm["hands"]), "target_hands": _T.hands[min(day, 29)],
+               "counts": dict(Counter(_dep_labels(farm["tiles"]))),
+               "lead_counts": dict(Counter(lt.board[min(day, 29)])) if lt is not None else None,
+               "lead_cash": lt.cash[min(day, 29)] if lt is not None else None,
+               "shed": dict(_g(_g(obs, "private", {}), "shed", {})), "log": dict(_DEP["log"]),
+               "exec_log": dict(_S["log"]) if _S else {}})
+    if step >= 718:
+        with open(_DEP_TRACE_PATH, "w") as fh:
+            _dep_json.dump(tr, fh)
+
+
+# ===== END DEPLOY SECTION; the entry point must stay the LAST callable in the file ===========
+def mgt_lead_deploy_agent(obs, config=None):
+    t0 = time.time()
+    step = int(_g(obs, "step", 0))
+    day, hour = divmod(step, 24)
+    if step == 0 or not _DEP or step < _DEP.get("last_step", -1):
+        _dep_init()
+    _DEP["last_step"] = step
+    try:
+        _dep_update(obs, day, hour)
+    except Exception as exc:          # never crash the game on a target-construction error
+        _DEP["errors"] += 1
+        _DEP["last_error"] = "%s: %s" % (type(exc).__name__, exc)
+    out = agent(obs, config)
+    _DEP["tmax"] = max(_DEP["tmax"], time.time() - t0)
+    if _DEP_TRACE_PATH and (hour == 0 or step >= 718):
+        _dep_trace(obs, day, hour, step)
+    if hour == 23 or step >= 718:
+        _MGT_REPORT.update({k: v for k, v in _DEP["log"].items()})
+        _MGT_REPORT.update(errors=_DEP["errors"], tmax=round(_DEP["tmax"], 4), n_nofeed=len(_DEP.get("nofeed", ())),
+                           exec_tmax=round(_S["tmax"], 4) if _S else 0)
+    return out

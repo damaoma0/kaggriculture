@@ -18,9 +18,8 @@ from agents/mgt_lead_exact.py (thread sem4: exact_removals, OFF by default; 48 f
 -289, CI -1,120..+542). With tie_value 0, hand_stock 0 every decision is the previous mgt_lead (sha256 a1cd70e6).
 
 2026-09-25 xfix port (thread xfix; results/fresh/xfix_20260925, scripts/xfix_*.py): tile-exact fixes found by tracing
-T's day 11 from the leader's exact morning state, each behind its own CFG key, all OFF by default except the confirmed pair
-(harvest_policy leader_tendency on melons + replant_leader: default ON = the new T baseline; with both off the file
-is the previous mgt_lead.py, sha256 e0849ddd, to the dollar). CONFIRMED in full games (52 leader worlds, own cash vs T, clean worlds):
+T's day 11 from the leader's exact morning state, each behind its own CFG key, ALL OFF by default (= the previous
+mgt_lead.py, sha256 e0849ddd, to the dollar). CONFIRMED in full games (52 leader worlds, own cash vs T, clean worlds):
 harvest_policy "leader_tendency" with hp_crops ["MELON"] (+816, t-CI +94..+1,538) and, with replant_leader,
 +2,264 (+1,063..+3,465; margin +4,145). Measured and REJECTED (kept off): the wheat / carrot tendency, fert_follow,
 fert_gross, fert_shadow (flat), fert_release, idle_deliver, deliver_credit, upkeep_scale, busy_upkeep_pen,
@@ -148,15 +147,15 @@ CFG = {
     "exact_removals": False,  # sem4: issue the leader's DIGs of live plants on our tile for that cohort (48 four-quadrant leader worlds: T-T0 -289, CI -1,120..+542; default off)
     "rm_late": 1,             # sem4: a removal stays open on the leader's removal day and this many days after
     # ---- xfix (2026-09-25), tile-exact fixes, all off by default
-    "replant_leader": 1,      # (default ON since the xfix port) # 1: a leader planting stays on the leader's tile when our tile holds the same one-time crop the leader harvested there today / yesterday (harvest now at any harvestable age, then plant) instead of remapping the planting to a free tile (the leader harvests melons at age 10 and wheat at age 2 to replant)
+    "replant_leader": 0,      # 1: a leader planting stays on the leader's tile when our tile holds the same one-time crop the leader harvested there today / yesterday (harvest now at any harvestable age, then plant) instead of remapping the planting to a free tile (the leader harvests melons at age 10 and wheat at age 2 to replant)
     "fert_follow": 0,         # 1: the leader's per-tile FERTILIZE targets of the day (the plan's fert set) become FERTILIZE ops on our live plants under sched_maint (the maintenance module's own ops otherwise replace them)
     "fert_follow_prio": 1,    # priority of a followed fertilize (0 / 1)
     "fert_gross": 0,          # 1: a FERTILIZE job's priority is judged on its gross value (units x price), not net of the fertilizer at its market quote
     "fert_shadow": 0,         # 1: the maintenance module values fertilizer at price - 0.2 x forecast own remaining sales (the leader plan's remaining fertilizer sales); 2: + 0.2 x the rival's (not modelled: = 1)
     "idle_deliver": 0,        # 1: a unit left without a task carries its sellable stock (fertilizer included, beyond today's open fertilize need) to the shed while a same-day sale is still possible (arrival by hour 22) and the shed has room (DROP deletes overflow)
     "lead_harvest_bonus": 0,  # steps: cost bonus for a task that harvests a one-time crop (melon / wheat / carrot) with no yield left to gain, or a melon, on a tile the leader harvests today (melons: no shop demand, 250 - 0.01 x excess^2, the first units sold win; the leader harvests them at h4-7 and sells by h11)
-    "harvest_policy": "leader_tendency",   # (default ON since the xfix port) # "leader_tendency" (user ruling, 2026-09-25; 540 leader tapes): SOFT value / priority bonuses toward the leaders' harvest windows, independent of the target: melons at the first allowed age (10) after watering to 6, early in the day (dispatch bonus before hp_melon_hour) and delivered for a same-day sale; wheat at age >= 2 on days 0-11 where a plan job replants the tile, at age >= 3 from day 12; carrots at age 3; tomatoes / strawberries at every production; water before a harvest that day; one-time crops at their last age join the survival routes (never decay)
-    "hp_crops": ["MELON"],   # (xfix port default: melons only; the wheat / carrot / ongoing tendencies measured worse) # crops the harvest tendency applies to
+    "harvest_policy": "module",   # "leader_tendency" (user ruling, 2026-09-25; 540 leader tapes): SOFT value / priority bonuses toward the leaders' harvest windows, independent of the target: melons at the first allowed age (10) after watering to 6, early in the day (dispatch bonus before hp_melon_hour) and delivered for a same-day sale; wheat at age >= 2 on days 0-11 where a plan job replants the tile, at age >= 3 from day 12; carrots at age 3; tomatoes / strawberries at every production; water before a harvest that day; one-time crops at their last age join the survival routes (never decay)
+    "hp_crops": ["MELON", "WHEAT", "CARROT", "TOMATO", "STRAWBERRY"],   # crops the harvest tendency applies to
     "hp_frac": 0.5,           # harvest value inside the tendency window = held units x price x this (prio 1 above p1_min_value)
     "hp_melon_bonus": 6,      # dispatch cost bonus (steps) for a melon harvest task before hp_melon_hour
     "hp_melon_hour": 8,       # the melon dispatch bonus applies before this hour (user ruling: before 8 AM; the leaders harvest melons at median h6, IQR 5-8; noon measured the same)

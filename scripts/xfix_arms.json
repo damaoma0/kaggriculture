@@ -1,0 +1,257 @@
+{
+ "Frp": [
+  "agents/mgt_lead_fix.py",
+  {
+   "replant_leader": 1
+  }
+ ],
+ "Fff": [
+  "agents/mgt_lead_fix.py",
+  {
+   "fert_follow": 1
+  }
+ ],
+ "Ffg": [
+  "agents/mgt_lead_fix.py",
+  {
+   "fert_gross": 1
+  }
+ ],
+ "Ffs": [
+  "agents/mgt_lead_fix.py",
+  {
+   "fert_shadow": 1
+  }
+ ],
+ "Fpb": [
+  "agents/mgt_lead_fix.py",
+  {
+   "place_bonus_days": 29
+  }
+ ],
+ "Fid": [
+  "agents/mgt_lead_fix.py",
+  {
+   "idle_deliver": 1
+  }
+ ],
+ "Fhl": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_source": "leader"
+  }
+ ],
+ "Frh": [
+  "agents/mgt_lead_fix.py",
+  {
+   "replant_leader": 1,
+   "harvest_source": "leader"
+  }
+ ],
+ "FA": [
+  "agents/mgt_lead_fix.py",
+  {
+   "replant_leader": 1,
+   "fert_follow": 1,
+   "place_bonus_days": 29,
+   "idle_deliver": 1
+  }
+ ],
+ "FB": [
+  "agents/mgt_lead_fix.py",
+  {
+   "replant_leader": 1,
+   "fert_follow": 1,
+   "place_bonus_days": 29,
+   "idle_deliver": 1,
+   "fert_shadow": 1,
+   "fert_gross": 1
+  }
+ ],
+ "Fhp": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency"
+  }
+ ],
+ "Fhprp": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "replant_leader": 1
+  }
+ ],
+ "Fup": [
+  "agents/mgt_lead_fix.py",
+  {
+   "upkeep_scale": 0.65
+  }
+ ],
+ "Fbz": [
+  "agents/mgt_lead_fix.py",
+  {
+   "busy_upkeep_pen": 4
+  }
+ ],
+ "Fhpu": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "replant_leader": 1,
+   "upkeep_scale": 0.65,
+   "busy_upkeep_pen": 4
+  }
+ ],
+ "Fhpus": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "replant_leader": 1,
+   "upkeep_scale": 0.65,
+   "busy_upkeep_pen": 4,
+   "fert_shadow": 1
+  }
+ ],
+ "Fhm": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON"
+   ]
+  }
+ ],
+ "Fhmrp": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON"
+   ],
+   "replant_leader": 1
+  }
+ ],
+ "Fhmo": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON",
+    "STRAWBERRY",
+    "TOMATO"
+   ]
+  }
+ ],
+ "Fdc": [
+  "agents/mgt_lead_fix.py",
+  {
+   "deliver_credit": 1
+  }
+ ],
+ "Fhmdc": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON"
+   ],
+   "replant_leader": 1,
+   "deliver_credit": 1
+  }
+ ],
+ "Ffr": [
+  "agents/mgt_lead_fix.py",
+  {
+   "fert_release": 1
+  }
+ ],
+ "Fday": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON"
+   ],
+   "replant_leader": 1,
+   "fert_release": 1,
+   "place_bonus_days": 29,
+   "idle_deliver": 1
+  }
+ ],
+ "Fhmrppf": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON"
+   ],
+   "replant_leader": 1,
+   "pf_log": 1
+  }
+ ],
+ "Fhmrp8": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON"
+   ],
+   "replant_leader": 1,
+   "pf_log": 1,
+   "hp_melon_hour": 8
+  }
+ ],
+ "Fhmrpw": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON",
+    "WHEAT",
+    "CARROT"
+   ],
+   "replant_leader": 1
+  }
+ ],
+ "Fpf": [
+  "agents/mgt_lead_fix.py",
+  {
+   "pf_log": 1
+  }
+ ],
+ "FdayL": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON"
+   ],
+   "replant_leader": 1,
+   "fert_release": 1,
+   "place_bonus_days": 29,
+   "idle_deliver": 1,
+   "sched_maint": false,
+   "maint_source": "leader",
+   "maint_safety": true
+  }
+ ],
+ "Pold": [
+  "agents/mgt_lead.py",
+  {
+   "harvest_policy": "module",
+   "replant_leader": 0
+  }
+ ],
+ "Pnew": [
+  "agents/mgt_lead.py",
+  {}
+ ],
+ "Pdefoff": [
+  "agents/mgt_lead.py",
+  {
+   "harvest_policy": "module",
+   "replant_leader": 0,
+   "_nobase": true
+  }
+ ]
+}
