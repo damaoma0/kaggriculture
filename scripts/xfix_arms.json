@@ -253,5 +253,191 @@
    "replant_leader": 0,
    "_nobase": true
   }
+ ],
+ "Fhmrpmr": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON"
+   ],
+   "replant_leader": 1,
+   "hp_melon_hour": 8,
+   "morning_rebuild": 1
+  }
+ ],
+ "Fmr": [
+  "agents/mgt_lead_fix.py",
+  {
+   "morning_rebuild": 1
+  }
+ ],
+ "Rpkg": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON",
+    "WHEAT",
+    "CARROT"
+   ],
+   "replant_leader": 1,
+   "hp_melon_hour": 8,
+   "fert_follow": 1
+  }
+ ],
+ "Rbusy": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON"
+   ],
+   "replant_leader": 1,
+   "hp_melon_hour": 8,
+   "busy_upkeep_pen": 4,
+   "busy_upkeep_set": "feed_care",
+   "upkeep_scale": 0.65,
+   "upkeep_mode": "pair"
+  }
+ ],
+ "Rdc2": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON"
+   ],
+   "replant_leader": 1,
+   "hp_melon_hour": 8,
+   "deliver_credit": 2
+  }
+ ],
+ "Rfr": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON"
+   ],
+   "replant_leader": 1,
+   "hp_melon_hour": 8,
+   "fert_release": 1
+  }
+ ],
+ "Rlm": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON"
+   ],
+   "replant_leader": 1,
+   "hp_melon_hour": 8,
+   "lead_maint_add": 1
+  }
+ ],
+ "P0": [
+  "agents/mgt_lead_search2_xf.py",
+  {
+   "dispatch_search": "active",
+   "sd_days": [
+    12,
+    23
+   ],
+   "sd_surv_fb": 20,
+   "sd_evals0": 24000,
+   "sd_evals": 8000,
+   "sd_budget0": 0.75,
+   "sd_budget": 0.6,
+   "sd_step_cap": 0.8
+  }
+ ],
+ "Pff": [
+  "agents/mgt_lead_search2_xf.py",
+  {
+   "dispatch_search": "active",
+   "sd_days": [
+    12,
+    23
+   ],
+   "sd_surv_fb": 20,
+   "sd_evals0": 24000,
+   "sd_evals": 8000,
+   "sd_budget0": 0.75,
+   "sd_budget": 0.6,
+   "sd_step_cap": 0.8,
+   "fert_follow": 1
+  }
+ ],
+ "Pto": [
+  "agents/mgt_lead_search2_xf.py",
+  {
+   "dispatch_search": "active",
+   "sd_days": [
+    12,
+    23
+   ],
+   "sd_surv_fb": 20,
+   "sd_evals0": 24000,
+   "sd_evals": 8000,
+   "sd_budget0": 0.75,
+   "sd_budget": 0.6,
+   "sd_step_cap": 0.8,
+   "hp_crops": [
+    "MELON",
+    "TOMATO",
+    "STRAWBERRY"
+   ]
+  }
+ ],
+ "Pbusy": [
+  "agents/mgt_lead_search2_xf.py",
+  {
+   "dispatch_search": "active",
+   "sd_days": [
+    12,
+    23
+   ],
+   "sd_surv_fb": 20,
+   "sd_evals0": 24000,
+   "sd_evals": 8000,
+   "sd_budget0": 0.75,
+   "sd_budget": 0.6,
+   "sd_step_cap": 0.8,
+   "busy_upkeep_pen": 4,
+   "busy_upkeep_set": "feed_care",
+   "upkeep_scale": 0.65,
+   "upkeep_mode": "pair"
+  }
+ ],
+ "Ppc0": [
+  "agents/mgt_lead_search2_xf.py",
+  {
+   "dispatch_search": "active",
+   "sd_days": [
+    12,
+    23
+   ],
+   "sd_surv_fb": 20,
+   "sd_evals0": 24000,
+   "sd_evals": 8000,
+   "sd_budget0": 0.75,
+   "sd_budget": 0.6,
+   "sd_step_cap": 0.8,
+   "plant_cutoff": {}
+  }
+ ],
+ "Rsf": [
+  "agents/mgt_lead_fix.py",
+  {
+   "harvest_policy": "leader_tendency",
+   "hp_crops": [
+    "MELON"
+   ],
+   "replant_leader": 1,
+   "hp_melon_hour": 8,
+   "struct_first": 6
+  }
  ]
 }

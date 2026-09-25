@@ -363,7 +363,7 @@ def ledger_play(game, arm, mode):
                 acts[t_] = {}
             r = dict(game=game, episode=r['episode'], seat=tape['seat'], seed=tape['seed'], arm=arm, cfg=dict(BASE, **cfg),
                      agent_path=path, first_step=D * 24, last_step=(D + 2) * 24 - 1, actions=acts,
-                     note='actions[t] = the leader tape for t < 264 (the exact replay), T (fixes off) for 264..311, {} after; '
+                     note='actions[t] = the leader tape for t < 264 (the exact replay), the arm (agent_path + cfg) for 264..311, {} after; '
                           'same format as data/leader_tapes actions', cash=[d['cash'] for d in r['days'][:D + 3]])
     r['arm'] = arm
     r['mode'] = mode
@@ -388,7 +388,7 @@ def job(args):
              else ledger_play(game, arm, mode))
         r['wall'] = time.time() - t0
         ep = game.split(':')[1]
-        d = (ROOT / 'results/fresh/day12_viz/xdyn_streams') if mode == 'stream' else (OUT / mode / arm)
+        d = (ROOT / 'results/fresh/day12_viz' / ('xdyn_streams' if arm == 'T' else arm.lower() + '_streams')) if mode == 'stream' else (OUT / mode / arm)
         d.mkdir(parents=True, exist_ok=True)
         (d / f'{ep}.json').write_text(json.dumps(r, default=str), encoding='utf-8')
         fin = r.get('final') if mode not in ('trace', 'state11', 'stream') else r.get('cash_next_morning', (r.get('cash') or [None])[-1])
