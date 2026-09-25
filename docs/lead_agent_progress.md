@@ -490,3 +490,55 @@ output), strawberry -3.0k (176 vs 198), melon -2.3k (70 vs 82). By day (12 smoke
 sides, see above): days 0-11 -5.3k (melon timing, first milk), days 12-17 +3.7k (our early strawberries), days
 18-23 -6.1k and 24-29 -9.1k (second strawberry cohort, late carrots/tomatoes, wheat). The late season is where
 the plan stops: count-model targets fall off after day ~18 (last_plant ST 18 / TO 20) and carrots never scale.
+
+## Clean corpus, team-aware retrieval, late-season plan (2026-09-25)
+- Clean corpus (60 scripted Boey games quarantined): deploy `cm_file` = count_model_540.json. The leadv4 full panel
+  was built before the quarantine (contaminated corpus in retrieval + count_model_600); its results were moved to
+  `results/fresh/ladder_panel/mgt_lead_deploy_leadv4_contaminated/`. Clean re-run of the same build = Kaggle leadv5
+  (pending). Smoke worlds, clean baseline `mgt_lpv_clean0` (c1 + count_model_540): -18,168 vs y3 (c1 on the
+  contaminated corpus -17,329; the difference is within noise).
+- Team-aware retrieval: `leader_plan_retrieval.retrieve` already returns (team_id, episode, weight); the deploy
+  dropped the team and resolved the episode by glob. Now `_dep_retrieve` returns (team, episode), the medoid is
+  computed over (team, episode) keys, `_dep_load_sem(ep, team)` loads that seat, and the day-0 exemplar is DSM's own
+  seat (`exemplar_team` 16732748; all earlier runs used Mother-Goose's seat of 112655730). No change to the shared
+  retrieval module. Smoke worlds (`mgt_lpv_tm0`): -18,670 vs y3 (-502 vs clean0, n.s.; eggs 132 -> 166: DSM's opening
+  has geese earlier).
+- Late-season fill (`fill_free`, new DEP_CFG option, default 0): on composition days, free tiles beyond
+  `fill_keep_empty` (4) get wheat (to planting day 25, full harvest) / carrots (to 26), carrot share 0.2 + 0.15 per
+  carrot-demanding shop (max 0.6), at most `fill_max` a day. It never fires on our three quadrants (trace of world
+  111577649: the count model already replants every harvested tile the same day; empty tiles at day start are
+  just-harvested ones): tf1 -18,992 vs y3, units unchanged. With the fourth quadrant (SE, $4,000) it does fill:
+  tf1q4 -26,581 / tf2q4 (fill_max 20) -26,339 vs y3, -2.6k / -2.4k vs deploy_s1: wheat +60, carrot +20, tomato +16
+  units a game, not enough to pay for the land, seeds and hands. Rejected.
+- Wheat-to-carrot swap (`wc_swap`, default 0; share of the count model's wheat plantings turned into carrots, +0.15
+  per carrot-demanding shop): sw1 (0.1) -19,295 / sw3 (0.3) -21,007 vs y3 on the smoke worlds: carrots 125 / 158 units
+  (above y3's 87) but wheat 116 / 93; net worse than tm0 by 0.6k / 2.3k. Rejected.
+- Full panel (Kaggle, 185 games, remote = local 12/12 in both runs):
+  - leadv5 = clean baseline (c1 + count_model_540, sorted glob): **-18,833 vs y3 (95% CI -21,331 .. -16,327)**,
+    -18,527 vs m1, W-L 10-175 (contaminated leadv4 was -18,652: the contamination did not matter). Merged as
+    `results/fresh/ladder_panel/mgt_lead_deploy/`.
+  - leadv6 = + team-aware retrieval and DSM's exemplar seat (current defaults): -19,025 vs y3 (-21,592 .. -16,259),
+    **-191 vs leadv5 (-1,095 .. +877), better in 88/185: neutral**. `results/fresh/ladder_panel/mgt_lead_deploy_tm/`.
+  - G1 leader worlds of the team-aware build: 0.849 / 0.844 / 0.837 (E2 0.843 / 0.834 / 0.823; c1 0.871 / 0.865 /
+    0.846: DSM's own seat as the opening is 0.02 below Mother-Goose's in the leaders' worlds, within noise on p2750).
+- Late-season plan: no lever found. Our three quadrants are full all season (the count model replants every
+  harvested tile the same day), so there is nothing to fill; more land (fourth quadrant) and more carrots both lose.
+  The unit gap to y3 (wheat 238 vs 392, carrot 14 vs 129) comes with y3's whole strategy (wheat trading, a different
+  crop mix) rather than idle land or late count targets.
+- Sell module merged (`scripts/sem_market_merge.py agents/mgt_lead_deploy.py agents/mgt_lead_deploy.py`,
+  `sell_source` default "sem", strawberry-only hold; the block loads scripts/fragments/sem_market.py like
+  sem_maintenance and sits INSIDE the executor section, so any `resync_lead_deploy.py` must be followed by a re-merge).
+  Pre-merge copy: `results/fresh/lead_agent_20260924/snap/mgt_lead_deploy_premarket.py`.
+  - smoke worlds (`mgt_lpv_sem`): -18,893 vs y3 (tm0 -18,670; own cash 93.9k vs 93.4k).
+  - full panel leadv7 (remote = local 12/12): **-19,055 vs y3 (95% CI -21,654 .. -16,303), -18,749 vs m1, W-L 10-175;
+    vs the pre-merge build (leadv6) -30 (-252 .. +196), better in 84/185: neutral in new worlds** (as the sell thread
+    measured: -41, CI -337..+244), own cash +774 (89.7k vs 88.9k), revenue +820 (strawberry price 145.4 vs 142-ish).
+    `results/fresh/ladder_panel/mgt_lead_deploy_sem/`.
+  - remaining gap vs y3 with the market layer in: revenue -19.0k = VOLUME -16.4k (wheat -5.7k, carrot -5.4k, wool
+    -3.4k, strawberry -3.1k, melon -2.2k; milk +2.2k, egg +1.1k, fertilizer +0.9k) + PRICE -2.6k (milk -3.4k at 103 vs
+    120: the herd sells more milk into the same demand; strawberry +1.8k now).
+
+Current deploy defaults (all measured above): c1 (no-feed off, early hand) + count_model_540 + sorted-glob seat lookup +
+team-aware retrieval with DSM's exemplar seat + sem sell rule; `fill_free` and `wc_swap` exist but are off.
+Full-panel margin vs y3 per game: leadv5 -18,833 -> leadv6 -19,025 -> leadv7 -19,055 (all within noise of each
+other); the remaining new-world loss is production volume from the plan (crop mix and scale vs y3), not land left idle.
