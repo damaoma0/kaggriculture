@@ -56,6 +56,13 @@
 # at sd_mr_floor x p; glut goods lose most, wheat / carrot / egg little.
 # v5: sd_surv_fb = from this hour the executor's own survival routes (surv_reserve: a plant dying / an animal escaping
 # tonight, nearest-arrival routes) keep their units and tiles: the planner plans neither (guaranteed fallback).
+# sectors (2026-09-25, research copy agents/mgt_lead_sector.py): each unit has a home quadrant (a hand: the quadrant of
+# the tile it spawned on; the farmer: the second = NW); an op outside home costs sd_sector_w coins in the route objective
+# (a soft term, not a constraint; hard / survival ops and plan structural jobs PLANT / BUILD / PLACE are exempt). At the
+# hours sd_sector_hours the homes rebalance: while one quadrant's remaining ops per home hand exceed sd_sector_ratio x
+# another's, the hand of the lighter quadrant nearest to the heavier one moves its home there. Pickups stay sized to each
+# route's own need (the route evaluation's running balance), never to a sector's. sd_hop_w = coins per step of a hop
+# beyond one between consecutive job tiles of a route (user: each trip works a chain of adjacent tiles).
 # ============================================================================================
 import random as _sd_random
 
@@ -76,7 +83,8 @@ _SD_T = []             # [entry time of the current step] (set by the entry poin
 # after the predecessor's finish, 13 is a predecessor, 14 leading ops that may stand alone when the day ends inside the
 # job (maintenance: all; plan parts: 0), 15 deliverable units gained, 16 deliverable value gained, 17 deliverable
 # product types gained, 18 FERTILIZE op indices, 19 FEED (+ CARE) op indices (skipped when the item cannot be had),
-# 20 in-day delivery credit gained (v2), 21 soft time target (op index, hour, coins per hour later) or None (v3)
+# 20 in-day delivery credit gained (v2), 21 soft time target (op index, hour, coins per hour later) or None (v3),
+# 22 quadrant index (0 NW, 1 NE, 2 SW, 3 SE), 23 exempt from the sector term (hard op or plan structural job)
 
 
 def _sd_dv_table(S, day, prices, shed):
@@ -360,6 +368,55 @@ def _sd_opvals(S, idx, t, ops, plan, day, E, last_day):
     return tuple(vals), tuple(dls), hi, True
 
 
+def _sd_qi(idx):
+    """quadrant index of a tile index: 0 NW (second), 1 NE (first), 2 SW (third), 3 SE (fourth)."""
+    return (0 if idx // 10 < 5 else 2) + (0 if idx % 10 < 5 else 1)
+
+
+def _sd_sector(P, L, hour, n):
+    """home quadrants of the units (P.uhome) and the rebalancing at the sectors' hours."""
+    home = L.setdefault("home", {})
+    uh = []
+    for u in range(P.U):
+        if u == 0:
+            uh.append(0)                           # the farmer: the second quadrant (NW)
+        elif u < n:
+            if u not in home:
+                home[u] = _sd_qi(P.up[u]) if P.ut0[u] <= hour + 1 else _sd_qi(P.up[u])
+            uh.append(home[u])
+        else:
+            uh.append(_sd_qi(P.up[u]))             # virtual hires: their spawn tile
+    hrs = CFG["sd_sector_hours"] or ()
+    if hour in hrs and L.get("sector_h") != (L.get("day"), hour):
+        L["sector_h"] = (L.get("day"), hour)
+        W = [0.0] * 4
+        for j in range(P.J):
+            if P.real[j] and not P.jb[j][23]:
+                W[P.jb[j][22]] += P.jb[j][1]
+        ctl = [u for u in range(1, min(n, P.U)) if P.uctrl[u] and P.ue[u] >= 0]
+        ratio = float(CFG["sd_sector_ratio"])
+        for _ in range(4):
+            H = [0] * 4
+            for u in ctl:
+                H[uh[u]] += 1
+            ld = [W[q] / max(H[q], 0.5) for q in range(4)]
+            qh = max(range(4), key=lambda q: (ld[q], -q))
+            don = [q for q in range(4) if H[q] >= 1 and q != qh]
+            if not don or W[qh] <= 0:
+                break
+            ql = min(don, key=lambda q: (ld[q], q))
+            if ld[qh] <= ratio * ld[ql] + 1.0:
+                break
+            cx, cy = (2, 2) if qh in (0, 1) else (7, 7), 0
+            tx, ty = (2 if qh in (0, 2) else 7), (2 if qh in (0, 1) else 7)
+            u = min((u for u in ctl if uh[u] == ql),
+                    key=lambda u: (abs(P.up[u] % 10 - tx) + abs(P.up[u] // 10 - ty), u))
+            uh[u] = qh
+            home[u] = qh
+            L["st"]["sector_moves"] = L["st"].get("sector_moves", 0) + 1
+    P.uhome = uh
+
+
 def _sd_build(S, L, ctx):
     D, SD, SA, DS, NS = _sd_tables()
     day, hour, tiles, tasks = ctx["day"], ctx["hour"], ctx["tiles"], ctx["tasks"]
@@ -438,7 +495,8 @@ def _sd_build(S, L, ctx):
         keys.append(key)
         kidx[key] = j
         JB.append((tile, len(ops), nw, nf, na, gw, gf, vals, dls, int(rel), int(hi), pred, int(lag), False,
-                   int(cutp), gdu, gdv, gty, fi, wi, gcv, soft))
+                   int(cutp), gdu, gdv, gty, fi, wi, gcv, soft, _sd_qi(tile),
+                   hi >= 0 or any(c_ in ("PLANT", "BUILD_COOP", "BUILD_PASTURE", "PLACE") for c_ in cmds)))
         OPS.append(ops)
         REAL.append(real)
         CROPI.append(crop_i)
@@ -666,6 +724,12 @@ def _sd_build(S, L, ctx):
     P.ucv = cols["cv"]
     U = len(P.ut0)
     P.U = U
+    P.secw = float(CFG["sd_sector_w"])
+    P.hopw = float(CFG["sd_hop_w"])
+    if P.secw:
+        _sd_sector(P, L, hour, n)
+    else:
+        P.uhome = [-1] * U
     # ---------------------------------------------------------------- empty plan
     P.routes = [[] for _ in range(U)]
     P.rsc = [0.0] * U
@@ -820,6 +884,8 @@ def _sd_eval1(P, u, r, aw_ok, af_ok):
         late_h, dun, dva, dvl, short, fk = P.late_h, P.dunits, P.dval, P.dval_late, P.short, P.fert_keep
         cv, dvh1 = P.ucv[u], P.dv_h1
     hlw = P.hlw
+    secw, uhq = P.secw, P.uhome[u]
+    hopw, pj = P.hopw, False
     for k in range(L_):
         j = r[k]
         jb = JB[j]
@@ -828,10 +894,13 @@ def _sd_eval1(P, u, r, aw_ok, af_ok):
             s = P.sa[prev][b]
             t += D[prev][s] + npk
             prev = s
+            pj = False
             picked = True
             cw += pw
             cf += pf
             can += pa[0] + pa[1] + pa[2]
+        if hopw and pj and D[prev][b] > 1:          # contiguity: a hop of more than one step between job tiles
+            val -= hopw * (D[prev][b] - 1)
         t += D[prev][b]
         rel = jb[9]
         pr = jb[11]
@@ -867,6 +936,8 @@ def _sd_eval1(P, u, r, aw_ok, af_ok):
             x = t + (hi - sum(1 for s_ in skip if s_ < hi) if skip else hi) - P.hsafe
             if x > 0:
                 val -= hlw * x
+        if secw and uhq >= 0 and jb[22] != uhq and not jb[23]:   # sectors: ops outside the unit's home quadrant
+            val -= secw * (m if t + m <= E else (E - t if E > t else 0))
         sft = jb[21]
         if sft is not None and sft[0] not in skip:  # v3: soft time target (melons early in the morning)
             x = t + (sft[0] - sum(1 for s_ in skip if s_ < sft[0]) if skip else sft[0])
@@ -921,6 +992,7 @@ def _sd_eval1(P, u, r, aw_ok, af_ok):
                 fin = {}
             fin[j] = t
         prev = b
+        pj = True
         cw += jb[5] - nw
         cf += jb[6] - nf
         if jb[4] >= 0:
@@ -940,6 +1012,7 @@ def _sd_eval1(P, u, r, aw_ok, af_ok):
                     if cv and t <= dvh1:           # v2: sold the same day
                         val += cv
                     prev = s
+                    pj = False
                     du = dv = 0.0
                     ty = 0
                     cv = 0.0
@@ -1474,6 +1547,7 @@ def _sd_step(S, L, ctx):
         L["routes"] = {}
         L["walk"] = {}
         L["pred_seen"] = {}
+        L["home"] = {}
         L["first_of_day"] = True
         st["days_planned"] += 1
     t_start = time.perf_counter()

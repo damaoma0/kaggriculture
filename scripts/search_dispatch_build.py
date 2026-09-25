@@ -15,6 +15,7 @@ source is additions only (scripts/search_dispatch_check.py static verifies it).
 
 usage: search_dispatch_build.py [lead|deploy|lead2|all]
   lead2   agents/mgt_lead_search2.py <- agents/mgt_lead.py at git f8b48ef (the new T baseline; research copy)
+  sector  agents/mgt_lead_sector.py  <- the same source, the block with the sector term (research copy)
 """
 import hashlib
 import sys
@@ -33,6 +34,9 @@ TARGETS = {
     'lead2': dict(src=f'{SRCDIR}/mgt_lead_3707fa44.py', orig='agents/mgt_lead.py (git f8b48ef)',
                   sha='3707fa44efcf37e1f21ac6569067e6c7c4681f1b0f3ab9675b8ebf2d619cd991', when='2026-09-25 f8b48ef',
                   out='agents/mgt_lead_search2.py', first='"""mgt_lead:', timing='agent', block='end'),
+    'sector': dict(src=f'{SRCDIR}/mgt_lead_3707fa44.py', orig='agents/mgt_lead.py (git f8b48ef)',
+                   sha='3707fa44efcf37e1f21ac6569067e6c7c4681f1b0f3ab9675b8ebf2d619cd991', when='2026-09-25 f8b48ef',
+                   out='agents/mgt_lead_sector.py', first='"""mgt_lead:', timing='agent', block='end'),
 }
 
 CFG_KEYS = '''    # ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only; scripts/search_dispatch_block.py) ---------
@@ -77,6 +81,10 @@ CFG_KEYS = '''    # ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only;
     "sd_mr": 0,               # v3: maintenance job values at marginal revenue (price - slope x our units still to sell)
     "sd_mr_floor": 0.1,       # v3: ... floored at this share of the price
     "sd_surv_fb": None,       # v5: from this hour the executor's survival routes keep their units / tiles (None = off)
+    "sd_sector_w": 0.0,       # sectors: coins per op outside the unit's home quadrant (0 = off)
+    "sd_sector_hours": [1, 8, 14],   # sectors: hours of the home rebalancing
+    "sd_sector_ratio": 2.0,
+    "sd_hop_w": 0.0,          # contiguity: coins per step of a hop beyond one between consecutive job tiles (0 = off)   # sectors: rebalance while a quadrant's ops per home hand exceed this x another's
     "sd_hv_pref": {},         # v3: the leaders' harvest timing as soft bonuses on HARVEST ops (see the block header); {} = off
     "sd_keep": 0,             # research: keep the last plan object (static checks)
     "sd_log": None,           # research: directory for per-step jsonl records + the game summary

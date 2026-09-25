@@ -196,6 +196,7 @@ def verify_plan(mod, P):
         w, f, an = P.uw[u], P.uf[u], list(P.ua[u])
         du, dv, ty = P.udu[u], P.udv[u], P.uty[u]
         cv = P.ucv[u]                              # v2: in-day delivery credit carried
+        pj = False                                 # contiguity: the previous position is a job tile
         val = 0.0
         picked = npk == 0
         E_ = P.ue[u]
@@ -209,6 +210,9 @@ def verify_plan(mod, P):
                 w, f = w + pw, f + pf
                 an = [an[i] + pa[i] for i in range(3)]
                 picked = True
+                pj = False
+            if getattr(P, 'hopw', 0) and pj and D[pos][b] > 1:
+                val -= P.hopw * (D[pos][b] - 1)
             t += D[pos][b]
             pos = b
             rel = jb[9]
@@ -240,6 +244,8 @@ def verify_plan(mod, P):
             m = len(ex)
             if jb[10] >= 0 and P.hlw and jb[10] in ex:      # v2: a hard op done after sd_hard_safe
                 val -= P.hlw * max(0, t + ex.index(jb[10]) - P.hsafe)
+            if getattr(P, 'secw', 0) and P.uhome[u] >= 0 and jb[22] != P.uhome[u] and not jb[23]:   # sectors
+                val -= P.secw * min(len(ex), max(0, E_ - t))
             if jb[21] is not None and jb[21][0] in ex:      # v3: soft time target, when the op is executed
                 x = t + ex.index(jb[21][0])
                 if jb[21][1] < x < E_:
@@ -265,6 +271,7 @@ def verify_plan(mod, P):
             if jb[4] >= 0:
                 an[jb[4]] -= 1
             fin[j] = t
+            pj = True
             if P.deliv and jb[15]:
                 du, dv, ty = du + jb[15], dv + jb[16], ty + jb[17]
                 cv += jb[20]
@@ -277,6 +284,7 @@ def verify_plan(mod, P):
                     if cv > 0 and t <= P.dv_h1:     # v2: the drop ends by sd_dv_hour: sold the same day
                         val += cv
                     pos = s
+                    pj = False
                     du, dv, ty, cv = 0, 0.0, 0, 0.0
                     if not picked and kp > k:
                         t += npk
