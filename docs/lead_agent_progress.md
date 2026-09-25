@@ -1280,3 +1280,40 @@ Verification (Kaggle pvs16 / g1x; 2 kernels, none else running):
 | re-synced deploy (copy dep11) vs the current default (tw0) | identical, smoke 12/12, G1 12/12 (0.910 / 0.901 / 0.889) |
 | mgt_lead.py new defaults (tie_value + ws2), leader-plan G1 (Gnew) | 0.888 / 0.878 / 0.859 (+0.007), 7 better / 5 worse |
 | + exact_removals (Gex) | 0.875 / 0.865 / 0.851 (-0.013 vs Gnew), 3 / 9; 29 removals issued a game: stays off |
+
+## Gap of the current default (ws2) vs y3, refreshed from the panel records (2026-09-25; no games)
+`scripts/lead_gap_y3.py` + `scripts/lead_newworld_gap.py mgt_lpv_tw0 mgt_y3_cal`, 185 p2750 worlds.
+**Margin -13,934 (95% CI -16,550 .. -11,387) = own cash -14,140 - rival cash -206** (the frozen rival earns about the
+same against both). Without the 41 worlds where the rival's tape breaks against one build: -15,144 (-16,547 ..
+-13,752), median -14,136; we beat y3 in 16 worlds; the eight worst worlds (-37k .. -134k) are mostly broken-tape worlds.
+Own cash: revenue -16,017 (117.2k vs 133.2k) = VOLUME -10,891 + PRICE -5,126; spend 1,877 LESS than y3: wages +2,388
+against us (7,960 vs 5,573), animals +724; y3 spends more on wheat bought (+2,704; it trades wheat), seeds (+1,346:
+carrots / tomatoes) and fertilizer bought (+939); land equal.
+| product | units ours vs y3 | price ours vs y3 | revenue gap | volume | price | d0-11 | d12-17 | d18-23 | d24-29 | cutoffs build (earlier table) rev gap |
+|---|---|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| carrot | 28 vs 129 | 52 vs 47 | -4,611 | -4,744 | +133 | +1 | +268 | -474 | -4,406 | -4,486 |
+| melon | 73 vs 82 | 180 vs 197 | -2,828 | -1,628 | -1,199 | -5,481 | +1,684 | -676 | +1,645 | -3,546 |
+| wool | 137 vs 157 | 150 vs 147 | -2,626 | -2,969 | +343 | +1,584 | -1,551 | -1,452 | -1,206 | -2,619 |
+| tomato | 50 vs 81 | 80 vs 80 | -2,530 | -2,510 | -20 | 0 | +2 | -123 | -2,409 | -2,983 |
+| strawberry | 167 vs 198 | 147 vs 135 | -2,090 | -4,149 | +2,060 | 0 | +3,007 | -2,795 | -2,301 | -2,283 |
+| wheat | 352 vs 392 | 35.5 vs 36.8 | -1,975 | -1,490 | -485 | -663 | -1,672 | +197 | +163 | -2,462 |
+| milk | 212 vs 185 | 98 vs 120 | -1,364 | +3,219 | **-4,583** | -1,994 | +2,755 | -865 | -1,260 | -1,052 |
+| fertilizer | 239 vs 223 | 51 vs 56 | -235 | +927 | -1,162 | -100 | -739 | +444 | +161 | -429 |
+| egg | 168 vs 118 | 47 vs 49 | **+2,240** | +2,453 | -213 | +292 | +419 | +660 | +869 | +970 |
+| total | | | -16,017 | -10,891 | -5,126 | -6,361 | +4,173 | -5,084 | -8,745 | -18,891 (vol -15.8k, price -3.1k) |
+Revenue by day window: d0-5 -87, d6-11 -8,813, d12-17 +6,238, d18-23 -3,396, d24-29 -6,795. Rival revenue vs ours:
+-584 in total; milk -2,802 (our extra milk depresses its price), melon +2,493 (we sell fewer melons, its melons fetch
+more). Shop relation (clean worlds): the gap grows with early / repeated Yarn Stores (first by day 12: -16.8k vs
+-13.4k later and -13.7k with none; two Yarn Stores -17.5k); milk-shop timing shows no clear pattern (n = 20 late / none).
+**Since the earlier table** the volume gap shrank by ~4.9k (execution rounds: eggs +2.2k now, melons, tomatoes, wheat)
+and the price gap grew by ~2.0k (milk: we sell more milk into crashed prices, 98 vs 120 a unit).
+**Where the -13.9k plausibly belongs:**
+- Plan scale / crop mix (~9-10k): carrots -4.7k and tomatoes -2.5k, almost entirely days 24-29 (y3's late plantings;
+  our executor is labour-bound there, c27 was negative); melon volume -1.6k (y3's day-0 melons, d0-11 -5.5k); wool
+  volume -3.0k (herd scale / early Yarn Stores, the gap grows with them); wages +2.4k (more hands than y3).
+- Execution (the builders' targets, ~4-6k): strawberry volume -4.1k (same area, fewer units per planting: the leader
+  ledger showed thinner strawberry watering / fertilizing per tile-day), wheat volume -1.5k, part of wool (care); the
+  leader ledger's walking gap sits here.
+- Market (~5k net against us): milk price -4.6k (partly returned on margin: the rival loses 2.8k of milk revenue to
+  our extra milk), melon -1.2k and fertilizer -1.2k price; strawberry price +2.1k in our favour; y3's wheat trading
+  (buys 2.7k more wheat) is part of its wheat margin.
