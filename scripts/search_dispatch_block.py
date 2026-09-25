@@ -67,6 +67,10 @@
 # (a melon harvest in the leaders' window = held units x price x hp_frac; a melon window water = the melon price);
 # sd_split_place: a BUILD + PLACE plan part is split into the structure job (sd_build_value) and the placement job
 # (plan_value, successor of the structure): the leader builds the coop at h13 and places the goose at h14.
+# sd_bundle_build (user design, replaces the split): every plan BUILD with an animal is one job for one hand: clear the
+# tile (WATER if due, HARVEST or DIG) -> BUILD -> PLACE -> FEED -> CARE, the animal and its feed wheat picked up at the
+# trip start, valued at a day's delay (a day of the animal's product + fertilizer, sd_bundle_value "auto") on top of the
+# clearing ops; never an empty structure (no animal: the structure waits whole).
 # v5: sd_surv_fb = from this hour the executor's own survival routes (surv_reserve: a plant dying / an animal escaping
 # tonight, nearest-arrival routes) keep their units and tiles: the planner plans neither (guaranteed fallback).
 # sectors (2026-09-25, research copy agents/mgt_lead_sector.py): each unit has a home quadrant (a hand: the quadrant of
@@ -446,6 +450,46 @@ def _sd_sector(P, L, hour, n):
     P.uhome = uh
 
 
+def _sd_bundle(S, L, P, idx, t, ops, job, carried, prices, day, E, last_day, hour, last, add, gains):
+    """sd_bundle_build: the tile's clearing ops (WATER if due, HARVEST / DIG) + BUILD + PLACE + FEED + CARE as one job
+    (the harvest_before_build task holds only the clearing ops: the structure part is appended). Value: the clearing
+    ops' own values + a day of the animal (2 x its product price / interval + the fertilizer price) on the last op; only
+    the clearing ops may stand alone at the day end. Without the animal (bought at hour 0 at the earliest) the structure
+    waits whole: hour 0 plans nothing on the tile, later hours only the clearing ops. Returns True when handled."""
+    sp = job[2]
+    cmds = [o[0] for o in ops]
+    if not any(c in ("BUILD_COOP", "BUILD_PASTURE") for c in cmds):
+        if not all(c in ("WATER", "HARVEST", "DIG") for c in cmds):
+            return False
+        ops = [list(o) for o in ops] + [["BUILD_" + job[1]], ["PLACE", sp], ["FEED"], ["CARE"]]
+        cmds = [o[0] for o in ops]
+    ib = next(i for i, c in enumerate(cmds) if c in ("BUILD_COOP", "BUILD_PASTURE"))
+    clear = ops[:ib]
+    avail = P.ava[_SD_SPI[sp]] + carried.get(sp, 0) > 0
+    if not avail:
+        L["st"]["bundle_wait"] = L["st"].get("bundle_wait", 0) + 1
+        if hour == 0 or not clear:
+            return True
+        ops, cmds = clear, cmds[:ib]
+    if not any(o[0] == "PLACE" for o in ops) and any(c in ("BUILD_COOP", "BUILD_PASTURE") for c in cmds):
+        return True                                # never an empty structure
+    cv, cd, chi, _ = _sd_opvals(S, idx, t, clear, False, day, E, last_day) if clear else ((), (), -1, True)
+    cv, soft = _sd_hv_pref(t, [o[0] for o in clear], cv, day) if clear else (cv, None)
+    n = len(ops)
+    if len(ops) > len(clear):
+        a = ANIMALS[sp]
+        dv = (2.0 * float(prices.get(a["product"], 0) or 0) / max(1, a["interval"])
+              + float(prices.get("FERTILIZER", 0) or 0)) if CFG["sd_bundle_value"] == "auto" else float(CFG["sd_bundle_value"])
+        vals = tuple(cv) + tuple([0.0] * (n - len(clear) - 1) + [dv])
+        dls = tuple(cd) + tuple([last] * (n - len(clear)))
+    else:
+        vals, dls = tuple(cv), tuple(cd)
+    gw, gf, gdu, gdv, gty, gcv = gains(t, [o[0] for o in clear]) if clear else (0, 0, 0, 0.0, 0, 0.0)
+    add(idx, idx, ops, vals, dls, chi, len(clear), hour, -1, 0, True, None, gw, gf, gdu, gdv, gty, gcv, soft)
+    L["st"]["bundle_jobs"] = L["st"].get("bundle_jobs", 0) + (1 if len(ops) > len(clear) else 0)
+    return True
+
+
 def _sd_build(S, L, ctx):
     D, SD, SA, DS, NS = _sd_tables()
     day, hour, tiles, tasks = ctx["day"], ctx["hour"], ctx["tiles"], ctx["tasks"]
@@ -555,6 +599,11 @@ def _sd_build(S, L, ctx):
             continue                               # v5: the greedy's survival route serves this tile
         ops, need, prio = tasks[idx]
         t = _tile(tiles, idx)
+        if CFG["sd_bundle_build"]:
+            jb_ = ctx["jobs"].get(idx)
+            if jb_ is not None and jb_[0] == "BUILD" and len(jb_) > 2 and jb_[2] in _SD_SPI:
+                if _sd_bundle(S, L, P, idx, t, ops, jb_, carried, prices, day, E, last_day, hour, last, add, gains):
+                    continue
         kept = []
         placing_blocked = False
         for o in ops:                              # an animal nobody can supply today: PLACE and its FEED / CARE go
@@ -1944,6 +1993,15 @@ def _sd_act(S, run, u, p, inv, tasks, tiles, shed_left, seeds_left, plant_count,
             continue
         if c == "PLACE" and inv.get(op[1], 0) <= 0:
             break
+        if c in ("BUILD_COOP", "BUILD_PASTURE") and CFG["sd_bundle_build"]:
+            sp_ = next((o[1] for o in ops if o[0] == "PLACE" and len(o) > 1), None)
+            if sp_ and inv.get(sp_, 0) <= 0:       # never an empty structure: fetch the animal first (or wait)
+                if shed_left.get(sp_, 0) > 0:
+                    st["fb_unit"] += 1
+                    st["fb_pickup"] += 1
+                    return None
+                st["planned_unit"] += 1
+                return ["PASS"]
         if c == "PLANT":
             if seeds_left.get(op[1], 0) <= 0 or hour >= 23:
                 break

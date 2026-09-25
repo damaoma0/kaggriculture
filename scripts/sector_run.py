@@ -80,6 +80,18 @@ ARMS = {
     'S11cgsd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
                           sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_split_place=1,
                           sd_spawn_steer=1, sd_hire_demand=1, **SHIP)),
+    # round 4 (user design): the BUILD + animal bundle, one hand, the animal bought at hour 0, instead of the split
+    'S11cb': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                        sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1, **SHIP)),
+    'S11cbs': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
+                         sd_spawn_steer=1, **SHIP)),
+    'S11cbd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
+                         sd_hire_demand=1, **SHIP)),
+    'S11cbsd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                          sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
+                          sd_spawn_steer=1, sd_hire_demand=1, **SHIP)),
     'S11a': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_early_animal=1, **SHIP)),      # + early animal
     'S11wh2': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=80.0, sd_hop_w=40.0, **SHIP)),
 }
@@ -106,6 +118,10 @@ LABEL = {
     'S11cgs': 'S11cgs: S11cg + spawn steering',
     'S11cgd': 'S11cgd: S11cg + hires by demand',
     'S11cgsd': 'S11cgsd: S11cg + spawn steering + hires by demand',
+    'S11cb': 'S11cb: S11cf + melon tendency + executor harvest values + the BUILD+animal bundle (one hand: water, harvest, coop, goose, feed, care)',
+    'S11cbs': 'S11cbs: S11cb + spawn steering',
+    'S11cbd': 'S11cbd: S11cb + hires by demand',
+    'S11cbsd': 'S11cbsd: S11cb + spawn steering + hires by demand',
 }
 
 
