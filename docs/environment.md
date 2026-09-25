@@ -145,3 +145,40 @@ townCenterSellInterval 24, marketParams overrides allowed.
 - Agent signature is `agent(obs)` (one argument). `obs["step"]` is the 0-indexed turn.
 - Full rules and tables ship inside the package: `envs/kaggriculture/README.md` and `AGENTS.md`.
 - Local baseline, starter vs random: starter finished with 3482 coins, random with 0.
+
+## Valuation-relevant rules, re-verified against the engine code (2026-09-25)
+Read directly from kaggle_environments/envs/kaggriculture/kaggriculture.py (1.32.7). These were partly documented above
+but our valuation code did not use them; any value model must.
+- **Demand per day** (whole market, shared by both players): the town center takes 1 unit of every product except
+  FERTILIZER per day; every unlocked shop instance takes each listed product every 4 turns = 6 units/day per listed
+  product (12/day for single-product shops: Yarn Store = wool, Pet Cafe = carrots). One shop unlocks every 3 days
+  (drawn with replacement, max 8 instances).
+  - FERTILIZER: no demand at all. Its price = 100 - 0.2 x (cumulative units sold by both players - units bought back);
+    it never recovers. Leader worlds: ~70 on day 11, 49 on day 15, 34 on day 19, 14 on day 29.
+  - MELON: no shop buys melons; only the town center's 1 a day. Price = 250 - 0.01 x (excess supply)^2 ("sq" glut
+    curve), so when both players harvest ~60 melons around days 10-12 the first units sold fetch ~220-250 and later
+    ones far less. A melon's value depends on selling before the other player's melons, not only on its units.
+  - Milk, wool, strawberry also have steep glut curves (linear 1.6 x base over T=122 / sq 3.2 x base over T=105 /
+    linear 1.6 x base over T=100); wheat, carrot, egg absorb gluts well.
+- **Every unit sold moves the price for the next unit** (orders are resolved unit by unit, interleaved between the two
+  players); a unit sold at the $1 floor does not add to market inventory. Only WHEAT and FERTILIZER can be bought back.
+- **One-time crops** (wheat, carrot, melon): planted with 1 unit; each WATER on a day inside the growth window
+  [(max_yield_day+1)//2, max_yield_day] adds +1 (+2 if fertilized that day), capped at max_yield: wheat ages 2-4 (cap
+  6, i.e. 4 unfertilized / 6 fertilized), carrot ages 2-3 (cap 4), melon ages 6-12 (cap 6). HARVEST only from
+  first_yield_day (wheat 2, carrot 2, melon 10). After the end of age max_yield_day the plant decays by 1 unit every 2
+  hours and becomes a weed at 0. HARVEST clears the tile.
+- **Ongoing crops** (tomato, strawberry): produce every `interval` days from first_yield_day, up to 4 productions;
+  +1 per production, +2 if watered and fertilized that day; a plant not watered two days in a row becomes a weed.
+- **FERTILIZE** lasts 3 days (the day applied and the next two); its bonus needs the plant watered that day.
+- **Animals**: a production pays 1 + the banked care bonus only if fed that day (else 1 and the bank is lost); a fed +
+  cared day banks +1; unfed two days in a row -> the animal escapes (the structure stays). COLLECT_FERTILIZER gives 1
+  per animal per day (does not accumulate).
+- **Shed**: capacity 100 items INCLUDING animals bought and waiting there. Overflow is deleted both at midnight (all
+  units' inventories are dumped into the shed) AND on any DROP / PLACE at the shed (items that don't fit are lost).
+- **Units**: HIRE cost = fib(n) for the n-th hire of the day (1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377...);
+  a hand spawns on the least-occupied shed-access tile and acts from the next turn; all hands vanish at midnight and
+  the farmer returns to (4,4). BUILD_COOP / BUILD_PASTURE are free but need an empty tile. If a turn's PLANT requests
+  for a crop exceed the seeds held at the start of the turn, ALL of that turn's PLANTs of that crop fail.
+- **Turn order**: unit actions -> market orders (hire / land first, then buys and sells unit by unit) -> town
+  consumption -> plant decay -> (after the last turn of a day) crop / animal refresh, weeds (on empty tiles only),
+  inventory dump into the shed, shop unlock every 3 days.
