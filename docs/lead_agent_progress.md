@@ -1341,3 +1341,25 @@ verified): the count model only adds sheep from day 12 to day 17 (`last_animal`)
 while in early-Yarn worlds the sheep come from the retrieved leader plans of days 0-11; a lever for the missing ~2
 sheep would have to act in the retrieval phase or extend the add window. Stopped here (resources to the exact-opening
 testing).
+
+## T's gap to the leader in the leader worlds: availability split (stored data; 2026-09-25)
+Goal (user): T = agents/mgt_lead.py on the leader's exact plan must be comparable with the leader before the next steps.
+`scripts/lead_availability.py` (stored ledger replays, 12 G1 worlds, leader vs the frozen T = previous mgt_lead
+defaults, the "T" of the xopen split): value of our supply coming on later days (deep_decomp's "units available
+later", recomputed): **+5.9k a game** (deep_decomp +5.7k):
+| product | later-supply value | mean supply day leader / T | holding days (sale - supply) leader / T |
+|---|---:|---|---|
+| wool | +2,309 | 13.7 / 15.0 | +0.5 / +1.0 |
+| milk | +1,271 | 18.6 / 19.0 | +0.4 / +0.8 |
+| fertilizer | +1,134 | 14.4 / 15.6 | +0.7 / +1.2 |
+| melon | +529 | 10.4 / 10.6 | +0.1 / +0.2 |
+| strawberry | +507 | 19.6 / 19.5 | +0.9 / +0.7 |
+| wheat / egg / tomato / carrot | +123 / +52 / +4 / -9 | | wheat +1.9 / +3.0 |
+**~4.7k of it is animal products arriving later**: goose animal-days d6-11 22 vs 14, d12-17 50 vs 34; sheep 28 / 25 and
+36 / 30; cows 34 / 30 on d6-11 (later placement: opening / cash timing, the exact-opening workflow's target). Crop
+timing adds ~1.2k (melon, strawberry). Harvest policy: the leader harvests wheat at a mean age of 3.20 days (65% before
+full yield) and replants the same day; T at 3.71 (37%); carrots 2.87 vs 3.03. Wheat cohorts per game: leader 171, T
+135 (by planting day: d0-11 55 / 48, d12-19 51 / 45, d20-25 49 / 42, d26-29 15 / 0 = the cutoff); carrots 70 / 50
+(d26-29 12 / 7). Holding is a little longer for T (wheat 3.0 vs 1.9 days between supply and sale). Tests in flight
+(G1, on the current mgt_lead defaults = Gnew 0.888): plant_cutoff off (Gpc0), cutoff only for plantings the leader
+never harvests (Gpc1, `cut_mode` "leader_harvest"), early_onetime (Geo), cap_fix (Gcf).

@@ -93,6 +93,7 @@ CFG = {
     "surv_hour": 16,
     "surv_harvest": False,
     "atrisk_bonus": 0,        # greedy cost bonus (steps) for a one-time crop at/after full yield with a harvest pending (decays tomorrow)
+    "cut_mode": "all",        # "all" = plant_cutoff applies to every late planting; "leader_harvest" = only to plantings the leader itself never harvests before the end (T follows the leader's exact plan)
     "plant_cutoff": {"STRAWBERRY": 13, "TOMATO": 18, "MELON": 19, "WHEAT": 25, "CARROT": 26},   # last planting day with a full harvest before the end (min_maintenance); later plantings incl. catch-ups are skipped (2026-09-25: full panel +336, G1 +0.007)    # survival routes also take one-time crops at/after full-yield age (missed harvests decay)
     "sched_dispatch": False,  # scheduler: dispatch by value density among jobs finishable before their deadline
     "sched_hire": False,      # scheduler: hire the n-th hand while the value only it adds exceeds fib(n)
@@ -228,6 +229,7 @@ class Target:
         days = sem["days"]
         self.n = len(days)
         self.board = [d["board"] for d in days]
+        self.harv_tiles = [set((d.get("harvested") or {}).get("tiles", [])) for d in days]   # the leader's harvested tiles per day
         self.plant = []          # day -> {tile: crop}
         self.fert = []           # day -> set(tile)
         self.hands = [int(d["labour"].get("hands_present", 0)) for d in days]
@@ -556,7 +558,9 @@ def _plan(obs, S, tiles, day):
     for (pd, tt, crop) in T.events:
         if pd > d or d - pd > CFG["late"].get(crop, LATE[crop]):
             continue
-        if cut and d > cut.get(crop, 99):
+        if cut and d > cut.get(crop, 99) and not (
+                CFG["cut_mode"] == "leader_harvest"
+                and any(tt in T.harv_tiles[d2] for d2 in range(pd + 1, T.n) if d2 < len(getattr(T, "harv_tiles", ())))):
             ck = ("cut", pd, tt)
             if ck not in S["done"]:
                 S["done"].add(ck)
@@ -2658,6 +2662,7 @@ class _DepTarget:
         self.cum_sold = [Counter() for _ in range(t.n)]
         self.events = list(t.events)
         self.removals = [list(x) for x in getattr(t, "removals", [[] for _ in range(t.n)])]   # exact_removals (off by default)
+        self.harv_tiles = [set(x) for x in getattr(t, "harv_tiles", [set() for _ in range(t.n)])]   # cut_mode leader_harvest
 
 
 _DEP = {}
