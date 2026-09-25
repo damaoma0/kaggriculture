@@ -7,6 +7,7 @@ usage: search_dispatch_variants.py <variant>[,<variant>...] [deploy|lead]
        -> agents/mgt_lpv_sd_<variant>.py (deploy) / agents/mgt_lead_sd_<variant>.py (lead), sha256 printed
 Variants (settings from scripts/search_dispatch_run.py, the leader-world arms):
   off    dispatch_search off (control: the source's decisions)
+  v1a12  active, days 12-23 (v1: every v2+ option off)      v1all  active, every day (v1)
   v2a12  active, days 12-23 + V2      v2all  active, every day + V2
   v3a12  active, days 12-23 + V3      v3all  active, every day + V3
   v4a12  active, days 12-23 + V4      v4all  active, every day + V4 (measured credit)
@@ -25,6 +26,8 @@ def settings():
     import search_dispatch_run as R
     return {
         'off': dict(dispatch_search='off'),
+        'v1a12': dict(dispatch_search='active', sd_days=[12, 23]),
+        'v1all': dict(dispatch_search='active'),
         'v2a12': dict(dispatch_search='active', sd_days=[12, 23], **R.V2),
         'v2all': dict(dispatch_search='active', **R.V2),
         'v3a12': dict(dispatch_search='active', sd_days=[12, 23], **R.V3),
