@@ -98,6 +98,10 @@ ARMS.update({
     'V5all': dict(kind='module', path=AGENT, cfg=dict(EXEC, dispatch_search='active', **V5)),
     'V5sh': dict(kind='module', path=AGENT, cfg=dict(EXEC, dispatch_search='shadow', **V5)),
 })
+# v1 + ONLY the survival fallback (coordinator: v1a12 is +2,141 margin on 48 worlds; its remaining flaw is unwatered deaths)
+ARMS.update({
+    'V1Fa12': dict(kind='module', path=AGENT, cfg=dict(EXEC, dispatch_search='active', sd_days=[12, 23], sd_surv_fb=20)),
+})
 
 
 def main(argv):

@@ -28,6 +28,7 @@ def settings():
         'off': dict(dispatch_search='off'),
         'v1a12': dict(dispatch_search='active', sd_days=[12, 23]),
         'v1all': dict(dispatch_search='active'),
+        'v1fa12': dict(dispatch_search='active', sd_days=[12, 23], sd_surv_fb=20),
         'v2a12': dict(dispatch_search='active', sd_days=[12, 23], **R.V2),
         'v2all': dict(dispatch_search='active', **R.V2),
         'v3a12': dict(dispatch_search='active', sd_days=[12, 23], **R.V3),
