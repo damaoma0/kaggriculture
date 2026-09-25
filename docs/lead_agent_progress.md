@@ -1200,3 +1200,42 @@ the rival's recorded milk sales meet the higher price (rival milk revenue up mos
 the objective, retiring our animals helps the opponent almost as much as us. Not clearly positive: no full panel; the
 option stays (default 0). A version that also counts the market effect (the price rise our retirement hands the rival)
 would need the rival's sales model; not attempted.
+
+## Rival revenue per unit we sell / withhold (stored paired panels, no games; 2026-09-25)
+`scripts/lead_rival_price.py`. Every build in a world meets the same frozen recorded rival, so within-world
+differences between builds in the rival's revenue come from the market. Slope of the rival's revenue on our units sold,
+demeaned by world, bootstrap over worlds. Part 1: 12 builds on the 185 p2750 worlds (1,880 world-builds; 340 dropped
+where the rival's tape broke, i.e. its commands without effect exceed the world's best build by > 40). Part 2: the 12
+smoke worlds, 292 world-builds of the stored traces, per season third (same third). Part 3: the engine price formula.
+**Coins of rival revenue gained per unit we withhold** (= minus the slope):
+| product | whole season, 185 worlds (95% CI) | days 0-9 | days 10-19 | days 20-29 | engine formula d10-19 / d20-29 |
+|---|---|---|---|---|---|
+| MILK | **88 (75 .. 102)** | 1 | 91 (61 .. 146) | 100 (43 .. 171) | 93 / 122 |
+| WOOL | **71 (51 .. 92)** | 3 | 85 (23 .. 137) | 18 (-1 .. 43) | 124 / 156 |
+| MELON | 43 (36 .. 50) | - | 83 (52 .. 103) | 7 | 32 / 4 |
+| STRAWBERRY | 37 (25 .. 48) | - | 34 (24 .. 51) | 43 (12 .. 72) | 0 / 135 |
+| TOMATO | 20 (10 .. 33) | - | 0 | 19 (2 .. 38) | 0 / 0 |
+| FERTILIZER | 18 (16 .. 21) | 6 | 21 (16 .. 27) | 13 (6 .. 21) | 13 / 12 |
+| WHEAT | 10 (8 .. 12) | 7 | 1 | 10 (8 .. 12) | 0 / 0 |
+| CARROT | 8 (7 .. 9) | - | 0 | 12 (6 .. 13) | 0 / 0 |
+| EGG | 2 (2 .. 3) | - | 2 | 3 | 0 / 0 |
+Formula column: the engine's marginal price per unit of oversupply at the rival's realised price x half the rival's
+units sold in that third (a unit sold at a random moment depresses half of the rival's later sales; no decay); it is
+0 where the rival's price is at or above base (the scarcity side, not modelled here). Where prices are below base the
+formula and the regression agree in size (milk 93 / 122 vs 91 / 100; fertilizer 13 / 12 vs 21 / 13).
+**What a margin-aware value (own value + rival gain avoided) changes:**
+- Retirement: a withheld milk unit costs us its crashed price (~30) AND hands the rival ~88: retiring a cow is worth it
+  on margin only if its feed + labour exceed ~118 per milk unit it would still produce. rt15 / rt30 withheld 13 / 37 milk
+  a game (predicted rival gain +1.1k / +3.3k; observed +0.4k / +1.8k: the regression overstates late withholding) -
+  consistent with their margin verdict (+63 / -1,356) despite +0.4k own cash. A margin-aware retirement rule would
+  charge each withheld unit at own price + rival slope and would not retire at these prices.
+- nd (no mid-day deliveries): its extra midnight discards (5-15x) are units never sold: each costs own price + the rival
+  slope (strawberry 37, milk 88, wool 71, wheat 10); the rival's +6.9k in nd is of that size; the verdict (reject)
+  stands and is explained.
+- Cap decisions: cap delivery (cg3) removed ~25 discards a game (mostly wheat: ~37 own + 10 rival each, ~+1.2k margin)
+  but lost 7 eggs, 5 strawberries, 4 tomatoes and 27 wheat sold (own + rival: ~2.9k): still negative on margin, as
+  measured. cap_fix (cf1, no extra trips) halved the discards at +306 (n.s.): margin-aware accounting does not flip it.
+Caveats: the rival is FROZEN (its recorded actions do not react to our prices; a live rival would sell elsewhere / later,
+so the true externality may be smaller); within-world variation in our units comes from builds that also change other
+things (the per-product slope absorbs correlated changes, e.g. more strawberries together with more tomatoes); timing
+(same units sold earlier / later) is not separated from quantity.
