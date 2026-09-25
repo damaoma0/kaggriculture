@@ -13,7 +13,8 @@ the end of the file; deploy: before the deploy section's end marker, so the entr
 (4) a docstring note. With "off" every hook is a no-op (a None assignment and false tests): the diff against the
 source is additions only (scripts/search_dispatch_check.py static verifies it).
 
-usage: search_dispatch_build.py [lead|deploy|all]
+usage: search_dispatch_build.py [lead|deploy|lead2|all]
+  lead2   agents/mgt_lead_search2.py <- agents/mgt_lead.py at git f8b48ef (the new T baseline; research copy)
 """
 import hashlib
 import sys
@@ -28,6 +29,10 @@ TARGETS = {
     'deploy': dict(src=f'{SRCDIR}/mgt_lead_deploy_e33d0459.py', orig='agents/mgt_lead_deploy.py',
                    sha='e33d0459486b947943109e664cae594136002f36392aefdcdebdffda2d778434', when='2026-09-25 14:31',
                    out='agents/mgt_lpv_search.py', first='"""mgt_lead_deploy:', timing='entry', block='deploy_end'),
+    # research copy on the NEW T baseline (mgt_lead.py at git f8b48ef: melon 8 AM policy + replant_leader on)
+    'lead2': dict(src=f'{SRCDIR}/mgt_lead_3707fa44.py', orig='agents/mgt_lead.py (git f8b48ef)',
+                  sha='3707fa44efcf37e1f21ac6569067e6c7c4681f1b0f3ab9675b8ebf2d619cd991', when='2026-09-25 f8b48ef',
+                  out='agents/mgt_lead_search2.py', first='"""mgt_lead:', timing='agent', block='end'),
 }
 
 CFG_KEYS = '''    # ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only; scripts/search_dispatch_block.py) ---------
@@ -146,5 +151,5 @@ def build(name):
 
 if __name__ == '__main__':
     which = sys.argv[1] if len(sys.argv) > 1 else 'all'
-    for n in (TARGETS if which == 'all' else [which]):
+    for n in (['lead', 'deploy'] if which == 'all' else [which]):
         build(n)

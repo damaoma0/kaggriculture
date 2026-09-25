@@ -98,6 +98,13 @@ ARMS.update({
     'V5all': dict(kind='module', path=AGENT, cfg=dict(EXEC, dispatch_search='active', **V5)),
     'V5sh': dict(kind='module', path=AGENT, cfg=dict(EXEC, dispatch_search='shadow', **V5)),
 })
+# the planner on the NEW T baseline (agents/mgt_lead_search2.py = mgt_lead.py at f8b48ef: melon 8 AM + replant_leader on),
+# with the shipping settings (mgt_lpv_sd_v1fa12d: v1 days 12-23 + survival fallback, deterministic budgets)
+SHIP = dict(sd_days=[12, 23], sd_surv_fb=20, sd_evals0=24000, sd_evals=8000, sd_budget0=0.75, sd_budget=0.6, sd_step_cap=0.8)
+ARMS.update({
+    'N0': dict(kind='module', path='agents/mgt_lead_search2.py', cfg=dict(EXEC, dispatch_search='off')),
+    'N1': dict(kind='module', path='agents/mgt_lead_search2.py', cfg=dict(EXEC, dispatch_search='active', **SHIP)),
+})
 # v1 + ONLY the survival fallback (coordinator: v1a12 is +2,141 margin on 48 worlds; its remaining flaw is unwatered deaths)
 ARMS.update({
     'V1Fa12': dict(kind='module', path=AGENT, cfg=dict(EXEC, dispatch_search='active', sd_days=[12, 23], sd_surv_fb=20)),
