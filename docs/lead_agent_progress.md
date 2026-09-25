@@ -542,3 +542,53 @@ Current deploy defaults (all measured above): c1 (no-feed off, early hand) + cou
 team-aware retrieval with DSM's exemplar seat + sem sell rule; `fill_free` and `wc_swap` exist but are off.
 Full-panel margin vs y3 per game: leadv5 -18,833 -> leadv6 -19,025 -> leadv7 -19,055 (all within noise of each
 other); the remaining new-world loss is production volume from the plan (crop mix and scale vs y3), not land left idle.
+
+## Crop cycles per tile: deploy vs y3 (12 p2750 smoke worlds; `scripts/lead_cycles.py`)
+Extracted from each agent's own observations (per-step tile diffs of its farm, no engine hooks): plantings,
+harvests (units = yield just before the tile emptied / the yield reset to 0), crop age at harvest, cycle length per
+tile (planting -> next planting on the same tile), tile-days (day-start crop tiles), deaths (plant -> weed; for
+strawberry/tomato this includes the natural end of life after the 4th production). Per game:
+
+| crop | plantings y3 / deploy | harvested units y3 / deploy | units per planting | harvest age - full-yield age | cycle days per tile | tile-days | died |
+|---|---|---|---|---|---|---|---|
+| wheat | 155.4 / 119.9 | 655.6 / 526.8 | 4.22 / 4.39 | -0.89 / -0.23 | **3.24 / 4.77** | 483 / 460 | 4.0 / 8.3 |
+| carrot | 27.2 / 6.1 | 86.9 / 11.3 | 3.20 / 1.86 | -0.33 / -0.02 | 3.01 / 3.89 | 72 / 18 | 0.1 / 1.1 |
+| strawberry | 25.7 / 23.5 | 194.6 / 163.9 | 7.58 / 6.98 | - | 16.07 / 17.52 | 415 / 384 | 6.8 / 21.8 |
+| tomato | 12.8 / 13.5 | 87.2 / 77.7 | 6.79 / 5.75 | - | 11.12 / 12.72 | 141 / 151 | 2.0 / 10.8 |
+| melon | 13.8 / 12.1 | 82.0 / 70.8 | 5.96 / 5.86 | 0 / +0.21 | 10.38 / 10.67 | 138 / 123 | 0 / 0 |
+
+Where y3's extra wheat comes from: the same wheat area (483 vs 460 tile-days) turned over faster: y3 harvests about a
+day before full yield (age ~3.1; 4.22 units a planting, i.e. fertilised wheat at age 3 gives 5) and replants the same
+day: 3.24-day cycles, 1.30 wheat per tile-day. We harvest near full yield (age ~3.8) and the count model replants only
+at the next day's compose: 4.77-day cycles, 0.92 per tile-day (+129 wheat a game for y3). Carrots are a planting
+target gap (6 plantings vs 27), not a cycle gap. Strawberry/tomato: similar plantings, fewer units per planting (6.98
+vs 7.58, 5.75 vs 6.79: fertilised productions) and a longer tail before replanting (17.5 vs 16.1 days).
+
+### Harvest-when-ready / same-day replant test
+New options (default off): executor `early_onetime` (sem_maintenance optional harvests also for wheat/carrot from one
+day before full yield; `agents/mgt_lead.py`, re-synced into the deploy and the sell block re-merged), deploy
+`replant_same_day` / `replant_from` (a wheat/carrot tile harvested during the day gets a same-crop planting event the
+same day, count-model phase from day 12).
+
+| build (12 smoke worlds) | margin | vs y3 | vs current deploy (sem), 95% CI, better | wheat / carrot / straw / tomato / melon units sold |
+|---|---:|---:|---|---|
+| current (sem) | -14,221 | -18,893 | | 223 / 11 / 163 / 81 / 71 |
+| rp1 = same-day replant | -13,323 | -17,995 | +898 (-346 .. +2,042), 9/12 | 335 / 23 / 155 / 54 / 65 |
+| rp1e = rp1 + early_onetime | -13,173 | -17,845 | +1,048 (-1,983 .. +4,202), 6/12 | 288 / 15 / 156 / 53 / 66 |
+
+Cycle table for rp1 (smoke worlds): wheat plantings 151 (was 120; y3 155), wheat harvested 679 (was 527; y3 656), cycle
+4.18 days (was 4.77; y3 3.24), BUT wheat tile-days 584 (was 460; y3 483): the replanted wheat keeps tiles the count
+model would have given to other crops (tomato plantings 10.3 vs 13.5, units 51 vs 78; melon 65 vs 71).
+G1 leader worlds (like for like, both with the sell module): current 0.858 / 0.852 / 0.842, rp1 0.862 / 0.856 / 0.847
+(+0.004, 7/12 better): no harm.
+**Full panel (Kaggle leadv8, remote = local 12/12): rp1 -18,980 vs y3 (-21,616 .. -16,095), -18,674 vs m1, W-L 13-172;
+vs current deploy +75 (-473 .. +618), better in 101/185: neutral.** Volume moved exactly as intended for wheat (363 vs
+238 units sold; y3 392), but tomato (40 vs 71), strawberry (165 vs 175) and melon (65 vs 71) fell by as much: revenue
+113.5k vs 114.2k. The panel gap by product after rp1: carrot -5.1k, strawberry -4.5k (volume), melon -3.3k, tomato
+-3.3k, wool -3.3k, wheat only -1.1k; milk price -3.7k.
+Conclusion: the cycle mechanism is real and explains y3's extra wheat (faster turnover of the same area), but on our
+three quadrants it only trades crops: tiles are the binding resource, and faster wheat takes tiles from higher-value
+crops unless the count model's crop allocation accounts for it. Not adopted as a default (neutral); `replant_same_day`
+stays available for a joint re-allocation (e.g. with the count model's wheat target reduced by the turnover gain).
+Note: the G1 baseline run for the sem build started at 2.9 GB free (my wait loop timed out instead of aborting);
+it completed normally at 2.1 GB.

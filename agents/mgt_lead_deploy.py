@@ -1,7 +1,7 @@
 """mgt_lead_deploy: mgt_lead's executor playing worlds it has never seen, choosing its own targets.
 
 Research agent (2026-09-24). The EXECUTOR SECTION below is a verbatim copy of agents/mgt_lead.py (owned by the
-E1 thread; copied from agents/mgt_lead.py = E1 scheduler build (sched_maint + surv_reserve R16), sha256 2a8f6eb72f9e4891); re-sync by copying that file between the two marker lines. Only the
+E1 thread; copied from agents/mgt_lead.py = E1 scheduler build (sched_maint + surv_reserve R16), sha256 f3998fa935197b45); re-sync by copying that file between the two marker lines. Only the
 DEPLOY section after it is new: it builds the Target the executor follows (retrieval of leader games at days
 0/3/6/9, count-model composition from day 12, sell-everything rule, hands from the day's work) and holds the
 entry point, which is the LAST callable in the file (Kaggle's loader and scripts/ladder_panel.py call that one).
@@ -79,6 +79,7 @@ CFG = {
     "fert_reserve_soon": True,
     "lazy_fetch": False,
     "harvest_before_build": True,
+    "early_onetime": False,   # optional harvest of wheat / carrot from one day before full yield (cycle research)
     "spawn_allot": False,
     "maint_source": "ours",   # ablation: "leader" = the leader's per-tile per-day WATER/FEED/CARE/FERTILIZE
     "sched_maint": True,      # (default on since 2026-09-24: S1f 0.862/0.854/0.833 vs A29 0.792/0.780/0.785) scheduler: maintenance jobs (value, deadline) from scripts/fragments/sem_maintenance.py
@@ -631,9 +632,13 @@ def _sched_tile_ops(idx, t, day):
             continue
         if j.get("optional"):
             # early harvest only where the yield keeps accruing anyway (animals, strawberry / tomato); a one-time
-            # crop's harvest ends the plant, so it waits for the module's required harvest
+            # crop's harvest ends the plant, so it waits for the module's required harvest -- unless early_onetime
+            # (y3-style: wheat / carrot from one day before full yield, replanted the same day by the target)
             if _is_plant(t) and not CROPS[t["crop"]]["ongoing"]:
-                continue
+                c_ = CROPS[t["crop"]]
+                if not (CFG["early_onetime"] and t["crop"] in ("WHEAT", "CARROT")
+                        and day - t["planted_day"] >= c_["maxday"] - 1):
+                    continue
             v = float(j.get("held", 0)) * float(j.get("price", 0)) * CFG["opt_harvest_frac"]
         else:
             v = max(0.0, float(j.get("value", 0.0)))
@@ -1855,6 +1860,8 @@ DEP_CFG = {
     "fill_last": {"WHEAT": 25, "CARROT": 26},   # last planting day with a full harvest (sem_maintenance / min_maintenance)
     "fill_carrot_base": 0.2,            # carrot share of the fill ...
     "fill_carrot_per_shop": 0.15,       # ... + this per visible carrot-demanding shop instance (Pet Cafe counts 2), max 0.6
+    "replant_same_day": 0,              # cycle research: a wheat / carrot tile harvested during the day is replanted the same day
+    "replant_from": 12,                 # ... from this day (12 = the count-model phase only)
     "wc_swap": 0,                       # composition: turn this base share of the count model's wheat plantings into carrots ...
     "wc_swap_per_shop": 0.15,           # ... + this per carrot-demanding shop instance (max 0.7), when carrots can still be harvested
 }
@@ -2366,6 +2373,19 @@ def _dep_update(obs, day, hour):
         _DEP["nofeed"] = _dep_nofeed(obs, day)
     for i in range(DEP_CFG["land_max"], 3):
         T.land_day[LAND_ORDER[i]] = 99
+    if DEP_CFG["replant_same_day"] and day >= DEP_CFG["replant_from"]:
+        if hour == 0 or _DEP.get("ds_day") != day:
+            _DEP["ds_day"] = day
+            _DEP["ds_crops"] = {i: _tile(tiles, i)["crop"] for i in range(100)
+                                if _is_plant(_tile(tiles, i)) and _tile(tiles, i)["crop"] in ("WHEAT", "CARROT")}
+        else:
+            for i, crop in _DEP["ds_crops"].items():
+                if _tile(tiles, i) is None and i not in T.plant[day] and day <= DEP_CFG["last_plant"][crop]:
+                    T.events.append((day, i, crop))
+                    T.plant[day][i] = crop
+                    for dd in range(day, min(T.n, day + CFG["late"].get(crop, LATE[crop]) + 1)):
+                        T.board[dd][i] = CROP_LABEL[crop]
+                    _DEP["log"]["replant_" + crop] += 1
     if DEP_CFG["hands_add_early"] and day < DEP_CFG["compose_from"] and ("he", day) not in _DEP:
         _DEP[("he", day)] = True
         T.hands[day] = min(14, T.hands[day] + DEP_CFG["hands_add_early"])
