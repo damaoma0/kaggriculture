@@ -1,0 +1,386 @@
+{
+ "games": 540,
+ "price_period": {
+  "WHEAT": {
+   "0": 29.322076825664837,
+   "1": 37.72382095283811,
+   "2": 38.94841341891935,
+   "3": 36.423436394553605,
+   "4": 30.063499920672694
+  },
+  "CARROT": {
+   "0": null,
+   "1": 45.81132075471698,
+   "2": 44.23242873877392,
+   "3": 43.927583936800524,
+   "4": 39.93711548536786
+  },
+  "MELON": {
+   "0": null,
+   "1": 226.3420121692373,
+   "2": 155.39261744966444,
+   "3": 102.64444444444445,
+   "4": 108.66666666666667
+  },
+  "TOMATO": {
+   "0": null,
+   "1": null,
+   "2": 77.8409090909091,
+   "3": 72.80251922441855,
+   "4": 68.56144435820674
+  },
+  "STRAWBERRY": {
+   "0": null,
+   "1": null,
+   "2": 187.9591890555464,
+   "3": 138.1571189279732,
+   "4": 109.89117493472585
+  }
+ },
+ "price_crop": {
+  "WHEAT": 34.17902852351093,
+  "CARROT": 41.250284645413146,
+  "MELON": 215.6637497729062,
+  "TOMATO": 70.43121868400348,
+  "STRAWBERRY": 141.7436505277266
+ },
+ "trend": {
+  "WHEAT": {
+   "0": 0.328634440898045,
+   "1": 1.8924940184730337,
+   "2": -0.5308143758222517,
+   "3": -0.2829922160877227,
+   "4": -1.9980471237842525
+  },
+  "CARROT": {
+   "0": null,
+   "1": 0.9341085271317829,
+   "2": -0.2407490437461309,
+   "3": 0.15232359706985285,
+   "4": -1.643413507401757
+  },
+  "MELON": {
+   "0": null,
+   "1": -50.31028093009239,
+   "2": -4.01624712239742,
+   "3": -13.27344262295082,
+   "4": -1.125
+  },
+  "TOMATO": {
+   "0": null,
+   "1": null,
+   "2": 3.27018633540445,
+   "3": -0.8222559007573521,
+   "4": -0.4781803265558045
+  },
+  "STRAWBERRY": {
+   "0": null,
+   "1": null,
+   "2": -2.912165144497205,
+   "3": -11.752348070264906,
+   "4": 2.4370542823668147
+  }
+ },
+ "tile_rate": {
+  "WHEAT": {
+   "0": 29.911488951059336,
+   "1": 48.338007651610084,
+   "2": 50.97691054728104,
+   "3": 49.2587417956795,
+   "4": 37.39118806099559
+  },
+  "CARROT": {
+   "1": 44.77839206435028,
+   "2": 45.391459014359775,
+   "3": 48.77875522395918,
+   "4": 44.28749448707926
+  },
+  "MELON": {
+   "0": 133.14711602582142,
+   "1": 74.13318789421812,
+   "2": 62.79111111111112
+  }
+ },
+ "rows": {
+  "WHEAT|0": {
+   "n": 5517,
+   "mean_age": 2.581656697480515,
+   "price_unit": 29.322076825664837,
+   "price_is_crop_fallback": false,
+   "trend_per_day": 0.328634440898045,
+   "tile_rate_per_day": 29.911488951059336,
+   "loss1_units": 0.9998187420699656,
+   "gain1_units": 0.4841399311219866,
+   "past_window_share": 0.0,
+   "decay_units_so_far": 0.0,
+   "coins_1day_earlier": 0.2660925434461845,
+   "coins_1day_later": -15.386866255430318
+  },
+  "WHEAT|1": {
+   "n": 8538,
+   "mean_age": 2.5086671351604592,
+   "price_unit": 37.72382095283811,
+   "price_is_crop_fallback": false,
+   "trend_per_day": 1.8924940184730337,
+   "tile_rate_per_day": 48.338007651610084,
+   "loss1_units": 1.0951042398688218,
+   "gain1_units": 0.5077301475755446,
+   "past_window_share": 0.0,
+   "decay_units_so_far": 0.0,
+   "coins_1day_earlier": 5.133997363631742,
+   "coins_1day_later": -27.291992453639136
+  },
+  "WHEAT|2": {
+   "n": 26464,
+   "mean_age": 3.292321644498186,
+   "price_unit": 38.94841341891935,
+   "price_is_crop_fallback": false,
+   "trend_per_day": -0.5308143758222517,
+   "tile_rate_per_day": 50.97691054728104,
+   "loss1_units": 1.4341747279322854,
+   "gain1_units": -1.1478612454655381,
+   "past_window_share": 0.00022672309552599758,
+   "decay_units_so_far": 0.000717956469165659,
+   "coins_1day_earlier": -4.351105295369543,
+   "coins_1day_later": -96.21509925905073
+  },
+  "WHEAT|3": {
+   "n": 20694,
+   "mean_age": 3.3449792210302505,
+   "price_unit": 36.423436394553605,
+   "price_is_crop_fallback": false,
+   "trend_per_day": -0.2829922160877227,
+   "tile_rate_per_day": 49.2587417956795,
+   "loss1_units": 1.599835701169421,
+   "gain1_units": -1.2156180535420895,
+   "past_window_share": 0.0004832318546438581,
+   "decay_units_so_far": 0.0015946651203247318,
+   "coins_1day_earlier": -8.72977989151326,
+   "coins_1day_later": -93.81872086502858
+  },
+  "WHEAT|4": {
+   "n": 32813,
+   "mean_age": 3.258769390180721,
+   "price_unit": 30.063499920672694,
+   "price_is_crop_fallback": false,
+   "trend_per_day": -1.9980471237842525,
+   "tile_rate_per_day": 37.39118806099559,
+   "loss1_units": 1.466004327553104,
+   "gain1_units": -1.1966903361472587,
+   "past_window_share": 0.00012190290433669582,
+   "decay_units_so_far": 0.00042666016517843537,
+   "coins_1day_earlier": -4.68398580031873,
+   "coins_1day_later": -75.36593501061273
+  },
+  "CARROT|1": {
+   "n": 152,
+   "mean_age": 2.4934210526315788,
+   "price_unit": 45.81132075471698,
+   "price_is_crop_fallback": false,
+   "trend_per_day": 0.9341085271317829,
+   "tile_rate_per_day": 44.77839206435028,
+   "loss1_units": 1.0,
+   "gain1_units": -0.9473684210526315,
+   "past_window_share": 0.0,
+   "decay_units_so_far": 0.0,
+   "coins_1day_earlier": -1.9670372174984863,
+   "coins_1day_later": -87.24448214695036
+  },
+  "CARROT|2": {
+   "n": 4558,
+   "mean_age": 2.7733655111891182,
+   "price_unit": 44.23242873877392,
+   "price_is_crop_fallback": false,
+   "trend_per_day": -0.2407490437461309,
+   "tile_rate_per_day": 45.391459014359775,
+   "loss1_units": 1.0052654673102237,
+   "gain1_units": -2.0230364194822292,
+   "past_window_share": 0.00021939447125932427,
+   "decay_units_so_far": 0.00021939447125932427,
+   "coins_1day_earlier": 1.1668749117561674,
+   "coins_1day_later": -135.11602231879795
+  },
+  "CARROT|3": {
+   "n": 8019,
+   "mean_age": 2.7903728644469386,
+   "price_unit": 43.927583936800524,
+   "price_is_crop_fallback": false,
+   "trend_per_day": 0.15232359706985285,
+   "tile_rate_per_day": 48.77875522395918,
+   "loss1_units": 1.092779648335204,
+   "gain1_units": -2.2672403042773412,
+   "past_window_share": 0.0003741114852225963,
+   "decay_units_so_far": 0.0003741114852225963,
+   "coins_1day_earlier": 0.623261900217301,
+   "coins_1day_later": -148.2208203979294
+  },
+  "CARROT|4": {
+   "n": 19891,
+   "mean_age": 2.7605952440802373,
+   "price_unit": 39.93711548536786,
+   "price_is_crop_fallback": false,
+   "trend_per_day": -1.643413507401757,
+   "tile_rate_per_day": 44.28749448707926,
+   "loss1_units": 1.0666130410738526,
+   "gain1_units": -2.1610276004223015,
+   "past_window_share": 0.00010054798652656981,
+   "decay_units_so_far": 0.00010054798652656981,
+   "coins_1day_earlier": 3.33345979491515,
+   "coins_1day_later": -132.23611683961389
+  },
+  "MELON|1": {
+   "n": 5169,
+   "mean_age": 10.000193461017606,
+   "price_unit": 226.3420121692373,
+   "price_is_crop_fallback": false,
+   "trend_per_day": -50.31028093009239,
+   "tile_rate_per_day": 74.13318789421812,
+   "loss1_units": 0.999806538982395,
+   "gain1_units": 0.0021280711936544788,
+   "past_window_share": 0.0,
+   "decay_units_so_far": 0.0,
+   "coins_1day_earlier": -101.85475498892576,
+   "coins_1day_later": -123.96179690829936
+  },
+  "MELON|2": {
+   "n": 292,
+   "mean_age": 10.034246575342467,
+   "price_unit": 155.39261744966444,
+   "price_is_crop_fallback": false,
+   "trend_per_day": -4.01624712239742,
+   "tile_rate_per_day": 62.79111111111112,
+   "loss1_units": 0.9006849315068494,
+   "gain1_units": 0.010273972602739725,
+   "past_window_share": 0.0,
+   "decay_units_so_far": 0.0,
+   "coins_1day_earlier": -73.15243077081251,
+   "coins_1day_later": -65.21085873916267
+  },
+  "MELON|3": {
+   "n": 45,
+   "mean_age": 10.022222222222222,
+   "price_unit": 102.64444444444445,
+   "price_is_crop_fallback": false,
+   "trend_per_day": -13.27344262295082,
+   "tile_rate_per_day": null,
+   "loss1_units": 0.4444444444444444,
+   "gain1_units": 0.0,
+   "past_window_share": 0.0,
+   "decay_units_so_far": 0.0,
+   "coins_1day_earlier": -32.34631046346893,
+   "coins_1day_later": -13.27344262295082
+  },
+  "MELON|4": {
+   "n": 1,
+   "mean_age": 10.0,
+   "price_unit": 108.66666666666667,
+   "price_is_crop_fallback": false,
+   "trend_per_day": -1.125,
+   "tile_rate_per_day": null,
+   "loss1_units": 0.0,
+   "gain1_units": 0.0,
+   "past_window_share": 0.0,
+   "decay_units_so_far": 0.0,
+   "coins_1day_earlier": 1.125,
+   "coins_1day_later": -1.125
+  },
+  "TOMATO|2": {
+   "n": 668,
+   "mean_age": 8.05688622754491,
+   "price_unit": 77.8409090909091,
+   "price_is_crop_fallback": false,
+   "trend_per_day": 3.27018633540445,
+   "tile_rate_per_day": null,
+   "loss1_units": 0.0,
+   "gain1_units": 0.2237442922374429,
+   "past_window_share": 0.016467065868263474,
+   "decay_units_so_far": 0.0,
+   "coins_1day_earlier": -3.27018633540445,
+   "coins_1day_later": 20.68664544706904
+  },
+  "TOMATO|3": {
+   "n": 11826,
+   "mean_age": 9.431168611533908,
+   "price_unit": 72.80251922441855,
+   "price_is_crop_fallback": false,
+   "trend_per_day": -0.8222559007573521,
+   "tile_rate_per_day": null,
+   "loss1_units": 0.0,
+   "gain1_units": -0.07253131371977863,
+   "past_window_share": 0.4648232707593438,
+   "decay_units_so_far": 0.0,
+   "coins_1day_earlier": 0.8222559007573521,
+   "coins_1day_later": -6.102718262213869
+  },
+  "TOMATO|4": {
+   "n": 10820,
+   "mean_age": 9.739741219963031,
+   "price_unit": 68.56144435820674,
+   "price_is_crop_fallback": false,
+   "trend_per_day": -0.4781803265558045,
+   "tile_rate_per_day": null,
+   "loss1_units": 0.0,
+   "gain1_units": -0.6819288845591817,
+   "past_window_share": 0.5879852125693161,
+   "decay_units_so_far": 0.0,
+   "coins_1day_earlier": 0.4781803265558045,
+   "coins_1day_later": -47.23220960151412
+  },
+  "STRAWBERRY|1": {
+   "n": 157,
+   "mean_age": 10.0,
+   "price_unit": 141.7436505277266,
+   "price_is_crop_fallback": true,
+   "trend_per_day": null,
+   "tile_rate_per_day": null,
+   "loss1_units": 0.0,
+   "gain1_units": 0.08280254777070063,
+   "past_window_share": 0.0,
+   "decay_units_so_far": 0.0,
+   "coins_1day_earlier": 0.0,
+   "coins_1day_later": 11.736735394015577
+  },
+  "STRAWBERRY|2": {
+   "n": 18622,
+   "mean_age": 11.517828375040274,
+   "price_unit": 187.9591890555464,
+   "price_is_crop_fallback": false,
+   "trend_per_day": -2.912165144497205,
+   "tile_rate_per_day": null,
+   "loss1_units": 0.0,
+   "gain1_units": -0.10385903277158698,
+   "past_window_share": 0.22962087853077007,
+   "decay_units_so_far": 0.0,
+   "coins_1day_earlier": 2.912165144497205,
+   "coins_1day_later": -22.433424720338113
+  },
+  "STRAWBERRY|3": {
+   "n": 27883,
+   "mean_age": 13.39906035935875,
+   "price_unit": 138.1571189279732,
+   "price_is_crop_fallback": false,
+   "trend_per_day": -11.752348070264906,
+   "tile_rate_per_day": null,
+   "loss1_units": 0.0,
+   "gain1_units": -0.09967666406511316,
+   "past_window_share": 0.5393609009073629,
+   "decay_units_so_far": 0.0,
+   "coins_1day_earlier": 11.752348070264906,
+   "coins_1day_later": -25.523388801852377
+  },
+  "STRAWBERRY|4": {
+   "n": 14620,
+   "mean_age": 14.056839945280437,
+   "price_unit": 109.89117493472585,
+   "price_is_crop_fallback": false,
+   "trend_per_day": 2.4370542823668147,
+   "tile_rate_per_day": null,
+   "loss1_units": -0.0002051983584131327,
+   "gain1_units": -0.4377805486284289,
+   "past_window_share": 0.6823529411764706,
+   "decay_units_so_far": 0.0002051983584131327,
+   "coins_1day_earlier": -2.4145047936661186,
+   "coins_1day_later": -45.67116456998012
+  }
+ }
+}
