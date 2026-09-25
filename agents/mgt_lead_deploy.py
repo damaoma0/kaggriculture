@@ -1,7 +1,7 @@
 """mgt_lead_deploy: mgt_lead's executor playing worlds it has never seen, choosing its own targets.
 
 Research agent (2026-09-24). The EXECUTOR SECTION below is a verbatim copy of agents/mgt_lead.py (owned by the
-E1 thread; copied from agents/mgt_lead.py = E1 scheduler build + idle tracer / helper split / p1 threshold / fert_hold (2026-09-25), sha256 159dbda9dcaa70d2; executor CFG defaults that differ in this copy: sell_source "sem", p1_min_value 30, release_stale_d True, fert_hold 1, hand_stock 1, tie_value 1; TEMPORARY DIVERGENCE (2026-09-25): the tie_value option (CFG + one line in the greedy loop) the maint_goal option (module wrapper, _mj_fert, units-based priority, tracer units) the hire_demand option (_dem_* search), the cap_fix, retire_visit, reach_guard, commit and pick_plan options exist only in this copy, agents/mgt_lead.py is frozen while a leader-world workflow uses it; port it there when that ends; re-sync by copying that file between the two marker lines. Only the
+E1 thread; copied from agents/mgt_lead.py = the 2026-09-25 port (all executor options; exact_removals off), sha256 939271cff22289ab; executor CFG defaults that differ in this copy: sell_source "sem", p1_min_value 30, release_stale_d True, fert_hold 1 (tie_value 1 and hand_stock 1 are mgt_lead.py defaults too); the SEM_MARKET block and its two call sites are this copy's only code difference; re-sync by copying that file between the two marker lines. Only the
 DEPLOY section after it is new: it builds the Target the executor follows (retrieval of leader games at days
 0/3/6/9, count-model composition from day 12, sell-everything rule, hands from the day's work) and holds the
 entry point, which is the LAST callable in the file (Kaggle's loader and scripts/ladder_panel.py call that one).
@@ -22,6 +22,11 @@ Target: set with configure(semantics_dict) (a data/leader_semantics/<team>/<ep>.
 NOTE (data quirk): in those files market.*, animals.bought and labour.hires_arrived of index d
 belong to actual day d+1 (index 0 = days 0 and 1); boards, plantings, maintenance and
 hands_present are correctly dated.
+
+2026-09-25 port (E1): options merged from agents/mgt_lead_deploy.py (tie_value and hand_stock ON by default as in
+the deploy; maint_goal, hire_demand, cap_fix, retire_visit, reach_guard / reach_first, commit, pick_plan OFF) and
+from agents/mgt_lead_exact.py (thread sem4: exact_removals, OFF by default; 48 four-quadrant leader worlds T-T0
+-289, CI -1,120..+542). With tie_value 0, hand_stock 0 every decision is the previous mgt_lead (sha256 a1cd70e6).
 """
 import time
 from collections import Counter
@@ -94,22 +99,22 @@ CFG = {
     "p1_min_value": 30.0,     # maintenance ops worth <= this (coins) count as priority 2 (deferred after late_hour); DEPLOY default 30 (2026-09-25: full panel +382, CI +61..+702; mgt_lead.py keeps 0)
     "deliver_units": 10,      # a unit carrying this many products walks them to the shed for same-day sale
     "release_stale_d": True,  # drop a delivery assignment once nothing deliverable is carried (1 idle step per DROP); DEPLOY default (with p1_min_value 30)
-    "cap_fix": 0,             # DEPLOY ONLY: no-extra-trip shed-cap fix: hours cap_fix_hour..23 units on / next to a shed deposit everything deliverable (wheat above the next-day herd need included) and the same step sells what the midnight projection cannot hold; each morning the feed-wheat keep is capped to what tonight leaves room for
+    "cap_fix": 0,             # no-extra-trip shed-cap fix: hours cap_fix_hour..23 units on / next to a shed deposit everything deliverable (wheat above the next-day herd need included) and the same step sells what the midnight projection cannot hold; each morning the feed-wheat keep is capped to what tonight leaves room for
     "cap_fix_hour": 21,
     "cap_harvest_est": 40,    # expected units still to be harvested into hands during a day (morning wheat cap)
-    "hire_demand": "off",     # DEPLOY ONLY: "off" = target hands; "all" = smallest k (morning search, own greedy simulation) completing every production-affecting job reachable at k_max; "marginal" = add hands while the marginal completed value covers the k-th fib wage
+    "hire_demand": "off",     # "off" = target hands; "all" = smallest k (morning search, own greedy simulation) completing every production-affecting job reachable at k_max; "marginal" = add hands while the marginal completed value covers the k-th fib wage
     "dem_kmax": 14,
     "dem_rehire_value": 200,  # later hire only if new production-affecting jobs worth this appeared (re-searched)
-    "reach_guard": 0,         # DEPLOY ONLY: 1 = a task that cannot be finished today (hour + travel + ops > 24) is not assigned (no walking toward it)
-    "reach_first": 0,         # DEPLOY ONLY: 1 = reach_guard on the FIRST op only (hour + travel + 1 > 24): partial work on multi-op tasks (feed before care / harvest) stays allowed
-    "commit": 0,              # DEPLOY ONLY: 1 = the current target keeps a bonus = steps already walked toward it (<= commit_cap): no churn
+    "reach_guard": 0,         # 1 = a task that cannot be finished today (hour + travel + ops > 24) is not assigned (no walking toward it)
+    "reach_first": 0,         # 1 = reach_guard on the FIRST op only (hour + travel + 1 > 24): partial work on multi-op tasks (feed before care / harvest) stays allowed
+    "commit": 0,              # 1 = the current target keeps a bonus = steps already walked toward it (<= commit_cap): no churn
     "commit_cap": 6,
-    "pick_plan": 0,           # DEPLOY ONLY: 1 = one pickup per item type sized to the current task + the open tasks this unit is nearest to (<= pick_plan_max); no opportunistic pickups
+    "pick_plan": 0,           # 1 = one pickup per item type sized to the current task + the open tasks this unit is nearest to (<= pick_plan_max); no opportunistic pickups
     "pick_plan_max": 6,
-    "retire_visit": 0.0,      # DEPLOY ONLY: labour charge (coins) per visit to an animal in the maintenance solve; an animal whose remaining production at today's price no longer covers feed + visits is retired (the leaders retire cows / sheep at ~0.2x base price with 2-4 productions left)
-    "maint_goal": "value",    # DEPLOY ONLY: "max_production" = every job that changes production is required (inputs free in the maintenance solve, fertilize whenever it raises units, priority by units not coins); only no-production jobs may be skipped
-    "tie_value": 1,           # DEPLOY ONLY (not yet in mgt_lead.py): equal-cost tasks go to the tile worth most today (thread Q, 2026-09-25: full panel +1,420 vs ff1, CI +513..+2,328; G1 0.902)
-    "hand_stock": 1,          # 1: wheat picked only for the unit's current task (+ hs_buffer), no opportunistic wheat pickups; from hs_drop_hour a unit AT the shed places wheat above its task need (no extra trips). DEPLOY default 1 (2026-09-25: full panel +983 vs the tie_value default, CI +334..+1,559; mgt_lead.py keeps 0)
+    "retire_visit": 0.0,      # labour charge (coins) per visit to an animal in the maintenance solve; an animal whose remaining production at today's price no longer covers feed + visits is retired (the leaders retire cows / sheep at ~0.2x base price with 2-4 productions left)
+    "maint_goal": "value",    # "max_production" = every job that changes production is required (inputs free in the maintenance solve, fertilize whenever it raises units, priority by units not coins); only no-production jobs may be skipped
+    "tie_value": 1,           # equal-cost tasks go to the tile worth most today (thread Q, 2026-09-25: deploy full panel +1,420 vs ff1, CI +513..+2,328; deploy G1 0.902)
+    "hand_stock": 1,          # 1: wheat picked only for the unit's current task (+ hs_buffer), no opportunistic wheat pickups; from hs_drop_hour a unit AT the shed places wheat above its task need (no extra trips). default 1 (2026-09-25: deploy full panel +983 vs the tie_value default, CI +334..+1,559)
     "hs_buffer": 1,
     "hs_drop_hour": 18,
     "cap_deliver": 0,         # 1: on a projected midnight overflow (cap_hour.., same projection as cap_guard) the units carrying the most products (wheat / fertilizer included) deliver them; cap_guard then sells the excess
@@ -139,6 +144,8 @@ CFG = {
     "late_p1": 0,
     "steal_radius": 5,
     "keep_bonus": 1.5,
+    "exact_removals": False,  # sem4: issue the leader's DIGs of live plants on our tile for that cohort (48 four-quadrant leader worlds: T-T0 -289, CI -1,120..+542; default off)
+    "rm_late": 1,             # sem4: a removal stays open on the leader's removal day and this many days after
 }
 
 def _curve():
@@ -278,6 +285,21 @@ class Target:
         # maint[d] = {'WATER'|'FEED'|'CARE'|'FERTILIZE': set(tile)} the leader's own maintenance that day
         self.maint = [{op: set(ts) for op, ts in day["maintenance"].items()} for day in days]
         self.hire_steps = {}      # step -> number of HIRE orders the leader issued (set by the ablation harness)
+        # sem4 exact removals: removals[d] = [(leader tile, crop, cohort planting day)] for the leader's DIGs on day d
+        # of a tile showing a crop label on the leader's board that day (plants only; structures stay with
+        # struct_by_day, weeds are ignored); the cohort is the last planting of that crop on the tile before day d
+        self.removals = [[] for _ in range(self.n)]
+        last_plant = {}
+        for d, day in enumerate(days):
+            seen = set()
+            for t in day["dug"]:
+                crop = LABEL_CROP.get(self.board[d][t])
+                if crop is not None and t not in seen and last_plant.get(t, (None, None))[1] == crop:
+                    self.removals[d].append((t, crop, last_plant[t][0]))
+                    seen.add(t)
+            for c, ts in day["planted"].items():
+                for t in ts:
+                    last_plant[t] = (d, c)
 
 
 def configure(sem, **cfg):
@@ -297,6 +319,11 @@ def _new_state():
         "day": -1,
         "log": Counter(),
         "tmax": 0.0,
+        "owner": {},       # sem4 (exact_removals only): (pd, T) -> (our tile, planted_day) of the plant that fulfilled it
+        "owned": set(),    # sem4: {(our tile, planted_day)} of those plants
+        "rm": {},          # sem4: our tile -> crop, removals open now (empty unless exact_removals)
+        "rm_prev": {},     # sem4: open removals at the previous call (log only)
+        "rm_seen": set(),  # sem4: (key, dd) removals already counted as issued (log only)
     }
 
 
@@ -425,13 +452,66 @@ def _free_tile(tiles, near, reserved):
     return None if best is None else best[1]
 
 
+def _remaining_prods(t, day):
+    """productions of our plant still to come after today's visible yield (ongoing: production ages > age;
+    one-time: 1 before its first harvestable day, else 0 -- the harvest-first rule takes the current yield)."""
+    c = CROPS[t["crop"]]
+    age = day - t["planted_day"]
+    if c["ongoing"]:
+        return sum(1 for k in range(c["max"]) if c["first"] + c["interval"] * k > age)
+    return 1 if age < c["first"] else 0
+
+
+def _removals(S, tiles, d, day):
+    """sem4 exact removals open now: {our tile: crop} and {leader tile: (our tile, removal day)}.
+    The leader's DIG of cohort (pd, tt) on day dd (d - rm_late <= dd <= d) is issued on our tile for that cohort
+    (the tile whose plant fulfilled the event; else pmap, default tt) while that tile still holds the plant: same
+    crop, planted before dd, and (when known) the very plant that fulfilled the event; without an owner record
+    only a plant planted on / after pd that no other event owns."""
+    T = _T
+    out, by_lt, lg = {}, {}, S["log"]
+    for dd in range(max(0, d - CFG["rm_late"]), d + 1):
+        for (tt, crop, pd) in T.removals[dd]:
+            key = (pd, tt)
+            own = S["owner"].get(key)
+            m = own[0] if own else S["pmap"].get(key, tt)
+            cur = _tile(tiles, m)
+            if not (_is_plant(cur) and cur["crop"] == crop and cur["planted_day"] < dd):
+                continue
+            if own is not None:
+                if cur["planted_day"] != own[1]:
+                    continue
+            elif cur["planted_day"] < pd or (m, cur["planted_day"]) in S["owned"]:
+                continue
+            out[m] = crop
+            by_lt[tt] = (m, dd)
+            if (key, dd) not in S["rm_seen"]:
+                S["rm_seen"].add((key, dd))
+                lg["rm_issued_" + crop] += 1
+                lg["rm_forfeit_prods"] += _remaining_prods(cur, day)
+                if dd < d:
+                    lg["rm_issued_late"] += 1
+    # removals no longer open: the plant is gone (dug by us, harvested, died) or the window closed
+    for m, (crop, pday) in S["rm_prev"].items():
+        if m not in out:
+            cur = _tile(tiles, m)
+            gone = not (_is_plant(cur) and cur["crop"] == crop and cur["planted_day"] == pday)
+            lg[("rm_gone_" if gone else "rm_expired_") + crop] += 1
+    S["rm_prev"] = {m: (c, _tile(tiles, m)["planted_day"]) for m, c in out.items()}
+    return out, by_lt
+
+
 def _plan(obs, S, tiles, day):
     """Structural jobs for today: {our_idx: job} where job = ('PLANT', crop, event) |
-    ('BUILD', kind) | ('PLACE', species) (a BUILD may carry a place species)."""
+    ('BUILD', kind) | ('PLACE', species) (a BUILD may carry a place species) | ('REMOVE', crop) (sem4)."""
     T = _T
     jobs = {}
     last = T.n - 1
     d = min(day, last)
+    rm, rm_lt = ({}, {})
+    if CFG["exact_removals"]:
+        rm, rm_lt = _removals(S, tiles, d, day)
+    S["rm"] = rm
     # reserve target tiles used for structural work in the next days (keep the layout free)
     reserved = set()
     for dd in range(d, min(last, d + 2) + 1):
@@ -456,6 +536,13 @@ def _plan(obs, S, tiles, day):
         if not ok and _is_plant(cur):
             age, harv, fin = _plant_state(cur, day)
             ok = fin or (not CROPS[cur["crop"]]["ongoing"] and harv)
+            if not ok and m in rm:
+                ok = True                    # sem4: the leader removes this plant today; build after the removal
+        if not ok and tt in rm_lt and rm_lt[tt][0] not in jobs:
+            m = rm_lt[tt][0]                 # sem4: our tile of the cohort the leader removed from tt
+            S["smap"][tt] = m
+            reserved.add(m)
+            ok = True
         if not ok:
             m2 = _free_tile(tiles, (tt % 10, tt // 10), reserved | set(jobs))
             if m2 is None:
@@ -484,6 +571,9 @@ def _plan(obs, S, tiles, day):
         cur = _tile(tiles, m)
         if _is_plant(cur) and cur["crop"] == crop and cur["planted_day"] >= pd:
             S["done"].add(key)
+            if CFG["exact_removals"]:        # sem4 bookkeeping: which plant fulfilled this event
+                S["owner"][key] = (m, cur["planted_day"])
+                S["owned"].add((m, cur["planted_day"]))
             continue
         if m in jobs:
             m = None
@@ -495,10 +585,13 @@ def _plan(obs, S, tiles, day):
             elif _is_plant(cur):
                 age, harv, fin = _plant_state(cur, day)
                 c = CROPS[cur["crop"]]
-                if not (fin or (not c["ongoing"] and harv and age >= c["maxday"] - 1)):
+                if not (fin or (not c["ongoing"] and harv and age >= c["maxday"] - 1) or m in rm):
                     m = None
             else:
                 m = None
+        if m is None and tt in rm_lt and pd >= rm_lt[tt][1] and rm_lt[tt][0] not in jobs:
+            m = rm_lt[tt][0]                 # sem4: plant on our tile of the cohort the leader removed from tt
+            S["pmap"][key] = m
         if m is None:
             if cur == "LOCKED" and _T.land_day.get(_quad(tt % 10, tt // 10), 99) <= day:
                 continue  # land coming (we buy it today); wait rather than remap
@@ -508,6 +601,9 @@ def _plan(obs, S, tiles, day):
             S["pmap"][key] = m2
             m = m2
         jobs[m] = ("PLANT", crop, key)
+    for m, crop in rm.items():               # sem4: removals with no planting / structure on the tile today
+        if m not in jobs:
+            jobs[m] = ("REMOVE", crop)
     # fertilize targets (mapped)
     fert = set()
     for tt in T.fert[d]:
@@ -529,8 +625,30 @@ def _plan(obs, S, tiles, day):
 def _tile_ops(idx, t, job, fert, day, last_day, seeds):
     """ordered ops for our tile now; also the items the sequence needs and a priority."""
     ops, need, prio = [], Counter(), 3
+    rm_here = _S is not None and idx in _S.get("rm", ()) and _is_plant(t)    # sem4 exact removal on this tile
     if job is not None:
         kind = job[0]
+        if kind == "REMOVE" or (kind == "PLANT" and rm_here and seeds.get(job[1], 0) <= 0):
+            # sem4: harvest first when there is harvestable yield (the leader harvests before digging), then DIG
+            # (a one-time crop's harvest already clears the tile); a planting waiting for seeds still removes
+            if rm_here:
+                age, harv, fin = _plant_state(t, day)
+                if harv and t.get("yield_units", 0) > 0:
+                    ops.append(["HARVEST"])
+                    if CROPS[t["crop"]]["ongoing"]:
+                        ops.append(["DIG"])
+                else:
+                    ops.append(["DIG"])
+                return ops, need, 0
+        elif kind == "PLANT" and rm_here and not _plant_state(t, day)[2] \
+                and not (not CROPS[t["crop"]]["ongoing"] and _plant_state(t, day)[1]):
+            # sem4: a live plant the leader removes today, then the leader's planting on the tile
+            crop = job[1]
+            age, harv, fin = _plant_state(t, day)
+            if harv and t.get("yield_units", 0) > 0:
+                ops.append(["HARVEST"])
+            ops += [["DIG"], ["PLANT", crop], ["WATER"]]
+            return ops, need, 0
         if kind == "PLANT":
             crop = job[1]
             if seeds.get(crop, 0) <= 0:
@@ -567,6 +685,8 @@ def _tile_ops(idx, t, job, fert, day, last_day, seeds):
                             return [["HARVEST"]], need, 0
                         ops += [["HARVEST"]]
                     else:
+                        if rm_here and c["ongoing"] and _plant_state(t, day)[1]:
+                            ops += [["HARVEST"]]     # sem4: the leader harvests before digging
                         ops += [["DIG"]]
                 else:
                     ops += [["DIG"]]
@@ -2353,8 +2473,6 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             S["sold"][o[1]] += o[2]
     S["short"] = short
     return orders
-
-
 # ============================================================================================
 # ===== END EXECUTOR SECTION ==================================================================
 # ============================================================================================
@@ -2538,6 +2656,7 @@ class _DepTarget:
         self.land_day = dict(t.land_day)
         self.cum_sold = [Counter() for _ in range(t.n)]
         self.events = list(t.events)
+        self.removals = [list(x) for x in getattr(t, "removals", [[] for _ in range(t.n)])]   # exact_removals (off by default)
 
 
 _DEP = {}

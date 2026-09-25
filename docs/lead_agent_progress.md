@@ -1262,3 +1262,21 @@ commit: smoke wtr13, G1 g1w.
 game; margin +97, n.s.; G1 +0.007).** That walk happens when nothing finishable is left in reach: the freed steps become
 idle steps, not the ~27 extra jobs a day the search-ceiling model projected (the model assumes the dropped jobs are
 reachable in those steps; at that hour they are not). Not adopted (CI includes zero); options stay default off.
+
+## mgt_lead.py unfrozen: options ported, deploy re-synced (2026-09-25)
+The leader-world workflow finished, so `agents/mgt_lead.py` now carries every executor option: from the deploy
+tie_value and hand_stock (ON by default, as in the deploy) and maint_goal / hire_demand / cap_fix / retire_visit /
+reach_guard / reach_first / commit / pick_plan (OFF); from `agents/mgt_lead_exact.py` (thread sem4) exact_removals and
+rm_late (exact_removals OFF by default: 48 four-quadrant leader worlds T-T0 -289, CI -1,120..+542). Built as a clean
+3-way merge (base = the previous mgt_lead.py, ours = the deploy's executor section without its sell block, theirs =
+mgt_lead_exact.py; no conflicts). mgt_lead.py keeps its own defaults for sell_source ("leader"), p1_min_value (0),
+release_stale_d (False) and fert_hold (0). The deploy's executor section was re-synced from it: the only code
+difference left is the SEM_MARKET sell block and its two call sites, plus those four defaults (header updated; the
+"temporary divergence" note is gone); `_DepTarget` copies the new `removals` attribute.
+Verification (Kaggle pvs16 / g1x; 2 kernels, none else running):
+| check | result |
+|---|---|
+| new mgt_lead.py with tie_value 0 / hand_stock 0 (Gold) vs the previous mgt_lead.py (Gcut) | identical, 12/12 games to the dollar (0.881 / 0.871 / 0.853) |
+| re-synced deploy (copy dep11) vs the current default (tw0) | identical, smoke 12/12, G1 12/12 (0.910 / 0.901 / 0.889) |
+| mgt_lead.py new defaults (tie_value + ws2), leader-plan G1 (Gnew) | 0.888 / 0.878 / 0.859 (+0.007), 7 better / 5 worse |
+| + exact_removals (Gex) | 0.875 / 0.865 / 0.851 (-0.013 vs Gnew), 3 / 9; 29 removals issued a game: stays off |
