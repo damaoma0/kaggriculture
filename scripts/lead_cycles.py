@@ -33,6 +33,7 @@ def run(agent, eps, sub):
             return ('PLANT', t['crop'], t['planted_day'], t.get('yield_units', 0))
 
         rec['states'] = []      # per day start: {idx: [crop, planted_day, consecutive_unwatered, fertilized_until_day, yield]}
+        aprev = {}
 
         def make(entry):
             def wrapped(obs, *a, **k):
@@ -52,6 +53,33 @@ def run(agent, eps, sub):
                                 stt[y_ * 10 + x_] = [t_['crop'], t_['planted_day'], t_.get('consecutive_unwatered', 0),
                                                      t_.get('fertilized_until_day', -1), t_.get('yield_units', 0)]
                     rec['states'].append(stt)
+                    lab = Counter()
+                    for row_ in tiles:
+                        for t_ in row_:
+                            if t_ == 'LOCKED':
+                                lab['LOCKED'] += 1
+                            elif t_ is None:
+                                lab['EMPTY'] += 1
+                            elif t_.get('kind') == 'WEED':
+                                lab['WEED'] += 1
+                            elif t_.get('kind') == 'PLANT':
+                                lab['CROP_' + t_['crop']] += 1
+                            elif t_.get('animal'):
+                                lab['ANIMAL'] += 1
+                            else:
+                                lab['STRUCT_EMPTY'] += 1
+                    rec.setdefault('land', []).append(dict(lab))
+                # animal harvests (yield drops to 0 on a live animal tile)
+                for y_, row_ in enumerate(tiles):
+                    for x_, t_ in enumerate(row_):
+                        if isinstance(t_, dict) and t_.get('animal'):
+                            i_ = y_ * 10 + x_
+                            y1 = t_.get('yield_units', 0)
+                            y0 = aprev.get(i_, (None, 0))
+                            if y0[0] == t_['animal'] and y0[1] > 0 and y1 == 0 and step > 0:
+                                rec.setdefault('animal_harvest', Counter())
+                                rec['animal_harvest'][t_['animal']] += y0[1]
+                            aprev[i_] = (t_['animal'], y1)
                 if prev:
                     day = (step - 1) // 24
                     for idx, v in cur.items():
@@ -183,7 +211,56 @@ def fates(agents, crops=('CARROT', 'TOMATO', 'WHEAT', 'STRAWBERRY')):
                     print(f'     age {age:2d}: alive-next-day {len(w):4d}  watered {sum(w) / len(w):5.0%}  fertilized {sum(f) / len(f):5.0%}')
 
 
+def land(agents):
+    """per day window (from day 6): share of UNLOCKED tiles by use, and units harvested per unlocked tile-day."""
+    wins = ((6, 11), (12, 17), (18, 23), (24, 29))
+    base = {'WHEAT': 25, 'CARROT': 35, 'TOMATO': 60, 'STRAWBERRY': 120, 'MELON': 250, 'GOOSE': 50, 'COW': 160, 'SHEEP': 200}
+    common = None
+    for agent in agents:
+        eps = {f.stem for f in (OUT / agent).glob('*.json') if json.load(open(f)).get('land')}
+        common = eps if common is None else common & eps
+    common = sorted(common or [])
+    print(f'{len(common)} worlds with land records for all of {agents}')
+    for agent in agents:
+        rows = [json.load(open(OUT / agent / f'{e}.json')) for e in common]
+        print(f'\n{agent}')
+        keys = ['EMPTY', 'WEED', 'CROP_WHEAT', 'CROP_CARROT', 'CROP_TOMATO', 'CROP_STRAWBERRY', 'CROP_MELON', 'ANIMAL', 'STRUCT_EMPTY']
+        print(f'{"days":8s} {"unlocked":>8s} ' + ' '.join(f'{k.replace("CROP_", "")[:7]:>7s}' for k in keys))
+        for lo, hi in wins:
+            acc = Counter()
+            nd = 0
+            for r in rows:
+                for d in range(lo, min(hi + 1, len(r['land']))):
+                    L = r['land'][d]
+                    unl = 100 - L.get('LOCKED', 0)
+                    acc['unlocked'] += unl
+                    for k in keys:
+                        acc[k] += L.get(k, 0)
+                    nd += 1
+            u = acc['unlocked']
+            print(f'{lo:2d}-{hi:2d}    {u / max(1, nd):8.1f} ' + ' '.join(f'{100 * acc[k] / max(1, u):6.1f}%' for k in keys))
+        # units harvested per unlocked tile-day (days 6-29)
+        units = Counter()
+        tdays = 0
+        for r in rows:
+            for kind, day, idx, crop, pd, y in r['events']:
+                if kind == 'harvest' and day >= 6:
+                    units[crop] += y
+            for a, v in (r.get('animal_harvest') or {}).items():
+                units[a] += v           # whole game (animal products; the few before day 6 included)
+            for d in range(6, len(r['land'])):
+                tdays += 100 - r['land'][d].get('LOCKED', 0)
+        tot = sum(units.values())
+        val = sum(units[k] * base.get(k, 0) for k in units)
+        print(f'   units harvested per unlocked tile-day (days 6-29): {tot / max(1, tdays):.3f}  '
+              f'(base-price value {val / max(1, tdays):.1f}/tile-day; units per game {tot / len(rows):.0f}: '
+              + ', '.join(f'{k.lower()} {v / len(rows):.0f}' for k, v in units.most_common()) + ')')
+
+
 def main():
+    if sys.argv[1] == 'land':
+        land(sys.argv[2].split(','))
+        return
     if sys.argv[1] == 'fates':
         fates(sys.argv[2].split(','))
         return
