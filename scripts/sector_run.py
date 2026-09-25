@@ -15,7 +15,8 @@ Arms (agents/mgt_lead_search2.py = mgt_lead.py at git f8b48ef, the current T, + 
   N12   planner days 12-23, the shipping settings (= the deploy candidate's window)
   S0 / S11  the sector copy with the sector term off (must equal N0 / N11)
   S11f  the day-11 planner + the seed fix (sd_seed_fix); the S11w.. arms all include it
-  S11w / S11h / S11wh / S11WH  day-11 planner + sectors (sd_sector_w 40) / contiguity (sd_hop_w 20) / both / both x2
+  (arm names must differ case-insensitively: Windows merges result folders)
+  S11w / S11h / S11wh / S11wh2  day-11 planner + sectors (sd_sector_w 40) / contiguity (sd_hop_w 20) / both / both x2
 Offline measurement: the wall-clock caps are raised (2 / 1 / 3 s) so the deterministic evaluation budgets decide even
 under the harness's instrumentation (on Kaggle's runner the shipping caps 0.75 / 0.6 / 0.8 s essentially never fire).
 
@@ -57,7 +58,7 @@ ARMS = {
     'S11caw': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
                          sd_early_animal=1, sd_sector_w=40.0, sd_hop_w=20.0, **SHIP)),
     'S11a': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_early_animal=1, **SHIP)),      # + early animal
-    'S11WH': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=80.0, sd_hop_w=40.0, **SHIP)),
+    'S11wh2': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=80.0, sd_hop_w=40.0, **SHIP)),
 }
 
 
@@ -69,7 +70,7 @@ LABEL = {
     'S11w': 'S11w: S11f + sectors (home quadrant = spawn quadrant, 40 coins an op outside home, rebalanced at 1/8/14h)',
     'S11h': 'S11h: S11f + contiguity (20 coins per extra step of a hop between job tiles)',
     'S11wh': 'S11wh: S11f + sectors 40 + contiguity 20',
-    'S11WH': 'S11WH: S11f + sectors 80 + contiguity 40',
+    'S11wh2': 'S11wh2: S11f + sectors 80 + contiguity 40',
     'S11a': 'S11a: S11f + the goose bought before the melon harvest on its coop tile (sd_early_animal)',
     'S11c': 'S11c: S11f + the measured same-day delivery credit (melon 53.8 a unit on days 6-11) + final delivery trip',
     'S11ca': 'S11ca: S11c + sd_early_animal',

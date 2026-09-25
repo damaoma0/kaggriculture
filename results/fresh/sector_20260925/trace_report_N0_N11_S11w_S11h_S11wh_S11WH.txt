@@ -1,0 +1,25 @@
+day 11 from the leader exact morning; worlds with LEADER: 42
+N0 (42): cash gap to leader -196, margin gap -245
+N11 (42): cash gap to leader -2,353, margin gap -2,530 | vs N0: cash -2,158 (t -2,382..-1,933; boot -2,374..-1,937) 1/41, margin -2,285 (t -2,514..-2,057; boot -2,506..-2,057) 1/41
+S11w (42): cash gap to leader -2,270, margin gap -2,438 | vs N0: cash -2,074 (t -2,328..-1,820; boot -2,314..-1,842) 0/42, margin -2,193 (t -2,451..-1,936; boot -2,439..-1,953) 0/42
+S11h (42): cash gap to leader -1,533, margin gap -1,701 | vs N0: cash -1,338 (t -1,614..-1,062; boot -1,600..-1,076) 2/40, margin -1,457 (t -1,742..-1,172; boot -1,727..-1,181) 2/40
+S11wh (42): cash gap to leader -1,577, margin gap -1,738 | vs N0: cash -1,381 (t -1,605..-1,157; boot -1,592..-1,172) 1/41, margin -1,494 (t -1,735..-1,252; boot -1,716..-1,271) 1/41
+S11WH (42): cash gap to leader -1,577, margin gap -1,738 | vs N0: cash -1,381 (t -1,605..-1,157; boot -1,592..-1,172) 1/41, margin -1,494 (t -1,735..-1,252; boot -1,716..-1,271) 1/41
+
+| arm | coop built / goose placed (worlds) | hands | extra hand-visits (all / patch only) | idle (PASS) | moves / hand | field ops / hand | main-quadrant share | one-quadrant hands | main = spawn | spawn first / second / third / fourth | trips 1 / 2 / 3+ | work-tile gap 1 / 2 / 3 / 4+ (mean) |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|---|---|
+| LEADER | 39 / 39 of 42 | 11.2 | 19.5 / 7.3 | 1.0 | 9.6 | 12.0 | 92% | 73% | 79% | 2.0 / 4.0 / 3.0 / 2.2 | 74% / 26% / 0% | 85% / 12% / 2% / 1% (1.18) |
+| N0 | 1 / 0 of 42 | 11.2 | 36.2 / 18.2 | 8.4 | 11.3 | 9.8 | 88% | 56% | 62% | 3.0 / 3.0 / 3.0 / 2.2 | 71% / 29% / 0% | 65% / 19% / 10% / 6% (1.59) |
+| N11 | 28 / 4 of 42 | 11.2 | 20.1 / 8.5 | 31.8 | 8.5 | 10.8 | 88% | 59% | 73% | 3.1 / 2.0 / 3.2 / 2.8 | 93% / 7% / 0% | 77% / 15% / 5% / 3% (1.37) |
+| S11w | 31 / 4 of 42 | 11.2 | 23.5 / 11.2 | 28.4 | 8.9 | 10.6 | 92% | 69% | 78% | 3.0 / 2.1 / 3.1 / 2.9 | 92% / 8% / 0% | 73% / 18% / 6% / 3% (1.41) |
+| S11h | 28 / 8 of 42 | 11.2 | 23.9 / 8.9 | 19.9 | 9.3 | 10.8 | 88% | 57% | 64% | 3.1 / 2.3 / 3.2 / 2.5 | 85% / 15% / 0% | 83% / 12% / 3% / 3% (1.31) |
+| S11wh | 29 / 10 of 42 | 11.2 | 27.4 / 11.1 | 19.5 | 9.9 | 10.3 | 91% | 64% | 75% | 3.0 / 2.1 / 3.2 / 2.9 | 82% / 18% / 0% | 81% / 13% / 3% / 3% (1.34) |
+| S11WH | 29 / 10 of 42 | 11.2 | 27.4 / 11.1 | 19.5 | 9.9 | 10.3 | 91% | 64% | 75% | 3.0 / 2.1 / 3.2 / 2.9 | 82% / 18% / 0% | 81% / 13% / 3% / 3% (1.34) |
+
+LEADER: goose placed on day 11 in 39 of 42 worlds (hours [(13, 1), (14, 38)]); G1 worlds: 11 of 11 (hours [(14, 11)])
+N0: goose placed on day 11 in 0 of 42 worlds (hours []); G1 worlds: 0 of 11 (hours [])
+N11: goose placed on day 11 in 4 of 42 worlds (hours [(15, 1), (17, 1), (20, 1), (21, 1)]); G1 worlds: 0 of 11 (hours [])
+S11w: goose placed on day 11 in 4 of 42 worlds (hours [(17, 1), (20, 2), (21, 1)]); G1 worlds: 0 of 11 (hours [])
+S11h: goose placed on day 11 in 8 of 42 worlds (hours [(18, 2), (19, 2), (20, 2), (21, 2)]); G1 worlds: 2 of 11 (hours [(20, 2)])
+S11wh: goose placed on day 11 in 10 of 42 worlds (hours [(14, 1), (15, 1), (17, 1), (19, 1), (20, 1), (21, 5)]); G1 worlds: 2 of 11 (hours [(21, 2)])
+S11WH: goose placed on day 11 in 10 of 42 worlds (hours [(14, 1), (15, 1), (17, 1), (19, 1), (20, 1), (21, 5)]); G1 worlds: 2 of 11 (hours [(21, 2)])
