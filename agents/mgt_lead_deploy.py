@@ -1,7 +1,7 @@
 """mgt_lead_deploy: mgt_lead's executor playing worlds it has never seen, choosing its own targets.
 
 Research agent (2026-09-24). The EXECUTOR SECTION below is a verbatim copy of agents/mgt_lead.py (owned by the
-E1 thread; copied from agents/mgt_lead.py = E1 scheduler build (sched_maint + surv_reserve R16), sha256 f3998fa935197b45); re-sync by copying that file between the two marker lines. Only the
+E1 thread; copied from agents/mgt_lead.py = E1 scheduler build (sched_maint + surv_reserve R16), sha256 f8ef96458b87f51d); re-sync by copying that file between the two marker lines. Only the
 DEPLOY section after it is new: it builds the Target the executor follows (retrieval of leader games at days
 0/3/6/9, count-model composition from day 12, sell-everything rule, hands from the day's work) and holds the
 entry point, which is the LAST callable in the file (Kaggle's loader and scripts/ladder_panel.py call that one).
@@ -79,12 +79,14 @@ CFG = {
     "fert_reserve_soon": True,
     "lazy_fetch": False,
     "harvest_before_build": True,
+    "mj_fertilize": "auto",   # sem_maintenance fertilize: "auto" (when the extra units pay at market price) | True | {crop: ...}
     "early_onetime": False,   # optional harvest of wheat / carrot from one day before full yield (cycle research)
     "spawn_allot": False,
     "maint_source": "ours",   # ablation: "leader" = the leader's per-tile per-day WATER/FEED/CARE/FERTILIZE
     "sched_maint": True,      # (default on since 2026-09-24: S1f 0.862/0.854/0.833 vs A29 0.792/0.780/0.785) scheduler: maintenance jobs (value, deadline) from scripts/fragments/sem_maintenance.py
     "surv_reserve": True,     # (default on since R16: 0.874/0.866/0.844 vs 0.862/0.854/0.833) from surv_hour: survival jobs (dies / escapes tonight) get nearest-first routes, only their op
     "surv_hour": 16,
+    "surv_harvest": False,    # survival routes also take one-time crops at/after full-yield age (missed harvests decay)
     "sched_dispatch": False,  # scheduler: dispatch by value density among jobs finishable before their deadline
     "sched_hire": False,      # scheduler: hire the n-th hand while the value only it adds exceeds fib(n)
     "mj_every": 3,            # re-solve maintenance jobs at most every N hours when the asset set changed
@@ -713,7 +715,7 @@ def agent(obs, config=None):
         sig = tuple(sig)
         if S.get("mj_day") != day or (S.get("mj_sig") != sig and hour - S.get("mj_hour", -99) >= CFG["mj_every"]):
             try:
-                jl = _sm()["maintenance_jobs"](obs, me, prices=None, fertilize="auto", include_optional=True,
+                jl = _sm()["maintenance_jobs"](obs, me, prices=None, fertilize=CFG["mj_fertilize"], include_optional=True,
                                               collect=CFG["mj_collect"], log=S.setdefault("abandon", []))
             except Exception as exc:  # never crash: fall back to the previous list
                 S["log"]["mj_error"] += 1
@@ -917,7 +919,11 @@ def agent(obs, config=None):
         surv = []
         for idx in tasks:
             t_ = _tile(tiles, idx)
-            if _is_plant(t_) and not t_.get("watered_today") and t_.get("consecutive_unwatered", 0) >= 1:
+            if (CFG["surv_harvest"] and _is_plant(t_) and not CROPS[t_["crop"]]["ongoing"] and t_.get("yield_units", 0) > 0
+                    and day - t_["planted_day"] >= CROPS[t_["crop"]]["maxday"]
+                    and any(o[0] == "HARVEST" for o in tasks[idx][0])):
+                surv.append((idx, "HARVEST"))   # a one-time crop past full yield starts decaying tomorrow morning
+            elif _is_plant(t_) and not t_.get("watered_today") and t_.get("consecutive_unwatered", 0) >= 1:
                 surv.append((idx, "WATER"))
             elif _animal(t_) and not t_.get("fed_today") and t_.get("consecutive_unfed", 0) >= 1:
                 if any(invs[v].get("WHEAT", 0) > 0 for v in range(n)) or shed_left.get("WHEAT", 0) > 0:
@@ -1860,8 +1866,9 @@ DEP_CFG = {
     "fill_last": {"WHEAT": 25, "CARROT": 26},   # last planting day with a full harvest (sem_maintenance / min_maintenance)
     "fill_carrot_base": 0.2,            # carrot share of the fill ...
     "fill_carrot_per_shop": 0.15,       # ... + this per visible carrot-demanding shop instance (Pet Cafe counts 2), max 0.6
-    "replant_same_day": 0,              # cycle research: a wheat / carrot tile harvested during the day is replanted the same day
+    "replant_same_day": 1,              # a wheat / carrot tile harvested during the day is replanted the same day (rpc1, 2026-09-25: full panel +1,222 vs sem)
     "replant_from": 12,                 # ... from this day (12 = the count-model phase only)
+    "replant_cap": 1.0,                 # ... but no wheat replant once wheat tiles reach cap x the count model's wheat target (0 = no cap)
     "wc_swap": 0,                       # composition: turn this base share of the count model's wheat plantings into carrots ...
     "wc_swap_per_shop": 0.15,           # ... + this per carrot-demanding shop instance (max 0.7), when carrots can still be harvested
 }
@@ -2145,6 +2152,7 @@ def _dep_compose(obs, day):
         reserved |= set(T.plant[dd])
     lead_t = _DEP.get("lead_t")
     pred_s = _dep_predict(shops, counts, d, DEP_CFG["h_short"])
+    _DEP["wh_pred"] = (d, pred_s.get("WH", 0.0))
     pred_l = _dep_predict(shops, counts, d, DEP_CFG["h_long"])
     for lab_, mult_ in DEP_CFG["pred_mult"].items():
         pred_s[lab_] = pred_s.get(lab_, 0) * mult_
@@ -2379,7 +2387,14 @@ def _dep_update(obs, day, hour):
             _DEP["ds_crops"] = {i: _tile(tiles, i)["crop"] for i in range(100)
                                 if _is_plant(_tile(tiles, i)) and _tile(tiles, i)["crop"] in ("WHEAT", "CARROT")}
         else:
+            capped = False
+            if DEP_CFG["replant_cap"] and _DEP.get("wh_pred", (None,))[0] == day:
+                n_wh = sum(1 for j in range(100) if _is_plant(_tile(tiles, j)) and _tile(tiles, j)["crop"] == "WHEAT")
+                n_wh += sum(1 for j, c in T.plant[day].items() if c == "WHEAT" and _tile(tiles, j) is None)
+                capped = n_wh >= DEP_CFG["replant_cap"] * _DEP["wh_pred"][1]
             for i, crop in _DEP["ds_crops"].items():
+                if crop == "WHEAT" and capped:
+                    continue
                 if _tile(tiles, i) is None and i not in T.plant[day] and day <= DEP_CFG["last_plant"][crop]:
                     T.events.append((day, i, crop))
                     T.plant[day][i] = crop

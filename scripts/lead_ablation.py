@@ -65,6 +65,10 @@ CELLS = {
     'E': dict(cfg={}, deploy='plan'),
     'E2': dict(cfg={}, deploy='full'),
     'E2s': dict(cfg={}, deploy='full', swap={'sell': 'leader'}),
+    'E2sem': dict(cfg={}, deploy='full', path='agents/mgt_lpv_sem.py'),
+    'E2rpc1': dict(cfg={}, deploy='full', path='agents/mgt_lpv_rpc1.py'),
+    'E2rpc1h': dict(cfg={}, deploy='full', path='agents/mgt_lpv_rpc1h.py'),
+    'E2sh': dict(cfg={}, deploy='full', path='agents/mgt_lpv_sh.py'),
     'E2h': dict(cfg={}, deploy='full', swap={'hires': 'leader'}),
     'E2p': dict(cfg={}, deploy='full', swap={'plan': 'leader'}),
     'E2d': dict(cfg={}, deploy='full', swap={'plan': 'leader_to11'}),
@@ -85,10 +89,10 @@ def _hire_steps(team_id, ep):
 class _DeployAdapter:
     """module-like wrapper so lead_g1.play can drive mgt_lead_deploy in the held-out world."""
 
-    def __init__(self, mode, ep, swap=None):
+    def __init__(self, mode, ep, swap=None, path=None):
         import os
         spec = importlib.util.spec_from_file_location(
-            'mgt_lead_deploy_abl', os.environ.get('LEAD_DEPLOY_PATH') or (ROOT / 'agents/mgt_lead_deploy.py'))
+            'mgt_lead_deploy_abl', (ROOT / path) if path else (os.environ.get('LEAD_DEPLOY_PATH') or (ROOT / 'agents/mgt_lead_deploy.py')))
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
         self.mod, self.mode, self.ep = mod, mode, int(ep)
@@ -174,7 +178,7 @@ def play_cell(game, cell):
 
     def load(cfg):
         if spec.get('deploy'):
-            return _DeployAdapter(spec['deploy'], ep, spec.get('swap'))
+            return _DeployAdapter(spec['deploy'], ep, spec.get('swap'), spec.get('path'))
         mod = orig_load(cfg)
         if spec.get('hire_steps'):
             conf = mod.configure

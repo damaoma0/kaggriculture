@@ -592,3 +592,38 @@ crops unless the count model's crop allocation accounts for it. Not adopted as a
 stays available for a joint re-allocation (e.g. with the count model's wheat target reduced by the turnover gain).
 Note: the G1 baseline run for the sem build started at 2.9 GB free (my wait loop timed out instead of aborting);
 it completed normally at 2.1 GB.
+
+## Units per planting (execution) and the capped replant (2026-09-25)
+Local memory stayed at 2.1-2.7 GB (other desktop apps), so this round ran on Kaggle: smoke-world panels (runs pvs1,
+pvs2), the cycle extraction as remote commands (cycsem, cycy3; `lead_cycles.py` now records day-start plant states),
+and the G1 leader-world cells as a remote command (g1a; new harness cells E2sem/E2rpc1/E2rpc1h/E2sh point the deploy
+adapter at a variant file; the remote E2sem reproduces the local run 12/12). `runpv.sh` / `memgate.sh` now ABORT
+when free memory stays under 3 GB.
+
+Per-planting fates (12 smoke worlds; `lead_cycles.py fates`):
+- carrot 1.86 units/planting: only 56% of our carrot plantings are harvested (y3 98%); 18% die unharvested at age 4
+  (the age-3 harvest deadline missed, then decay), 26% are never harvested before the season ends (late plantings);
+  none fertilised (y3 fertilises 69% at age 2 and gets 3.78 at age 3). Watering is complete (100% at ages 0 and 2).
+- wheat: 7% of our plantings die unharvested at age 5 (missed harvest); fertilised at age 2 only 5% (y3 64%).
+- tomato 5.75 vs 6.79 and strawberry 6.98 vs 7.58: fertiliser and water on production days match y3 (81-91%);
+  the gap is late plantings cut by the season end (our last harvests at ages 9-10 / 10-14, y3's almost all at 11 /
+  16), i.e. the count model's last planting days (strawberry 18, tomato 20) vs y3 stopping earlier.
+Variants (smoke worlds, paired vs the current deploy "sem"; G1 = leader worlds 12 / 11 / clean9):
+| variant | vs y3 | vs current (95% CI), better | G1 | units wheat / carrot / straw / tomato / melon |
+|---|---:|---|---|---|
+| current (sem) | -18,893 | | 0.858 / 0.852 / 0.842 | 223 / 11 / 163 / 81 / 71 |
+| fT = fertilize True for tomato, strawberry, wheat | -20,340 | -1,446 (-3,292 .. +932), 3/12 | | 220 / 12 / 163 / 87 / 72 |
+| fTS = fertilize True for tomato, strawberry | -18,844 | +49 (-179 .. +261), 3/12 | | 222 / 11 / 163 / 80 / 71 |
+| sh = harvest deadlines in the survival routes (`surv_harvest`) | -19,488 | -595 (-1,982 .. +795), 5/12 | 0.859 / 0.853 / 0.842 | 213 / 14 / 163 / 82 / 72 |
+| **rpc1 = same-day replant, capped at the count model's wheat target** | **-16,908** | **+1,985 (+343 .. +3,689), 8/12** | **0.869 / 0.863 / 0.858** | 312 / 22 / 159 / 58 / 66 |
+| rpc1h = rpc1 + surv_harvest | -17,679 | +1,214 (-382 .. +3,105), 7/12 | 0.857 / 0.851 / 0.838 | 312 / 26 / 162 / 50 / 66 |
+| rpc1st = rpc1 + last planting strawberry 14 / tomato 18 | -16,889 | +2,005 (+180 .. +3,927), 8/12 | | 342 / 23 / 157 / 51 / 65 |
+Fertiliser supply is not the constraint (we sell ~240 a game); forcing it onto wheat costs labour and loses.
+Reserving end-of-day labour for harvest deadlines takes it from waterings/feeds and loses. The cap (no wheat replant
+once wheat tiles reach the count model's wheat target) keeps most of the faster wheat turnover without starving the
+other crops as much as the uncapped rp1 (smoke +1,985 vs +898).
+**Full panel rpc1 (Kaggle leadv9, 185 games; its 12 smoke worlds equal the earlier remote smoke run 12/12):
+-17,833 vs y3 (95% CI -20,446 .. -15,018), -17,527 vs m1, W-L 13-172; vs the current deploy (leadv7 "sem")
++1,222 (+759 .. +1,702), better in 118/185.** Units: wheat 330 (sem 238, y3 392), carrot 21, tomato 48 (sem 71),
+melon 66 (71), strawberry 171 (175); revenue 114.4k (sem 114.2k) with lower spend. Adopted as the deploy default
+(`replant_same_day` 1, `replant_cap` 1.0).

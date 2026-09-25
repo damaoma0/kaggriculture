@@ -32,6 +32,8 @@ def run(agent, eps, sub):
                 return ('WEED',) if isinstance(t, dict) and t.get('kind') == 'WEED' else None
             return ('PLANT', t['crop'], t['planted_day'], t.get('yield_units', 0))
 
+        rec['states'] = []      # per day start: {idx: [crop, planted_day, consecutive_unwatered, fertilized_until_day, yield]}
+
         def make(entry):
             def wrapped(obs, *a, **k):
                 step = int(obs['step'])
@@ -43,6 +45,13 @@ def run(agent, eps, sub):
                         cur[y * 10 + x] = snap(t)
                 if step % 24 == 0:
                     rec['counts'].append(dict(Counter(v[1] for v in cur.values() if v and v[0] == 'PLANT')))
+                    stt = {}
+                    for y_, row_ in enumerate(tiles):
+                        for x_, t_ in enumerate(row_):
+                            if isinstance(t_, dict) and t_.get('kind') == 'PLANT':
+                                stt[y_ * 10 + x_] = [t_['crop'], t_['planted_day'], t_.get('consecutive_unwatered', 0),
+                                                     t_.get('fertilized_until_day', -1), t_.get('yield_units', 0)]
+                    rec['states'].append(stt)
                 if prev:
                     day = (step - 1) // 24
                     for idx, v in cur.items():
@@ -115,7 +124,69 @@ def report(agents):
                   f'{tdays[crop] / n:9.0f} {died[crop] / n:5.1f}')
 
 
+def fates(agents, crops=('CARROT', 'TOMATO', 'WHEAT', 'STRAWBERRY')):
+    """per planting: fate, harvest age / units, water on each age (from next day's consecutive_unwatered == 0),
+    fertilized ages (fertilized_until_day), for plantings whose day-start states were recorded."""
+    for agent in agents:
+        rows = [json.load(open(f)) for f in sorted((OUT / agent).glob('*.json'))]
+        rows = [r for r in rows if r.get('states')]
+        n = len(rows)
+        if not n:
+            print(agent, 'no state records'); continue
+        print()
+        print(f'{agent} ({n} worlds)')
+        for crop in crops:
+            P = []
+            for r in rows:
+                st_ = r['states']
+                harv = {}
+                died = {}
+                for kind, day, idx, c, pd, y in r['events']:
+                    if c != crop:
+                        continue
+                    if kind == 'harvest':
+                        harv.setdefault((idx, pd), []).append((day, y))
+                    elif kind == 'died':
+                        died[(idx, pd)] = day
+                for kind, day, idx, c, pd, y in r['events']:
+                    if kind != 'plant' or c != crop:
+                        continue
+                    water, fert = [], []
+                    for age in range(0, 20):
+                        dd = pd + age + 1
+                        if dd >= len(st_):
+                            break
+                        s1 = st_[dd].get(str(idx)) or st_[dd].get(idx)
+                        if not s1 or s1[0] != crop or s1[1] != pd:
+                            break
+                        water.append(1 if s1[2] == 0 else 0)
+                        fert.append(1 if s1[3] >= pd + age else 0)
+                    h = harv.get((idx, pd), [])
+                    P.append(dict(units=sum(y for _, y in h), hn=len(h), hage=(h[-1][0] - pd) if h else None,
+                                  died=(died.get((idx, pd)) - pd) if (idx, pd) in died else None, water=water, fert=fert))
+            if not P:
+                continue
+            k = len(P)
+            har = [p for p in P if p['hn']]
+            dead = [p for p in P if p['died'] is not None and not p['hn']]
+            ages = Counter(p['hage'] for p in har)
+            upp = sum(p['units'] for p in P) / k
+            print(f'  {crop}: {k / n:.1f} plantings/game, units/planting {upp:.2f}; harvested {len(har)} ({len(har) / k:.0%}), '
+                  f'died unharvested {len(dead)} ({len(dead) / k:.0%}) at ages {dict(Counter(p["died"] for p in dead))}, '
+                  f'other {k - len(har) - len(dead)}')
+            print(f'     harvest ages {dict(sorted(ages.items()))}; units by harvest age '
+                  f'{ {a: round(st.mean(p["units"] for p in har if p["hage"] == a), 2) for a in sorted(ages)} }')
+            for age in range(0, 12):
+                w = [p['water'][age] for p in P if len(p['water']) > age]
+                f = [p['fert'][age] for p in P if len(p['fert']) > age]
+                if w:
+                    print(f'     age {age:2d}: alive-next-day {len(w):4d}  watered {sum(w) / len(w):5.0%}  fertilized {sum(f) / len(f):5.0%}')
+
+
 def main():
+    if sys.argv[1] == 'fates':
+        fates(sys.argv[2].split(','))
+        return
     if sys.argv[1] == 'run':
         agent = sys.argv[2]
         sub = sys.argv[4] if len(sys.argv) > 4 else 'p2750'

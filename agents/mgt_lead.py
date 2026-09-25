@@ -68,12 +68,14 @@ CFG = {
     "fert_reserve_soon": True,
     "lazy_fetch": False,
     "harvest_before_build": True,
+    "mj_fertilize": "auto",   # sem_maintenance fertilize: "auto" (when the extra units pay at market price) | True | {crop: ...}
     "early_onetime": False,   # optional harvest of wheat / carrot from one day before full yield (cycle research)
     "spawn_allot": False,
     "maint_source": "ours",   # ablation: "leader" = the leader's per-tile per-day WATER/FEED/CARE/FERTILIZE
     "sched_maint": True,      # (default on since 2026-09-24: S1f 0.862/0.854/0.833 vs A29 0.792/0.780/0.785) scheduler: maintenance jobs (value, deadline) from scripts/fragments/sem_maintenance.py
     "surv_reserve": True,     # (default on since R16: 0.874/0.866/0.844 vs 0.862/0.854/0.833) from surv_hour: survival jobs (dies / escapes tonight) get nearest-first routes, only their op
     "surv_hour": 16,
+    "surv_harvest": False,    # survival routes also take one-time crops at/after full-yield age (missed harvests decay)
     "sched_dispatch": False,  # scheduler: dispatch by value density among jobs finishable before their deadline
     "sched_hire": False,      # scheduler: hire the n-th hand while the value only it adds exceeds fib(n)
     "mj_every": 3,            # re-solve maintenance jobs at most every N hours when the asset set changed
@@ -702,7 +704,7 @@ def agent(obs, config=None):
         sig = tuple(sig)
         if S.get("mj_day") != day or (S.get("mj_sig") != sig and hour - S.get("mj_hour", -99) >= CFG["mj_every"]):
             try:
-                jl = _sm()["maintenance_jobs"](obs, me, prices=None, fertilize="auto", include_optional=True,
+                jl = _sm()["maintenance_jobs"](obs, me, prices=None, fertilize=CFG["mj_fertilize"], include_optional=True,
                                               collect=CFG["mj_collect"], log=S.setdefault("abandon", []))
             except Exception as exc:  # never crash: fall back to the previous list
                 S["log"]["mj_error"] += 1
@@ -906,7 +908,11 @@ def agent(obs, config=None):
         surv = []
         for idx in tasks:
             t_ = _tile(tiles, idx)
-            if _is_plant(t_) and not t_.get("watered_today") and t_.get("consecutive_unwatered", 0) >= 1:
+            if (CFG["surv_harvest"] and _is_plant(t_) and not CROPS[t_["crop"]]["ongoing"] and t_.get("yield_units", 0) > 0
+                    and day - t_["planted_day"] >= CROPS[t_["crop"]]["maxday"]
+                    and any(o[0] == "HARVEST" for o in tasks[idx][0])):
+                surv.append((idx, "HARVEST"))   # a one-time crop past full yield starts decaying tomorrow morning
+            elif _is_plant(t_) and not t_.get("watered_today") and t_.get("consecutive_unwatered", 0) >= 1:
                 surv.append((idx, "WATER"))
             elif _animal(t_) and not t_.get("fed_today") and t_.get("consecutive_unfed", 0) >= 1:
                 if any(invs[v].get("WHEAT", 0) > 0 for v in range(n)) or shed_left.get("WHEAT", 0) > 0:
