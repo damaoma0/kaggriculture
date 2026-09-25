@@ -54,6 +54,8 @@
 # season total minus ours), slope = the engine price drop for one more unit at today's market inventory (a sold unit
 # raises the inventory for good) x our share of the season's supply beyond the market's remaining consumption, floored
 # at sd_mr_floor x p; glut goods lose most, wheat / carrot / egg little.
+# sd_early_animal: a BUILD job's animal is bought while the tile still waits for its crop's harvest (the executor's
+# market buys animals only for tasks that PLACE them; with harvest_before_build that task appears after the harvest).
 # v5: sd_surv_fb = from this hour the executor's own survival routes (surv_reserve: a plant dying / an animal escaping
 # tonight, nearest-arrival routes) keep their units and tiles: the planner plans neither (guaranteed fallback).
 # sectors (2026-09-25, research copy agents/mgt_lead_sector.py): each unit has a home quadrant (a hand: the quadrant of
@@ -1671,7 +1673,7 @@ def _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs
     step for a planned unit standing on its current planned tile waits until the tile is done (the routes check the
     trigger after each job; a mid-tile delivery abandoned a seedling between PLANT and WATER)."""
     L = _sd_state(S)
-    run = {"active": False, "units": set(), "P": None, "first": {}, "claimed": set(), "acted": set()}
+    run = {"active": False, "units": set(), "P": None, "first": {}, "claimed": set(), "acted": set(), "jobs": jobs}
     try:
         _sd_watch(L, tiles, day, hour)
     except Exception as exc:
@@ -1881,6 +1883,16 @@ def _sd_post(S, run, obs, me, step, day, hour, last_day, tiles, pos, tasks, assi
                 st["agree_n"] += 1
                 st["agree"] += 1 if g == k else 0
         _sd_track(S, L, obs, me, step, day, hour, last_day, len(pos), pos, actions, tiles)
+        if CFG["sd_early_animal"] and run.get("active"):
+            # a BUILD job with an animal whose tile still holds a harvestable one-time crop has only a HARVEST task
+            # (harvest_before_build), so the market would buy the animal only after that harvest: count it now (the
+            # market reads the tasks' needs after this hook; nothing else reads them this step)
+            for idx, job in (run.get("jobs") or {}).items():
+                if job and job[0] == "BUILD" and len(job) > 2 and job[2] and idx in tasks:
+                    ops_, need_, prio_ = tasks[idx]
+                    if [o[0] for o in ops_] == ["HARVEST"] and need_.get(job[2], 0) <= 0:
+                        need_[job[2]] += 1
+                        st["early_animal"] = st.get("early_animal", 0) + 1
     except Exception as exc:
         st["errors"] += 1
         st["last_error"] = ("post %s: %s" % (type(exc).__name__, exc))[:300]

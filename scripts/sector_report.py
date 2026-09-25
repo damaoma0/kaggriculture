@@ -16,6 +16,7 @@ from collections import Counter
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "scripts"))
 OUT = ROOT / 'results/fresh/sector_20260925'
 SHED = {(4, 4), (5, 4), (4, 5), (5, 5)}
 FIELD = {'WATER', 'FEED', 'CARE', 'HARVEST', 'FERTILIZE', 'COLLECT_FERTILIZER', 'PLANT', 'DIG', 'BUILD_COOP',
@@ -53,6 +54,7 @@ def hand_metrics(r):
                 goose['coop'] += 1
             if c == 'PLACE' and eff and len(cmd) > 1 and cmd[1] == 'GOOSE' and p not in SHED:
                 goose['goose'] += 1
+                goose.setdefault('goose_h', t % 24)
             if u == 0:
                 continue
             spawn.setdefault(u, quad(p))
@@ -125,14 +127,24 @@ def trace(arms):
                  'main-quadrant share | one-quadrant hands | main = spawn | spawn first / second / third / fourth | '
                  'trips 1 / 2 / 3+ | work-tile gap 1 / 2 / 3 / 4+ (mean) |')
     lines.append('|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|---|---|')
+    ghr = []
+    import lead_g1
+    g1 = set(int(g.split(':')[1]) for g in lead_g1.GAMES)
     for a in ['LEADER'] + [x for x in arms if x != 'LEADER']:
         A = R[a]
         tot, gs = Counter(), Counter()
+        hrs, hrs1 = [], []
         for e, r in A.items():
             m, g = hand_metrics(r)
             tot.update(m)
             gs['coop'] += 1 if g['coop'] else 0
             gs['goose'] += 1 if g['goose'] else 0
+            if 'goose_h' in g:
+                hrs.append(g['goose_h'])
+                if e in g1:
+                    hrs1.append(g['goose_h'])
+        ghr.append(f"{a}: goose placed on day 11 in {len(hrs)} of {len(A)} worlds (hours {sorted(Counter(hrs).items())}); "
+                   f"G1 worlds: {len(hrs1)} of {sum(1 for e in A if e in g1)} (hours {sorted(Counter(hrs1).items())})")
         n = max(1, len(A))
         hd = max(1, tot['hands'])
         lines.append(f"| {a} | {gs['coop']} / {gs['goose']} of {len(A)} | {tot['hands'] / n:.1f} | {tot['extra_visits'] / n:.1f} | "
@@ -144,6 +156,7 @@ def trace(arms):
                      f"{tot['trips_3+'] / max(1, tot['trip_hands']):.0%} | " + ' / '.join(
                          f"{tot['gap_' + k] / max(1, tot['gap_n']):.0%}" for k in ('1', '2', '3', '4+'))
                      + f" ({tot['gap_sum'] / max(1, tot['gap_n']):.2f}) |")
+    lines += [''] + ghr
     txt = '\n'.join(lines)
     print(txt)
     (OUT / f"trace_report_{'_'.join(arms)[:60]}.txt").write_text(txt + '\n', encoding='utf-8')
