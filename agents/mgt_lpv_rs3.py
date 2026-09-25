@@ -142,6 +142,9 @@ def _curve():
 CURVE = _curve()
 CURVE_POS = {idx: i for i, idx in enumerate(CURVE)}
 
+RS_CFG = {"sweep": 0, "sweep_bonus": 0.5, "wheat_batch": 0, "wheat_batch_r": 3, "wheat_batch_max": 6, "fert_chain": 0}   # lead_rs_build.py research switches
+CFG.update({"hand_stock": 1, "pick_cap": {"WHEAT": 6, "FERTILIZER": 8}})   # ws2 + pick_cap
+RS_CFG.update({'sweep': 1, 'wheat_batch': 1, 'fert_chain': 1})   # variant rs3
 _SMNS = None
 
 
@@ -729,6 +732,7 @@ def agent(obs, config=None):
     if S["day"] != day:
         S["day"] = day
         S["assign"] = {}
+        S["last_op"] = {}
     unlocked = list(farm.get("unlocked_quadrants", ["NW"]))
 
     jobs, fert = _plan(obs, S, tiles, day)
@@ -805,10 +809,24 @@ def agent(obs, config=None):
         return {k: v for k, v in inv.items() if v > 0 and k in PRODUCTS and k != "WHEAT"
                 and not (k == "FERTILIZER" and fert_keep)}
 
+    chain_src = [i_ for i_ in range(100) if RS_CFG["fert_chain"] and _animal(_tile(tiles, i_))
+                 and _tile(tiles, i_).get("fertilizer_available")]
+
+    def chain_route(u, tgt):
+        """(cost, animal tile) of collecting fertilizer on the way to tgt, or None."""
+        best_ = None
+        for a_ in chain_src:
+            ap = (a_ % 10, a_ // 10)
+            c_ = _dist(pos[u], ap) + 1 + _dist(ap, tgt)
+            if best_ is None or c_ < best_[0]:
+                best_ = (c_, a_)
+        return best_
+
     def usable_ops(u, ops, need):
         """ops this unit can run at the tile now (items carried or obtainable at the shed)."""
         inv = invs[u]
-        lack = {k for k, v in need.items() if inv.get(k, 0) < v and shed_left.get(k, 0) <= 0}
+        lack = {k for k, v in need.items() if inv.get(k, 0) < v and shed_left.get(k, 0) <= 0
+                and not (k == "FERTILIZER" and chain_src)}
         if not lack:
             return ops
         out = []
@@ -856,9 +874,16 @@ def agent(obs, config=None):
             miss = [k for k in _first_need(ok, invs[u]) if shed_left.get(k, 0) > 0]
         else:
             miss = [k for k, v in need.items() if invs[u].get(k, 0) < v and shed_left.get(k, 0) > 0]
+        if RS_CFG["fert_chain"] and chain_src and invs[u].get("FERTILIZER", 0) < need.get("FERTILIZER", 0) \
+                and "FERTILIZER" not in miss:
+            miss = miss + ["FERTILIZER"]          # obtainable from an animal even when the shed has none
         if miss:
             s = _near_shed(p)
             c = _dist(p, s) + len(miss) + _dist(s, tgt)
+            if RS_CFG["fert_chain"] and miss == ["FERTILIZER"] and chain_src:
+                cr = chain_route(u, tgt)
+                if cr is not None and (cr[0] < c or shed_left.get("FERTILIZER", 0) <= 0):
+                    c = cr[0]
         else:
             c = _dist(p, tgt)
         # a plant pipeline must be finished (watered) today
@@ -1034,6 +1059,10 @@ def agent(obs, config=None):
                     continue
                 if CFG["tie_value"]:
                     c = c + (-min(4000.0, S['tval'].get(idx, (0.0, 23))[0]) * 1e-4)   # value-aware tie-break: equal-cost tasks go to the tile worth most today (q4 thread, 2026-09-25)
+                if RS_CFG["sweep"]:
+                    lo_ = S.setdefault("last_op", {}).get(u)
+                    if lo_ is not None and abs(lo_ % 10 - idx % 10) + abs(lo_ // 10 - idx // 10) == 1:
+                        c -= RS_CFG["sweep_bonus"]   # sweep continuation: next to the unit's last tile op
                 if best is None or c < best[0]:
                     best = (c, u, idx)
         if best is None:
@@ -1172,6 +1201,23 @@ def agent(obs, config=None):
             miss = [k for k in _first_need(usable_ops(u, ops, need), inv) if shed_left.get(k, 0) > 0]
         else:
             miss = [k for k, v in need.items() if inv.get(k, 0) < v and shed_left.get(k, 0) > 0]
+        if RS_CFG["fert_chain"] and chain_src and inv.get("FERTILIZER", 0) < need.get("FERTILIZER", 0):
+            miss_ne = [k_ for k_ in miss if k_ != "FERTILIZER"]
+            # already on the target with other work there (e.g. a survival water): do that first
+            other_here = p == tgt and any(o_[0] != "FERTILIZE" for o_ in usable_ops(u, ops, need))
+            if not miss_ne and not other_here:
+                cr = chain_route(u, tgt)
+                s_ = _near_shed(p)
+                via_shed = _dist(p, s_) + 1 + _dist(s_, tgt) if shed_left.get("FERTILIZER", 0) > 0 else None
+                if cr is not None and (via_shed is None or cr[0] < via_shed):
+                    ap = (cr[1] % 10, cr[1] // 10)
+                    if p != ap:
+                        actions[u] = _step_toward(p, ap)
+                    else:
+                        actions[u] = ["COLLECT_FERTILIZER"]
+                        chain_src.remove(cr[1])
+                        S["log"]["rs_fert_chain"] += 1
+                    continue
         if miss:
             s = _near_shed(p)
             if p != s:
@@ -1182,6 +1228,15 @@ def agent(obs, config=None):
             amt = min(shed_left[k], max(need[k] - inv.get(k, 0), min(cover, zneed[u][k] - inv.get(k, 0))))
             if CFG["hand_stock"] and k == "WHEAT":
                 amt = min(shed_left[k], max(0, need[k] - inv.get(k, 0)) + CFG["hs_buffer"])
+            if RS_CFG["wheat_batch"] and k == "WHEAT":
+                want_ = need.get("WHEAT", 0)
+                for j_, (o_, n_, p_) in tasks.items():
+                    if j_ == idx or n_.get("WHEAT", 0) <= 0 or (j_ in taken and assign.get(u) != j_):
+                        continue
+                    if abs(j_ % 10 - tgt[0]) + abs(j_ // 10 - tgt[1]) <= RS_CFG["wheat_batch_r"]:
+                        want_ += n_["WHEAT"]
+                amt = min(shed_left[k], max(1, min(RS_CFG["wheat_batch_max"], want_) - inv.get(k, 0)))
+                S["log"]["rs_wheat_batch"] += 1
             amt = max(1, amt)
             shed_left[k] -= amt
             carried[k] += amt
@@ -1215,6 +1270,7 @@ def agent(obs, config=None):
             actions[u] = ["PASS"]
         else:
             actions[u] = list(act)
+            S.setdefault("last_op", {})[u] = idx
 
     # ---- diagnostics
     if hour in (1, 23) and day < last_day:

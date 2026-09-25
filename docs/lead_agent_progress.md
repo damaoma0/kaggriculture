@@ -1045,3 +1045,18 @@ spends the freed steps on maintenance (+11 waters, +3 fertilizes a game); smoke:
 total stock (shed + hands) is unchanged by where it sits, which is why discards do not fall: only selling or buying
 less changes it. The smoke CI still includes zero, so by the rule no full panel was started; G1 +0.015 (8/12) and
 smoke +729 (8/12) point the same way; a full panel of ws2 is the decisive test if wanted.
+
+## tie_value adopted in the deploy; route-order variants rs1-rs3 (2026-09-25)
+Thread Q's value-aware tie-break (full panel +1,420 vs ff1, CI +513..+2,328; G1 0.902 / 0.892 / 0.885) is ported into
+`agents/mgt_lead_deploy.py` as the default-on executor option `tie_value` (one line in the greedy loop). **Temporary
+divergence:** `agents/mgt_lead.py` is not edited (a leader-world workflow uses it); the deploy docstring says so.
+Verification: the new default (copy `mgt_lpv_dep8`) on the 12 smoke worlds against Q's `mgt_lpv_tievalff` results.
+Route-order variants, NEW files built by `scripts/lead_rs_build.py` on the new default + ws2 (hand_stock 1) (`tw0` =
+that base alone): rs1 = sweep continuation (an open task on a tile adjacent to the unit's last tile op gets -0.5 in
+the greedy; costs are whole steps and the value term is <= 0.4, so distance always dominates, adjacency outranks value,
+then iteration order); rs2 = rs1 + batched wheat (the task pickup takes the wheat of the open FEED jobs within 3 tiles
+of the target not held by other units, max 6) + pick_cap 6 / 8; rs3 = rs2 + fertilizer chain (a unit needing
+fertilizer may collect it from an animal whose fertilizer is ready when that route is shorter than the shed's, or the
+shed has none; not while other work is open on the tile it stands on, which the first static check caught). Static
+checks: parse, Kaggle loader entry, and synthetic day-12 observations exercising the batch and chain branches (no games).
+Smoke with discards and route metrics (wtr6: dep8, tw0, rs1-rs3) and G1 (g1p) running.
