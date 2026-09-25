@@ -1,14 +1,15 @@
 # Thread status (kept by the coordinator; updated whenever a thread starts, stops or reports)
 
-Last update: 2026-09-25 17:40 (London)
+Last update: 2026-09-25 19:30 (London) — all threads hit the account usage limit at ~17:50; resumed after the reset
 
 | thread | goal | state | latest result / where |
 |---|---|---|---|
 | Day-11 defect hunt (exact-opening agent) | Tile-exact parity: fix why our executor falls behind the leader on day 11 from the leader's exact morning state; port confirmed fixes into agents/mgt_lead.py and the deploy | RUNNING | day-11 single-day test (42 worlds): replant_leader +66 (n.s.) but tiles differing from the leader next morning 9.7 -> 2.5; fert_follow -517 on day-11 cash (fertilizer applied instead of sold; payoff later, judged on full games); fert_gross no change; fert_shadow -7; place bonus -29 (coop built 0.8 vs 0.1); idle_deliver +13 (5/0); remaining day-11 gap = fertilizer logistics (hoarding: 20 carried at midnight vs the leader's 10). Full games on 12 + 48 worlds running; harvest_policy 'leader_tendency' being built |
 | Route-search dispatcher (restarted) | Rolling-horizon route search for crop-care labour, T first | RUNNING | stage 1 (12 leader worlds): shadow = off 12/12 to the dollar; active days 12-23 +1,145 (n.s., 8/4), active all day +2,072 (n.s., 8/4; gap to leader 12,464 -> 10,392); more work done and fewer rotting crops, but products reach the market later (price -3.7k/-5.2k) and survival waters slip to the last hour. v2 (product-dependent same-day delivery credit, earlier survival jobs) next |
-| Plant-upkeep marginal value (restarted) | Marginal benefit/cost of keeping up a plant; leader skips; single-day scenarios; fertilizer shadow value in retirement | RUNNING | - |
+| Plant-upkeep marginal value (continued on a cheaper model) | Marginal benefit/cost of keeping up a plant; leader skips; single-day scenarios; fertilizer value in retirement | RUNNING | step 1 done (commit 6f26670): leaders skip module jobs by value (73% below 10 coins, 48% at 20-30, 1-3% above 200), mostly animal feed/care; busy days trade feed/care for harvests/digs/plantings; module overstates animal skip losses ~35%; 42% of leader strawberry waterings have no engine effect. Steps 2-3 (value model, retirement rule, single-day scenarios) in progress |
 | E1: executor owner | - | STOPPED (unintended); its remaining items (porting, plan continuation) were folded into the day-11 thread | last results: T on the leader's exact harvest days +36 (-3,058..+3,130), with early harvest -2,265; cap_fix on 48 worlds +259 (-309..+828), n.s. (12-world +957 did not hold) |
 | Exact opening to the cash-safe day | Follow the leader action-exact until day 11, then our executor | DONE | results/fresh/xopen_20260925/report.md: no gain (48 worlds -2.3k vs T, n.s.) |
+| Harvest timing (leaders' tapes; continued on a cheaper model) | Harvest timing per crop x period; economics; sell-now vs next-morning value (own + rival) | RUNNING | leader table done: melons age 10, hour ~6, 87% sold same day; wheat age 2 in the opening, 3-4 and fertilized from day 12; carrots age 3; tomatoes/strawberries every production, sold next morning. Adopted as golden law (tendencies). Economics + delivery coin table in progress |
 | Fertilizer market trend | Supply vs demand | DONE (coordinator) | no demand: price = 100 - 0.2 x cumulative units sold by both players; 70 on day 11, 49 on day 15, 34 on day 19, 14 on day 29 |
 
 Live submissions unchanged: V9-lite+y3 (56525017) and m1 (56395605).
