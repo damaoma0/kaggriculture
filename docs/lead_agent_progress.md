@@ -1146,3 +1146,9 @@ The combination with max_production does complete more production jobs (79 dropp
 hands late) but loses 28k a game: the extra production is feed-heavy milk / wool bought with wages and wheat.
 What binds with 14 hands: the k_max = 14 cap late in the season and walking (the crew is at the cap and still drops
 79 production jobs a game); cash binds only in the opening. G1 for the fixed demand / combination variants: g1t.
+G1 (fixed, Kaggle g1t): dm0 0.797 / 0.784 / 0.790, dm1 0.804 / 0.798 / 0.796, mdm0 0.766 / 0.749 / 0.743, mdm1 0.774 /
+0.761 / 0.738 (default 0.902 / 0.892 / 0.885). Per game: 7-8 days cash-capped, 4-9 later re-hires (new production jobs
+worth >= 200 after hour 0), hands 11.0 (all) / 8.3 (marginal) a day; search cost 0.5-1.1 s a GAME (180-340 cheap
+simulations), well inside the 60 s bank. **Hires by demand rejected in this form**: the plan's hand count (corpus
+regression + hands_add) beats our own-greedy simulated demand in both panels; the hour-0 job list does not see the
+day's later plan work and values maintenance per day, so it misjudges the crew both ways. Options stay, default off.
