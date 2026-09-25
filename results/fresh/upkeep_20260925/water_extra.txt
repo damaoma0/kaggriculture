@@ -1,0 +1,19 @@
+Surplus strawberry/tomato watering (300 leader games, days 0-29, every leader WATER op on these crops; classes from skips_report.txt table H)
+
+| crop | class | n / game | same-tile bundle (free) | other tile that day (low cost) | dedicated trip | median days to next production | share with none left |
+|---|---|---|---|---|---|---|---|
+| TOMATO | survival (dry yesterday) | 44.7 | 19% | 81% | 0% | - | - |
+| TOMATO | fertilized production day | 30.9 | 84% | 16% | 0% | - | - |
+| TOMATO | ongoing, no production (preventive) | 24.6 | 4% | 96% | 0% | 3 (n=5590) | 24% |
+| TOMATO | production day, unfertilized (preventive) | 20.7 | 93% | 7% | 0% | 0 (n=6209) | 0% |
+| STRAWBERRY | survival (dry yesterday) | 135.0 | 26% | 74% | 0% | - | - |
+| STRAWBERRY | ongoing, no production (preventive) | 116.0 | 41% | 59% | 0% | 1 (n=34741) | 0% |
+| STRAWBERRY | fertilized production day | 41.0 | 0% | 100% | 0% | - | - |
+| STRAWBERRY | production day, unfertilized (preventive) | 26.1 | 88% | 12% | 0% | 0 (n=7840) | 0% |
+
+same-tile bundle = the SAME unit also did another effective op on that tile that day (zero extra travel).
+other tile that day = that unit visited >=1 other tile that day too (the water was one detour on a trip that
+  was happening anyway -- "while passing" -- not a dedicated round trip).
+dedicated trip = WATER was that unit's only effective tile op all day (the full labour cost is charged to it).
+median days to next production = for the two classes that earn nothing today, how far off the next payoff is;
+  "share with none left" = the plant has already used all its productions (upkeep with no further payoff at all).
