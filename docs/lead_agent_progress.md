@@ -1187,3 +1187,16 @@ the default to the dollar):
 n.s.). Deploy vs y3 on the full panel: ff1 -16,338 -> tie_value -14.9k (Q) -> ws2 -13,934. Egg 168 (160), wheat 352
 (345). Retirement variants rt15 / rt30 rebuilt on the new default; smoke (wtr11, with the new default's copy dep9 as the
 reproduction check against tw0) and G1 (g1u) running.
+Verification: the new default (hand_stock 1; copy `mgt_lpv_dep9`) equals tw0 to the dollar on the 12 smoke worlds and
+on G1 (0.910 / 0.901 / 0.889).
+**Animal retirement test (Kaggle wtr11 / g1u, on the new default):**
+| variant | smoke vs new default (95% CI), better/worse | own / rival | sold units: milk / wool / wheat / tomato / fertilizer | G1 |
+|---|---|---|---|---|
+| rt15: 15 coins per animal visit | +63 (-674 .. +750), 8/4 | **+418** / +356 | -13 / -6 / +7 / +4 / -13 | 0.912 / 0.903 / 0.890 |
+| rt30: 30 coins per animal visit | -1,356 (-3,467 .. +244), 6/6 | **+412** / +1,769 | -37 / -9 / +28 / +14 / -32 | 0.905 / 0.895 / 0.879 |
+**Finding: the rule raises our own cash (+0.4k a game, the low end of the estimate) exactly as the leaders' behaviour
+suggested, but the margin gain goes to the (frozen) rival**: we sell 13-37 fewer milk units into the crashed market and
+the rival's recorded milk sales meet the higher price (rival milk revenue up most of its +0.4k / +1.8k). With margin as
+the objective, retiring our animals helps the opponent almost as much as us. Not clearly positive: no full panel; the
+option stays (default 0). A version that also counts the market effect (the price rise our retirement hands the rival)
+would need the rival's sales model; not attempted.
