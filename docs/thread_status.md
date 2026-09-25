@@ -1,6 +1,6 @@
 # Thread status (kept by the coordinator; updated whenever a thread starts, stops or reports)
 
-Last update: 2026-09-25 19:30 (London) — all threads hit the account usage limit at ~17:50; resumed after the reset
+Last update: 2026-09-25 20:10 (London)
 
 | thread | goal | state | latest result / where |
 |---|---|---|---|
@@ -9,7 +9,7 @@ Last update: 2026-09-25 19:30 (London) — all threads hit the account usage lim
 | Plant-upkeep marginal value (continued on a cheaper model) | Marginal benefit/cost of keeping up a plant; leader skips; single-day scenarios; fertilizer value in retirement | RUNNING | step 1 done (commit 6f26670): leaders skip module jobs by value (73% below 10 coins, 48% at 20-30, 1-3% above 200), mostly animal feed/care; busy days trade feed/care for harvests/digs/plantings; module overstates animal skip losses ~35%; 42% of leader strawberry waterings have no engine effect. Steps 2-3 (value model, retirement rule, single-day scenarios) in progress |
 | E1: executor owner | - | STOPPED (unintended); its remaining items (porting, plan continuation) were folded into the day-11 thread | last results: T on the leader's exact harvest days +36 (-3,058..+3,130), with early harvest -2,265; cap_fix on 48 worlds +259 (-309..+828), n.s. (12-world +957 did not hold) |
 | Exact opening to the cash-safe day | Follow the leader action-exact until day 11, then our executor | DONE | results/fresh/xopen_20260925/report.md: no gain (48 worlds -2.3k vs T, n.s.) |
-| Harvest timing (leaders' tapes; continued on a cheaper model) | Harvest timing per crop x period; economics; sell-now vs next-morning value (own + rival) | RUNNING | leader table done: melons age 10, hour ~6, 87% sold same day; wheat age 2 in the opening, 3-4 and fertilized from day 12; carrots age 3; tomatoes/strawberries every production, sold next morning. Adopted as golden law (tendencies). Economics + delivery coin table in progress |
+| Harvest timing (leaders' tapes) | Harvest timing per crop x period; economics; sell-now vs next-morning value (own + rival) | DONE (commit 9b43377) | leader timing adopted as golden law (tendencies); waiting one day costs a lot (wheat d12-17 -96/harvest, carrot d18-23 -148, melon -124, tomato/strawberry late ~-46), harvesting a day earlier ~neutral; same-day sale credit: melon +54/unit on days 6-11 (mornings), wool +26/+9/+7/+6, milk +13/+7, strawberry up to +5, everyday crops ~0: results/fresh/harvest_timing_20260925/{market,economics}/ |
 | Fertilizer market trend | Supply vs demand | DONE (coordinator) | no demand: price = 100 - 0.2 x cumulative units sold by both players; 70 on day 11, 49 on day 15, 34 on day 19, 14 on day 29 |
 
 Live submissions unchanged: V9-lite+y3 (56525017) and m1 (56395605).
