@@ -796,5 +796,65 @@
    "sd_tier_spawn_h2": 1
   },
   "label": "KS1 = KE7 + hour-1 hires planned from the shed tiles they really spawn on (re-plan when the plan's hour-1 positions change them)"
+ },
+ "KC7": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_central_hand": 1,
+   "sd_tier_central_radius": 2
+  },
+  "label": "KC7 = KE7 + central hand: the farmer serves the pens within 2 tiles of the shed (feed, care, due harvest), drops each harvest at the shed; collects stay with the outbound hands"
+ },
+ "KC7h": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_central_hand": 1,
+   "sd_tier_central_radius": 2,
+   "sd_tier_central_hmin": {
+    "COW": 3,
+    "SHEEP": 4,
+    "GOOSE": 3
+   }
+  },
+  "label": "KC7h = KC7 + the central hand also harvests (and drops) pens holding >= DSM-size harvests (cow 3, sheep 4, goose 3)"
+ },
+ "KB2s": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_tier_pen_bundle": 1,
+   "sd_tier_pen_bundle_collect": 0
+  },
+  "label": "KB2s = KS1 + pen service stop without the collect (feed / care / due harvest as one mandatory stop per pen; collects free for the fertilize pairing)"
  }
 }

@@ -283,6 +283,9 @@ CFG = {
     "sd_tier_pen_bundle": 0,  # 1 (user 2026-09-26, learned from DSM: feed + care + collect in one visit on 36% of its pen visits vs our 7%): on every live animal the COLLECT (fertilizer waiting), the CARE (a later production in the season can realise it) and the FEED (care in the bundle, or tonight's production cashes a bank) join the keep-alive feed / due harvest as ONE mandatory stop, so the sector search gives the pen to one hand; the collected fertilizer then supplies that hand's fertilizes
     "sd_tier_pen_bundle_hmin": 0,   # > 0: the pen's harvest joins the stop when it holds >= this many units (else the cap rule)
     "sd_tier_pen_bundle_collect": 1,   # 0: the COLLECT stays out of the pen stop (free for the fertilize pairing; KB1 lost 4.3 fertilizes a day with it in)
+    "sd_tier_central_hand": 0,   # 1 (user 2026-09-26): the farmer (when he has no melon duty) is the CENTRAL hand: he serves the pens within sd_tier_central_radius of the shed (FEED, CARE when a later production realises it, the due HARVEST), chosen greedily by value per added hour (care = product price, feed cashing a bank = bank x price) while his day fits, and puts each harvest into the shed right after (DELIVER, sold at once; pens on access tiles use PLACE_HARVEST); the COLLECTs stay with the outbound hands; his pens leave the others' work; he is out of the sector search, fills and relief
+    "sd_tier_central_radius": 2,
+    "sd_tier_central_hmin": None,  # e.g. {"COW": 3, "SHEEP": 4, "GOOSE": 3} (DSM's mean units per harvest at pens within 2 tiles: cow 3.4-3.8, sheep 4.2-4.4, goose 2.7-3.5): the central hand also harvests (and drops) a pen holding at least this many units   # DSM same-day milk delivery by distance from the access tiles: 95 / 61 / 42 / 27% at 0 / 1 / 2 / 3
     "sd_tier_spawn_h2": 0,    # 1 (2026-09-26): the hour-1 hires spawn on the least occupied shed tile AFTER the hour-0 units' hour-1 commands; when that differs from the plan's assumption (empty shed tiles), re-plan once with the spawn tiles the plan's own hour-1 positions imply (KE7: 65% of hour-1 hires started ~0.9 h late and lost their route's tail ops)
     "sd_tier_water_exact": 0, # 1 (user 2026-09-26: shift the weights): a non-mandatory WATER is worth units x price by engine rules (one-time crop in its window: +1, +2 fertilized, to the cap; ongoing crop producing tonight and fertilized: +1 if under the cap; else 0) + sd_water_tomorrow   # > 0: the pen's harvest joins the stop when it holds >= this many units (else the cap rule)
     "sd_tier_pen_round": 0,   # 1 (user 2026-09-26, learned from DSM): a hand whose mandatory route holds animal harvests within sd_tier_pen_radius of the shed does them first and puts the product into the shed (DELIVER) before its other stops; planned right after the mandatory sector search, before the extras
@@ -6022,6 +6025,8 @@ def _tier_fill(segs, sidx, bundles, collects, owner, rate, st, tag):
                 b_ = bd["tile"]
                 ks_ = sorted(sidx, key=lambda k: min([D_[segs[k]["p0"]][b_]] + [D_[x["tile"]][b_] for x in segs[k]["stops"]]))[:nn_]
             for k in ks_:
+                if segs[k]["kind"] == "central":
+                    continue                       # the central hand's day is fixed
                 o_ = owner.get(bd["tile"])
                 if o_ is not None and o_ != k and not bd.get("shared"):
                     continue
@@ -6173,7 +6178,7 @@ def _tier_relief(segs, pool, collects, owner, rate, st):
             if o_ is not None and not bd.get("shared"):
                 cand_r = [o_]
             else:
-                cand_r = [k for k, s_ in enumerate(segs) if s_["stops"]
+                cand_r = [k for k, s_ in enumerate(segs) if s_["stops"] and s_["kind"] != "central"
                           and min(D[x["tile"]][bd["tile"]] for x in s_["stops"]) <= 2]
             best = None
             for r in cand_r:
@@ -6195,7 +6200,7 @@ def _tier_relief(segs, pool, collects, owner, rate, st):
                         continue
                     cR3 = _tier_cost(R, evR3, ins[2])
                     for k, S in enumerate(segs):
-                        if k == r:
+                        if k == r or S["kind"] == "central":
                             continue
                         evS = _tier_eval(S)
                         if evS[0] > 24 - slack:
@@ -6276,6 +6281,77 @@ def _tier_load(seg, stops, tiles, day):
                     if u > 0:
                         load[ANIMALS[_animal(t)]["product"]] += u
     return Counter({k: v for k, v in load.items() if v > 0})
+
+
+def _tier_central(S, cseg, rec, tiles, day, st):
+    """sd_tier_central_hand: build the farmer's whole day as the central hand (see the flag)."""
+    D = _TIER_D
+    rad = int(CFG["sd_tier_central_radius"])
+    prices = S.get("_tier_prices") or {}
+    last_day = int(S.get("_tier_last_day", 29))
+    rate = float(CFG["sd_tier_rate"])
+    cand = {}
+    for idx, r_ in rec.items():
+        t_ = _tile(tiles, idx)
+        if not _animal(t_) or min(D[idx][q] for q in _TIER_SHED_I) > rad:
+            continue
+        a_ = ANIMALS[t_["animal"]]
+        pd_ = int(t_.get("placed_day", day))
+        prod_ = lambda n: (n + 1 - pd_ - a_["first"]) >= 0 and (n + 1 - pd_ - a_["first"]) % a_["interval"] == 0
+        care_ok = any(prod_(n) for n in range(day + 1, last_day))
+        pr_ = float(prices.get(a_["product"], 0) or 0)
+        take = []
+        val = 0.0
+        for o in r_["ops"]:
+            c_ = o["c"][0]
+            if c_ == "FEED":
+                take.append(o)
+                if prod_(day):
+                    val += int(t_.get("pending_care_bonus", 0) or 0) * pr_
+            elif c_ == "CARE" and care_ok:
+                take.append(o)
+                val += pr_
+            elif c_ in ("HARVEST", "PLACE_HARVEST") and (o["m"] or (
+                    CFG["sd_tier_central_hmin"] and int(t_.get("yield_units", 0) or 0) >= int((CFG["sd_tier_central_hmin"] or {}).get(t_["animal"], 99)))):
+                take.append(o)
+        if not take:
+            continue
+        must = any(o["m"] for o in take)
+        hv = any(o["c"][0] == "HARVEST" for o in take)
+        cand[idx] = {"ops": take, "v": val + (1e6 if must else 0.0), "hv": hv, "prod": a_["product"]}
+    stops, taken = [], []
+    while cand:
+        ev0 = _tier_eval(cseg, stops) if stops else (cseg["t0"], 0, 0, 0)
+        best = None
+        for idx, c in cand.items():
+            add = [{"tile": idx, "ops": [dict(o, m=True, tier=2) for o in c["ops"]], "rel": rec[idx]["rel"]}]
+            if c["hv"] and idx not in _TIER_SHED_I:
+                sh = min(_TIER_SHED_I, key=lambda q: D[idx][q])
+                add.append({"tile": sh, "ops": [_tier_op(["DELIVER"], True, 0.0, 2)], "rel": 0, "turn": True})
+            trial = stops + add
+            ev = _tier_eval(cseg, trial)
+            if ev[1] > 0 or ev[0] > 24:
+                continue
+            dh = max(1, ev[0] - ev0[0])
+            sc = c["v"] / dh
+            if c["v"] < 1e6 and sc < rate:
+                continue
+            if best is None or sc > best[0]:
+                best = (sc, idx, trial)
+        if best is None:
+            break
+        _, idx, trial = best
+        stops = trial
+        taken.append(idx)
+        c = cand.pop(idx)
+        ids = set(id(o) for o in c["ops"])
+        rec[idx]["ops"] = [o for o in rec[idx]["ops"] if id(o) not in ids]
+        if not rec[idx]["ops"]:
+            rec.pop(idx)
+    cseg["stops"] = stops
+    cseg["kind"] = "central"
+    st["tier_central_pens"] = st.get("tier_central_pens", 0) + len(taken)
+    st["tier_central_days"] = st.get("tier_central_days", 0) + 1
 
 
 def _tier_pen_round(segs_m, tiles, day, st):
@@ -6675,6 +6751,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
            "demand": demand, "vunits": vunits}
     P = _sd_build(S, L, ctx)
     S["_tier_prices"] = dict(prices)
+    S["_tier_last_day"] = last_day
     # ---- per-tile ops (pre job, then plan job), tiered
     rec = {}
     skipped = 0
@@ -7032,6 +7109,10 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         else:
             segs.append({"u": u, "kind": "out", "p0": pi, "t0": t0, "stops": [], "wu": 1.0, "ver": 0, "anim": anim,
                          "fneed": fneed})
+    if CFG["sd_tier_central_hand"]:                # user: the farmer cares around the centre and returns to drop
+        cseg = next((s_ for s_ in segs if s_["u"] == 0 and s_["kind"] == "out"), None)
+        if cseg is not None:
+            _tier_central(S, cseg, rec, tiles, day, st)
     # ---- B. mandatory stops -> sectors (heuristic search)
     stops_all = []
     for i, r_ in sorted(rec.items()):
