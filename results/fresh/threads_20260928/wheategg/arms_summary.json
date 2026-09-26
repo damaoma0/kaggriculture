@@ -1,0 +1,4259 @@
+{
+ "KWE0": {
+  "label": "KWE0: KDF1 config on the wheat/egg copy (identity check)",
+  "cfg_extra": {},
+  "own": 106363.0,
+  "rival": 114864.0,
+  "margin": -8501.0,
+  "died": {
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 9,
+   "plant_STRAWBERRY": 1
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 7,
+   "skip_HARVEST": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -5867,
+    "books_cap": -1004
+   },
+   "WOOL": {
+    "actual": -1528,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2131,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1443,
+    "books_cap": -1451
+   },
+   "WHEAT": {
+    "actual": -6081,
+    "books_cap": -4058
+   },
+   "CARROT": {
+    "actual": -453,
+    "books_cap": -373
+   },
+   "TOMATO": {
+    "actual": -721,
+    "books_cap": -727
+   },
+   "FERTILIZER": {
+    "actual": -746,
+    "books_cap": -11
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -18960,
+    "books_cap": -7624
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 299 / 318, WOOL 218 / 166, MILK 209 / 202, EGG 122 / 149, WHEAT 359 / 499, CARROT 40 / 54, TOMATO 52 / 69, FERTILIZER 164 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 50.0 (arm 50.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 50.0 (arm 50.0)"
+  ]
+ },
+ "KWE0b": {
+  "label": "KWE0b: KWE0 re-run on the edited copy (flags default off: must equal KDF1)",
+  "cfg_extra": {},
+  "own": 106363.0,
+  "rival": 114864.0,
+  "margin": -8501.0,
+  "died": {
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 9,
+   "plant_STRAWBERRY": 1
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 7,
+   "skip_HARVEST": 1
+  }
+ },
+ "KWE1": {
+  "label": "KWE1: KDF1 + goose CARE mandatory wherever the goose FEED is mandatory (chains daily via the bank)",
+  "cfg_extra": {
+   "sd_tier_goose_care": 1
+  },
+  "own": 106566.0,
+  "rival": 121338.0,
+  "margin": -14772.0,
+  "died": {
+   "plant_STRAWBERRY": 3,
+   "plant_WHEAT": 4,
+   "plant_TOMATO": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "skip_FEED": 1,
+   "skip_DROP": 6,
+   "skip_WATER": 12,
+   "wait_wheat": 2
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -10018,
+    "books_cap": -1405
+   },
+   "WOOL": {
+    "actual": -1079,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -3933,
+    "books_cap": -814
+   },
+   "EGG": {
+    "actual": 157,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -8463,
+    "books_cap": -7010
+   },
+   "CARROT": {
+    "actual": -198,
+    "books_cap": -131
+   },
+   "TOMATO": {
+    "actual": -784,
+    "books_cap": -772
+   },
+   "FERTILIZER": {
+    "actual": -834,
+    "books_cap": -29
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -25142,
+    "books_cap": -10161
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 293 / 318, WOOL 198 / 166, MILK 194 / 202, EGG 153 / 149, WHEAT 304 / 499, CARROT 49 / 54, TOMATO 51 / 69, FERTILIZER 159 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 0/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 81.0 (arm 81.0)",
+   "checks books_cap: shed identical 0/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 81.0 (arm 81.0)"
+  ]
+ },
+ "KWE2": {
+  "label": "KWE2: KWE1 + goose FEED+CARE mandatory on a goose with any other mandatory op",
+  "cfg_extra": {
+   "sd_tier_goose_care": 2
+  },
+  "own": 106566.0,
+  "rival": 121338.0,
+  "margin": -14772.0,
+  "died": {
+   "plant_STRAWBERRY": 3,
+   "plant_WHEAT": 4,
+   "plant_TOMATO": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "skip_FEED": 1,
+   "skip_DROP": 6,
+   "skip_WATER": 12,
+   "wait_wheat": 2
+  }
+ },
+ "KWE3": {
+  "label": "KWE3: goose FEED+CARE mandatory on every live goose every day to day 27 (DSM pattern)",
+  "cfg_extra": {
+   "sd_tier_goose_care": 3
+  },
+  "own": 107857.0,
+  "rival": 122285.0,
+  "margin": -14428.0,
+  "died": {
+   "animal_COW": 1,
+   "plant_TOMATO": 1,
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "skip_FEED": 3,
+   "skip_DROP": 5,
+   "skip_WATER": 9,
+   "skip_HARVEST": 2
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7471,
+    "books_cap": -612
+   },
+   "WOOL": {
+    "actual": -3220,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -4067,
+    "books_cap": -1942
+   },
+   "EGG": {
+    "actual": 548,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -8634,
+    "books_cap": -6807
+   },
+   "CARROT": {
+    "actual": -426,
+    "books_cap": -373
+   },
+   "TOMATO": {
+    "actual": -565,
+    "books_cap": -551
+   },
+   "FERTILIZER": {
+    "actual": -987,
+    "books_cap": -78
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -24812,
+    "books_cap": -10363
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 305 / 318, WOOL 206 / 166, MILK 187 / 202, EGG 161 / 149, WHEAT 305 / 499, CARROT 40 / 54, TOMATO 56 / 69, FERTILIZER 151 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 56.0 (arm 56.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 56.0 (arm 56.0)"
+  ]
+ },
+ "KWE4": {
+  "label": "KWE4: goose FEED/CARE bundles join the tier-C pool at any value (value per hour vs waterings / fertilizes), x1",
+  "cfg_extra": {
+   "sd_tier_goose_c_minv": 0.0
+  },
+  "own": 106307.0,
+  "rival": 123391.0,
+  "margin": -17084.0,
+  "died": {
+   "animal_COW": 1,
+   "plant_STRAWBERRY": 2,
+   "plant_TOMATO": 2,
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 9
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_FEED": 3,
+   "skip_DROP": 4,
+   "skip_WATER": 6
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -9108,
+    "books_cap": -2401
+   },
+   "WOOL": {
+    "actual": -1805,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -6281,
+    "books_cap": -2988
+   },
+   "EGG": {
+    "actual": 136,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -7628,
+    "books_cap": -6182
+   },
+   "CARROT": {
+    "actual": -70,
+    "books_cap": -25
+   },
+   "TOMATO": {
+    "actual": -541,
+    "books_cap": -551
+   },
+   "FERTILIZER": {
+    "actual": -1748,
+    "books_cap": -273
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -27035,
+    "books_cap": -12420
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 281 / 318, WOOL 227 / 166, MILK 180 / 202, EGG 153 / 149, WHEAT 320 / 499, CARROT 53 / 54, TOMATO 56 / 69, FERTILIZER 136 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 70.0 (arm 70.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 70.0 (arm 70.0)"
+  ]
+ },
+ "KWE5": {
+  "label": "KWE5: KWE4 with goose bundle values x2 in the pool",
+  "cfg_extra": {
+   "sd_tier_goose_c_minv": 0.0,
+   "sd_tier_goose_c_mult": 2.0
+  },
+  "own": 107409.0,
+  "rival": 121984.0,
+  "margin": -14575.0,
+  "died": {
+   "animal_COW": 1,
+   "plant_WHEAT": 6,
+   "plant_STRAWBERRY": 1,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_FEED": 3,
+   "skip_WATER": 11,
+   "skip_DROP": 2
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7730,
+    "books_cap": -1555
+   },
+   "WOOL": {
+    "actual": -471,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -5079,
+    "books_cap": -2384
+   },
+   "EGG": {
+    "actual": -61,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -8777,
+    "books_cap": -7071
+   },
+   "CARROT": {
+    "actual": -712,
+    "books_cap": -624
+   },
+   "TOMATO": {
+    "actual": -453,
+    "books_cap": -464
+   },
+   "FERTILIZER": {
+    "actual": -1593,
+    "books_cap": -200
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -24866,
+    "books_cap": -12298
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 291 / 318, WOOL 208 / 166, MILK 184 / 202, EGG 149 / 149, WHEAT 301 / 499, CARROT 31 / 54, TOMATO 58 / 69, FERTILIZER 140 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 103.0 (arm 103.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 103.0 (arm 103.0)"
+  ]
+ },
+ "KWE6": {
+  "label": "KWE6: KWE4 with goose bundle values x4 in the pool",
+  "cfg_extra": {
+   "sd_tier_goose_c_minv": 0.0,
+   "sd_tier_goose_c_mult": 4.0
+  },
+  "own": 109376.0,
+  "rival": 120452.0,
+  "margin": -11076.0,
+  "died": {
+   "plant_WHEAT": 3,
+   "plant_STRAWBERRY": 2,
+   "plant_TOMATO": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "skip_FEED": 2,
+   "skip_DROP": 4,
+   "wait_pick": 1,
+   "skip_WATER": 8
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -6996,
+    "books_cap": -443
+   },
+   "WOOL": {
+    "actual": -2391,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -3068,
+    "books_cap": -653
+   },
+   "EGG": {
+    "actual": 548,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -8868,
+    "books_cap": -7535
+   },
+   "CARROT": {
+    "actual": -216,
+    "books_cap": -157
+   },
+   "TOMATO": {
+    "actual": -479,
+    "books_cap": -464
+   },
+   "FERTILIZER": {
+    "actual": -264,
+    "books_cap": -5
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -21724,
+    "books_cap": -9257
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 308 / 318, WOOL 204 / 166, MILK 195 / 202, EGG 161 / 149, WHEAT 291 / 499, CARROT 48 / 54, TOMATO 58 / 69, FERTILIZER 166 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 0/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 38.0 (arm 38.0)",
+   "checks books_cap: shed identical 0/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 38.0 (arm 38.0)"
+  ]
+ },
+ "KWE7": {
+  "label": "KWE7: KDF1 + floors capped by the trailing 24 h MEAN quote (a day-long glut is priced as one; one thin dawn quote still floored)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24
+  },
+  "own": 108585.0,
+  "rival": 114965.0,
+  "margin": -6380.0,
+  "died": {
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 14
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -5960,
+    "books_cap": -243
+   },
+   "WOOL": {
+    "actual": -1158,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -1982,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1217,
+    "books_cap": -1182
+   },
+   "WHEAT": {
+    "actual": -5593,
+    "books_cap": -3981
+   },
+   "CARROT": {
+    "actual": -130,
+    "books_cap": -77
+   },
+   "TOMATO": {
+    "actual": -348,
+    "books_cap": -335
+   },
+   "FERTILIZER": {
+    "actual": -488,
+    "books_cap": -2
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -16866,
+    "books_cap": -5820
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 312 / 318, WOOL 195 / 166, MILK 205 / 202, EGG 127 / 149, WHEAT 360 / 499, CARROT 51 / 54, TOMATO 61 / 69, FERTILIZER 169 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 76.0 (arm 76.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 76.0 (arm 76.0)"
+  ]
+ },
+ "KWE7x": {
+  "label": "KWE7x: floors capped by the trailing 24 h MAX quote (mild)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24,
+   "sd_maint_floor_stat": "max"
+  },
+  "own": 106763.0,
+  "rival": 117315.0,
+  "margin": -10552.0,
+  "died": {
+   "plant_WHEAT": 3,
+   "animal_COW": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 6
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -6561,
+    "books_cap": -198
+   },
+   "WOOL": {
+    "actual": -2515,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -3593,
+    "books_cap": -559
+   },
+   "EGG": {
+    "actual": -1345,
+    "books_cap": -1344
+   },
+   "WHEAT": {
+    "actual": -5385,
+    "books_cap": -3800
+   },
+   "CARROT": {
+    "actual": -235,
+    "books_cap": -157
+   },
+   "TOMATO": {
+    "actual": -282,
+    "books_cap": -292
+   },
+   "FERTILIZER": {
+    "actual": -718,
+    "books_cap": -20
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -20624,
+    "books_cap": -6370
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 313 / 318, WOOL 181 / 166, MILK 196 / 202, EGG 124 / 149, WHEAT 364 / 499, CARROT 48 / 54, TOMATO 62 / 69, FERTILIZER 161 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 44.0 (arm 44.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 44.0 (arm 44.0)"
+  ]
+ },
+ "KWE7b": {
+  "label": "KWE7b: floors capped by the trailing 48 h MEAN quote",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48
+  },
+  "own": 106277.0,
+  "rival": 112547.0,
+  "margin": -6270.0,
+  "died": {
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 11
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 12
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -5381,
+    "books_cap": 0
+   },
+   "WOOL": {
+    "actual": -1619,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2277,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -936,
+    "books_cap": -913
+   },
+   "WHEAT": {
+    "actual": -4893,
+    "books_cap": -3453
+   },
+   "CARROT": {
+    "actual": -309,
+    "books_cap": -209
+   },
+   "TOMATO": {
+    "actual": -362,
+    "books_cap": -378
+   },
+   "FERTILIZER": {
+    "actual": -506,
+    "books_cap": -4
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -16273,
+    "books_cap": -4957
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 319 / 318, WOOL 189 / 166, MILK 212 / 202, EGG 132 / 149, WHEAT 371 / 499, CARROT 46 / 54, TOMATO 60 / 69, FERTILIZER 167 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 6.0 (arm 6.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 6.0 (arm 6.0)"
+  ]
+ },
+ "KWE8": {
+  "label": "KWE8: KWE7 (trailing 24 h mean floor) + KWE1 (goose CARE mandatory with the mandatory FEED)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24,
+   "sd_tier_goose_care": 1
+  },
+  "own": 108307.0,
+  "rival": 117174.0,
+  "margin": -8867.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_WHEAT": 3,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "skip_FEED": 1,
+   "skip_DROP": 7,
+   "skip_WATER": 10,
+   "skip_HARVEST": 1,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7843,
+    "books_cap": -612
+   },
+   "WOOL": {
+    "actual": -706,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2522,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": 31,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -6941,
+    "books_cap": -5455
+   },
+   "CARROT": {
+    "actual": -724,
+    "books_cap": -682
+   },
+   "TOMATO": {
+    "actual": -540,
+    "books_cap": -551
+   },
+   "FERTILIZER": {
+    "actual": -470,
+    "books_cap": 1
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -19705,
+    "books_cap": -7299
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 305 / 318, WOOL 196 / 166, MILK 203 / 202, EGG 151 / 149, WHEAT 329 / 499, CARROT 29 / 54, TOMATO 56 / 69, FERTILIZER 173 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 44.0 (arm 44.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 44.0 (arm 44.0)"
+  ]
+ },
+ "KWE9": {
+  "label": "KWE9: KWE7 + KWE4 (goose FEED/CARE bundles in the tier-C pool at any value)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24,
+   "sd_tier_goose_c_minv": 0.0
+  },
+  "own": 108889.0,
+  "rival": 122008.0,
+  "margin": -13119.0,
+  "died": {
+   "animal_COW": 1,
+   "plant_STRAWBERRY": 2,
+   "plant_TOMATO": 1,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_FEED": 3,
+   "skip_DROP": 2,
+   "skip_WATER": 11,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7510,
+    "books_cap": -1131
+   },
+   "WOOL": {
+    "actual": -2398,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -3657,
+    "books_cap": -976
+   },
+   "EGG": {
+    "actual": 295,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -7691,
+    "books_cap": -6163
+   },
+   "CARROT": {
+    "actual": -341,
+    "books_cap": -289
+   },
+   "TOMATO": {
+    "actual": -729,
+    "books_cap": -727
+   },
+   "FERTILIZER": {
+    "actual": -1587,
+    "books_cap": -157
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -23608,
+    "books_cap": -9443
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 297 / 318, WOOL 196 / 166, MILK 193 / 202, EGG 156 / 149, WHEAT 316 / 499, CARROT 43 / 54, TOMATO 52 / 69, FERTILIZER 143 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 86.0 (arm 86.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 86.0 (arm 86.0)"
+  ]
+ },
+ "KWE10": {
+  "label": "KWE10: KWE7b (trailing 48 h mean floor) + KWE1",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1
+  },
+  "own": 110706.0,
+  "rival": 122025.0,
+  "margin": -11319.0,
+  "died": {
+   "plant_STRAWBERRY": 3,
+   "plant_WHEAT": 2,
+   "plant_TOMATO": 1,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "skip_FEED": 1,
+   "skip_DROP": 7,
+   "skip_WATER": 9
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -9528,
+    "books_cap": -1265
+   },
+   "WOOL": {
+    "actual": -2053,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2682,
+    "books_cap": -95
+   },
+   "EGG": {
+    "actual": 441,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -6591,
+    "books_cap": -4960
+   },
+   "CARROT": {
+    "actual": -458,
+    "books_cap": -401
+   },
+   "TOMATO": {
+    "actual": -550,
+    "books_cap": -551
+   },
+   "FERTILIZER": {
+    "actual": -553,
+    "books_cap": 1
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -21964,
+    "books_cap": -7271
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 295 / 318, WOOL 183 / 166, MILK 201 / 202, EGG 159 / 149, WHEAT 340 / 499, CARROT 39 / 54, TOMATO 56 / 69, FERTILIZER 179 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 39.0 (arm 39.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 39.0 (arm 39.0)"
+  ]
+ },
+ "KWE0s1": {
+  "label": "KWE0: KDF1 config on the wheat/egg copy (identity check) | planner seed 1 (noise check)",
+  "cfg_extra": {
+   "sd_seed": 1
+  },
+  "own": 107591.0,
+  "rival": 117306.0,
+  "margin": -9715.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_WHEAT": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 6,
+   "skip_WATER": 8,
+   "skip_HARVEST": 1,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7505,
+    "books_cap": -736
+   },
+   "WOOL": {
+    "actual": -1070,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -404,
+    "books_cap": -184
+   },
+   "EGG": {
+    "actual": -1107,
+    "books_cap": -1075
+   },
+   "WHEAT": {
+    "actual": -8388,
+    "books_cap": -6995
+   },
+   "CARROT": {
+    "actual": -369,
+    "books_cap": -317
+   },
+   "TOMATO": {
+    "actual": -737,
+    "books_cap": -727
+   },
+   "FERTILIZER": {
+    "actual": -757,
+    "books_cap": -4
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -20327,
+    "books_cap": -10038
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 303 / 318, WOOL 202 / 166, MILK 200 / 202, EGG 129 / 149, WHEAT 302 / 499, CARROT 42 / 54, TOMATO 52 / 69, FERTILIZER 167 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 77.0 (arm 77.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 77.0 (arm 77.0)"
+  ]
+ },
+ "KWE0s2": {
+  "label": "KWE0: KDF1 config on the wheat/egg copy (identity check) | planner seed 2 (noise check)",
+  "cfg_extra": {
+   "sd_seed": 2
+  },
+  "own": 106445.0,
+  "rival": 118272.0,
+  "margin": -11827.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "skip_DROP": 10,
+   "skip_WATER": 8
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7542,
+    "books_cap": -736
+   },
+   "WOOL": {
+    "actual": -2430,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2076,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1782,
+    "books_cap": -1773
+   },
+   "WHEAT": {
+    "actual": -6368,
+    "books_cap": -4395
+   },
+   "CARROT": {
+    "actual": -146,
+    "books_cap": -77
+   },
+   "TOMATO": {
+    "actual": -632,
+    "books_cap": -639
+   },
+   "FERTILIZER": {
+    "actual": -1475,
+    "books_cap": -200
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -22441,
+    "books_cap": -7820
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 303 / 318, WOOL 194 / 166, MILK 204 / 202, EGG 116 / 149, WHEAT 352 / 499, CARROT 51 / 54, TOMATO 54 / 69, FERTILIZER 140 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 45.0 (arm 45.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 45.0 (arm 45.0)"
+  ]
+ },
+ "KWE0s3": {
+  "label": "KWE0: KDF1 config on the wheat/egg copy (identity check) | planner seed 3 (noise check)",
+  "cfg_extra": {
+   "sd_seed": 3
+  },
+  "own": 108645.0,
+  "rival": 116298.0,
+  "margin": -7653.0,
+  "died": {
+   "plant_STRAWBERRY": 4,
+   "plant_WHEAT": 1,
+   "plant_TOMATO": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 9
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -5613,
+    "books_cap": -497
+   },
+   "WOOL": {
+    "actual": -2138,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2232,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1348,
+    "books_cap": -1344
+   },
+   "WHEAT": {
+    "actual": -5612,
+    "books_cap": -3869
+   },
+   "CARROT": {
+    "actual": -86,
+    "books_cap": 0
+   },
+   "TOMATO": {
+    "actual": -189,
+    "books_cap": -208
+   },
+   "FERTILIZER": {
+    "actual": -1033,
+    "books_cap": -14
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -18241,
+    "books_cap": -5932
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 307 / 318, WOOL 198 / 166, MILK 205 / 202, EGG 124 / 149, WHEAT 362 / 499, CARROT 55 / 54, TOMATO 64 / 69, FERTILIZER 163 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 13.0 (arm 13.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 13.0 (arm 13.0)"
+  ]
+ },
+ "KWE1s1": {
+  "label": "KWE1: KDF1 + goose CARE mandatory wherever the goose FEED is mandatory (chains daily via the bank) | planner seed 1 (noise check)",
+  "cfg_extra": {
+   "sd_tier_goose_care": 1,
+   "sd_seed": 1
+  },
+  "own": 110622.0,
+  "rival": 119967.0,
+  "margin": -9345.0,
+  "died": {
+   "plant_STRAWBERRY": 3,
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "skip_FEED": 1,
+   "skip_DROP": 7,
+   "skip_WATER": 11
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -6748,
+    "books_cap": -1197
+   },
+   "WOOL": {
+    "actual": -553,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2947,
+    "books_cap": -814
+   },
+   "EGG": {
+    "actual": 249,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -8606,
+    "books_cap": -6902
+   },
+   "CARROT": {
+    "actual": -341,
+    "books_cap": -289
+   },
+   "TOMATO": {
+    "actual": -285,
+    "books_cap": -292
+   },
+   "FERTILIZER": {
+    "actual": -942,
+    "books_cap": -57
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -20163,
+    "books_cap": -9551
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 296 / 318, WOOL 207 / 166, MILK 194 / 202, EGG 155 / 149, WHEAT 303 / 499, CARROT 43 / 54, TOMATO 62 / 69, FERTILIZER 154 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 61.0 (arm 61.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 61.0 (arm 61.0)"
+  ]
+ },
+ "KWE1s2": {
+  "label": "KWE1: KDF1 + goose CARE mandatory wherever the goose FEED is mandatory (chains daily via the bank) | planner seed 2 (noise check)",
+  "cfg_extra": {
+   "sd_tier_goose_care": 1,
+   "sd_seed": 2
+  },
+  "own": 107925.0,
+  "rival": 120182.0,
+  "margin": -12257.0,
+  "died": {
+   "plant_STRAWBERRY": 4,
+   "plant_WHEAT": 3,
+   "plant_TOMATO": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 3,
+   "skip_WATER": 12
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -9260,
+    "books_cap": -2401
+   },
+   "WOOL": {
+    "actual": -1509,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2485,
+    "books_cap": -366
+   },
+   "EGG": {
+    "actual": 156,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -7702,
+    "books_cap": -6137
+   },
+   "CARROT": {
+    "actual": -274,
+    "books_cap": -209
+   },
+   "TOMATO": {
+    "actual": -632,
+    "books_cap": -639
+   },
+   "FERTILIZER": {
+    "actual": -824,
+    "books_cap": -14
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -22520,
+    "books_cap": -9766
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 281 / 318, WOOL 201 / 166, MILK 198 / 202, EGG 153 / 149, WHEAT 321 / 499, CARROT 46 / 54, TOMATO 54 / 69, FERTILIZER 163 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 37.0 (arm 37.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 37.0 (arm 37.0)"
+  ]
+ },
+ "KWE1s3": {
+  "label": "KWE1: KDF1 + goose CARE mandatory wherever the goose FEED is mandatory (chains daily via the bank) | planner seed 3 (noise check)",
+  "cfg_extra": {
+   "sd_tier_goose_care": 1,
+   "sd_seed": 3
+  },
+  "own": 106914.0,
+  "rival": 117729.0,
+  "margin": -10815.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 5,
+   "skip_WATER": 8
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7345,
+    "books_cap": -1334
+   },
+   "WOOL": {
+    "actual": -1596,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2591,
+    "books_cap": -460
+   },
+   "EGG": {
+    "actual": 147,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -8470,
+    "books_cap": -6903
+   },
+   "CARROT": {
+    "actual": -124,
+    "books_cap": -25
+   },
+   "TOMATO": {
+    "actual": -403,
+    "books_cap": -421
+   },
+   "FERTILIZER": {
+    "actual": -932,
+    "books_cap": -34
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -21304,
+    "books_cap": -9177
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 294 / 318, WOOL 197 / 166, MILK 197 / 202, EGG 153 / 149, WHEAT 305 / 499, CARROT 53 / 54, TOMATO 59 / 69, FERTILIZER 158 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 78.0 (arm 78.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 78.0 (arm 78.0)"
+  ]
+ },
+ "KWE7s1": {
+  "label": "KWE7: KDF1 + floors capped by the trailing 24 h MEAN quote (a day-long glut is priced as one; one thin dawn quote still floored) | planner seed 1 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24,
+   "sd_seed": 1
+  },
+  "own": 108125.0,
+  "rival": 115935.0,
+  "margin": -7810.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 1,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 4,
+   "skip_WATER": 13,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7176,
+    "books_cap": -553
+   },
+   "WOOL": {
+    "actual": -803,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -1463,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -619,
+    "books_cap": -587
+   },
+   "WHEAT": {
+    "actual": -6687,
+    "books_cap": -4545
+   },
+   "CARROT": {
+    "actual": -545,
+    "books_cap": -485
+   },
+   "TOMATO": {
+    "actual": -453,
+    "books_cap": -464
+   },
+   "FERTILIZER": {
+    "actual": -583,
+    "books_cap": -2
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -18319,
+    "books_cap": -6636
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 306 / 318, WOOL 206 / 166, MILK 206 / 202, EGG 138 / 149, WHEAT 349 / 499, CARROT 36 / 54, TOMATO 58 / 69, FERTILIZER 169 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 36.0 (arm 36.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 36.0 (arm 36.0)"
+  ]
+ },
+ "KWE7s2": {
+  "label": "KWE7: KDF1 + floors capped by the trailing 24 h MEAN quote (a day-long glut is priced as one; one thin dawn quote still floored) | planner seed 2 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24,
+   "sd_seed": 2
+  },
+  "own": 107455.0,
+  "rival": 117263.0,
+  "margin": -9808.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 3,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "skip_DROP": 7,
+   "skip_WATER": 8
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7340,
+    "books_cap": -290
+   },
+   "WOOL": {
+    "actual": -2075,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2080,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -736,
+    "books_cap": -697
+   },
+   "WHEAT": {
+    "actual": -6293,
+    "books_cap": -4505
+   },
+   "CARROT": {
+    "actual": -385,
+    "books_cap": -317
+   },
+   "TOMATO": {
+    "actual": -585,
+    "books_cap": -595
+   },
+   "FERTILIZER": {
+    "actual": -1183,
+    "books_cap": -51
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -20667,
+    "books_cap": -6455
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 311 / 318, WOOL 181 / 166, MILK 204 / 202, EGG 136 / 149, WHEAT 348 / 499, CARROT 42 / 54, TOMATO 55 / 69, FERTILIZER 155 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 43.0 (arm 43.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 43.0 (arm 43.0)"
+  ]
+ },
+ "KWE7s3": {
+  "label": "KWE7: KDF1 + floors capped by the trailing 24 h MEAN quote (a day-long glut is priced as one; one thin dawn quote still floored) | planner seed 3 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24,
+   "sd_seed": 3
+  },
+  "own": 108408.0,
+  "rival": 116331.0,
+  "margin": -7923.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 3,
+   "animal_SHEEP": 10,
+   "animal_GOOSE": 1
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 14,
+   "pick_short": 1,
+   "skip_FEED": 2
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -6541,
+    "books_cap": -736
+   },
+   "WOOL": {
+    "actual": -2810,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -1919,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1424,
+    "books_cap": -1398
+   },
+   "WHEAT": {
+    "actual": -3938,
+    "books_cap": -2264
+   },
+   "CARROT": {
+    "actual": -175,
+    "books_cap": -77
+   },
+   "TOMATO": {
+    "actual": -323,
+    "books_cap": -335
+   },
+   "FERTILIZER": {
+    "actual": -1024,
+    "books_cap": -12
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -18144,
+    "books_cap": -4822
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 303 / 318, WOOL 179 / 166, MILK 204 / 202, EGG 123 / 149, WHEAT 400 / 499, CARROT 51 / 54, TOMATO 61 / 69, FERTILIZER 164 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 50.0 (arm 50.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 50.0 (arm 50.0)"
+  ]
+ },
+ "KWE7bs1": {
+  "label": "KWE7b: floors capped by the trailing 48 h MEAN quote | planner seed 1 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_seed": 1
+  },
+  "own": 108219.0,
+  "rival": 116077.0,
+  "margin": -7858.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 1,
+   "animal_SHEEP": 9
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 6,
+   "skip_WATER": 9,
+   "skip_HARVEST": 1,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7500,
+    "books_cap": -290
+   },
+   "WOOL": {
+    "actual": -1708,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -672,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1203,
+    "books_cap": -1182
+   },
+   "WHEAT": {
+    "actual": -5887,
+    "books_cap": -4183
+   },
+   "CARROT": {
+    "actual": -357,
+    "books_cap": -261
+   },
+   "TOMATO": {
+    "actual": -495,
+    "books_cap": -507
+   },
+   "FERTILIZER": {
+    "actual": -739,
+    "books_cap": -3
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -18551,
+    "books_cap": -6426
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 311 / 318, WOOL 178 / 166, MILK 212 / 202, EGG 127 / 149, WHEAT 355 / 499, CARROT 44 / 54, TOMATO 57 / 69, FERTILIZER 168 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 87.0 (arm 87.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 87.0 (arm 87.0)"
+  ]
+ },
+ "KWE7bs2": {
+  "label": "KWE7b: floors capped by the trailing 48 h MEAN quote | planner seed 2 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_seed": 2
+  },
+  "own": 108829.0,
+  "rival": 118245.0,
+  "margin": -9416.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_TOMATO": 1,
+   "plant_WHEAT": 1,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "skip_DROP": 10,
+   "skip_WATER": 8,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7620,
+    "books_cap": -800
+   },
+   "WOOL": {
+    "actual": -1459,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2545,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1105,
+    "books_cap": -1075
+   },
+   "WHEAT": {
+    "actual": -4986,
+    "books_cap": -3048
+   },
+   "CARROT": {
+    "actual": -220,
+    "books_cap": -157
+   },
+   "TOMATO": {
+    "actual": -848,
+    "books_cap": -817
+   },
+   "FERTILIZER": {
+    "actual": -1216,
+    "books_cap": -8
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -19989,
+    "books_cap": -5905
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 302 / 318, WOOL 185 / 166, MILK 204 / 202, EGG 129 / 149, WHEAT 380 / 499, CARROT 48 / 54, TOMATO 50 / 69, FERTILIZER 165 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 38.0 (arm 38.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 38.0 (arm 38.0)"
+  ]
+ },
+ "KWE7bs3": {
+  "label": "KWE7b: floors capped by the trailing 48 h MEAN quote | planner seed 3 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_seed": 3
+  },
+  "own": 108647.0,
+  "rival": 114884.0,
+  "margin": -6237.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_WHEAT": 2,
+   "plant_TOMATO": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 3,
+   "skip_WATER": 13
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -5101,
+    "books_cap": -114
+   },
+   "WOOL": {
+    "actual": -2370,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2935,
+    "books_cap": -366
+   },
+   "EGG": {
+    "actual": -618,
+    "books_cap": -587
+   },
+   "WHEAT": {
+    "actual": -4591,
+    "books_cap": -3088
+   },
+   "CARROT": {
+    "actual": -181,
+    "books_cap": -104
+   },
+   "TOMATO": {
+    "actual": -64,
+    "books_cap": -82
+   },
+   "FERTILIZER": {
+    "actual": -947,
+    "books_cap": -2
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -16797,
+    "books_cap": -4343
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 315 / 318, WOOL 178 / 166, MILK 198 / 202, EGG 138 / 149, WHEAT 379 / 499, CARROT 50 / 54, TOMATO 67 / 69, FERTILIZER 169 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 0.0 (arm 0.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 0.0 (arm 0.0)"
+  ]
+ },
+ "KWE10s1": {
+  "label": "KWE10: KWE7b (trailing 48 h mean floor) + KWE1 | planner seed 1 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_seed": 1
+  },
+  "own": 109992.0,
+  "rival": 117113.0,
+  "margin": -7121.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_TOMATO": 1,
+   "plant_WHEAT": 3,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "skip_FEED": 1,
+   "skip_DROP": 8,
+   "skip_WATER": 13
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7267,
+    "books_cap": -390
+   },
+   "WOOL": {
+    "actual": 133,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2326,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": 54,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -6803,
+    "books_cap": -4740
+   },
+   "CARROT": {
+    "actual": -466,
+    "books_cap": -429
+   },
+   "TOMATO": {
+    "actual": -583,
+    "books_cap": -595
+   },
+   "FERTILIZER": {
+    "actual": -782,
+    "books_cap": -24
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -18030,
+    "books_cap": -6178
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 309 / 318, WOOL 185 / 166, MILK 208 / 202, EGG 151 / 149, WHEAT 343 / 499, CARROT 38 / 54, TOMATO 55 / 69, FERTILIZER 160 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 83.0 (arm 83.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 83.0 (arm 83.0)"
+  ]
+ },
+ "KWE10s2": {
+  "label": "KWE10: KWE7b (trailing 48 h mean floor) + KWE1 | planner seed 2 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_seed": 2
+  },
+  "own": 109625.0,
+  "rival": 116823.0,
+  "margin": -7198.0,
+  "died": {
+   "plant_STRAWBERRY": 3,
+   "plant_WHEAT": 3,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 4,
+   "skip_WATER": 16,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7718,
+    "books_cap": -736
+   },
+   "WOOL": {
+    "actual": -1636,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2323,
+    "books_cap": -95
+   },
+   "EGG": {
+    "actual": 150,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -5455,
+    "books_cap": -4211
+   },
+   "CARROT": {
+    "actual": 61,
+    "books_cap": 0
+   },
+   "TOMATO": {
+    "actual": -161,
+    "books_cap": -166
+   },
+   "FERTILIZER": {
+    "actual": -524,
+    "books_cap": -3
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -17596,
+    "books_cap": -5211
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 303 / 318, WOOL 177 / 166, MILK 201 / 202, EGG 153 / 149, WHEAT 356 / 499, CARROT 59 / 54, TOMATO 65 / 69, FERTILIZER 168 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 44.0 (arm 44.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 44.0 (arm 44.0)"
+  ]
+ },
+ "KWE10s3": {
+  "label": "KWE10: KWE7b (trailing 48 h mean floor) + KWE1 | planner seed 3 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_seed": 3
+  },
+  "own": 109901.0,
+  "rival": 119139.0,
+  "margin": -9238.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 5,
+   "skip_WATER": 9,
+   "skip_HARVEST": 2
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7790,
+    "books_cap": -866
+   },
+   "WOOL": {
+    "actual": -1195,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2908,
+    "books_cap": -976
+   },
+   "EGG": {
+    "actual": 651,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -6086,
+    "books_cap": -4172
+   },
+   "CARROT": {
+    "actual": -741,
+    "books_cap": -653
+   },
+   "TOMATO": {
+    "actual": -819,
+    "books_cap": -817
+   },
+   "FERTILIZER": {
+    "actual": -781,
+    "books_cap": -1
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -19659,
+    "books_cap": -7485
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 301 / 318, WOOL 201 / 166, MILK 193 / 202, EGG 163 / 149, WHEAT 357 / 499, CARROT 30 / 54, TOMATO 50 / 69, FERTILIZER 170 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 80.0 (arm 80.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 80.0 (arm 80.0)"
+  ]
+ },
+ "KWE7n": {
+  "label": "KWE7n: KDF1 without the abandonment floors (strong end of the floor sweep: the maintenance module prices on the hour-0 quote)",
+  "cfg_extra": {
+   "sd_maint_floor": {}
+  },
+  "own": 104987.0,
+  "rival": 117265.0,
+  "margin": -12278.0,
+  "died": {
+   "plant_WHEAT": 1,
+   "animal_SHEEP": 14
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 14,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -5326,
+    "books_cap": 0
+   },
+   "WOOL": {
+    "actual": -6552,
+    "books_cap": -2102
+   },
+   "MILK": {
+    "actual": -1489,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -616,
+    "books_cap": -587
+   },
+   "WHEAT": {
+    "actual": -5274,
+    "books_cap": -3106
+   },
+   "CARROT": {
+    "actual": -421,
+    "books_cap": -373
+   },
+   "TOMATO": {
+    "actual": -564,
+    "books_cap": -551
+   },
+   "FERTILIZER": {
+    "actual": -443,
+    "books_cap": -1
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -20675,
+    "books_cap": -6720
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 320 / 318, WOOL 150 / 166, MILK 211 / 202, EGG 138 / 149, WHEAT 379 / 499, CARROT 40 / 54, TOMATO 56 / 69, FERTILIZER 170 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 25.0 (arm 25.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 25.0 (arm 25.0)"
+  ]
+ },
+ "KWE7xs1": {
+  "label": "KWE7x: floors capped by the trailing 24 h MAX quote (mild) | planner seed 1 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24,
+   "sd_maint_floor_stat": "max",
+   "sd_seed": 1
+  },
+  "own": 106906.0,
+  "rival": 117155.0,
+  "margin": -10249.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_TOMATO": 1,
+   "plant_WHEAT": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 5,
+   "skip_WATER": 10
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -8140,
+    "books_cap": -800
+   },
+   "WOOL": {
+    "actual": -2614,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -1572,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1140,
+    "books_cap": -1129
+   },
+   "WHEAT": {
+    "actual": -5877,
+    "books_cap": -4218
+   },
+   "CARROT": {
+    "actual": -293,
+    "books_cap": -209
+   },
+   "TOMATO": {
+    "actual": -676,
+    "books_cap": -683
+   },
+   "FERTILIZER": {
+    "actual": -716,
+    "books_cap": -4
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -21018,
+    "books_cap": -7043
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 302 / 318, WOOL 174 / 166, MILK 211 / 202, EGG 128 / 149, WHEAT 354 / 499, CARROT 46 / 54, TOMATO 53 / 69, FERTILIZER 167 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 74.0 (arm 74.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 74.0 (arm 74.0)"
+  ]
+ },
+ "KWE7xs2": {
+  "label": "KWE7x: floors capped by the trailing 24 h MAX quote (mild) | planner seed 2 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24,
+   "sd_maint_floor_stat": "max",
+   "sd_seed": 2
+  },
+  "own": 107685.0,
+  "rival": 119861.0,
+  "margin": -12176.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "skip_DROP": 8,
+   "skip_WATER": 12
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -8137,
+    "books_cap": -443
+   },
+   "WOOL": {
+    "actual": -2142,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2418,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1153,
+    "books_cap": -1129
+   },
+   "WHEAT": {
+    "actual": -6715,
+    "books_cap": -4710
+   },
+   "CARROT": {
+    "actual": -388,
+    "books_cap": -345
+   },
+   "TOMATO": {
+    "actual": -576,
+    "books_cap": -551
+   },
+   "FERTILIZER": {
+    "actual": -1390,
+    "books_cap": -102
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -22909,
+    "books_cap": -7280
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 308 / 318, WOOL 192 / 166, MILK 205 / 202, EGG 128 / 149, WHEAT 345 / 499, CARROT 41 / 54, TOMATO 56 / 69, FERTILIZER 148 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 53.0 (arm 53.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 53.0 (arm 53.0)"
+  ]
+ },
+ "KWE7xs3": {
+  "label": "KWE7x: floors capped by the trailing 24 h MAX quote (mild) | planner seed 3 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24,
+   "sd_maint_floor_stat": "max",
+   "sd_seed": 3
+  },
+  "own": 107749.0,
+  "rival": 118337.0,
+  "margin": -10588.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_WHEAT": 1,
+   "plant_TOMATO": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 5,
+   "skip_WATER": 7
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7311,
+    "books_cap": -1265
+   },
+   "WOOL": {
+    "actual": -2835,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -4184,
+    "books_cap": -814
+   },
+   "EGG": {
+    "actual": -1233,
+    "books_cap": -1236
+   },
+   "WHEAT": {
+    "actual": -4188,
+    "books_cap": -2499
+   },
+   "CARROT": {
+    "actual": -137,
+    "books_cap": -25
+   },
+   "TOMATO": {
+    "actual": -279,
+    "books_cap": -292
+   },
+   "FERTILIZER": {
+    "actual": -1042,
+    "books_cap": -35
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -21199,
+    "books_cap": -6166
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 295 / 318, WOOL 176 / 166, MILK 194 / 202, EGG 126 / 149, WHEAT 393 / 499, CARROT 53 / 54, TOMATO 62 / 69, FERTILIZER 158 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 63.0 (arm 63.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 63.0 (arm 63.0)"
+  ]
+ },
+ "KWE7ns1": {
+  "label": "KWE7n: KDF1 without the abandonment floors (strong end of the floor sweep: the maintenance module prices on the hour-0 quote) | planner seed 1 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor": {},
+   "sd_seed": 1
+  },
+  "own": 108971.0,
+  "rival": 118390.0,
+  "margin": -9419.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 4,
+   "skip_WATER": 9,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7933,
+    "books_cap": -736
+   },
+   "WOOL": {
+    "actual": -3393,
+    "books_cap": -123
+   },
+   "MILK": {
+    "actual": -1112,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -944,
+    "books_cap": -913
+   },
+   "WHEAT": {
+    "actual": -5707,
+    "books_cap": -3810
+   },
+   "CARROT": {
+    "actual": -175,
+    "books_cap": -131
+   },
+   "TOMATO": {
+    "actual": -285,
+    "books_cap": -292
+   },
+   "FERTILIZER": {
+    "actual": -636,
+    "books_cap": -5
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -20175,
+    "books_cap": -6010
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 303 / 318, WOOL 165 / 166, MILK 208 / 202, EGG 132 / 149, WHEAT 362 / 499, CARROT 49 / 54, TOMATO 62 / 69, FERTILIZER 166 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 69.0 (arm 69.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 69.0 (arm 69.0)"
+  ]
+ },
+ "KWE7ns2": {
+  "label": "KWE7n: KDF1 without the abandonment floors (strong end of the floor sweep: the maintenance module prices on the hour-0 quote) | planner seed 2 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor": {},
+   "sd_seed": 2
+  },
+  "own": 104100.0,
+  "rival": 122113.0,
+  "margin": -18013.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_TOMATO": 2,
+   "animal_SHEEP": 16
+  },
+  "exec": {
+   "skip_DROP": 9,
+   "skip_WATER": 13,
+   "skip_HARVEST": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -8461,
+    "books_cap": -290
+   },
+   "WOOL": {
+    "actual": -4417,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -3562,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -431,
+    "books_cap": -375
+   },
+   "WHEAT": {
+    "actual": -5394,
+    "books_cap": -3962
+   },
+   "CARROT": {
+    "actual": -348,
+    "books_cap": -289
+   },
+   "TOMATO": {
+    "actual": -585,
+    "books_cap": -595
+   },
+   "FERTILIZER": {
+    "actual": -1133,
+    "books_cap": -20
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -24321,
+    "books_cap": -5531
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 311 / 318, WOOL 168 / 166, MILK 204 / 202, EGG 142 / 149, WHEAT 359 / 499, CARROT 43 / 54, TOMATO 55 / 69, FERTILIZER 161 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 44.0 (arm 44.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 44.0 (arm 44.0)"
+  ]
+ },
+ "KWE7ns3": {
+  "label": "KWE7n: KDF1 without the abandonment floors (strong end of the floor sweep: the maintenance module prices on the hour-0 quote) | planner seed 3 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor": {},
+   "sd_seed": 3
+  },
+  "own": 104171.0,
+  "rival": 118173.0,
+  "margin": -14002.0,
+  "died": {
+   "plant_STRAWBERRY": 3,
+   "plant_WHEAT": 3,
+   "animal_SHEEP": 19
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 8,
+   "skip_WATER": 9,
+   "skip_HARVEST": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -6178,
+    "books_cap": -290
+   },
+   "WOOL": {
+    "actual": -7204,
+    "books_cap": -1983
+   },
+   "MILK": {
+    "actual": -1747,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -893,
+    "books_cap": -859
+   },
+   "WHEAT": {
+    "actual": -2546,
+    "books_cap": -1474
+   },
+   "CARROT": {
+    "actual": -281,
+    "books_cap": -183
+   },
+   "TOMATO": {
+    "actual": -67,
+    "books_cap": -124
+   },
+   "FERTILIZER": {
+    "actual": -1189,
+    "books_cap": -111
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -20095,
+    "books_cap": -5024
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 311 / 318, WOOL 151 / 166, MILK 206 / 202, EGG 133 / 149, WHEAT 436 / 499, CARROT 47 / 54, TOMATO 66 / 69, FERTILIZER 147 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 9.0 (arm 9.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 9.0 (arm 9.0)"
+  ]
+ },
+ "KWE11": {
+  "label": "KWE11: KDF1 + access-drop bug fix (the PLACE after a wheat HARVEST on a shed tile keeps the feed wheat of the later FEEDs)",
+  "cfg_extra": {
+   "sd_tier_access_keep": 1
+  },
+  "own": 106363.0,
+  "rival": 114864.0,
+  "margin": -8501.0,
+  "died": {
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 9,
+   "plant_STRAWBERRY": 1
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 7,
+   "skip_HARVEST": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -5867,
+    "books_cap": -1004
+   },
+   "WOOL": {
+    "actual": -1528,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2131,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1443,
+    "books_cap": -1451
+   },
+   "WHEAT": {
+    "actual": -6081,
+    "books_cap": -4058
+   },
+   "CARROT": {
+    "actual": -453,
+    "books_cap": -373
+   },
+   "TOMATO": {
+    "actual": -721,
+    "books_cap": -727
+   },
+   "FERTILIZER": {
+    "actual": -746,
+    "books_cap": -11
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -18960,
+    "books_cap": -7624
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 299 / 318, WOOL 218 / 166, MILK 209 / 202, EGG 122 / 149, WHEAT 359 / 499, CARROT 40 / 54, TOMATO 52 / 69, FERTILIZER 164 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 50.0 (arm 50.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 50.0 (arm 50.0)"
+  ]
+ },
+ "KWE1f": {
+  "label": "KWE1f: KWE1 (goose care mandatory) + access-drop fix",
+  "cfg_extra": {
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1
+  },
+  "own": 108784.0,
+  "rival": 117498.0,
+  "margin": -8714.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 4,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "access_keep_wheat": 1,
+   "skip_DROP": 3,
+   "skip_WATER": 9,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7750,
+    "books_cap": -934
+   },
+   "WOOL": {
+    "actual": 553,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2869,
+    "books_cap": -460
+   },
+   "EGG": {
+    "actual": 39,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -7915,
+    "books_cap": -6574
+   },
+   "CARROT": {
+    "actual": -222,
+    "books_cap": -183
+   },
+   "TOMATO": {
+    "actual": -146,
+    "books_cap": -166
+   },
+   "FERTILIZER": {
+    "actual": -945,
+    "books_cap": -29
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -19245,
+    "books_cap": -8346
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 300 / 318, WOOL 224 / 166, MILK 197 / 202, EGG 151 / 149, WHEAT 311 / 499, CARROT 47 / 54, TOMATO 65 / 69, FERTILIZER 159 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 45.0 (arm 45.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 45.0 (arm 45.0)"
+  ]
+ },
+ "KWE4f": {
+  "label": "KWE4f: KWE4 (goose bundles in pool C) + access-drop fix",
+  "cfg_extra": {
+   "sd_tier_goose_c_minv": 0.0,
+   "sd_tier_access_keep": 1
+  },
+  "own": 106664.0,
+  "rival": 114978.0,
+  "margin": -8314.0,
+  "died": {
+   "plant_WHEAT": 1,
+   "plant_STRAWBERRY": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 1,
+   "access_keep_wheat": 3,
+   "skip_DROP": 4,
+   "skip_WATER": 12
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -6384,
+    "books_cap": -934
+   },
+   "WOOL": {
+    "actual": -878,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2372,
+    "books_cap": -460
+   },
+   "EGG": {
+    "actual": -125,
+    "books_cap": -54
+   },
+   "WHEAT": {
+    "actual": -6679,
+    "books_cap": -5001
+   },
+   "CARROT": {
+    "actual": -456,
+    "books_cap": -401
+   },
+   "TOMATO": {
+    "actual": -815,
+    "books_cap": -817
+   },
+   "FERTILIZER": {
+    "actual": -1119,
+    "books_cap": -102
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -18818,
+    "books_cap": -7769
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 300 / 318, WOOL 197 / 166, MILK 197 / 202, EGG 148 / 149, WHEAT 341 / 499, CARROT 39 / 54, TOMATO 50 / 69, FERTILIZER 148 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 66.0 (arm 66.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 66.0 (arm 66.0)"
+  ]
+ },
+ "KWE7bf": {
+  "label": "KWE7bf: KWE7b (trailing 48 h mean floor) + access-drop fix",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_access_keep": 1
+  },
+  "own": 106277.0,
+  "rival": 112547.0,
+  "margin": -6270.0,
+  "died": {
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 11
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 12
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -5381,
+    "books_cap": 0
+   },
+   "WOOL": {
+    "actual": -1619,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2277,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -936,
+    "books_cap": -913
+   },
+   "WHEAT": {
+    "actual": -4893,
+    "books_cap": -3453
+   },
+   "CARROT": {
+    "actual": -309,
+    "books_cap": -209
+   },
+   "TOMATO": {
+    "actual": -362,
+    "books_cap": -378
+   },
+   "FERTILIZER": {
+    "actual": -506,
+    "books_cap": -4
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -16273,
+    "books_cap": -4957
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 319 / 318, WOOL 189 / 166, MILK 212 / 202, EGG 132 / 149, WHEAT 371 / 499, CARROT 46 / 54, TOMATO 60 / 69, FERTILIZER 167 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 6.0 (arm 6.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 6.0 (arm 6.0)"
+  ]
+ },
+ "KWE10f": {
+  "label": "KWE10f: KWE10 (48 h floor + goose care) + access-drop fix",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1
+  },
+  "own": 111842.0,
+  "rival": 116920.0,
+  "margin": -5078.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "access_keep_wheat": 1,
+   "skip_DROP": 4,
+   "skip_WATER": 7
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -9009,
+    "books_cap": -934
+   },
+   "WOOL": {
+    "actual": 1692,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -269,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": 598,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -7309,
+    "books_cap": -5785
+   },
+   "CARROT": {
+    "actual": -461,
+    "books_cap": -401
+   },
+   "TOMATO": {
+    "actual": -211,
+    "books_cap": -250
+   },
+   "FERTILIZER": {
+    "actual": -619,
+    "books_cap": 1
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -15578,
+    "books_cap": -7369
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 300 / 318, WOOL 198 / 166, MILK 217 / 202, EGG 162 / 149, WHEAT 325 / 499, CARROT 39 / 54, TOMATO 63 / 69, FERTILIZER 177 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 46.0 (arm 46.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 46.0 (arm 46.0)"
+  ]
+ },
+ "KWE7f": {
+  "label": "KWE7f: KWE7 (trailing 24 h mean floor) + access-drop fix",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24,
+   "sd_tier_access_keep": 1
+  },
+  "own": 108585.0,
+  "rival": 114965.0,
+  "margin": -6380.0,
+  "died": {
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 14
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -5960,
+    "books_cap": -243
+   },
+   "WOOL": {
+    "actual": -1158,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -1982,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1217,
+    "books_cap": -1182
+   },
+   "WHEAT": {
+    "actual": -5593,
+    "books_cap": -3981
+   },
+   "CARROT": {
+    "actual": -130,
+    "books_cap": -77
+   },
+   "TOMATO": {
+    "actual": -348,
+    "books_cap": -335
+   },
+   "FERTILIZER": {
+    "actual": -488,
+    "books_cap": -2
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -16866,
+    "books_cap": -5820
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 312 / 318, WOOL 195 / 166, MILK 205 / 202, EGG 127 / 149, WHEAT 360 / 499, CARROT 51 / 54, TOMATO 61 / 69, FERTILIZER 169 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 76.0 (arm 76.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 76.0 (arm 76.0)"
+  ]
+ },
+ "KWE3f": {
+  "label": "KWE3f: KWE3 (goose FEED+CARE mandatory every day) + access-drop fix",
+  "cfg_extra": {
+   "sd_tier_goose_care": 3,
+   "sd_tier_access_keep": 1
+  },
+  "own": 108008.0,
+  "rival": 119920.0,
+  "margin": -11912.0,
+  "died": {
+   "plant_WHEAT": 3,
+   "plant_STRAWBERRY": 2,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "access_keep_wheat": 3,
+   "skip_DROP": 2,
+   "skip_WATER": 10,
+   "wait_wheat": 2
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -6918,
+    "books_cap": -612
+   },
+   "WOOL": {
+    "actual": -1845,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -3557,
+    "books_cap": -274
+   },
+   "EGG": {
+    "actual": 670,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -8577,
+    "books_cap": -7052
+   },
+   "CARROT": {
+    "actual": -345,
+    "books_cap": -261
+   },
+   "TOMATO": {
+    "actual": -116,
+    "books_cap": -124
+   },
+   "FERTILIZER": {
+    "actual": -1532,
+    "books_cap": -293
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -22210,
+    "books_cap": -8616
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 305 / 318, WOOL 208 / 166, MILK 199 / 202, EGG 163 / 149, WHEAT 304 / 499, CARROT 44 / 54, TOMATO 66 / 69, FERTILIZER 135 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 48.0 (arm 48.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 48.0 (arm 48.0)"
+  ]
+ },
+ "KWE5f": {
+  "label": "KWE5f: KWE5 (goose pool C x2) + access-drop fix",
+  "cfg_extra": {
+   "sd_tier_goose_c_minv": 0.0,
+   "sd_tier_goose_c_mult": 2.0,
+   "sd_tier_access_keep": 1
+  },
+  "own": 105742.0,
+  "rival": 116896.0,
+  "margin": -11154.0,
+  "died": {
+   "plant_TOMATO": 1,
+   "animal_COW": 2,
+   "plant_WHEAT": 1,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "wait_pick": 1,
+   "access_keep_wheat": 3,
+   "skip_DROP": 3,
+   "pick_short": 2,
+   "skip_WATER": 5,
+   "wait_wheat": 3,
+   "skip_FEED": 1,
+   "skip_HARVEST": 2
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -4827,
+    "books_cap": -497
+   },
+   "WOOL": {
+    "actual": -561,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -3135,
+    "books_cap": -1477
+   },
+   "EGG": {
+    "actual": 88,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -9991,
+    "books_cap": -8995
+   },
+   "CARROT": {
+    "actual": -618,
+    "books_cap": -569
+   },
+   "TOMATO": {
+    "actual": -783,
+    "books_cap": -772
+   },
+   "FERTILIZER": {
+    "actual": -1223,
+    "books_cap": -102
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -21040,
+    "books_cap": -12412
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 307 / 318, WOOL 218 / 166, MILK 190 / 202, EGG 152 / 149, WHEAT 265 / 499, CARROT 33 / 54, TOMATO 51 / 69, FERTILIZER 148 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 114.0 (arm 114.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 114.0 (arm 114.0)"
+  ]
+ },
+ "KWE6f": {
+  "label": "KWE6f: KWE6 (goose pool C x4) + access-drop fix",
+  "cfg_extra": {
+   "sd_tier_goose_c_minv": 0.0,
+   "sd_tier_goose_c_mult": 4.0,
+   "sd_tier_access_keep": 1
+  },
+  "own": 108471.0,
+  "rival": 117900.0,
+  "margin": -9429.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_TOMATO": 1,
+   "plant_WHEAT": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "access_keep_wheat": 2,
+   "skip_DROP": 6,
+   "skip_WATER": 12
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7507,
+    "books_cap": -1265
+   },
+   "WOOL": {
+    "actual": -2083,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -1382,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": 349,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -7623,
+    "books_cap": -5852
+   },
+   "CARROT": {
+    "actual": -200,
+    "books_cap": -131
+   },
+   "TOMATO": {
+    "actual": -591,
+    "books_cap": -595
+   },
+   "FERTILIZER": {
+    "actual": -1028,
+    "books_cap": -102
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -20055,
+    "books_cap": -7945
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 295 / 318, WOOL 206 / 166, MILK 202 / 202, EGG 157 / 149, WHEAT 324 / 499, CARROT 49 / 54, TOMATO 55 / 69, FERTILIZER 148 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 31.0 (arm 31.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 31.0 (arm 31.0)"
+  ]
+ },
+ "KWE11s1": {
+  "label": "KWE11: KDF1 + access-drop bug fix (the PLACE after a wheat HARVEST on a shed tile keeps the feed wheat of the later FEEDs) | planner seed 1 (noise check)",
+  "cfg_extra": {
+   "sd_tier_access_keep": 1,
+   "sd_seed": 1
+  },
+  "own": 107591.0,
+  "rival": 117306.0,
+  "margin": -9715.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_WHEAT": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 6,
+   "skip_WATER": 8,
+   "skip_HARVEST": 1,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7505,
+    "books_cap": -736
+   },
+   "WOOL": {
+    "actual": -1070,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -404,
+    "books_cap": -184
+   },
+   "EGG": {
+    "actual": -1107,
+    "books_cap": -1075
+   },
+   "WHEAT": {
+    "actual": -8388,
+    "books_cap": -6995
+   },
+   "CARROT": {
+    "actual": -369,
+    "books_cap": -317
+   },
+   "TOMATO": {
+    "actual": -737,
+    "books_cap": -727
+   },
+   "FERTILIZER": {
+    "actual": -757,
+    "books_cap": -4
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -20327,
+    "books_cap": -10038
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 303 / 318, WOOL 202 / 166, MILK 200 / 202, EGG 129 / 149, WHEAT 302 / 499, CARROT 42 / 54, TOMATO 52 / 69, FERTILIZER 167 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 77.0 (arm 77.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 77.0 (arm 77.0)"
+  ]
+ },
+ "KWE11s2": {
+  "label": "KWE11: KDF1 + access-drop bug fix (the PLACE after a wheat HARVEST on a shed tile keeps the feed wheat of the later FEEDs) | planner seed 2 (noise check)",
+  "cfg_extra": {
+   "sd_tier_access_keep": 1,
+   "sd_seed": 2
+  },
+  "own": 106445.0,
+  "rival": 118272.0,
+  "margin": -11827.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "skip_DROP": 10,
+   "skip_WATER": 8
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7542,
+    "books_cap": -736
+   },
+   "WOOL": {
+    "actual": -2430,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2076,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1782,
+    "books_cap": -1773
+   },
+   "WHEAT": {
+    "actual": -6368,
+    "books_cap": -4395
+   },
+   "CARROT": {
+    "actual": -146,
+    "books_cap": -77
+   },
+   "TOMATO": {
+    "actual": -632,
+    "books_cap": -639
+   },
+   "FERTILIZER": {
+    "actual": -1475,
+    "books_cap": -200
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -22441,
+    "books_cap": -7820
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 303 / 318, WOOL 194 / 166, MILK 204 / 202, EGG 116 / 149, WHEAT 352 / 499, CARROT 51 / 54, TOMATO 54 / 69, FERTILIZER 140 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 45.0 (arm 45.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 45.0 (arm 45.0)"
+  ]
+ },
+ "KWE11s3": {
+  "label": "KWE11: KDF1 + access-drop bug fix (the PLACE after a wheat HARVEST on a shed tile keeps the feed wheat of the later FEEDs) | planner seed 3 (noise check)",
+  "cfg_extra": {
+   "sd_tier_access_keep": 1,
+   "sd_seed": 3
+  },
+  "own": 108645.0,
+  "rival": 116298.0,
+  "margin": -7653.0,
+  "died": {
+   "plant_STRAWBERRY": 4,
+   "plant_WHEAT": 1,
+   "plant_TOMATO": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 9
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -5613,
+    "books_cap": -497
+   },
+   "WOOL": {
+    "actual": -2138,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2232,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1348,
+    "books_cap": -1344
+   },
+   "WHEAT": {
+    "actual": -5612,
+    "books_cap": -3869
+   },
+   "CARROT": {
+    "actual": -86,
+    "books_cap": 0
+   },
+   "TOMATO": {
+    "actual": -189,
+    "books_cap": -208
+   },
+   "FERTILIZER": {
+    "actual": -1033,
+    "books_cap": -14
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -18241,
+    "books_cap": -5932
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 307 / 318, WOOL 198 / 166, MILK 205 / 202, EGG 124 / 149, WHEAT 362 / 499, CARROT 55 / 54, TOMATO 64 / 69, FERTILIZER 163 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 13.0 (arm 13.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 13.0 (arm 13.0)"
+  ]
+ },
+ "KWE1fs1": {
+  "label": "KWE1f: KWE1 (goose care mandatory) + access-drop fix | planner seed 1 (noise check)",
+  "cfg_extra": {
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 1
+  },
+  "own": 110596.0,
+  "rival": 119978.0,
+  "margin": -9382.0,
+  "died": {
+   "plant_STRAWBERRY": 3,
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "access_keep_wheat": 1,
+   "skip_DROP": 7,
+   "skip_WATER": 11
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -6748,
+    "books_cap": -1197
+   },
+   "WOOL": {
+    "actual": -553,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2947,
+    "books_cap": -814
+   },
+   "EGG": {
+    "actual": 249,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -8647,
+    "books_cap": -6955
+   },
+   "CARROT": {
+    "actual": -341,
+    "books_cap": -289
+   },
+   "TOMATO": {
+    "actual": -285,
+    "books_cap": -292
+   },
+   "FERTILIZER": {
+    "actual": -942,
+    "books_cap": -57
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -20204,
+    "books_cap": -9604
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 296 / 318, WOOL 207 / 166, MILK 194 / 202, EGG 155 / 149, WHEAT 302 / 499, CARROT 43 / 54, TOMATO 62 / 69, FERTILIZER 154 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 61.0 (arm 61.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 61.0 (arm 61.0)"
+  ]
+ },
+ "KWE1fs2": {
+  "label": "KWE1f: KWE1 (goose care mandatory) + access-drop fix | planner seed 2 (noise check)",
+  "cfg_extra": {
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 2
+  },
+  "own": 107925.0,
+  "rival": 120182.0,
+  "margin": -12257.0,
+  "died": {
+   "plant_STRAWBERRY": 4,
+   "plant_WHEAT": 3,
+   "plant_TOMATO": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 3,
+   "skip_WATER": 12
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -9260,
+    "books_cap": -2401
+   },
+   "WOOL": {
+    "actual": -1509,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2485,
+    "books_cap": -366
+   },
+   "EGG": {
+    "actual": 156,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -7702,
+    "books_cap": -6137
+   },
+   "CARROT": {
+    "actual": -274,
+    "books_cap": -209
+   },
+   "TOMATO": {
+    "actual": -632,
+    "books_cap": -639
+   },
+   "FERTILIZER": {
+    "actual": -824,
+    "books_cap": -14
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -22520,
+    "books_cap": -9766
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 281 / 318, WOOL 201 / 166, MILK 198 / 202, EGG 153 / 149, WHEAT 321 / 499, CARROT 46 / 54, TOMATO 54 / 69, FERTILIZER 163 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 37.0 (arm 37.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 37.0 (arm 37.0)"
+  ]
+ },
+ "KWE1fs3": {
+  "label": "KWE1f: KWE1 (goose care mandatory) + access-drop fix | planner seed 3 (noise check)",
+  "cfg_extra": {
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 3
+  },
+  "own": 106914.0,
+  "rival": 117729.0,
+  "margin": -10815.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 5,
+   "skip_WATER": 8
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7345,
+    "books_cap": -1334
+   },
+   "WOOL": {
+    "actual": -1596,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2591,
+    "books_cap": -460
+   },
+   "EGG": {
+    "actual": 147,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -8470,
+    "books_cap": -6903
+   },
+   "CARROT": {
+    "actual": -124,
+    "books_cap": -25
+   },
+   "TOMATO": {
+    "actual": -403,
+    "books_cap": -421
+   },
+   "FERTILIZER": {
+    "actual": -932,
+    "books_cap": -34
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -21304,
+    "books_cap": -9177
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 294 / 318, WOOL 197 / 166, MILK 197 / 202, EGG 153 / 149, WHEAT 305 / 499, CARROT 53 / 54, TOMATO 59 / 69, FERTILIZER 158 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 78.0 (arm 78.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 78.0 (arm 78.0)"
+  ]
+ },
+ "KWE4fs1": {
+  "label": "KWE4f: KWE4 (goose bundles in pool C) + access-drop fix | planner seed 1 (noise check)",
+  "cfg_extra": {
+   "sd_tier_goose_c_minv": 0.0,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 1
+  },
+  "own": 108898.0,
+  "rival": 120126.0,
+  "margin": -11228.0,
+  "died": {
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "skip_DROP": 4,
+   "skip_WATER": 10,
+   "skip_HARVEST": 2
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -6831,
+    "books_cap": -673
+   },
+   "WOOL": {
+    "actual": -1907,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2922,
+    "books_cap": -1141
+   },
+   "EGG": {
+    "actual": 497,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -8128,
+    "books_cap": -6203
+   },
+   "CARROT": {
+    "actual": -232,
+    "books_cap": -183
+   },
+   "TOMATO": {
+    "actual": -509,
+    "books_cap": -507
+   },
+   "FERTILIZER": {
+    "actual": -1985,
+    "books_cap": -445
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -22007,
+    "books_cap": -9152
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 304 / 318, WOOL 202 / 166, MILK 192 / 202, EGG 160 / 149, WHEAT 317 / 499, CARROT 47 / 54, TOMATO 57 / 69, FERTILIZER 127 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 71.0 (arm 71.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 71.0 (arm 71.0)"
+  ]
+ },
+ "KWE4fs2": {
+  "label": "KWE4f: KWE4 (goose bundles in pool C) + access-drop fix | planner seed 2 (noise check)",
+  "cfg_extra": {
+   "sd_tier_goose_c_minv": 0.0,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 2
+  },
+  "own": 110110.0,
+  "rival": 121527.0,
+  "margin": -11417.0,
+  "died": {
+   "plant_WHEAT": 1,
+   "animal_COW": 1,
+   "plant_STRAWBERRY": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 7,
+   "skip_WATER": 10
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -8246,
+    "books_cap": -1197
+   },
+   "WOOL": {
+    "actual": -1180,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -3973,
+    "books_cap": -1477
+   },
+   "EGG": {
+    "actual": 669,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -7184,
+    "books_cap": -5362
+   },
+   "CARROT": {
+    "actual": -222,
+    "books_cap": -157
+   },
+   "TOMATO": {
+    "actual": -256,
+    "books_cap": -292
+   },
+   "FERTILIZER": {
+    "actual": -1322,
+    "books_cap": -293
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -21704,
+    "books_cap": -8778
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 296 / 318, WOOL 198 / 166, MILK 190 / 202, EGG 163 / 149, WHEAT 333 / 499, CARROT 48 / 54, TOMATO 62 / 69, FERTILIZER 135 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 33.0 (arm 33.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 33.0 (arm 33.0)"
+  ]
+ },
+ "KWE4fs3": {
+  "label": "KWE4f: KWE4 (goose bundles in pool C) + access-drop fix | planner seed 3 (noise check)",
+  "cfg_extra": {
+   "sd_tier_goose_c_minv": 0.0,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 3
+  },
+  "own": 107491.0,
+  "rival": 121726.0,
+  "margin": -14235.0,
+  "died": {
+   "plant_WHEAT": 2,
+   "plant_STRAWBERRY": 1,
+   "plant_TOMATO": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 2,
+   "access_keep_wheat": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 7
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7521,
+    "books_cap": -1067
+   },
+   "WOOL": {
+    "actual": -1256,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -3959,
+    "books_cap": -814
+   },
+   "EGG": {
+    "actual": 0,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -9866,
+    "books_cap": -8208
+   },
+   "CARROT": {
+    "actual": -453,
+    "books_cap": -373
+   },
+   "TOMATO": {
+    "actual": -632,
+    "books_cap": -639
+   },
+   "FERTILIZER": {
+    "actual": -1499,
+    "books_cap": -254
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -25176,
+    "books_cap": -11355
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 298 / 318, WOOL 204 / 166, MILK 194 / 202, EGG 150 / 149, WHEAT 278 / 499, CARROT 40 / 54, TOMATO 54 / 69, FERTILIZER 137 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 103.0 (arm 103.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 103.0 (arm 103.0)"
+  ]
+ },
+ "KWE7fs1": {
+  "label": "KWE7f: KWE7 (trailing 24 h mean floor) + access-drop fix | planner seed 1 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 1
+  },
+  "own": 108125.0,
+  "rival": 115935.0,
+  "margin": -7810.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 1,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 4,
+   "skip_WATER": 13,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7176,
+    "books_cap": -553
+   },
+   "WOOL": {
+    "actual": -803,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -1463,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -619,
+    "books_cap": -587
+   },
+   "WHEAT": {
+    "actual": -6687,
+    "books_cap": -4545
+   },
+   "CARROT": {
+    "actual": -545,
+    "books_cap": -485
+   },
+   "TOMATO": {
+    "actual": -453,
+    "books_cap": -464
+   },
+   "FERTILIZER": {
+    "actual": -583,
+    "books_cap": -2
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -18319,
+    "books_cap": -6636
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 306 / 318, WOOL 206 / 166, MILK 206 / 202, EGG 138 / 149, WHEAT 349 / 499, CARROT 36 / 54, TOMATO 58 / 69, FERTILIZER 169 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 36.0 (arm 36.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 36.0 (arm 36.0)"
+  ]
+ },
+ "KWE7fs2": {
+  "label": "KWE7f: KWE7 (trailing 24 h mean floor) + access-drop fix | planner seed 2 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 2
+  },
+  "own": 107455.0,
+  "rival": 117263.0,
+  "margin": -9808.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 3,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "skip_DROP": 7,
+   "skip_WATER": 8
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7340,
+    "books_cap": -290
+   },
+   "WOOL": {
+    "actual": -2075,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2080,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -736,
+    "books_cap": -697
+   },
+   "WHEAT": {
+    "actual": -6293,
+    "books_cap": -4505
+   },
+   "CARROT": {
+    "actual": -385,
+    "books_cap": -317
+   },
+   "TOMATO": {
+    "actual": -585,
+    "books_cap": -595
+   },
+   "FERTILIZER": {
+    "actual": -1183,
+    "books_cap": -51
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -20667,
+    "books_cap": -6455
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 311 / 318, WOOL 181 / 166, MILK 204 / 202, EGG 136 / 149, WHEAT 348 / 499, CARROT 42 / 54, TOMATO 55 / 69, FERTILIZER 155 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 43.0 (arm 43.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 43.0 (arm 43.0)"
+  ]
+ },
+ "KWE7fs3": {
+  "label": "KWE7f: KWE7 (trailing 24 h mean floor) + access-drop fix | planner seed 3 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 3
+  },
+  "own": 108408.0,
+  "rival": 116331.0,
+  "margin": -7923.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 3,
+   "animal_SHEEP": 10,
+   "animal_GOOSE": 1
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 14,
+   "pick_short": 1,
+   "skip_FEED": 2
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -6541,
+    "books_cap": -736
+   },
+   "WOOL": {
+    "actual": -2810,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -1919,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1424,
+    "books_cap": -1398
+   },
+   "WHEAT": {
+    "actual": -3938,
+    "books_cap": -2264
+   },
+   "CARROT": {
+    "actual": -175,
+    "books_cap": -77
+   },
+   "TOMATO": {
+    "actual": -323,
+    "books_cap": -335
+   },
+   "FERTILIZER": {
+    "actual": -1024,
+    "books_cap": -12
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -18144,
+    "books_cap": -4822
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 303 / 318, WOOL 179 / 166, MILK 204 / 202, EGG 123 / 149, WHEAT 400 / 499, CARROT 51 / 54, TOMATO 61 / 69, FERTILIZER 164 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 50.0 (arm 50.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 50.0 (arm 50.0)"
+  ]
+ },
+ "KWE7bfs1": {
+  "label": "KWE7bf: KWE7b (trailing 48 h mean floor) + access-drop fix | planner seed 1 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 1
+  },
+  "own": 108219.0,
+  "rival": 116077.0,
+  "margin": -7858.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 1,
+   "animal_SHEEP": 9
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 6,
+   "skip_WATER": 9,
+   "skip_HARVEST": 1,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7500,
+    "books_cap": -290
+   },
+   "WOOL": {
+    "actual": -1708,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -672,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1203,
+    "books_cap": -1182
+   },
+   "WHEAT": {
+    "actual": -5887,
+    "books_cap": -4183
+   },
+   "CARROT": {
+    "actual": -357,
+    "books_cap": -261
+   },
+   "TOMATO": {
+    "actual": -495,
+    "books_cap": -507
+   },
+   "FERTILIZER": {
+    "actual": -739,
+    "books_cap": -3
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -18551,
+    "books_cap": -6426
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 311 / 318, WOOL 178 / 166, MILK 212 / 202, EGG 127 / 149, WHEAT 355 / 499, CARROT 44 / 54, TOMATO 57 / 69, FERTILIZER 168 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 87.0 (arm 87.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 87.0 (arm 87.0)"
+  ]
+ },
+ "KWE7bfs2": {
+  "label": "KWE7bf: KWE7b (trailing 48 h mean floor) + access-drop fix | planner seed 2 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 2
+  },
+  "own": 108829.0,
+  "rival": 118245.0,
+  "margin": -9416.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_TOMATO": 1,
+   "plant_WHEAT": 1,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "skip_DROP": 10,
+   "skip_WATER": 8,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7620,
+    "books_cap": -800
+   },
+   "WOOL": {
+    "actual": -1459,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2545,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1105,
+    "books_cap": -1075
+   },
+   "WHEAT": {
+    "actual": -4986,
+    "books_cap": -3048
+   },
+   "CARROT": {
+    "actual": -220,
+    "books_cap": -157
+   },
+   "TOMATO": {
+    "actual": -848,
+    "books_cap": -817
+   },
+   "FERTILIZER": {
+    "actual": -1216,
+    "books_cap": -8
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -19989,
+    "books_cap": -5905
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 302 / 318, WOOL 185 / 166, MILK 204 / 202, EGG 129 / 149, WHEAT 380 / 499, CARROT 48 / 54, TOMATO 50 / 69, FERTILIZER 165 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 38.0 (arm 38.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 38.0 (arm 38.0)"
+  ]
+ },
+ "KWE7bfs3": {
+  "label": "KWE7bf: KWE7b (trailing 48 h mean floor) + access-drop fix | planner seed 3 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 3
+  },
+  "own": 108647.0,
+  "rival": 114884.0,
+  "margin": -6237.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_WHEAT": 2,
+   "plant_TOMATO": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 3,
+   "skip_WATER": 13
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -5101,
+    "books_cap": -114
+   },
+   "WOOL": {
+    "actual": -2370,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2935,
+    "books_cap": -366
+   },
+   "EGG": {
+    "actual": -618,
+    "books_cap": -587
+   },
+   "WHEAT": {
+    "actual": -4591,
+    "books_cap": -3088
+   },
+   "CARROT": {
+    "actual": -181,
+    "books_cap": -104
+   },
+   "TOMATO": {
+    "actual": -64,
+    "books_cap": -82
+   },
+   "FERTILIZER": {
+    "actual": -947,
+    "books_cap": -2
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -16797,
+    "books_cap": -4343
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 315 / 318, WOOL 178 / 166, MILK 198 / 202, EGG 138 / 149, WHEAT 379 / 499, CARROT 50 / 54, TOMATO 67 / 69, FERTILIZER 169 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 0.0 (arm 0.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 0.0 (arm 0.0)"
+  ]
+ },
+ "KWE10fs1": {
+  "label": "KWE10f: KWE10 (48 h floor + goose care) + access-drop fix | planner seed 1 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 1
+  },
+  "own": 109959.0,
+  "rival": 117129.0,
+  "margin": -7170.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_TOMATO": 1,
+   "plant_WHEAT": 3,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "access_keep_wheat": 1,
+   "skip_DROP": 8,
+   "skip_WATER": 13
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7267,
+    "books_cap": -390
+   },
+   "WOOL": {
+    "actual": 133,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2326,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": 54,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -6854,
+    "books_cap": -4791
+   },
+   "CARROT": {
+    "actual": -466,
+    "books_cap": -429
+   },
+   "TOMATO": {
+    "actual": -583,
+    "books_cap": -595
+   },
+   "FERTILIZER": {
+    "actual": -782,
+    "books_cap": -24
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -18081,
+    "books_cap": -6229
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 309 / 318, WOOL 185 / 166, MILK 208 / 202, EGG 151 / 149, WHEAT 342 / 499, CARROT 38 / 54, TOMATO 55 / 69, FERTILIZER 160 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 83.0 (arm 83.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 83.0 (arm 83.0)"
+  ]
+ },
+ "KWE10fs2": {
+  "label": "KWE10f: KWE10 (48 h floor + goose care) + access-drop fix | planner seed 2 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 2
+  },
+  "own": 109625.0,
+  "rival": 116823.0,
+  "margin": -7198.0,
+  "died": {
+   "plant_STRAWBERRY": 3,
+   "plant_WHEAT": 3,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 4,
+   "skip_WATER": 16,
+   "wait_wheat": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7718,
+    "books_cap": -736
+   },
+   "WOOL": {
+    "actual": -1636,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2323,
+    "books_cap": -95
+   },
+   "EGG": {
+    "actual": 150,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -5455,
+    "books_cap": -4211
+   },
+   "CARROT": {
+    "actual": 61,
+    "books_cap": 0
+   },
+   "TOMATO": {
+    "actual": -161,
+    "books_cap": -166
+   },
+   "FERTILIZER": {
+    "actual": -524,
+    "books_cap": -3
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -17596,
+    "books_cap": -5211
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 303 / 318, WOOL 177 / 166, MILK 201 / 202, EGG 153 / 149, WHEAT 356 / 499, CARROT 59 / 54, TOMATO 65 / 69, FERTILIZER 168 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 44.0 (arm 44.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 44.0 (arm 44.0)"
+  ]
+ },
+ "KWE10fs3": {
+  "label": "KWE10f: KWE10 (48 h floor + goose care) + access-drop fix | planner seed 3 (noise check)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 3
+  },
+  "own": 109901.0,
+  "rival": 119139.0,
+  "margin": -9238.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 5,
+   "skip_WATER": 9,
+   "skip_HARVEST": 2
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -7790,
+    "books_cap": -866
+   },
+   "WOOL": {
+    "actual": -1195,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2908,
+    "books_cap": -976
+   },
+   "EGG": {
+    "actual": 651,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -6086,
+    "books_cap": -4172
+   },
+   "CARROT": {
+    "actual": -741,
+    "books_cap": -653
+   },
+   "TOMATO": {
+    "actual": -819,
+    "books_cap": -817
+   },
+   "FERTILIZER": {
+    "actual": -781,
+    "books_cap": -1
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -19659,
+    "books_cap": -7485
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 301 / 318, WOOL 201 / 166, MILK 193 / 202, EGG 163 / 149, WHEAT 357 / 499, CARROT 30 / 54, TOMATO 50 / 69, FERTILIZER 170 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 80.0 (arm 80.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 80.0 (arm 80.0)"
+  ]
+ },
+ "KWE0c": {
+  "label": "KWE0c: KWE0 re-run on the final copy (all KWE flags off: must equal KDF1 step for step)",
+  "cfg_extra": {},
+  "own": 106363.0,
+  "rival": 114864.0,
+  "margin": -8501.0,
+  "died": {
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 9,
+   "plant_STRAWBERRY": 1
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 7,
+   "skip_HARVEST": 1
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -5867,
+    "books_cap": -1004
+   },
+   "WOOL": {
+    "actual": -1528,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2131,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -1443,
+    "books_cap": -1451
+   },
+   "WHEAT": {
+    "actual": -6081,
+    "books_cap": -4058
+   },
+   "CARROT": {
+    "actual": -453,
+    "books_cap": -373
+   },
+   "TOMATO": {
+    "actual": -721,
+    "books_cap": -727
+   },
+   "FERTILIZER": {
+    "actual": -746,
+    "books_cap": -11
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -18960,
+    "books_cap": -7624
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 299 / 318, WOOL 218 / 166, MILK 209 / 202, EGG 122 / 149, WHEAT 359 / 499, CARROT 40 / 54, TOMATO 52 / 69, FERTILIZER 164 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 50.0 (arm 50.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 50.0 (arm 50.0)"
+  ]
+ }
+}
