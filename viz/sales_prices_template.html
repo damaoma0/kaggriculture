@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prices and Sales</title>
+<style>
+:root{--bg:#fbfbfa;--panel:#ffffff;--fg:#1d1f23;--muted:#6b7078;--grid:#e6e7ea;--axis:#9aa0a8;--us:#2563eb;--opp:#e2621b;
+--price:#30343b;--stock:#8a9099;--hl:#f2f4f7;--border:#dcdfe4}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--bg:#15171a;--panel:#1c1f23;--fg:#e7e9ec;--muted:#9aa1ab;
+--grid:#2b2f35;--axis:#646b75;--us:#6b9bff;--opp:#ff8a4c;--price:#d9dce1;--stock:#8a919b;--hl:#23272c;--border:#30353c}}
+:root[data-theme="dark"]{--bg:#15171a;--panel:#1c1f23;--fg:#e7e9ec;--muted:#9aa1ab;--grid:#2b2f35;--axis:#646b75;--us:#6b9bff;
+--opp:#ff8a4c;--price:#d9dce1;--stock:#8a919b;--hl:#23272c;--border:#30353c}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1200px;margin:0 auto;padding:16px}
+h1{font-size:19px;margin:0 0 4px}
+.sub{color:var(--muted);margin:0 0 14px;font-size:13px}
+.controls{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-bottom:12px}
+.controls label{color:var(--muted);font-size:13px}
+select{background:var(--panel);color:var(--fg);border:1px solid var(--border);border-radius:6px;padding:5px 8px;font:inherit;max-width:100%}
+.controls label{max-width:100%}
+.tabs{display:flex;flex-wrap:wrap;gap:4px;border-bottom:1px solid var(--border);margin-bottom:12px}
+.tab{border:1px solid transparent;border-bottom:none;background:none;color:var(--muted);padding:7px 12px;border-radius:6px 6px 0 0;
+cursor:pointer;font:inherit}
+.tab.on{color:var(--fg);background:var(--panel);border-color:var(--border);margin-bottom:-1px;font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted);margin:6px 0 10px}
+.sw{display:inline-block;width:11px;height:11px;border-radius:50%;vertical-align:-1px;margin-right:5px}
+.ln{display:inline-block;width:18px;height:0;border-top:2px solid;vertical-align:3px;margin-right:5px}
+table{border-collapse:collapse;width:100%;font-size:13px;margin-bottom:14px;background:var(--panel);border:1px solid var(--border);
+border-radius:8px;overflow:hidden}
+th,td{padding:6px 9px;text-align:right;border-bottom:1px solid var(--grid);white-space:nowrap}
+th:first-child,td:first-child{text-align:left}
+th{color:var(--muted);font-weight:600;font-size:12px}
+tr:last-child td{border-bottom:none;font-weight:600}
+.pos{color:#15803d}.neg{color:#c2410c}
+.tblwrap{overflow-x:auto}
+.panel{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:10px 12px 6px;margin-bottom:14px}
+.panel h2{font-size:14.5px;margin:0 0 2px}
+.panel .meta{color:var(--muted);font-size:12.5px;margin-bottom:4px}
+svg{display:block;width:100%;overflow:visible}
+svg text{fill:var(--muted);font-size:11px}
+.cap{font-size:11.5px;color:var(--muted);margin:2px 0 0}
+#tip{position:fixed;pointer-events:none;background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:8px 10px;
+font-size:12px;box-shadow:0 4px 18px rgba(0,0,0,.14);display:none;z-index:5;min-width:220px}
+#tip b{font-weight:600}
+#tip .g{margin-top:5px;padding-top:5px;border-top:1px solid var(--grid)}
+.note{color:var(--muted);font-size:12.5px;margin-top:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Prices and sales by product</h1>
+  <p class="sub">The leader's recorded game against our season game in the same world, from the leader's exact day-11 morning.
+  The rival replays its recorded moves in both, so every difference on its side comes from prices.</p>
+  <div class="controls">
+    <label>World <select id="world"></select></label>
+    <label>Our game <select id="arm"></select></label>
+    <label>Days <select id="range"><option value="11">11 to 29</option><option value="0">whole season</option></select></label>
+  </div>
+  <div class="tabs" id="tabs"></div>
+  <div class="legend">
+    <span><span class="ln" style="border-color:var(--price)"></span>market price (hourly)</span>
+    <span><span class="sw" style="background:var(--us)"></span>our sales (size = units in that hour)</span>
+    <span><span class="sw" style="background:var(--opp)"></span>rival sales</span>
+    <span><span class="ln" style="border-color:var(--us)"></span>our holdings (shed + carried)</span>
+    <span><span class="ln" style="border-color:var(--opp)"></span>rival holdings</span>
+    <span><span class="ln" style="border-color:var(--stock);border-top-style:dashed"></span>market extra stock (right axis)</span>
+  </div>
+  <div class="tblwrap"><table id="summary"></table></div>
+  <div id="panels"></div>
+  <p class="note">"Us" in the leader's game is the leader (our seat). Market extra stock = the market's inventory above its
+  10,000 base: sales push it up and the price down, daily demand pulls it back. Prices are read at the start of each hour.</p>
+</div>
+<div id="tip"></div>
+<script>
+const DATA = /*__DATA__*/null;
+const NAMES = {WHEAT:'Wheat',CARROT:'Carrot',TOMATO:'Tomato',STRAWBERRY:'Strawberry',MELON:'Melon',EGG:'Egg',MILK:'Milk',WOOL:'Wool',FERTILIZER:'Fertilizer'};
+const S = {w:0, arm:null, prod:'WOOL', lo:264};
+try { const v = JSON.parse(localStorage.getItem('salesviz') || '{}'); Object.assign(S, v); } catch (e) {}
+const $ = id => document.getElementById(id);
+const fmt = n => Math.round(n).toLocaleString('en-US');
+const sgn = n => (n > 0 ? '+' : n < 0 ? '−' : '') + fmt(Math.abs(n));
+const hm = t => 'day ' + Math.floor(t / 24) + ', h' + (t % 24);
+function save(){ try { localStorage.setItem('salesviz', JSON.stringify({w:S.w, arm:S.arm, prod:S.prod, lo:S.lo})); } catch (e) {} }
+
+function init(){
+  const ws = $('world');
+  DATA.worlds.forEach((w, i) => ws.add(new Option(w.episode, i)));
+  if (S.w >= DATA.worlds.length) S.w = 0;
+  ws.value = S.w;
+  ws.onchange = () => { S.w = +ws.value; fillArms(); render(); save(); };
+  $('range').value = S.lo === 0 ? '0' : '11';
+  $('range').onchange = () => { S.lo = $('range').value === '0' ? 0 : 264; render(); save(); };
+  const tabs = $('tabs');
+  DATA.products.forEach(p => { const b = document.createElement('button'); b.className = 'tab'; b.textContent = NAMES[p];
+    b.dataset.p = p; b.onclick = () => { S.prod = p; render(); save(); }; tabs.appendChild(b); });
+  fillArms();
+  $('arm').onchange = () => { S.arm = $('arm').value; render(); save(); };
+  window.addEventListener('resize', () => render());
+  render();
+}
+function fillArms(){
+  const a = $('arm'); a.innerHTML = '';
+  const g = DATA.worlds[S.w].games;
+  Object.keys(g).filter(k => k !== 'leader').forEach(k => a.add(new Option(k.toUpperCase() + ' — ' + g[k].label.replace(/^[^:]*:\s*/, ''), k)));
+  if (!g[S.arm]) S.arm = a.options.length ? a.options[0].value : null;
+  a.value = S.arm;
+}
+function tot(sales, lo){ let u = 0, v = 0; for (const [t, n, r] of sales) if (t >= lo) { u += n; v += r; } return [u, v]; }
+
+function render(){
+  document.querySelectorAll('.tab').forEach(b => b.classList.toggle('on', b.dataset.p === S.prod));
+  const W = DATA.worlds[S.w], L = W.games.leader, O = W.games[S.arm], p = S.prod, lo = S.lo;
+  // ---- summary
+  const rows = [['Leader\'s game', L], ['Our game (' + (S.arm || '').toUpperCase() + ')', O]];
+  const vals = rows.map(([n, g]) => { const u = tot(g.sales[p][0], lo), r = tot(g.sales[p][1], lo); return [n, u, r]; });
+  let h = '<tr><th>' + NAMES[p] + ' sales, days ' + (lo ? '11' : '0') + '–29</th><th>our units</th><th>our revenue</th><th>our avg</th>'
+    + '<th>rival units</th><th>rival revenue</th><th>rival avg</th><th>margin effect</th></tr>';
+  vals.forEach(([n, u, r]) => { h += '<tr><td>' + n + '</td><td>' + fmt(u[0]) + '</td><td>' + fmt(u[1]) + '</td><td>' + (u[0] ? (u[1] / u[0]).toFixed(1) : '—')
+    + '</td><td>' + fmt(r[0]) + '</td><td>' + fmt(r[1]) + '</td><td>' + (r[0] ? (r[1] / r[0]).toFixed(1) : '—') + '</td><td></td></tr>'; });
+  const du = vals[1][1][1] - vals[0][1][1], dr = vals[1][2][1] - vals[0][2][1], me = du - dr;
+  h += '<tr><td>Our game − leader\'s game</td><td>' + sgn(vals[1][1][0] - vals[0][1][0]) + '</td><td class="' + (du >= 0 ? 'pos' : 'neg') + '">' + sgn(du)
+    + '</td><td></td><td>' + sgn(vals[1][2][0] - vals[0][2][0]) + '</td><td class="' + (dr <= 0 ? 'pos' : 'neg') + '">' + sgn(dr)
+    + '</td><td></td><td class="' + (me >= 0 ? 'pos' : 'neg') + '">' + sgn(me) + '</td></tr>';
+  $('summary').innerHTML = h;
+  // ---- shared scales
+  const hi = 720;
+  let pmax = 1, hmax = 1, smin = 0, smax = 1;
+  for (const g of [L, O]) {
+    for (let t = lo; t < hi; t++) { pmax = Math.max(pmax, g.price[p][t]); hmax = Math.max(hmax, g.hold[0][p][t], g.hold[1][p][t]);
+      smax = Math.max(smax, g.stock[p][t]); smin = Math.min(smin, g.stock[p][t]); }
+    for (const side of [0, 1]) for (const [t, n, r] of g.sales[p][side]) if (t >= lo) pmax = Math.max(pmax, r / n);
+  }
+  pmax = nice(pmax * 1.08); hmax = nice(hmax * 1.1); smax = nice(smax * 1.1); smin = smin < 0 ? -nice(-smin * 1.1) : 0;
+  const box = $('panels'); box.innerHTML = '';
+  const width = Math.max(320, box.clientWidth - 26);
+  [['Leader\'s game', L], ['Our game — ' + (S.arm || '').toUpperCase(), O]].forEach(([title, g], gi) => {
+    const d = document.createElement('div'); d.className = 'panel';
+    const fu = g.final[0], fr = g.final[1];
+    d.innerHTML = '<h2>' + title + '</h2><div class="meta">final cash: us ' + fmt(fu) + ' · rival ' + fmt(fr) + ' · margin ' + sgn(fu - fr)
+      + (g.check === false ? ' · replay differs from the season run' : '') + '</div>';
+    d.appendChild(priceChart(g, p, lo, hi, width, pmax, gi));
+    d.appendChild(holdChart(g, p, lo, hi, width, hmax, smin, smax, gi));
+    box.appendChild(d);
+  });
+}
+function nice(v){ if (v <= 0) return 1; const e = Math.pow(10, Math.floor(Math.log10(v))), m = v / e;
+  return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 2.5 ? 2.5 : m <= 5 ? 5 : 10) * e; }
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent){ const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+const ML = 46, MR = 46, TOP = 20;
+function frame(width, height, lo, hi, ymax, ymin, yfmt, right){
+  const svg = el('svg', {viewBox: '0 0 ' + width + ' ' + height, height: height});
+  const pw = width - ML - MR, ph = height - 26;
+  const X = t => ML + (t - lo) / (hi - lo) * pw, Y = v => TOP + (1 - (v - ymin) / (ymax - ymin)) * (ph - TOP);
+  const days = (hi - lo) / 24, step = days > 24 ? 3 : pw / days < 34 ? 2 : 1;
+  for (let d = Math.ceil(lo / 24); d * 24 <= hi; d++) {
+    const x = X(d * 24);
+    el('line', {x1: x, x2: x, y1: TOP, y2: ph, stroke: 'var(--grid)', 'stroke-width': 1}, svg);
+    if (d % step === 0 && d < 30) { const tx = el('text', {x: x + (pw / days) / 2, y: height - 8, 'text-anchor': 'middle'}, svg); tx.textContent = d; }
+  }
+  for (let i = 0; i <= 4; i++) { const v = ymin + (ymax - ymin) * i / 4, y = Y(v);
+    el('line', {x1: ML, x2: ML + pw, y1: y, y2: y, stroke: 'var(--grid)', 'stroke-width': 1}, svg);
+    const tx = el('text', {x: ML - 6, y: y + 4, 'text-anchor': 'end'}, svg); tx.textContent = yfmt(v); }
+  return {svg, X, Y, pw, ph};
+}
+function priceChart(g, p, lo, hi, width, pmax, gi){
+  const H = 250, f = frame(width, H, lo, hi, pmax, 0, v => fmt(v));
+  const {svg, X, Y} = f;
+  let dstr = '';
+  for (let t = lo; t < hi; t++) dstr += (t === lo ? 'M' : 'L') + X(t).toFixed(1) + ' ' + Y(g.price[p][t]).toFixed(1);
+  el('path', {d: dstr, fill: 'none', stroke: 'var(--price)', 'stroke-width': 1.6, 'stroke-linejoin': 'round'}, svg);
+  for (const side of [1, 0]) for (const [t, n, r] of g.sales[p][side]) { if (t < lo) continue;
+    const c = el('circle', {cx: X(t + 0.5), cy: Y(r / n), r: (2.5 + 2.2 * Math.sqrt(n)).toFixed(1), fill: side ? 'var(--opp)' : 'var(--us)',
+      'fill-opacity': 0.72, stroke: 'var(--panel)', 'stroke-width': 1}, svg);
+    el('title', {}, c).textContent = (side ? 'rival' : 'us') + ' · ' + hm(t) + ': ' + n + ' units at ' + (r / n).toFixed(1); }
+  const cap = el('text', {x: 0, y: 10, 'text-anchor': 'start'}, svg); cap.textContent = 'price';
+  hover(svg, f, lo, hi, gi, H);
+  return svg;
+}
+function holdChart(g, p, lo, hi, width, hmax, smin, smax, gi){
+  const H = 150, f = frame(width, H, lo, hi, hmax, 0, v => fmt(v));
+  const {svg, X, Y, pw, ph} = f;
+  const Ys = v => TOP + (1 - (v - smin) / (smax - smin)) * (ph - TOP);
+  for (let i = 0; i <= 4; i++) { const v = smin + (smax - smin) * i / 4;
+    const tx = el('text', {x: ML + pw + 6, y: Ys(v) + 4, 'text-anchor': 'start'}, svg); tx.textContent = fmt(v); }
+  const path = (arr, Yf) => { let s = ''; for (let t = lo; t < hi; t++) { const x0 = X(t), x1 = X(t + 1), y = Yf(arr[t]).toFixed(1);
+    s += (t === lo ? 'M' + x0.toFixed(1) + ' ' + y : 'L' + x0.toFixed(1) + ' ' + y) + 'L' + x1.toFixed(1) + ' ' + y; } return s; };
+  el('path', {d: path(g.stock[p], Ys), fill: 'none', stroke: 'var(--stock)', 'stroke-width': 1.3, 'stroke-dasharray': '4 3'}, svg);
+  el('path', {d: path(g.hold[1][p], Y), fill: 'none', stroke: 'var(--opp)', 'stroke-width': 1.5}, svg);
+  el('path', {d: path(g.hold[0][p], Y), fill: 'none', stroke: 'var(--us)', 'stroke-width': 1.5}, svg);
+  const cap = el('text', {x: 0, y: 10, 'text-anchor': 'start'}, svg); cap.textContent = 'holdings (units)';
+  const cap2 = el('text', {x: width, y: 10, 'text-anchor': 'end'}, svg); cap2.textContent = 'market extra stock';
+  hover(svg, f, lo, hi, gi, H);
+  return svg;
+}
+function hover(svg, f, lo, hi, gi, H){
+  const cross = el('line', {y1: TOP, y2: f.ph, stroke: 'var(--axis)', 'stroke-width': 1, visibility: 'hidden'}, svg);
+  svg.dataset.cross = '1';
+  svg.__cross = cross; svg.__X = f.X;
+  svg.addEventListener('mousemove', ev => {
+    const r = svg.getBoundingClientRect(), sx = (ev.clientX - r.left) * (svg.viewBox.baseVal.width / r.width);
+    const t = Math.max(lo, Math.min(hi - 1, Math.floor(lo + (sx - ML) / f.pw * (hi - lo))));
+    showAt(t, ev.clientX, ev.clientY);
+  });
+  svg.addEventListener('mouseleave', () => { $('tip').style.display = 'none';
+    document.querySelectorAll('svg').forEach(s => s.__cross && s.__cross.setAttribute('visibility', 'hidden')); });
+}
+function showAt(t, cx, cy){
+  document.querySelectorAll('svg').forEach(s => { if (!s.__cross) return; const x = s.__X(t + 0.5);
+    s.__cross.setAttribute('x1', x); s.__cross.setAttribute('x2', x); s.__cross.setAttribute('visibility', 'visible'); });
+  const W = DATA.worlds[S.w], p = S.prod;
+  let h = '<b>' + NAMES[p] + ' · ' + hm(t) + '</b>';
+  [['Leader\'s game', W.games.leader], ['Our game', W.games[S.arm]]].forEach(([n, g]) => {
+    const sl = side => { const e = g.sales[p][side].find(x => x[0] === t); return e ? e[1] + ' @ ' + (e[2] / e[1]).toFixed(1) : '—'; };
+    h += '<div class="g"><b>' + n + '</b><br>price ' + g.price[p][t] + ' · market extra stock ' + fmt(g.stock[p][t])
+      + '<br>holdings: us ' + g.hold[0][p][t] + ' · rival ' + g.hold[1][p][t]
+      + '<br>sold this hour: us ' + sl(0) + ' · rival ' + sl(1) + '</div>';
+  });
+  const tip = $('tip'); tip.innerHTML = h; tip.style.display = 'block';
+  const w = tip.offsetWidth, hh = tip.offsetHeight;
+  tip.style.left = Math.min(window.innerWidth - w - 8, cx + 14) + 'px';
+  tip.style.top = Math.max(8, Math.min(window.innerHeight - hh - 8, cy + 14)) + 'px';
+}
+if (DATA) init(); else document.body.insertAdjacentHTML('beforeend', '<p style="padding:16px">No data embedded.</p>');
+</script>
+</body>
+</html>
