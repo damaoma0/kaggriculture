@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Midnight Dump Snapshot</title>
+<style>
+:root {
+  --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1d1b; --muted: #6b6b66; --line: #d9d9d4; --cell: #efeee9;
+  --shed: #8a8a84; --carry: #3d7cc9; --deleted: #d64541; --cap: #d64541; --good: #2e8b57;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161615; --panel: #1f1f1d; --ink: #ecebe6; --muted: #a09f98; --line: #3a3a37; --cell: #2a2a27;
+    --shed: #9a9a93; --carry: #5b9be0; --deleted: #ef6461; --cap: #ef6461; --good: #4fbf7f;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161615; --panel: #1f1f1d; --ink: #ecebe6; --muted: #a09f98; --line: #3a3a37; --cell: #2a2a27;
+  --shed: #9a9a93; --carry: #5b9be0; --deleted: #ef6461; --cap: #ef6461; --good: #4fbf7f;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+header { padding: 16px 16px 8px; max-width: 1280px; margin: 0 auto; }
+h1 { font-size: 20px; margin: 0 0 4px; }
+.sub { color: var(--muted); }
+.controls { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 8px 16px; max-width: 1280px; margin: 0 auto;
+  display: flex; gap: 12px; align-items: center; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+.controls input[type=range] { flex: 1; min-width: 160px; }
+button { font: inherit; padding: 4px 12px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 6px; cursor: pointer; }
+.hourlab { font-variant-numeric: tabular-nums; min-width: 92px; font-weight: 600; }
+main { max-width: 1280px; margin: 0 auto; padding: 12px 16px 32px; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 16px; }
+.side { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; min-width: 0; }
+.side h2 { margin: 0 0 6px; font-size: 16px; }
+.kpis { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-bottom: 8px; color: var(--muted); }
+.kpis b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.kpis .bad b { color: var(--deleted); }
+svg { display: block; width: 100%; height: auto; }
+.board text { font-size: 9px; fill: var(--ink); pointer-events: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 12px; color: var(--muted); margin: 6px 0; }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 8px; }
+th, td { text-align: left; padding: 3px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+td.num { text-align: right; font-variant-numeric: tabular-nums; }
+.del { color: var(--deleted); font-weight: 600; }
+.note { max-width: 1280px; margin: 0 auto; padding: 0 16px 24px; color: var(--muted); font-size: 13px; }
+.h3 { font-weight: 600; margin: 10px 0 2px; font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Midnight dump snapshot</h1>
+  <div class="sub" id="subtitle"></div>
+</header>
+<div class="controls">
+  <button id="play">Play</button>
+  <input type="range" id="hour" min="0" max="24" value="24" step="1" aria-label="hour">
+  <span class="hourlab" id="hourlab"></span>
+  <button id="theme" title="toggle light / dark">Theme</button>
+</div>
+<main id="main"></main>
+<div class="note">
+  Board: tiles at the start of the day (letter = crop / animal, number = units held on the tile). Lines are each unit's
+  path up to the selected hour; circles are the units, with the goods they carry (a larger circle = more goods). The
+  chart shows the shed stock and everything carried, hour by hour, against the 100-unit shed cap; the last bar is the
+  midnight dump (farmer first, then hands in index order; everything past 100 is deleted). Mid-day drops are goods
+  put into the shed before hour 23.
+</div>
+<script>
+const DATA = /*DATA*/null;
+const PROD_COL = { WHEAT: '#d4a72c', CARROT: '#e5822b', TOMATO: '#d64541', STRAWBERRY: '#e0578f', MELON: '#4caf50',
+  MILK: '#9ec5e8', EGG: '#f2d68a', WOOL: '#b9b3a6', FERTILIZER: '#7a5c3e' };
+const TILE_COL = { WHEAT: '#e9cf7a', CARROT: '#f1b27a', TOMATO: '#ec9a93', STRAWBERRY: '#f0a6c4', MELON: '#9fd6a1',
+  COW: '#c9a27c', SHEEP: '#d9d5cc', GOOSE: '#f3e3a6', WEED: '#6f8f5a', COOP: '#cdbb8e', PASTURE: '#a9c98f', LOCKED: '#8a8a84' };
+const ABBR = { WHEAT: 'W', CARROT: 'C', TOMATO: 'T', STRAWBERRY: 'S', MELON: 'M', COW: 'cow', SHEEP: 'shp', GOOSE: 'gse' };
+const ACCESS = [[4,4],[5,4],[4,5],[5,5]];
+const isAccess = p => ACCESS.some(a => a[0] === p[0] && a[1] === p[1]);
+const sum = o => Object.values(o || {}).reduce((a, b) => a + b, 0);
+const fmtGoods = o => Object.entries(o || {}).filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k.toLowerCase()} ${v}`).join(', ') || '-';
+const unitCol = i => i === 0 ? '#444' : `hsl(${(i * 47) % 360} 65% 45%)`;
+const unitName = i => i === 0 ? 'farmer' : `hand ${i}`;
+
+function midDayDrops(S) {
+  const out = [];
+  for (let h = 0; h < S.hours.length - 1; h++) {
+    const H = S.hours[h], N = S.hours[h + 1];
+    H.act.forEach((a, i) => {
+      if (!a || !['DROP', 'PLACE'].includes(a[0]) || !isAccess(H.pos[i])) return;
+      if (a[0] === 'PLACE' && ['COW', 'SHEEP', 'GOOSE'].includes(a[1])) return;
+      const before = H.inv[i] || {}, after = (N.inv[i] || {});
+      const moved = {};
+      for (const k in before) { const d = before[k] - (after[k] || 0); if (d > 0) moved[k] = d; }
+      if (sum(moved) > 0) out.push({ h, i, moved });
+    });
+  }
+  return out;
+}
+
+function sideSummary(S) {
+  const n = S.night || { per_unit: [], shed23: {}, lost: {} };
+  const carried = n.per_unit.reduce((a, u) => a + sum(u), 0);
+  const drops = midDayDrops(S);
+  const sold = S.sales.reduce((a, s) => a + sum(s.us), 0);
+  return { carried, shed23: sum(n.shed23), lost: sum(n.lost), drops, dropped: drops.reduce((a, d) => a + sum(d.moved), 0), sold };
+}
+
+function boardSVG(S, hour) {
+  const C = 34, P = 4, W = C * 10 + P * 2;
+  let s = `<svg class="board" viewBox="0 0 ${W} ${W}" role="img" aria-label="farm board">`;
+  for (let y = 0; y < 10; y++) for (let x = 0; x < 10; x++) {
+    const t = S.board[y][x];
+    let fill = 'var(--cell)', lab = '', y2 = '';
+    if (t) {
+      if (t.k === 'PLANT') { fill = TILE_COL[t.c] || fill; lab = ABBR[t.c] || '?'; y2 = t.y ? t.y : ''; }
+      else if (t.k === 'ANIMAL') { fill = TILE_COL[t.c] || fill; lab = ABBR[t.c] || '?'; y2 = t.y ? t.y : ''; }
+      else { fill = TILE_COL[t.k] || fill; lab = t.k === 'WEED' ? 'wd' : (t.k === 'LOCKED' ? '' : (t.k || '').slice(0, 3).toLowerCase()); }
+    }
+    const acc = isAccess([x, y]);
+    s += `<rect x="${P + x * C + 1}" y="${P + y * C + 1}" width="${C - 2}" height="${C - 2}" rx="3" fill="${fill}" stroke="${acc ? 'var(--ink)' : 'none'}" stroke-width="${acc ? 1.5 : 0}" opacity="0.85"/>`;
+    if (lab) s += `<text x="${P + x * C + 4}" y="${P + y * C + 12}">${lab}</text>`;
+    if (y2 !== '') s += `<text x="${P + x * C + C - 5}" y="${P + y * C + C - 5}" text-anchor="end" font-weight="700">${y2}</text>`;
+  }
+  s += `<rect x="${P + 5 * C - 7}" y="${P + 5 * C - 7}" width="14" height="14" fill="var(--shed)" stroke="var(--ink)"/>`;
+  const hmax = Math.min(hour, S.hours.length - 1);
+  const nU = S.hours[hmax].pos.length;
+  for (let i = 0; i < nU; i++) {
+    const pts = [];
+    for (let h = 0; h <= hmax; h++) { const p = S.hours[h].pos[i]; if (p) pts.push(p); }
+    if (pts.length > 1) s += `<polyline fill="none" stroke="${unitCol(i)}" stroke-width="2" stroke-opacity="0.55" points="${pts.map(p => `${P + p[0] * C + C / 2 + (i % 5 - 2) * 2},${P + p[1] * C + C / 2 + (Math.floor(i / 5) - 1) * 2}`).join(' ')}"/>`;
+  }
+  const H = hour >= 24 ? S.hours[S.hours.length - 1] : S.hours[hmax];
+  const inv = hour >= 24 && S.night ? S.night.per_unit : H.inv;
+  H.pos.forEach((p, i) => {
+    const load = sum(inv[i]);
+    const r = 5 + Math.sqrt(load) * 2.2;
+    const cx = P + p[0] * C + C / 2 + (i % 5 - 2) * 2, cy = P + p[1] * C + C / 2 + (Math.floor(i / 5) - 1) * 2;
+    s += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${unitCol(i)}" fill-opacity="0.8" stroke="var(--panel)" stroke-width="1"><title>${unitName(i)}: ${fmtGoods(inv[i])}</title></circle>`;
+    if (load) s += `<text x="${cx}" y="${cy + 3}" text-anchor="middle" style="fill:#fff;font-weight:700">${load}</text>`;
+  });
+  return s + '</svg>';
+}
+
+function chartSVG(S, hour) {
+  const W = 360, Hh = 170, L = 30, B = 22, T = 8, bw = (W - L - 6) / 25;
+  const y = v => T + (Hh - T - B) * (1 - Math.min(v, 180) / 180);
+  let s = `<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="shed and carried load by hour">`;
+  [0, 50, 100, 150].forEach(v => { s += `<line x1="${L}" x2="${W - 4}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L - 4}" y="${y(v) + 3}" text-anchor="end" font-size="9" fill="var(--muted)">${v}</text>`; });
+  for (let h = 0; h < 24 && h < S.hours.length; h++) {
+    const H = S.hours[h];
+    const shed = sum(H.shed), car = H.inv.reduce((a, u) => a + sum(u), 0);
+    const x = L + h * bw + 1, op = h <= hour ? 1 : 0.35;
+    s += `<rect x="${x}" y="${y(shed)}" width="${bw - 2}" height="${y(0) - y(shed)}" fill="var(--shed)" opacity="${op}"><title>h${h}: shed ${shed}, carried ${car}</title></rect>`;
+    s += `<rect x="${x}" y="${y(shed + car)}" width="${bw - 2}" height="${y(shed) - y(shed + car)}" fill="var(--carry)" opacity="${op}"><title>h${h}: shed ${shed}, carried ${car}</title></rect>`;
+    if (h % 3 === 0) s += `<text x="${x + bw / 2}" y="${Hh - 8}" text-anchor="middle" font-size="9" fill="var(--muted)">${h}</text>`;
+  }
+  if (S.night) {
+    const n = S.night, sh = sum(n.shed23), car = n.per_unit.reduce((a, u) => a + sum(u), 0), lost = sum(n.lost);
+    const x = L + 24 * bw + 1, op = hour >= 24 ? 1 : 0.35;
+    s += `<rect x="${x}" y="${y(sh)}" width="${bw - 2}" height="${y(0) - y(sh)}" fill="var(--shed)" opacity="${op}"/>`;
+    s += `<rect x="${x}" y="${y(sh + car - lost)}" width="${bw - 2}" height="${y(sh) - y(sh + car - lost)}" fill="var(--carry)" opacity="${op}"/>`;
+    if (lost) s += `<rect x="${x}" y="${y(sh + car)}" width="${bw - 2}" height="${y(sh + car - lost) - y(sh + car)}" fill="var(--deleted)" opacity="${op}"><title>deleted ${lost}</title></rect>`;
+    s += `<text x="${x + bw / 2}" y="${Hh - 8}" text-anchor="middle" font-size="9" fill="var(--muted)">24</text>`;
+  }
+  s += `<line x1="${L}" x2="${W - 4}" y1="${y(100)}" y2="${y(100)}" stroke="var(--cap)" stroke-dasharray="4 3"/><text x="${W - 6}" y="${y(100) - 3}" text-anchor="end" font-size="9" fill="var(--cap)">shed cap 100</text>`;
+  return s + '</svg>';
+}
+
+function render(hour) {
+  document.getElementById('hourlab').textContent = hour >= 24 ? 'midnight dump' : `hour ${hour}`;
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+  for (const [name, S] of Object.entries(DATA.sides)) {
+    const sm = sideSummary(S);
+    const n = S.night || { per_unit: [], lost: {}, shed23: {} };
+    const H = hour >= 24 ? null : S.hours[Math.min(hour, S.hours.length - 1)];
+    const div = document.createElement('div');
+    div.className = 'side';
+    let rows = '';
+    n.per_unit.forEach((u, i) => { if (sum(u)) rows += `<tr><td>${unitName(i)}</td><td class="num">${sum(u)}</td><td>${fmtGoods(u)}</td></tr>`; });
+    let drows = sm.drops.map(d => `<tr><td>h${d.h}</td><td>${unitName(d.i)}</td><td>${fmtGoods(d.moved)}</td></tr>`).join('') || '<tr><td colspan="3">none</td></tr>';
+    const nowShed = H ? sum(H.shed) : sm.shed23, nowCar = H ? H.inv.reduce((a, u) => a + sum(u), 0) : sm.carried;
+    div.innerHTML = `
+      <h2>${name}</h2>
+      <div class="kpis">
+        <span>at this hour: shed <b>${nowShed}</b>, carried <b>${nowCar}</b></span>
+      </div>
+      <div class="kpis">
+        <span>mid-day drops <b>${sm.dropped}</b> units</span>
+        <span>carried at midnight <b>${sm.carried}</b></span>
+        <span>shed at 23 <b>${sm.shed23}</b></span>
+        <span class="${sm.lost ? 'bad' : ''}">deleted <b>${sm.lost}</b></span>
+        <span>sold today <b>${sm.sold}</b></span>
+      </div>
+      ${boardSVG(S, hour)}
+      <div class="legend">${Object.entries(TILE_COL).filter(([k]) => !['LOCKED'].includes(k)).map(([k, c]) => `<span><span class="sw" style="background:${c}"></span>${k.toLowerCase()}</span>`).join('')}<span><span class="sw" style="border:1.5px solid var(--ink)"></span>shed access</span></div>
+      <div class="h3">Shed + carried, by hour</div>
+      ${chartSVG(S, hour)}
+      <div class="legend"><span><span class="sw" style="background:var(--shed)"></span>shed</span><span><span class="sw" style="background:var(--carry)"></span>carried by units</span><span><span class="sw" style="background:var(--deleted)"></span>deleted at midnight</span></div>
+      <div class="h3">Deleted at midnight</div>
+      <div class="${sm.lost ? 'del' : ''}">${fmtGoods(n.lost)}</div>
+      <div class="h3">Mid-day drops at the shed</div>
+      <table><tr><th>hour</th><th>unit</th><th>goods</th></tr>${drows}</table>
+      <div class="h3">Carried into the midnight dump</div>
+      <table><tr><th>unit</th><th class="num">units</th><th>goods</th></tr>${rows}</table>`;
+    main.appendChild(div);
+  }
+}
+
+(function init() {
+  const sides = Object.keys(DATA.sides);
+  document.getElementById('title').textContent = `Midnight dump, day ${DATA.day}: ${sides.join(' vs ')}`;
+  const s = sides.map(k => { const m = sideSummary(DATA.sides[k]); return `${k}: carried ${m.carried}, deleted ${m.lost}`; }).join(' | ');
+  document.getElementById('subtitle').textContent = `World ${DATA.ep} (team ${DATA.team}), same seed, shops and rival moves. ${s}`;
+  const sl = document.getElementById('hour');
+  sl.addEventListener('input', () => render(+sl.value));
+  let timer = null;
+  document.getElementById('play').addEventListener('click', e => {
+    if (timer) { clearInterval(timer); timer = null; e.target.textContent = 'Play'; return; }
+    if (+sl.value >= 24) sl.value = 0;
+    e.target.textContent = 'Pause';
+    timer = setInterval(() => { sl.value = +sl.value + 1; render(+sl.value); if (+sl.value >= 24) { clearInterval(timer); timer = null; e.target.textContent = 'Play'; } }, 600);
+  });
+  document.getElementById('theme').addEventListener('click', () => {
+    const r = document.documentElement, cur = r.getAttribute('data-theme');
+    const dark = cur ? cur === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    r.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+  render(24);
+})();
+</script>
+</body>
+</html>

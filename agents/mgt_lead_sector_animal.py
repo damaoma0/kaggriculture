@@ -184,6 +184,9 @@ CFG = {
     "sd_dv_coins": {},        # v2: product -> coins per such unit (a number, or [[first_day, coins], ...])
     "sd_dv_hour": 22,         # v2: last DROP / PLACE hour that sells the same day (unit actions come before the market)
     "sd_dv_quota": 1,         # v2: with sell_source "leader" only products whose sell quota of the day has room get the credit
+    "sd_evening_sell": [],    # products (e.g. ["WOOL", "MILK", "STRAWBERRY"]) of which a share of the morning shed stock is held back and sold at sd_evening_hour..23 (the rival sells at hour 0: supply that reaches the market the evening before lowers its price; leaders sell 36-68% of the night's carry after hour 11)
+    "sd_evening_frac": 0.5,
+    "sd_evening_hour": 20,
     "sd_final_sell_all": 0,   # 1 (user 2026-09-26): at the last executed step (718) sell every product for the shed stock PLUS everything carried (units act before the market, so goods dropped at 718 sell in the same step; over-ordering is harmless)
     "sd_final_trip": 0,       # v2: routes end with the walk of their products to the shed (credited when in time)
     "sd_hard_late_w": 0.0,    # v2: coins per hour a hard (survival) op is done after sd_hard_safe
@@ -2869,6 +2872,35 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
         if k_ > 0:                                 # first in the list: it lands before the hour-1 pickups
             orders = [["BUY_PRODUCT", "WHEAT", k_]] + [o for o in orders if not (o[0] == "BUY_PRODUCT" and o[1] == "WHEAT")][:9]
         TPw_["wheat_bought"] = True
+    if CFG["sd_evening_sell"] and not endgame:
+        E_ = S.setdefault("eve", {})
+        if E_.get("day") != day and hour >= 1:     # the first market after the midnight dump: set the evening reserve
+            E_.clear()
+            E_["day"] = day
+            E_["res"] = {p_: int(round(float(CFG["sd_evening_frac"]) * int(shed.get(p_, 0) or 0))) for p_ in CFG["sd_evening_sell"]}
+        res_ = E_.get("res") if E_.get("day") == day else None
+        if res_:
+            h0_ = int(CFG["sd_evening_hour"])
+            new_ = []
+            rel_ = {}
+            if hour >= h0_:                        # release the reserve evenly over the evening hours
+                for p_ in res_:
+                    rel_[p_] = res_[p_] if hour >= 23 else -(-res_[p_] // (24 - hour))
+            for o in orders:
+                if o[0] == "SELL" and o[1] in res_:
+                    cap_ = int(shed.get(o[1], 0) or 0) - (res_[o[1]] - rel_.get(o[1], 0))
+                    q_ = min(max(int(o[2]), rel_.get(o[1], 0)), cap_)
+                    if q_ <= 0:
+                        continue
+                    o = ["SELL", o[1], q_]
+                new_.append(o)
+            for p_, k_ in rel_.items():            # evening releases with no regular sell order this hour
+                k_ = min(k_, int(shed.get(p_, 0) or 0))
+                if k_ > 0 and not any(o[0] == "SELL" and o[1] == p_ for o in new_):
+                    new_.append(["SELL", p_, k_])
+            for p_, k_ in rel_.items():
+                res_[p_] = max(0, res_[p_] - k_)
+            orders = new_[:10]
     if CFG["sd_final_sell_all"] and int(_g(obs, "step", 0)) >= 718:
         orders = [["SELL", p_, int(shed.get(p_, 0) or 0) + int(carried.get(p_, 0) or 0)] for p_ in PRODUCTS
                   if int(shed.get(p_, 0) or 0) + int(carried.get(p_, 0) or 0) > 0][:10]
@@ -6218,7 +6250,7 @@ def _tier_turn(segs, tiles, day, st, prices, room, total):
     D = _TIER_D
     hmax, dmax, umin = int(CFG["sd_tier_turn_hour"]), int(CFG["sd_tier_turn_detour"]), int(CFG["sd_tier_turn_min"])
     done = set()
-    while total > room:
+    while total > room or int(CFG["sd_tier_turnaround"]) >= 2:   # 2: every feasible turnaround, not only on overflow
         best = None
         for k, sg in enumerate(segs):
             stops = sg["stops"]

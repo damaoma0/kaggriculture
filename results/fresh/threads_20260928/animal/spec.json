@@ -404,5 +404,94 @@
    "sd_tier_dump_buffer": 15
   },
   "label": "KE5 = KE4 + room buffer 15 (turnarounds start when the projected carry passes ~85, like the leaders)"
+ },
+ "KE6": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 28
+  },
+  "label": "KE6 = KE4 with every animal harvest mandatory only from day 28 (KE4: 27, whose night-27 dump is 47% of all deletions)"
+ },
+ "KE7": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29
+  },
+  "label": "KE7 = KE4 with every animal harvest mandatory only from day 29 (KE4: 27, whose night-27 dump is 47% of all deletions)"
+ },
+ "KT1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_evening_sell": [
+    "WOOL",
+    "MILK",
+    "STRAWBERRY"
+   ],
+   "sd_evening_frac": 0.5
+  },
+  "label": "KT1 = KE4 + half of the morning wool / milk / strawberry stock sold at hours 20-23"
+ },
+ "KT2": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_evening_sell": [
+    "WOOL",
+    "MILK",
+    "STRAWBERRY"
+   ],
+   "sd_evening_frac": 1.0
+  },
+  "label": "KT2 = KE4 + all of the morning wool / milk / strawberry stock sold at hours 20-23"
+ },
+ "KT3": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 2
+  },
+  "label": "KT3 = KE4 + every feasible midday turnaround (not only on projected overflow)"
  }
 }
