@@ -566,6 +566,7 @@ html,body{overflow-x:hidden}
 </div>
 <div class="row">
 <label class="row" style="gap:5px"><input type="checkbox" id="sectorsToggle"> Sectors</label>
+<label class="row" style="gap:5px"><input type="checkbox" id="regionsToggle"> Regions</label>
 <label class="row" style="gap:5px" id="sectorViewWrap" hidden>View <select id="sectorView"><option value="worked">Worked</option><option value="assigned">Assigned</option></select></label>
 <span class="muted" id="sectorsHint">Colour tiles by which hand worked (or is assigned) them; click a hand below to draw its route.</span>
 </div>
@@ -691,7 +692,7 @@ function drawBoard(elId,g,mine,other){
 const HAND_COLORS=['#e8c15a','#7fb8e0','#e08b7f','#8fd19e','#c48fe0','#e0a5c4','#9fd1d1','#d1b88f','#8f9fd1','#d1d18f','#b88fd1','#8fd1b8','#d18f9f','#d1c48f','#8fc4d1','#c4d18f'];
 const FIELD_OPS=new Set(['WATER','FERTILIZE','HARVEST','PLANT','FEED','CARE','COLLECT_FERTILIZER']);
 const SHED_TILES=[[4,4],[5,4],[4,5],[5,5]];
-let sectorsOn=false,selectedHand=null,sectorView='worked',followUnit=null;
+let sectorsOn=false,selectedHand=null,sectorView='worked',followUnit=null,regionsOn=false;
 function handColor(u){return HAND_COLORS[u%HAND_COLORS.length];}
 function shedDist(x,y){return Math.min(...SHED_TILES.map(([sx,sy])=>Math.abs(x-sx)+Math.abs(y-sy)));}
 function isCentral(x,y){return shedDist(x,y)<=2;}
@@ -884,6 +885,30 @@ function drawTrace(svgId,frames,day,u,step){
   svg.insertAdjacentHTML('beforeend',html);
 }
 const MOVES_JS=new Set(['NORTH','SOUTH','EAST','WEST']);
+// Regions: every hand's worked tiles for the day (any job: water, fertilize, harvest, plant, feed, care, collect,
+// dig, build, place) outlined in its colour; each hand's border is inset by a different amount so that
+// overlapping regions show as parallel borders; a small label marks each region.
+function drawRegions(svgId,frames,day,onlyUnit){
+  const svg=$(svgId),fr=dayFrames(frames,day),sets=new Map(),first=new Map();
+  for(const f of fr){for(let u=0;u<f.units.length;u++){
+    if(onlyUnit!=null&&u!==onlyUnit)continue;
+    const op=unitOpAt(f,u);if(!WORK_OPS.has(op)&&op!=='PLACE')continue;
+    if(op==='PLACE'){const a=u===0?f.action.farmer:(f.action.hands||[])[u-1];if(!a||!['GOOSE','COW','SHEEP'].includes(a[1]))continue;}
+    const[x,y]=f.units[u],i=y*10+x;if(!sets.has(u)){sets.set(u,new Set());first.set(u,i);}sets.get(u).add(i);}}
+  let html='';
+  for(const[u,set]of sets){
+    const col=handColor(u),d=.05+.045*(u%7);
+    for(const i of set){const x=i%10,y=Math.floor(i/10);
+      const has=(xx,yy)=>xx>=0&&xx<10&&yy>=0&&yy<10&&set.has(yy*10+xx);
+      if(!has(x,y-1))html+=`<line x1="${x+d}" y1="${y+d}" x2="${x+1-d}" y2="${y+d}" stroke="${col}" stroke-width=".055"/>`;
+      if(!has(x,y+1))html+=`<line x1="${x+d}" y1="${y+1-d}" x2="${x+1-d}" y2="${y+1-d}" stroke="${col}" stroke-width=".055"/>`;
+      if(!has(x-1,y))html+=`<line x1="${x+d}" y1="${y+d}" x2="${x+d}" y2="${y+1-d}" stroke="${col}" stroke-width=".055"/>`;
+      if(!has(x+1,y))html+=`<line x1="${x+1-d}" y1="${y+d}" x2="${x+1-d}" y2="${y+1-d}" stroke="${col}" stroke-width=".055"/>`;
+    }
+    const fi=first.get(u);html+=`<text x="${fi%10+.12+d}" y="${Math.floor(fi/10)+.32+d}" font-size=".26" fill="${col}" stroke="#0b120d" stroke-width=".05" paint-order="stroke">${u===0?'F':u}</text>`;
+  }
+  svg.insertAdjacentHTML('beforeend',html);
+}
 // Follow: outline every tile the followed unit works today -- solid = already worked (before this hour),
 // dashed = still to come today (its later jobs in the replay)
 const WORK_OPS=new Set(['WATER','FERTILIZE','HARVEST','PLANT','FEED','CARE','COLLECT_FERTILIZER','DIG','BUILD_COOP','BUILD_PASTURE']);
@@ -1076,6 +1101,7 @@ function render(){
   $('boardL').classList.toggle('following',followUnit!=null);$('boardR').classList.toggle('following',followUnit!=null);
   if(followUnit!=null&&!(sectorsOn&&selectedHand!=null)){drawTrace('routeL',LF,day,followUnit,lf.step);drawTrace('routeR',RF,day,followUnit,rf.step);}
   if(followUnit!=null){markWorkTiles('boardL',LF,day,followUnit,lf.step);markWorkTiles('boardR',RF,day,followUnit,rf.step);}
+  if(regionsOn){drawRegions('routeL',LF,day,null);drawRegions('routeR',RF,day,null);}
 }
 
 function jumpToDay(day){
@@ -1133,6 +1159,7 @@ $('sectorView').onchange=()=>{sectorView=$('sectorView').value;render();};
 $('jumpD11').onclick=()=>jumpToDay(11);
 $('jumpD12').onclick=()=>jumpToDay(12);
 $('followSel').onchange=()=>{const v=$('followSel').value;followUnit=v===''?null:+v;render();};
+$('regionsToggle').onchange=()=>{regionsOn=$('regionsToggle').checked;render();};
 (function(){const s=$('daySel');for(let d=11;d<=29;d++){const o=document.createElement('option');o.value=d;o.textContent='Day '+d;s.appendChild(o);}s.onchange=()=>jumpToDay(+s.value);})();
 $('speed').onchange=()=>{if(timer){stop();$('play').click();}};
 $('world').onchange=()=>selectWorld(games.findIndex(g=>String(g.episode)===$('world').value));
