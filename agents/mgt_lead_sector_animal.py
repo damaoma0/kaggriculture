@@ -184,6 +184,7 @@ CFG = {
     "sd_dv_coins": {},        # v2: product -> coins per such unit (a number, or [[first_day, coins], ...])
     "sd_dv_hour": 22,         # v2: last DROP / PLACE hour that sells the same day (unit actions come before the market)
     "sd_dv_quota": 1,         # v2: with sell_source "leader" only products whose sell quota of the day has room get the credit
+    "sd_final_sell_all": 0,   # 1 (user 2026-09-26): at the last executed step (718) sell every product for the shed stock PLUS everything carried (units act before the market, so goods dropped at 718 sell in the same step; over-ordering is harmless)
     "sd_final_trip": 0,       # v2: routes end with the walk of their products to the shed (credited when in time)
     "sd_hard_late_w": 0.0,    # v2: coins per hour a hard (survival) op is done after sd_hard_safe
     "sd_hard_safe": 20,
@@ -270,6 +271,11 @@ CFG = {
     "sd_tier_anim_c_minv": 0.0,   # ... only bundles worth at least this (coins)
     "sd_tier_anim_c_mult": 1.0,   # ... their value multiplied by this in that pool
     "sd_tier_anim_mand_minv": None,  # FEED / CARE of a live animal become mandatory (tier B) when their joint value >= this
+    "sd_tier_turnaround": 0,  # 1 (leader shed-flow analysis): when the projected midnight dump will not fit, a hand whose harvest leg ends by sd_tier_turn_hour passes the shed between two stops (detour <= sd_tier_turn_detour tiles) and PLACEs its harvested goods there, sold at once (keeping the wheat / fertilizer its later stops need); end-of-day deliveries handle the rest
+    "sd_tier_turn_hour": 16,
+    "sd_tier_turn_detour": 2,
+    "sd_tier_turn_min": 4,    # ... only loads of at least this many units
+    "sd_tier_access_drop": 0, # 1 (leader shed-flow analysis, 2026-09-26): a HARVEST on a shed-access tile is followed by a PLACE of the harvested product into the shed, sold at once (leaders deliver 89-97% of such milk / wool / eggs the same day, K5b 8-19%)
     "sd_tier_feed_bank": 0,   # N >= 1 (coordinator 2026-09-26): a FEED on the animal's production day is mandatory (tier B) when its banked care bonus is >= N (an unfed production day wipes the bank: K5b loses 23 eggs / 19 milk / 13 wool a world that way vs DSM 15 / 8 / 3)
     "sd_tier_anim_harv": 0,   # 1: an animal HARVEST is mandatory only when tonight's production would overflow max_held
     "sd_tier_anim_harv_frac": 0.1,   # ... else an extra worth held x price x this
@@ -2863,6 +2869,9 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
         if k_ > 0:                                 # first in the list: it lands before the hour-1 pickups
             orders = [["BUY_PRODUCT", "WHEAT", k_]] + [o for o in orders if not (o[0] == "BUY_PRODUCT" and o[1] == "WHEAT")][:9]
         TPw_["wheat_bought"] = True
+    if CFG["sd_final_sell_all"] and int(_g(obs, "step", 0)) >= 718:
+        orders = [["SELL", p_, int(shed.get(p_, 0) or 0) + int(carried.get(p_, 0) or 0)] for p_ in PRODUCTS
+                  if int(shed.get(p_, 0) or 0) + int(carried.get(p_, 0) or 0) > 0][:10]
     for o in orders:
         if o[0] == "SELL":
             S["sold"][o[1]] += o[2]
@@ -5598,7 +5607,7 @@ _TIER_SHED_I = [q[1] * 10 + q[0] for q in SHED]
 _TIER_D = [[abs(a % 10 - b % 10) + abs(a // 10 - b // 10) for b in range(100)] for a in range(100)]
 _TIER_ANG = [_tier_math.atan2(-((i // 10) - 4.5), (i % 10) - 4.5) for i in range(100)]
 _TIER_BIG = 1000.0
-_TIER_RANK = {"DIG": 0, "COLLECT_FERTILIZER": 1, "FEED": 2, "CARE": 3, "FERTILIZE": 4, "WATER": 5, "HARVEST": 6,
+_TIER_RANK = {"DIG": 0, "COLLECT_FERTILIZER": 1, "FEED": 2, "CARE": 3, "FERTILIZE": 4, "WATER": 5, "HARVEST": 6, "PLACE_HARVEST": 6.5,
               "PLANT": 7, "WATER2": 8, "BUILD_COOP": 9, "BUILD_PASTURE": 9, "PLACE": 10}
 
 
@@ -6168,6 +6177,9 @@ def _tier_load(seg, stops, tiles, day):
     crop's window), collected fertilizer not used."""
     load = Counter()
     for x in stops:
+        if x.get("turn"):                          # sd_tier_turnaround: the goods carried so far go to the shed here
+            load = Counter({"FERTILIZER": load["FERTILIZER"]})
+            continue
         t = _tile(tiles, x["tile"])
         watered = fert = False
         for o in x["ops"]:
@@ -6179,6 +6191,8 @@ def _tier_load(seg, stops, tiles, day):
                 load["FERTILIZER"] -= 1
             elif c == "COLLECT_FERTILIZER":
                 load["FERTILIZER"] += 1
+            elif c == "PLACE_HARVEST" and CFG["sd_tier_turnaround"]:
+                load[o["c"][1]] = 0                # sd_tier_access_drop: that product is already in the shed
             elif c == "HARVEST" and isinstance(t, dict):
                 if _is_plant(t):
                     cr = CROPS.get(t.get("crop"))
@@ -6197,6 +6211,59 @@ def _tier_load(seg, stops, tiles, day):
     return Counter({k: v for k, v in load.items() if v > 0})
 
 
+def _tier_turn(segs, tiles, day, st, prices, room, total):
+    """sd_tier_turnaround (the leaders' type-B delivery): while the projected midnight load exceeds room, insert into the
+    best hand's route a shed stop between two stops (detour <= sd_tier_turn_detour tiles, reached by sd_tier_turn_hour)
+    carrying one DELIVER op per harvested product; no hand gets later mandatory work or supply failures."""
+    D = _TIER_D
+    hmax, dmax, umin = int(CFG["sd_tier_turn_hour"]), int(CFG["sd_tier_turn_detour"]), int(CFG["sd_tier_turn_min"])
+    done = set()
+    while total > room:
+        best = None
+        for k, sg in enumerate(segs):
+            stops = sg["stops"]
+            if k in done or sg["kind"] not in ("out", "ani") or len(stops) < 2:
+                continue
+            ev0 = _tier_eval(sg, want_hours=True)
+            hrs = ev0[4]
+            cum = 0
+            for j in range(1, len(stops)):
+                cum += len(stops[j - 1]["ops"])
+                if cum == 0 or cum > len(hrs):
+                    continue
+                end_h = hrs[cum - 1][2] + 1
+                if end_h > hmax:
+                    break
+                lk = _tier_load(sg, stops[:j], tiles, day)
+                dl = {p_: v for p_, v in lk.items() if p_ != "FERTILIZER" and v > 0}
+                units = sum(dl.values())
+                if units < umin:
+                    continue
+                a, b = stops[j - 1]["tile"], stops[j]["tile"]
+                sh = min(_TIER_SHED_I, key=lambda q: D[a][q] + D[q][b])
+                if D[a][sh] + D[sh][b] - D[a][b] > dmax:
+                    continue
+                turn = {"tile": sh, "ops": [_tier_op(["DELIVER"], True, 0.0, 2) for _ in dl], "rel": 0, "turn": True}
+                trial = stops[:j] + [turn] + stops[j:]
+                ev = _tier_eval(sg, trial)
+                if ev[1] > ev0[1] or ev[3] > ev0[3]:
+                    continue
+                val = sum(v * float(prices.get(p_, 0) or 0) for p_, v in dl.items())
+                sc = val / max(1, ev[0] - ev0[0])
+                if best is None or sc > best[0]:
+                    best = (sc, k, trial, units)
+        if best is None:
+            break
+        _, k, trial, units = best
+        segs[k]["stops"] = trial
+        segs[k]["ver"] += 1
+        done.add(k)
+        total -= units
+        st["tier_turnarounds"] = st.get("tier_turnarounds", 0) + 1
+        st["tier_turn_units"] = st.get("tier_turn_units", 0) + units
+    return total
+
+
 def _tier_deliver(S, segs, tiles, day, st):
     """sd_tier_deliver: when the projected midnight dump (every hand's load) will not fit the shed (100 minus tomorrow's
     feed wheat and a buffer), the hands with the most valuable loads per added hour end their day at the nearest shed tile
@@ -6207,6 +6274,9 @@ def _tier_deliver(S, segs, tiles, day, st):
     loads = [_tier_load(sg, sg["stops"], tiles, day) for sg in segs]
     total = sum(sum(l.values()) for l in loads)
     st["tier_dump_proj"] = st.get("tier_dump_proj", 0) + total
+    if CFG["sd_tier_turnaround"]:
+        total = _tier_turn(segs, tiles, day, st, prices, room, total)
+        loads = [_tier_load(sg, sg["stops"], tiles, day) for sg in segs]
     done = set()
     while total > room:
         best = None
@@ -6458,6 +6528,25 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     st["tier_pred_skipped"] = st.get("tier_pred_skipped", 0) + skipped
     if CFG["sd_tier_anim_mand_minv"] is not None:  # animal thread: valuable FEED / CARE are mandatory (tier B)
         _tier_anim_mand(rec, tiles, float(CFG["sd_tier_anim_mand_minv"]), st)
+    if CFG["sd_tier_access_drop"]:                 # harvest on a shed-access tile -> put the product in the shed, sold at once
+        for idx, r_ in rec.items():
+            if not _is_shed_adjacent_t((idx % 10, idx // 10)):
+                continue
+            t_ = _tile(tiles, idx)
+            if _animal(t_):
+                prod_ = ANIMALS[t_["animal"]]["product"]
+            elif _is_plant(t_):
+                prod_ = t_.get("crop")
+            else:
+                continue
+            new_ = []
+            for o in r_["ops"]:
+                new_.append(o)
+                if o["c"][0] == "HARVEST":
+                    o2 = _tier_op(["PLACE_HARVEST", prod_], o["m"], 1.0, o["tier"])
+                    new_.append(o2)
+                    st["tier_access_drop"] = st.get("tier_access_drop", 0) + 1
+            r_["ops"] = new_
     if int(CFG["sd_tier_feed_bank"]) > 0:         # protect the bank: feed on the production day
         for idx, r_ in rec.items():
             t_ = _tile(tiles, idx)
@@ -6707,7 +6796,7 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
                     st["tier_anim_c"] = st.get("tier_anim_c", 0) + 1
                 else:
                     b4.append({"tile": i, "ops": fc, "v": vfc, "shared": True})
-            hv = [o for o in ex if o["c"][0] == "HARVEST"]
+            hv = [o for o in ex if o["c"][0] in ("HARVEST", "PLACE_HARVEST")]
             if hv and CFG["sd_tier_anim_harv"]:            # animal thread: a deferred animal harvest is an extra
                 b4.append({"tile": i, "ops": hv, "v": sum(o["v"] for o in hv), "shared": True})
         else:
@@ -6885,6 +6974,31 @@ def _tier_cmd(TP, R, u, p, inv, tiles, day, hour, step, seeds_left, shed_left):
             continue
         c = it["ops"][R["sub"]]
         t = _tile(tiles, it["tile"])
+        if c[0] == "DELIVER":                      # sd_tier_turnaround: the harvested goods into the shed, sold at once
+            R["sub"] += 1
+            later = [c2 for it2 in items[R["k"] + 1:] if it2["kind"] == "stop" for c2 in it2["ops"]]
+            keep_ = {"WHEAT": sum(1 for c2 in later if c2[0] == "FEED"),
+                     "FERTILIZER": sum(1 for c2 in later if c2[0] == "FERTILIZE")}
+            cand_ = [(int(n_ or 0) - keep_.get(k_, 0), k_) for k_, n_ in inv.items() if k_ in PRODUCTS]
+            cand_ = [x for x in cand_ if x[0] > 0]
+            if cand_ and _is_shed_adjacent_t(p):
+                n_, k_ = max(cand_)
+                TP.setdefault("dsell", Counter())[k_] += n_
+                TP["cnt"]["turn_place"] += 1
+                TP["cnt"]["turn_units"] += n_
+                R.setdefault("done", []).append((hour, it["tile"], "DELIVER"))
+                return ["PLACE", k_, n_]
+            continue
+        if c[0] == "PLACE_HARVEST":                # sd_tier_access_drop: the harvested product into the shed, sold at once
+            R["sub"] += 1
+            n_ = int(inv.get(c[1], 0) or 0)
+            if n_ > 0 and _is_shed_adjacent_t(p):
+                TP.setdefault("dsell", Counter())[c[1]] += n_
+                TP["cnt"]["access_drop"] += 1
+                TP["cnt"]["access_drop_units"] += n_
+                R.setdefault("done", []).append((hour, it["tile"], "PLACE_HARVEST"))
+                return ["PLACE", c[1], n_]
+            continue
         v = _tier_check(c, t, inv, day, seeds_left)
         if v == "do" and c[0] == "DROP" and CFG["sd_tier_deliver_check"] and TP.get("_load_now") is not None:
             if TP["_load_now"] <= 100 - int(CFG["sd_tier_dump_buffer"]):

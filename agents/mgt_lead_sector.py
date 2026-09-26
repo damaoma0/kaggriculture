@@ -184,6 +184,7 @@ CFG = {
     "sd_dv_coins": {},        # v2: product -> coins per such unit (a number, or [[first_day, coins], ...])
     "sd_dv_hour": 22,         # v2: last DROP / PLACE hour that sells the same day (unit actions come before the market)
     "sd_dv_quota": 1,         # v2: with sell_source "leader" only products whose sell quota of the day has room get the credit
+    "sd_final_sell_all": 0,   # 1 (user 2026-09-26): at the last executed step (718) sell every product for the shed stock PLUS everything carried (units act before the market, so goods dropped at 718 sell in the same step; over-ordering is harmless)
     "sd_final_trip": 0,       # v2: routes end with the walk of their products to the shed (credited when in time)
     "sd_hard_late_w": 0.0,    # v2: coins per hour a hard (survival) op is done after sd_hard_safe
     "sd_hard_safe": 20,
@@ -2941,6 +2942,9 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             o[0] == "SELL" and o[1] in TPx_["h2_placed"])]
         orders = orders[:10]
         TPx_["h2_placed"] = Counter()
+    if CFG["sd_final_sell_all"] and int(_g(obs, "step", 0)) >= 718:
+        orders = [["SELL", p_, int(shed.get(p_, 0) or 0) + int(carried.get(p_, 0) or 0)] for p_ in PRODUCTS
+                  if int(shed.get(p_, 0) or 0) + int(carried.get(p_, 0) or 0) > 0][:10]
     for o in orders:
         if o[0] == "SELL":
             S["sold"][o[1]] += o[2]

@@ -331,5 +331,78 @@
    "sd_tier_feed_bank": 1
   },
   "label": "KA6v150fb: KA6v150 + a FEED on the production day is mandatory when the banked care bonus is >= 1"
+ },
+ "KE1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1
+  },
+  "label": "KE1 = KA6v150fb + sell everything (shed + carried) at the last step 718"
+ },
+ "KE2": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1
+  },
+  "label": "KE2 = KE1 + a harvest on a shed-access tile is followed by PLACE of the product into the shed, sold at once"
+ },
+ "KE3": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_dump_buffer": 15
+  },
+  "label": "KE3 = KE2 + midnight room buffer 15 (planned deliveries keep the projected carry near the leaders ~85)"
+ },
+ "KE4": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1
+  },
+  "label": "KE4 = KE2 + midday turnaround (projected dump over room: a hand passes the shed between two stops, detour <= 2, by hour 16, loads >= 4, PLACEs its harvest, sold at once)"
+ },
+ "KE5": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_dump_buffer": 15
+  },
+  "label": "KE5 = KE4 + room buffer 15 (turnarounds start when the projected carry passes ~85, like the leaders)"
  }
 }
