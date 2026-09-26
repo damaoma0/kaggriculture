@@ -285,6 +285,7 @@ CFG = {
     "sd_tier_pen_bundle_collect": 1,   # 0: the COLLECT stays out of the pen stop (free for the fertilize pairing; KB1 lost 4.3 fertilizes a day with it in)
     "sd_tier_central_hand": 0,   # 1 (user 2026-09-26): the farmer (when he has no melon duty) is the CENTRAL hand: he serves the pens within sd_tier_central_radius of the shed (FEED, CARE when a later production realises it, the due HARVEST), chosen greedily by value per added hour (care = product price, feed cashing a bank = bank x price) while his day fits, and puts each harvest into the shed right after (DELIVER, sold at once; pens on access tiles use PLACE_HARVEST); the COLLECTs stay with the outbound hands; his pens leave the others' work; he is out of the sector search, fills and relief
     "sd_tier_central_radius": 2,
+    "sd_tier_central_mode": "care",   # "deliver" (user: the central hand is for EARLY DELIVERY): first the central pens with product (due harvest or >= sd_tier_central_hmin), ranked by units x price per added hour, each with its feed / care in the same visit and a drop at the shed right after; then care of other central pens with the time left
     "sd_tier_central_hmin": None,  # e.g. {"COW": 3, "SHEEP": 4, "GOOSE": 3} (DSM's mean units per harvest at pens within 2 tiles: cow 3.4-3.8, sheep 4.2-4.4, goose 2.7-3.5): the central hand also harvests (and drops) a pen holding at least this many units   # DSM same-day milk delivery by distance from the access tiles: 95 / 61 / 42 / 27% at 0 / 1 / 2 / 3
     "sd_tier_spawn_h2": 0,    # 1 (2026-09-26): the hour-1 hires spawn on the least occupied shed tile AFTER the hour-0 units' hour-1 commands; when that differs from the plan's assumption (empty shed tiles), re-plan once with the spawn tiles the plan's own hour-1 positions imply (KE7: 65% of hour-1 hires started ~0.9 h late and lost their route's tail ops)
     "sd_tier_water_exact": 0, # 1 (user 2026-09-26: shift the weights): a non-mandatory WATER is worth units x price by engine rules (one-time crop in its window: +1, +2 fertilized, to the cap; ongoing crop producing tonight and fertilized: +1 if under the cap; else 0) + sd_water_tomorrow   # > 0: the pen's harvest joins the stop when it holds >= this many units (else the cap rule)
@@ -6318,8 +6319,38 @@ def _tier_central(S, cseg, rec, tiles, day, st):
             continue
         must = any(o["m"] for o in take)
         hv = any(o["c"][0] == "HARVEST" for o in take)
-        cand[idx] = {"ops": take, "v": val + (1e6 if must else 0.0), "hv": hv, "prod": a_["product"]}
+        units_ = int(t_.get("yield_units", 0) or 0) if hv else 0
+        cand[idx] = {"ops": take, "v": val + (1e6 if must else 0.0), "hv": hv, "prod": a_["product"], "dv": units_ * pr_}
     stops, taken = [], []
+    if str(CFG["sd_tier_central_mode"]) == "deliver":   # morning round: pens with product first, drop after each
+        while True:
+            ev0 = _tier_eval(cseg, stops) if stops else (cseg["t0"], 0, 0, 0)
+            best = None
+            for idx, c in cand.items():
+                if not c["hv"] or c["dv"] <= 0:
+                    continue
+                add = [{"tile": idx, "ops": [dict(o, m=True, tier=2) for o in c["ops"]], "rel": rec[idx]["rel"]}]
+                if idx not in _TIER_SHED_I:
+                    sh = min(_TIER_SHED_I, key=lambda q: D[idx][q])
+                    add.append({"tile": sh, "ops": [_tier_op(["DELIVER"], True, 0.0, 2)], "rel": 0, "turn": True})
+                trial = stops + add
+                ev = _tier_eval(cseg, trial)
+                if ev[1] > 0 or ev[0] > 24:
+                    continue
+                sc = c["dv"] / max(1, ev[0] - ev0[0])
+                if best is None or sc > best[0]:
+                    best = (sc, idx, trial)
+            if best is None:
+                break
+            _, idx, trial = best
+            stops = trial
+            taken.append(idx)
+            c = cand.pop(idx)
+            ids = set(id(o) for o in c["ops"])
+            rec[idx]["ops"] = [o for o in rec[idx]["ops"] if id(o) not in ids]
+            if not rec[idx]["ops"]:
+                rec.pop(idx)
+            st["tier_central_deliver_pens"] = st.get("tier_central_deliver_pens", 0) + 1
     while cand:
         ev0 = _tier_eval(cseg, stops) if stops else (cseg["t0"], 0, 0, 0)
         best = None

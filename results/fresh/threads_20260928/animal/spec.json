@@ -856,5 +856,30 @@
    "sd_tier_pen_bundle_collect": 0
   },
   "label": "KB2s = KS1 + pen service stop without the collect (feed / care / due harvest as one mandatory stop per pen; collects free for the fertilize pairing)"
+ },
+ "KC8": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_tier_central_hand": 1,
+   "sd_tier_central_radius": 2,
+   "sd_tier_central_mode": "deliver",
+   "sd_tier_central_hmin": {
+    "COW": 3,
+    "SHEEP": 4,
+    "GOOSE": 3
+   }
+  },
+  "label": "KC8 = KS1 + central hand for early delivery: the farmer first harvests the central pens with product (due or >= DSM-size loads), drops each at the shed at once, then cares for other central pens"
  }
 }
