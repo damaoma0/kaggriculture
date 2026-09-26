@@ -4255,5 +4255,301 @@
    "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 50.0 (arm 50.0)",
    "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 50.0 (arm 50.0)"
   ]
+ },
+ "KWE12": {
+  "label": "KWE12: KWE7bf + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1
+  },
+  "own": 106277.0,
+  "rival": 112547.0,
+  "margin": -6270.0,
+  "died": {
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 11
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 12
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -5381,
+    "books_cap": 0
+   },
+   "WOOL": {
+    "actual": -1619,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -2277,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": -936,
+    "books_cap": -913
+   },
+   "WHEAT": {
+    "actual": -4893,
+    "books_cap": -3453
+   },
+   "CARROT": {
+    "actual": -309,
+    "books_cap": -209
+   },
+   "TOMATO": {
+    "actual": -362,
+    "books_cap": -378
+   },
+   "FERTILIZER": {
+    "actual": -506,
+    "books_cap": -4
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -16273,
+    "books_cap": -4957
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 319 / 318, WOOL 189 / 166, MILK 212 / 202, EGG 132 / 149, WHEAT 371 / 499, CARROT 46 / 54, TOMATO 60 / 69, FERTILIZER 167 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 6.0 (arm 6.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 6.0 (arm 6.0)"
+  ]
+ },
+ "KWE12s1": {
+  "label": "KWE12: KWE7bf + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat) | planner seed 1",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1,
+   "sd_seed": 1
+  },
+  "own": 108234.0,
+  "rival": 116083.0,
+  "margin": -7849.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 1,
+   "animal_SHEEP": 9
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 6,
+   "skip_WATER": 9,
+   "skip_HARVEST": 1
+  }
+ },
+ "KWE12s2": {
+  "label": "KWE12: KWE7bf + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat) | planner seed 2",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1,
+   "sd_seed": 2
+  },
+  "own": 108745.0,
+  "rival": 118248.0,
+  "margin": -9503.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_TOMATO": 1,
+   "plant_WHEAT": 1,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "skip_DROP": 10,
+   "skip_WATER": 8
+  }
+ },
+ "KWE12s3": {
+  "label": "KWE12: KWE7bf + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat) | planner seed 3",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1,
+   "sd_seed": 3
+  },
+  "own": 108647.0,
+  "rival": 114884.0,
+  "margin": -6237.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_WHEAT": 2,
+   "plant_TOMATO": 1,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 3,
+   "skip_WATER": 13
+  }
+ },
+ "KWE13": {
+  "label": "KWE13: KWE10f + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1
+  },
+  "own": 111842.0,
+  "rival": 116920.0,
+  "margin": -5078.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 2,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "access_keep_wheat": 1,
+   "skip_DROP": 4,
+   "skip_WATER": 7
+  },
+  "mars_margin_gap_vs_DSM": {
+   "STRAWBERRY": {
+    "actual": -9009,
+    "books_cap": -934
+   },
+   "WOOL": {
+    "actual": 1692,
+    "books_cap": 0
+   },
+   "MILK": {
+    "actual": -269,
+    "books_cap": 0
+   },
+   "EGG": {
+    "actual": 598,
+    "books_cap": 0
+   },
+   "WHEAT": {
+    "actual": -7309,
+    "books_cap": -5785
+   },
+   "CARROT": {
+    "actual": -461,
+    "books_cap": -401
+   },
+   "TOMATO": {
+    "actual": -211,
+    "books_cap": -250
+   },
+   "FERTILIZER": {
+    "actual": -619,
+    "books_cap": 1
+   },
+   "MELON": {
+    "actual": 10,
+    "books_cap": 0
+   },
+   "TOTAL": {
+    "actual": -15578,
+    "books_cap": -7369
+   }
+  },
+  "units_sold_ours_vs_DSM": "STRAWBERRY 300 / 318, WOOL 198 / 166, MILK 217 / 202, EGG 162 / 149, WHEAT 325 / 499, CARROT 39 / 54, TOMATO 63 / 69, FERTILIZER 177 / 172, MELON 24 / 24",
+  "mars_checks": [
+   "checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 46.0 (arm 46.0)",
+   "checks books_cap: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 46.0 (arm 46.0)"
+  ]
+ },
+ "KWE13s1": {
+  "label": "KWE13: KWE10f + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat) | planner seed 1",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1,
+   "sd_seed": 1
+  },
+  "own": 109959.0,
+  "rival": 117129.0,
+  "margin": -7170.0,
+  "died": {
+   "plant_STRAWBERRY": 1,
+   "plant_TOMATO": 1,
+   "plant_WHEAT": 3,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "access_keep_wheat": 1,
+   "skip_DROP": 8,
+   "skip_WATER": 13
+  }
+ },
+ "KWE13s2": {
+  "label": "KWE13: KWE10f + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat) | planner seed 2",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1,
+   "sd_seed": 2
+  },
+  "own": 109615.0,
+  "rival": 116833.0,
+  "margin": -7218.0,
+  "died": {
+   "plant_STRAWBERRY": 3,
+   "plant_WHEAT": 3,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 4,
+   "skip_WATER": 16
+  }
+ },
+ "KWE13s3": {
+  "label": "KWE13: KWE10f + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat) | planner seed 3",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1,
+   "sd_seed": 3
+  },
+  "own": 109901.0,
+  "rival": 119139.0,
+  "margin": -9238.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "animal_SHEEP": 7
+  },
+  "exec": {
+   "wait_pick": 1,
+   "skip_DROP": 5,
+   "skip_WATER": 9,
+   "skip_HARVEST": 2
+  }
+ },
+ "KWE7fs3p": {
+  "label": "KWE7fs3p: KWE7fs3 + sd_wheat_pick_now (does it stop the day-28 pickup shortfall / goose escape?)",
+  "cfg_extra": {
+   "sd_maint_floor_trail": 24,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 3,
+   "sd_wheat_pick_now": 1
+  },
+  "own": 108550.0,
+  "rival": 116284.0,
+  "margin": -7734.0,
+  "died": {
+   "plant_STRAWBERRY": 2,
+   "plant_WHEAT": 3,
+   "animal_SHEEP": 10
+  },
+  "exec": {
+   "wait_pick": 2,
+   "skip_DROP": 4,
+   "skip_WATER": 14
+  }
  }
 }

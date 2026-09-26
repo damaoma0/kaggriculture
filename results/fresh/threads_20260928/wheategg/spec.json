@@ -1652,5 +1652,259 @@
    "sd_tier_dump_fix": 1
   },
   "label": "KWE0c: KWE0 re-run on the final copy (all KWE flags off: must equal KDF1 step for step)"
+ },
+ "KWE12": {
+  "agent": "agents/mgt_lead_sector_wheategg.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_maint_floor_trail": 48,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1
+  },
+  "label": "KWE12: KWE7bf + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat)"
+ },
+ "KWE12s1": {
+  "agent": "agents/mgt_lead_sector_wheategg.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_maint_floor_trail": 48,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1,
+   "sd_seed": 1
+  },
+  "label": "KWE12: KWE7bf + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat) | planner seed 1"
+ },
+ "KWE12s2": {
+  "agent": "agents/mgt_lead_sector_wheategg.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_maint_floor_trail": 48,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1,
+   "sd_seed": 2
+  },
+  "label": "KWE12: KWE7bf + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat) | planner seed 2"
+ },
+ "KWE12s3": {
+  "agent": "agents/mgt_lead_sector_wheategg.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_maint_floor_trail": 48,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1,
+   "sd_seed": 3
+  },
+  "label": "KWE12: KWE7bf + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat) | planner seed 3"
+ },
+ "KWE13": {
+  "agent": "agents/mgt_lead_sector_wheategg.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1
+  },
+  "label": "KWE13: KWE10f + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat)"
+ },
+ "KWE13s1": {
+  "agent": "agents/mgt_lead_sector_wheategg.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1,
+   "sd_seed": 1
+  },
+  "label": "KWE13: KWE10f + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat) | planner seed 1"
+ },
+ "KWE13s2": {
+  "agent": "agents/mgt_lead_sector_wheategg.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1,
+   "sd_seed": 2
+  },
+  "label": "KWE13: KWE10f + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat) | planner seed 2"
+ },
+ "KWE13s3": {
+  "agent": "agents/mgt_lead_sector_wheategg.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_maint_floor_trail": 48,
+   "sd_tier_goose_care": 1,
+   "sd_tier_access_keep": 1,
+   "sd_wheat_pick_now": 1,
+   "sd_seed": 3
+  },
+  "label": "KWE13: KWE10f + sd_wheat_pick_now (the market wheat reserve counts the wheat picked up in the same step; KWE5f / KWE7s3 lost a cow / goose to hour-1/2 pickups short of wheat) | planner seed 3"
+ },
+ "KWE7fs3p": {
+  "agent": "agents/mgt_lead_sector_wheategg.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_maint_floor_trail": 24,
+   "sd_tier_access_keep": 1,
+   "sd_seed": 3,
+   "sd_wheat_pick_now": 1
+  },
+  "label": "KWE7fs3p: KWE7fs3 + sd_wheat_pick_now (does it stop the day-28 pickup shortfall / goose escape?)"
  }
 }
