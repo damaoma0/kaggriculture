@@ -72,6 +72,13 @@ def discover_dynamic_arms():
 OUT_DIR = ROOT / 'results/fresh/day12_viz'
 OUT_HTML = ROOT / 'viz/day12_leader_vs_T.html'
 DAY11_START, DAY12_START, DAY12_END, DAY13_MORNING = 264, 288, 311, 312
+# VIEWER_LAST_DAY (default 12): season mode, frames from day 11 to that day's end (29 = the whole season); the spot-check
+# and the day-11-12-only arms (x, fhmrp) are skipped in season mode
+SEASON_LAST = int(os.environ.get('VIEWER_LAST_DAY', '12'))
+SEASON = SEASON_LAST != 12
+if SEASON:
+    DAY12_END = (SEASON_LAST + 1) * 24 - 1
+    DAY13_MORNING = DAY12_END + 1
 MOVES = {'NORTH', 'SOUTH', 'EAST', 'WEST'}
 MEM_MIN_GB = 0.8
 
@@ -232,7 +239,7 @@ def load_stream(directory, ep):
     # key (meaning "actions[0] IS step <offset>") changes the indexing; otherwise infer from length: a
     # length >= a full day-13-morning span means `actions` is already absolute-indexed from step 0.
     explicit_offset = meta.get('start_step', meta.get('offset'))
-    candidates = [explicit_offset] if explicit_offset is not None else [0 if len(actions) >= DAY13_MORNING else DAY11_START]
+    candidates = [explicit_offset] if explicit_offset is not None else [0 if len(actions) >= 312 else DAY11_START]   # 312: a day-11-12 stream is absolute-indexed when it reaches the day-13 morning (season mode moves DAY13_MORNING)
     if explicit_offset is None and 0 not in candidates:
         candidates.append(0)
     # Some producers report per-day starting cash (index = day number) as an independent oracle,
@@ -323,8 +330,9 @@ def process_game(game, ctx, dynamic_arms=()):
     def t_provider(t):
         return UE.tape_action(ttape['actions'], t), UE.tape_action(leader_tape['opp_actions'], t)
 
-    leader_frames, leader_final, leader_opp_final = run_side(seed, shops, seat, leader_provider, DAY11_START, DAY12_END, 719, lookup, table, ctx)
-    t_frames, t_final, t_opp_final = run_side(seed, shops, seat, t_provider, DAY12_START, DAY12_END, 719, lookup, table, ctx)
+    run_to = max(719, DAY13_MORNING) if SEASON else 719
+    leader_frames, leader_final, leader_opp_final = run_side(seed, shops, seat, leader_provider, DAY11_START, DAY12_END, run_to, lookup, table, ctx)
+    t_frames, t_final, t_opp_final = run_side(seed, shops, seat, t_provider, DAY12_START, DAY12_END, run_to, lookup, table, ctx)
 
     leader_ledger = json.loads((XOPEN_DIR / 'LEADER' / f'{ep}.json').read_text(encoding='utf-8'))
     t_ledger = json.loads((XOPEN_DIR / 'T' / f'{ep}.json').read_text(encoding='utf-8'))
@@ -338,15 +346,15 @@ def process_game(game, ctx, dynamic_arms=()):
         t_cash_ok=round(t_final) == round(ttape['final']),
         t_cash=t_final, t_target=ttape['final'],
         t_opp_cash_ok=round(t_opp_final) == round(ttape['opp_final']),
-        spot_leader=spot_check(leader_d12_counters, leader_ledger['days']),
-        spot_t=spot_check(t_d12_counters, t_ledger['days']),
+        spot_leader=None if SEASON else spot_check(leader_d12_counters, leader_ledger['days']),
+        spot_t=None if SEASON else spot_check(t_d12_counters, t_ledger['days']),
     )
 
     result = dict(episode=ep, team=lead_g1.TEAM.get(team_id, team_id), seat=seat,
                   leader=dict(frames=leader_frames, final=leader_final, target=leader_tape['rewards'][seat]),
                   t=dict(frames=t_frames, final=t_final, target=ttape['final']),
-                  x=build_exact_arm(XDYN_DIR, ep, leader_tape, leader_frames, seed, shops, seat, lookup, table, ctx),
-                  fhmrp=build_exact_arm(FHMRP_DIR, ep, leader_tape, leader_frames, seed, shops, seat, lookup, table, ctx),
+                  x=dict(available=False) if SEASON else build_exact_arm(XDYN_DIR, ep, leader_tape, leader_frames, seed, shops, seat, lookup, table, ctx),
+                  fhmrp=dict(available=False) if SEASON else build_exact_arm(FHMRP_DIR, ep, leader_tape, leader_frames, seed, shops, seat, lookup, table, ctx),
                   verify=verify)
     for arm in dynamic_arms:
         result[arm['key']] = build_exact_arm(arm['dir'], ep, leader_tape, leader_frames, seed, shops, seat, lookup, table, ctx)
@@ -412,8 +420,8 @@ def print_verify_table(results, arm_names=('x', 'fhmrp')):
              '|---|---:|---|---:|---|---|' + arm_sep]
     for r in results:
         v = r['verify']
-        sl = all(v['spot_leader'][k]['match'] for k in v['spot_leader'])
-        st = all(v['spot_t'][k]['match'] for k in v['spot_t'])
+        sl = all(v['spot_leader'][k]['match'] for k in (v['spot_leader'] or {}))
+        st = all(v['spot_t'][k]['match'] for k in (v['spot_t'] or {}))
         arm_vals = ''.join(f" {r[n]['available']} | {r[n].get('handoff_ok', '-')} | {_cc_str(r[n])} |" for n in arm_names)
         lines.append(f"| {r['episode']} ({r['team']}) | {v['leader_cash']:.0f} ({v['leader_target']:.0f}) | "
                       f"{'OK' if v['leader_cash_ok'] else 'MISMATCH'} | {v['t_cash']:.0f} ({v['t_target']:.0f}) | "
@@ -424,7 +432,7 @@ def print_verify_table(results, arm_names=('x', 'fhmrp')):
     # print any spot-check mismatch in full, for diagnosis
     for r in results:
         for side, key in (('leader', 'spot_leader'), ('T', 'spot_t')):
-            sc = r['verify'][key]
+            sc = r['verify'][key] or {}
             for field, d in sc.items():
                 if not d['match']:
                     print(f"  MISMATCH {r['episode']} {side} {field}: ours={d['ours']} ledger={d['ledger']}")
@@ -545,6 +553,7 @@ html,body{overflow-x:hidden}
 <button id="next" aria-label="Next hour">+ Hour</button>
 <button id="jumpD11" type="button">Day 11</button>
 <button id="jumpD12" type="button">Day 12</button>
+<label>Day <select id="daySel"></select></label>
 <label>Speed <select id="speed"><option value="700">Slow</option><option value="220" selected>Normal</option><option value="80">Fast</option></select></label>
 <strong id="clock"></strong>
 </div>
@@ -1065,6 +1074,7 @@ $('sectorsToggle').onchange=()=>{sectorsOn=$('sectorsToggle').checked;$('sectorV
 $('sectorView').onchange=()=>{sectorView=$('sectorView').value;render();};
 $('jumpD11').onclick=()=>jumpToDay(11);
 $('jumpD12').onclick=()=>jumpToDay(12);
+(function(){const s=$('daySel');for(let d=11;d<=29;d++){const o=document.createElement('option');o.value=d;o.textContent='Day '+d;s.appendChild(o);}s.onchange=()=>jumpToDay(+s.value);})();
 $('speed').onchange=()=>{if(timer){stop();$('play').click();}};
 $('world').onchange=()=>selectWorld(games.findIndex(g=>String(g.episode)===$('world').value));
 $('mode').onchange=()=>{mode=$('mode').value;selectedHand=null;cur=0;stop();render();};

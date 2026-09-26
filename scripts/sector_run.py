@@ -169,6 +169,11 @@ ARMS = {
     # shed, keep collected fertilizer in hand for fertilizing (midnight dump -> sold next morning); on top, fertilize on
     # the first useful day with fertilizer charged at a fraction of its price
     'G0': (SEC, dict(MDEC, sd_fert_sell=1)),
+    # new main branch candidate (user, 2026-09-28): G0 + survival water late weight 10 after h16 (retired plants exempt)
+    # + idle waters worth 10 (idle hands do NOT deliver fertilizer: the fertilizer policy keeps it in hand)
+    'C1': (SEC, dict(MDEC, sd_fert_sell=1, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16, sd_water_tomorrow=10.0)),
+    'M_decay30': (SEC, dict(MDEC)),               # = M_decay, run to the season end (multi, 19 days)
+    'N0_30': (S2, dict(dispatch_search='off')),   # = N0 (the current T), run to the season end
     **{f'G{int(f * 100):03d}': (SEC, dict(MDEC, sd_fert_sell=1, sd_fert_first=1, sd_fert_frac=f)) for f in (1.0, 0.75, 0.5, 0.25)},
     # the same two arms under the shipping build's wall-clock caps (0.75 / 0.6 / 0.8 s; evaluation budgets unchanged)
     'Mship': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
@@ -218,6 +223,9 @@ LABEL = {
     'iv2': 'iv2: M_decay + idle fill v2 (idle hands only: same-day delivery, then the nearest dry plant at home)',
     'rt0': 'rt0: M_decay + retired plants get no hard water (reference for the hw sweep)',
     'G0': 'G0: M_decay + leader fertilizer policy (shed stock all sold, no shed pickups, collected fertilizer kept in hand)',
+    'C1': 'C1: G0 + survival water late weight 10 after h16 (retired plants exempt) + idle waters worth 10',
+    'M_decay30': 'M_decay (season end)',
+    'N0_30': 'current T (season end)',
     **{f'G{int(f * 100):03d}': f'G{int(f * 100):03d}: G0 + fertilize on the first useful day, fertilizer charged at {f:.2f} x its price' for f in (1.0, 0.75, 0.5, 0.25)},
     'F3': 'F3: F1 + fertilize on the first day it adds units (fertilizer in hand or shed), days 11-14',
     'H1': 'H1: M_decay + survival ops cost 30 an hour after h16 + hard jobs eject the least-value others',
@@ -325,7 +333,7 @@ def multi_job(args):
         env = envbox['env']
         money = {}
         for d in range(D, D + nd + 1):
-            fs = env.steps[d * 24][0].observation.farms
+            fs = env.steps[min(d * 24, len(env.steps) - 1)][0].observation.farms   # day-30 'morning' = the final state
             money[d] = [float(fs[seat]['money']), float(fs[1 - seat]['money'])]
         days = r['days']
         out = dict(game=game, episode=int(game.split(':')[1]), arm=arm, seat=seat, ndays=nd, money=money,
