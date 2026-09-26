@@ -186,6 +186,7 @@ CFG = {
     "sd_dv_quota": 1,         # v2: with sell_source "leader" only products whose sell quota of the day has room get the credit
     "sd_hourly_profile": None,   # {product: [24 cumulative shares]} (user 2026-09-26: follow DSM's market PATTERN): the sell quota at hour h of day d = the target's sales before day d + share[h] x its sales on day d (not its whole day at hour 1); catch-up when behind, never ahead
     "sd_wheat_reserve_today": 0, # 1: the wheat reserve is today's remaining feeds only (not + n_animals x wheat_days): wheat sells on the target's pace, tomorrow's feed is bought at hour 0 (sd_tier_wheat)
+    "sd_wheat_pick_now": 0,   # 1 (2026-09-26, KQ plant deaths): the market's wheat reserve for the tiered plan's pickups also counts the WHEAT the executor picks up in this same step. Those pick items are marked done when the command is issued, but the wheat is still in the observed shed and the engine runs unit actions before the market, so without this the sale takes the wheat the later pickups (the hour-1 hires, acting from hour 2) need: they wait for a buy-back and their routes end an hour late (last WATER unfinished, plants die; FEED skipped)
     "sd_h0_front": [],        # (user 2026-09-26) products whose shed stock may be sold at hour 0 FIRST in the order list (the engine processes both players' orders position by position, so a sell behind the hires comes after the rival's hour-0 sales); the largest-value pile >= sd_h0_front_min, at most sd_h0_front_n orders; one hour-0 hire moves to hour 1 only when the 10 slots are full
     "sd_h0_front_min": 5,
     "sd_h0_front_n": 1,
@@ -2652,6 +2653,10 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     if TPw_ and TPw_.get("day") == day:
         left_ = sum(it_["n"] for R_ in TPw_["routes"].values() for it_ in R_["items"][R_["k"]:]
                     if it_["kind"] == "pick" and it_["item"] == "WHEAT")
+        if CFG["sd_wheat_pick_now"]:              # + this step's pickups: still in the observed shed, gone before the sale
+            pn_ = TPw_.get("_picked_now")
+            if pn_ and pn_[0] == int(_g(obs, "step", 0)):
+                left_ += int(pn_[1].get("WHEAT", 0))
         reserve["WHEAT"] = max(reserve["WHEAT"], left_)
     if endgame:
         reserve = Counter()
@@ -7716,6 +7721,9 @@ def _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, sh
         inv = invs[u] if u < len(invs) else {}
         actions[u] = _tier_cmd(TP, R, u, tuple(pos[u]), inv, tiles, day, hour, step, seeds_left, shed_left)
         snap[str(u)] = [it["tile"] for it in R["items"][R["k"]:] if it["kind"] == "stop"]
+    if CFG["sd_wheat_pick_now"]:                   # the shed stock this step's PICKUP commands take (read by _market)
+        TP["_picked_now"] = (int(step), {k_: int(shed.get(k_, 0) or 0) - int(shed_left.get(k_, 0) or 0)
+                                         for k_ in shed if int(shed.get(k_, 0) or 0) > int(shed_left.get(k_, 0) or 0)})
     if CFG["sd_plan_log"] and snap != L.get("plan_last"):
         L.setdefault("plan_log", {})[str(step)] = snap
         L["plan_last"] = snap
