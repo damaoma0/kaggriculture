@@ -1,0 +1,42 @@
+1. animals bought too late to ever produce
+   LEADER      0 coins/world, units {}, worlds 0, max 0
+   KS1       690 coins/world, units {'SHEEP': 19, 'COW': 40, 'GOOSE': 7}, worlds 19, max 4600
+   KC8       800 coins/world, units {'SHEEP': 21, 'COW': 53, 'GOOSE': 1}, worlds 20, max 7200
+   KE7       475 coins/world, units {'COW': 24, 'SHEEP': 17, 'GOOSE': 3}, worlds 19, max 2800
+   KB1      2420 coins/world, units {'SHEEP': 53, 'COW': 175, 'GOOSE': 1}, worlds 26, max 11400
+2. service level (days 11-28, our animals)
+   LEADER COW: fed 71% fed+cared 70% units/prod 2.81/3 short 13 | SHEEP: fed 83% fed+cared 78% units/prod 3.73/4 short 10 | GOOSE: fed 83% fed+cared 81% units/prod 1.76/2 short 23
+   KS1    COW: fed 78% fed+cared 62% units/prod 2.71/3 short 22 | SHEEP: fed 81% fed+cared 67% units/prod 3.52/4 short 20 | GOOSE: fed 78% fed+cared 47% units/prod 1.54/2 short 45
+   KC8    COW: fed 76% fed+cared 60% units/prod 2.65/3 short 26 | SHEEP: fed 80% fed+cared 65% units/prod 3.44/4 short 23 | GOOSE: fed 77% fed+cared 45% units/prod 1.52/2 short 48
+   KE7    COW: fed 78% fed+cared 63% units/prod 2.69/3 short 23 | SHEEP: fed 81% fed+cared 67% units/prod 3.52/4 short 20 | GOOSE: fed 77% fed+cared 47% units/prod 1.55/2 short 45
+   KB1    COW: fed 81% fed+cared 77% units/prod 3.04/3 short -2 | SHEEP: fed 82% fed+cared 74% units/prod 3.70/4 short 11 | GOOSE: fed 92% fed+cared 86% units/prod 1.92/2 short 8
+3. module plan vs care done on fed days (days 12-27)
+   KS1 COW   quote <40  fed days  19.4/world | planned+done 37% | planned, skipped 48% | not planned 15%
+   KS1 COW   quote >=40 fed days 103.9/world | planned+done 88% | planned, skipped 8% | not planned 3%
+   KS1 SHEEP quote <40  fed days  11.3/world | planned+done 23% | planned, skipped 22% | not planned 55%
+   KS1 SHEEP quote >=40 fed days  85.2/world | planned+done 91% | planned, skipped 3% | not planned 6%
+   KS1 GOOSE quote >=40 fed days  76.4/world | planned+done 62% | planned, skipped 38% | not planned 1%
+   KC8 COW   quote <40  fed days  25.1/world | planned+done 38% | planned, skipped 46% | not planned 16%
+   KC8 COW   quote >=40 fed days  95.5/world | planned+done 89% | planned, skipped 8% | not planned 3%
+   KC8 SHEEP quote <40  fed days  12.6/world | planned+done 21% | planned, skipped 24% | not planned 55%
+   KC8 SHEEP quote >=40 fed days  81.7/world | planned+done 90% | planned, skipped 4% | not planned 6%
+   KC8 GOOSE quote >=40 fed days  74.9/world | planned+done 60% | planned, skipped 40% | not planned 1%
+4. stop decisions (mid-season abandonments, escape night >= 12)
+   LEADER COW   3.12/world in 26 worlds | stop day median 24 | productions lost median 2 | quote/wheat median 0.88 | animals per stop event 1.6
+   LEADER SHEEP 1.90/world in 24 worlds | stop day median 23.0 | productions lost median 1.5 | quote/wheat median 0.61 | animals per stop event 1.4
+   LEADER GOOSE 1.43/world in 23 worlds | stop day median 27 | productions lost median 1 | quote/wheat median 1.07 | animals per stop event 1.5
+   KS1    COW   1.73/world in 16 worlds | stop day median 26 | productions lost median 1 | quote/wheat median 0.40 | animals per stop event 3.3
+   KS1    SHEEP 0.12/world in 3 worlds | stop day median 26 | productions lost median 1 | quote/wheat median 1.05 | animals per stop event 1.7
+   KS1    GOOSE 0.17/world in 5 worlds | stop day median 24 | productions lost median 4 | quote/wheat median 1.39 | animals per stop event 1.4
+   KC8    COW   1.70/world in 13 worlds | stop day median 24.0 | productions lost median 2.0 | quote/wheat median 0.47 | animals per stop event 3.1
+   KC8    SHEEP 0.28/world in 7 worlds | stop day median 23 | productions lost median 2 | quote/wheat median 0.93 | animals per stop event 1.4
+   KC8    GOOSE 0.15/world in 5 worlds | stop day median 20.0 | productions lost median 8.0 | quote/wheat median 1.16 | animals per stop event 1.0
+5. keep k of an abandoned cow group (exact margin, full care / fed only)
+   KC8 112592389 (13 cows): 1:+269/+64 2:+357/+116 3:+386/+157 4:+393/+155 5:+381/+147 6:+352/+133 7:+305/+107 8:+235/+80 9:+122/+50 10:-51/+17 11:-231/+33 12:-431/+39 13:-541/+18
+   KC8 112591190 (11 cows): 1:+646/+170 2:+1110/+326 3:+1457/+466 4:+1705/+579 5:+1671/+670 6:+1530/+750 7:+1313/+806 8:+1025/+860 9:+737/+917 10:+449/+955 11:+161/+980
+   KS1 112591190 (14 cows): 1:+176/+37 2:+283/+65 3:+346/+87 4:+281/+42 5:+195/-5 6:+88/-54 7:-37/-105 8:-172/-160 9:-307/-218 10:-442/-279 11:-577/-342 12:-712/-406 13:-847/-471 14:-982/-537
+   LEADER 112592389 (7 cows): 1:-423/-82 2:-862/-214 3:-1184/-392 4:-1533/-578 5:-1901/-832 6:-2228/-1008 7:-2555/-1177
+6. DSM's recorded BUY_ANIMAL orders by day (units, 40 worlds)
+   COW   {0: 80, 6: 274, 7: 54, 8: 15, 9: 85, 10: 4, 12: 9, 15: 1}
+   SHEEP {0: 120, 6: 95, 7: 15, 8: 42, 9: 15, 10: 12, 12: 24, 15: 25, 16: 7, 18: 15, 19: 2}
+   GOOSE {6: 44, 7: 7, 9: 96, 10: 59, 11: 40}
