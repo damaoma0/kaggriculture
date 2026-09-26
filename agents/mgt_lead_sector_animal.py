@@ -190,6 +190,8 @@ CFG = {
     "sd_maint_floor_last": 26,  # last day the floors apply (after it: the quote, the final cycle)
     "sd_books_sell": [],      # products (user 2026-09-26: "switch to DSM sell plans"): sold on the leader's own sell plan for this world (results/fresh/threads_20260928/dsm_sales/<ep>.json): at every step up to the leader's cumulative units through that step, capped by our shed, first in the order list (the leader's position); no sale on delivery; at hour 21 anything above the leader's sales of the next 12 steps is sold (our surplus does not fill the shed overnight)
     "sd_books_cap": 0,        # 1 (KBK2 overflow days: the plan's held goods took shed room, the midnight dump deleted wheat): from hour 21 on, when shed + everything carried + what the routes still harvest today would not fit the shed (100 - sd_tier_dump_buffer), the held sd_books_sell goods are sold, cheapest first, down to what fits
+    "sd_maint_floor_trail": 0,  # KWE (2026-09-26, world 112604454: the wool floor 100 kept 10 sheep fully fed / cared on days 21-26 while our wool sold at 1-33 and every hourly quote was <= 98; sheep feeds 158 vs DSM 104 = 54 wheat, care 137 vs 100): H >= 1 = each floor is capped by the trailing statistic (sd_maint_floor_stat) of that product's hourly quotes over the last H hours, so one thin dawn quote after a high evening stays protected (R2) but a glut that lasts all day is priced as one
+    "sd_maint_floor_stat": "mean",  # "mean" | "max" of the trailing quotes
     "sd_pattern_tick": [],    # products (user 2026-09-26: imitate DSM's selling; engine-isolated test +2.7k on world 112604454): sold only at hours 1 / 5 / 9 / 13 / 17 / 21 (the first market after a town consumption tick; the engine clears the market BEFORE the town consumes at hours 0 / 4 / 8 / 12 / 16 / 20) on the sd_hourly_profile quota; their deliveries are no longer sold on arrival and the overflow guards leave them alone at the tick hours themselves (hour 20). Needs sd_hourly_profile for these products
     "sd_wheat_pick_now": 0,   # 1 (2026-09-26, KQ plant deaths): the market's wheat reserve for the tiered plan's pickups also counts the WHEAT the executor picks up in this same step. Those pick items are marked done when the command is issued, but the wheat is still in the observed shed and the engine runs unit actions before the market, so without this the sale takes the wheat the later pickups (the hour-1 hires, acting from hour 2) need: they wait for a buy-back and their routes end an hour late (last WATER unfinished, plants die; FEED skipped)
     "sd_h0_front": [],        # (user 2026-09-26) products whose shed stock may be sold at hour 0 FIRST in the order list (the engine processes both players' orders position by position, so a sell behind the hires comes after the rival's hour-0 sales); the largest-value pile >= sd_h0_front_min, at most sd_h0_front_n orders; one hour-0 hire moves to hour 1 only when the 10 slots are full
@@ -322,6 +324,9 @@ CFG = {
     "sd_tier_turn_min": 4,    # ... only loads of at least this many units
     "sd_tier_access_drop": 0, # 1 (leader shed-flow analysis, 2026-09-26): a HARVEST on a shed-access tile is followed by a PLACE of the harvested product into the shed, sold at once (leaders deliver 89-97% of such milk / wool / eggs the same day, K5b 8-19%)
     "sd_tier_feed_bank": 0,   # N >= 1 (coordinator 2026-09-26): a FEED on the animal's production day is mandatory (tier B) when its banked care bonus is >= N (an unfed production day wipes the bank: K5b loses 23 eggs / 19 milk / 13 wool a world that way vs DSM 15 / 8 / 3)
+    "sd_tier_goose_care": 0,  # KWE thread (2026-09-26, world 112604454: goose CARE 48 vs DSM 80 on the same 5 geese, 27 fed-not-cared goose-days vs 1 -> 21 fewer eggs; a CARE is a tier-4 extra that the packed days never take): 1 = a goose CARE is mandatory (same stop, +1 h) wherever the goose's FEED is mandatory today (keep-alive / sd_tier_feed_bank), which chains daily (a cared day banks +1, the next day's FEED is then mandatory by the bank); 2 = also FEED + CARE on a goose with any other mandatory op (a due HARVEST); 3 = FEED + CARE mandatory on every live goose every day (DSM: fed 81 / cared 80 of 90 goose-days). Only while the care can still be paid by a harvestable production (day <= last_day - 2)
+    "sd_tier_goose_c_minv": None,  # KWE: goose FEED / CARE bundles join the tier-C pool (value per hour against the waterings / fertilizes) when worth >= this (None: the general sd_tier_anim_c_minv)
+    "sd_tier_goose_c_mult": 1.0,   # KWE: ... their value multiplied by this in that pool
     "sd_tier_anim_harv": 0,   # 1: an animal HARVEST is mandatory only when tonight's production would overflow max_held
     "sd_tier_anim_harv_frac": 0.1,   # ... else an extra worth held x price x this
     "sd_tier_anim_harv_end": 27,     # ... from this day every animal harvest stays mandatory (season end)
@@ -1284,6 +1289,14 @@ def agent(obs, config=None):
     while len(invs) < len(pos):
         invs.append(Counter())
     prices = dict(_g(_g(obs, "market", {}), "prices", {}))
+    if CFG["sd_maint_floor_trail"] and CFG["sd_maint_floor"]:   # KWE: hourly quote history of the floor products
+        ph_ = S.setdefault("price_hist", {})
+        for k_ in CFG["sd_maint_floor"]:
+            h_ = ph_.setdefault(k_, [])
+            if not h_ or h_[-1][0] != step:
+                h_.append((step, float(prices.get(k_, 0) or 0)))
+            while h_ and step - h_[0][0] > 96:
+                h_.pop(0)
     if _T is None:
         return {"farmer": ["PASS"], "hands": [["PASS"]] * (len(pos) - 1), "market": []}
     if S["day"] != day:
@@ -1331,7 +1344,15 @@ def agent(obs, config=None):
             if CFG["sd_maint_floor"] and day <= int(CFG["sd_maint_floor_last"]):   # R2: no abandonment on one thin quote
                 mj_prices = dict(mj_prices or {})
                 for k_, fl_ in CFG["sd_maint_floor"].items():
-                    mj_prices[k_] = max(float(prices.get(k_, 0) or 0), float(fl_))
+                    fl2_ = float(fl_)
+                    H_ = int(CFG["sd_maint_floor_trail"] or 0)
+                    if H_ > 0:                     # KWE: a glut that lasts all day lowers the floor
+                        hist_ = [p_ for s_, p_ in S.get("price_hist", {}).get(k_, ()) if step - s_ <= H_]
+                        if hist_:
+                            stat_ = max(hist_) if CFG["sd_maint_floor_stat"] == "max" else sum(hist_) / len(hist_)
+                            fl2_ = min(fl2_, stat_)
+                            S["log"]["floor_trail_%s" % k_] += int(round(fl2_))
+                    mj_prices[k_] = max(float(prices.get(k_, 0) or 0), fl2_)
             try:
                 jl = _sm()["maintenance_jobs"](obs, me, prices=mj_prices, fertilize=_mj_fert(), include_optional=True,
                                               collect=CFG["mj_collect"], log=S.setdefault("abandon", []))
@@ -3116,11 +3137,13 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                         S["log"]["books_cap_" + p_] += k_
             for pos_, o_ in sorted(front_, key=lambda x: x[0]):
                 orders.insert(min(pos_, len(orders)), o_)
-            while len(orders) > 10:                # never push a hire out of the 10-order cap
+            while len(orders) > 10:                # 10-order cap: never drop a hire or a buy (the hour-0 feed wheat buy:
+                # dropping it left the hour-1 hires short of wheat, feeds skipped, KC1 day 19); ordinary sells go first,
+                # then the plan's own sells
                 drop_ = next((i_ for i_ in range(len(orders) - 1, -1, -1)
-                              if orders[i_][0] != "HIRE" and not (orders[i_][0] == "SELL" and orders[i_][1] in bk_)), None)
+                              if orders[i_][0] == "SELL" and orders[i_][1] not in bk_), None)
                 if drop_ is None:
-                    drop_ = next((i_ for i_ in range(len(orders) - 1, -1, -1) if orders[i_][0] != "HIRE"), None)
+                    drop_ = next((i_ for i_ in range(len(orders) - 1, -1, -1) if orders[i_][0] == "SELL"), None)
                 if drop_ is None:
                     break
                 orders.pop(drop_)
@@ -7213,6 +7236,47 @@ def _tier_anim_mand(rec, tiles, minv, st):
     st["tier_anim_mand"] = st.get("tier_anim_mand", 0) + n
 
 
+def _tier_goose_care(rec, tiles, day, last_day, prices, st):
+    """KWE (sd_tier_goose_care): goose CARE (and FEED) made mandatory. A care banks +1 only on a fed day and is paid at the
+    next production only if the goose is fed that day, so a CARE needs a FEED today (planned mandatory or already done);
+    useful only while that production is still harvestable (the refresh of day last_day - 1 is the last one)."""
+    mode = int(CFG["sd_tier_goose_care"])
+    if day + 2 > last_day:
+        return
+    pe = float(prices.get("EGG", 0) or 0) or 50.0
+    n_c = n_f = 0
+    for idx in range(100):
+        t = _tile(tiles, idx)
+        if _animal(t) != "GOOSE" or t.get("cared_today"):
+            continue
+        r_ = rec.get(idx)
+        ops = r_["ops"] if r_ else []
+        feed_m = bool(t.get("fed_today")) or any(o["c"][0] == "FEED" and o["m"] for o in ops)
+        any_m = any(o["m"] for o in ops)
+        if mode == 1 and not feed_m:
+            continue
+        if mode == 2 and not (feed_m or any_m):
+            continue
+        r_ = rec.setdefault(idx, {"ops": [], "rel": 0})
+        if not t.get("fed_today"):
+            f = next((o for o in r_["ops"] if o["c"][0] == "FEED"), None)
+            if f is None:
+                r_["ops"].append(_tier_op(["FEED"], True, pe, 2))
+                n_f += 1
+            elif not f["m"]:
+                f["m"], f["tier"] = True, 2
+                n_f += 1
+        c = next((o for o in r_["ops"] if o["c"][0] == "CARE"), None)
+        if c is None:
+            r_["ops"].append(_tier_op(["CARE"], True, pe, 2))
+        else:
+            c["m"], c["tier"] = True, 2
+        r_["ops"].sort(key=lambda o: o["rank"])
+        n_c += 1
+    st["tier_goose_care"] = st.get("tier_goose_care", 0) + n_c
+    st["tier_goose_feed"] = st.get("tier_goose_feed", 0) + n_f
+
+
 def _tier_anim_out(segs, idx, pool_a, pool_b, collects, anim, rate, st):
     """user idea (sd_tier_anim_out): an outbound hand whose planned day ends by 24 - spare feeds / cares / collects the
     animals lying on (or within sd_tier_anim_out_detour tiles of) a shortest path from its start to its first patch stop
@@ -7415,6 +7479,8 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                 if o["c"][0] == "FEED" and not o["m"]:
                     o["m"], o["tier"] = True, 2
                     st["tier_feed_bank"] = st.get("tier_feed_bank", 0) + 1
+    if int(CFG["sd_tier_goose_care"]) > 0:        # KWE: goose CARE with the FEED
+        _tier_goose_care(rec, tiles, day, last_day, prices, st)
     # ---- the leader's plan for today that the hour-0 task list does not show yet (seeds / animals bought later)
     added = 0
     for idx, job in sorted(jobs.items()):
@@ -7827,8 +7893,15 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             fc = [o for o in ex if o["tier"] == 4 and o["c"][0] in ("FEED", "CARE")]
             if fc:
                 vfc = sum(o["v"] for o in fc)
-                if CFG["sd_tier_anim_c"] and vfc >= float(CFG["sd_tier_anim_c_minv"]):   # animal thread: tier C pool
-                    b3.append({"tile": i, "ops": fc, "v": vfc * float(CFG["sd_tier_anim_c_mult"]), "shared": True})
+                minv_ = float(CFG["sd_tier_anim_c_minv"])
+                if CFG["sd_tier_goose_c_minv"] is not None and _animal(_tile(tiles, i)) == "GOOSE":
+                    minv_ = float(CFG["sd_tier_goose_c_minv"])   # KWE: goose bundles against the waterings
+                if CFG["sd_tier_anim_c"] and vfc >= minv_:   # animal thread: tier C pool
+                    mult_ = float(CFG["sd_tier_anim_c_mult"])
+                    if CFG["sd_tier_goose_c_minv"] is not None and _animal(_tile(tiles, i)) == "GOOSE":
+                        mult_ = float(CFG["sd_tier_goose_c_mult"])
+                        st["tier_goose_c"] = st.get("tier_goose_c", 0) + 1
+                    b3.append({"tile": i, "ops": fc, "v": vfc * mult_, "shared": True})
                     st["tier_anim_c"] = st.get("tier_anim_c", 0) + 1
                 else:
                     b4.append({"tile": i, "ops": fc, "v": vfc, "shared": True})
