@@ -93,6 +93,11 @@ CFG_KEYS = '''    # ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only;
     "sd_build_value": 150.0,  # value of the structure job when split
     "sd_bundle_build": 0,     # every plan BUILD + animal = one job: clear -> BUILD -> PLACE -> FEED -> CARE (never an empty structure)
     "sd_bundle_value": "auto",  # the bundle's value: "auto" = a day of the animal (2 x product price / interval + fertilizer)
+    "sd_water_tomorrow": 0.0, # coins: a water on a dry plant is worth at least this (tomorrow's labour saved); 0 = off
+    "sd_idle_fert": 0,        # an idle planned unit delivers its fertilizer too
+    "sd_corr_w": 0.0,         # radial corridors: coins per op outside the unit's corridor (0 = off)
+    "sd_rad_in": 0.0,         # radial: coins per inward step between job tiles
+    "sd_rad_side": 0.0,       # radial: coins per sideways step between job tiles
     "sd_early_animal": 0,     # a BUILD job's animal is bought while its tile still waits for the crop harvest
     "sd_seed_fix": 0,         # the warm start drops plantings the seeds held no longer cover (the plan never over-commits seeds)
     "sd_hop_central": 2,      # contiguity: tiles within this distance of the shed are en-route (no hop cost to / from them)

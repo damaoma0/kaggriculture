@@ -50,6 +50,7 @@ def hand_metrics(r):
     visits, ops_q, spawn = {}, {}, {}
     seg, trips, last = {}, Counter(), {}
     pvisits = {}
+    lastpos, dirs = {}, {}
     m = Counter()
     goose = Counter()
     for t in range(lo, hi):
@@ -64,6 +65,13 @@ def hand_metrics(r):
             if u == 0:
                 continue
             spawn.setdefault(u, quad(p))
+            q_ = lastpos.get(u)
+            if q_ is not None and q_ != p:              # a move since the last step: outward / inward / sideways
+                dd = cen(p) - cen(q_)
+                m['mv_out' if dd > 0 else 'mv_in' if dd < 0 else 'mv_side'] += 1
+                if dd:
+                    dirs.setdefault(u, []).append(1 if dd > 0 else -1)
+            lastpos[u] = p
             if p not in SHED:
                 visits.setdefault(p, set()).add(u)
                 if cen(p) > 2:
@@ -108,6 +116,11 @@ def hand_metrics(r):
     for u, k in trips.items():
         m['trips_%s' % (k if k < 3 else '3+')] += 1
     m['trip_hands'] = len(trips)
+    for u in spawn:
+        sq = dirs.get(u, [])
+        rev = sum(1 for a_, b_ in zip(sq, sq[1:]) if a_ != b_)
+        m['reversals'] += rev
+        m['no_reversal'] += 1 if rev == 0 else 0
     return m, goose
 
 
@@ -158,6 +171,9 @@ def trace(arms):
                 hrs.append(g['goose_h'])
                 if e in g1:
                     hrs1.append(g['goose_h'])
+        ghr.append(f"{a}: moves per hand-day outward / inward / sideways {tot['mv_out'] / max(1, tot['hands']):.1f} / "
+                   f"{tot['mv_in'] / max(1, tot['hands']):.1f} / {tot['mv_side'] / max(1, tot['hands']):.1f}; reversals per "
+                   f"hand-day {tot['reversals'] / max(1, tot['hands']):.2f}, hands never reversing {tot['no_reversal'] / max(1, tot['hands']):.0%}")
         ghr.append(f"{a}: hires on day 11 {tot['hired'] / max(1, len(A)):.1f} a world, wages {tot['wages'] / max(1, len(A)):,.0f}")
         ghr.append(f"{a}: goose placed on day 11 in {len(hrs)} of {len(A)} worlds (hours {sorted(Counter(hrs).items())}); "
                    f"G1 worlds: {len(hrs1)} of {sum(1 for e in A if e in g1)} (hours {sorted(Counter(hrs1).items())})")

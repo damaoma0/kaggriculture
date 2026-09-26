@@ -205,6 +205,11 @@ CFG = {
     "sd_build_value": 150.0,  # value of the structure job when split
     "sd_bundle_build": 0,     # every plan BUILD + animal = one job: clear -> BUILD -> PLACE -> FEED -> CARE (never an empty structure)
     "sd_bundle_value": "auto",  # the bundle's value: "auto" = a day of the animal (2 x product price / interval + fertilizer)
+    "sd_water_tomorrow": 0.0, # coins: a water on a dry plant is worth at least this (tomorrow's labour saved); 0 = off
+    "sd_idle_fert": 0,        # an idle planned unit delivers its fertilizer too
+    "sd_corr_w": 0.0,         # radial corridors: coins per op outside the unit's corridor (0 = off)
+    "sd_rad_in": 0.0,         # radial: coins per inward step between job tiles
+    "sd_rad_side": 0.0,       # radial: coins per sideways step between job tiles
     "sd_early_animal": 0,     # a BUILD job's animal is bought while its tile still waits for the crop harvest
     "sd_seed_fix": 0,         # the warm start drops plantings the seeds held no longer cover (the plan never over-commits seeds)
     "sd_hop_central": 2,      # contiguity: tiles within this distance of the shed are en-route (no hop cost to / from them)
@@ -2800,7 +2805,12 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
 # sd_bundle_build (user design, replaces the split): every plan BUILD with an animal is one job for one hand: clear the
 # tile (WATER if due, HARVEST or DIG) -> BUILD -> PLACE -> FEED -> CARE, the animal and its feed wheat picked up at the
 # trip start, valued at a day's delay (a day of the animal's product + fertilizer, sd_bundle_value "auto") on top of the
-# clearing ops; never an empty structure (no animal: the structure waits whole).
+# clearing ops; never an empty structure (no animal: the structure waits whole). sd_water_tomorrow: a water on a dry
+# plant is worth at least this (tomorrow's labour saved: a plant dry today is a must-do tomorrow), and plants without a
+# (radial corridors, user design) sd_corr_w: each unit's angular corridor around the shed (equal work, by spawn angle,
+# disjoint); an op outside it costs sd_corr_w; sd_rad_in / sd_rad_side: coins per inward / sideways step between job
+# tiles (the trip works outward; deliveries and pickups are not job-to-job moves).
+# task get a planner-only water job; sd_idle_fert: an idle planned unit delivers its fertilizer too.
 # v5: sd_surv_fb = from this hour the executor's own survival routes (surv_reserve: a plant dying / an animal escaping
 # tonight, nearest-arrival routes) keep their units and tiles: the planner plans neither (guaranteed fallback).
 # sectors (2026-09-25, research copy agents/mgt_lead_sector.py): each unit has a home quadrant (a hand: the quadrant of
@@ -3114,6 +3124,9 @@ def _sd_opvals(S, idx, t, ops, plan, day, E, last_day):
                     v = max(v, pr_ or 200.0)
             except Exception:
                 pass
+        if (CFG["sd_water_tomorrow"] and c == "WATER" and _is_plant(t) and not t.get("watered_today")
+                and day < last_day):
+            v = max(v, float(CFG["sd_water_tomorrow"]))   # tomorrow's labour saved (a dry plant is a must-do tomorrow)
         if day < last_day and ((c == "WATER" and _is_plant(t) and not t.get("watered_today")
                                 and t.get("consecutive_unwatered", 0) >= 1)
                                or (c == "FEED" and _animal(t) and not t.get("fed_today")
@@ -3131,6 +3144,77 @@ def _sd_opvals(S, idx, t, ops, plan, day, E, last_day):
 def _sd_qi(idx):
     """quadrant index of a tile index: 0 NW (second), 1 NE (first), 2 SW (third), 3 SE (fourth)."""
     return (0 if idx // 10 < 5 else 2) + (0 if idx % 10 < 5 else 1)
+
+
+def _sd_angle(idx):
+    import math
+    return math.atan2(idx // 10 - 4.5, idx % 10 - 4.5)
+
+
+def _sd_corridors(P, L, hour, n):
+    """radial corridors for the day: at the first plan with hands, the job tiles sorted by angle around the shed are cut
+    into as many contiguous angular ranges as units, with equal work (ops); range r goes to the unit whose position
+    angle matches (cyclic assignment with the least total angle gap). P.tcorr[tile] = range, P.ucorr[unit] = range."""
+    import math
+    cr = L.get("corr")
+    day = L.get("day")
+    if (cr is None or cr.get("day") != day) and n > 1:
+        units = [u for u in range(n) if P.ue[u] >= 0]
+        W = {}
+        for j in range(P.J):
+            if P.real[j]:
+                W[P.jb[j][0]] = W.get(P.jb[j][0], 0) + P.jb[j][1]
+        H = max(1, len(units))
+        tiles = sorted(W, key=lambda i: (_sd_angle(i), i))
+        tot = float(sum(W.values())) or 1.0
+        cuts, acc, k = [], 0.0, 1
+        for i in tiles:
+            acc += W[i]
+            while k < H and acc >= k * tot / H:
+                cuts.append(_sd_angle(i) + 1e-6)
+                k += 1
+        while len(cuts) < H - 1:
+            cuts.append(math.pi)
+        edges = [-math.pi - 1e-9] + cuts + [math.pi + 1e-9]
+        mids = [(edges[r] + edges[r + 1]) / 2.0 for r in range(H)]
+        ua = sorted(units, key=lambda u: (_sd_angle(P.up[u]), u))
+        best = None
+        for sh in range(H):
+            gap = 0.0
+            for r in range(H):
+                d = abs(_sd_angle(P.up[ua[(r + sh) % H]]) - mids[r])
+                gap += min(d, 2 * math.pi - d)
+            if best is None or gap < best[0] - 1e-9:
+                best = (gap, sh)
+        u2r = {ua[(r + best[1]) % H]: r for r in range(H)}
+        cr = {"day": day, "edges": edges, "u2r": u2r}
+        L["corr"] = cr
+        def rng_of(i):
+            a = _sd_angle(i)
+            for r in range(H):
+                if edges[r] <= a < edges[r + 1]:
+                    return r
+            return H - 1
+        tc = [rng_of(i) for i in range(100)]
+        r2u = {r: u for u, r in u2r.items()}
+        L.setdefault("corridor_log", {})[str(day)] = {str(r2u[r]): [i for i in range(100) if tc[i] == r
+                                                                    and (i % 10, i // 10) not in SHED]
+                                                      for r in range(H) if r in r2u}
+        L["st"]["corridor_days"] = L["st"].get("corridor_days", 0) + 1
+    if cr is None or cr.get("day") != day:
+        P.tcorr, P.ucorr = None, [-1] * P.U
+        return
+    edges, u2r = cr["edges"], cr["u2r"]
+    H = len(edges) - 1
+
+    def rng_of(i):
+        a = _sd_angle(i)
+        for r in range(H):
+            if edges[r] <= a < edges[r + 1]:
+                return r
+        return H - 1
+    P.tcorr = [rng_of(i) for i in range(100)]
+    P.ucorr = [u2r.get(u, -1) for u in range(P.U)]
 
 
 def _sd_sector(P, L, hour, n):
@@ -3417,6 +3501,16 @@ def _sd_build(S, L, ctx):
             if wat:
                 jb = JB[j1]
                 JB[j1] = jb[:13] + (True,) + jb[14:]          # the WATER task is a predecessor: its finish is tracked
+    # sd_water_tomorrow: plants the executor leaves dry today (no task: no production effect) get a planner-only water
+    # job worth tomorrow's labour saved; idle capacity then waters the patch instead of passing
+    if CFG["sd_water_tomorrow"] and not P.lastday:
+        wv = float(CFG["sd_water_tomorrow"])
+        for idx in range(100):
+            if idx in kidx or ("B", idx) in kidx or ("H", idx) in kidx or idx in stiles:
+                continue
+            t = _tile(tiles, idx)
+            if _is_plant(t) and not t.get("watered_today"):
+                add(("W", idx), idx, [["WATER"]], (wv,), (last,), -1, 1, hour, -1, 0, True, None, 0, 0, 0, 0.0, 0, 0.0)
     # predicted jobs (1): plan plantings whose seeds are bought this step (tile free or weed, no task yet)
     pseen = L["pred_seen"]
     if CFG["sd_plan_jobs"]:
@@ -3546,6 +3640,12 @@ def _sd_build(S, L, ctx):
     P.ucv = cols["cv"]
     U = len(P.ut0)
     P.U = U
+    P.corrw = float(CFG["sd_corr_w"])
+    P.radin, P.radside = float(CFG["sd_rad_in"]), float(CFG["sd_rad_side"])
+    if P.corrw:
+        _sd_corridors(P, L, hour, n)
+    else:
+        P.tcorr, P.ucorr = None, [-1] * U
     P.secw = float(CFG["sd_sector_w"])
     P.hopw = float(CFG["sd_hop_w"])
     P.hopc = int(CFG["sd_hop_central"])
@@ -3708,6 +3808,8 @@ def _sd_eval1(P, u, r, aw_ok, af_ok):
         cv, dvh1 = P.ucv[u], P.dv_h1
     hlw = P.hlw
     secw, uhq = P.secw, P.uhome[u]
+    corrw, ucr, tcr = P.corrw, P.ucorr[u], P.tcorr
+    radin, radside = P.radin, P.radside
     hopw, pj, hopc = P.hopw, False, P.hopc
     for k in range(L_):
         j = r[k]
@@ -3724,6 +3826,9 @@ def _sd_eval1(P, u, r, aw_ok, af_ok):
             can += pa[0] + pa[1] + pa[2]
         if hopw and pj and D[prev][b] > 1 and P.ds[prev] > hopc and P.ds[b] > hopc:   # contiguity in the patch
             val -= hopw * (D[prev][b] - 1)
+        if (radin or radside) and pj:              # radial: job to job, inward and sideways steps cost
+            da_, db_ = P.ds[prev], P.ds[b]
+            val -= radin * (da_ - db_ if da_ > db_ else 0) + radside * (D[prev][b] - (db_ - da_ if db_ > da_ else da_ - db_))
         t += D[prev][b]
         rel = jb[9]
         pr = jb[11]
@@ -3761,6 +3866,8 @@ def _sd_eval1(P, u, r, aw_ok, af_ok):
                 val -= hlw * x
         if secw and uhq >= 0 and jb[22] != uhq and not jb[23]:   # sectors: ops outside the unit's home quadrant
             val -= secw * (m if t + m <= E else (E - t if E > t else 0))
+        if corrw and ucr >= 0 and tcr is not None and tcr[b] != ucr and not jb[23]:   # radial corridors
+            val -= corrw * (m if t + m <= E else (E - t if E > t else 0))
         sft = jb[21]
         if sft is not None and sft[0] not in skip:  # v3: soft time target (melons early in the morning)
             x = t + (sft[0] - sum(1 for s_ in skip if s_ < sft[0]) if skip else sft[0])
@@ -4647,6 +4754,9 @@ def _sd_act(S, run, u, p, inv, tasks, tiles, shed_left, seeds_left, plant_count,
             st["switch_steps"] += w[1]
         walk[u] = (None, 0)
         dv = deliv_u(u)
+        if CFG["sd_idle_fert"] and inv.get("FERTILIZER", 0) > 0 and "FERTILIZER" not in dv:
+            dv = dict(dv)
+            dv["FERTILIZER"] = int(inv["FERTILIZER"])   # an idle unit has no fertilize job left: its fertilizer to the shed
         if dv and hour < 23:
             st["idle_deliver"] += 1
             s = _near_shed(p)
@@ -4699,6 +4809,13 @@ def _sd_act(S, run, u, p, inv, tasks, tiles, shed_left, seeds_left, plant_count,
         st["pred_wait"] += 1
         st["planned_unit"] += 1
         return ["PASS"]                            # predicted job: wait on the tile for its task
+    if isinstance(key0, tuple) and key0[0] == "W" and b0 not in tasks:   # sd_water_tomorrow: a planner-only water
+        t = _tile(tiles, b0)
+        if _is_plant(t) and not t.get("watered_today"):
+            st["planned_unit"] += 1
+            st["water_tomorrow"] = st.get("water_tomorrow", 0) + 1
+            run["acted"].add(u)
+            return ["WATER"]
     if isinstance(key0, tuple) and key0[0] == "H" and b0 not in tasks:   # v3: an offered melon harvest
         t = _tile(tiles, b0)
         if _is_plant(t) and int(t.get("yield_units", 0) or 0) > 0:

@@ -92,6 +92,19 @@ ARMS = {
     'S11cbsd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
                           sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
                           sd_spawn_steer=1, sd_hire_demand=1, **SHIP)),
+    # round 5: the bundle base + idle fill (waters worth tomorrow's labour, idle fertilizer delivered) + radial corridors
+    'S11ci': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                        sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
+                        sd_water_tomorrow=40.0, sd_idle_fert=1, **SHIP)),
+    'S11cr': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                        sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
+                        sd_water_tomorrow=40.0, sd_idle_fert=1, sd_corr_w=40.0, sd_rad_in=20.0, sd_rad_side=10.0, **SHIP)),
+    'S11cr2': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
+                         sd_water_tomorrow=40.0, sd_idle_fert=1, sd_corr_w=80.0, sd_rad_in=40.0, sd_rad_side=20.0, **SHIP)),
+    'S11crr': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
+                         sd_water_tomorrow=40.0, sd_idle_fert=1, sd_rad_in=20.0, sd_rad_side=10.0, **SHIP)),
     'S11a': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_early_animal=1, **SHIP)),      # + early animal
     'S11wh2': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=80.0, sd_hop_w=40.0, **SHIP)),
 }
@@ -122,6 +135,10 @@ LABEL = {
     'S11cbs': 'S11cbs: S11cb + spawn steering',
     'S11cbd': 'S11cbd: S11cb + hires by demand',
     'S11cbsd': 'S11cbsd: S11cb + spawn steering + hires by demand',
+    'S11ci': 'S11ci: S11cb + idle fill (a water on a dry plant worth 40, tomorrow labour saved; idle hands deliver fertilizer)',
+    'S11cr': 'S11cr: S11ci + radial corridors (40 an op outside the corridor; 20 an inward, 10 a sideways step between job tiles)',
+    'S11cr2': 'S11cr2: S11ci + radial corridors x2 (80 / 40 / 20)',
+    'S11crr': 'S11crr: S11ci + radial steps only (20 inward, 10 sideways; no corridors)',
 }
 
 
@@ -147,6 +164,9 @@ def stream_job(args):
         r = X.ledger_play(game, arm, 'stream')
         r['arm'] = LABEL.get(arm, arm)
         cfg = ARMS.get(arm, (None, {}))[1]
+        if cfg.get('sd_corr_w') and _MODS:       # the viewer's corridor overlay: each hand's corridor tiles by day
+            L_ = (getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}
+            r['corridors'] = {d: v for d, v in (L_.get('corridor_log') or {}).items() if d in ('11', '12')}
         if cfg.get('sd_sector_w') and _MODS:     # the viewer's sector overlay: homes by day, rebalancing changes
             L_ = (getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}
             r['sectors'] = {d: v for d, v in (L_.get('sector_log') or {}).items() if d in ('11', '12')}

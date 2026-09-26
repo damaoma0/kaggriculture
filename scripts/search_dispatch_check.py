@@ -213,6 +213,9 @@ def verify_plan(mod, P):
                 pj = False
             if getattr(P, 'hopw', 0) and pj and D[pos][b] > 1 and P.ds[pos] > P.hopc and P.ds[b] > P.hopc:
                 val -= P.hopw * (D[pos][b] - 1)
+            if (getattr(P, 'radin', 0) or getattr(P, 'radside', 0)) and pj:
+                da_, db_ = P.ds[pos], P.ds[b]
+                val -= P.radin * max(0, da_ - db_) + P.radside * (D[pos][b] - abs(db_ - da_))
             t += D[pos][b]
             pos = b
             rel = jb[9]
@@ -246,6 +249,8 @@ def verify_plan(mod, P):
                 val -= P.hlw * max(0, t + ex.index(jb[10]) - P.hsafe)
             if getattr(P, 'secw', 0) and P.uhome[u] >= 0 and jb[22] != P.uhome[u] and not jb[23]:   # sectors
                 val -= P.secw * min(len(ex), max(0, E_ - t))
+            if getattr(P, 'corrw', 0) and P.ucorr[u] >= 0 and P.tcorr is not None and P.tcorr[b] != P.ucorr[u] and not jb[23]:
+                val -= P.corrw * min(len(ex), max(0, E_ - t))
             if jb[21] is not None and jb[21][0] in ex:      # v3: soft time target, when the op is executed
                 x = t + ex.index(jb[21][0])
                 if jb[21][1] < x < E_:
