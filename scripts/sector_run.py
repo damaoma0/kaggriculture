@@ -243,6 +243,12 @@ ARMS = {
     'B1-fb': (SEC, dict(ARMS_B1, sd_feed_bonus=0.0)),
     'B1ni': (SEC, dict(ARMS_B1, sd_water_tomorrow=0.0)),        # B1 without the idle waters
     'B1p': (SEC, dict(ARMS_B1, sd_path_collect=6)),             # B1 + collect on the way out
+    # melon morning push vs the new animal values (user: B1p's farmer collects instead of harvesting melons)
+    **{f'B1pm{w}': (SEC, dict(ARMS_B1, sd_path_collect=6, sd_hv_pref=dict(HVM, MELON=dict(HVM['MELON'], hour_w=float(w)))))
+       for w in (60, 150)},
+    **{f'B1pc{c}': (SEC, dict(ARMS_B1, sd_path_collect=6, sd_collect_floor=float(c))) for c in (20, 40)},
+    'B1pmc': (SEC, dict(ARMS_B1, sd_path_collect=6, sd_collect_floor=20.0,
+                        sd_hv_pref=dict(HVM, MELON=dict(HVM['MELON'], hour_w=150.0)))),
     'W4b': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5, sd_fert_ages={'WHEAT': [2, 2], 'CARROT': [1, 2]})),
     'W3c': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5,
                       sd_hv_pref=dict(HVM, WHEAT={'ages': [[12, 29, 3, 3]], 'bonus': 40.0}))),
@@ -331,6 +337,9 @@ LABEL = {
     'B1-ct': 'B1 without late plantings',
     'B1-fb': 'B1 without the feed bonus',
     'B1p': 'B1p: B1 + collect on the way out',
+    **{f'B1pm{w}': f'B1pm{w}: B1p + melon later than 8 AM costs {w} an hour' for w in (60, 150)},
+    **{f'B1pc{c}': f'B1pc{c}: B1p + collect worth at least {c} (not 80)' for c in (20, 40)},
+    'B1pmc': 'B1pmc: B1p + melon 150 an hour after 8 AM + collect floor 20',
     'W4a': 'W4a: W3a + wheat / carrots fertilized at age 1-2 only',
     'W4b': 'W4b: W3a + wheat fertilized at age 2 only (carrots 1-2)',
     'W3c': 'W3c: W3a + age-3 wheat harvest bonus 40',
