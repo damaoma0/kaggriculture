@@ -48,5 +48,91 @@
    "sd_h1_sells_first": 1
   },
   "label": "KC1: farmer = melons or central unit (radius 2), holds the excess at 0 only when the wheat buy needs room, puts it back with PLACE at 2 (sold at once), the dump sold at hour 1 with sells before seed buys"
+ },
+ "KC2": {
+  "base": "K5b",
+  "cfg": {
+   "sd_farmer_central": 1,
+   "sd_farmer_radius": 2,
+   "sd_farmer_hold_excess": 2,
+   "sd_farmer_putback": 1,
+   "sd_h1_sell_excess": 1,
+   "sd_h1_sells_first": 1
+  },
+  "label": "KC2 = KC1 with the hour-1 sale fixed (counts the shed after the hour-1 pickups, so the hour-2 hires keep their wheat)"
+ },
+ "KC2j": {
+  "base": "K5b",
+  "cfg": {
+   "sd_farmer_central": 1,
+   "sd_farmer_radius": 2,
+   "sd_farmer_hold_excess": 2,
+   "sd_farmer_putback": 1,
+   "sd_h1_sell_excess": 1,
+   "sd_h1_sells_first": 1,
+   "sd_wheat_jit": 1
+  },
+  "label": "KC2j = KC2 + wheat bought just in time (every hour, what the next hour's planned pickups lack)"
+ },
+ "KH7": {
+  "base": "K5b",
+  "cfg": {
+   "sd_farmer_central": 1,
+   "sd_farmer_radius": 2,
+   "sd_farmer_hold_excess": 0,
+   "sd_farmer_putback": 0,
+   "sd_h1_sell_excess": 1,
+   "sd_h1_sells_first": 1,
+   "sd_wheat_jit": 1,
+   "sd_hire_h0_max": 7,
+   "sd_h0_sell_excess": 1,
+   "sd_h1_buy_after_sells": 1
+  },
+  "label": "KH7 = KC2j + spread hire (at most 7 at hour 0, the rest at hour 1) + the freed hour-0 slots sell the excess before the wheat buy; hour-1 wheat buy after the sales; no farmer hold"
+ },
+ "KH8": {
+  "base": "K5b",
+  "cfg": {
+   "sd_farmer_central": 1,
+   "sd_farmer_radius": 2,
+   "sd_farmer_hold_excess": 0,
+   "sd_farmer_putback": 0,
+   "sd_h1_sell_excess": 1,
+   "sd_h1_sells_first": 1,
+   "sd_wheat_jit": 1,
+   "sd_hire_h0_max": 8,
+   "sd_h0_sell_excess": 1,
+   "sd_h1_buy_after_sells": 1
+  },
+  "label": "KH8 = KC2j + spread hire (at most 8 at hour 0, the rest at hour 1) + the freed hour-0 slots sell the excess before the wheat buy; hour-1 wheat buy after the sales; no farmer hold"
+ },
+ "KH9": {
+  "base": "K5b",
+  "cfg": {
+   "sd_farmer_central": 1,
+   "sd_farmer_radius": 2,
+   "sd_farmer_hold_excess": 0,
+   "sd_farmer_putback": 0,
+   "sd_h1_sell_excess": 1,
+   "sd_h1_sells_first": 1,
+   "sd_wheat_jit": 1,
+   "sd_hire_h0_max": 9,
+   "sd_h0_sell_excess": 1,
+   "sd_h1_buy_after_sells": 1
+  },
+  "label": "KH9 = KC2j + spread hire (at most 9 at hour 0, the rest at hour 1) + the freed hour-0 slots sell the excess before the wheat buy; hour-1 wheat buy after the sales; no farmer hold"
+ },
+ "KH8b": {
+  "base": "K5b",
+  "cfg": {
+   "sd_hire_h0_max": 8,
+   "sd_h0_sell_excess": 1,
+   "sd_excess_keep": [
+    "WHEAT",
+    "MILK"
+   ],
+   "sd_wheat_jit": 1
+  },
+  "label": "KH8b = K5b + spread hire (8 at hour 0, the rest at hour 1) + the freed hour-0 slots sell the dump excess except wheat and milk (left to the leader-following market) + wheat bought just in time; no hour-1 dump sale, no central farmer"
  }
 }
