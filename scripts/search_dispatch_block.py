@@ -408,6 +408,8 @@ def _sd_opvals(S, idx, t, ops, plan, day, E, last_day):
         if (CFG["sd_water_tomorrow"] and c == "WATER" and _is_plant(t) and not t.get("watered_today")
                 and day < last_day):
             v = max(v, float(CFG["sd_water_tomorrow"]))   # tomorrow's labour saved (a dry plant is a must-do tomorrow)
+        if CFG["sd_collect_floor"] and c == "COLLECT_FERTILIZER" and _animal(t):
+            v = max(v, float(CFG["sd_collect_floor"]))   # sd_collect_floor
         if hard and c == "WATER" and CFG["sd_retire"] and idx in ((S.get("sd") or {}).get("retired_now") or ()):
             hard = False                               # sd_retire: the plan retires this plant (no forced water)
         rt_ = CFG["sd_retire"] and idx in ((S.get("sd") or {}).get("retired_now") or ())
@@ -2472,6 +2474,10 @@ def _sd_watch(L, tiles, day, hour):
         L["water23"] = set()
 
 
+def _is_shed_adjacent_t(p):
+    return tuple(p) in ((4, 4), (5, 4), (4, 5), (5, 5))
+
+
 def _sd_post(S, run, obs, me, step, day, hour, last_day, tiles, pos, tasks, assign, actions):
     """HOOK 3 (after every unit's command, before the market): counters, shadow agreement."""
     L = _sd_state(S)
@@ -2492,6 +2498,42 @@ def _sd_post(S, run, obs, me, step, day, hour, last_day, tiles, pos, tasks, assi
             CFG["hire_extra"] = int((hp["k0"] if hour == 0 else hp["k"]) - _T.hands[min(day, _T.n - 1)])
         elif "hire_extra0" in L:
             CFG["hire_extra"] = L["hire_extra0"]
+        if CFG.get("sd_finish_collect") and actions:
+            # one visit per tile (user): a unit about to walk off an animal tile whose fertilizer is still there collects it first
+            for u_ in range(min(len(pos), len(actions))):
+                a_ = actions[u_]
+                if not (isinstance(a_, list) and a_ and a_[0] in ("NORTH", "SOUTH", "EAST", "WEST", "PASS")):
+                    continue
+                p_ = tuple(pos[u_])
+                t_ = _tile(tiles, p_[1] * 10 + p_[0])
+                if isinstance(t_, dict) and t_.get("animal") and t_.get("fertilizer_available") and day < last_day:
+                    actions[u_] = ["COLLECT_FERTILIZER"]
+                    st["finish_collect"] = st.get("finish_collect", 0) + 1
+        if CFG["sd_fert_ret"] and actions:
+            # user cycle: a unit delivering goods at the shed drops everything, its unused fertilizer included (sold)
+            invs_ = ((obs.get("private") or {}).get("inventories") or []) if isinstance(obs, dict) else []
+            P_ = run.get("P")
+            for u_ in range(min(len(pos), len(actions), len(invs_))):
+                a_ = actions[u_]
+                if not (isinstance(a_, list) and len(a_) >= 2 and a_[0] == "PLACE" and a_[1] in PRODUCTS
+                        and a_[1] != "FERTILIZER" and _is_shed_adjacent_t(tuple(pos[u_]))):
+                    continue
+                inv_ = invs_[u_] or {}
+                if int(inv_.get("FERTILIZER", 0) or 0) <= 0 or any(int(inv_.get(sp_, 0) or 0) > 0 for sp_ in _SD_SP):
+                    continue
+                cm = set()
+                if P_ is not None and run.get("active") and u_ < len(P_.routes):
+                    for j_ in P_.routes[u_]:
+                        for o_ in P_.ops[j_]:
+                            cm.add(o_ if isinstance(o_, str) else o_[0])
+                else:
+                    a_i = assign.get(u_)
+                    if a_i in tasks:
+                        cm.update(o_[0] for o_ in tasks[a_i][0])
+                if "FERTILIZE" in cm or (int(inv_.get("WHEAT", 0) or 0) > 0 and "FEED" in cm):
+                    continue
+                actions[u_] = ["DROP"]
+                st["fert_ret"] = st.get("fert_ret", 0) + 1
         if CFG["sd_coop_place"] and actions:
             # never an empty structure, for every unit (greedy / survival-fallback units too): standing on an empty
             # coop / pasture with its animal in hand, the unit places it now
@@ -2737,6 +2779,8 @@ def _sd_fert_first(ns, obs, player, jobs, k):
                 continue
             crop = t.get("crop")
             if crop not in ns["SM_CROPS"] or int(t.get("fertilized_until_day", -1) or -1) >= day:
+                continue
+            if CFG.get("sd_fert_first_crops") and crop not in CFG["sd_fert_first_crops"]:
                 continue
             prod = ns["_sm_product"](crop)
             price = float(pr.get(prod, ns["SM_BASE_PRICE"][prod]))

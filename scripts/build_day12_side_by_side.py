@@ -492,6 +492,8 @@ select{max-width:100%}.row{display:flex;gap:8px;align-items:center;flex-wrap:wra
   font-size:clamp(10px,1.25vw,15px);background:#27372b;overflow:visible}
 .tile.selected{outline:2px solid #f7f7e6;outline-offset:1px}
 .tile.diff{box-shadow:inset 0 0 0 2px var(--diff)}
+.tile.fdone{outline:3px solid var(--fcol,#fff);outline-offset:-3px}
+.tile.fnext{outline:2px dashed var(--fcol,#fff);outline-offset:-2px}
 .tile.locked{background:#111a15;color:#607267}
 .tile .units{position:absolute;inset:1px auto auto 1px;display:flex;flex-direction:column;gap:1px;align-items:flex-start}
 .tile .unit{background:#07160dee;color:#fff;border-radius:3px;font-size:8.5px;padding:0 2px;line-height:1.3;white-space:nowrap}
@@ -882,6 +884,25 @@ function drawTrace(svgId,frames,day,u,step){
   svg.insertAdjacentHTML('beforeend',html);
 }
 const MOVES_JS=new Set(['NORTH','SOUTH','EAST','WEST']);
+// Follow: outline every tile the followed unit works today -- solid = already worked (before this hour),
+// dashed = still to come today (its later jobs in the replay)
+const WORK_OPS=new Set(['WATER','FERTILIZE','HARVEST','PLANT','FEED','CARE','COLLECT_FERTILIZER','DIG','BUILD_COOP','BUILD_PASTURE']);
+function markWorkTiles(elId,frames,day,u,step){
+  const el=$(elId),done=new Set(),next=new Set();
+  for(const f of dayFrames(frames,day)){
+    if(u>=f.units.length)continue;
+    const op=unitOpAt(f,u);
+    if(!WORK_OPS.has(op)&&!(op==='PLACE'&&(f.action&&((u===0?f.action.farmer:(f.action.hands||[])[u-1])||[])[1] in {GOOSE:1,COW:1,SHEEP:1})))continue;
+    const [x,y]=f.units[u],i=y*10+x;
+    (f.step<step?done:next).add(i);
+  }
+  const col=handColor(u);
+  for(let i=0;i<100;i++){
+    const b=el.children[i];if(!b)continue;
+    if(done.has(i)){b.classList.add('fdone');b.style.setProperty('--fcol',col);}
+    else if(next.has(i)){b.classList.add('fnext');b.style.setProperty('--fcol',col);}
+  }
+}
 function renderFollowPicker(LF,RF,day){
   const sel=$('followSel'),n=Math.max(maxUnitsThatDay(LF,day),maxUnitsThatDay(RF,day));
   const want=followUnit==null?'':String(followUnit);
@@ -1054,6 +1075,7 @@ function render(){
   renderFollowPicker(LF,RF,day);
   $('boardL').classList.toggle('following',followUnit!=null);$('boardR').classList.toggle('following',followUnit!=null);
   if(followUnit!=null&&!(sectorsOn&&selectedHand!=null)){drawTrace('routeL',LF,day,followUnit,lf.step);drawTrace('routeR',RF,day,followUnit,rf.step);}
+  if(followUnit!=null){markWorkTiles('boardL',LF,day,followUnit,lf.step);markWorkTiles('boardR',RF,day,followUnit,rf.step);}
 }
 
 function jumpToDay(day){

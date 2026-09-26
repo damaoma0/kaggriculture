@@ -172,6 +172,18 @@ ARMS = {
     # new main branch candidate (user, 2026-09-28): G0 + survival water late weight 10 after h16 (retired plants exempt)
     # + idle waters worth 10 (idle hands do NOT deliver fertilizer: the fertilizer policy keeps it in hand)
     'C1': (SEC, dict(MDEC, sd_fert_sell=1, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16, sd_water_tomorrow=10.0)),
+    # the user's cycle (2026-09-28): wheat out, feed / care / collect on the way, missions + fertilize, back with
+    # fertilizer and goods (dropped together at the shed), unused fertilizer sold; on top of C1
+    **{f'C2f{f}': (SEC, dict(MDEC, sd_fert_sell=1, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16, sd_water_tomorrow=10.0,
+                            sd_fert_ret=1, sd_fert_first=1, sd_fert_first_crops=['WHEAT', 'CARROT'], sd_fert_frac=1.0,
+                            sd_collect_floor=float(f))) for f in (20, 40, 80)},
+    **{f'C3f{f}': (SEC, dict(MDEC, sd_fert_sell=1, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16, sd_water_tomorrow=10.0,
+                            sd_fert_ret=1, sd_fert_first=1, sd_fert_first_crops=['WHEAT', 'CARROT'], sd_fert_frac=1.0,
+                            sd_collect_floor=float(f), sd_finish_collect=1)) for f in (20, 80)},   # C2 + finish the tile (collect before leaving)
+    'C3n': (SEC, dict(MDEC, sd_fert_sell=1, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16, sd_water_tomorrow=10.0,
+                      sd_fert_ret=1, sd_collect_floor=40.0, sd_finish_collect=1)),
+    'C2n': (SEC, dict(MDEC, sd_fert_sell=1, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16, sd_water_tomorrow=10.0,
+                      sd_fert_ret=1, sd_collect_floor=40.0)),     # the cycle without the wheat / carrot fertilize rule
     'M_decay30': (SEC, dict(MDEC)),               # = M_decay, run to the season end (multi, 19 days)
     'N0_30': (S2, dict(dispatch_search='off')),   # = N0 (the current T), run to the season end
     **{f'G{int(f * 100):03d}': (SEC, dict(MDEC, sd_fert_sell=1, sd_fert_first=1, sd_fert_frac=f)) for f in (1.0, 0.75, 0.5, 0.25)},
@@ -224,6 +236,10 @@ LABEL = {
     'rt0': 'rt0: M_decay + retired plants get no hard water (reference for the hw sweep)',
     'G0': 'G0: M_decay + leader fertilizer policy (shed stock all sold, no shed pickups, collected fertilizer kept in hand)',
     'C1': 'C1: G0 + survival water late weight 10 after h16 (retired plants exempt) + idle waters worth 10',
+    **{f'C2f{f}': f'C2f{f}: C1 + cycle (fertilizer back with the goods, sold) + wheat/carrot fertilize on the first useful day + collect worth >= {f}' for f in (20, 40, 80)},
+    **{f'C3f{f}': f'C3f{f}: C2f{f} + collect before leaving an animal tile' for f in (20, 80)},
+    'C3n': 'C3n: C2n + collect before leaving an animal tile',
+    'C2n': 'C2n: C1 + cycle (fertilizer back with the goods, sold) + collect worth >= 40, no extra fertilizing',
     'M_decay30': 'M_decay (season end)',
     'N0_30': 'current T (season end)',
     **{f'G{int(f * 100):03d}': f'G{int(f * 100):03d}: G0 + fertilize on the first useful day, fertilizer charged at {f:.2f} x its price' for f in (1.0, 0.75, 0.5, 0.25)},
