@@ -1,0 +1,34 @@
+day 11 from the leader exact morning; worlds with LEADER: 42
+S11wh (42): cash gap to leader -2,217, margin gap -2,384
+S11cg (42): cash gap to leader -53, margin gap -208 | vs S11wh: cash +2,164 (t +1,916..+2,413; boot +1,928..+2,395) 41/1, margin +2,176 (t +1,927..+2,426; boot +1,937..+2,407) 41/1
+M (42): cash gap to leader -110, margin gap -250 | vs S11wh: cash +2,107 (t +1,856..+2,359; boot +1,862..+2,338) 41/1, margin +2,135 (t +1,881..+2,389; boot +1,888..+2,369) 41/1
+M_idle (42): cash gap to leader -605, margin gap -755 | vs S11wh: cash +1,612 (t +1,284..+1,940; boot +1,293..+1,924) 40/2, margin +1,629 (t +1,298..+1,960; boot +1,303..+1,945) 40/2
+
+| arm | coop built / goose placed (worlds) | hands | extra hand-visits (all / patch only) | idle (PASS) | moves / hand | field ops / hand | main-quadrant share | one-quadrant hands | main = spawn | spawn first / second / third / fourth | trips 1 / 2 / 3+ | work-tile gap 1 / 2 / 3 / 4+ (mean) |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|---|---|
+| LEADER | 39 / 39 of 42 | 11.2 | 19.5 / 7.3 | 1.0 | 9.6 | 12.0 | 92% | 73% | 79% | 2.0 / 4.0 / 3.0 / 2.2 | 74% / 26% / 0% | 85% / 12% / 2% / 1% (1.18) |
+| S11wh | 22 / 3 of 42 | 11.2 | 29.6 / 14.2 | 17.8 | 10.1 | 10.4 | 91% | 64% | 78% | 3.0 / 2.0 / 3.2 / 2.9 | 88% / 11% / 1% | 83% / 11% / 4% / 3% (1.33) |
+| S11cg | 39 / 31 of 42 | 11.2 | 26.1 / 9.9 | 16.4 | 9.7 | 10.7 | 87% | 56% | 63% | 3.1 / 2.3 / 3.2 / 2.5 | 71% / 29% / 0% | 76% / 17% / 4% / 3% (1.37) |
+| M | 34 / 33 of 42 | 11.2 | 34.7 / 14.5 | 10.8 | 11.0 | 9.9 | 88% | 55% | 71% | 3.0 / 2.3 / 3.1 / 2.7 | 70% / 30% / 0% | 79% / 14% / 4% / 2% (1.35) |
+| M_idle | 34 / 34 of 42 | 11.2 | 28.7 / 11.5 | 5.7 | 11.4 | 10.0 | 88% | 56% | 77% | 3.0 / 2.3 / 3.3 / 2.5 | 73% / 26% / 1% | 81% / 13% / 3% / 2% (1.28) |
+
+LEADER: moves per hand-day outward / inward / sideways 7.0 / 1.6 / 0.4; reversals per hand-day 1.44, hands never reversing 26%
+LEADER: hires on day 11 11.2 a world, wages 259
+LEADER: goose placed on day 11 in 39 of 42 worlds (hours [(13, 1), (14, 38)]); G1 worlds: 11 of 11 (hours [(14, 11)])
+LEADER: melons, all worlds: median hour 6, harvested by 8 AM 75% (167 harvests), melons in hand at 23h 5.7 a world; G1 worlds: median hour 6.0, harvested by 8 AM 75% (44 harvests), melons in hand at 23h 6.0 a world
+S11wh: moves per hand-day outward / inward / sideways 6.8 / 2.5 / 0.7; reversals per hand-day 2.20, hands never reversing 11%
+S11wh: hires on day 11 11.2 a world, wages 259
+S11wh: goose placed on day 11 in 3 of 42 worlds (hours [(11, 2), (21, 1)]); G1 worlds: 0 of 11 (hours [])
+S11wh: melons, all worlds: median hour 19.0, harvested by 8 AM 9% (142 harvests), melons in hand at 23h 12.4 a world; G1 worlds: median hour 19.0, harvested by 8 AM 3% (36 harvests), melons in hand at 23h 12.2 a world
+S11cg: moves per hand-day outward / inward / sideways 6.7 / 2.1 / 0.8; reversals per hand-day 1.85, hands never reversing 16%
+S11cg: hires on day 11 11.2 a world, wages 259
+S11cg: goose placed on day 11 in 31 of 42 worlds (hours [(12, 1), (15, 3), (17, 1), (18, 7), (19, 3), (20, 8), (21, 8)]); G1 worlds: 7 of 11 (hours [(17, 1), (18, 1), (19, 1), (20, 3), (21, 1)])
+S11cg: melons, all worlds: median hour 7.0, harvested by 8 AM 57% (166 harvests), melons in hand at 23h 1.0 a world; G1 worlds: median hour 7, harvested by 8 AM 60% (43 harvests), melons in hand at 23h 2.2 a world
+M: moves per hand-day outward / inward / sideways 7.3 / 2.8 / 0.9; reversals per hand-day 2.45, hands never reversing 8%
+M: hires on day 11 11.2 a world, wages 259
+M: goose placed on day 11 in 33 of 42 worlds (hours [(8, 2), (9, 2), (10, 6), (11, 2), (12, 1), (13, 2), (14, 1), (15, 1), (16, 2), (18, 2), (19, 1), (20, 1), (22, 1), (23, 9)]); G1 worlds: 10 of 11 (hours [(8, 1), (10, 3), (11, 1), (12, 1), (15, 1), (19, 1), (23, 2)])
+M: melons, all worlds: median hour 8, harvested by 8 AM 45% (165 harvests), melons in hand at 23h 1.6 a world; G1 worlds: median hour 8.0, harvested by 8 AM 48% (42 harvests), melons in hand at 23h 1.6 a world
+M_idle: moves per hand-day outward / inward / sideways 7.4 / 3.1 / 0.8; reversals per hand-day 3.29, hands never reversing 3%
+M_idle: hires on day 11 11.2 a world, wages 259
+M_idle: goose placed on day 11 in 34 of 42 worlds (hours [(8, 1), (9, 3), (10, 3), (11, 3), (12, 2), (13, 1), (16, 2), (19, 1), (20, 2), (21, 3), (22, 5), (23, 8)]); G1 worlds: 10 of 11 (hours [(10, 2), (11, 1), (12, 1), (21, 2), (22, 1), (23, 3)])
+M_idle: melons, all worlds: median hour 8.0, harvested by 8 AM 37% (146 harvests), melons in hand at 23h 5.0 a world; G1 worlds: median hour 8, harvested by 8 AM 35% (37 harvests), melons in hand at 23h 4.9 a world
