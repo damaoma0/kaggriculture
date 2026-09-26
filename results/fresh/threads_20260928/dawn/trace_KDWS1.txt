@@ -1,0 +1,68 @@
+=== KDWS1cf vs KS1fl: own 106742 (+348), rival 120428 (+5018), margin -13686 (-4670)
+--- 1. planned vs executed dawn legs: {'planned': 31, 'executed': 31, 'harvest_missing': 0, 'drop_missing': 0, 'on_time': 31, 'late': 0, 'early': 0, 'units_dropped': 128}
+   d12 u0 pens 43 plan harvest h[1] drop h3 | done harvest [(1, '43', 4)] drop (3, '44', {'WOOL': 4}) | DSM trip u0 act h0 start 44 pens 43 drop 44
+   d12 u1 pens 34 plan harvest h[2] drop h4 | done harvest [(2, '34', 4)] drop (4, '44', {'WOOL': 4}) | DSM trip u1 act h1 start 44 pens 34 drop 44
+   d12 u2 pens 54 plan harvest h[1] drop h2 | done harvest [(1, '54', 6)] drop (2, '54', {'WOOL': 6}) | DSM trip u2 act h1 start 54 pens 54 drop 54
+   d12 u6 pens 64 plan harvest h[2] drop h4 | done harvest [(2, '64', 6)] drop (4, '54', {'WOOL': 6}) | DSM trip u6 act h1 start 54 pens 64 drop 54
+   d14 u0 pens 44 plan harvest h[0] drop h1 | done harvest [(0, '44', 3)] drop (1, '44', {'MILK': 3}) | DSM trip u0 act h0 start 44 pens 44 drop 44
+   d14 u1 pens 73 plan harvest h[4] drop h8 | done harvest [(4, '73', 6)] drop (8, '54', {'WOOL': 6}) | DSM trip u1 act h1 start 54 pens 73 drop 54
+   d14 u5 pens 53 plan harvest h[2] drop h4 | done harvest [(2, '53', 6)] drop (4, '54', {'MILK': 6}) | DSM trip u5 act h1 start 54 pens 53 drop 54
+   d20 u0 pens 44 plan harvest h[0] drop h1 | done harvest [(0, '44', 3)] drop (1, '44', {'MILK': 3}) | DSM trip u0 act h0 start 44 pens 44 drop 44
+   d20 u1 pens 54 plan harvest h[1] drop h2 | done harvest [(1, '54', 4)] drop (2, '54', {'WOOL': 4}) | DSM trip u1 act h1 start 54 pens 54 drop 54
+   d20 u3 pens 55 plan harvest h[1] drop h2 | done harvest [(1, '55', 6)] drop (2, '55', {'MILK': 6}) | DSM trip u3 act h1 start 55 pens 55 drop 55
+   day 12 dawn units, hours 0-7 (pos:action, +harvested / -placed):
+     u 0 | 44:NORTH               | 43:HARVEST +4W         | 43:SOUTH               | 44:PLACE WOOL 4 -4W    | 44:EAST                | 54:EAST                | 64:NORTH               | 63:HARVEST +6W        
+     u 1 |                        | 44:WEST                | 34:HARVEST +4W         | 34:EAST                | 44:PLACE WOOL 4 -4W    | 44:NORTH               | 43:COLLECT_FERT +1F    | 43:NORTH              
+     u 2 |                        | 54:HARVEST +6W         | 54:PLACE WOOL 6 -6W    | 54:PICKUP WHEAT +6W    | 54:EAST                | 64:FEED -1W            | 64:CARE                | 64:EAST               
+     u 6 |                        | 54:EAST                | 64:HARVEST +6W         | 64:WEST                | 54:PLACE WOOL 6 -6W    | 54:PICKUP WHEAT +1W    | 54:EAST                | 64:COLLECT_FERT +1F   
+   day 14 dawn units, hours 0-7 (pos:action, +harvested / -placed):
+     u 0 | 44:HARVEST +3M         | 44:PLACE MILK 3 -3M    | 44:PICKUP WHEAT +2W    | 44:NORTH               | 43:NORTH               | 42:NORTH               | 41:NORTH               | 40:WATER              
+     u 1 |                        | 54:EAST                | 64:EAST                | 74:NORTH               | 73:HARVEST +6W         | 73:WEST                | 63:WEST                | 53:SOUTH              
+     u 5 |                        | 54:NORTH               | 53:HARVEST +6M         | 53:SOUTH               | 54:PLACE MILK 6 -6M    | 54:PICKUP WHEAT +1W    | 54:EAST                | 64:COLLECT_FERT +1F   
+   day 20 dawn units, hours 0-7 (pos:action, +harvested / -placed):
+     u 0 | 44:HARVEST +3M         | 44:PLACE MILK 3 -3M    | 44:PICKUP WHEAT +1W    | 44:NORTH               | 43:NORTH               | 42:COLLECT_FERT +1F    | 42:FEED -1W            | 42:CARE               
+     u 1 |                        | 54:HARVEST +4W         | 54:PLACE WOOL 4 -4W    | 54:EAST                | 64:CARE                | 64:EAST                | 74:COLLECT_FERT +1F    | 74:EAST               
+     u 3 |                        | 55:HARVEST +6M         | 55:PLACE MILK 6 -6M    | 55:PICKUP WHEAT +2W    | 55:COLLECT_FERT +1F    | 55:EAST                | 65:COLLECT_FERT +1F    | 65:FEED -1W           
+--- executor counters (arm / reference): access_drop 24/20, access_drop_units 89/101, deliver 7/11, deliver_skipped 10/6, skip_DROP 10/6, skip_HARVEST 0/1, skip_WATER 16/7, turn_place 11/0, turn_units 52/0, wait_pick 1/2
+--- hires on a different tile than planned at their first hour: arm 20/209, reference 15/209; PASS unit-hours (farmer hour-0 hold excluded): arm 102, reference 73
+--- 2. displaced work (same state; plan without the legs vs with them; the 29 leg harvest ops moved into the legs not counted): net ops lost {'HARVEST': 2, 'WATER': 9, 'CARE': -1, 'FEED': -5, 'COLLECT_FERTILIZER': 10, 'DROP': 2, 'FERTILIZE': 1}; planner value lost net 2500 (displaced 10004, gained 7503); unplanned extras value 23296 with the legs vs 21344 without
+   d12: 4 legs; only without the legs {'FEED': 1, 'CARE': 1, 'WATER': 4, 'COLLECT_FERTILIZER': 4, 'FERTILIZE': 1}; only with them {'FERTILIZE': 2, 'COLLECT_FERTILIZER': 3, 'WATER*': 2, 'CARE': 2, 'WATER': 2, 'FEED': 1} (* = mandatory); unplanned extras 1616 vs 1452; mandatory lateness 0 vs 0
+   d14: 3 legs; only without the legs {'DROP*': 2, 'FERTILIZE': 1, 'WATER': 9, 'HARVEST': 1}; only with them {'FERTILIZE': 1, 'WATER': 1} (* = mandatory); unplanned extras 151 vs 50; mandatory lateness 0 vs 0
+   d20: 3 legs; only without the legs {'FERTILIZE': 1, 'WATER': 2, 'DROP*': 1, 'COLLECT_FERTILIZER': 1}; only with them {'HARVEST': 4, 'WATER*': 2, 'COLLECT_FERTILIZER': 5, 'WATER': 3, 'CARE': 3, 'FEED': 2, 'DROP*': 2} (* = mandatory); unplanned extras 301 vs 1074; mandatory lateness 0 vs 0
+--- 3. deaths (arm): d15 STRAWBERRY 04 last watered d13; d17 STRAWBERRY 30 last watered d15; d17 TOMATO 08 last watered d15; d18 WHEAT 05 last watered d16; d18 STRAWBERRY 49 last watered d16; d19 STRAWBERRY 50 last watered d17; d22 TOMATO 08 last watered d20; d28 SHEEP 62 last fed d26; d28 SHEEP 43 last fed d26; d28 SHEEP 63 last fed d26; d28 SHEEP 73 last fed d26; d28 SHEEP 24 last fed d26; d28 SHEEP 34 last fed d26; d28 SHEEP 54 last fed d26; d28 SHEEP 64 last fed d26; d28 SHEEP 74 last fed d26; d28 SHEEP 84 last fed d26
+    deaths (reference): d20 WHEAT 77; d28 SHEEP 62; d28 SHEEP 43; d28 SHEEP 63; d28 SHEEP 73; d28 SHEEP 24; d28 SHEEP 34; d28 SHEEP 54; d28 SHEEP 64; d28 SHEEP 74; d28 SHEEP 84
+    commands issued, arm - reference: CARE|COW -5, CARE|GOOSE +8, CARE|SHEEP +8, COLLECT_FERTILIZER|COW -3, COLLECT_FERTILIZER|GOOSE +3, COLLECT_FERTILIZER|SHEEP -10, FEED|COW -3, FEED|GOOSE +5, FEED|SHEEP +1, FERTILIZE|CARROT +1, FERTILIZE|STRAWBERRY +2, FERTILIZE|TOMATO -3, FERTILIZE|WHEAT -5, HARVEST|CARROT -1, HARVEST|COW +9, HARVEST|GOOSE +8, HARVEST|SHEEP -2, HARVEST|STRAWBERRY -11, HARVEST|TOMATO -4, HARVEST|WHEAT +1, PLANT|- +2, WATER|CARROT -4, WATER|STRAWBERRY -28, WATER|TOMATO -7, WATER|WHEAT -7
+    death d15 STRAWBERRY 04:
+       d14 WATER planned [] unfinished [] unplanned [] done [] | same-state plan without legs: []
+       d15 WATER planned ['u11:WATER*5860@h23'] unfinished ['u11'] unplanned [] done [] | same-state plan without legs: ['u5']
+    death d17 STRAWBERRY 30:
+       d16 WATER planned [] unfinished [] unplanned [10.0] done [] | same-state plan without legs: []
+       d17 WATER planned ['u12:WATER*6700@h23'] unfinished ['u12'] unplanned [] done [] | same-state plan without legs: ['u4']
+    death d17 TOMATO 08:
+       d16 WATER planned ['u11:WATER10@h23'] unfinished ['u11'] unplanned [] done [] | same-state plan without legs: []
+       d17 WATER planned ['u11:WATER*5453@h23'] unfinished ['u11'] unplanned [] done [] | same-state plan without legs: ['u11']
+    death d18 WHEAT 05:
+       d17 WATER planned [] unfinished [] unplanned [] done [] | same-state plan without legs: []
+       d18 WATER planned ['u12:WATER*5214@h23'] unfinished ['u12'] unplanned [] done [] | same-state plan without legs: ['u8']
+    death d18 STRAWBERRY 49:
+       d17 WATER planned [] unfinished [] unplanned [] done [] | same-state plan without legs: []
+       d18 WATER planned ['u11:WATER*6669@h23'] unfinished ['u11'] unplanned [] done [] | same-state plan without legs: ['u3']
+    death d19 STRAWBERRY 50:
+       d18 WATER planned [] unfinished [] unplanned [] done [] | same-state plan without legs: []
+       d19 WATER planned ['u10:WATER*5868@h23'] unfinished ['u10'] unplanned [] done [] | same-state plan without legs: ['u0']
+    death d22 TOMATO 08:
+       d21 WATER planned [] unfinished [] unplanned [10.0] done [] | same-state plan without legs: []
+       d22 WATER planned ['u11:WATER*5456@h23'] unfinished ['u11'] unplanned [] done [] | same-state plan without legs: ['u6']
+--- 4. dawn goods: WOOL|n 54, WOOL|sold_at_drop 54, WOOL|$ 8867, MILK|n 74, MILK|sold_at_drop 74, MILK|$ 7815
+   d12 h3 WOOL 4 placed; sold that step 4 @ 229; next day h1 our WOOL sales 16 @ 222
+   d12 h4 WOOL 4 placed; sold that step 10 @ 227; next day h1 our WOOL sales 16 @ 222
+   d12 h2 WOOL 6 placed; sold that step 6 @ 230; next day h1 our WOOL sales 16 @ 222
+   d12 h4 WOOL 6 placed; sold that step 10 @ 227; next day h1 our WOOL sales 16 @ 222
+   d14 h1 MILK 3 placed; sold that step 3 @ 167; next day h1 our MILK sales 9 @ 152
+   d14 h8 WOOL 6 placed; sold that step 6 @ 202; next day h1 our WOOL sales 12 @ 207
+   d14 h4 MILK 6 placed; sold that step 6 @ 142; next day h1 our MILK sales 9 @ 152
+   d15 h3 WOOL 4 placed; sold that step 4 @ 184; next day h1 our WOOL sales 12 @ 156
+   d15 h4 WOOL 4 placed; sold that step 8 @ 170; next day h1 our WOOL sales 12 @ 156
+   d15 h2 WOOL 4 placed; sold that step 4 @ 196; next day h1 our WOOL sales 12 @ 156
+   d15 h4 WOOL 4 placed; sold that step 8 @ 170; next day h1 our WOOL sales 12 @ 156
+   d16 h2 MILK 3 placed; sold that step 3 @ 139; next day h1 our MILK sales 3 @ 172

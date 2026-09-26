@@ -1,0 +1,41 @@
+=== KDWS2b vs KDWb: own 105445 (+236), rival 117816 (+3121), margin -12371 (-2885)
+--- 1. planned vs executed dawn legs: {'planned': 31, 'executed': 29, 'harvest_missing': 0, 'drop_missing': 2, 'on_time': 29, 'late': 0, 'early': 0, 'units_dropped': 116}
+   d12 u0 pens 43 plan harvest h[1] drop h3 | done harvest [(1, '43', 4)] drop (3, '44', {'WOOL': 4}) | DSM trip u0 act h0 start 44 pens 43 drop 44
+   d12 u1 pens 34 plan harvest h[2] drop h4 | done harvest [(2, '34', 4)] drop (4, '44', {'WOOL': 4}) | DSM trip u1 act h1 start 44 pens 34 drop 44
+   d12 u2 pens 54 plan harvest h[1] drop h2 | done harvest [(1, '54', 6)] drop (2, '54', {'WOOL': 6}) | DSM trip u2 act h1 start 54 pens 54 drop 54
+   d12 u6 pens 64 plan harvest h[2] drop h4 | done harvest [(2, '64', 6)] drop (4, '54', {'WOOL': 6}) | DSM trip u6 act h1 start 54 pens 64 drop 54
+   d20 u0 pens 44 plan harvest h[0] drop h1 | done harvest [(0, '44', 3)] drop None | DSM trip u0 act h0 start 44 pens 44 drop 44
+   d20 u1 pens 54 plan harvest h[1] drop h2 | done harvest [(1, '54', 4)] drop (2, '54', {'WOOL': 4}) | DSM trip u1 act h1 start 54 pens 54 drop 54
+   d20 u3 pens 55 plan harvest h[1] drop h2 | done harvest [(1, '55', 6)] drop (2, '55', {'MILK': 6}) | DSM trip u3 act h1 start 55 pens 55 drop 55
+   BROKEN: d20 u0 pens 44 plan harvest h[0] drop h1 | done harvest [(0, '44', 3)] drop None | DSM trip u0 act h0 start 44 pens 44 drop 44
+   BROKEN: d28 u0 pens 44 plan harvest h[0] drop h1 | done harvest [(0, '44', 2)] drop None | DSM trip u0 act h0 start 44 pens 44 drop 44
+   day 12 dawn units, hours 0-7 (pos:action, +harvested / -placed):
+     u 0 | 44:NORTH               | 43:HARVEST +4W         | 43:SOUTH               | 44:PLACE WOOL 4 -4W    | 44:EAST                | 54:EAST                | 64:NORTH               | 63:HARVEST +6W        
+     u 1 |                        | 44:WEST                | 34:HARVEST +4W         | 34:EAST                | 44:PLACE WOOL 4 -4W    | 44:NORTH               | 43:NORTH               | 42:COLLECT_FERT +1F   
+     u 2 |                        | 54:HARVEST +6W         | 54:PLACE WOOL 6 -6W    | 54:PICKUP WHEAT +6W    | 54:COLLECT_FERT +1F    | 54:FEED -1W            | 54:CARE                | 54:EAST               
+     u 6 |                        | 54:EAST                | 64:HARVEST +6W         | 64:WEST                | 54:PLACE WOOL 6 -6W    | 54:PICKUP WHEAT +2W    | 54:EAST                | 64:COLLECT_FERT +1F   
+   day 20 dawn units, hours 0-7 (pos:action, +harvested / -placed):
+     u 0 | 44:HARVEST +3M         | 44:PLACE MILK 3        | 44:PICKUP WHEAT +2W    | 44:COLLECT_FERT +1F    | 44:FEED -1W            | 44:CARE                | 44:NORTH               | 43:FEED -1W           
+     u 1 |                        | 54:HARVEST +4W         | 54:PLACE WOOL 4 -4W    | 54:PICKUP WHEAT +3W    | 54:COLLECT_FERT +1F    | 54:FEED -1W            | 54:CARE                | 54:EAST               
+     u 3 |                        | 55:HARVEST +6M         | 55:PLACE MILK 6 -6M    | 55:COLLECT_FERT +1F    | 55:SOUTH               | 56:SOUTH               | 57:SOUTH               | 58:HARVEST +2S        
+--- executor counters (arm / reference): access_drop 25/19, access_drop_units 87/82, deliver 1/2, deliver_skipped 9/15, skip_DROP 9/15, skip_WATER 9/7, turn_place 11/2, turn_units 50/5, wait_pick 1/1
+--- hires on a different tile than planned at their first hour: arm 8/209, reference 13/209; PASS unit-hours (farmer hour-0 hold excluded): arm 86, reference 102
+--- 2. displaced work (same state; plan without the legs vs with them; the 36 leg harvest ops moved into the legs not counted): net ops lost {'FERTILIZE': 17, 'COLLECT_FERTILIZER': 7, 'WATER': 8, 'DROP': 10, 'PLACE_HARVEST': -2, 'FEED': -7, 'CARE': -21}; planner value lost net 2550 (displaced 12410, gained 9860); unplanned extras value 28849 with the legs vs 25737 without
+   d12: 4 legs; only without the legs {'FEED': 1, 'CARE': 1, 'COLLECT_FERTILIZER': 6, 'WATER': 4, 'FERTILIZE': 2, 'HARVEST': 2}; only with them {'COLLECT_FERTILIZER': 3, 'WATER*': 2, 'CARE': 2, 'FERTILIZE': 1, 'WATER': 3} (* = mandatory); unplanned extras 2087 vs 1452; mandatory lateness 0 vs 0
+   d20: 3 legs; only without the legs {'HARVEST': 2, 'COLLECT_FERTILIZER': 3, 'WATER': 2, 'CARE': 2}; only with them {'COLLECT_FERTILIZER*': 2, 'CARE*': 1, 'COLLECT_FERTILIZER': 4, 'CARE': 3, 'WATER': 2, 'FERTILIZE': 1} (* = mandatory); unplanned extras 1577 vs 2126; mandatory lateness 0 vs 0
+--- 3. deaths (arm): d27 SHEEP 84 last fed d25; d28 SHEEP 62 last fed d26; d28 SHEEP 43 last fed d26; d28 SHEEP 63 last fed d26; d28 SHEEP 73 last fed d26; d28 SHEEP 24 last fed d26; d28 SHEEP 34 last fed d26; d28 SHEEP 54 last fed d26; d28 SHEEP 64 last fed d26; d28 SHEEP 74 last fed d26
+    deaths (reference): d28 SHEEP 62; d28 SHEEP 43; d28 SHEEP 63; d28 SHEEP 73; d28 SHEEP 24; d28 SHEEP 34; d28 SHEEP 54; d28 SHEEP 64; d28 SHEEP 74; d28 SHEEP 84
+    commands issued, arm - reference: CARE|GOOSE +8, CARE|SHEEP -5, COLLECT_FERTILIZER|COW -19, COLLECT_FERTILIZER|GOOSE +5, COLLECT_FERTILIZER|SHEEP -17, FEED|COW +6, FEED|GOOSE +4, FEED|SHEEP -2, FERTILIZE|CARROT +2, FERTILIZE|STRAWBERRY +3, FERTILIZE|TOMATO -3, FERTILIZE|WHEAT +2, HARVEST|COW -1, HARVEST|GOOSE +9, HARVEST|SHEEP -1, HARVEST|WHEAT +1, PLANT|- -1, WATER|CARROT -4, WATER|STRAWBERRY +2, WATER|TOMATO -2, WATER|WHEAT +8
+--- 4. dawn goods: WOOL|n 53, WOOL|sold_at_drop 53, WOOL|$ 8866, MILK|n 63, MILK|sold_at_drop 63, MILK|$ 6833
+   d12 h3 WOOL 4 placed; sold that step 4 @ 229; next day h1 our WOOL sales 12 @ 223
+   d12 h4 WOOL 4 placed; sold that step 10 @ 227; next day h1 our WOOL sales 12 @ 223
+   d12 h2 WOOL 6 placed; sold that step 6 @ 230; next day h1 our WOOL sales 12 @ 223
+   d12 h4 WOOL 6 placed; sold that step 10 @ 227; next day h1 our WOOL sales 12 @ 223
+   d14 h1 MILK 3 placed; sold that step 3 @ 177; next day h1 our MILK sales 12 @ 157
+   d14 h8 WOOL 6 placed; sold that step 6 @ 202; next day h1 our WOOL sales 12 @ 207
+   d14 h4 MILK 6 placed; sold that step 6 @ 148; next day h1 our MILK sales 12 @ 157
+   d15 h3 WOOL 4 placed; sold that step 4 @ 184; next day h1 our WOOL sales 4 @ 168
+   d15 h4 WOOL 4 placed; sold that step 8 @ 170; next day h1 our WOOL sales 4 @ 168
+   d15 h2 WOOL 4 placed; sold that step 4 @ 196; next day h1 our WOOL sales 4 @ 168
+   d15 h4 WOOL 4 placed; sold that step 8 @ 170; next day h1 our WOOL sales 4 @ 168
+   d16 h2 MILK 3 placed; sold that step 3 @ 139; next day h1 our MILK sales 0 @ 0

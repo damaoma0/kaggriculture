@@ -1,0 +1,256 @@
+=== DSM: early trips (start on a shed tile, ops before any PICKUP, back with goods by the cut-off)
+d11: 1 hands (7 pickup-first of 12 units)
+     u4 h1-7 33:ME5(WATE/HARV) -> 44 M6 | WHEAT@h8
+d12: 4 hands (5 pickup-first of 12 units)
+     u0 h0-3 43:SH4(HARV) -> 44 W4 | WHEAT@h4
+     u1 h1-4 34:SH4(HARV) -> 44 W4 | WHEAT@h5
+     u2 h1-2 54:SH6(HARV) -> 54 W6 | WHEAT@h3
+     u6 h1-4 64:SH6(HARV) -> 54 W6 | WHEAT@h5
+d13: 0 hands (8 pickup-first of 12 units)
+d14: 3 hands (5 pickup-first of 13 units)
+     u0 h0-1 44:CO3(HARV) -> 44 M3 | WHEAT@h2
+     u1 h1-8 73:SH6(HARV) -> 54 W6 | SOUTH@h9
+     u5 h1-4 53:CO6(HARV) -> 54 M6 | WHEAT@h5
+d15: 4 hands (5 pickup-first of 13 units)
+     u0 h0-3 43:SH4(HARV) -> 44 W4 | WHEAT@h4
+     u1 h1-4 34:SH4(HARV) -> 44 W4 | COLLECT_FERTILIZER@h5
+     u2 h1-2 54:SH4(HARV) -> 54 W4 | WHEAT@h3
+     u6 h1-4 64:SH4(HARV) -> 54 W4 | EAST@h5
+d16: 1 hands (7 pickup-first of 13 units)
+     u4 h1-2 44:CO3(HARV) -> 44 M3 | WHEAT@h3
+d17: 2 hands (7 pickup-first of 13 units)
+     u2 h1-2 45:CO6(HARV) -> 45 M6 | WHEAT@h3
+     u6 h1-4 35:CO6(HARV) -> 45 M6 | WEST@h5
+d18: 1 hands (4 pickup-first of 13 units)
+     u0 h0-1 44:CO3(HARV) -> 44 M3 | WHEAT@h2
+d19: 1 hands (7 pickup-first of 13 units)
+     u2 h1-2 45:CO3(HARV) -> 45 M3 | WHEAT@h3
+d20: 3 hands (3 pickup-first of 13 units)
+     u0 h0-1 44:CO3(HARV) -> 44 M3 | WHEAT@h2
+     u1 h1-2 54:SH4(HARV) -> 54 W4 | WHEAT@h3
+     u3 h1-2 55:CO6(HARV) -> 55 M6 | FERTILIZER@h3
+d21: 1 hands (6 pickup-first of 13 units)
+     u2 h1-2 45:CO3(HARV) -> 45 M3 | COLLECT_FERTILIZER@h3
+d22: 2 hands (4 pickup-first of 13 units)
+     u3 h1-2 55:CO3(HARV) -> 55 M3 | COLLECT_FERTILIZER@h3
+     u4 h1-2 44:CO3(HARV) -> 44 M3 | WHEAT@h3
+d23: 1 hands (7 pickup-first of 13 units)
+     u2 h1-2 45:CO2(HARV) -> 45 M2 | COLLECT_FERTILIZER@h3
+d24: 0 hands (4 pickup-first of 13 units)
+d25: 0 hands (5 pickup-first of 12 units)
+d26: 3 hands (3 pickup-first of 12 units)
+     u1 h1-2 54:SH6(HARV) -> 54 W6 | WHEAT@h3
+     u3 h1-2 55:CO2(HARV) -> 55 M2 | WHEAT@h3
+     u4 h1-2 44:CO2(HARV) -> 44 M2 | WHEAT@h3
+d27: 2 hands (4 pickup-first of 12 units)
+     u1 h1-2 54:SH3(HARV) -> 54 W3 | COLLECT_FERTILIZER@h3
+     u2 h1-2 45:CO2(HARV) -> 45 M2 | WHEAT@h3
+d28: 3 hands (3 pickup-first of 12 units)
+     u0 h0-1 44:CO3(HARV) -> 44 M3 | WEST@h2
+     u3 h1-2 55:CO3(HARV) -> 55 M3 | COLLECT_FERTILIZER@h3
+     u5 h1-7 53:CO3(HARV)+52:CO3(HARV) -> 54 M6 | NORTH@h8
+d29: 1 hands (0 pickup-first of 11 units)
+     u3 h1-2 45:CO3(HARV) -> 45 M3 | COLLECT_FERTILIZER@h3
+  total: 33 trips, 34 tiles, goods MELON 6, WOOL 55, MILK 71
+=== KDWS1b: early trips (start on a shed tile, ops before any PICKUP, back with goods by the cut-off)
+d11: 1 hands (8 pickup-first of 12 units)
+     u8 h1-7 33:ME5(WATE/HARV) -> 44 M6 | WHEAT@h8
+d12: 4 hands (6 pickup-first of 12 units)
+     u0 h0-3 43:SH4(HARV) -> 44 W4 | WHEAT@h4
+     u1 h1-4 34:SH4(HARV) -> 44 W4 | WHEAT@h5
+     u2 h1-2 54:SH6(HARV) -> 54 W6 | WHEAT@h3
+     u6 h1-4 64:SH6(HARV) -> 54 W6 | WHEAT@h5
+d13: 0 hands (8 pickup-first of 12 units)
+d14: 3 hands (8 pickup-first of 13 units)
+     u0 h0-1 44:CO6(HARV) -> 44 M6 | COLLECT_FERTILIZER@h2
+     u1 h1-8 73:SH6(HARV) -> 54 W6 | WHEAT@h9
+     u5 h1-4 53:CO6(HARV) -> 54 M6 | COLLECT_FERTILIZER@h5
+d15: 4 hands (7 pickup-first of 13 units)
+     u0 h0-3 43:SH4(HARV) -> 44 W4 | WHEAT@h4
+     u1 h1-4 34:SH4(HARV) -> 44 W4 | WHEAT@h5
+     u2 h1-2 54:SH4(HARV) -> 54 W4 | WHEAT@h3
+     u6 h1-4 64:SH4(HARV) -> 54 W4 | WHEAT@h5
+d16: 1 hands (10 pickup-first of 13 units)
+     u4 h1-2 44:CO3(HARV) -> 44 M3 | WEST@h3
+d17: 2 hands (9 pickup-first of 13 units)
+     u2 h1-2 45:CO6(HARV) -> 45 M6 | WHEAT@h3
+     u6 h1-4 35:CO6(HARV) -> 45 M6 | SOUTH@h5
+d18: 1 hands (9 pickup-first of 13 units)
+     u0 h0-1 44:CO3(HARV) -> 44 M3 | WHEAT@h2
+d19: 1 hands (8 pickup-first of 13 units)
+     u2 h1-2 45:CO3(HARV) -> 45 M3 | WHEAT@h3
+d20: 3 hands (7 pickup-first of 13 units)
+     u0 h0-1 44:CO3(HARV) -> 44 M3 | WEST@h2
+     u1 h1-2 54:SH4(HARV) -> 54 W4 | WHEAT@h3
+     u3 h1-2 55:CO6(HARV) -> 55 M6 | COLLECT_FERTILIZER@h3
+d21: 1 hands (8 pickup-first of 13 units)
+     u2 h1-2 45:CO3(HARV) -> 45 M3 | WHEAT@h3
+d22: 2 hands (7 pickup-first of 13 units)
+     u3 h1-2 55:CO3(HARV) -> 55 M3 | COLLECT_FERTILIZER@h3
+     u4 h1-2 44:CO3(HARV) -> 44 M3 | WHEAT@h3
+d23: 1 hands (9 pickup-first of 13 units)
+     u2 h1-2 45:CO3(HARV) -> 45 M3 | WEST@h3
+d24: 0 hands (9 pickup-first of 13 units)
+d25: 0 hands (9 pickup-first of 12 units)
+d26: 3 hands (4 pickup-first of 12 units)
+     u1 h1-2 54:SH3(HARV) -> 54 W3 | WHEAT@h3
+     u3 h1-2 55:CO6(HARV) -> 55 M6 | COLLECT_FERTILIZER@h3
+     u4 h1-2 44:CO5(HARV) -> 44 M5 | WHEAT@h3
+d27: 2 hands (5 pickup-first of 12 units)
+     u1 h1-2 54:SH4(HARV) -> 54 W4 | WHEAT@h3
+     u2 h1-2 45:CO3(HARV) -> 45 M3 | EAST@h3
+d28: 2 hands (3 pickup-first of 12 units)
+     u1 h1-7 53:CO1(HARV)+52:CO3(HARV) -> 54 M4 | EAST@h8
+     u3 h1-2 55:CO1(HARV) -> 55 M1 | WEST@h3
+d29: 1 hands (0 pickup-first of 12 units)
+     u2 h1-8 45:CO3(HARV/COLL)+25:GO1(HARV) -> 45 M3,E1 | SHEEP@h9
+  total: 32 trips, 34 tiles, goods MELON 6, WOOL 53, MILK 76, EGG 1
+=== KDWS2b: early trips (start on a shed tile, ops before any PICKUP, back with goods by the cut-off)
+d11: 1 hands (8 pickup-first of 12 units)
+     u8 h1-7 33:ME5(WATE/HARV) -> 44 M6 | WHEAT@h8
+d12: 4 hands (5 pickup-first of 12 units)
+     u0 h0-3 43:SH4(HARV) -> 44 W4 | EAST@h4
+     u1 h1-4 34:SH4(HARV) -> 44 W4 | NORTH@h5
+     u2 h1-2 54:SH6(HARV) -> 54 W6 | WHEAT@h3
+     u6 h1-4 64:SH6(HARV) -> 54 W6 | WHEAT@h5
+d13: 0 hands (9 pickup-first of 12 units)
+d14: 3 hands (9 pickup-first of 13 units)
+     u0 h0-1 44:CO3(HARV) -> 44 M3 | NORTH@h2
+     u1 h1-8 73:SH6(HARV) -> 54 W6 | WHEAT@h9
+     u5 h1-4 53:CO6(HARV) -> 54 M6 | WHEAT@h5
+d15: 4 hands (8 pickup-first of 13 units)
+     u0 h0-3 43:SH4(HARV) -> 44 W4 | WHEAT@h4
+     u1 h1-4 34:SH4(HARV) -> 44 W4 | WHEAT@h5
+     u2 h1-2 54:SH4(HARV) -> 54 W4 | WHEAT@h3
+     u6 h1-4 64:SH4(HARV) -> 54 W4 | NORTH@h5
+d16: 1 hands (8 pickup-first of 13 units)
+     u4 h1-2 44:CO3(HARV) -> 44 M3 | WHEAT@h3
+d17: 2 hands (6 pickup-first of 13 units)
+     u2 h1-2 45:CO6(HARV) -> 45 M6 | WHEAT@h3
+     u6 h1-4 35:CO6(HARV) -> 45 M6 | WHEAT@h5
+d18: 1 hands (7 pickup-first of 13 units)
+     u0 h0-1 44:CO3(HARV) -> 44 M3 | WHEAT@h2
+d19: 1 hands (8 pickup-first of 13 units)
+     u2 h1-2 45:CO3(HARV) -> 45 M3 | WHEAT@h3
+d20: 2 hands (7 pickup-first of 13 units)
+     u1 h1-2 54:SH4(HARV) -> 54 W4 | WHEAT@h3
+     u3 h1-2 55:CO6(HARV) -> 55 M6 | COLLECT_FERTILIZER@h3
+d21: 2 hands (7 pickup-first of 13 units)
+     u2 h1-2 45:CO3(HARV) -> 45 M3 | WEST@h3
+     u5 h1-4 64:SH4(HARV) -> 54 W4 | HARVEST@h5
+d22: 2 hands (8 pickup-first of 13 units)
+     u3 h1-2 55:CO3(HARV) -> 55 M3 | WHEAT@h3
+     u4 h1-2 44:CO3(HARV) -> 44 M3 | WHEAT@h3
+d23: 1 hands (7 pickup-first of 13 units)
+     u2 h1-2 45:CO3(HARV) -> 45 M3 | WHEAT@h3
+d24: 0 hands (9 pickup-first of 13 units)
+d25: 0 hands (9 pickup-first of 12 units)
+d26: 3 hands (5 pickup-first of 12 units)
+     u1 h1-2 54:SH4(HARV) -> 54 W4 | WHEAT@h3
+     u3 h1-2 55:CO2(HARV) -> 55 M2 | WHEAT@h3
+     u4 h1-2 44:CO5(HARV) -> 44 M5 | WHEAT@h3
+d27: 2 hands (7 pickup-first of 12 units)
+     u1 h1-2 54:SH3(HARV) -> 54 W3 | EAST@h3
+     u2 h1-2 45:CO4(HARV) -> 45 M4 | WHEAT@h3
+d28: 2 hands (3 pickup-first of 12 units)
+     u1 h1-7 53:CO1(HARV)+52:CO1(HARV) -> 54 M2 | COLLECT_FERTILIZER@h8
+     u3 h1-2 55:CO2(HARV) -> 55 M2 | COLLECT_FERTILIZER@h3
+d29: 0 hands (0 pickup-first of 12 units)
+  total: 31 trips, 32 tiles, goods MELON 6, WOOL 57, MILK 63
+=== KDW1: early trips (start on a shed tile, ops before any PICKUP, back with goods by the cut-off)
+d11: 1 hands (8 pickup-first of 12 units)
+     u8 h1-7 33:ME5(WATE/HARV) -> 44 M6 | WHEAT@h8
+d12: 5 hands (5 pickup-first of 12 units)
+     u0 h1-4 43:SH4(HARV) -> 44 W4 | WHEAT@h5
+     u1 h1-2 54:SH6(HARV) -> 54 W6 | WHEAT@h3
+     u4 h1-4 34:SH4(HARV) -> 44 W4 | COW@h5
+     u5 h1-4 64:SH6(HARV) -> 54 W6 | EAST@h5
+     u8 h1-2 44:CO3(HARV) -> 44 M3 | WHEAT@h3
+d13: 0 hands (8 pickup-first of 12 units)
+d14: 2 hands (9 pickup-first of 13 units)
+     u0 h1-2 44:CO3(HARV) -> 44 M3 | NORTH@h3
+     u1 h1-4 53:CO6(HARV) -> 54 M6 | NORTH@h5
+d15: 4 hands (7 pickup-first of 13 units)
+     u0 h1-4 43:SH4(HARV) -> 44 W4 | WEST@h5
+     u1 h1-2 54:SH4(HARV) -> 54 W4 | WHEAT@h3
+     u4 h1-4 34:SH4(HARV) -> 44 W4 | WHEAT@h5
+     u5 h1-4 64:SH4(HARV) -> 54 W4 | WHEAT@h5
+d16: 2 hands (9 pickup-first of 13 units)
+     u0 h1-2 44:CO3(HARV) -> 44 M3 | WHEAT@h3
+     u1 h1-4 53:CO3(HARV) -> 54 M3 | EAST@h5
+d17: 2 hands (10 pickup-first of 13 units)
+     u2 h1-4 35:CO6(HARV) -> 45 M6 | WHEAT@h5
+     u6 h1-2 45:CO6(HARV) -> 45 M6 | WEST@h3
+d18: 6 hands (5 pickup-first of 13 units)
+     u0 h1-4 43:SH4(HARV) -> 44 W4 | WHEAT@h5
+     u1 h1-2 54:SH4(HARV) -> 54 W4 | EAST@h3
+     u4 h1-4 34:SH4(HARV) -> 44 W4 | WHEAT@h5
+     u5 h1-4 64:SH4(HARV) -> 54 W4 | WHEAT@h5
+     u8 h1-2 44:CO3(HARV) -> 44 M3 | COLLECT_FERTILIZER@h3
+     u9 h1-4 53:CO3(HARV) -> 54 M3 | WHEAT@h5
+d19: 2 hands (8 pickup-first of 13 units)
+     u2 h1-4 35:CO3(HARV) -> 45 M3 | WEST@h5
+     u6 h1-2 45:CO3(HARV) -> 45 M3 | WHEAT@h3
+d20: 4 hands (7 pickup-first of 13 units)
+     u0 h1-2 44:CO3(HARV) -> 44 M3 | WEST@h3
+     u1 h1-4 53:CO3(HARV) -> 54 M3 | WHEAT@h5
+     u3 h1-2 55:CO6(HARV) -> 55 M6 | COLLECT_FERTILIZER@h3
+     u7 h1-4 56:CO6(HARV) -> 55 M6 | EAST@h5
+d21: 6 hands (4 pickup-first of 13 units)
+     u0 h1-4 43:SH4(HARV) -> 44 W4 | WHEAT@h5
+     u1 h1-2 54:SH4(HARV) -> 54 W4 | WHEAT@h3
+     u2 h1-4 35:CO3(HARV) -> 45 M3 | WEST@h5
+     u4 h1-4 34:SH4(HARV) -> 44 W4 | WHEAT@h5
+     u5 h1-4 64:SH4(HARV) -> 54 W4 | WHEAT@h5
+     u6 h1-2 45:CO3(HARV) -> 45 M3 | WHEAT@h3
+d22: 2 hands (8 pickup-first of 13 units)
+     u0 h1-2 44:CO3(HARV) -> 44 M3 | NORTH@h3
+     u1 h1-4 53:CO3(HARV) -> 54 M3 | NORTH@h5
+d23: 2 hands (8 pickup-first of 13 units)
+     u2 h1-2 45:CO3(HARV) -> 45 M3 | SOUTH@h3
+     u3 h1-4 65:CO5(HARV) -> 55 M5 | WEST@h5
+d24: 5 hands (5 pickup-first of 13 units)
+     u0 h1-4 34:SH4(HARV) -> 44 W4 | NORTH@h5
+     u1 h1-4 64:SH4(HARV) -> 54 W4 | WHEAT@h5
+     u3 h1-2 55:CO5(HARV) -> 55 M5 | WHEAT@h3
+     u4 h1-2 44:CO3(HARV) -> 44 M3 | WHEAT@h3
+     u5 h1-4 53:CO3(HARV) -> 54 M3 | WEST@h5
+d25: 1 hands (7 pickup-first of 12 units)
+     u2 h1-4 35:CO4(HARV) -> 45 M4 | WEST@h5
+d26: 1 hands (6 pickup-first of 12 units)
+     u3 h1-4 56:CO5(HARV) -> 55 M5 | COLLECT_FERTILIZER@h5
+d27: 4 hands (3 pickup-first of 12 units)
+     u0 h1-4 43:SH4(HARV) -> 44 W4 | WHEAT@h5
+     u1 h1-2 54:SH4(HARV) -> 54 W4 | EAST@h3
+     u2 h1-2 45:CO4(HARV) -> 45 M4 | WHEAT@h3
+     u4 h1-4 34:SH4(HARV) -> 44 W4 | WEST@h5
+d28: 2 hands (4 pickup-first of 12 units)
+     u0 h1-3 44:CO2(COLL/HARV) -> 44 M2 | NORTH@h4
+     u3 h1-2 55:CO3(HARV) -> 55 M3 | WHEAT@h3
+d29: 1 hands (0 pickup-first of 12 units)
+     u6 h1-7 35:CO3(HARV/COLL) -> 45 M3 | SHEEP@h8
+  total: 52 trips, 52 tiles, goods MELON 6, WOOL 88, MILK 112
+=== KS1fl: early trips (start on a shed tile, ops before any PICKUP, back with goods by the cut-off)
+d11: 1 hands (8 pickup-first of 12 units)
+     u8 h1-7 33:ME5(WATE/HARV) -> 44 M6 | WHEAT@h8
+d12: 0 hands (12 pickup-first of 12 units)
+d13: 0 hands (8 pickup-first of 12 units)
+d14: 0 hands (9 pickup-first of 13 units)
+d15: 0 hands (12 pickup-first of 13 units)
+d16: 0 hands (8 pickup-first of 13 units)
+d17: 0 hands (9 pickup-first of 13 units)
+d18: 1 hands (9 pickup-first of 13 units)
+     u5 h1-3 54:SH4(COLL/HARV) -> 54 W4 | NORTH@h4
+d19: 0 hands (9 pickup-first of 13 units)
+d20: 0 hands (7 pickup-first of 13 units)
+d21: 1 hands (10 pickup-first of 13 units)
+     u10 h1-3 45:CO6(COLL/HARV) -> 45 M6 | WEST@h4
+d22: 0 hands (10 pickup-first of 13 units)
+d23: 0 hands (8 pickup-first of 13 units)
+d24: 0 hands (9 pickup-first of 13 units)
+d25: 0 hands (8 pickup-first of 12 units)
+d26: 0 hands (7 pickup-first of 12 units)
+d27: 0 hands (7 pickup-first of 12 units)
+d28: 0 hands (2 pickup-first of 12 units)
+d29: 0 hands (0 pickup-first of 12 units)
+  total: 3 trips, 3 tiles, goods MELON 6, WOOL 4, MILK 6

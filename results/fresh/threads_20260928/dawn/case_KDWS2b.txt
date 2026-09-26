@@ -1,0 +1,452 @@
+world 16732748:112604454  money DSM 116899 vs rival 107903 (margin +8996) | KDWS2b 105445 vs rival 117816 (margin -12371)
+
+==============================================================================================================
+STRAWBERRY: margin gap -7942 = our revenue -4005 - rival revenue +3937
+                                          DSM      KDWS2b
+  herd / plants (mean, days 11-28)       32.4       33.6
+  units produced (days 11-28)             330        327
+  units harvested                         323        321
+  delivered during the day                 80          4
+  delivered in the midnight dump          238        295
+  deleted at midnight                       2         22
+  held at the end                           3          2
+  our units sold                          318        299
+  our revenue                           48637      44632
+  our avg price                         152.9      149.3
+  our mean market stock at sale          9953       9955
+  rival units sold                        278        278
+  rival revenue                         39435      43372
+  rival avg price                       141.9      156.0
+  rival mean market stock at sale        9965       9951
+  sales by hour (units @ avg price):
+    ours  DSM       h0   61 @ 185.0      h1   63 @ 190.5   h2-11   42 @ 151.4  h12-23  152 @ 124.9
+    ours  KDS2      h0    0 @   0.0      h1  266 @ 157.3   h2-11    0 @   0.0  h12-23   33 @  84.8
+    rival DSM       h0   48 @ 206.4      h1    1 @  84.0   h2-11   23 @ 127.6  h12-23  206 @ 128.7
+    rival KDS2      h0   48 @ 211.4      h1    1 @  43.0   h2-11   23 @ 133.8  h12-23  206 @ 146.1
+  units reaching the shed by hour (midnight dump counted at the next h0):
+    DSM            h0  238      h1    0   h2-11    4  h12-23   76
+    KDWS2b          h0  295      h1    0   h2-11    0  h12-23    4
+  rival sales: 278 units; market stock at them DSM game 9965, KDWS2b game 9951; at those moments DSM had sold +12.1 units more than we had (cumulative)
+  counterfactual A (our units on DSM's sale times): ours  +3270, rival  -3646, margin  +6916
+  counterfactual B (same, never before the unit is in our shed): ours  +1201, rival   +313, margin   +888
+  day | DSM: made  deliv(day/mid) sold h0 h1 h2-11 h12-23 @px | KDWS2b: made deliv(day/mid) sold h0 h1 h2-11 h12-23 @px del | rival px DSM/KDWS2b
+   11 |    8    0/0      0   0   0   0 @    0 |    8    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   12 |   12    0/6      0   0   0   0 @    0 |   11    0/8      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   13 |    8    0/8      0   0   0   2 @  212 |    8    0/11     0   2   0   0 @  206   0 |   0@    0 /   0@    0
+   14 |   12    0/14     0   0   3   7 @  216 |   12    0/8      0  10   0   7 @  213   0 |   0@    0 /   0@    0
+   15 |   22    0/12     0   6   5   5 @  217 |   18    0/12     0   8   0   0 @  213   0 |   0@    0 /   0@    0
+   16 |   14    4/14     0  11   1   4 @  219 |   14    0/18     0  12   0   0 @  219   0 |  16@  219 /  16@  221
+   17 |   22    0/18    11   2   1   0 @  212 |   22    0/14     0  18   0   0 @  213   0 |  18@  213 /  18@  216
+   18 |   22    4/18     0  13   5   4 @  211 |   22    0/22     0  14   0   0 @  212   0 |   4@  213 /   4@  214
+   19 |   22    0/22    11   6   1   0 @  206 |   22    0/19     0  22   0   0 @  205   3 |  32@  205 /  32@  211
+   20 |   14   12/8     11  11   4   8 @  194 |   14    0/22     0  19   0   0 @  199   0 |  18@  196 /  18@  201
+   21 |   40    6/10     6   2   0   6 @  192 |   38    0/14     0  22   0   0 @  198   0 |  29@  189 /  29@  195
+   22 |   16   26/12    10   0   0  26 @  177 |   16    0/38     0  14   0   0 @  187   0 |  39@  160 /  39@  183
+   23 |   30    0/16     6   3   3   0 @  129 |   29    0/16     0  38   0   0 @  159   0 |  11@  148 /  11@  157
+   24 |   16   16/12     6   6   4  14 @  124 |   18    0/18     0  16   0   0 @  148  11 |  31@  109 /  31@  143
+   25 |   29    0/11     0   3   6   5 @   81 |   31    0/18     0  18   0   0 @  111   0 |  43@   59 /  43@   90
+   26 |    9    2/23     0   0   0   8 @   58 |   10    0/31     0  18   0   0 @   52   0 |  25@   43 /  25@   57
+   27 |   22    0/16     0   0   0   6 @   63 |   24    0/10     0  14   0  17 @   37   0 |   6@   61 /   6@   29
+   28 |    5    6/18     0   0   0  22 @   92 |    6    0/16     0   5   0   5 @   44   8 |   0@    0 /   0@    0
+   29 |    0    4/0      0   0   9  35 @   65 |    0    4/0      0  16   0   4 @   63   0 |   6@   69 /   6@   56
+
+==============================================================================================================
+WOOL: margin gap -2812 = our revenue -596 - rival revenue +2216
+                                          DSM      KDWS2b
+  herd / plants (mean, days 11-28)        8.0        9.9
+  units produced (days 11-28)             166        207
+  units harvested                         166        207
+  delivered during the day                 61         61
+  delivered in the midnight dump          105        143
+  deleted at midnight                       0          3
+  held at the end                           0          0
+  our units sold                          166        204
+  our revenue                           19800      19204
+  our avg price                         119.3       94.1
+  our mean market stock at sale         10025      10032
+  rival units sold                        169        169
+  rival revenue                         14905      17121
+  rival avg price                        88.2      101.3
+  rival mean market stock at sale       10038      10034
+  sales by hour (units @ avg price):
+    ours  DSM       h0   30 @ 165.4      h1   19 @ 119.9   h2-11   67 @ 144.5  h12-23   50 @  57.5
+    ours  KDS2      h0    0 @   0.0      h1   76 @ 116.8   h2-11   61 @ 148.1  h12-23   67 @  19.3
+    rival DSM       h0   25 @  80.5      h1   27 @ 103.9   h2-11   41 @ 129.1  h12-23   76 @  63.1
+    rival KDS2      h0   25 @ 110.3      h1   27 @ 109.9   h2-11   41 @ 125.7  h12-23   76 @  82.2
+  units reaching the shed by hour (midnight dump counted at the next h0):
+    DSM            h0  105      h1    0   h2-11   55  h12-23    6
+    KDWS2b          h0  143      h1    0   h2-11   61  h12-23    0
+  rival sales: 169 units; market stock at them DSM game 10038, KDWS2b game 10034; at those moments DSM had sold -9.2 units more than we had (cumulative)
+  counterfactual A (our units on DSM's sale times): ours +10683, rival  +3894, margin  +6789
+  counterfactual B (same, never before the unit is in our shed): ours +10172, rival  +5130, margin  +5042
+  day | DSM: made  deliv(day/mid) sold h0 h1 h2-11 h12-23 @px | KDWS2b: made deliv(day/mid) sold h0 h1 h2-11 h12-23 @px del | rival px DSM/KDWS2b
+   11 |   36    0/0      0   0   0   0 @    0 |   36    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   12 |    0   20/16     0   0  20   0 @  229 |    0   20/12     0   0  20   0 @  229   0 |   0@    0 /   0@    0
+   13 |   18    0/0      8   8   0   0 @  226 |   18    0/4      0  12   0   0 @  223   0 |  10@  220 /  10@  228
+   14 |   28    6/12     0   0   6   6 @  205 |   28    6/12     0   4   6   0 @  212   0 |  17@  221 /  17@  221
+   15 |    0   16/12     6   0  16   0 @  185 |    0   16/4      0  12  16   0 @  192   0 |   7@  188 /   7@  188
+   16 |   12    0/0      8   1   2   1 @  159 |   12    0/4      0   4   0   0 @  168   0 |  26@  143 /  26@  165
+   17 |   28    0/12     0   0   0   0 @    0 |   28    0/8      0   4   0   0 @  135   0 |   8@  135 /   8@  149
+   18 |    0    0/8      8   0   2   2 @   66 |    0    0/20     0   8   0   0 @   58   0 |  22@   43 /  22@   89
+   19 |    9    0/4      0   1   2   4 @   35 |   11    0/8      0  15   0   0 @   27   0 |   4@   32 /   4@   21
+   20 |   16    4/8      0   1   2   4 @   31 |   28    4/4      0   7   4   0 @    6   0 |   7@   24 /   7@   44
+   21 |   -1    0/7      0   1   2   4 @   29 |    0    8/8      0   3   8   7 @   19   0 |   6@   23 /   6@   37
+   22 |    1    0/3      0   1   1   3 @   23 |   10    0/8      0   0   0   7 @   24   0 |  11@   20 /  11@    6
+   23 |   12    0/4      0   0   2   4 @   33 |   26    0/18     0   0   0   9 @   28   0 |   3@   31 /   3@   45
+   24 |    0    0/9      0   1   2   3 @   40 |    0    0/7      0   0   0  18 @   13   3 |   4@   32 /   4@   21
+   25 |    0    0/0      0   1   2   4 @   31 |   12    0/7      0   0   0   0 @    0   0 |  11@   27 /  11@   18
+   26 |    7    6/0      0   1   2   4 @   35 |   22    4/12     0   0   4  13 @   32   0 |   6@   28 /   6@   41
+   27 |    0    3/10     0   1   2   1 @   28 |   -4    3/0      0   0   3  13 @   15   0 |   9@   26 /   9@    3
+   28 |    0    6/0      0   1   2  10 @   36 |  -20    0/7      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   29 |    0    0/0      0   1   2   0 @   37 |    0    0/0      0   7   0   0 @   77   0 |  18@   17 /  18@   54
+
+==============================================================================================================
+MILK: margin gap -1246 = our revenue -37 - rival revenue +1209
+                                          DSM      KDWS2b
+  herd / plants (mean, days 11-28)        9.4        9.4
+  units produced (days 11-28)             203        209
+  units harvested                         196        200
+  delivered during the day                118         82
+  delivered in the midnight dump           78        118
+  deleted at midnight                       0          0
+  held at the end                           0          0
+  our units sold                          202        206
+  our revenue                           20038      20001
+  our avg price                          99.2       97.1
+  our mean market stock at sale         10029      10030
+  rival units sold                        207        207
+  rival revenue                         20217      21426
+  rival avg price                        97.7      103.5
+  rival mean market stock at sale       10030      10027
+  sales by hour (units @ avg price):
+    ours  DSM       h0    3 @ 124.0      h1   43 @  93.2   h2-11   68 @  93.2  h12-23   88 @ 105.9
+    ours  KDS2      h0    0 @   0.0      h1  112 @  96.1   h2-11   84 @  99.4  h12-23   10 @  88.8
+    rival DSM       h0    6 @ 136.0      h1   39 @ 101.1   h2-11   54 @  83.7  h12-23  108 @ 101.3
+    rival KDS2      h0    6 @ 136.0      h1   39 @ 119.1   h2-11   54 @  76.8  h12-23  108 @ 109.4
+  units reaching the shed by hour (midnight dump counted at the next h0):
+    DSM            h0   78      h1   12   h2-11   68  h12-23   38
+    KDWS2b          h0  118      h1    6   h2-11   66  h12-23   10
+  rival sales: 207 units; market stock at them DSM game 10030, KDWS2b game 10027; at those moments DSM had sold +3.2 units more than we had (cumulative)
+  counterfactual A (our units on DSM's sale times): ours   +346, rival  -1458, margin  +1804
+  counterfactual B (same, never before the unit is in our shed): ours   +778, rival   -180, margin   +958
+  day | DSM: made  deliv(day/mid) sold h0 h1 h2-11 h12-23 @px | KDWS2b: made deliv(day/mid) sold h0 h1 h2-11 h12-23 @px del | rival px DSM/KDWS2b
+   11 |    6    0/0      0   0   0   0 @    0 |    6    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   12 |    0    0/3      0   0   0   4 @  151 |    0    0/0      0   4   0   0 @  132   0 |   6@  136 /   6@  136
+   13 |   18    0/3      0   0   0   5 @  174 |   18    3/0      0   2   3   0 @  150   0 |   0@    0 /   0@    0
+   14 |    0    9/9      0   5   0   7 @  166 |    0    9/12     0   3   6   0 @  158   0 |   6@  158 /   6@  162
+   15 |   12    0/0      0   0   9   0 @  158 |   12    0/0      0  12   0   0 @  157   0 |  20@  154 /  20@  150
+   16 |   12    9/3      0   0   0   9 @  155 |   12    3/0      0   0   3   0 @  139   0 |   4@  151 /   4@  169
+   17 |   12   12/0      0   3   6   6 @  147 |   12   12/6      0   0  12   0 @  157   0 |  14@  140 /  14@  162
+   18 |    6    9/3      0   0   0   9 @  127 |    6    3/6      0   3   6   0 @  143   0 |  22@  121 /  22@  132
+   19 |   30    3/3      0   0   6   0 @  109 |   29    3/6      0   6   3   0 @  118   0 |   0@    0 /   0@    0
+   20 |    6   18/9      3   0  12   6 @   78 |    6    6/9      0   3   9   0 @   98   0 |  27@  101 /  27@  115
+   21 |   17    3/3      0   6   0   5 @   67 |   21    3/20     0   9   3   0 @   77   0 |   8@   54 /   8@   98
+   22 |   10    6/7      0   4   4   1 @   70 |   12    6/3      0  20   6   0 @   77   0 |  13@   58 /  13@   49
+   23 |   15    7/8      0   6   0   4 @   61 |   20    3/6      0   3   3   0 @   54   0 |  19@   50 /  19@   49
+   24 |    6    7/8      0   0   6  12 @   53 |    6    3/26     0   6   3   0 @   45   0 |   3@   54 /   3@   41
+   25 |   14    0/6      0   0   6   4 @   71 |   15    0/0      0  20   0   0 @   58   0 |   0@    0 /   0@    0
+   26 |    6   10/6      0   6   4   6 @   90 |    6    7/0      0   6   7   0 @   76   0 |   9@   89 /   9@   95
+   27 |   19    4/2      0   6   2   2 @   91 |   10    8/11     0   0   4   4 @  109   0 |  20@   90 /  20@  100
+   28 |    7   14/5      0   2  12   2 @   77 |    9    4/13     0   2  13   0 @   75   0 |   1@   87 /   1@   99
+   29 |    0    7/0      0   5   1   6 @   74 |    0    9/0      0  13   3   6 @   81   0 |  35@   70 /  35@   64
+
+==============================================================================================================
+EGG: margin gap -1314 = our revenue -1241 - rival revenue +73
+                                          DSM      KDWS2b
+  herd / plants (mean, days 11-28)        4.9        4.9
+  units produced (days 11-28)             162        132
+  units harvested                         150        125
+  delivered during the day                 25          8
+  delivered in the midnight dump          124        117
+  deleted at midnight                       0          0
+  held at the end                           1          0
+  our units sold                          149        125
+  our revenue                            7793       6552
+  our avg price                          52.3       52.4
+  our mean market stock at sale          9962       9960
+  rival units sold                        108        108
+  rival revenue                          5637       5710
+  rival avg price                        52.2       52.9
+  rival mean market stock at sale        9964       9953
+  sales by hour (units @ avg price):
+    ours  DSM       h0    0 @   0.0      h1    0 @   0.0   h2-11   15 @  51.9  h12-23  134 @  52.3
+    ours  KDS2      h0    0 @   0.0      h1  117 @  52.3   h2-11    0 @   0.0  h12-23    8 @  54.5
+    rival DSM       h0    0 @   0.0      h1   74 @  52.0   h2-11    7 @  53.0  h12-23   27 @  52.5
+    rival KDS2      h0    0 @   0.0      h1   74 @  52.6   h2-11    7 @  53.0  h12-23   27 @  53.5
+  units reaching the shed by hour (midnight dump counted at the next h0):
+    DSM            h0  124      h1    0   h2-11    0  h12-23   25
+    KDWS2b          h0  117      h1    0   h2-11    0  h12-23    8
+  rival sales: 108 units; market stock at them DSM game 9964, KDWS2b game 9953; at those moments DSM had sold +9.8 units more than we had (cumulative)
+  counterfactual A (our units on DSM's sale times): ours    -31, rival    -60, margin    +29
+  counterfactual B (same, never before the unit is in our shed): ours    +20, rival    -36, margin    +56
+  day | DSM: made  deliv(day/mid) sold h0 h1 h2-11 h12-23 @px | KDWS2b: made deliv(day/mid) sold h0 h1 h2-11 h12-23 @px del | rival px DSM/KDWS2b
+   11 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   12 |    3    0/0      0   0   0   0 @    0 |    3    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   13 |   10    0/3      0   0   0   0 @    0 |    8    0/3      0   0   0   0 @    0   0 |   8@   53 /   8@   53
+   14 |   11    0/10     0   0   0   3 @   53 |    8    0/6      0   3   0   0 @   53   0 |   2@   53 /   2@   53
+   15 |    9    0/11     0   0   0  10 @   53 |    9    0/7      0   6   0   0 @   53   0 |   4@   53 /   4@   53
+   16 |    9    0/9      0   0   0  11 @   52 |    8    0/10     0   7   0   0 @   52   0 |   8@   52 /   8@   53
+   17 |   10    0/8      0   0   0   9 @   52 |   10    0/10     0  10   0   0 @   52   0 |   4@   52 /   4@   52
+   18 |    9    0/9      0   0   0   8 @   52 |   10    0/6      0  10   0   0 @   51   0 |   8@   52 /   8@   52
+   19 |    9    0/8      0   0   0   9 @   52 |    9    0/8      0   6   0   0 @   51   0 |   6@   51 /   6@   52
+   20 |    9    0/8      0   0   0   8 @   51 |    7    0/12     0   8   0   0 @   51   0 |   8@   51 /   8@   52
+   21 |    9    0/11     0   0   0   8 @   52 |    6    0/4      0  12   0   0 @   51   0 |   6@   51 /   6@   52
+   22 |    8    0/6      0   0   0  10 @   52 |    6    0/4      0   4   0   0 @   51   0 |   6@   51 /   6@   52
+   23 |    8    0/12     0   0   7   0 @   51 |    8    0/13     0   4   0   0 @   52   0 |   6@   52 /   6@   53
+   24 |   10    0/7      0   0   0  12 @   52 |    6    0/7      0  13   0   0 @   52   0 |   4@   52 /   4@   53
+   25 |   10    0/10     0   0   0   7 @   53 |   10    0/3      0   7   0   0 @   53   0 |   4@   52 /   4@   53
+   26 |   10    6/4      0   0   8   8 @   52 |    5    0/4      0   3   0   0 @   53   0 |  12@   53 /  12@   53
+   27 |    8    2/6      0   0   0   6 @   53 |    5    1/12     0   4   0   1 @   54   0 |   4@   53 /   4@   54
+   28 |    8    6/2      0   0   0  12 @   53 |    7    0/8      0  12   0   0 @   54   0 |   4@   53 /   4@   54
+   29 |    0   11/0      0   0   0  13 @   53 |    0    7/0      0   8   0   7 @   54   0 |  14@   53 /  14@   54
+
+==============================================================================================================
+WHEAT: margin gap -7158 = our revenue -5552 - rival revenue +1606
+                                          DSM      KDWS2b
+  herd / plants (mean, days 11-28)       26.1       23.8
+  units produced (days 11-28)             719        689
+  units harvested                         708        687
+  delivered during the day               -253       -321
+  delivered in the midnight dump          645        605
+  deleted at midnight                       2         23
+  held at the end                           3          5
+  our units sold                          499        334
+  our revenue                           17629      12077
+  our avg price                          35.3       36.2
+  our mean market stock at sale          9863       9841
+  rival units sold                        302        302
+  rival revenue                          8816      10422
+  rival avg price                        29.2       34.5
+  rival mean market stock at sale        9979       9882
+  sales by hour (units @ avg price):
+    ours  DSM       h0   84 @  34.0      h1   55 @  38.9   h2-11  135 @  37.8  h12-23  225 @  33.4
+    ours  KDS2      h0    0 @   0.0      h1  205 @  38.6   h2-11    6 @  36.3  h12-23  123 @  32.1
+    rival DSM       h0    3 @  37.0      h1  143 @  31.1   h2-11    0 @   0.0  h12-23  156 @  27.3
+    rival KDS2      h0    3 @  41.0      h1  143 @  36.7   h2-11    0 @   0.0  h12-23  156 @  32.3
+  units reaching the shed by hour (midnight dump counted at the next h0):
+    DSM            h0  609      h1 -159   h2-11 -168  h12-23  110
+    KDWS2b          h0  605      h1 -283   h2-11  -92  h12-23   54
+  rival sales: 302 units; market stock at them DSM game 9979, KDWS2b game 9882; at those moments DSM had sold +168.6 units more than we had (cumulative)
+  counterfactual A (our units on DSM's sale times): ours   +435, rival  -1934, margin  +2369
+  counterfactual B (same, never before the unit is in our shed): ours   +435, rival  -1934, margin  +2369
+  day | DSM: made  deliv(day/mid) sold h0 h1 h2-11 h12-23 @px | KDWS2b: made deliv(day/mid) sold h0 h1 h2-11 h12-23 @px del | rival px DSM/KDWS2b
+   11 |   35  -36/37     0   0   5   0 @   40 |   32  -18/19     0   5   0   0 @   39   0 |   0@    0 /   0@    0
+   12 |   26  -31/29     0  13   0   7 @   40 |   29  -16/24     0  14   2   4 @   39   0 |   0@    0 /   0@    0
+   13 |   42  -13/39     0   0   5   7 @   40 |   44  -24/51     0   2   0   2 @   40   0 |   0@    0 /   0@    0
+   14 |   34  -33/47     0   0  10  13 @   41 |   30  -23/45     0  23   0   5 @   39   0 |   0@    0 /   0@    0
+   15 |   27  -25/41     0  13   0   9 @   40 |   27  -24/17     0  13   0   0 @   39   0 |   6@   40 /   6@   39
+   16 |   35  -31/32     0   0   5   5 @   39 |   37  -25/40     0   0   0   0 @    0   0 |   2@   39 /   2@   39
+   17 |   32  -30/44     0   0   8   7 @   40 |   28  -24/35     0  12   0   4 @   39   0 |   0@    0 /   0@    0
+   18 |   27  -19/27     0  13   8   4 @   40 |   25  -24/15     0   3   0   0 @   39   0 |   0@    0 /   0@    0
+   19 |   34  -25/29     0   0   0  15 @   40 |   33  -24/40     0   0   0   1 @   40   0 |  11@   40 /  11@   40
+   20 |   35  -16/31     0   0   8   5 @   40 |   31  -23/23     0   8   0   5 @   40   0 |  17@   40 /  17@   40
+   21 |   36  -18/39     0   0  20   6 @   40 |   31  -25/34     0   0   0   2 @   40   0 |   0@    0 /   0@    0
+   22 |   32  -17/22     0   0  10  12 @   40 |   34  -23/25     0   6   0   0 @   41   0 |   5@   40 /   5@   41
+   23 |   51   -4/38     0   0   0  18 @   40 |   45  -22/43     0   0   0   8 @   41   0 |  13@   40 /  13@   41
+   24 |   50   -6/41    13   0  15  14 @   38 |   39  -25/30     0  15   0   3 @   40   0 |  18@   38 /  18@   40
+   25 |   54  -12/70    13   0   4   2 @   38 |   41  -21/45     0   2   0   7 @   41   0 |   0@    0 /   0@    0
+   26 |   39   -7/32    16  16  18  13 @   37 |   45  -14/35     0  13   0  17 @   41   0 |   3@   37 /   3@   41
+   27 |   40    3/28    13   0   8  14 @   35 |   44  -15/57     0  10   0  11 @   40   1 |  26@   35 /  26@   40
+   28 |   28    5/19    13   0   8  12 @   30 |   37   -5/27     0  52   4   0 @   38  22 |  84@   29 /  84@   36
+   29 |    0   62/0     16   0   3  62 @   21 |    0   54/0      0  27   0  54 @   26   0 | 117@   21 / 117@   29
+
+==============================================================================================================
+CARROT: margin gap -317 = our revenue -263 - rival revenue +54
+                                          DSM      KDWS2b
+  herd / plants (mean, days 11-28)        2.3        2.1
+  units produced (days 11-28)              72         74
+  units harvested                          54         49
+  delivered during the day                 30         28
+  delivered in the midnight dump           24         17
+  deleted at midnight                       0          4
+  held at the end                           2          7
+  our units sold                           54         45
+  our revenue                            1460       1197
+  our avg price                          27.0       26.6
+  our mean market stock at sale         10050      10055
+  rival units sold                         81         81
+  rival revenue                          2464       2518
+  rival avg price                        30.4       31.1
+  rival mean market stock at sale       10030      10021
+  sales by hour (units @ avg price):
+    ours  DSM       h0    0 @   0.0      h1    0 @   0.0   h2-11   24 @  27.4  h12-23   30 @  26.7
+    ours  KDS2      h0    0 @   0.0      h1   17 @  28.5   h2-11    4 @  27.5  h12-23   24 @  25.1
+    rival DSM       h0    0 @   0.0      h1   11 @  29.2   h2-11    0 @   0.0  h12-23   70 @  30.6
+    rival KDS2      h0    0 @   0.0      h1   11 @  30.2   h2-11    0 @   0.0  h12-23   70 @  31.2
+  units reaching the shed by hour (midnight dump counted at the next h0):
+    DSM            h0   24      h1    0   h2-11    0  h12-23   30
+    KDWS2b          h0   17      h1    0   h2-11    4  h12-23   24
+  rival sales: 81 units; market stock at them DSM game 10030, KDWS2b game 10021; at those moments DSM had sold +9.4 units more than we had (cumulative)
+  counterfactual A (our units on DSM's sale times): ours    +40, rival    -49, margin    +89
+  counterfactual B (same, never before the unit is in our shed): ours    +33, rival    -23, margin    +56
+  day | DSM: made  deliv(day/mid) sold h0 h1 h2-11 h12-23 @px | KDWS2b: made deliv(day/mid) sold h0 h1 h2-11 h12-23 @px del | rival px DSM/KDWS2b
+   11 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   12 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   13 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   14 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   15 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   16 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   17 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   18 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   19 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   20 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   21 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   22 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   23 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   24 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   25 |    8    0/0      0   0   0   0 @    0 |    6    0/0      0   0   0   0 @    0   0 |   4@   37 /   4@   37
+   26 |    9    0/0      0   0   0   0 @    0 |    9    0/0      0   0   0   0 @    0   0 |  17@   36 /  17@   36
+   27 |   12    0/0      0   0   0   0 @    0 |   11    0/0      0   0   0   0 @    0   0 |  18@   34 /  18@   34
+   28 |   21    8/24     0   0   0   8 @   30 |   20    0/17     0   0   0   0 @    0   4 |   4@   31 /   4@   31
+   29 |    0   22/0      0   0  24  22 @   26 |    0   28/0      0  17   4  24 @   27   0 |  38@   26 /  38@   27
+
+==============================================================================================================
+TOMATO: margin gap -677 = our revenue -675 - rival revenue +2
+                                          DSM      KDWS2b
+  herd / plants (mean, days 11-28)        5.8        5.9
+  units produced (days 11-28)              83         60
+  units harvested                          69         53
+  delivered during the day                 18          2
+  delivered in the midnight dump           51         51
+  deleted at midnight                       0          0
+  held at the end                           0          5
+  our units sold                           69         53
+  our revenue                            3531       2856
+  our avg price                          51.2       53.9
+  our mean market stock at sale         10017      10008
+  rival units sold                         16         16
+  rival revenue                           831        833
+  rival avg price                        51.9       52.1
+  rival mean market stock at sale       10014      10013
+  sales by hour (units @ avg price):
+    ours  DSM       h0   30 @  53.2      h1    2 @  62.0   h2-11    0 @   0.0  h12-23   37 @  48.9
+    ours  KDS2      h0    0 @   0.0      h1   47 @  54.5   h2-11    0 @   0.0  h12-23    6 @  48.8
+    rival DSM       h0   16 @  51.9      h1    0 @   0.0   h2-11    0 @   0.0  h12-23    0 @   0.0
+    rival KDS2      h0   16 @  52.1      h1    0 @   0.0   h2-11    0 @   0.0  h12-23    0 @   0.0
+  units reaching the shed by hour (midnight dump counted at the next h0):
+    DSM            h0   51      h1    0   h2-11    0  h12-23   18
+    KDWS2b          h0   51      h1    0   h2-11    0  h12-23    2
+  rival sales: 16 units; market stock at them DSM game 10014, KDWS2b game 10013; at those moments DSM had sold +0.4 units more than we had (cumulative)
+  counterfactual A (our units on DSM's sale times): ours    +21, rival     +1, margin    +20
+  counterfactual B (same, never before the unit is in our shed): ours    +21, rival     +3, margin    +18
+  day | DSM: made  deliv(day/mid) sold h0 h1 h2-11 h12-23 @px | KDWS2b: made deliv(day/mid) sold h0 h1 h2-11 h12-23 @px del | rival px DSM/KDWS2b
+   11 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   12 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   13 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   14 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   15 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   16 |    3    0/0      0   0   0   0 @    0 |    3    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   17 |    3    0/2      0   0   0   0 @    0 |    4    0/3      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   18 |    7    0/4      0   2   0   0 @   62 |    7    0/4      0   2   0   0 @   62   0 |   0@    0 /   0@    0
+   19 |    8    0/3      0   0   0   4 @   62 |    7    0/7      0   4   0   0 @   62   0 |   0@    0 /   0@    0
+   20 |    6    0/10     0   0   0   3 @   62 |    6    0/7      0   3   0   0 @   62   0 |   0@    0 /   0@    0
+   21 |    4    0/6      8   0   0   2 @   61 |    5    0/6      0  10   0   0 @   61   0 |   0@    0 /   0@    0
+   22 |    2    0/4      6   0   0   0 @   55 |    2    0/5      0   6   0   0 @   56   0 |   4@   60 /   4@   60
+   23 |    1    0/4      4   0   0   0 @   53 |    1    0/2      0   4   0   3 @   52   0 |   2@   52 /   2@   54
+   24 |    0    0/1      0   0   0   4 @   50 |    0    0/1      0   1   0   1 @   50   0 |   2@   52 /   2@   50
+   25 |    7    0/0      0   0   0   1 @   50 |    5    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   26 |   10    0/4      0   0   0   0 @    0 |    5    0/5      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   27 |   10    2/9      4   0   0   2 @   48 |    6    0/5      0   6   0   0 @   48   0 |   4@   50 /   4@   50
+   28 |    8    2/4      8   0   0   3 @   46 |    7    0/6      0   5   0   0 @   47   0 |   2@   48 /   2@   48
+   29 |    0   14/0      0   0   0  18 @   43 |    0    2/0      0   6   0   2 @   45   0 |   2@   45 /   2@   46
+
+==============================================================================================================
+MELON: margin gap +10 = our revenue +10 - rival revenue +0
+                                          DSM      KDWS2b
+  herd / plants (mean, days 11-28)        0.2        0.2
+  units produced (days 11-28)               4          4
+  units harvested                          24         24
+  delivered during the day                 18         18
+  delivered in the midnight dump            6          6
+  deleted at midnight                       0          0
+  held at the end                           0          0
+  our units sold                           24         24
+  our revenue                            4547       4557
+  our avg price                         189.5      189.9
+  our mean market stock at sale         10078      10077
+  rival units sold                         78         78
+  rival revenue                         11786      11786
+  rival avg price                       151.1      151.1
+  rival mean market stock at sale       10096      10096
+  sales by hour (units @ avg price):
+    ours  DSM       h0    6 @ 175.2      h1    0 @   0.0   h2-11   18 @ 194.2  h12-23    0 @   0.0
+    ours  KDS2      h0    0 @   0.0      h1    6 @ 176.8   h2-11   12 @ 198.8  h12-23    6 @ 185.2
+    rival DSM       h0    0 @   0.0      h1    0 @   0.0   h2-11   18 @ 217.9  h12-23   60 @ 131.1
+    rival KDS2      h0    0 @   0.0      h1    0 @   0.0   h2-11   18 @ 217.9  h12-23   60 @ 131.1
+  units reaching the shed by hour (midnight dump counted at the next h0):
+    DSM            h0    6      h1    0   h2-11   18  h12-23    0
+    KDWS2b          h0    6      h1    0   h2-11   18  h12-23    0
+  rival sales: 78 units; market stock at them DSM game 10096, KDWS2b game 10096; at those moments DSM had sold +0.0 units more than we had (cumulative)
+  counterfactual A (our units on DSM's sale times): ours    -10, rival     +0, margin    -10
+  counterfactual B (same, never before the unit is in our shed): ours    -10, rival     +0, margin    -10
+  day | DSM: made  deliv(day/mid) sold h0 h1 h2-11 h12-23 @px | KDWS2b: made deliv(day/mid) sold h0 h1 h2-11 h12-23 @px del | rival px DSM/KDWS2b
+   11 |    4   18/6      0   0  18   0 @  194 |    4   18/6      0   0  12   6 @  194   0 |  18@  218 /  18@  218
+   12 |    0    0/0      6   0   0   0 @  175 |    0    0/0      0   6   0   0 @  177   0 |   0@    0 /   0@    0
+   13 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   14 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   2@  174 /   2@  174
+   15 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   16 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   7@  169 /   7@  169
+   17 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   18 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   8@  159 /   8@  159
+   19 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   7@  146 /   7@  146
+   20 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   21 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   22 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |  12@  132 /  12@  132
+   23 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   4@  116 /   4@  116
+   24 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   25 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   26 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   7@  111 /   7@  111
+   27 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   1@  104 /   1@  104
+   28 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |   0@    0 /   0@    0
+   29 |    0    0/0      0   0   0   0 @    0 |    0    0/0      0   0   0   0 @    0   0 |  12@   92 /  12@   92
+
+==============================================================================================================
+FERTILIZER: margin gap -1798 = our revenue -872 - rival revenue +926
+                                          DSM      KDWS2b
+  herd / plants (mean, days 11-28)        1.7        1.8
+  units produced (days 11-28)               0          0
+  units harvested                           0          0
+  delivered during the day                 -3          7
+  delivered in the midnight dump          164        124
+  deleted at midnight                       0          0
+  held at the end                           1          0
+  our units sold                          172        143
+  our revenue                            5520       4648
+  our avg price                          32.1       32.5
+  our mean market stock at sale         10339      10337
+  rival units sold                        198        198
+  rival revenue                          6233       7159
+  rival avg price                        31.5       36.2
+  rival mean market stock at sale       10343      10319
+  sales by hour (units @ avg price):
+    ours  DSM       h0  101 @  46.2      h1    1 @  30.0   h2-11   12 @  17.9  h12-23   58 @  10.6
+    ours  KDS2      h0    0 @   0.0      h1  136 @  33.8   h2-11    0 @   0.0  h12-23    7 @   6.7
+    rival DSM       h0  129 @  37.4      h1   21 @  38.9   h2-11    0 @   0.0  h12-23   48 @  12.3
+    rival KDS2      h0  129 @  42.0      h1   21 @  43.4   h2-11    0 @   0.0  h12-23   48 @  17.4
+  units reaching the shed by hour (midnight dump counted at the next h0):
+    DSM            h0  164      h1    0   h2-11  -18  h12-23   15
+    KDWS2b          h0  124      h1    0   h2-11    0  h12-23    7
+  rival sales: 198 units; market stock at them DSM game 10343, KDWS2b game 10319; at those moments DSM had sold +20.3 units more than we had (cumulative)
+  counterfactual A (our units on DSM's sale times): ours   +858, rival   -731, margin  +1589
+  counterfactual B (same, never before the unit is in our shed): ours   +214, rival    -45, margin   +259
+  day | DSM: made  deliv(day/mid) sold h0 h1 h2-11 h12-23 @px | KDWS2b: made deliv(day/mid) sold h0 h1 h2-11 h12-23 @px del | rival px DSM/KDWS2b
+   11 |    0    0/10    12   0   0   0 @   67 |    0    0/9      0  12   0   0 @   65   0 |   9@   65 /   9@   67
+   12 |    0    0/14    10   0   0   0 @   62 |    0    0/3      0   9   0   0 @   60   0 |  15@   61 /  15@   62
+   13 |    0    1/14    14   0   0   1 @   56 |    0    0/8      0   3   0   0 @   55   0 |  19@   55 /  19@   57
+   14 |    0    0/12    14   0   0   0 @   49 |    0    0/12     0   8   0   0 @   51   0 |  16@   49 /  16@   53
+   15 |    0    0/10    12   0   0   0 @   44 |    0    0/4      0  12   0   0 @   48   0 |   5@   46 /   5@   49
+   16 |    0    0/15    10   0   0   0 @   42 |    0    0/8      0   4   0   0 @   42   0 |  22@   38 /  22@   44
+   17 |    0    0/12    14   1   0   0 @   33 |    0    0/14     0   8   0   0 @   37   0 |  19@   33 /  19@   39
+   18 |    0    0/9     12   0   0   0 @   28 |    0    0/9      0  14   0   0 @   34   0 |   5@   27 /   5@   34
+   19 |    0   -3/16     0   0   0   6 @   25 |    0    0/6      0   9   0   0 @   31   0 |   2@   26 /   2@   32
+   20 |    0   -6/10     0   0  10   0 @   21 |    0    0/6      0   6   0   0 @   26   0 |  17@   22 /  17@   28
+   21 |    0   -3/8      0   0   0   7 @   16 |    0    0/8      0   6   0   0 @   23   0 |  10@   18 /  10@   24
+   22 |    0   -3/11     0   0   0   5 @   14 |    0    0/9      0   8   0   0 @   20   0 |   8@   15 /   8@   21
+   23 |    0   -3/7      0   0   0   8 @   10 |    0    0/1      0   9   0   0 @   18   0 |  11@   12 /  11@   16
+   24 |    0   -2/4      0   0   0   5 @   10 |    0    0/11     0   1   0   0 @   15   0 |   0@    0 /   0@    0
+   25 |    0    0/1      0   0   0   4 @    7 |    0    0/2      0  11   0   0 @   13   0 |  12@    9 /  12@   15
+   26 |    0    2/7      0   0   1   2 @    5 |    0    0/3      0   2   0   0 @   10   0 |  10@    5 /  10@   10
+   27 |    0    2/1      0   0   0   9 @    4 |    0    0/5      0   3   0   0 @    9   0 |   2@    5 /   2@   10
+   28 |    0    0/3      0   0   0   1 @    3 |    0    0/6      0   5   0   0 @    9   0 |   8@    4 /   8@    9
+   29 |    0   12/0      3   0   1  10 @    2 |    0    7/0      0   6   0   7 @    7   0 |   8@    1 /   8@    5
+
