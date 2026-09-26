@@ -1,4 +1,6 @@
-"""Selling strategy in isolation ("goods from Mars"): the farm plays exactly as the arm's game (same actions, same units
+"""SUPERSEDED by mars_engine.py (this analytic model misses the engine's lockstep pairing within a list position and
+that $1 sales add no stock: it understated DSM's exact timing at 67% where the engine gives 100%).
+Selling strategy in isolation ("goods from Mars"): the farm plays exactly as the arm's game (same actions, same units
 produced and sold); only the times at which our units of a product are sold change. Shop consumption is a fixed
 schedule and the rival's orders are recorded, so the market stock at any moment = the actual stock + (our units sold
 by then under the strategy - actually sold by then), and every price (ours and the rival's) follows exactly from
