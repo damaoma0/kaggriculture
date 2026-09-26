@@ -1,0 +1,36 @@
+40 worlds, KS1, per world. Margin gap vs DSM on each product = (our revenue - DSM's) - (rival revenue in our game - in DSM's game). Strategy rows: change vs our actual sales (ours, rival, MARGIN); nothing but sale times moves.
+
+STRAWBERRY: margin gap vs DSM -4749 (our units 232 vs DSM 237); calibration: actual schedule priced by the model ours -22, rival -1
+  day    mars   ours    -285  rival   -1958  MARGIN   +1673  ( 35.2% of the gap)
+  day    harv   ours    +381  rival   -1574  MARGIN   +1954  ( 41.1% of the gap)
+  day    deliv  ours    +399  rival     +74  MARGIN    +325  (  6.8% of the gap)
+  hourly mars   ours   +1186  rival   -1325  MARGIN   +2511  ( 52.9% of the gap)
+  hourly harv   ours   +1299  rival   -1219  MARGIN   +2518  ( 53.0% of the gap)
+  hourly deliv  ours    +946  rival    +248  MARGIN    +699  ( 14.7% of the gap)
+  books  mars   ours   +1447  rival   -1454  MARGIN   +2901  ( 61.1% of the gap)
+  books  harv   ours   +1594  rival   -1332  MARGIN   +2926  ( 61.6% of the gap)
+  books  deliv  ours   +1224  rival    +219  MARGIN   +1005  ( 21.2% of the gap)
+
+WOOL: margin gap vs DSM -4134 (our units 138 vs DSM 134); calibration: actual schedule priced by the model ours -13, rival -1
+  day    mars   ours   -1620  rival   -3883  MARGIN   +2263  ( 54.7% of the gap)
+  day    harv   ours    -213  rival   -1620  MARGIN   +1407  ( 34.0% of the gap)
+  day    deliv  ours    +422  rival    +342  MARGIN     +80  (  1.9% of the gap)
+  hourly mars   ours    -415  rival   -2525  MARGIN   +2110  ( 51.0% of the gap)
+  hourly harv   ours    +445  rival   -1168  MARGIN   +1613  ( 39.0% of the gap)
+  hourly deliv  ours    +905  rival    +646  MARGIN    +260  (  6.3% of the gap)
+  books  mars   ours    -101  rival   -2708  MARGIN   +2608  ( 63.1% of the gap)
+  books  harv   ours    +602  rival   -1189  MARGIN   +1790  ( 43.3% of the gap)
+  books  deliv  ours    +986  rival    +632  MARGIN    +354  (  8.6% of the gap)
+
+MILK: margin gap vs DSM -2712 (our units 199 vs DSM 189); calibration: actual schedule priced by the model ours -52, rival -3
+  day    mars   ours    -161  rival   -2092  MARGIN   +1931  ( 71.2% of the gap)
+  day    harv   ours    +223  rival    -825  MARGIN   +1048  ( 38.6% of the gap)
+  day    deliv  ours    +649  rival    +567  MARGIN     +82  (  3.0% of the gap)
+  hourly mars   ours   +1038  rival    -760  MARGIN   +1798  ( 66.3% of the gap)
+  hourly harv   ours   +1170  rival    -184  MARGIN   +1354  ( 49.9% of the gap)
+  hourly deliv  ours   +1292  rival    +986  MARGIN    +307  ( 11.3% of the gap)
+  books  mars   ours   +1269  rival    -958  MARGIN   +2226  ( 82.1% of the gap)
+  books  harv   ours   +1393  rival    -219  MARGIN   +1612  ( 59.5% of the gap)
+  books  deliv  ours   +1511  rival   +1025  MARGIN    +486  ( 17.9% of the gap)
+
+TOTAL gap -11595; recovered: day_mars +5867, day_harv +4409, day_deliv +487, hourly_mars +6420, hourly_harv +5485, hourly_deliv +1265, books_mars +7736, books_harv +6329, books_deliv +1845
