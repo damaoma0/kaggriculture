@@ -243,6 +243,9 @@ ARMS = {
     'B1-fb': (SEC, dict(ARMS_B1, sd_feed_bonus=0.0)),
     'B1ni': (SEC, dict(ARMS_B1, sd_water_tomorrow=0.0)),        # B1 without the idle waters
     'B1p': (SEC, dict(ARMS_B1, sd_path_collect=6)),             # B1 + collect on the way out
+    # hard-coded melon rule (user): by 8 +10 / unit / hour early, 8-12 -10 / unit / hour late, never after 12
+    'B1pM': (SEC, dict(ARMS_B1, sd_path_collect=6, sd_melon_rule=1)),
+    'G0sM': (SEC, dict(MDEC, sd_fert_sell=1, sell_now=['MELON'], sd_melon_rule=1)),
     # melon morning push vs the new animal values (user: B1p's farmer collects instead of harvesting melons)
     **{f'B1pm{w}': (SEC, dict(ARMS_B1, sd_path_collect=6, sd_hv_pref=dict(HVM, MELON=dict(HVM['MELON'], hour_w=float(w)))))
        for w in (60, 150)},
@@ -337,6 +340,8 @@ LABEL = {
     'B1-ct': 'B1 without late plantings',
     'B1-fb': 'B1 without the feed bonus',
     'B1p': 'B1p: B1 + collect on the way out',
+    'B1pM': 'B1pM: B1p + hard-coded melon rule (by 8, else by 12 with penalty)',
+    'G0sM': 'G0sM: G0s + hard-coded melon rule',
     **{f'B1pm{w}': f'B1pm{w}: B1p + melon later than 8 AM costs {w} an hour' for w in (60, 150)},
     **{f'B1pc{c}': f'B1pc{c}: B1p + collect worth at least {c} (not 80)' for c in (20, 40)},
     'B1pmc': 'B1pmc: B1p + melon 150 an hour after 8 AM + collect floor 20',

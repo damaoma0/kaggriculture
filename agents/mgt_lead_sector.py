@@ -231,6 +231,9 @@ CFG = {
     "sd_wheat_frac": None,    # feeding is charged this fraction of the wheat price in the maintenance values (None = full)
     "sd_feed_bonus": 0.0,     # coins added to every FEED / CARE op of a live animal (user: bonus on animals fed / cared)
     "sell_now": [],           # products sold as soon as they reach the shed, whatever the leader's quota (e.g. MELON)
+    "sd_melon_rule": 0,       # 1 (user): hard-coded melon trips (by 8 bonus / 8-12 penalty / never after 12), melon hands kept out of the planner
+    "sd_mel_bonus": 10.0,     # coins per melon unit per hour delivered before 8
+    "sd_mel_pen": 10.0,       # coins per melon unit per hour delivered after 8 (never after 12)
     "sd_fert_sell": 0,        # 1 (user rule, leader tapes): the shed's fertilizer is all sold (no reserve), fertilizer is never picked up from the shed, collected fertilizer stays in hand for fertilizing (never delivered mid-day; the midnight dump brings the rest, sold next morning)
     "sd_retire": 0,           # plants the plan retires (abandoned / cleared before producing again) get no hard water job
     "sd_plan_log": 0,         # viewer: log each hand's planned job tiles (route order) on every change (L["plan_log"])
@@ -3582,6 +3585,10 @@ def _sd_build(S, L, ctx):
         if job_ is not None and job_[0] == "BUILD" and cmds == ["HARVEST"]:
             k0 = 0                                 # harvest_before_build: clears the tile for the structure
         pre, planp = (kept, []) if k0 is None else (kept[:k0], kept[k0:])
+        rel_ = hour
+        if idx in (ctx.get("mflag") or {}):
+            pre = []                               # the melon hand does this tile's water / harvest
+            rel_ = max(hour, int(ctx["mflag"][idx]))   # harvested-by flag: the replant waits for the harvest
         j1 = None
         if pre:
             pc = [o[0] for o in pre]
@@ -3600,7 +3607,7 @@ def _sd_build(S, L, ctx):
             ip = next((i_ for i_ in range(1, nn) if pc[i_] == "PLACE" and pc[i_ - 1] in ("BUILD_COOP", "BUILD_PASTURE")),
                       None) if CFG["sd_split_place"] else None
             if ip is None:
-                add(key, idx, planp, vals, dls, -1, 0, hour, -1 if j1 is None else j1, 0, True, crop_i, gw, gf, gdu, gdv,
+                add(key, idx, planp, vals, dls, -1, 0, rel_, -1 if j1 is None else j1, 0, True, crop_i, gw, gf, gdu, gdv,
                     gty, gcv)
             else:                                  # the structure first (short, no pickup), the placement as its successor
                 ja = add(key, idx, planp[:ip], tuple([0.0] * (ip - 1) + [float(CFG["sd_build_value"])]),
@@ -5016,11 +5023,33 @@ def _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs
                 assign.pop(u, None)
                 L["st"]["deliv_deferred"] += 1
     keep, stiles = set(), set()
+    mflag = {}
+    if CFG["sd_melon_rule"] and day < last_day:
+        ml_ = S.get("melon") or {}
+        if hour == 0 and len(pos) == 1 and ml_.get("fday") != day:
+            ml_ = _mel_plan_farmer(S, day, tiles, tuple(pos[0]))
+        if ml_.get("day") != day and (len(pos) > 1 or hour >= 2):
+            ml_ = _mel_plan(S, day, hour, tiles, pos)
+            L["st"]["melon_plan"] = [list(x) for x in ml_.get("plan", [])]
+            L["st"]["melon_left_out"] = list(ml_.get("left_out", []))
+        if ml_.get("day") == day or ml_.get("fday") == day:
+            keep |= {u for u, r in ml_.get("routes", {}).items() if not r["done"] and u < len(pos)}
+            # harvested-by flag (user): the melon hand harvests these tiles at the planned hour; nobody else waters /
+            # harvests them, and a replant there may only start after that hour
+            for i_ in ml_.get("tiles", ()):
+                if i_ in tasks:
+                    ops_, need_, prio_ = tasks[i_]
+                    rest_ = [list(o) for o in ops_ if o[0] not in ("WATER", "HARVEST")]
+                    if rest_:
+                        tasks[i_] = (rest_, need_, prio_)
+                    else:
+                        del tasks[i_]
+                mflag[i_] = int(ml_.get("hby", {}).get(i_, hour)) + 1
     if CFG["sd_surv_fb"] is not None and hour >= int(CFG["sd_surv_fb"]) and surv_route:
-        keep = set(surv_route)
-        stiles = set(i_ for r_ in surv_route.values() for i_, o_ in r_)
+        keep |= set(surv_route)
+        stiles |= set(i_ for r_ in surv_route.values() for i_, o_ in r_)
         L["st"]["surv_fb_units"] += len(keep)
-    ctx = {"keep": keep, "stiles": stiles, "obs": obs, "day": day, "hour": hour, "step": step, "tiles": tiles, "tasks": tasks, "invs": invs, "pos": pos,
+    ctx = {"keep": keep, "stiles": stiles, "mflag": mflag, "obs": obs, "day": day, "hour": hour, "step": step, "tiles": tiles, "tasks": tasks, "invs": invs, "pos": pos,
            "shed": shed, "seeds": seeds, "assign": assign, "last_day": last_day, "jobs": jobs, "prices": prices,
            "deliv_u": deliv_u, "fert_keep": fert_keep, "demand": demand}
     if (hour == 0 and len(pos) == 1 and day < last_day and CFG["dispatch_search"] == "active"
@@ -5274,6 +5303,180 @@ def _sd_watch(L, tiles, day, hour):
         L["water23"] = set()
 
 
+# ---------------------------------------------------------------- melon rule (user, 2026-09-28; hard-coded) ----------
+# Every melon harvestable today is watered (if that brings it to full units), harvested and PLACEd at a shed tile.
+# Delivery hour h (the hour of the PLACE): before 8 earns sd_mel_bonus per melon unit per hour early, 8-12 costs
+# sd_mel_pen per unit per hour late, after 12 is not allowed. Plans are ranked (lateness cost, hands used, -early bonus):
+# a hand takes several melons only while that keeps the lateness cost minimal. Melon hands and melon tiles are kept out
+# of the planner until the melons are placed; then the hand rejoins normal work.
+import itertools as _mel_it
+
+
+def _mel_ripe(t, day):
+    if not (isinstance(t, dict) and t.get("kind") == "PLANT" and t.get("crop") == "MELON"):
+        return False
+    return day - int(t.get("planted_day", day)) >= CROPS["MELON"]["first"] and int(t.get("yield_units", 0) or 0) > 0
+
+
+def _mel_needs_water(t, day):
+    c = CROPS["MELON"]
+    a = day - int(t.get("planted_day", day))
+    return (not t.get("watered_today")) and (c["maxday"] + 1) // 2 <= a <= c["maxday"] and int(t.get("yield_units", 0)) < c["max"]
+
+
+def _mel_block(p0, hour, block, tiles, day):
+    """best order of the melon tiles in block for a unit at p0 acting from `hour`: (drop hour, cost, units, order,
+    {tile: planned harvest hour})."""
+    best = None
+    for order in _mel_it.permutations(block):
+        p, steps, units, hh = tuple(p0), 0, 0, {}
+        for i in order:
+            q = (i % 10, i // 10)
+            t = _tile(tiles, i)
+            steps += _dist(p, q)
+            w = _mel_needs_water(t, day)
+            steps += 1 + (1 if w else 0)
+            hh[i] = hour + steps - 1
+            units += min(CROPS["MELON"]["max"], int(t.get("yield_units", 0)) + (1 if w else 0))
+            p = q
+        s = _near_shed(p)
+        steps += _dist(p, s) + 1
+        drop = hour + steps - 1
+        if best is None or drop < best[0]:
+            best = (drop, units, order, hh)
+    drop, units, order, hh = best
+    if drop > 12:
+        cost = float("inf")
+    else:
+        cost = units * (float(CFG["sd_mel_pen"]) * max(0, drop - 8) - float(CFG["sd_mel_bonus"]) * max(0, 8 - drop))
+    return drop, cost, units, order, hh
+
+
+def _mel_partitions(items):
+    if not items:
+        yield []
+        return
+    first, rest = items[0], items[1:]
+    for part in _mel_partitions(rest):
+        for k in range(len(part)):
+            yield part[:k] + [[first] + part[k]] + part[k + 1:]
+        yield [[first]] + part
+
+
+def _mel_hand_starts():
+    return [(4, 4), (5, 4), (4, 5), (5, 5)]
+
+
+def _mel_plan_farmer(S, day, tiles, pos0):
+    """hour 0: the farmer (the only unit on the board) takes the melons no hand starting at hour 1 from a shed tile can
+    drop by 12 but he can (best block of up to 3)."""
+    ripe = [i for i in range(100) if _mel_ripe(_tile(tiles, i), day)]
+    L = S.setdefault("melon", {})
+    L.clear()
+    L.update(fday=day, routes={}, tiles=set(), plan=[], hby={})
+    only_f = []
+    for i in ripe:
+        hand_best = min(_mel_block(s0, 1, [i], tiles, day)[0] for s0 in _mel_hand_starts())
+        far = _mel_block(pos0, 0, [i], tiles, day)
+        if hand_best > 12 and far[0] <= 12:
+            only_f.append(i)
+    best = None
+    for k in range(min(3, len(only_f)), 0, -1):
+        for blk in _mel_it.combinations(only_f, k):
+            b = _mel_block(pos0, 0, list(blk), tiles, day)
+            if b[1] == float("inf"):
+                continue
+            key = (-k, b[1])
+            if best is None or key < best[0]:
+                best = (key, b)
+        if best is not None:
+            break
+    if best is not None:
+        drop, cost, units, order, hh = best[1]
+        L["routes"][0] = {"tiles": list(order), "done": False}
+        L["tiles"].update(order)
+        L["hby"].update(hh)
+        L["plan"].append((0, list(order), drop))
+    return L
+
+
+def _mel_plan(S, day, hour, tiles, pos):
+    L = S.setdefault("melon", {})
+    if L.get("fday") != day:
+        L.clear()
+        L.update(routes={}, tiles=set(), plan=[], hby={})
+    L["day"] = day
+    busy = {u for u, r in L["routes"].items() if not r["done"]}
+    ripe = [i for i in range(100) if _mel_ripe(_tile(tiles, i), day) and i not in L["tiles"]]
+    units = [u for u in range(len(pos)) if u not in busy]
+    # a melon nobody can drop by 12 stays out of the rule (user: after 12 = +INF): the planner harvests it later
+    ok_ripe = [i for i in ripe if units and min(_mel_block(pos[u], hour, [i], tiles, day)[0] for u in units) <= 12]
+    L["left_out"] = [i for i in ripe if i not in ok_ripe]
+    if not ok_ripe:
+        return L
+    best = None
+    for part in _mel_partitions(ok_ripe[:8]):
+        if len(part) > len(units):
+            continue
+        cand = []
+        for b in part:
+            opts = sorted((_mel_block(pos[u], hour, b, tiles, day) + (u,) for u in units), key=lambda x: (x[1], x[0]))
+            cand.append((opts, b))
+        cand.sort(key=lambda c: -c[0][0][1] if c[0][0][1] != float("inf") else -1e18)
+        used, tot, bonus, asg = set(), 0.0, 0.0, []
+        ok = True
+        for opts, b in cand:
+            pick = next((o for o in opts if o[5] not in used), None)
+            if pick is None or pick[1] == float("inf"):
+                ok = False
+                break
+            used.add(pick[5])
+            tot += max(0.0, pick[1])
+            bonus += max(0.0, -pick[1])
+            asg.append((pick[5], list(pick[3]), pick[0], pick[4]))
+        if not ok:
+            continue
+        key = (round(tot, 3), len(part), -bonus)
+        if best is None or key < best[0]:
+            best = (key, asg)
+    if best is None:
+        return L
+    for u, order, drop, hh in best[1]:
+        L["routes"][u] = {"tiles": list(order), "done": False}
+        L["tiles"].update(order)
+        L["hby"].update(hh)
+        L["plan"].append((u, list(order), drop))
+    return L
+
+
+def _mel_act(S, day, hour, tiles, pos, invs, actions, last_day):
+    L = S.get("melon") or {}
+    if L.get("day") != day and L.get("fday") != day:
+        return
+    for u, r in L.get("routes", {}).items():
+        if r["done"] or u >= len(pos) or u >= len(actions):
+            continue
+        p = tuple(pos[u])
+        while r["tiles"] and not _mel_ripe(_tile(tiles, r["tiles"][0]), day):
+            L["tiles"].discard(r["tiles"].pop(0))     # harvested (by us) or gone
+        if r["tiles"]:
+            i = r["tiles"][0]
+            q = (i % 10, i // 10)
+            if p != q:
+                actions[u] = _step_toward(p, q)
+            else:
+                t = _tile(tiles, i)
+                actions[u] = ["WATER"] if _mel_needs_water(t, day) else ["HARVEST"]
+            continue
+        inv = invs[u] if u < len(invs) else {}
+        n = int(inv.get("MELON", 0) or 0)
+        if n <= 0:
+            r["done"] = True
+            continue
+        s = _near_shed(p)
+        actions[u] = _step_toward(p, s) if p != s else ["PLACE", "MELON", n]
+
+
 def _is_shed_adjacent_t(p):
     return tuple(p) in ((4, 4), (5, 4), (4, 5), (5, 5))
 
@@ -5401,6 +5604,9 @@ def _sd_post(S, run, obs, me, step, day, hour, last_day, tiles, pos, tasks, assi
                     if [o[0] for o in ops_] == ["HARVEST"] and need_.get(job[2], 0) <= 0:
                         need_[job[2]] += 1
                         st["early_animal"] = st.get("early_animal", 0) + 1
+        if CFG["sd_melon_rule"] and actions:
+            invs_ = ((obs.get("private") or {}).get("inventories") or []) if isinstance(obs, dict) else []
+            _mel_act(S, day, hour, tiles, pos, invs_, actions, last_day)   # hard-coded melon routes win over everything
     except Exception as exc:
         st["errors"] += 1
         st["last_error"] = ("post %s: %s" % (type(exc).__name__, exc))[:300]
