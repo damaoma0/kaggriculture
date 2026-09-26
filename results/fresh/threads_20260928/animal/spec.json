@@ -701,5 +701,22 @@
    "sd_h0_front_gain": 70.0
   },
   "label": "KH0g = KH0 with the per-product gain rule: sell at hour 0 (first in the list) every wool / strawberry / milk pile whose stock x learned edge >= 70 (one delayed hire each; free slots at any positive gain)"
+ },
+ "KB1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_pen_bundle": 1
+  },
+  "label": "KB1 = KE7 + pen service stop (collect / care / feed join the keep-alive feed and due harvest as one mandatory stop per pen)"
  }
 }

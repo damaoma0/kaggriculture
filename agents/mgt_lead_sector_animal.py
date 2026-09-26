@@ -280,6 +280,8 @@ CFG = {
     "sd_tier_anim_c_minv": 0.0,   # ... only bundles worth at least this (coins)
     "sd_tier_anim_c_mult": 1.0,   # ... their value multiplied by this in that pool
     "sd_tier_anim_mand_minv": None,  # FEED / CARE of a live animal become mandatory (tier B) when their joint value >= this
+    "sd_tier_pen_bundle": 0,  # 1 (user 2026-09-26, learned from DSM: feed + care + collect in one visit on 36% of its pen visits vs our 7%): on every live animal the COLLECT (fertilizer waiting), the CARE (a later production in the season can realise it) and the FEED (care in the bundle, or tonight's production cashes a bank) join the keep-alive feed / due harvest as ONE mandatory stop, so the sector search gives the pen to one hand; the collected fertilizer then supplies that hand's fertilizes
+    "sd_tier_pen_bundle_hmin": 0,   # > 0: the pen's harvest joins the stop when it holds >= this many units (else the cap rule)
     "sd_tier_pen_round": 0,   # 1 (user 2026-09-26, learned from DSM): a hand whose mandatory route holds animal harvests within sd_tier_pen_radius of the shed does them first and puts the product into the shed (DELIVER) before its other stops; planned right after the mandatory sector search, before the extras
     "sd_tier_pen_radius": 2,
     "sd_tier_pen_min": 0,     # > 0: a pen within the radius holding >= this many units keeps its harvest mandatory (joins the morning round) even when nothing overflows tonight
@@ -6732,6 +6734,28 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                     new_.append(o2)
                     st["tier_access_drop"] = st.get("tier_access_drop", 0) + 1
             r_["ops"] = new_
+    if CFG["sd_tier_pen_bundle"]:                  # one service stop per pen (learned from DSM)
+        nb_ = 0
+        for idx, r_ in rec.items():
+            t_ = _tile(tiles, idx)
+            if not _animal(t_):
+                continue
+            a_ = ANIMALS[t_["animal"]]
+            pd_ = int(t_.get("placed_day", day))
+            prod_ = lambda n: (n + 1 - pd_ - a_["first"]) >= 0 and (n + 1 - pd_ - a_["first"]) % a_["interval"] == 0
+            care_ok = any(prod_(n) for n in range(day + 1, last_day))
+            cash_ = prod_(day) and int(t_.get("pending_care_bonus", 0) or 0) > 0
+            has_care = care_ok and any(o["c"][0] == "CARE" for o in r_["ops"])
+            hmin_ = int(CFG["sd_tier_pen_bundle_hmin"])
+            for o in r_["ops"]:
+                c_ = o["c"][0]
+                if o["m"]:
+                    continue
+                if (c_ == "COLLECT_FERTILIZER" or (c_ == "CARE" and care_ok) or (c_ == "FEED" and (has_care or cash_))
+                        or (c_ in ("HARVEST", "PLACE_HARVEST") and hmin_ > 0 and int(t_.get("yield_units", 0) or 0) >= hmin_)):
+                    o["m"], o["tier"], o["pb"] = True, 2, True
+                    nb_ += 1
+        st["tier_pen_bundle_ops"] = st.get("tier_pen_bundle_ops", 0) + nb_
     if int(CFG["sd_tier_feed_bank"]) > 0:         # protect the bank: feed on the production day
         for idx, r_ in rec.items():
             t_ = _tile(tiles, idx)
@@ -6978,6 +7002,24 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             if x["tile"] not in anim:
                 owner[x["tile"]] = segs.index(s)
     late_m = sum(_tier_eval(s)[1] for s in segs_m if s["stops"])
+    if late_m > 0 and CFG["sd_tier_pen_bundle"] and any(o.get("pb") for r_ in rec.values() for o in r_["ops"]):
+        for r_ in rec.values():                    # the bundles do not fit: their added ops go back to the extras
+            for o in r_["ops"]:
+                if o.get("pb"):
+                    o["m"], o["tier"], o["pb"] = False, 4, False
+        stops_all = []
+        for i, r_ in sorted(rec.items()):
+            mops = [o for o in r_["ops"] if o["m"]]
+            if mops:
+                stops_all.append({"tile": i, "ops": mops, "rel": r_["rel"]})
+        routes, cost = _tier_search(segs_m, stops_all, float(CFG["sd_tier_budget"]), rng)
+        for s, r in zip(segs_m, routes):
+            s["stops"] = [dict(stops_all[i], ops=[dict(o) for o in stops_all[i]["ops"]]) for i in r]
+            for x in s["stops"]:
+                if x["tile"] not in anim:
+                    owner[x["tile"]] = segs.index(s)
+        late_m = sum(_tier_eval(s)[1] for s in segs_m if s["stops"])
+        st["tier_pen_bundle_fallback"] = st.get("tier_pen_bundle_fallback", 0) + 1
     st["tier_mand_late"] = st.get("tier_mand_late", 0) + late_m
     if CFG["sd_tier_pen_round"]:                   # learned from DSM: near-shed pens first, product into the shed
         _tier_pen_round(segs_m, tiles, day, st)
