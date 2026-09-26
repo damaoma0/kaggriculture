@@ -41,6 +41,7 @@ DVC_M = {'MELON': [[0, 0.0], [6, 53.8], [12, 3.1], [18, 8.6], [24, 0.5]],
          'MILK': [[0, 0.0], [6, 13.4], [12, 7.2], [18, 0.8], [24, 0.0]],
          'STRAWBERRY': [[0, 0.0], [6, 0.0], [12, 2.9], [18, 4.8], [24, 0.0]]}
 HVM = {'decay': {'bonus': 500.0}, 'MELON': {'bonus': 80.0, 'full': 1, 'by_hour': 8, 'hour_w': 20.0}}
+HVM_MEL = {'MELON': HVM['MELON']}          # M: the melon part only (audit items 1-3; the decay item 8 stays off)
 ARMS = {
     'N0': (S2, dict(dispatch_search='off')),
     'N11': (S2, dict(dispatch_search='active', sd_days=[11, 23], **SHIP)),
@@ -105,6 +106,25 @@ ARMS = {
     'S11crr': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
                          sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
                          sd_water_tomorrow=40.0, sd_idle_fert=1, sd_rad_in=20.0, sd_rad_side=10.0, **SHIP)),
+    # main branch M (user, 2026-09-26): S11wh (sector homes 40 + patch contiguity 20) + melon prioritization (sd_hv_pref
+    # melon full-yield bonus by hour 8, no decay item, sd_hp_parity: melon harvest in the leaders' window and window water) + the
+    # melon sale fix (measured credit + final trip) + water before harvest + the coop / goose pair job (goose bought at h0,
+    # must land by the day end, any hour); M_idle = M + idle fill. Streams carry "plan" (each hand's job tiles).
+    'M': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                    sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                    sd_hv_pref=HVM_MEL, sd_hp_parity=1, **SHIP)),
+    'M_idle': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                         sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                         sd_hv_pref=HVM_MEL, sd_hp_parity=1,
+                         sd_water_tomorrow=40.0, sd_idle_fert=1, **SHIP)),
+    # the same two arms under the shipping build's wall-clock caps (0.75 / 0.6 / 0.8 s; evaluation budgets unchanged)
+    'Mship': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                        sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                        sd_hv_pref=HVM_MEL, sd_hp_parity=1, **dict(SHIP, sd_budget0=0.75, sd_budget=0.6, sd_step_cap=0.8))),
+    'M_idleship': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                             sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                             sd_hv_pref=HVM_MEL, sd_hp_parity=1, sd_water_tomorrow=40.0, sd_idle_fert=1,
+                             **dict(SHIP, sd_budget0=0.75, sd_budget=0.6, sd_step_cap=0.8))),
     'S11a': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_early_animal=1, **SHIP)),      # + early animal
     'S11wh2': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=80.0, sd_hop_w=40.0, **SHIP)),
 }
@@ -135,6 +155,10 @@ LABEL = {
     'S11cbs': 'S11cbs: S11cb + spawn steering',
     'S11cbd': 'S11cbd: S11cb + hires by demand',
     'S11cbsd': 'S11cbsd: S11cb + spawn steering + hires by demand',
+    'M': 'M: sectors 40 + contiguity 20 + melon priority (full yield by 8h, leader window) + same-day melon credit + final trip + water before harvest + coop/goose 2-hour job (goose bought h0, must land by day end)',
+    'M_idle': 'M_idle: M + idle fill (a water on a dry plant worth 40, idle hands deliver fertilizer)',
+    'Mship': 'Mship: M under the shipping wall-clock caps 0.75 / 0.6 / 0.8 s',
+    'M_idleship': 'M_idleship: M_idle under the shipping wall-clock caps 0.75 / 0.6 / 0.8 s',
     'S11ci': 'S11ci: S11cb + idle fill (a water on a dry plant worth 40, tomorrow labour saved; idle hands deliver fertilizer)',
     'S11cr': 'S11cr: S11ci + radial corridors (40 an op outside the corridor; 20 an inward, 10 a sideways step between job tiles)',
     'S11cr2': 'S11cr2: S11ci + radial corridors x2 (80 / 40 / 20)',
@@ -171,6 +195,9 @@ def stream_job(args):
             L_ = (getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}
             r['sectors'] = {d: v for d, v in (L_.get('sector_log') or {}).items() if d in ('11', '12')}
             r['sector_changes'] = [c for c in (L_.get('sector_changes') or []) if 264 <= c[0] < 312]
+        if cfg.get('sd_plan_log') and _MODS:     # the viewer's plan overlay: each hand's planned job tiles on every change
+            L_ = (getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}
+            r['plan'] = {s_: v for s_, v in (L_.get('plan_log') or {}).items() if 264 <= int(s_) < 312}
         d = ROOT / 'results/fresh/day12_viz' / (arm.lower() + '_streams')
         d.mkdir(parents=True, exist_ok=True)
         (d / f"{game.split(':')[1]}.json").write_text(json.dumps(r, default=str), encoding='utf-8')
@@ -180,7 +207,24 @@ def stream_job(args):
 
 
 def run_one(j):
-    return stream_job(j) if j[0] == 'stream' else X.job(j)
+    if j[0] == 'stream':
+        return stream_job(j)
+    del _MODS[:]
+    res = X.job(j)
+    if j[0] == 'trace' and res[4] is None and _MODS:   # the planner's own counters: time caps, evals, plan ms per step
+        try:
+            st_ = ((getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}).get('st') or {}
+            f = X.OUT / 'trace' / j[2] / f"{j[1].split(':')[1]}.json"
+            r = json.loads(f.read_text(encoding='utf-8'))
+            r['sd_st'] = {k: st_.get(k) for k in ('steps', 'time_capped', 'evals', 'plan_ms', 'plan_ms_first', 'step_ms',
+                                                   'coop_pair', 'coop_wait', 'pair_buy', 'pair_place_now', 'water_first',
+                                                   'errors', 'last_error', 'planned_hard_unplanned')}
+            r['sd_cfg'] = {k: getattr(_MODS[-1], 'CFG', {}).get(k) for k in ('sd_evals0', 'sd_evals', 'sd_budget0',
+                                                                              'sd_budget', 'sd_step_cap')}
+            f.write_text(json.dumps(r, default=str), encoding='utf-8')
+        except Exception:
+            pass
+    return res
 
 
 def setup():

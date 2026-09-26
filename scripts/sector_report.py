@@ -62,6 +62,10 @@ def hand_metrics(r):
             if c == 'PLACE' and eff and len(cmd) > 1 and cmd[1] == 'GOOSE' and p not in SHED:
                 goose['goose'] += 1
                 goose.setdefault('goose_h', t % 24)
+            if c == 'HARVEST' and int(ia.get('MELON', 0)) > int(ib.get('MELON', 0)):
+                goose.setdefault('mel_h', []).append(t % 24)      # melon harvest events by hour
+            if t == hi - 1:
+                goose['mel_23'] += int(ib.get('MELON', 0))       # melons in hand at the 23h step
             if u == 0:
                 continue
             spawn.setdefault(u, quad(p))
@@ -162,8 +166,14 @@ def trace(arms):
         A = R[a]
         tot, gs = Counter(), Counter()
         hrs, hrs1 = [], []
+        mh, mh1, m23, m231 = [], [], [], []
         for e, r in A.items():
             m, g = hand_metrics(r)
+            mh += g.get('mel_h', [])
+            m23.append(g['mel_23'])
+            if e in g1:
+                mh1 += g.get('mel_h', [])
+                m231.append(g['mel_23'])
             tot.update(m)
             gs['coop'] += 1 if g['coop'] else 0
             gs['goose'] += 1 if g['goose'] else 0
@@ -177,6 +187,18 @@ def trace(arms):
         ghr.append(f"{a}: hires on day 11 {tot['hired'] / max(1, len(A)):.1f} a world, wages {tot['wages'] / max(1, len(A)):,.0f}")
         ghr.append(f"{a}: goose placed on day 11 in {len(hrs)} of {len(A)} worlds (hours {sorted(Counter(hrs).items())}); "
                    f"G1 worlds: {len(hrs1)} of {sum(1 for e in A if e in g1)} (hours {sorted(Counter(hrs1).items())})")
+        def mel(h_, c_):
+            return (f"median hour {st.median(h_) if h_ else '-'}, harvested by 8 AM {sum(x < 8 for x in h_) / max(1, len(h_)):.0%} "
+                    f"({len(h_)} harvests), melons in hand at 23h {sum(c_) / max(1, len(c_)):.1f} a world")
+        ghr.append(f"{a}: melons, all worlds: {mel(mh, m23)}; G1 worlds: {mel(mh1, m231)}")
+        sts = [r.get('sd_st') for r in A.values() if r.get('sd_st')]
+        if sts:
+            pm = sorted(x for s_ in sts for x in (s_.get('plan_ms') or []))
+            cf_ = next((r.get('sd_cfg') for r in A.values() if r.get('sd_cfg')), {})
+            ghr.append(f"{a}: planner {sum(s_['steps'] or 0 for s_ in sts)} steps in {len(sts)} worlds, time-capped "
+                       f"{sum(s_['time_capped'] or 0 for s_ in sts)}, evals {sum(s_['evals'] or 0 for s_ in sts) / max(1, sum(s_['steps'] or 0 for s_ in sts)):,.0f} "
+                       f"a step, plan ms median {pm[len(pm) // 2] if pm else '-'} / p99 {pm[int(len(pm) * 0.99)] if pm else '-'} / max "
+                       f"{pm[-1] if pm else '-'}; caps {cf_}; hard jobs left unplanned, summed over steps {sum(s_.get('planned_hard_unplanned') or 0 for s_ in sts)}")
         n = max(1, len(A))
         hd = max(1, tot['hands'])
         lines.append(f"| {a} | {gs['coop']} / {gs['goose']} of {len(A)} | {tot['hands'] / n:.1f} | {tot['extra_visits'] / n:.1f} / {tot['extra_visits_patch'] / n:.1f} | "

@@ -210,6 +210,8 @@ CFG = {
     "sd_corr_w": 0.0,         # radial corridors: coins per op outside the unit's corridor (0 = off)
     "sd_rad_in": 0.0,         # radial: coins per inward step between job tiles
     "sd_rad_side": 0.0,       # radial: coins per sideways step between job tiles
+    "sd_coop_pair": 0,        # a plan BUILD + animal = one job [DIG,] BUILD, PLACE (one hand, animal from the trip start); FEED / CARE upkeep; 2 = + must complete by the day end (hard, any hour)
+    "sd_plan_log": 0,         # viewer: log each hand's planned job tiles (route order) on every change (L["plan_log"])
     "sd_early_animal": 0,     # a BUILD job's animal is bought while its tile still waits for the crop harvest
     "sd_seed_fix": 0,         # the warm start drops plantings the seeds held no longer cover (the plan never over-commits seeds)
     "sd_hop_central": 2,      # contiguity: tiles within this distance of the shed are en-route (no hop cost to / from them)
@@ -2807,6 +2809,11 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
 # trip start, valued at a day's delay (a day of the animal's product + fertilizer, sd_bundle_value "auto") on top of the
 # clearing ops; never an empty structure (no animal: the structure waits whole). sd_water_tomorrow: a water on a dry
 # plant is worth at least this (tomorrow's labour saved: a plant dry today is a must-do tomorrow), and plants without a
+# sd_coop_pair (user, main branch M): the structure and its animal as ONE job ([DIG,] BUILD, PLACE: two hours, one hand,
+# the animal from the trip start), FEED / CARE upkeep afterwards; a crop on the tile is harvested first and the pair is
+# predicted after that harvest; the pair buys its animal from hour 0 (the clearing task carries the need); never an
+# empty structure. sd_coop_pair 2: the pair must complete by the day end (hard op:
+# sd_hard on the PLACE, deadline the day end, any hour; the clearing harvest is kept planned first).
 # (radial corridors, user design) sd_corr_w: each unit's angular corridor around the shed (equal work, by spawn angle,
 # disjoint); an op outside it costs sd_corr_w; sd_rad_in / sd_rad_side: coins per inward / sideways step between job
 # tiles (the trip works outward; deliveries and pickups are not job-to-job moves).
@@ -3413,6 +3420,26 @@ def _sd_build(S, L, ctx):
             continue                               # v5: the greedy's survival route serves this tile
         ops, need, prio = tasks[idx]
         t = _tile(tiles, idx)
+        if CFG["sd_coop_pair"]:
+            jb_ = ctx["jobs"].get(idx)
+            if jb_ is not None and jb_[0] == "BUILD" and len(jb_) > 2 and jb_[2] in _SD_SPI:
+                oc_ = [o[0] for o in ops]
+                sp_ = jb_[2]
+                emp_ = (isinstance(t, dict) and t.get("kind") == ANIMALS[sp_]["structure"] and "animal" not in t
+                        and oc_[:1] == ["PLACE"])      # the structure stands empty: the rest of the pair
+                if emp_ or any(c_ in ("BUILD_COOP", "BUILD_PASTURE") for c_ in oc_):
+                    if P.ava[_SD_SPI[sp_]] + carried.get(sp_, 0) > 0 and any(o[0] == "PLACE" for o in ops):
+                        pops = [list(o) for o in ops if o[0] not in ("FEED", "CARE")]
+                        ip_ = max(i_ for i_, o in enumerate(pops) if o[0] == "PLACE")
+                        pops = pops[:ip_ + 1]
+                        hd_ = CFG["sd_coop_pair"] >= 2        # must complete by the day end (any hour): a hard op
+                        add(idx, idx, pops, tuple([0.0] * ip_ + [pv + (float(CFG["sd_hard"]) if hd_ else 0.0)]),
+                            tuple([last] * len(pops)), ip_ if hd_ else -1, 0, hour, -1, 0, True, None, 0, 0, 0, 0.0, 0,
+                            0.0)
+                        L["st"]["coop_pair"] = L["st"].get("coop_pair", 0) + 1
+                    else:
+                        L["st"]["coop_wait"] = L["st"].get("coop_wait", 0) + 1
+                    continue                       # never an empty structure: without the animal the pair waits
         if CFG["sd_bundle_build"]:
             jb_ = ctx["jobs"].get(idx)
             if jb_ is not None and jb_[0] == "BUILD" and len(jb_) > 2 and jb_[2] in _SD_SPI:
@@ -3473,6 +3500,25 @@ def _sd_build(S, L, ctx):
             if j1 is not None:
                 jb = JB[j1]
                 JB[j1] = jb[:13] + (True,) + jb[14:]      # the prefix is a predecessor: its finish is tracked
+    # sd_coop_pair: a tile still holding its crop (harvest_before_build) gets the pair predicted after its harvest job
+    if CFG["sd_coop_pair"]:
+        for idx, jb_ in sorted(ctx["jobs"].items()):
+            if not (jb_ and jb_[0] == "BUILD" and len(jb_) > 2 and jb_[2] in _SD_SPI) or idx not in kidx:
+                continue
+            j1 = kidx[idx]
+            if any(o[0] in ("BUILD_COOP", "BUILD_PASTURE") for o in OPS[j1]):
+                continue
+            sp_ = jb_[2]
+            if P.ava[_SD_SPI[sp_]] + carried.get(sp_, 0) <= 0:
+                continue
+            hd_ = CFG["sd_coop_pair"] >= 2
+            add(("K", idx), idx, [["BUILD_" + jb_[1]], ["PLACE", sp_]],
+                (0.0, pv + (float(CFG["sd_hard"]) if hd_ else 0.0)), (last, last), 1 if hd_ else -1, 0, hour, j1, 0, True,
+                None, 0, 0, 0, 0.0, 0, 0.0)
+            jb = JB[j1]
+            JB[j1] = jb[:13] + (True,) + jb[14:]
+            if hd_:
+                HARD[j1] = True                    # the clearing harvest carries the pair: inserted / kept first
     # v3: melons offered at full yield (see the header)
     ment = (CFG["sd_hv_pref"] or {}).get("MELON") or {}
     if ment.get("offer") and not P.lastday:
@@ -3550,7 +3596,7 @@ def _sd_build(S, L, ctx):
                         in_stock[c2] -= 1
                 for idx in sorted(tasks):
                     j1 = kidx.get(idx)
-                    if j1 is None or idx not in ds_c or ("B", idx) in kidx:
+                    if j1 is None or idx not in ds_c or ("B", idx) in kidx or ("K", idx) in kidx:
                         continue
                     crop = ds_c[idx]
                     t = _tile(tiles, idx)
@@ -4004,8 +4050,12 @@ def _sd_commit(P, u, r, ev):
 
 def _sd_fix_pairs(P, us):
     """after routes us changed: a successor whose predecessor moved / vanished is re-timed (dropped if it no longer
-    fits)."""
-    for u in list(us):
+    fits). sd_coop_pair: chains (a re-timed route holding another route's predecessor) propagate until nothing moves."""
+    work = list(us)
+    chain = bool(CFG["sd_coop_pair"])
+    guard = 4 * P.U + 8
+    while work:
+        u = work.pop(0)
         for j in P.routes[u]:
             s = P.succ[j]
             if s < 0:
@@ -4013,6 +4063,7 @@ def _sd_fix_pairs(P, us):
             v = P.where[s]
             if v < 0 or v == u:
                 continue
+            old = (P.rsc[v], P.rend[v], tuple(P.ft.get(x) for x in P.routes[v])) if chain else None
             ev = _sd_eval(P, v, P.routes[v])
             if not ev[0]:
                 r2 = [x for x in P.routes[v] if x != s]
@@ -4021,6 +4072,10 @@ def _sd_fix_pairs(P, us):
                     _sd_commit(P, v, r2, ev)
             else:
                 _sd_commit(P, v, P.routes[v], ev)
+            if chain and guard > 0 and v not in work and old != (P.rsc[v], P.rend[v],
+                                                                 tuple(P.ft.get(x) for x in P.routes[v])):
+                work.append(v)
+                guard -= 1
     for j in range(P.J):                          # successors of predecessors no longer planned
         pr = P.jb[j][11]
         if pr >= 0 and P.where[j] >= 0 and P.where[pr] < 0:
@@ -4131,7 +4186,7 @@ def _sd_insert_many(P, pool, rng=None, noise=0.0, deadline=None):
                 best[j] = b
             continue
         _sd_commit(P, u, nr, ev)
-        if P.jb[j][13] or P.jb[j][11] >= 0:
+        if P.jb[j][13] or P.jb[j][11] >= 0 or (CFG["sd_coop_pair"] and P.rfin[u]):   # sd_coop_pair: a shifted predecessor too
             _sd_fix_pairs(P, [u])
         done += 1
         for j2 in list(best):
@@ -4579,6 +4634,11 @@ def _sd_step(S, L, ctx):
                           "busy": sum(max(0, P.rend[u] - P.ut0[u]) for u in range(P.U) if P.routes[u])})
     if CFG["sd_keep"]:
         L["lastP"] = P
+    if CFG["sd_plan_log"]:                         # viewer: each hand's planned job tiles (route order), on every change
+        snap = {str(u): [int(P.jb[j][0]) for j in P.routes[u]] for u in range(P.n_real)}
+        if snap != L.get("plan_last"):
+            L.setdefault("plan_log", {})[str(step)] = snap
+            L["plan_last"] = snap
     first_job, claimed = {}, set()
     for u in range(P.n_real):
         fk = None
@@ -4747,6 +4807,15 @@ def _sd_act(S, run, u, p, inv, tasks, tiles, shed_left, seeds_left, plant_count,
     walk = L["walk"]
     pi = p[1] * 10 + p[0]
     r = P.routes[u]
+    if CFG["sd_coop_pair"]:                        # never an empty structure: standing on one with its animal, place it
+        t_ = _tile(tiles, pi)
+        if isinstance(t_, dict) and t_.get("kind") in ("COOP", "PASTURE") and "animal" not in t_:
+            for sp_ in _SD_SP:
+                if ANIMALS[sp_]["structure"] == t_["kind"] and inv.get(sp_, 0) > 0:
+                    st["pair_place_now"] = st.get("pair_place_now", 0) + 1
+                    st["planned_unit"] += 1
+                    run["acted"].add(u)
+                    return ["PLACE", sp_]
     if not r:
         st["idle_unit"] += 1
         w = walk.get(u)
@@ -4840,7 +4909,7 @@ def _sd_act(S, run, u, p, inv, tasks, tiles, shed_left, seeds_left, plant_count,
             continue
         if c == "PLACE" and inv.get(op[1], 0) <= 0:
             break
-        if c in ("BUILD_COOP", "BUILD_PASTURE") and CFG["sd_bundle_build"]:
+        if c in ("BUILD_COOP", "BUILD_PASTURE") and (CFG["sd_bundle_build"] or CFG["sd_coop_pair"]):
             sp_ = next((o[1] for o in ops if o[0] == "PLACE" and len(o) > 1), None)
             if sp_ and inv.get(sp_, 0) <= 0:       # never an empty structure: fetch the animal first (or wait)
                 if shed_left.get(sp_, 0) > 0:
@@ -4918,6 +4987,15 @@ def _sd_post(S, run, obs, me, step, day, hour, last_day, tiles, pos, tasks, assi
             CFG["hire_extra"] = int((hp["k0"] if hour == 0 else hp["k"]) - _T.hands[min(day, _T.n - 1)])
         elif "hire_extra0" in L:
             CFG["hire_extra"] = L["hire_extra0"]
+        if CFG["sd_coop_pair"] and run.get("active"):
+            # the pair job buys its animal from hour 0: a BUILD job's tile still holding its crop has only the clearing
+            # task ([WATER,] HARVEST: harvest_before_build, water first), whose need carries no animal
+            for idx, job in (run.get("jobs") or {}).items():
+                if job and job[0] == "BUILD" and len(job) > 2 and job[2] and idx in tasks:
+                    ops_, need_, prio_ = tasks[idx]
+                    if ([o[0] for o in ops_] in (["HARVEST"], ["WATER", "HARVEST"]) and need_.get(job[2], 0) <= 0):
+                        need_[job[2]] += 1
+                        st["pair_buy"] = st.get("pair_buy", 0) + 1
         if CFG["sd_early_animal"] and run.get("active"):
             # a BUILD job with an animal whose tile still holds a harvestable one-time crop has only a HARVEST task
             # (harvest_before_build), so the market would buy the animal only after that harvest: count it now (the
