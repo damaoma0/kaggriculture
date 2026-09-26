@@ -106,6 +106,8 @@ CFG_KEYS = '''    # ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only;
     "sd_once_evals": 48000,   # evaluations for that one morning plan
     "sd_once_steal": 0,       # plan once, repair (c): an empty-route unit takes the nearest job it can start earlier than its holder
     "sd_fert_first": 0,       # the maintenance jobs gain FERTILIZE on the first day it adds units (fertilizer in hand / shed)
+    "sd_fert_frac": None,     # applying fertilizer is charged at this fraction of its price (None = the module's own)
+    "sd_retire": 0,           # plants the plan retires (abandoned / cleared before producing again) get no hard water job
     "sd_plan_log": 0,         # viewer: log each hand's planned job tiles (route order) on every change (L["plan_log"])
     "sd_early_animal": 0,     # a BUILD job's animal is bought while its tile still waits for the crop harvest
     "sd_seed_fix": 0,         # the warm start drops plantings the seeds held no longer cover (the plan never over-commits seeds)

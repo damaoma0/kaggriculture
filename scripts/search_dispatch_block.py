@@ -83,6 +83,9 @@
 # sd_plan_once (user, M_once): one full-day plan per unit at the first step from h1 with all of the day's hires on the
 # board (sd_once_evals evaluations); afterwards the routes are frozen: no search, no reassignment; repairs are local
 # and logged (L["repairs"]): a job gone / infeasible, a new must-do or new job inserted, an empty route refilled.
+# sd_fert_frac: applying fertilizer is charged at this fraction of its price in the maintenance module (collection keeps
+# the full price; sd_fert_first then uses the same charged price). sd_retire: plants the plan retires (abandoned, or
+# their tile cleared by the plan before they could produce again) get no hard water job.
 # sd_coop_by: the PLACE's hard deadline hour while that hour is ahead (the day end once it has passed): slack before the
 # survival fallback. sd_coop_place: in hook 3 any unit standing on its empty structure with the animal places it.
 # (radial corridors, user design) sd_corr_w: each unit's angular corridor around the shed (equal work, by spawn angle,
@@ -405,7 +408,10 @@ def _sd_opvals(S, idx, t, ops, plan, day, E, last_day):
         if (CFG["sd_water_tomorrow"] and c == "WATER" and _is_plant(t) and not t.get("watered_today")
                 and day < last_day):
             v = max(v, float(CFG["sd_water_tomorrow"]))   # tomorrow's labour saved (a dry plant is a must-do tomorrow)
-        if day < last_day and ((c == "WATER" and _is_plant(t) and not t.get("watered_today")
+        if hard and c == "WATER" and CFG["sd_retire"] and idx in ((S.get("sd") or {}).get("retired_now") or ()):
+            hard = False                               # sd_retire: the plan retires this plant (no forced water)
+        rt_ = CFG["sd_retire"] and idx in ((S.get("sd") or {}).get("retired_now") or ())
+        if day < last_day and not rt_ and ((c == "WATER" and _is_plant(t) and not t.get("watered_today")
                                 and t.get("consecutive_unwatered", 0) >= 1)
                                or (c == "FEED" and _animal(t) and not t.get("fed_today")
                                    and t.get("consecutive_unfed", 0) >= 1)):
@@ -582,9 +588,56 @@ def _sd_bundle(S, L, P, idx, t, ops, job, carried, prices, day, E, last_day, hou
     return True
 
 
+def _sd_retired(S, tiles, day):
+    """sd_retire: plants the plan retires: abandoned by the maintenance module (its abandonment log), or whose tile the
+    plan clears (a planting or a structure on it, today or within 3 days) before the plant could produce again (an
+    ongoing crop: before its next production day; a one-time crop: while it holds no yield yet)."""
+    out = set()
+    ab = set()
+    for e in S.get("abandon") or ():
+        try:
+            ab.add((int(e["tile"][1]) * 10 + int(e["tile"][0]), e.get("kind"), int(e.get("start_day"))))
+        except Exception:
+            pass
+    T = _T
+    for idx in range(100):
+        t = _tile(tiles, idx)
+        if not _is_plant(t):
+            continue
+        crop, pd = t.get("crop"), int(t.get("planted_day", day))
+        if (idx, crop, pd) in ab:
+            out.add(idx)
+            continue
+        if T is None:
+            continue
+        clear = None
+        for d in range(day, min(T.n, day + 4)):
+            if idx in T.plant[d] or (d < len(T.struct_by_day) and idx in T.struct_by_day[d]):
+                clear = d
+                break
+        if clear is None:
+            continue
+        c = CROPS[crop]
+        age = day - pd
+        if c["ongoing"]:
+            nxt = None
+            for a in range(max(age, c["first"]), _ongoing_last_age(crop) + 1):
+                if (a - c["first"]) % c["interval"] == 0:
+                    nxt = pd + a
+                    break
+            if nxt is None or nxt > clear:
+                out.add(idx)
+        elif int(t.get("yield_units", 0) or 0) <= 0 and pd + c["first"] > clear:
+            out.add(idx)
+    return out
+
+
 def _sd_build(S, L, ctx):
     D, SD, SA, DS, NS = _sd_tables()
     day, hour, tiles, tasks = ctx["day"], ctx["hour"], ctx["tiles"], ctx["tasks"]
+    if CFG["sd_retire"]:
+        L["retired_now"] = _sd_retired(S, tiles, day)
+        L.setdefault("retired_log", {}).setdefault(str(day), set()).update(L["retired_now"])
     invs, pos, shed, seeds, assign = ctx["invs"], ctx["pos"], ctx["shed"], ctx["seeds"], ctx["assign"]
     n, last_day, prices = len(pos), ctx["last_day"], ctx["prices"]
     fert_keep = bool(ctx["fert_keep"])
@@ -636,7 +689,7 @@ def _sd_build(S, L, ctx):
     # shed stock shared by the routes (wheat: + the executor's feed buy of this step, in the shed next step)
     dw = max(0, int(ctx["demand"].get("WHEAT", 0)) - int(carried.get("WHEAT", 0)) - int(shed.get("WHEAT", 0)))
     P.avw = int(shed.get("WHEAT", 0)) + dw
-    P.avf = int(shed.get("FERTILIZER", 0))
+    P.avf = 0 if CFG.get("sd_fert_sell") else int(shed.get("FERTILIZER", 0))   # sd_fert_sell: no fertilizer pickups
     P.ava = [int(shed.get(s, 0)) for s in _SD_SP]
     pf_price = float(prices.get("FERTILIZER", 0) or 0)
     last = E - 1
@@ -2667,7 +2720,7 @@ def _sd_fert_first(ns, obs, player, jobs, k):
         return jobs
     farm = obs["farms"][player]
     priv = obs.get("private") or {}
-    avail = int((priv.get("shed") or {}).get("FERTILIZER", 0) or 0)
+    avail = 0 if CFG.get("sd_fert_sell") else int((priv.get("shed") or {}).get("FERTILIZER", 0) or 0)   # sd_fert_sell: hands only
     avail += sum(int((i or {}).get("FERTILIZER", 0) or 0) for i in (priv.get("inventories") or []))
     have = set(tuple(j["tile"]) for j in jobs if j.get("cmd") == "FERTILIZE")
     avail -= len(have)
@@ -2675,6 +2728,8 @@ def _sd_fert_first(ns, obs, player, jobs, k):
         return jobs
     pr = ns["_sm_prices"](obs, k.get("prices"))
     fh, vc = k.get("future_hour", 8), k.get("visit_cost", 0.0)
+    ff = CFG.get("sd_fert_frac")
+    inp = float(ff) * float(pr["FERTILIZER"]) if ff is not None else 0.0     # the charged fertilizer price
     cand = []
     for y, row in enumerate(farm["tiles"]):
         for x, t in enumerate(row):
@@ -2686,11 +2741,11 @@ def _sd_fert_first(ns, obs, player, jobs, k):
             prod = ns["_sm_product"](crop)
             price = float(pr.get(prod, ns["SM_BASE_PRICE"][prod]))
             st = ns["_sm_state"](crop, t)
-            p1 = ns["sm_tile_plan"](crop, st, day, hour, price, 0.0, True, fh, vc)
-            p0 = ns["sm_tile_plan"](crop, st, day, hour, price, 0.0, False, fh, vc)
+            p1 = ns["sm_tile_plan"](crop, st, day, hour, price, inp, True, fh, vc)
+            p0 = ns["sm_tile_plan"](crop, st, day, hour, price, inp, False, fh, vc)
             du = int(p1["units"]) - int(p0["units"])
-            if du > 0:
-                cand.append((du * price, x, y, crop, du, price, prod))
+            if du > 0 and du * price - inp > 0:
+                cand.append((du * price - inp, x, y, crop, du, price, prod))
     cand.sort(reverse=True)
     for v, x, y, crop, du, price, prod in cand[:avail]:
         jobs.append({"tile": (x, y), "cmd": "FERTILIZE", "value": round(v, 1), "deadline": 23,
@@ -2701,6 +2756,15 @@ def _sd_fert_first(ns, obs, player, jobs, k):
 
 def _sm():
     ns = _SD_SM_ORIG()
+    if CFG.get("sd_fert_frac") is not None and ns is not None and not ns.get("_sd_fm"):
+        om = ns["_sm_fert_mode"]
+        fr = float(CFG["sd_fert_frac"])
+
+        def fert_mode(fertilize, crop, price, fert_price):
+            ok, _inp = om(fertilize, crop, price, fert_price)
+            return ok, (fr * float(fert_price) if ok else _inp)   # applying costs a fraction; collection keeps its price
+        ns["_sm_fert_mode"] = fert_mode
+        ns["_sd_fm"] = True
     if CFG.get("sd_fert_first") and ns is not None and not ns.get("_sd_ff"):
         orig = ns["maintenance_jobs"]
 

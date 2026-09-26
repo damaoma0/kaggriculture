@@ -42,6 +42,8 @@ DVC_M = {'MELON': [[0, 0.0], [6, 53.8], [12, 3.1], [18, 8.6], [24, 0.5]],
          'STRAWBERRY': [[0, 0.0], [6, 0.0], [12, 2.9], [18, 4.8], [24, 0.0]]}
 HVM = {'decay': {'bonus': 500.0}, 'MELON': {'bonus': 80.0, 'full': 1, 'by_hour': 8, 'hour_w': 20.0}}
 HVM_MEL = {'MELON': HVM['MELON']}          # M: the melon part only (audit items 1-3; the decay item 8 stays off)
+MDEC = dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0, sd_dv_coins=DVC_M,
+            sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1, sd_hv_pref=HVM, sd_hp_parity=1, **SHIP)   # = M_decay
 ARMS = {
     'N0': (S2, dict(dispatch_search='off')),
     'N11': (S2, dict(dispatch_search='active', sd_days=[11, 23], **SHIP)),
@@ -156,6 +158,18 @@ ARMS = {
     'H1': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
                      sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
                      sd_hv_pref=HVM, sd_hp_parity=1, sd_hard_late_w=30.0, sd_hard_safe=16, sd_hard_eject=1, **SHIP)),
+    # sweeps (user, single worlds)
+    **{f'fv{int(f * 100):02d}': (SEC, dict(MDEC, sd_fert_first=1, sd_fert_frac=f)) for f in (0.0, 0.25, 0.5, 0.75)},
+    **{f'hw{w:02d}e{e}': (SEC, dict(MDEC, sd_retire=1, sd_hard_late_w=float(w), sd_hard_safe=16, sd_hard_eject=e))
+       for w in (5, 10, 20, 40) for e in (0, 1)},
+    **{f'if{w:02d}': (SEC, dict(MDEC, sd_water_tomorrow=float(w), sd_idle_fert=1)) for w in (5, 10, 20)},
+    'iv2': (SEC, dict(MDEC, sd_idle_v2=1)),
+    'rt0': (SEC, dict(MDEC, sd_retire=1)),        # reference: the retirement exemption alone
+    # fertilizer policy (user + leader tapes, 2026-09-27): sell the whole shed stock, never pick fertilizer up from the
+    # shed, keep collected fertilizer in hand for fertilizing (midnight dump -> sold next morning); on top, fertilize on
+    # the first useful day with fertilizer charged at a fraction of its price
+    'G0': (SEC, dict(MDEC, sd_fert_sell=1)),
+    **{f'G{int(f * 100):03d}': (SEC, dict(MDEC, sd_fert_sell=1, sd_fert_first=1, sd_fert_frac=f)) for f in (1.0, 0.75, 0.5, 0.25)},
     # the same two arms under the shipping build's wall-clock caps (0.75 / 0.6 / 0.8 s; evaluation budgets unchanged)
     'Mship': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
                         sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
@@ -198,6 +212,13 @@ LABEL = {
     'M_idle': 'M_idle: M + idle fill (a water on a dry plant worth 40, idle hands deliver fertilizer)',
     'M2': 'M2: M + any hand on its empty coop with the goose places it + the coop/goose job due by h19 (then by day end)',
     'M2a': 'M2a: M + any hand on its empty coop with the goose places it',
+    **{f'fv{int(f * 100):02d}': f'fv{int(f * 100):02d}: M_decay + fertilize on the first useful day, fertilizer charged at {f:.2f} x its price, days 11-14' for f in (0.0, 0.25, 0.5, 0.75)},
+    **{f'hw{w:02d}e{e}': f'hw{w:02d}e{e}: M_decay + retired plants exempt + survival ops cost {w} an hour after h16' + (' + hard jobs eject others' if e else '') for w in (5, 10, 20, 40) for e in (0, 1)},
+    **{f'if{w:02d}': f'if{w:02d}: M_decay + idle fill (a water on a dry plant worth {w}, idle hands deliver fertilizer)' for w in (5, 10, 20)},
+    'iv2': 'iv2: M_decay + idle fill v2 (idle hands only: same-day delivery, then the nearest dry plant at home)',
+    'rt0': 'rt0: M_decay + retired plants get no hard water (reference for the hw sweep)',
+    'G0': 'G0: M_decay + leader fertilizer policy (shed stock all sold, no shed pickups, collected fertilizer kept in hand)',
+    **{f'G{int(f * 100):03d}': f'G{int(f * 100):03d}: G0 + fertilize on the first useful day, fertilizer charged at {f:.2f} x its price' for f in (1.0, 0.75, 0.5, 0.25)},
     'F3': 'F3: F1 + fertilize on the first day it adds units (fertilizer in hand or shed), days 11-14',
     'H1': 'H1: M_decay + survival ops cost 30 an hour after h16 + hard jobs eject the least-value others',
     'M_once2': 'M_once2: M_once + an idle hand takes the nearest job it can start before its holder (limited reassignment)',
@@ -248,6 +269,9 @@ def stream_job(args):
             L_ = (getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}
             r['once_steps'] = L_.get('once_steps') or []
             r['repairs'] = [x for x in (L_.get('repairs') or []) if 264 <= x[0] < 312]
+        if cfg.get('sd_retire') and _MODS:       # retired plants (tile indices) by day
+            L_ = (getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}
+            r['retired'] = {d: sorted(v) for d, v in (L_.get('retired_log') or {}).items() if d in ('11', '12')}
         if cfg.get('sd_plan_log') and _MODS:     # the viewer's plan overlay: each hand's planned job tiles on every change
             L_ = (getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}
             r['plan'] = {s_: v for s_, v in (L_.get('plan_log') or {}).items() if 264 <= int(s_) < 312}
