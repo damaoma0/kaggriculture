@@ -117,6 +117,18 @@ ARMS = {
                          sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
                          sd_hv_pref=HVM_MEL, sd_hp_parity=1,
                          sd_water_tomorrow=40.0, sd_idle_fert=1, **SHIP)),
+    # M2 (fix after the M run): M + the place-now rule in hook 3 (every unit, survival-fallback ones too) + the pair's
+    # PLACE hard deadline at h19 (slack before the survival fallback; the day end once h19 has passed); M2a: rule only
+    'M2': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                     sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                     sd_hv_pref=HVM_MEL, sd_hp_parity=1, sd_coop_place=1, sd_coop_by=19, **SHIP)),
+    'M2a': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                      sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                      sd_hv_pref=HVM_MEL, sd_hp_parity=1, sd_coop_place=1, **SHIP)),
+    # M2i: M2 + idle fill v2 (empty-route hands only, no values: same-day delivery, then the nearest dry plant at home)
+    'M2i': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                      sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                      sd_hv_pref=HVM_MEL, sd_hp_parity=1, sd_coop_place=1, sd_coop_by=19, sd_idle_v2=1, **SHIP)),
     # the same two arms under the shipping build's wall-clock caps (0.75 / 0.6 / 0.8 s; evaluation budgets unchanged)
     'Mship': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
                         sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
@@ -157,6 +169,9 @@ LABEL = {
     'S11cbsd': 'S11cbsd: S11cb + spawn steering + hires by demand',
     'M': 'M: sectors 40 + contiguity 20 + melon priority (full yield by 8h, leader window) + same-day melon credit + final trip + water before harvest + coop/goose 2-hour job (goose bought h0, must land by day end)',
     'M_idle': 'M_idle: M + idle fill (a water on a dry plant worth 40, idle hands deliver fertilizer)',
+    'M2': 'M2: M + any hand on its empty coop with the goose places it + the coop/goose job due by h19 (then by day end)',
+    'M2a': 'M2a: M + any hand on its empty coop with the goose places it',
+    'M2i': 'M2i: M2 + idle fill v2 (idle hands only: same-day delivery, then the nearest dry plant in the home quadrant)',
     'Mship': 'Mship: M under the shipping wall-clock caps 0.75 / 0.6 / 0.8 s',
     'M_idleship': 'M_idleship: M_idle under the shipping wall-clock caps 0.75 / 0.6 / 0.8 s',
     'S11ci': 'S11ci: S11cb + idle fill (a water on a dry plant worth 40, tomorrow labour saved; idle hands deliver fertilizer)',

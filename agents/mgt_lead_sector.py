@@ -211,6 +211,9 @@ CFG = {
     "sd_rad_in": 0.0,         # radial: coins per inward step between job tiles
     "sd_rad_side": 0.0,       # radial: coins per sideways step between job tiles
     "sd_coop_pair": 0,        # a plan BUILD + animal = one job [DIG,] BUILD, PLACE (one hand, animal from the trip start); FEED / CARE upkeep; 2 = + must complete by the day end (hard, any hour)
+    "sd_coop_by": 24,         # the coop pair's PLACE: hard deadline hour while ahead (24 = the day end)
+    "sd_coop_place": 0,       # hook 3: any unit on its empty coop / pasture with the animal in hand places it
+    "sd_idle_v2": 0,          # idle fill v2: empty-route units only, no values: same-day delivery, then nearest dry plant at home
     "sd_plan_log": 0,         # viewer: log each hand's planned job tiles (route order) on every change (L["plan_log"])
     "sd_early_animal": 0,     # a BUILD job's animal is bought while its tile still waits for the crop harvest
     "sd_seed_fix": 0,         # the warm start drops plantings the seeds held no longer cover (the plan never over-commits seeds)
@@ -2814,6 +2817,11 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
 # predicted after that harvest; the pair buys its animal from hour 0 (the clearing task carries the need); never an
 # empty structure. sd_coop_pair 2: the pair must complete by the day end (hard op:
 # sd_hard on the PLACE, deadline the day end, any hour; the clearing harvest is kept planned first).
+# sd_idle_v2 (idle fill v2, user rules): only a unit with an empty planned route, outside route insertion, no values:
+# its sellable stock + fertilizer to the shed while a same-day sale is possible, else the nearest dry unplanned plant
+# in its home quadrant.
+# sd_coop_by: the PLACE's hard deadline hour while that hour is ahead (the day end once it has passed): slack before the
+# survival fallback. sd_coop_place: in hook 3 any unit standing on its empty structure with the animal places it.
 # (radial corridors, user design) sd_corr_w: each unit's angular corridor around the shed (equal work, by spawn angle,
 # disjoint); an op outside it costs sd_corr_w; sd_rad_in / sd_rad_side: coins per inward / sideways step between job
 # tiles (the trip works outward; deliveries and pickups are not job-to-job moves).
@@ -3433,8 +3441,10 @@ def _sd_build(S, L, ctx):
                         ip_ = max(i_ for i_, o in enumerate(pops) if o[0] == "PLACE")
                         pops = pops[:ip_ + 1]
                         hd_ = CFG["sd_coop_pair"] >= 2        # must complete by the day end (any hour): a hard op
+                        by_ = int(CFG["sd_coop_by"])       # hard deadline hour of the PLACE (day end once passed)
+                        dl_ = last if hour >= by_ else min(last, by_)
                         add(idx, idx, pops, tuple([0.0] * ip_ + [pv + (float(CFG["sd_hard"]) if hd_ else 0.0)]),
-                            tuple([last] * len(pops)), ip_ if hd_ else -1, 0, hour, -1, 0, True, None, 0, 0, 0, 0.0, 0,
+                            tuple([dl_] * len(pops)), ip_ if hd_ else -1, 0, hour, -1, 0, True, None, 0, 0, 0, 0.0, 0,
                             0.0)
                         L["st"]["coop_pair"] = L["st"].get("coop_pair", 0) + 1
                     else:
@@ -3512,8 +3522,10 @@ def _sd_build(S, L, ctx):
             if P.ava[_SD_SPI[sp_]] + carried.get(sp_, 0) <= 0:
                 continue
             hd_ = CFG["sd_coop_pair"] >= 2
+            by_ = int(CFG["sd_coop_by"])
+            dl_ = last if hour >= by_ else min(last, by_)
             add(("K", idx), idx, [["BUILD_" + jb_[1]], ["PLACE", sp_]],
-                (0.0, pv + (float(CFG["sd_hard"]) if hd_ else 0.0)), (last, last), 1 if hd_ else -1, 0, hour, j1, 0, True,
+                (0.0, pv + (float(CFG["sd_hard"]) if hd_ else 0.0)), (dl_, dl_), 1 if hd_ else -1, 0, hour, j1, 0, True,
                 None, 0, 0, 0, 0.0, 0, 0.0)
             jb = JB[j1]
             JB[j1] = jb[:13] + (True,) + jb[14:]
@@ -4799,6 +4811,48 @@ def _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs
     return run
 
 
+def _sd_idle_v2(P, run, st, u, p, pi, inv, tiles, hour, deliv_u):
+    """sd_idle_v2 (user rules): only a unit whose planned route is empty; outside route insertion, no values. First its
+    sellable stock and fertilizer to the shed while a same-day sale is still possible, then the nearest dry plant in its
+    home quadrant (the quadrant it stands in without a home) that no route plans and no other idle unit is heading to."""
+    dv = dict(deliv_u(u))
+    if inv.get("FERTILIZER", 0) > 0:
+        dv["FERTILIZER"] = int(inv["FERTILIZER"])
+    if dv and hour < 23:
+        s = _near_shed(p)
+        if hour + _dist(p, s) + 1 <= P.dv_h1:     # the drop ends by the sale hour: sold the same day
+            st["idle_v2_deliver"] = st.get("idle_v2_deliver", 0) + 1
+            if p != s:
+                return _step_toward(p, s)
+            if all(k in dv for k in inv):
+                return ["DROP"]
+            k = sorted(dv)[0]
+            return ["PLACE", k, int(inv[k])]
+    pt = run.get("ptiles")
+    if pt is None:
+        pt = run["ptiles"] = set(P.jb[j][0] for r_ in P.routes for j in r_)
+    tg = run.setdefault("idle_tgt", set())
+    q = P.uhome[u] if P.uhome[u] >= 0 else _sd_qi(pi)
+    best = None
+    for idx in range(100):
+        if idx in pt or idx in tg or _sd_qi(idx) != q:
+            continue
+        t = _tile(tiles, idx)
+        if not (_is_plant(t) and not t.get("watered_today")):
+            continue
+        d = P.d[pi][idx]
+        if best is None or (d, idx) < best:
+            best = (d, idx)
+    if best is None:
+        return None
+    b = best[1]
+    tg.add(b)
+    st["idle_v2_water"] = st.get("idle_v2_water", 0) + 1
+    if pi != b:
+        return _step_toward(p, (b % 10, b // 10))
+    return ["WATER"]
+
+
 def _sd_act(S, run, u, p, inv, tasks, tiles, shed_left, seeds_left, plant_count, carried, hour, usable_ops, deliv_u):
     """HOOK 2: next command of planned unit u, or None (the greedy code decides this unit's step)."""
     P = run["P"]
@@ -4822,6 +4876,9 @@ def _sd_act(S, run, u, p, inv, tasks, tiles, shed_left, seeds_left, plant_count,
         if w and w[1]:
             st["switch_steps"] += w[1]
         walk[u] = (None, 0)
+        if CFG["sd_idle_v2"]:
+            a_ = _sd_idle_v2(P, run, st, u, p, pi, inv, tiles, hour, deliv_u)
+            return a_ if a_ is not None else ["PASS"]
         dv = deliv_u(u)
         if CFG["sd_idle_fert"] and inv.get("FERTILIZER", 0) > 0 and "FERTILIZER" not in dv:
             dv = dict(dv)
@@ -4987,6 +5044,21 @@ def _sd_post(S, run, obs, me, step, day, hour, last_day, tiles, pos, tasks, assi
             CFG["hire_extra"] = int((hp["k0"] if hour == 0 else hp["k"]) - _T.hands[min(day, _T.n - 1)])
         elif "hire_extra0" in L:
             CFG["hire_extra"] = L["hire_extra0"]
+        if CFG["sd_coop_place"] and actions:
+            # never an empty structure, for every unit (greedy / survival-fallback units too): standing on an empty
+            # coop / pasture with its animal in hand, the unit places it now
+            invs_ = ((obs.get("private") or {}).get("inventories") or []) if isinstance(obs, dict) else []
+            for u_ in range(min(len(pos), len(actions), len(invs_))):
+                p_ = tuple(pos[u_])
+                t_ = _tile(tiles, p_[1] * 10 + p_[0])
+                if not (isinstance(t_, dict) and t_.get("kind") in ("COOP", "PASTURE") and "animal" not in t_):
+                    continue
+                for sp_ in _SD_SP:
+                    if ANIMALS[sp_]["structure"] == t_["kind"] and int((invs_[u_] or {}).get(sp_, 0) or 0) > 0:
+                        if list(actions[u_] or []) != ["PLACE", sp_]:
+                            actions[u_] = ["PLACE", sp_]
+                            st["pair_place_post"] = st.get("pair_place_post", 0) + 1
+                        break
         if CFG["sd_coop_pair"] and run.get("active"):
             # the pair job buys its animal from hour 0: a BUILD job's tile still holding its crop has only the clearing
             # task ([WATER,] HARVEST: harvest_before_build, water first), whose need carries no animal

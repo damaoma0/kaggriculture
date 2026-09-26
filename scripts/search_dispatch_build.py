@@ -99,6 +99,9 @@ CFG_KEYS = '''    # ---- SEARCH DISPATCH (mgt_lead_search / mgt_lpv_search only;
     "sd_rad_in": 0.0,         # radial: coins per inward step between job tiles
     "sd_rad_side": 0.0,       # radial: coins per sideways step between job tiles
     "sd_coop_pair": 0,        # a plan BUILD + animal = one job [DIG,] BUILD, PLACE (one hand, animal from the trip start); FEED / CARE upkeep; 2 = + must complete by the day end (hard, any hour)
+    "sd_coop_by": 24,         # the coop pair's PLACE: hard deadline hour while ahead (24 = the day end)
+    "sd_coop_place": 0,       # hook 3: any unit on its empty coop / pasture with the animal in hand places it
+    "sd_idle_v2": 0,          # idle fill v2: empty-route units only, no values: same-day delivery, then nearest dry plant at home
     "sd_plan_log": 0,         # viewer: log each hand's planned job tiles (route order) on every change (L["plan_log"])
     "sd_early_animal": 0,     # a BUILD job's animal is bought while its tile still waits for the crop harvest
     "sd_seed_fix": 0,         # the warm start drops plantings the seeds held no longer cover (the plan never over-commits seeds)
