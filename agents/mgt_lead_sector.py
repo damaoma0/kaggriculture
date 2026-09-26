@@ -245,6 +245,11 @@ CFG = {
     "sd_tier_fert_supply": 0, # 1: at hour 0 the first-useful-day fertilize jobs count today's collections (one per animal), not only what hands carry
     "sd_tier_pair_own": 0,    # 1: a collect -> fertilize pair is scored on the fertilize's own value (the collect is worth its sale anyway)
     "sd_tier_fert_skip_harv": 0,  # 1: no fertilize on a tile whose one-time crop is harvested today or which is replanted / rebuilt today
+    "sd_tier_fert_exact": 0,  # 1: fertilize value = the engine's units from one FERTILIZE today (first useful day only) x price - charge
+    "sd_tier_relief": 0,      # 1: a hand with spare time takes a tile from a busier hand so that hand can do an unplanned extra
+    "sd_tier_relief_passes": 2,
+    "sd_tier_relief_slack": 2, # hours a hand must have free at the end of its day to take a tile
+    "sd_tier_straw_water": None,  # value of an extra (not survival) WATER on a strawberry (None: the job list's own)
     "sd_tier_coll_cap": 0,    # >0: collects per hand; one more only when it is on the hand's way (no extra walking)
     "sd_melon_rule": 0,       # 1 (user): hard-coded melon trips (by 8 bonus / 8-12 penalty / never after 12), melon hands kept out of the planner
     "sd_mel_bonus": 10.0,     # coins per melon unit per hour delivered before 8
@@ -5880,6 +5885,12 @@ def _tier_fill(segs, sidx, bundles, collects, owner, rate, st, tag):
                     cache[key] = r if r is not None else False
                 if not r:
                     continue
+                if r[3] is not None and r[3] not in collects:   # its paired collect was taken since: recompute
+                    r = _tier_best_ins(segs[k], bd, collects if segs[k]["kind"] != "prio_melon" else {},
+                                       segs[k].get("lo", 0))
+                    cache[key] = r if r is not None else False
+                    if not r:
+                        continue
                 if r[0] < rate:
                     continue
                 if best is None or r[0] > best[0]:
@@ -5894,6 +5905,7 @@ def _tier_fill(segs, sidx, bundles, collects, owner, rate, st, tag):
             owner[bd["tile"]] = k
         if any(o["c"][0] == "COLLECT_FERTILIZER" for o in bd["ops"]):
             collects.pop(bd["tile"], None)
+            cache = {}                                 # cached pairings may have counted on that collect
         if r[3] is not None:
             collects.pop(r[3], None)
             for bd2 in list(bundles):                  # that animal's fertilizer is taken
@@ -5906,6 +5918,178 @@ def _tier_fill(segs, sidx, bundles, collects, owner, rate, st, tag):
         n_ins += 1
     st["tier_fill_" + tag] = st.get("tier_fill_" + tag, 0) + n_ins
     return n_ins
+
+
+def _tier_harvest_day(idx, t, day):
+    """planned harvest day of a one-time crop: the leader plan's next planting on the tile, else its last window day."""
+    c = CROPS[t["crop"]]
+    pd = int(t.get("planted_day", day))
+    hd = pd + c["maxday"]
+    try:
+        for dd in range(day, min(hd + 1, _T.n)):
+            if idx in _T.plant[dd]:
+                return dd
+    except Exception:
+        pass
+    return hd
+
+
+def _tier_fert_gain(idx, t, day):
+    """units one FERTILIZE on `day` (before the day's water) adds for plant t, watered on every day it pays, compared with
+    no fertilize in its 3-day cover; 0 unless today itself pays (first useful day: tomorrow's supply covers the rest)."""
+    c = CROPS.get(t.get("crop"))
+    if not c:
+        return 0
+    pd = int(t.get("planted_day", day))
+    fu = int(t.get("fertilized_until_day", -1) or -1)
+    if fu >= day:
+        return 0
+    last = day + 2
+    if not c["ongoing"]:
+        w0, w1 = (c["maxday"] + 1) // 2, c["maxday"]
+        hd = _tier_harvest_day(idx, t, day)
+        if not (w0 <= day - pd <= w1) or day > hd:
+            return 0
+
+        def units(fert):
+            y = int(t.get("yield_units", 0) or 0)
+            for dd in range(day, hd + 1):
+                if w0 <= dd - pd <= w1:
+                    f = (fert and dd <= last) or fu >= dd
+                    y = min(c["max"], y + (2 if f else 1))
+            return y
+        return units(True) - units(False)
+    first, iv, mx = c["first"], max(1, c["interval"]), c["max"]
+
+    def prod(dd):                                  # a production at the end of day dd (the engine's next_day = dd + 1)
+        ds = dd + 1 - pd - first
+        return ds >= 0 and ds % iv == 0 and ds // iv + 1 <= mx
+    if not prod(day):
+        return 0
+    return sum(1 for dd in range(day, last + 1) if prod(dd) and dd > fu)
+
+
+def _tier_fert_exact(rec, tiles, day, prices, st):
+    """sd_tier_fert_exact: every plant's FERTILIZE valued by _tier_fert_gain x its product's price - the charged fertilizer
+    price; added where it pays and is missing (with the day's WATER it depends on), removed where it does not."""
+    fp = float(prices.get("FERTILIZER", 0) or 0)
+    ff = CFG.get("sd_fert_frac")
+    charge = (float(ff) if ff is not None else 1.0) * fp
+    added = removed = 0
+    for idx in range(100):
+        t = _tile(tiles, idx)
+        if not _is_plant(t):
+            continue
+        r_ = rec.get(idx)
+        cm = [o["c"][0] for o in r_["ops"]] if r_ else []
+        if "HARVEST" in cm and not CROPS.get(t.get("crop"), {}).get("ongoing", True):
+            continue                               # harvested today (sd_tier_fert_skip_harv)
+        if any(c_ in ("PLANT", "DIG", "BUILD_COOP", "BUILD_PASTURE") for c_ in cm):
+            continue
+        g = _tier_fert_gain(idx, t, day)
+        price = float(prices.get(t["crop"], 0) or 0)
+        v = g * price - charge
+        if v <= 0:
+            if r_ and "FERTILIZE" in cm:
+                r_["ops"] = [o for o in r_["ops"] if o["c"][0] != "FERTILIZE"]
+                removed += 1
+            continue
+        if r_ is None:
+            r_ = rec.setdefault(idx, {"ops": [], "rel": 0})
+        if "FERTILIZE" in cm:
+            for o in r_["ops"]:
+                if o["c"][0] == "FERTILIZE":
+                    o["v"] = v
+        else:
+            r_["ops"].append(_tier_op(["FERTILIZE"], False, v, 3))
+            added += 1
+        if "WATER" not in cm:                      # the gain needs today's water
+            r_["ops"].append(_tier_op(["WATER"], False, 0.01, 3))
+        r_["ops"].sort(key=lambda o: o["rank"])
+    st["tier_fert_exact_added"] = st.get("tier_fert_exact_added", 0) + added
+    st["tier_fert_exact_removed"] = st.get("tier_fert_exact_removed", 0) + removed
+
+
+def _tier_relief(segs, pool, collects, owner, rate, st):
+    """user: a hand with a small patch takes over work so a busier hand can do what it had no time for. For each unplanned
+    extra (most valuable first): move one stop of a route near it to a hand with spare time, then insert the extra into
+    that route; kept when every mandatory op stays on time and the extra's value covers the added hours."""
+    D = _TIER_D
+    moves = 0
+    slack = int(CFG["sd_tier_relief_slack"])
+    for _pass in range(int(CFG["sd_tier_relief_passes"])):
+        changed = False
+        for bd in sorted(list(pool), key=lambda b: -b["v"]):
+            if bd not in pool or not bd["ops"]:
+                continue
+            o_ = owner.get(bd["tile"])
+            if o_ is not None and not bd.get("shared"):
+                cand_r = [o_]
+            else:
+                cand_r = [k for k, s_ in enumerate(segs) if s_["stops"]
+                          and min(D[x["tile"]][bd["tile"]] for x in s_["stops"]) <= 2]
+            best = None
+            for r in cand_r:
+                R = segs[r]
+                evR = _tier_eval(R)
+                cR = _tier_cost(R, evR)
+                for i, x in enumerate(R["stops"]):
+                    if x.get("place") or x["tile"] == bd["tile"]:
+                        continue
+                    R2 = dict(R, stops=R["stops"][:i] + R["stops"][i + 1:])
+                    ev2 = _tier_eval(R2)
+                    if ev2[3] > evR[3]:
+                        continue                   # the stop supplied a later fertilize
+                    ins = _tier_best_ins(R2, bd, collects, R.get("lo", 0))
+                    if not ins:
+                        continue
+                    evR3 = _tier_eval(R, ins[2])
+                    if evR3[1] > evR[1] or evR3[3] > evR[3]:
+                        continue
+                    cR3 = _tier_cost(dict(R, stops=ins[2]), evR3)
+                    for k, S in enumerate(segs):
+                        if k == r:
+                            continue
+                        evS = _tier_eval(S)
+                        if evS[0] > 24 - slack:
+                            continue
+                        cS = _tier_cost(S, evS)
+                        for pos in range(S.get("lo", 0), len(S["stops"]) + 1):
+                            stS, _ = _tier_merge(S["stops"], x["tile"], x["ops"], x.get("rel", 0), pos)
+                            evS2 = _tier_eval(S, stS)
+                            if evS2[1] > evS[1] or evS2[3] > evS[3]:
+                                continue
+                            cS2 = _tier_cost(dict(S, stops=stS), evS2)
+                            sc = bd["v"] / max(0.25, (cR3 - cR) + (cS2 - cS))
+                            if sc >= rate and (best is None or sc > best[0]):
+                                best = (sc, r, ins[2], k, stS, x["tile"], ins[3])
+            if best is None:
+                continue
+            _, r, stR, k, stS, xt, a = best
+            segs[r]["stops"], segs[k]["stops"] = stR, stS
+            segs[r]["ver"] += 1
+            segs[k]["ver"] += 1
+            if owner.get(xt) == r:
+                owner[xt] = k
+            if not bd.get("shared"):
+                owner[bd["tile"]] = r
+            gone = ([a] if a is not None else []) + (
+                [bd["tile"]] if any(o["c"][0] == "COLLECT_FERTILIZER" for o in bd["ops"]) else [])
+            for a_ in gone:
+                collects.pop(a_, None)
+                for bd2 in list(pool):
+                    if bd2 is not bd and bd2["tile"] == a_:
+                        bd2["ops"] = [o for o in bd2["ops"] if o["c"][0] != "COLLECT_FERTILIZER"]
+                        bd2["v"] = sum(o["v"] for o in bd2["ops"])
+                        if not bd2["ops"]:
+                            pool.remove(bd2)
+            pool.remove(bd)
+            moves += 1
+            changed = True
+        if not changed:
+            break
+    st["tier_relief"] = st.get("tier_relief", 0) + moves
+    return moves
 
 
 def _tier_melon(day, tiles, units):
@@ -6036,6 +6220,16 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                 r_["ops"] = [o for o in r_["ops"] if o["c"][0] != "FERTILIZE"]
                 nd_ += 1
         st["tier_fert_dropped"] = st.get("tier_fert_dropped", 0) + nd_
+    if CFG["sd_tier_fert_exact"]:
+        _tier_fert_exact(rec, tiles, day, prices, st)
+    if CFG["sd_tier_straw_water"] is not None:
+        sw_ = float(CFG["sd_tier_straw_water"])
+        for idx, r_ in rec.items():
+            t = _tile(tiles, idx)
+            if _is_plant(t) and t.get("crop") == "STRAWBERRY":
+                for o in r_["ops"]:
+                    if o["c"][0] == "WATER" and not o["m"] and o["v"] < sw_:
+                        o["v"] = sw_
     # ---- units: farmer (hour 0) + the day's hires (hour 1; beyond 10 hour 2). The hires spawn after the farmer's hour-0
     # command (least occupied shed tile), the late ones after everyone's hour-1 command: plan, derive the spawn tiles the
     # plan's own first moves imply, re-plan until they agree (at most 3 passes)
@@ -6201,6 +6395,8 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
     idx_pri = [k for k, s in enumerate(segs) if s["kind"] in ("post", "ani")]
     # C. extras on the outbound hands: fertilize (paired with a collect) and waterings, by value per hour
     _tier_fill(segs, idx_out, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st, "c")
+    if CFG["sd_tier_relief"] and b3:               # relief for the outbound extras before the melon hands take the free collects
+        _tier_relief(segs, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st)
     # D. animal work: the melon hands' leftover labour first (and an animal hand)
     for bd in b4:                                  # collects already paired away are gone
         bd["ops"] = [o for o in bd["ops"] if o["c"][0] != "COLLECT_FERTILIZER" or bd["tile"] in collects]
@@ -6213,6 +6409,8 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         bd["v"] = sum(o["v"] for o in bd["ops"])
     rest = [bd for bd in b3 + b4 if bd["ops"]]
     _tier_fill(segs, list(range(len(segs))), rest, collects, owner, rate, st, "e")
+    if CFG["sd_tier_relief"] and rest:
+        _tier_relief(segs, rest, collects, owner, rate, st)
     # ---- routes per unit
     routes_u = {}
     summ = []
