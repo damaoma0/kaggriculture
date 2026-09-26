@@ -27,7 +27,7 @@ import upkeep_engine as UE  # noqa: E402
 
 E = UE.engine()
 PRODS = tuple(sys.argv[sys.argv.index('--prods') + 1].split(',')) if '--prods' in sys.argv else ('STRAWBERRY', 'WOOL', 'MILK')
-STRATS = ('actual', 'books', 'books_cap', 'books_deliv')
+STRATS = tuple(sys.argv[sys.argv.index('--strats') + 1].split(',')) if '--strats' in sys.argv else ('actual', 'books', 'books_cap', 'books_deliv')
 R = {'w': None, 'seat': 0, 't': 0, 'ev': None, 'mars': False, 'other': None, 'lost': None}
 _commit, _drop = E._commit_unit, E._drop_inventories_to_shed
 
@@ -142,9 +142,33 @@ def world(g, arm):
     def mk(strategy):
         used = Counter()
 
+        def capped(t, orders, skip=()):
+            """our own orders with each product's sells capped to the units the arm really sold at this step (on Mars
+            stock an order would otherwise also sell units the arm did not have)"""
+            left = Counter({p: sold_a[(t, p)] for p in PRODS})
+            out = []
+            for o in orders:
+                if isinstance(o, list) and o and o[0] == 'SELL' and o[1] in PRODS:
+                    q = 0 if o[1] in skip else min(int(o[2]), left[o[1]])
+                    left[o[1]] -= q
+                    if q > 0:
+                        out.append(['SELL', o[1], q])
+                else:
+                    out.append(o)
+            return out
+
         def fn(t, orders, w, seat):
             if strategy == 'actual':
-                return orders
+                return capped(t, orders)
+            if strategy in ('h0front', 'h0back'):
+                h = t % 24
+                if h == 1:                                     # the hour-1 sells move to hour 0
+                    return capped(t, orders, skip=PRODS)
+                if h == 0 and t + 1 <= 718:
+                    mine = capped(t, orders)
+                    moved = [['SELL', p, sold_a[(t + 1, p)]] for p in PRODS if sold_a[(t + 1, p)] > 0]
+                    return moved + mine if strategy == 'h0front' else mine + moved
+                return capped(t, orders)
             keep = [o for o in orders if not (isinstance(o, list) and o and o[0] == 'SELL' and o[1] in PRODS)]
             lead = list(UE.tape_action(tape['actions'], t).get('market') or [])[:10]
             slots = {}
@@ -200,6 +224,8 @@ def world(g, arm):
     for p in PRODS:
         out[p] = {k: {'us': rev(G, 'us', p), 'opp': rev(G, 'opp', p)} for k, G in res.items()}
     out['money'] = {k: G['money'] for k, G in res.items()}
+    if '--json' in sys.argv:                              # single-world mode: keep every sale event
+        out['ev'] = {k: G['ev'] for k, G in res.items()}
     return ep, out
 
 
@@ -219,6 +245,16 @@ def summary(res):
             line += f' | {k} {gap:+7.0f}'
         print(line)
     print('TOTAL     ' + ''.join(f' | {k} {v:+7.0f}' for k, v in tot.items()))
+    if 'actual' in STRATS:
+        for k in STRATS:
+            if k == 'actual':
+                continue
+            dd = {p: [((r[p][k]['us'][1] - r[p]['actual']['us'][1]) - (r[p][k]['opp'][1] - r[p]['actual']['opp'][1])) for r in res.values()] for p in PRODS}
+            per = [sum(dd[p][i] for p in PRODS) for i in range(n)]
+            m = sum(per) / n
+            sd = (sum((x - m) ** 2 for x in per) / max(1, n - 1)) ** 0.5
+            print(f'  {k} vs actual: margin {m:+.0f} (t {m / (sd / n ** 0.5) if sd else 0:+.2f}, better {sum(x > 0 for x in per)}/{n}); '
+                  + ', '.join(f'{p} {sum(dd[p]) / n:+.0f}' for p in PRODS))
     for k in STRATS:
         c = [r['checks'][k] for r in res.values()]
         print(f'  checks {k}: shed identical {sum(x["shed_same"] for x in c)}/{n}, other orders identical '
