@@ -255,6 +255,9 @@ CFG = {
     "sd_tier_rot_all": 0,     # 1: the sweep start routes every rotation of arcs to hands (no distance proxy; slower)
     "sd_tier_swap_oropt": 0,  # 1: a swap move re-optimizes both routes (slower)
     "sd_tier_spawn_passes": 2,  # plan / spawn-check passes at hour 0
+    "sd_h23_sell_all": 0,     # 1 (user 2026-09-28): at hour 23 the market sells everything in the shed (the shed is empty for the midnight dump)
+    "sd_farmer_hold_excess": 0,   # 1 (user): the farmer stays put at hour 0 holding the excess (PICKUP of the largest non-wheat pile) so the hour-0 wheat buy has room, drops it at hour 1; 2: only when the buy needs the room
+    "sd_h1_sell_excess": 0,   # 1 (user): at hour 1 the market sells the excess: every non-wheat good in the shed (incl. what the farmer drops) and wheat beyond the day's remaining planned pickups
     "sd_tier_farmer_hold": 0, # 1: a farmer on / next to the shed at hour 0 holds that hour (the hires' spawn is then known: one pass)   # >0: extras fill tries only this many hands nearest to each extra (speed)   # relief only for unplanned extras worth at least this (speed)
     "sd_tier_relief_slack": 2, # hours a hand must have free at the end of its day to take a tile
     "sd_tier_straw_water": None,  # value of an extra (not survival) WATER on a strawberry (None: the job list's own)
@@ -2849,6 +2852,25 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
         if k_ > 0:                                 # first in the list: it lands before the hour-1 pickups
             orders = [["BUY_PRODUCT", "WHEAT", k_]] + [o for o in orders if not (o[0] == "BUY_PRODUCT" and o[1] == "WHEAT")][:9]
         TPw_["wheat_bought"] = True
+    TPx_ = S.get("tier") if CFG["sd_tier"] else None
+    if CFG["sd_h23_sell_all"] and hour == 23 and not endgame and TPx_ and TPx_.get("day") == day:
+        sa_ = [["SELL", p_, int(shed.get(p_, 0))] for p_ in PRODUCTS if int(shed.get(p_, 0) or 0) > 0]
+        keep_ = [o for o in orders if o[0] != "SELL"]
+        orders = (sa_ + keep_)[:10]
+    if CFG["sd_h1_sell_excess"] and hour == 1 and not endgame and TPx_ and TPx_.get("day") == day:
+        held_ = TPx_.get("h1_held") or {}
+        left_w = sum(it_["n"] for R_ in TPx_["routes"].values() for it_ in R_["items"][R_["k"]:]
+                     if it_["kind"] == "pick" and it_["item"] == "WHEAT")
+        ex_ = {}
+        for p_ in PRODUCTS:
+            n_ = int(shed.get(p_, 0) or 0) + int(held_.get(p_, 0))
+            if p_ == "WHEAT":
+                n_ = max(0, n_ - left_w)
+            if n_ > 0:
+                ex_[p_] = n_
+        nonsell = [o for o in orders if o[0] != "SELL"]
+        sells_ = sorted((["SELL", p_, n_] for p_, n_ in ex_.items()), key=lambda o: -o[2] * prices.get(o[1], 0))
+        orders = (nonsell + sells_)[:10]
     for o in orders:
         if o[0] == "SELL":
             S["sold"][o[1]] += o[2]
@@ -6387,6 +6409,8 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     ft0 = 0
     if CFG["sd_tier_farmer_hold"] and min(_dist(f0, q) for q in SHED) <= 1:
         ft0 = 1                                    # on / next to the shed: he holds at hour 0, so the hires' spawn is known
+    if CFG["sd_farmer_hold_excess"] and f0 in SHED:
+        ft0 = 2                                    # user: hour 0 he holds the excess, hour 1 he drops it for the sale
     sp0 = _sd_spawn([f0] if ft0 else ([] if f0 in SHED else [f0]), k0)
     sp1 = _sd_spawn([], want - k0)
     TP = None
@@ -6751,8 +6775,29 @@ def _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, sh
     snap = {}
     TP["_load_now"] = sum(int(v or 0) for v in shed.values()) + sum(int(v or 0) for inv_ in invs for k_, v_ in (inv_ or {}).items()
                                                                   for v in [v_] if k_ in PRODUCTS)
+    if CFG["sd_farmer_hold_excess"] and actions and tuple(pos[0]) in SHED and hour in (0, 1):
+        inv0 = invs[0] if invs else {}
+        fa_ = None
+        if hour == 0:
+            room_ = 100 - sum(int(v or 0) for v in shed.values())
+            need_ = int(TP.get("wheat_buy") or 0)
+            if CFG["sd_farmer_hold_excess"] == 1 or need_ > room_:
+                piles = [(int(v or 0), k) for k, v in shed.items() if k in PRODUCTS and k != "WHEAT" and int(v or 0) > 0]
+                if piles:
+                    n_, k_ = max(piles)
+                    fa_ = ["PICKUP", k_, n_]
+                    TP["cnt"]["farmer_hold"] += 1
+                    TP["cnt"]["farmer_hold_units"] += n_
+        elif any(int(v or 0) > 0 for k, v in inv0.items() if k in PRODUCTS):
+            fa_ = ["DROP"]
+            TP["h1_held"] = {k: int(v) for k, v in inv0.items() if k in PRODUCTS and int(v or 0) > 0}
+        if fa_ is not None:
+            actions[0] = fa_
+            TP["_farmer_cmd_done"] = hour
     for u in sorted(TP["routes"]):
         R = TP["routes"][u]
+        if u == 0 and TP.get("_farmer_cmd_done") == hour:
+            continue                               # the farmer's hour-0 / hour-1 hold command stands
         if u >= len(pos) or u >= len(actions):
             if not R.get("missing") and hour >= 2:
                 R["missing"] = True

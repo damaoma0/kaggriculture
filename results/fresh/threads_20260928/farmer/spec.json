@@ -1,0 +1,5 @@
+{"KF0": {"base": "K5b", "cfg": {}, "label": "KF0: K5b re-run on the edited main copy (flags off)"},
+ "KF1": {"base": "K5b", "cfg": {"sd_h23_sell_all": 1, "sd_farmer_hold_excess": 1, "sd_h1_sell_excess": 1}, "label": "KF1: sell all at 23, farmer holds the excess at 0 (always), sell the excess at 1"},
+ "KF2": {"base": "K5b", "cfg": {"sd_h23_sell_all": 1, "sd_farmer_hold_excess": 2, "sd_h1_sell_excess": 1}, "label": "KF2: KF1 with the farmer holding only when the wheat buy needs room"},
+ "KF3": {"base": "K5b", "cfg": {"sd_h23_sell_all": 1}, "label": "KF3: sell all at 23 only"},
+ "KF4": {"base": "K5b", "cfg": {"sd_farmer_hold_excess": 1, "sd_h1_sell_excess": 1}, "label": "KF4: farmer holds the excess at 0, sell it at 1 (no h23 sale)"}}
