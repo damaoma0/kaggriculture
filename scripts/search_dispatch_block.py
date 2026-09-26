@@ -2782,6 +2782,9 @@ def _sd_fert_first(ns, obs, player, jobs, k):
                 continue
             if CFG.get("sd_fert_first_crops") and crop not in CFG["sd_fert_first_crops"]:
                 continue
+            fa_ = (CFG.get("sd_fert_ages") or {}).get(crop)
+            if fa_ is not None and not (int(fa_[0]) <= day - int(t.get("planted_day", day)) <= int(fa_[1])):
+                continue                           # sd_fert_ages: fertilize this crop only at these ages (wheat 1-2 -> 5 units at age 3)
             prod = ns["_sm_product"](crop)
             price = float(pr.get(prod, ns["SM_BASE_PRICE"][prod]))
             st = ns["_sm_state"](crop, t)

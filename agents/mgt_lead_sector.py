@@ -221,6 +221,7 @@ CFG = {
     "sd_fert_frac": None,     # applying fertilizer is charged at this fraction of its price (None = the module's own)
     "sd_finish_collect": 0,   # 1: a unit about to walk off (or pass on) an animal tile whose fertilizer is still available collects it first (one visit per tile)
     "sd_fert_ret": 0,         # 1 (user cycle): a unit delivering goods at the shed DROPs everything (its unused fertilizer goes back and is sold) when its remaining route has no FERTILIZE (and no FEED while it carries wheat) and it carries no animal
+    "sd_fert_ages": None,     # {crop: [age_lo, age_hi]}: the first-useful-day FERTILIZE rule only at these ages (e.g. wheat [1, 2])
     "sd_fert_first_crops": None,   # list of crops the first-useful-day FERTILIZE rule applies to (None = all)
     "sd_collect_floor": 0.0,  # a COLLECT_FERTILIZER op is worth at least this many coins (fertilizer is worth more on crops than its sale price late)
     "sd_fert_sell": 0,        # 1 (user rule, leader tapes): the shed's fertilizer is all sold (no reserve), fertilizer is never picked up from the shed, collected fertilizer stays in hand for fertilizing (never delivered mid-day; the midnight dump brings the rest, sold next morning)
@@ -5550,6 +5551,9 @@ def _sd_fert_first(ns, obs, player, jobs, k):
                 continue
             if CFG.get("sd_fert_first_crops") and crop not in CFG["sd_fert_first_crops"]:
                 continue
+            fa_ = (CFG.get("sd_fert_ages") or {}).get(crop)
+            if fa_ is not None and not (int(fa_[0]) <= day - int(t.get("planted_day", day)) <= int(fa_[1])):
+                continue                           # sd_fert_ages: fertilize this crop only at these ages (wheat 1-2 -> 5 units at age 3)
             prod = ns["_sm_product"](crop)
             price = float(pr.get(prod, ns["SM_BASE_PRICE"][prod]))
             st = ns["_sm_state"](crop, t)

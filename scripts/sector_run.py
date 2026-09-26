@@ -189,6 +189,9 @@ ARMS = {
     # and replanted on the leader's tile; strength sweep: W3b = every wheat from age 3, W3c = W3a + an age-3 bonus of 40
     'W3a': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5)),
     'W3b': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'])),
+    # fertilize wheat / carrots at age 1-2 (or 2 only) and harvest fertilized wheat at age 3 (user, 2026-09-28)
+    'W4a': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5, sd_fert_ages={'WHEAT': [1, 2], 'CARROT': [1, 2]})),
+    'W4b': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5, sd_fert_ages={'WHEAT': [2, 2], 'CARROT': [1, 2]})),
     'W3c': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5,
                       sd_hv_pref=dict(HVM, WHEAT={'ages': [[12, 29, 3, 3]], 'bonus': 40.0}))),
     'C2n': (SEC, dict(MDEC, sd_fert_sell=1, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16, sd_water_tomorrow=10.0,
@@ -250,6 +253,8 @@ LABEL = {
     'C3n': 'C3n: C2n + collect before leaving an animal tile',
     'W3a': 'W3a: C3f80 + fertilized wheat harvested from age 3 (5 units) and replanted',
     'W3b': 'W3b: C3f80 + every wheat harvested from age 3 (tendency)',
+    'W4a': 'W4a: W3a + wheat / carrots fertilized at age 1-2 only',
+    'W4b': 'W4b: W3a + wheat fertilized at age 2 only (carrots 1-2)',
     'W3c': 'W3c: W3a + age-3 wheat harvest bonus 40',
     'C2n': 'C2n: C1 + cycle (fertilizer back with the goods, sold) + collect worth >= 40, no extra fertilizing',
     'M_decay30': 'M_decay (season end)',
