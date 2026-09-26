@@ -192,6 +192,9 @@ CFG = {
     "sd_books_cap": 0,        # 1 (KBK2 overflow days: the plan's held goods took shed room, the midnight dump deleted wheat): from hour 21 on, when shed + everything carried + what the routes still harvest today would not fit the shed (100 - sd_tier_dump_buffer), the held sd_books_sell goods are sold, cheapest first, down to what fits
     "sd_maint_floor_trail": 0,  # KWE (2026-09-26, world 112604454: the wool floor 100 kept 10 sheep fully fed / cared on days 21-26 while our wool sold at 1-33 and every hourly quote was <= 98; sheep feeds 158 vs DSM 104 = 54 wheat, care 137 vs 100): H >= 1 = each floor is capped by the trailing statistic (sd_maint_floor_stat) of that product's hourly quotes over the last H hours, so one thin dawn quote after a high evening stays protected (R2) but a glut that lasts all day is priced as one
     "sd_maint_floor_stat": "mean",  # "mean" | "max" of the trailing quotes
+    "sd_books_batch": 0,      # > 0 (DSM's wool glut on 112604454: never more than 8 units a step, never at $1; KC3 dumped surplus wool at h21 down to $1, where a sale earns 1 and adds no market stock, so the rival's price rises): the surplus / capacity sells of sd_books_sell products are at most this many units a step, and none while the quote is <= sd_books_minpx
+    "sd_books_minpx": 5,
+    "sd_books_walk": 0,       # 1 (KC4 still sold 14 wool at $1: near the floor a unit lowers the wool price by ~6, so a batch of 8 from quote 24 ends at 1; DSM never sold wool at $1): every sd_books_sell sell stops before the engine price of the next unit (market stock + units already sold this step) would be <= sd_books_minpx
     "sd_pattern_tick": [],    # products (user 2026-09-26: imitate DSM's selling; engine-isolated test +2.7k on world 112604454): sold only at hours 1 / 5 / 9 / 13 / 17 / 21 (the first market after a town consumption tick; the engine clears the market BEFORE the town consumes at hours 0 / 4 / 8 / 12 / 16 / 20) on the sd_hourly_profile quota; their deliveries are no longer sold on arrival and the overflow guards leave them alone at the tick hours themselves (hour 20). Needs sd_hourly_profile for these products
     "sd_wheat_pick_now": 0,   # 1 (2026-09-26, KQ plant deaths): the market's wheat reserve for the tiered plan's pickups also counts the WHEAT the executor picks up in this same step. Those pick items are marked done when the command is issued, but the wheat is still in the observed shed and the engine runs unit actions before the market, so without this the sale takes the wheat the later pickups (the hour-1 hires, acting from hour 2) need: they wait for a buy-back and their routes end an hour late (last WATER unfinished, plants die; FEED skipped)
     "sd_h0_front": [],        # (user 2026-09-26) products whose shed stock may be sold at hour 0 FIRST in the order list (the engine processes both players' orders position by position, so a sell behind the hires comes after the rival's hour-0 sales); the largest-value pile >= sd_h0_front_min, at most sd_h0_front_n orders; one hour-0 hire moves to hour 1 only when the 10 slots are full
@@ -2703,6 +2706,56 @@ def _demand_hands(S, day, hour, tasks, pos, farm, obs_=None, plan_jobs=None):
     return st["k"]
 
 
+# ---- the engine's price curve (copied from kaggle_environments kaggriculture.py 1.32.7: MARKET_PARAMS, _shape,
+# market_price) for sd_books_walk: the price a unit gets = f(market stock), the stock grows by one per unit sold
+_MKT_I0, _MKT_FLOOR, _MKT_HINGE = 10000, 1, 8.0
+_MKT_PARAMS = {
+    "WHEAT":      {"base":  25, "T": 400, "below_func": "sqrt",   "below_target": 0.80, "above_func": "log",    "above_target": 0.20},
+    "CARROT":     {"base":  35, "T": 450, "below_func": "hinge",  "below_target": 1.00, "above_func": "sqrt",   "above_target": 0.70},
+    "TOMATO":     {"base":  60, "T": 200, "below_func": "hinge",  "below_target": 0.40, "above_func": "sqrt",   "above_target": 0.60},
+    "STRAWBERRY": {"base": 120, "T": 100, "below_func": "sqrt",   "below_target": 0.70, "above_func": "linear", "above_target": 1.60},
+    "MELON":      {"base": 250, "T": 300, "below_func": "log",    "below_target": 0.20, "above_func": "sq",     "above_target": 3.60},
+    "EGG":        {"base":  50, "T": 332, "below_func": "hinge",  "below_target": 0.40, "above_func": "log",    "above_target": 0.20},
+    "MILK":       {"base": 160, "T": 122, "below_func": "sqrt",   "below_target": 0.60, "above_func": "linear", "above_target": 1.60},
+    "WOOL":       {"base": 200, "T": 105, "below_func": "log",    "below_target": 0.20, "above_func": "sq",     "above_target": 3.20},
+    "FERTILIZER": {"base": 100, "T": 200, "below_func": "linear", "below_target": 0.40, "above_func": "linear", "above_target": 0.40},
+}
+
+
+def _mkt_shape(func, x, T):
+    x = max(0.0, x)
+    if func == "sq":
+        return x * x
+    if func == "sqrt":
+        return x ** 0.5
+    if func == "log":
+        return _math.log(1.0 + x)
+    if func == "hinge":
+        u = x / T
+        return u + _MKT_HINGE * max(0.0, u - 1.0) ** 2
+    return x
+
+
+def _mkt_price(item, inventory):
+    p = _MKT_PARAMS[item]
+    base, T = p["base"], p["T"]
+    if inventory < _MKT_I0:
+        amp = p["below_target"] * base / _mkt_shape(p["below_func"], T, T)
+        price = base + amp * _mkt_shape(p["below_func"], _MKT_I0 - inventory, T)
+    else:
+        amp = p["above_target"] * base / _mkt_shape(p["above_func"], T, T)
+        price = base - amp * _mkt_shape(p["above_func"], inventory - _MKT_I0, T)
+    return max(_MKT_FLOOR, int(round(price)))
+
+
+def _walk_cap(item, inventory, minpx, cap=10000):
+    """units that can be sold now, one at a time into the stock, before a unit's price would be <= minpx"""
+    k = 0
+    while k < cap and _mkt_price(item, inventory + k) > minpx:
+        k += 1
+    return k
+
+
 def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, demand, prices,
             unlocked, farm, pos, last_day):
     T = _T
@@ -3108,7 +3161,10 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                 q_ = int((cum_.get(step_) or {}).get(p_, 0)) - int(S["sold"][p_])
                 if hour == 21:                     # our surplus over the leader's next 12 steps goes now
                     nxt_ = int((cum_.get(min(719, step_ + 12)) or {}).get(p_, 0)) - int((cum_.get(step_) or {}).get(p_, 0))
-                    q_ = max(q_, have_ - nxt_)
+                    sur_ = have_ - nxt_
+                    if int(CFG["sd_books_batch"]):     # DSM: small lots, never at the floor
+                        sur_ = 0 if float(prices.get(p_, 0) or 0) <= float(CFG["sd_books_minpx"]) else min(sur_, max(q_, 0) + int(CFG["sd_books_batch"]))
+                    q_ = max(q_, sur_)
                 n_ = min(have_, q_)
                 TPb_ = S.get("tier")
                 if TPb_ and TPb_.get("day") == day and hour in (1, 5, 13, 21):   # diagnostics: the plan vs our count
@@ -3128,6 +3184,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                         break
                     done_ = sum(o_[2] for _, o_ in front_ if o_[1] == p_)
                     k_ = min(int(shed.get(p_, 0) or 0) - done_, excess_)
+                    if int(CFG["sd_books_batch"]):     # DSM: small lots, never at the floor
+                        k_ = 0 if float(prices.get(p_, 0) or 0) <= float(CFG["sd_books_minpx"]) else min(k_, max(0, int(CFG["sd_books_batch"]) - done_))
                     if k_ > 0:
                         hit_ = next((x for x in front_ if x[1][1] == p_), None)
                         if hit_:
@@ -3136,6 +3194,18 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                             front_.append((0, ["SELL", p_, k_]))
                         excess_ -= k_
                         S["log"]["books_cap_" + p_] += k_
+            if CFG["sd_books_walk"]:                  # never walk a sale down to the floor (DSM: no wool at $1)
+                inv_m_ = dict(_g(_g(obs, "market", {}), "inventory", {}) or {})
+                kept_ = []
+                for pos_, o_ in front_:
+                    if o_[1] in inv_m_:
+                        k_ = _walk_cap(o_[1], int(inv_m_[o_[1]]), float(CFG["sd_books_minpx"]), o_[2])
+                        if k_ < o_[2]:
+                            S["log"]["books_walk_cut_" + o_[1]] += o_[2] - k_
+                        o_[2] = k_
+                    if o_[2] > 0:
+                        kept_.append((pos_, o_))
+                front_ = kept_
             for pos_, o_ in sorted(front_, key=lambda x: x[0]):
                 orders.insert(min(pos_, len(orders)), o_)
             while len(orders) > 10:                # 10-order cap: never drop a hire or a buy (the hour-0 feed wheat buy:
