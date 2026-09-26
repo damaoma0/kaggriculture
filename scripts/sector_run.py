@@ -47,6 +47,17 @@ MDEC = dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector
 ARMS_C3F80 = dict(MDEC, sd_fert_sell=1, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16, sd_water_tomorrow=10.0,
                   sd_fert_ret=1, sd_fert_first=1, sd_fert_first_crops=['WHEAT', 'CARROT'], sd_fert_frac=1.0,
                   sd_collect_floor=80.0, sd_finish_collect=1)     # = C3f80
+# B1 (user, 2026-09-28): every fix so far on M_decay -- explicit recipe
+ARMS_B1 = dict(MDEC,
+               sd_fert_sell=1, sell_now=['MELON'],                                   # leader fertilizer policy; melons sold on arrival
+               sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16,                    # survival water late weight 10 after h16, retired exempt
+               sd_water_tomorrow=10.0,                                               # idle waters worth 10
+               sd_fert_ret=1, sd_collect_floor=80.0, sd_finish_collect=1,            # cycle: fertilizer back with goods, collect >= 80, collect before leaving
+               sd_fert_first=1, sd_fert_first_crops=['WHEAT', 'CARROT'], sd_fert_frac=1.0,
+               sd_fert_ages={'WHEAT': [1, 2], 'CARROT': [1, 2]},                     # wheat / carrot fertilized at age 1-2
+               hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5,                    # fertilized wheat harvested at age 3 (5 units)
+               cut_mode='leader_harvest',                                            # late plantings the leader harvests are kept
+               sd_feed_bonus=20.0)                                                   # +20 on every feed / care
 ARMS = {
     'N0': (S2, dict(dispatch_search='off')),
     'N11': (S2, dict(dispatch_search='active', sd_days=[11, 23], **SHIP)),
@@ -220,6 +231,18 @@ ARMS = {
     **{f'Aw{int(f * 100):02d}': (SEC, dict(MDEC, sd_fert_sell=1, sell_now=['MELON'], sd_wheat_frac=f)) for f in (0.5, 0.25)},
     **{f'Ab{b}': (SEC, dict(MDEC, sd_fert_sell=1, sell_now=['MELON'], sd_feed_bonus=float(b))) for b in (20, 50)},
     'Awb': (SEC, dict(MDEC, sd_fert_sell=1, sell_now=['MELON'], sd_wheat_frac=0.5, sd_feed_bonus=20.0)),
+    'B1': (SEC, dict(ARMS_B1)),
+    # leave-one-out of B1 on day 11 (which fix costs melon timing / radial routes)
+    'B1-fp': (SEC, dict(ARMS_B1, sd_fert_sell=0)),
+    'B1-sn': (SEC, dict(ARMS_B1, sell_now=[])),
+    'B1-sv': (SEC, dict(ARMS_B1, sd_retire=0, sd_hard_late_w=0.0, sd_hard_safe=20)),
+    'B1-cy': (SEC, dict(ARMS_B1, sd_fert_ret=0, sd_collect_floor=0.0, sd_finish_collect=0)),
+    'B1-wf': (SEC, dict(ARMS_B1, sd_fert_first=0)),
+    'B1-a3': (SEC, dict(ARMS_B1, hp_crops=['MELON'], hp_wheat_min_units=0)),
+    'B1-ct': (SEC, dict(ARMS_B1, cut_mode='all')),
+    'B1-fb': (SEC, dict(ARMS_B1, sd_feed_bonus=0.0)),
+    'B1ni': (SEC, dict(ARMS_B1, sd_water_tomorrow=0.0)),        # B1 without the idle waters
+    'B1p': (SEC, dict(ARMS_B1, sd_path_collect=6)),             # B1 + collect on the way out
     'W4b': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5, sd_fert_ages={'WHEAT': [2, 2], 'CARROT': [1, 2]})),
     'W3c': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5,
                       sd_hv_pref=dict(HVM, WHEAT={'ages': [[12, 29, 3, 3]], 'bonus': 40.0}))),
@@ -297,6 +320,17 @@ LABEL = {
     **{f'Aw{int(f * 100):02d}': f'Aw{int(f * 100):02d}: G0s + feeding charged {f:.2f} x the wheat price' for f in (0.5, 0.25)},
     **{f'Ab{b}': f'Ab{b}: G0s + {b} coins on every feed / care' for b in (20, 50)},
     'Awb': 'Awb: G0s + feeding at 0.5 x wheat + 20 on every feed / care',
+    'B1': 'B1: all fixes (fert policy, melons on arrival, survival water, idle waters, cycle, wheat fert age 1-2 + age-3 harvest, late plantings, feed bonus)',
+    'B1ni': 'B1ni: B1 without idle waters',
+    'B1-fp': 'B1 without the fertilizer policy',
+    'B1-sn': 'B1 without melons sold on arrival',
+    'B1-sv': 'B1 without the survival-water weight',
+    'B1-cy': 'B1 without the cycle (fert back, collect floor, collect before leaving)',
+    'B1-wf': 'B1 without wheat/carrot fertilizing at age 1-2',
+    'B1-a3': 'B1 without the age-3 wheat harvest',
+    'B1-ct': 'B1 without late plantings',
+    'B1-fb': 'B1 without the feed bonus',
+    'B1p': 'B1p: B1 + collect on the way out',
     'W4a': 'W4a: W3a + wheat / carrots fertilized at age 1-2 only',
     'W4b': 'W4b: W3a + wheat fertilized at age 2 only (carrots 1-2)',
     'W3c': 'W3c: W3a + age-3 wheat harvest bonus 40',
