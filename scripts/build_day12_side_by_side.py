@@ -282,12 +282,16 @@ def build_exact_arm(directory, ep, leader_tape, leader_frames, seed, shops, seat
         if handoff_ok and cc_ok is not False:
             break
     best = max(tried, key=lambda r: (r['handoff_ok'] and r['cc_ok'] is not False, r['handoff_ok']))
-    # Optional {day: {hand_index: quadrant}} from a sector-planner arm; quadrant one of NE/NW/SW/SE.
+    # Optional {day: {hand_index: quadrant}} from a sector-planner arm; quadrant one of NE/NW/SW/SE (minor --
+    # kept only for the picker's small label and the dashed quadrant border lines).
     sectors = stream['meta'].get('sectors') if isinstance(stream['meta'].get('sectors'), dict) else None
+    # Optional {step: {hand_index: [tile indices y*10+x in route order]}} -- a hand's assigned job list,
+    # recorded sparsely (only at steps where some hand's plan changed). This is what "Assigned" mode shows.
+    plan = stream['meta'].get('plan') if isinstance(stream['meta'].get('plan'), dict) else None
     return dict(available=True, frames=best['frames'], final_at_d12end=best['final'],
                 opp_final_at_d12end=best['opp_final'], handoff_ok=best['handoff_ok'],
                 offset_used=best['offset'], cash_checks=best['cash_checks'],
-                offsets_tried=[t['offset'] for t in tried], sectors=sectors)
+                offsets_tried=[t['offset'] for t in tried], sectors=sectors, plan=plan)
 
 
 # ---------------------------------------------------------------- per-game orchestration ---------------------
@@ -462,6 +466,7 @@ select{max-width:100%}.row{display:flex;gap:8px;align-items:center;flex-wrap:wra
 .routesvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .routeline{fill:none;stroke-width:.11;stroke-linecap:round;stroke-linejoin:round;opacity:.92}
 .quadline{stroke:#efc777;stroke-width:.045;stroke-dasharray:.12,.09;opacity:.85}
+.plantile{stroke:#0b120d;stroke-width:.03;rx:.05}
 .tile.shared{background-image:repeating-linear-gradient(45deg,#5a5a4a 0 5px,#33332b 5px 10px)!important}
 #handPicker{display:flex;gap:5px;flex-wrap:wrap;margin:0 0 12px}
 #handPicker button{padding:3px 8px;font-size:11.5px;border-width:2px}
@@ -541,7 +546,8 @@ html,body{overflow-x:hidden}
 </div>
 <div class="row">
 <label class="row" style="gap:5px"><input type="checkbox" id="sectorsToggle"> Sectors</label>
-<span class="muted" id="sectorsHint">Colour tiles by which hand worked them that day; click a hand below to draw its route.</span>
+<label class="row" style="gap:5px" id="sectorViewWrap" hidden>View <select id="sectorView"><option value="worked">Worked</option><option value="assigned">Assigned</option></select></label>
+<span class="muted" id="sectorsHint">Colour tiles by which hand worked (or is assigned) them; click a hand below to draw its route.</span>
 </div>
 <div id="handPicker" hidden></div>
 <div id="status" class="muted" aria-live="polite"></div>
@@ -595,7 +601,7 @@ html,body{overflow-x:hidden}
 <h2>Legend</h2>
 <div id="legend"></div>
 <p class="muted">Unit badge: <strong>F</strong> = farmer, otherwise hand index; after the colon, that hour's action (&uarr;&darr;&rarr;&larr; move, P plant, W water, H harvest, Fd feed, C care, Fz fertilize, Cf collect fertilizer, D dig, Pk pickup, Dr drop, Pl place, Bc/Bp build coop/pasture). A gold outline on a tile means the two boards disagree there this hour. Click any tile to inspect it below both boards.
-Sectors mode colours every tile worked that day (water/fertilize/harvest/plant/feed/care/collect fertilizer) by which hand did it; a hatch pattern means 2+ different hands worked it, faded tiles are within 2 steps of the shed (central, on-the-way -- not counted as overlap). Click a hand below the transport controls to draw its route for the day, split into numbered trips at each shed stop (pickup/drop/place) that follows field work. A sector-planner arm also labels each hand's home quadrant in the picker, outlines the quadrant borders, tints that hand's home quadrant when selected, and flags any tile it worked outside that quadrant.</p>
+Sectors mode's View switch chooses what tiles are coloured by: <strong>Worked</strong> is every tile actually worked that day (water/fertilize/harvest/plant/feed/care/collect fertilizer); <strong>Assigned</strong> (sector-planner arms only) is each hand's current job list at this hour. Either way, a hatch pattern means 2+ different hands, faded tiles are within 2 steps of the shed (central, on-the-way -- not counted as overlap). Click a hand below the transport controls: small numbered squares show its currently assigned tiles in route order, and a line traces its actual path for the day, split into numbered trips at each shed stop (pickup/drop/place) that follows field work. A sector-planner arm may also show a hand's home quadrant, in small print (a picker label and faint dashed borders).</p>
 </section>
 </main>
 <footer id="provenance">Built by scripts/build_day12_side_by_side.py &middot; replayed through scripts/upkeep_engine.py (official kaggriculture 1.32.7 engine, loaded by path). Space: play/pause. Arrow keys: one hour; Shift+arrow: one day.</footer>
@@ -665,7 +671,7 @@ function drawBoard(elId,g,mine,other){
 const HAND_COLORS=['#e8c15a','#7fb8e0','#e08b7f','#8fd19e','#c48fe0','#e0a5c4','#9fd1d1','#d1b88f','#8f9fd1','#d1d18f','#b88fd1','#8fd1b8','#d18f9f','#d1c48f','#8fc4d1','#c4d18f'];
 const FIELD_OPS=new Set(['WATER','FERTILIZE','HARVEST','PLANT','FEED','CARE','COLLECT_FERTILIZER']);
 const SHED_TILES=[[4,4],[5,4],[4,5],[5,5]];
-let sectorsOn=false,selectedHand=null;
+let sectorsOn=false,selectedHand=null,sectorView='worked';
 function handColor(u){return HAND_COLORS[u%HAND_COLORS.length];}
 function shedDist(x,y){return Math.min(...SHED_TILES.map(([sx,sy])=>Math.abs(x-sx)+Math.abs(y-sy)));}
 function isCentral(x,y){return shedDist(x,y)<=2;}
@@ -766,10 +772,39 @@ function moveStats(frames,day){
   // Mean per hand present that day (every unit slot counts, including hands that made no moves at all).
   return n?{out:out/n,in:inn/n,side:side/n,rev:rev/n}:{out:0,in:0,side:0,rev:0};
 }
-const QUAD_ORIGIN={NW:[0,0],NE:[5,0],SW:[0,5],SE:[5,5]};
-function quadrantOf(x,y){return (y<5?'N':'S')+(x<5?'W':'E');}
-function applySectorOverlay(elId,frames,day){
-  const el=$(elId),patch=buildPatch(frames,day);
+function currentPlanFor(planData,step,u){
+  // Plan entries are sparse (recorded only when a hand's job list changes): find this hand's own latest
+  // entry at or before `step`.
+  if(!planData)return null;
+  let bestStep=-1,best=null;
+  for(const k in planData){
+    const s=+k;
+    if(s<=step&&s>bestStep){
+      const entry=planData[k];
+      if(entry&&entry[u]!==undefined){bestStep=s;best=entry[u];}
+    }
+  }
+  return best;
+}
+function buildPlanOwnership(planData,step,maxUnits){
+  const owners=new Map();
+  for(let u=0;u<maxUnits;u++){
+    const tiles=currentPlanFor(planData,step,u);
+    if(!tiles)continue;
+    for(const ti of tiles){
+      if(!owners.has(ti))owners.set(ti,new Set());
+      owners.get(ti).add(u);
+    }
+  }
+  return owners;
+}
+function armPlanFor(g,side){
+  const arm=side==='L'?g.leader:g[MODE_ARM[mode]];
+  return (arm&&arm.plan)||null;
+}
+function applySectorOverlay(elId,frames,day,step,planData,view){
+  const el=$(elId);
+  const patch=view==='assigned'?buildPlanOwnership(planData,step,maxUnitsThatDay(frames,day)):buildPatch(frames,day);
   for(let i=0;i<100;i++){
     const b=el.children[i],x=i%10,y=Math.floor(i/10),central=isCentral(x,y),owners=patch.get(i);
     b.classList.toggle('central',central);
@@ -784,20 +819,17 @@ function applySectorOverlay(elId,frames,day){
     if(unitsSpan)b.append(unitsSpan);
   }
 }
-function drawRoute(svgId,frames,day,u,showQuadrants,homeQuadrant){
+function drawRoute(svgId,frames,day,u,showQuadrants,assignedTiles){
   const svg=$(svgId);
   let html=showQuadrants?'<line class="quadline" x1="5" y1="0" x2="5" y2="10"/><line class="quadline" x1="0" y1="5" x2="10" y2="5"/>':'';
-  if(u!=null&&homeQuadrant&&QUAD_ORIGIN[homeQuadrant]){
-    const col=handColor(u),[qx,qy]=QUAD_ORIGIN[homeQuadrant];
-    html+=`<rect x="${qx}" y="${qy}" width="5" height="5" fill="${col}" opacity=".16"/>`;
-    // Flag tiles this hand worked outside its home quadrant.
-    buildPatch(frames,day).forEach((owners,ti)=>{
-      if(!owners.has(u))return;
+  if(u!=null&&assignedTiles&&assignedTiles.length){
+    // The hand's currently planned job list, in route order: small numbered squares (distinct from the
+    // circular actual-path trip markers below), so "assigned" and "actual" stay visually separable.
+    const col=handColor(u);
+    assignedTiles.forEach((ti,i)=>{
       const x=ti%10,y=Math.floor(ti/10);
-      if(quadrantOf(x,y)===homeQuadrant)return;
-      html+=`<rect x="${x+.08}" y="${y+.08}" width=".84" height=".84" fill="none" stroke="#ff6b5e" stroke-width=".09"/>`+
-            `<line x1="${x+.2}" y1="${y+.2}" x2="${x+.8}" y2="${y+.8}" stroke="#ff6b5e" stroke-width=".07"/>`+
-            `<line x1="${x+.8}" y1="${y+.2}" x2="${x+.2}" y2="${y+.8}" stroke="#ff6b5e" stroke-width=".07"/>`;
+      html+=`<rect class="plantile" x="${x+.62}" y="${y+.06}" width=".34" height=".34" fill="${col}"/>`+
+            `<text x="${x+.79}" y="${y+.34}" font-size=".26" fill="#0b120d" text-anchor="middle">${i+1}</text>`;
     });
   }
   if(u!=null){
@@ -961,14 +993,15 @@ function render(){
   renderDiffStats(LF,RF,cur);
   renderVerify(g);
   const showQuad=sectorsOn&&!!((armSectorsFor(g,'L')||{})[day]||(armSectorsFor(g,'R')||{})[day]);
+  const planL=armPlanFor(g,'L'),planR=armPlanFor(g,'R');
   if(sectorsOn){
-    applySectorOverlay('boardL',LF,day);
-    applySectorOverlay('boardR',RF,day);
+    applySectorOverlay('boardL',LF,day,lf.step,planL,sectorView);
+    applySectorOverlay('boardR',RF,day,rf.step,planR,sectorView);
   }
-  const homeL=sectorsOn&&selectedHand!=null?((armSectorsFor(g,'L')||{})[day]||{})[selectedHand]:null;
-  const homeR=sectorsOn&&selectedHand!=null?((armSectorsFor(g,'R')||{})[day]||{})[selectedHand]:null;
-  drawRoute('routeL',LF,day,sectorsOn?selectedHand:null,showQuad,homeL);
-  drawRoute('routeR',RF,day,sectorsOn?selectedHand:null,showQuad,homeR);
+  const assignedL=sectorsOn&&selectedHand!=null?currentPlanFor(planL,lf.step,selectedHand):null;
+  const assignedR=sectorsOn&&selectedHand!=null?currentPlanFor(planR,rf.step,selectedHand):null;
+  drawRoute('routeL',LF,day,sectorsOn?selectedHand:null,showQuad,assignedL);
+  drawRoute('routeR',RF,day,sectorsOn?selectedHand:null,showQuad,assignedR);
   renderSectorStats('L',LF,day);
   renderSectorStats('R',RF,day);
   renderHandPicker(LF,RF,day);
@@ -1024,7 +1057,8 @@ $('play').onclick=()=>{if(timer){stop();render();return;}timer=setInterval(tick,
 $('seek').oninput=()=>jump(+$('seek').value);
 $('prev').onclick=()=>jump(cur-1);
 $('next').onclick=()=>jump(cur+1);
-$('sectorsToggle').onchange=()=>{sectorsOn=$('sectorsToggle').checked;if(!sectorsOn)selectedHand=null;render();};
+$('sectorsToggle').onchange=()=>{sectorsOn=$('sectorsToggle').checked;$('sectorViewWrap').hidden=!sectorsOn;if(!sectorsOn)selectedHand=null;render();};
+$('sectorView').onchange=()=>{sectorView=$('sectorView').value;render();};
 $('jumpD11').onclick=()=>jumpToDay(11);
 $('jumpD12').onclick=()=>jumpToDay(12);
 $('speed').onchange=()=>{if(timer){stop();$('play').click();}};
