@@ -186,6 +186,9 @@ CFG = {
     "sd_dv_quota": 1,         # v2: with sell_source "leader" only products whose sell quota of the day has room get the credit
     "sd_hourly_profile": None,   # {product: [24 cumulative shares]} (user 2026-09-26: follow DSM's market PATTERN): the sell quota at hour h of day d = the target's sales before day d + share[h] x its sales on day d (not its whole day at hour 1); catch-up when behind, never ahead
     "sd_wheat_reserve_today": 0, # 1: the wheat reserve is today's remaining feeds only (not + n_animals x wheat_days): wheat sells on the target's pace, tomorrow's feed is bought at hour 0 (sd_tier_wheat)
+    "sd_maint_floor": {},     # {product: floor} (abandonment research R2, docs/abandonment_research_20260926.md; KPT1 lost its sheep herd on day 24 when an evening wool sale left the dawn quote at 1): the maintenance module values these animal products at max(quote, floor) until sd_maint_floor_last, so one thin dawn quote cannot abandon a herd with productions left (R2: milk 60, wool 100, egg 45)
+    "sd_maint_floor_last": 26,  # last day the floors apply (after it: the quote, the final cycle)
+    "sd_pattern_tick": [],    # products (user 2026-09-26: imitate DSM's selling; engine-isolated test +2.7k on world 112604454): sold only at hours 1 / 5 / 9 / 13 / 17 / 21 (the first market after a town consumption tick; the engine clears the market BEFORE the town consumes at hours 0 / 4 / 8 / 12 / 16 / 20) on the sd_hourly_profile quota; their deliveries are no longer sold on arrival and the overflow guards leave them alone at the tick hours themselves (hour 20). Needs sd_hourly_profile for these products
     "sd_wheat_pick_now": 0,   # 1 (2026-09-26, KQ plant deaths): the market's wheat reserve for the tiered plan's pickups also counts the WHEAT the executor picks up in this same step. Those pick items are marked done when the command is issued, but the wheat is still in the observed shed and the engine runs unit actions before the market, so without this the sale takes the wheat the later pickups (the hour-1 hires, acting from hour 2) need: they wait for a buy-back and their routes end an hour late (last WATER unfinished, plants die; FEED skipped)
     "sd_h0_front": [],        # (user 2026-09-26) products whose shed stock may be sold at hour 0 FIRST in the order list (the engine processes both players' orders position by position, so a sell behind the hires comes after the rival's hour-0 sales); the largest-value pile >= sd_h0_front_min, at most sd_h0_front_n orders; one hour-0 hire moves to hour 1 only when the 10 slots are full
     "sd_h0_front_min": 5,
@@ -1264,6 +1267,10 @@ def agent(obs, config=None):
                 p_f = float(prices.get("FERTILIZER", 100) or 100)
                 mj_prices = {"FERTILIZER": max(1.0, p_f - 0.2 * rem)}
                 S["log"]["fert_shadow_sum"] += int(mj_prices["FERTILIZER"])
+            if CFG["sd_maint_floor"] and day <= int(CFG["sd_maint_floor_last"]):   # R2: no abandonment on one thin quote
+                mj_prices = dict(mj_prices or {})
+                for k_, fl_ in CFG["sd_maint_floor"].items():
+                    mj_prices[k_] = max(float(prices.get(k_, 0) or 0), float(fl_))
             try:
                 jl = _sm()["maintenance_jobs"](obs, me, prices=mj_prices, fertilize=_mj_fert(), include_optional=True,
                                               collect=CFG["mj_collect"], log=S.setdefault("abandon", []))
@@ -2661,10 +2668,13 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     if endgame:
         reserve = Counter()
     # sell following the target's cumulative sold units
+    pt_ = set(CFG["sd_pattern_tick"] or ())
     for p in PRODUCTS:
         have = shed.get(p, 0) - reserve.get(p, 0)
         if have <= 0:
             continue
+        if p in pt_ and not endgame and hour % 4 != 1:
+            continue                      # sd_pattern_tick: sell only right after a consumption tick
         if endgame:
             n = have
         else:
@@ -2702,6 +2712,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                 for p_ in order:
                     if extra <= 0:
                         break
+                    if p_ in pt_ and hour % 4 == 0:
+                        continue
                     already = sum(o[2] for o in sells if o[1] == p_)
                     can = shed.get(p_, 0) + dropped.get(p_, 0) - reserve.get(p_, 0) - already
                     k_ = min(can, extra)
@@ -2728,6 +2740,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             for p in order:
                 if extra <= 0:
                     break
+                if p in pt_ and hour % 4 == 0:
+                    continue
                 already = sum(o[2] for o in sells if o[1] == p)
                 can = shed.get(p, 0) - reserve.get(p, 0) - already
                 k = min(can, extra)
@@ -2740,6 +2754,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
         for p in sorted(PRODUCTS, key=lambda q: -(shed.get(q, 0))):
             if extra <= 0:
                 break
+            if p in pt_ and hour % 4 == 0:
+                continue
             already = sum(o[2] for o in sells if o[1] == p)
             can = shed.get(p, 0) - reserve.get(p, 0) - already
             k = min(can, extra)
@@ -2903,8 +2919,9 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
         orders.append(o)
     TPd_ = S.get("tier") if CFG["sd_tier"] and CFG["sd_tier_deliver"] else None
     if TPd_ and TPd_.get("day") == day and TPd_.get("dsell"):
-        ds_ = [["SELL", p_, int(n_)] for p_, n_ in TPd_["dsell"].items() if n_ > 0]
-        orders = ds_ + [o for o in orders if not (o[0] == "SELL" and o[1] in TPd_["dsell"])][:max(0, 10 - len(ds_))]
+        ds_ = [["SELL", p_, int(n_)] for p_, n_ in TPd_["dsell"].items() if n_ > 0 and p_ not in pt_]
+        dsp_ = {o_[1] for o_ in ds_}
+        orders = ds_ + [o for o in orders if not (o[0] == "SELL" and o[1] in dsp_)][:max(0, 10 - len(ds_))]
         TPd_["dsell"] = Counter()
     if TPw_ and TPw_.get("day") == day and TPw_.get("wheat_buy") and not TPw_.get("wheat_bought") and hour <= 1:
         k_ = int(TPw_["wheat_buy"])

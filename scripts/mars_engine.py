@@ -170,6 +170,15 @@ def world(g, arm):
                 cum += sum(sold_a[(x, p)] for x in block)
         return tgt
 
+    prof = json.load(open(ROOT / 'results/fresh/threads_20260928/dsm_hourly_profile.json'))
+    lday = {p: Counter(e[0] // 24 for e in L['ev'] if e[1] == 'us' and e[2] == p) for p in PRODS}
+
+    def pattern_target(p, t):
+        """the KQ rule: the leader's cumulative sales through yesterday + DSM's hour-of-day share of today's"""
+        d, h = t // 24, t % 24
+        prev = sum(v for dd, v in lday[p].items() if dd < d)
+        return int(prev + (prof[p][h] if p in prof else 1.0) * lday[p].get(d, 0))
+
     def mk(strategy):
         used = Counter()
         tgt = snap_targets('late' if strategy == 'snap_late' else 'early') if strategy.startswith('snap') else None
@@ -192,6 +201,21 @@ def world(g, arm):
         def fn(t, orders, w, seat):
             if strategy == 'actual':
                 return capped(t, orders)
+            if strategy in ('pattern_tick', 'pattern_tick0'):
+                h = t % 24
+                sold_us = Counter(e[2] for e in R['ev'] if e[1] == 'us')
+                out = capped(t, orders, skip=PRODS)
+                front = []
+                for p in PRODS:
+                    if t == 718:
+                        q = avail2[p][t] - sold_us[p]
+                    elif h % 4 == 1 or (strategy == 'pattern_tick0' and h == 0):
+                        q = min(pattern_target(p, t), avail2[p][t]) - sold_us[p]
+                    else:
+                        q = 0
+                    if q > 0:
+                        (front if h == 0 else out).append(['SELL', p, q])
+                return front + out
             if tgt is not None:
                 out = capped(t, orders, skip=PRODS)
                 pos = {}
