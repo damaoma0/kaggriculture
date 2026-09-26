@@ -139,8 +139,40 @@ def world(g, arm):
             if nxt is not None:
                 run += nxt - A['pre'][p][t] + sold_a[(t, p)]
 
+    # units in our shed by the market of step t (drops of step t come before its market; the midnight dump after it)
+    avail2 = {p: {t: (avail[p][t + 1] if t % 24 != 23 and t + 1 in avail[p] else avail[p][t]) for t in avail[p]} for p in PRODS}
+
+    def snap_targets(mode):
+        """our units per (step, product) when every sale moves to an hour 1 / 5 / 9 / 13 / 17 / 21 (the hour right after a
+        town consumption tick). late: to the next such hour (h0 -> h1, h2-h4 -> h5, ...); early: back to the start of its
+        4-hour window (h2-h4 -> h1, ...) as far as the units were already in our shed; the rest keep their hour"""
+        tgt = Counter()
+        for p in PRODS:
+            if mode == 'late':
+                for t in range(264, 719):
+                    n = sold_a[(t, p)]
+                    if n:
+                        t2 = t if t % 4 == 1 else t + (1 - t % 4) % 4
+                        tgt[(t2 if t2 <= 718 else t, p)] += n
+                continue
+            tgt[(264, p)] += sold_a[(264, p)]
+            cum = sold_a[(264, p)]
+            for b in range(265, 719, 4):
+                block = list(range(b, min(b + 4, 719)))
+                room = max(0, avail2[p][b] - cum - sold_a[(b, p)])
+                tgt[(b, p)] += sold_a[(b, p)]
+                for x in block[1:]:
+                    n = sold_a[(x, p)]
+                    m = min(n, room)
+                    room -= m
+                    tgt[(b, p)] += m
+                    tgt[(x, p)] += n - m
+                cum += sum(sold_a[(x, p)] for x in block)
+        return tgt
+
     def mk(strategy):
         used = Counter()
+        tgt = snap_targets('late' if strategy == 'snap_late' else 'early') if strategy.startswith('snap') else None
 
         def capped(t, orders, skip=()):
             """our own orders with each product's sells capped to the units the arm really sold at this step (on Mars
@@ -160,6 +192,17 @@ def world(g, arm):
         def fn(t, orders, w, seat):
             if strategy == 'actual':
                 return capped(t, orders)
+            if tgt is not None:
+                out = capped(t, orders, skip=PRODS)
+                pos = {}
+                for i, o in enumerate(orders):
+                    if isinstance(o, list) and o and o[0] == 'SELL' and o[1] in PRODS and o[1] not in pos:
+                        pos[o[1]] = i
+                for p in PRODS:
+                    if tgt[(t, p)] > 0:
+                        i = pos.get(p, len(out))
+                        out.insert(min(i, len(out)), ['SELL', p, tgt[(t, p)]])
+                return out
             if strategy in ('h0front', 'h0back'):
                 h = t % 24
                 if h == 1:                                     # the hour-1 sells move to hour 0
