@@ -24,6 +24,7 @@ gzip+base64). Prints a verification table (final-cash reproduction + day-12 coun
 import base64
 import gzip
 import json
+import os
 import sys
 import time
 from copy import deepcopy
@@ -55,6 +56,9 @@ def discover_dynamic_arms():
         if not p.is_dir() or p.name in KNOWN_STREAM_DIRS or p.name in DUPLICATE_STREAM_DIRS:
             continue
         key = p.name[:-len('_streams')] if p.name.endswith('_streams') else p.name
+        keep = os.environ.get('VIEWER_ARMS')    # optional comma list of arm keys to include (default: all)
+        if keep and key not in {k.strip() for k in keep.split(',')}:
+            continue
         label = key
         for f in sorted(p.glob('*.json'))[:1]:
             try:
