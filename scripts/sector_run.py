@@ -207,6 +207,19 @@ ARMS = {
     # late-season plantings (the leader plants 25-37 wheat on days 26-27): cutoff off / cutoff only where the leader never harvests
     'P1': (SEC, dict(ARMS_C3F80, plant_cutoff={})),
     'P2': (SEC, dict(ARMS_C3F80, cut_mode='leader_harvest')),
+    # day-11 isolation of C1's parts (user: fix day 11 first): G0 = fert policy; D1 = G0 + retire + survival late 10;
+    # D2 = G0 + idle waters 10; C1 = all three
+    'D1': (SEC, dict(MDEC, sd_fert_sell=1, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16)),
+    'D2': (SEC, dict(MDEC, sd_fert_sell=1, sd_water_tomorrow=10.0)),
+    'D3': (SEC, dict(MDEC, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16, sd_water_tomorrow=10.0)),
+    # melons sold as soon as they reach the shed (user: no melon demand builds up), day-11 tests
+    'G0s': (SEC, dict(MDEC, sd_fert_sell=1, sell_now=['MELON'])),
+    'D1s': (SEC, dict(MDEC, sd_fert_sell=1, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16, sell_now=['MELON'])),
+    'C1s': (SEC, dict(MDEC, sd_fert_sell=1, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16, sd_water_tomorrow=10.0, sell_now=['MELON'])),
+    # animals (user): feeding charged a fraction of the wheat price / a bonus on fed + cared animals; base G0s, day 11
+    **{f'Aw{int(f * 100):02d}': (SEC, dict(MDEC, sd_fert_sell=1, sell_now=['MELON'], sd_wheat_frac=f)) for f in (0.5, 0.25)},
+    **{f'Ab{b}': (SEC, dict(MDEC, sd_fert_sell=1, sell_now=['MELON'], sd_feed_bonus=float(b))) for b in (20, 50)},
+    'Awb': (SEC, dict(MDEC, sd_fert_sell=1, sell_now=['MELON'], sd_wheat_frac=0.5, sd_feed_bonus=20.0)),
     'W4b': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5, sd_fert_ages={'WHEAT': [2, 2], 'CARROT': [1, 2]})),
     'W3c': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5,
                       sd_hv_pref=dict(HVM, WHEAT={'ages': [[12, 29, 3, 3]], 'bonus': 40.0}))),
@@ -275,6 +288,15 @@ LABEL = {
     **{f'R1c{k}': f'R1c{k}: C3f80 + radial animals (at most {k} animal jobs a hand, on the way out)' for k in (1, 2, 3)},
     'P1': 'P1: C3f80 + no late-season planting cutoff',
     'P2': 'P2: C3f80 + cutoff only for plantings the leader never harvests',
+    'D1': 'D1: M_decay + fertilizer policy + survival late weight 10 (retire exempt)',
+    'D2': 'D2: M_decay + fertilizer policy + idle waters 10',
+    'D3': 'D3: M_decay + survival late weight 10 + idle waters 10 (no fertilizer policy)',
+    'G0s': 'G0s: G0 + melons sold as soon as they reach the shed',
+    'D1s': 'D1s: D1 + melons sold as soon as they reach the shed',
+    'C1s': 'C1s: C1 + melons sold as soon as they reach the shed',
+    **{f'Aw{int(f * 100):02d}': f'Aw{int(f * 100):02d}: G0s + feeding charged {f:.2f} x the wheat price' for f in (0.5, 0.25)},
+    **{f'Ab{b}': f'Ab{b}: G0s + {b} coins on every feed / care' for b in (20, 50)},
+    'Awb': 'Awb: G0s + feeding at 0.5 x wheat + 20 on every feed / care',
     'W4a': 'W4a: W3a + wheat / carrots fertilized at age 1-2 only',
     'W4b': 'W4b: W3a + wheat fertilized at age 2 only (carrots 1-2)',
     'W3c': 'W3c: W3a + age-3 wheat harvest bonus 40',

@@ -228,6 +228,9 @@ CFG = {
     "sd_fert_ages": None,     # {crop: [age_lo, age_hi]}: the first-useful-day FERTILIZE rule only at these ages (e.g. wheat [1, 2])
     "sd_fert_first_crops": None,   # list of crops the first-useful-day FERTILIZE rule applies to (None = all)
     "sd_collect_floor": 0.0,  # a COLLECT_FERTILIZER op is worth at least this many coins (fertilizer is worth more on crops than its sale price late)
+    "sd_wheat_frac": None,    # feeding is charged this fraction of the wheat price in the maintenance values (None = full)
+    "sd_feed_bonus": 0.0,     # coins added to every FEED / CARE op of a live animal (user: bonus on animals fed / cared)
+    "sell_now": [],           # products sold as soon as they reach the shed, whatever the leader's quota (e.g. MELON)
     "sd_fert_sell": 0,        # 1 (user rule, leader tapes): the shed's fertilizer is all sold (no reserve), fertilizer is never picked up from the shed, collected fertilizer stays in hand for fertilizing (never delivered mid-day; the midnight dump brings the rest, sold next morning)
     "sd_retire": 0,           # plants the plan retires (abandoned / cleared before producing again) get no hard water job
     "sd_plan_log": 0,         # viewer: log each hand's planned job tiles (route order) on every change (L["plan_log"])
@@ -1047,6 +1050,8 @@ def _sched_tile_ops(idx, t, day):
                 v = max(v, float(t.get("yield_units", 0)) * float(j.get("price", 0)) * CFG["hp_frac"])
             if cmd in ("FEED", "CARE") and CFG["upkeep_scale"] != 1.0 and j.get("kind") != "survival":
                 v *= CFG["upkeep_scale"]      # xfix: the module's per-job FEED / CARE losses double-count the pair
+            if cmd in ("FEED", "CARE") and CFG.get("sd_feed_bonus") and _animal(t):
+                v += float(CFG["sd_feed_bonus"])
             if cmd == "COLLECT_FERTILIZER" and CFG["sd_collect_floor"]:
                 v = max(v, float(CFG["sd_collect_floor"]))   # sd_collect_floor
         vp = v
@@ -2560,6 +2565,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                     quota = have
             else:
                 quota = T.cum_sold[d].get(p, 0) - S["sold"][p]
+            if p in (CFG.get("sell_now") or ()):
+                quota = have                  # sell_now (user): sold as soon as it is in the shed (melons: no demand builds up)
             if CFG["sd_fert_sell"] and p == "FERTILIZER":
                 quota = have                  # sd_fert_sell: everything in the shed (above the reserve), now
             n = min(have, quota)
@@ -3184,6 +3191,8 @@ def _sd_opvals(S, idx, t, ops, plan, day, E, last_day):
         if (CFG["sd_water_tomorrow"] and c == "WATER" and _is_plant(t) and not t.get("watered_today")
                 and day < last_day):
             v = max(v, float(CFG["sd_water_tomorrow"]))   # tomorrow's labour saved (a dry plant is a must-do tomorrow)
+        if CFG.get("sd_feed_bonus") and c in ("FEED", "CARE") and _animal(t):
+            v += float(CFG["sd_feed_bonus"])        # user: a bonus on animals fed / cared
         if CFG["sd_collect_floor"] and c == "COLLECT_FERTILIZER" and _animal(t):
             v = max(v, float(CFG["sd_collect_floor"]))   # sd_collect_floor
         if hard and c == "WATER" and CFG["sd_retire"] and idx in ((S.get("sd") or {}).get("retired_now") or ()):
@@ -5637,6 +5646,17 @@ def _sm():
             return ok, (fr * float(fert_price) if ok else _inp)   # applying costs a fraction; collection keeps its price
         ns["_sm_fert_mode"] = fert_mode
         ns["_sd_fm"] = True
+    if CFG.get("sd_wheat_frac") is not None and ns is not None and not ns.get("_sd_wf"):
+        ot = ns["sm_tile_plan"]
+        wf_ = float(CFG["sd_wheat_frac"])
+        an_ = ns["SM_ANIMALS"]
+
+        def tile_plan(kind, state, day, hour, price=None, input_price=None, *a_, **k_):
+            if kind in an_ and input_price is not None:
+                input_price = wf_ * float(input_price)   # feeding charges only this fraction of the wheat price
+            return ot(kind, state, day, hour, price, input_price, *a_, **k_)
+        ns["sm_tile_plan"] = tile_plan
+        ns["_sd_wf"] = True
     if CFG.get("sd_fert_first") and ns is not None and not ns.get("_sd_ff"):
         orig = ns["maintenance_jobs"]
 

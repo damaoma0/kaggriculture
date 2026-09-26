@@ -408,6 +408,8 @@ def _sd_opvals(S, idx, t, ops, plan, day, E, last_day):
         if (CFG["sd_water_tomorrow"] and c == "WATER" and _is_plant(t) and not t.get("watered_today")
                 and day < last_day):
             v = max(v, float(CFG["sd_water_tomorrow"]))   # tomorrow's labour saved (a dry plant is a must-do tomorrow)
+        if CFG.get("sd_feed_bonus") and c in ("FEED", "CARE") and _animal(t):
+            v += float(CFG["sd_feed_bonus"])        # user: a bonus on animals fed / cared
         if CFG["sd_collect_floor"] and c == "COLLECT_FERTILIZER" and _animal(t):
             v = max(v, float(CFG["sd_collect_floor"]))   # sd_collect_floor
         if hard and c == "WATER" and CFG["sd_retire"] and idx in ((S.get("sd") or {}).get("retired_now") or ()):
