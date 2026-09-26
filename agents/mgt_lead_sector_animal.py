@@ -282,6 +282,9 @@ CFG = {
     "sd_tier_anim_mand_minv": None,  # FEED / CARE of a live animal become mandatory (tier B) when their joint value >= this
     "sd_tier_pen_bundle": 0,  # 1 (user 2026-09-26, learned from DSM: feed + care + collect in one visit on 36% of its pen visits vs our 7%): on every live animal the COLLECT (fertilizer waiting), the CARE (a later production in the season can realise it) and the FEED (care in the bundle, or tonight's production cashes a bank) join the keep-alive feed / due harvest as ONE mandatory stop, so the sector search gives the pen to one hand; the collected fertilizer then supplies that hand's fertilizes
     "sd_tier_pen_bundle_hmin": 0,   # > 0: the pen's harvest joins the stop when it holds >= this many units (else the cap rule)
+    "sd_tier_pen_bundle_collect": 1,   # 0: the COLLECT stays out of the pen stop (free for the fertilize pairing; KB1 lost 4.3 fertilizes a day with it in)
+    "sd_tier_spawn_h2": 0,    # 1 (2026-09-26): the hour-1 hires spawn on the least occupied shed tile AFTER the hour-0 units' hour-1 commands; when that differs from the plan's assumption (empty shed tiles), re-plan once with the spawn tiles the plan's own hour-1 positions imply (KE7: 65% of hour-1 hires started ~0.9 h late and lost their route's tail ops)
+    "sd_tier_water_exact": 0, # 1 (user 2026-09-26: shift the weights): a non-mandatory WATER is worth units x price by engine rules (one-time crop in its window: +1, +2 fertilized, to the cap; ongoing crop producing tonight and fertilized: +1 if under the cap; else 0) + sd_water_tomorrow   # > 0: the pen's harvest joins the stop when it holds >= this many units (else the cap rule)
     "sd_tier_pen_round": 0,   # 1 (user 2026-09-26, learned from DSM): a hand whose mandatory route holds animal harvests within sd_tier_pen_radius of the shed does them first and puts the product into the shed (DELIVER) before its other stops; planned right after the mandatory sector search, before the extras
     "sd_tier_pen_radius": 2,
     "sd_tier_pen_min": 0,     # > 0: a pen within the radius holding >= this many units keeps its harvest mandatory (joins the morning round) even when nothing overflows tonight
@@ -6751,7 +6754,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                 c_ = o["c"][0]
                 if o["m"]:
                     continue
-                if (c_ == "COLLECT_FERTILIZER" or (c_ == "CARE" and care_ok) or (c_ == "FEED" and (has_care or cash_))
+                if ((c_ == "COLLECT_FERTILIZER" and CFG["sd_tier_pen_bundle_collect"]) or (c_ == "CARE" and care_ok) or (c_ == "FEED" and (has_care or cash_))
                         or (c_ in ("HARVEST", "PLACE_HARVEST") and hmin_ > 0 and int(t_.get("yield_units", 0) or 0) >= hmin_)):
                     o["m"], o["tier"], o["pb"] = True, 2, True
                     nb_ += 1
@@ -6818,6 +6821,33 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
         st["tier_fert_dropped"] = st.get("tier_fert_dropped", 0) + nd_
     if CFG["sd_tier_fert_exact"]:
         _tier_fert_exact(rec, tiles, day, prices, st)
+    if CFG["sd_tier_water_exact"]:                 # extra waterings valued by engine rules (user: shift the weights)
+        nw_ = 0
+        for idx, r_ in rec.items():
+            t_ = _tile(tiles, idx)
+            if not _is_plant(t_) or t_.get("watered_today"):
+                continue
+            cr_ = CROPS.get(t_.get("crop"))
+            if not cr_:
+                continue
+            y_ = int(t_.get("yield_units", 0) or 0)
+            fz_ = int(t_.get("fertilized_until_day", -1) or -1) >= day
+            age_ = day - int(t_.get("planted_day", day))
+            gain_ = 0
+            if not cr_["ongoing"]:
+                if (cr_["maxday"] + 1) // 2 <= age_ <= cr_["maxday"]:
+                    gain_ = min(cr_["max"], y_ + (2 if fz_ else 1)) - y_
+            else:
+                ds_ = age_ + 1 - cr_["first"]
+                itv_ = max(1, int(cr_.get("interval", 1) or 1))
+                if ds_ >= 0 and ds_ % itv_ == 0 and ds_ // itv_ + 1 <= cr_["max"] and fz_:
+                    gain_ = min(cr_["max"], y_ + 2) - min(cr_["max"], y_ + 1)
+            v_ = gain_ * float(prices.get(t_["crop"], 0) or 0) + float(CFG["sd_water_tomorrow"] or 0)
+            for o in r_["ops"]:
+                if o["c"][0] == "WATER" and not o["m"]:
+                    o["v"] = v_
+                    nw_ += 1
+        st["tier_water_exact"] = st.get("tier_water_exact", 0) + nw_
     if CFG["sd_tier_straw_water"] is not None:
         sw_ = float(CFG["sd_tier_straw_water"])
         for idx, r_ in rec.items():
@@ -6877,6 +6907,21 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
         _tier_walk(TP["routes"].get(u + 1), q, 1) for u, q in enumerate(sp0)]
     if want > k0 and _sd_spawn(after1, want - k0) != sp1:
         st["tier_spawn_h2_off"] = st.get("tier_spawn_h2_off", 0) + 1
+        if CFG["sd_tier_spawn_h2"]:                # re-plan the hour-1 hires from the tiles they will really spawn on
+            for pass2_ in range(2):
+                sp1 = _sd_spawn(after1, want - k0)
+                units = [(0, f0, ft0)] + [(u + 1, q, 1) for u, q in enumerate(sp0)] + [
+                    (u + 1 + k0, q, 2) for u, q in enumerate(sp1)]
+                TP = _tier_core(S, L, st, day, tiles, _tier_copy.deepcopy(rec), units, want, t_start)
+                if 0 in TP["routes"]:
+                    TP["routes"][0]["t0"] = ft0
+                    if TP["routes"][0].get("kind") != "post":
+                        TP["routes"][0]["wt0"] = max(ft0, 1)
+                after1 = [_tier_walk(TP["routes"].get(0), f0, 2 - ft0)] + [
+                    _tier_walk(TP["routes"].get(u + 1), q, 1) for u, q in enumerate(sp0)]
+                st["tier_spawn_h2_replan"] = st.get("tier_spawn_h2_replan", 0) + 1
+                if _sd_spawn(after1, want - k0) == sp1:
+                    break
     TP["summary"]["spawn"] = [list(q) for q in sp0 + sp1]
     TP["wheat_buy"] = wbuy
     TP["summary"]["wheat_buy"] = wbuy

@@ -718,5 +718,83 @@
    "sd_tier_pen_bundle": 1
   },
   "label": "KB1 = KE7 + pen service stop (collect / care / feed join the keep-alive feed and due harvest as one mandatory stop per pen)"
+ },
+ "KW1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_water_exact": 1
+  },
+  "label": "KW1 = KE7 + extra waterings valued by engine rules (units x price + tomorrow labour)"
+ },
+ "KW2": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_h0_front": [
+    "WOOL",
+    "STRAWBERRY",
+    "MILK"
+   ],
+   "sd_h0_front_min": 5,
+   "sd_h0_front_n": 1,
+   "sd_h0_front_pos": 0,
+   "sd_h0_front_gain": 70.0,
+   "sd_tier_water_exact": 1
+  },
+  "label": "KW2 = KH0g (hour-0 sale gain rule) + waterings valued by engine rules"
+ },
+ "KB2": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_pen_bundle": 1,
+   "sd_tier_pen_bundle_collect": 0
+  },
+  "label": "KB2 = KB1 without the collect in the pen stop (feed / care / due harvest bundled; collects stay free for the fertilize pairing)"
+ },
+ "KS1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1
+  },
+  "label": "KS1 = KE7 + hour-1 hires planned from the shed tiles they really spawn on (re-plan when the plan's hour-1 positions change them)"
  }
 }
