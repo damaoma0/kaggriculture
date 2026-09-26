@@ -277,6 +277,9 @@ CFG = {
     "sd_tier_wheat": 0,       # 1: the day's feeds are bought at hour 0 when the shed lacks the wheat (first order); pickups wait for it
     "sd_tier_deliver": 0,     # 1: when the projected midnight dump will not fit the shed, the hands with the most valuable loads end their day at the shed (DROP, sold at once)
     "sd_tier_dump_buffer": 5,
+    "sd_tier_dump_fix": 0,    # 1 (2026-09-26, case world 112604454: hands carried 124-159 units into the midnight dump while the shed was empty): the executor skips a planned end-of-day DROP only when the PROJECTED midnight load (shed + carried + the units the routes still harvest today) fits, not the load at that hour
+    "sd_tier_copy_returns": 0,  # 1 (user 2026-09-26: copy how many hands go back to the shed to drop): the plan holds at least as many daytime shed deliveries as the leader made that day at hour >= 5 (results/fresh/threads_20260928/dsm_returns/<ep>.json), best load value per added hour, extras at a route end trimmed if needed
+    "sd_tier_copy_returns_from": 11,   # first day it applies
     "sd_tier_deliver_check": 0,   # 1: a planned delivery is skipped when shed + everything carried already fits at that hour
     "sd_tier_deliver_keep": None, # products a delivery does not sell at once (e.g. ["MILK"]: dearer the next morning) # units kept free in the shed at midnight beyond tomorrow's feed wheat (one per animal)
     "sd_tier_coll_cap": 0,    # >0: collects per hand; one more only when it is on the hand's way (no extra walking)
@@ -523,10 +526,30 @@ class Target:
 
 
 def configure(sem, **cfg):
-    global _T, _S
+    global _T, _S, _TGT_EP
     _T = Target(sem)
     _S = None
+    _TGT_EP = (sem.get("meta") or {}).get("episode")
+    _DSM_DATA.clear()
     CFG.update(cfg)
+
+
+_TGT_EP = None
+_DSM_DATA = {}
+
+
+def _dsm_data(kind):
+    """research copies only: per-episode leader data built by scripts/build_dsm_<kind>.py (None when missing)"""
+    if kind not in _DSM_DATA:
+        _DSM_DATA[kind] = None
+        try:
+            import json as _j
+            from pathlib import Path as _P
+            f = _P(__file__).resolve().parents[1] / "results/fresh/threads_20260928" / ("dsm_" + kind) / ("%s.json" % _TGT_EP)
+            _DSM_DATA[kind] = _j.loads(f.read_text(encoding="utf-8"))
+        except Exception:
+            _DSM_DATA[kind] = None
+    return _DSM_DATA[kind]
 
 
 def _new_state():
@@ -6773,8 +6796,14 @@ def _tier_deliver(S, segs, tiles, day, st):
     if CFG["sd_tier_turnaround"]:
         total = _tier_turn(segs, tiles, day, st, prices, room, total)
         loads = [_tier_load(sg, sg["stops"], tiles, day) for sg in segs]
+    total0 = total
+    target_ = 0
+    if CFG["sd_tier_copy_returns"] and day >= int(CFG["sd_tier_copy_returns_from"]):
+        dr_ = _dsm_data("returns")
+        target_ = int((((dr_ or {}).get("days") or {}).get(str(day)) or {}).get("hands", 0))
+    has_ = lambda sg: any(x.get("deliver") or x.get("turn") for x in sg["stops"])
     done = set()
-    while total > room:
+    while total > room or (target_ and sum(1 for sg in segs if has_(sg)) < target_):
         best = None
         for k, sg in enumerate(segs):
             if k in done or not loads[k]:
@@ -6809,6 +6838,8 @@ def _tier_deliver(S, segs, tiles, day, st):
         total -= sum(lk.values())
         st["tier_deliveries"] = st.get("tier_deliveries", 0) + 1
     st["tier_dump_left_over"] = st.get("tier_dump_left_over", 0) + max(0, total - room)
+    st["_dump_day"] = {"proj": total0, "room": room, "left": total, "target": target_,
+                       "with_delivery": sum(1 for sg in segs if has_(sg))}
 
 
 def _tier_melon(day, tiles, units):
@@ -7260,6 +7291,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["summary"]["after1"] = [list(q) for q in after1]     # diagnostics: the plan's unit positions at the hour-1 market
     TP["wheat_buy"] = wbuy
     TP["summary"]["wheat_buy"] = wbuy
+    TP["summary"]["dump"] = st.pop("_dump_day", None)
     TP["k0"] = k0
     TP["h0_front"] = front
     TP["summary"]["k0"] = k0
@@ -7659,7 +7691,7 @@ def _tier_cmd(TP, R, u, p, inv, tiles, day, hour, step, seeds_left, shed_left):
             continue
         v = _tier_check(c, t, inv, day, seeds_left)
         if v == "do" and c[0] == "DROP" and CFG["sd_tier_deliver_check"] and TP.get("_load_now") is not None:
-            if TP["_load_now"] <= 100 - int(CFG["sd_tier_dump_buffer"]):
+            if TP["_load_now"] + (int(TP.get("_harv_left", 0)) if CFG["sd_tier_dump_fix"] else 0) <= 100 - int(CFG["sd_tier_dump_buffer"]):
                 v = "skip"                             # the shed will hold everything at midnight: no delivery needed
                 cnt["deliver_skipped"] += 1
         if v == "do":
@@ -7701,6 +7733,16 @@ def _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, sh
     snap = {}
     TP["_load_now"] = sum(int(v or 0) for v in shed.values()) + sum(int(v or 0) for inv_ in invs for k_, v_ in (inv_ or {}).items()
                                                                   for v in [v_] if k_ in PRODUCTS)
+    if CFG["sd_tier_dump_fix"]:                    # units the routes still harvest today (they reach the midnight dump)
+        hl_ = 0
+        for R_ in TP["routes"].values():
+            for j_, it_ in enumerate(R_["items"][R_["k"]:]):
+                if it_.get("kind") != "stop":
+                    continue
+                ops_ = it_["ops"][R_["sub"]:] if j_ == 0 else it_["ops"]
+                if any(isinstance(c_, list) and c_ and c_[0] == "HARVEST" for c_ in ops_):
+                    hl_ += int((_tile(tiles, it_["tile"]) or {}).get("yield_units", 0) or 0) if isinstance(_tile(tiles, it_["tile"]), dict) else 0
+        TP["_harv_left"] = hl_
     if CFG["sd_tier_spawn_remap"] and not TP.get("_remapped"):
         late_ = sorted(u for u, R_ in TP["routes"].items() if R_.get("t0plan") == 2 and u > 0 and R_.get("k", 0) == 0)
         if late_ and all(u < len(pos) for u in late_):

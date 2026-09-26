@@ -28,7 +28,7 @@ import upkeep_engine as UE  # noqa: E402
 E = UE.engine()
 PRODS = tuple(sys.argv[sys.argv.index('--prods') + 1].split(',')) if '--prods' in sys.argv else ('STRAWBERRY', 'WOOL', 'MILK')
 STRATS = tuple(sys.argv[sys.argv.index('--strats') + 1].split(',')) if '--strats' in sys.argv else ('actual', 'books', 'books_cap', 'books_deliv')
-R = {'w': None, 'seat': 0, 't': 0, 'ev': None, 'mars': False, 'other': None, 'lost': None}
+R = {'w': None, 'seat': 0, 't': 0, 'ev': None, 'mars': False, 'other': None, 'lost': None, 'lostd': None}
 _commit, _drop = E._commit_unit, E._drop_inventories_to_shed
 
 
@@ -65,6 +65,7 @@ def drop(private, cap):
             lost = v - (private['shed'].get(kk, 0) - before.get(kk, 0))
             if lost > 0:
                 R['lost'][kk] += lost
+                R['lostd'][(R['t'], kk)] += lost
         return
     return _drop(private, cap)
 
@@ -75,7 +76,7 @@ E._commit_unit, E._drop_inventories_to_shed = commit, drop
 def play(tape, stream, market_fn=None, shed_fix=None, mars=False):
     w = UE.World(tape['seed'], tape['shops'])
     seat = tape['seat']
-    R.update(w=w, seat=seat, ev=[], mars=mars, other=Counter(), lost=Counter())
+    R.update(w=w, seat=seat, ev=[], mars=mars, other=Counter(), lost=Counter(), lostd=Counter())
     pre = {p: {} for p in PRODS}
     hands = {}
     while w.t < 719:
@@ -100,6 +101,7 @@ def play(tape, stream, market_fn=None, shed_fix=None, mars=False):
         acts[seat], acts[1 - seat] = own, UE.tape_action(tape['opp_actions'], t)
         w.step(acts)
     out = {'ev': list(R['ev']), 'pre': pre, 'other': Counter(R['other']), 'hands': hands, 'lost': Counter(R['lost']),
+           'lostd': Counter(R['lostd']),
            'money': (w.farms[seat]['money'], w.farms[1 - seat]['money'])}
     R['w'] = None
     return out
@@ -139,8 +141,16 @@ def world(g, arm):
             if nxt is not None:
                 run += nxt - A['pre'][p][t] + sold_a[(t, p)]
 
+    # 'infinite shed': the units the midnight overflow deleted in the arm's game become sellable from the next hour 0
+    avail_inf = {p: {} for p in PRODS}
+    for p in PRODS:
+        extra = 0
+        for t in range(264, 719):
+            extra += sum(v for (t2, p2), v in A['lostd'].items() if p2 == p and t2 == t - 1)
+            avail_inf[p][t] = avail[p][t] + extra
     # units in our shed by the market of step t (drops of step t come before its market; the midnight dump after it)
     avail2 = {p: {t: (avail[p][t + 1] if t % 24 != 23 and t + 1 in avail[p] else avail[p][t]) for t in avail[p]} for p in PRODS}
+    avail2i = {p: {t: avail2[p][t] + avail_inf[p][t] - avail[p][t] for t in avail[p]} for p in PRODS}
 
     def snap_targets(mode):
         """our units per (step, product) when every sale moves to an hour 1 / 5 / 9 / 13 / 17 / 21 (the hour right after a
@@ -201,16 +211,17 @@ def world(g, arm):
         def fn(t, orders, w, seat):
             if strategy == 'actual':
                 return capped(t, orders)
-            if strategy in ('pattern_tick', 'pattern_tick0'):
+            if strategy in ('pattern_tick', 'pattern_tick0', 'pattern_tick_inf'):
+                av2_ = avail2i if strategy.endswith('_inf') else avail2
                 h = t % 24
                 sold_us = Counter(e[2] for e in R['ev'] if e[1] == 'us')
                 out = capped(t, orders, skip=PRODS)
                 front = []
                 for p in PRODS:
                     if t == 718:
-                        q = avail2[p][t] - sold_us[p]
+                        q = av2_[p][t] - sold_us[p]
                     elif h % 4 == 1 or (strategy == 'pattern_tick0' and h == 0):
-                        q = min(pattern_target(p, t), avail2[p][t]) - sold_us[p]
+                        q = min(pattern_target(p, t), av2_[p][t]) - sold_us[p]
                     else:
                         q = 0
                     if q > 0:
@@ -239,18 +250,19 @@ def world(g, arm):
             keep = [o for o in orders if not (isinstance(o, list) and o and o[0] == 'SELL' and o[1] in PRODS)]
             lead = list(UE.tape_action(tape['actions'], t).get('market') or [])[:10]
             slots = {}
-            if strategy == 'books_deliv':
+            if strategy in ('books_deliv', 'books_deliv_inf'):
+                av_ = avail_inf if strategy.endswith('_inf') else avail
                 sold_us = Counter(e[2] for e in R['ev'] if e[1] == 'us')
                 done = set()
                 for i, o in enumerate(lead):
                     if isinstance(o, list) and o and o[0] == 'SELL' and o[1] in PRODS and sold_l[(t, o[1])] > 0 and o[1] not in done:
-                        q = min(cum_l[o[1]][t], avail[o[1]][t]) - sold_us[o[1]]
+                        q = min(cum_l[o[1]][t], av_[o[1]][t]) - sold_us[o[1]]
                         done.add(o[1])
                         if q > 0:
                             slots[i] = ['SELL', o[1], q]
                 if t == 718:                                   # the last executed step: sell whatever is left
                     for p in PRODS:
-                        n = avail[p][t] - sold_us[p] - sum(s[2] for s in slots.values() if s[1] == p)
+                        n = av_[p][t] - sold_us[p] - sum(s[2] for s in slots.values() if s[1] == p)
                         if n > 0:
                             slots[len(lead) + len(slots) + PRODS.index(p) + 20] = ['SELL', p, n]
             else:

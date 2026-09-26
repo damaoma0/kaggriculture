@@ -2674,5 +2674,80 @@
    }
   },
   "label": "KS1 (bank stop off) + the same abandonment floors (control)"
+ },
+ "KDF1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1
+  },
+  "label": "KDF1 = KS1fl + delivery check on the projected midnight load (sd_tier_dump_fix)"
+ },
+ "KDF2": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1
+  },
+  "label": "KDF2 = KDF1 + at least DSM's count of daytime shed deliveries (hour >= 5) every day"
+ },
+ "KDF3": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_copy_returns_from": 20
+  },
+  "label": "KDF3 = KDF2 from day 20 only"
  }
 }
