@@ -6812,12 +6812,13 @@ def _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, sh
                 if piles:
                     n_, k_ = max(piles)
                     fa_ = ["PICKUP", k_, n_]
+                    TP["hold_item"] = k_                   # only this pile is put back later (not his feed wheat)
                     TP["cnt"]["farmer_hold"] += 1
                     TP["cnt"]["farmer_hold_units"] += n_
         elif not CFG["sd_farmer_putback"] and any(int(v or 0) > 0 for k, v in inv0.items() if k in PRODUCTS):
             fa_ = ["DROP"]
             TP["h1_held"] = {k: int(v) for k, v in inv0.items() if k in PRODUCTS and int(v or 0) > 0}
-        elif CFG["sd_farmer_putback"] and any(int(v or 0) > 0 for k, v in inv0.items() if k in PRODUCTS):
+        elif CFG["sd_farmer_putback"] and TP.get("hold_item") and int(inv0.get(TP["hold_item"], 0) or 0) > 0:
             fa_ = ["PASS"]                             # hour 1: wait while the market sells the night's dump
         if fa_ is not None:
             actions[0] = fa_
@@ -6825,7 +6826,8 @@ def _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, sh
     if (CFG["sd_farmer_hold_excess"] and CFG["sd_farmer_putback"] and actions and tuple(pos[0]) in SHED
             and 2 <= hour <= 5):
         inv0 = invs[0] if invs else {}
-        held = [(int(v or 0), k) for k, v in inv0.items() if k in PRODUCTS and int(v or 0) > 0]
+        hk_ = TP.get("hold_item")
+        held = [(int(inv0.get(hk_, 0) or 0), hk_)] if hk_ and int(inv0.get(hk_, 0) or 0) > 0 else []
         if held:
             n_, k_ = max(held)
             room_ = 100 - sum(int(v or 0) for v in shed.values())
