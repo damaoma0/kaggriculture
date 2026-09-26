@@ -129,6 +129,14 @@ ARMS = {
     'M2i': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
                       sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
                       sd_hv_pref=HVM_MEL, sd_hp_parity=1, sd_coop_place=1, sd_coop_by=19, sd_idle_v2=1, **SHIP)),
+    # M_decay (user, one world): M + the decay item of sd_hv_pref exactly as in S11cg (HVM = decay 500 + M's melon entry)
+    'M_decay': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                          sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                          sd_hv_pref=HVM, sd_hp_parity=1, **SHIP)),
+    # M_once (user, one world): M_decay + plan once in the morning, frozen routes, local repairs on breakage only
+    'M_once': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                         sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                         sd_hv_pref=HVM, sd_hp_parity=1, sd_plan_once=1, sd_once_evals=48000, **SHIP)),
     # the same two arms under the shipping build's wall-clock caps (0.75 / 0.6 / 0.8 s; evaluation budgets unchanged)
     'Mship': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
                         sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
@@ -171,6 +179,8 @@ LABEL = {
     'M_idle': 'M_idle: M + idle fill (a water on a dry plant worth 40, idle hands deliver fertilizer)',
     'M2': 'M2: M + any hand on its empty coop with the goose places it + the coop/goose job due by h19 (then by day end)',
     'M2a': 'M2a: M + any hand on its empty coop with the goose places it',
+    'M_once': 'M_once: M_decay + each hand planned once in the morning (48k evals), then only local repairs (job gone, new must-do or job, empty route)',
+    'M_decay': 'M_decay: M + the harvest decay bonus 500 (a one-time crop decaying from tomorrow is harvested today), as in S11cg',
     'M2i': 'M2i: M2 + idle fill v2 (idle hands only: same-day delivery, then the nearest dry plant in the home quadrant)',
     'Mship': 'Mship: M under the shipping wall-clock caps 0.75 / 0.6 / 0.8 s',
     'M_idleship': 'M_idleship: M_idle under the shipping wall-clock caps 0.75 / 0.6 / 0.8 s',
@@ -210,6 +220,10 @@ def stream_job(args):
             L_ = (getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}
             r['sectors'] = {d: v for d, v in (L_.get('sector_log') or {}).items() if d in ('11', '12')}
             r['sector_changes'] = [c for c in (L_.get('sector_changes') or []) if 264 <= c[0] < 312]
+        if cfg.get('sd_plan_once') and _MODS:    # plan once: the morning plan steps and every repair [step, unit, reason, tile, key]
+            L_ = (getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}
+            r['once_steps'] = L_.get('once_steps') or []
+            r['repairs'] = [x for x in (L_.get('repairs') or []) if 264 <= x[0] < 312]
         if cfg.get('sd_plan_log') and _MODS:     # the viewer's plan overlay: each hand's planned job tiles on every change
             L_ = (getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}
             r['plan'] = {s_: v for s_, v in (L_.get('plan_log') or {}).items() if 264 <= int(s_) < 312}

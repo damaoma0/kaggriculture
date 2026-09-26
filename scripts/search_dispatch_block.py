@@ -80,6 +80,9 @@
 # sd_idle_v2 (idle fill v2, user rules): only a unit with an empty planned route, outside route insertion, no values:
 # its sellable stock + fertilizer to the shed while a same-day sale is possible, else the nearest dry unplanned plant
 # in its home quadrant.
+# sd_plan_once (user, M_once): one full-day plan per unit at the first step from h1 with all of the day's hires on the
+# board (sd_once_evals evaluations); afterwards the routes are frozen: no search, no reassignment; repairs are local
+# and logged (L["repairs"]): a job gone / infeasible, a new must-do or new job inserted, an empty route refilled.
 # sd_coop_by: the PLACE's hard deadline hour while that hour is ahead (the day end once it has passed): slack before the
 # survival fallback. sd_coop_place: in hook 3 any unit standing on its empty structure with the animal places it.
 # (radial corridors, user design) sd_corr_w: each unit's angular corridor around the shed (equal work, by spawn angle,
@@ -1818,6 +1821,71 @@ def _sd_search(P, rng, t_end, evals_max):
     return it, rr_t, rr_a, capped
 
 
+def _sd_once_repair(P, L, ctx, prev, t_end):
+    """sd_plan_once after the morning plan: the warm start kept every unit's own route (no re-optimisation, no
+    reassignment); log what it dropped, then repair locally: (a) a planned job gone (its task vanished while the unit is
+    not on the tile, i.e. not completed by it) or dropped as infeasible (input missing, stock, day end); (b) a new
+    must-do (hard: a plant dying / an animal escaping tonight) or a job that did not exist at the previous step (a ripe
+    melon, a replant, a structure's next part): best local insertion, nothing removed; (c) a unit with an empty route:
+    its nearest open jobs appended (up to 3). Every repair: L["repairs"] [step, unit, reason, tile, key]."""
+    step, pos = int(ctx["step"]), ctx["pos"]
+    log = L.setdefault("repairs", [])
+    st = L["st"]
+    D = P.d
+
+    def rec(u, reason, j=None, tile=None, key=None):
+        log.append([step, int(u), reason, int(P.jb[j][0]) if j is not None else tile,
+                    str(P.key[j]) if j is not None else key])
+        st["repair_" + reason] = st.get("repair_" + reason, 0) + 1
+    for u, keys in (prev or {}).items():
+        if u >= P.U:
+            continue
+        kept = set(P.key[j] for j in P.routes[u])
+        for i, k in enumerate(keys):
+            j = P.kidx.get(k)
+            if j is None and isinstance(k, tuple):
+                j = P.kidx.get(k[1])
+                if j is None:
+                    j = P.kidx.get(("P", k[1]))
+            tile = k[1] if isinstance(k, tuple) else k
+            if j is None:
+                p_ = tuple(pos[u]) if u < len(pos) else None
+                if not (i == 0 and p_ is not None and p_[1] * 10 + p_[0] == tile):
+                    rec(u, "gone", tile=tile, key=str(k))        # (a) the task vanished, not completed by this unit
+            elif P.where[j] != u and P.key[j] not in kept:
+                rec(u, "infeasible", j)                           # (a) dropped by the warm start's feasibility repair
+    old = L.get("once_keys") or set()
+    pool = [j for j in range(P.J) if P.where[j] < 0 and (P.hard[j] or P.key[j] not in old)]
+    if pool:
+        before = set(j for j in pool if P.where[j] < 0)
+        _sd_insert_many(P, pool, None, 0.0, t_end)
+        for j in before:
+            if P.where[j] >= 0:
+                rec(P.where[j], "must_do" if P.hard[j] else "new_job", j)
+    for u in range(P.n_real):
+        if P.ue[u] < 0 or P.routes[u]:
+            continue
+        added = 0
+        while added < 3:
+            at = P.up[u] if not P.routes[u] else P.jb[P.routes[u][-1]][0]
+            cand = sorted((D[at][P.jb[j][0]], j) for j in range(P.J) if P.where[j] < 0 and P.real[j])
+            done = False
+            for d_, j in cand[:12]:
+                if not _sd_seed_ok(P, j):
+                    continue
+                nr = P.routes[u] + [j]
+                ev = _sd_eval(P, u, nr)
+                if ev[0] and ev[1] > P.rsc[u] + 1e-6:
+                    _sd_commit(P, u, nr, ev)
+                    rec(u, "empty_route", j)
+                    added += 1
+                    done = True
+                    break
+            if not done:
+                break
+    _sd_fix_pairs(P, range(P.U))
+
+
 def _sd_step(S, L, ctx):
     """one planning run. Returns None (the greedy acts for everyone) or {P, units, first, claimed}."""
     st = L["st"]
@@ -1834,6 +1902,12 @@ def _sd_step(S, L, ctx):
     first = L.pop("first_of_day", False) or not L["routes"]
     budget = CFG["sd_budget0"] if first else CFG["sd_budget"]
     evals = CFG["sd_evals0"] if first else CFG["sd_evals"]
+    once = bool(CFG["sd_plan_once"])
+    frozen = once and L.get("frozen_day") == day
+    once_now = (once and not frozen and hour >= 1
+                and (len(ctx["pos"]) - 1 >= _sd_want_hands(day) or hour >= 2))   # the day's hires are all on the board
+    if once_now:
+        budget, evals = max(CFG["sd_budget0"], budget), int(CFG["sd_once_evals"])
     if _SD_T:
         budget = min(budget, CFG["sd_step_cap"] - (time.time() - _SD_T[0]))
     budget = max(0.005, budget)
@@ -1868,7 +1942,16 @@ def _sd_step(S, L, ctx):
         else:
             _sd_construct(P)
         P.obj_start = _sd_obj(P)
-        it, rr_t, rr_a, capped = _sd_search(P, rng, t_end, evals)
+        if frozen:                                 # plan once: frozen routes, local repairs on breakage only
+            it, rr_t, rr_a, capped = 0, 0, 0, False
+            _sd_once_repair(P, L, ctx, prev, t_end)
+        else:
+            it, rr_t, rr_a, capped = _sd_search(P, rng, t_end, evals)
+        if once_now:
+            L["frozen_day"] = day
+            L.setdefault("once_steps", []).append(int(step))
+        if once:
+            L["once_keys"] = set(P.key)
         L["routes"] = {u: [P.key[j] for j in P.routes[u]] for u in range(P.U) if P.routes[u]}
     except Exception as exc:
         st["errors"] += 1
