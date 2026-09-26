@@ -87,7 +87,7 @@ def held(w, seat):
                 continue
             src = x.get('animal') or x.get('crop')
             for p in PRODS:
-                if src == SRC[p]:
+                if src == SRC.get(p):
                     tiles[p] += int(x.get('yield_units', 0) or 0)
                     herd[p] += 1
     carried = Counter()
