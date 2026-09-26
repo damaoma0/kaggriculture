@@ -1,6 +1,6 @@
 
-| game (team) | leader cash | ok | T cash | ok | spot-check (leader/T eff,harv,plant,sold,rev) | x avail | x handoff | x cash (d11/12/13) | fhmrp avail | fhmrp handoff | fhmrp cash (d11/12/13) | c3f80 avail | c3f80 handoff | c3f80 cash (d11/12/13) | w3a avail | w3a handoff | w3a cash (d11/12/13) | w4a avail | w4a handoff | w4a cash (d11/12/13) | w4b avail | w4b handoff | w4b cash (d11/12/13) |
-|---|---:|---|---:|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| 112661570 (DSM) | 107042 (107042) | OK | 99626 (99626) | OK | OK/OK | False | - | - | False | - | - | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK |
-| 112673479 (DSM) | 103786 (103786) | OK | 79932 (79932) | OK | OK/OK | False | - | - | False | - | - | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK |
-| 112444381 (UMG) | 158088 (158088) | OK | 141444 (141444) | OK | OK/OK | False | - | - | False | - | - | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK |
+| game (team) | leader cash | ok | T cash | ok | spot-check (leader/T eff,harv,plant,sold,rev) | x avail | x handoff | x cash (d11/12/13) | fhmrp avail | fhmrp handoff | fhmrp cash (d11/12/13) | c3f80 avail | c3f80 handoff | c3f80 cash (d11/12/13) | p1 avail | p1 handoff | p1 cash (d11/12/13) | p2 avail | p2 handoff | p2 cash (d11/12/13) | r1c1 avail | r1c1 handoff | r1c1 cash (d11/12/13) | x3f50 avail | x3f50 handoff | x3f50 cash (d11/12/13) |
+|---|---:|---|---:|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 112661570 (DSM) | 107042 (107042) | OK | 99626 (99626) | OK | OK/OK | False | - | - | False | - | - | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK |
+| 112673479 (DSM) | 103786 (103786) | OK | 79932 (79932) | OK | OK/OK | False | - | - | False | - | - | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK |
+| 112444381 (UMG) | 158088 (158088) | OK | 141444 (141444) | OK | OK/OK | False | - | - | False | - | - | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK | True | True | OK/OK/OK |

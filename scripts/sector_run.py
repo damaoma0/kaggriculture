@@ -191,6 +191,22 @@ ARMS = {
     'W3b': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'])),
     # fertilize wheat / carrots at age 1-2 (or 2 only) and harvest fertilized wheat at age 3 (user, 2026-09-28)
     'W4a': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5, sd_fert_ages={'WHEAT': [1, 2], 'CARROT': [1, 2]})),
+    # collect on the way out (user cycle) on top of W4a: threshold sweep 1 / 3 / 6 fertilizer carried
+    **{f'X1t{k}': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5,
+                            sd_fert_ages={'WHEAT': [1, 2], 'CARROT': [1, 2]}, sd_path_collect=k)) for k in (1, 3, 6)},
+    # X1t6 with a smaller charged fertilizer price for the wheat / carrot fertilize jobs (user: smaller value): sweep
+    **{f'X2f{int(f * 100):02d}': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5,
+                            sd_fert_ages={'WHEAT': [1, 2], 'CARROT': [1, 2]}, sd_path_collect=6, sd_fert_frac=f))
+       for f in (0.5, 0.25, 0.0)},
+    # each hand carries what its trip needs: the shed keeps today's fertilize need at the morning sale (sd_fert_sell 2)
+    **{f'X3f{int(f * 100):02d}': (SEC, dict(ARMS_C3F80, sd_fert_sell=2, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5,
+                            sd_fert_ages={'WHEAT': [1, 2], 'CARROT': [1, 2]}, sd_path_collect=6, sd_fert_frac=f))
+       for f in (1.0, 0.5)},
+    # radial (user): animal feed / care / collect spread over every hand's way out: cap sweep 1 / 2 / 3 on C3f80
+    **{f'R1c{k}': (SEC, dict(ARMS_C3F80, sd_animal_cap=k)) for k in (1, 2, 3)},
+    # late-season plantings (the leader plants 25-37 wheat on days 26-27): cutoff off / cutoff only where the leader never harvests
+    'P1': (SEC, dict(ARMS_C3F80, plant_cutoff={})),
+    'P2': (SEC, dict(ARMS_C3F80, cut_mode='leader_harvest')),
     'W4b': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5, sd_fert_ages={'WHEAT': [2, 2], 'CARROT': [1, 2]})),
     'W3c': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5,
                       sd_hv_pref=dict(HVM, WHEAT={'ages': [[12, 29, 3, 3]], 'bonus': 40.0}))),
@@ -253,6 +269,12 @@ LABEL = {
     'C3n': 'C3n: C2n + collect before leaving an animal tile',
     'W3a': 'W3a: C3f80 + fertilized wheat harvested from age 3 (5 units) and replanted',
     'W3b': 'W3b: C3f80 + every wheat harvested from age 3 (tendency)',
+    **{f'X1t{k}': f'X1t{k}: W4a + collect on the way out while carrying < {k} fertilizer' for k in (1, 3, 6)},
+    **{f'X2f{int(f * 100):02d}': f'X2f{int(f * 100):02d}: X1t6 + wheat/carrot fertilize charged at {f:.2f} x the fertilizer price' for f in (0.5, 0.25, 0.0)},
+    **{f'X3f{int(f * 100):02d}': f'X3f{int(f * 100):02d}: X2 at {f:.2f} + the shed keeps the day fertilize need (trip-start pickups)' for f in (1.0, 0.5)},
+    **{f'R1c{k}': f'R1c{k}: C3f80 + radial animals (at most {k} animal jobs a hand, on the way out)' for k in (1, 2, 3)},
+    'P1': 'P1: C3f80 + no late-season planting cutoff',
+    'P2': 'P2: C3f80 + cutoff only for plantings the leader never harvests',
     'W4a': 'W4a: W3a + wheat / carrots fertilized at age 1-2 only',
     'W4b': 'W4b: W3a + wheat fertilized at age 2 only (carrots 1-2)',
     'W3c': 'W3c: W3a + age-3 wheat harvest bonus 40',

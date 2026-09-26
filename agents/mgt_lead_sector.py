@@ -219,6 +219,10 @@ CFG = {
     "sd_once_steal": 0,       # plan once, repair (c): an empty-route unit takes the nearest job it can start earlier than its holder
     "sd_fert_first": 0,       # the maintenance jobs gain FERTILIZE on the first day it adds units (fertilizer in hand / shed)
     "sd_fert_frac": None,     # applying fertilizer is charged at this fraction of its price (None = the module's own)
+    "sd_animal_cap": 0,       # radial (user): at most this many animal jobs (feed / care / collect) in one hand's route (0 = off)
+    "sd_animal_cap_w": 200.0, # coins per animal job above the cap
+    "sd_animal_late_w": 20.0, # coins per animal job placed after the route's first patch job (animals on the way out)
+    "sd_path_collect": 0,     # >0: a planned unit carrying less fertilizer than this steps onto an animal with fertilizer on a shortest path to its next job (collect on the way out)
     "sd_finish_collect": 0,   # 1: a unit about to walk off (or pass on) an animal tile whose fertilizer is still available collects it first (one visit per tile)
     "sd_fert_ret": 0,         # 1 (user cycle): a unit delivering goods at the shed DROPs everything (its unused fertilizer goes back and is sold) when its remaining route has no FERTILIZE (and no FEED while it carries wheat) and it carries no animal
     "sd_fert_ages": None,     # {crop: [age_lo, age_hi]}: the first-useful-day FERTILIZE rule only at these ages (e.g. wheat [1, 2])
@@ -1237,7 +1241,8 @@ def agent(obs, config=None):
     fert_keep = fert_short or (CFG["fert_hold"] == 1 and demand.get("FERTILIZER", 0) > 0) or CFG["fert_hold"] == 2
     if CFG["sd_fert_sell"]:
         fert_keep = True                  # sd_fert_sell: collected fertilizer is applied, never walked back to the shed
-        shed_left["FERTILIZER"] = 0       # ... and never picked up from the shed (the shed's stock is sold)
+        if CFG["sd_fert_sell"] == 1:
+            shed_left["FERTILIZER"] = 0   # ... and never picked up from the shed (the shed's stock is sold)
     if CFG["fert_release"] and CFG["fert_hold"] == 1 and not fert_short:
         fert_keep = demand.get("FERTILIZER", 0) >= carried.get("FERTILIZER", 0)    # xfix: only the surplus is deliverable
 
@@ -2534,6 +2539,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     reserve["FERTILIZER"] = max(0, demand.get("FERTILIZER", 0) + tomorrow - carried.get("FERTILIZER", 0))
     if CFG["sd_fert_sell"]:
         reserve["FERTILIZER"] = 0         # sd_fert_sell: no fertilizer kept in the shed
+        if CFG["sd_fert_sell"] == 2:     # 2: keep only what today's fertilize jobs still need (picked up at trip start)
+            reserve["FERTILIZER"] = max(0, demand.get("FERTILIZER", 0) - carried.get("FERTILIZER", 0))
     if endgame:
         reserve = Counter()
     # sell following the target's cumulative sold units
@@ -2554,7 +2561,7 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             else:
                 quota = T.cum_sold[d].get(p, 0) - S["sold"][p]
             if CFG["sd_fert_sell"] and p == "FERTILIZER":
-                quota = have                  # sd_fert_sell: everything in the shed, now
+                quota = have                  # sd_fert_sell: everything in the shed (above the reserve), now
             n = min(have, quota)
         if n > 0:
             sells.append(["SELL", p, int(n)])
@@ -3460,7 +3467,7 @@ def _sd_build(S, L, ctx):
     # shed stock shared by the routes (wheat: + the executor's feed buy of this step, in the shed next step)
     dw = max(0, int(ctx["demand"].get("WHEAT", 0)) - int(carried.get("WHEAT", 0)) - int(shed.get("WHEAT", 0)))
     P.avw = int(shed.get("WHEAT", 0)) + dw
-    P.avf = 0 if CFG["sd_fert_sell"] else int(shed.get("FERTILIZER", 0))   # sd_fert_sell: no fertilizer pickups
+    P.avf = 0 if CFG["sd_fert_sell"] == 1 else int(shed.get("FERTILIZER", 0))   # sd_fert_sell 1: no fertilizer pickups
     P.ava = [int(shed.get(s, 0)) for s in _SD_SP]
     pf_price = float(prices.get("FERTILIZER", 0) or 0)
     last = E - 1
@@ -3715,6 +3722,7 @@ def _sd_build(S, L, ctx):
             S["log"]["sd_pair_error"] += 1
     P.key, P.jb, P.ops, P.real, P.cropi, P.net, P.hard, P.vraw, P.kidx = (
         keys, JB, OPS, REAL, CROPI, NET, HARD, VRAW, kidx)
+    P.anim = [any(o[0] in ("FEED", "CARE", "COLLECT_FERTILIZER") for o in ops_) for ops_ in OPS]   # radial: animal jobs
     J = len(keys)
     P.J = J
     P.succ = [-1] * J
@@ -4108,7 +4116,21 @@ def _sd_eval1(P, u, r, aw_ok, af_ok):
     if P.lastday and t + P.ds[prev] + 1 > E:
         return _SD_FAILS["lastday"]
     te = t if t < E else E
-    return (True, val - P.lam * (te - t0) - sw, t, pw, pf, pa, kp, npk, fin)
+    pen = 0.0
+    if CFG.get("sd_animal_cap") and r:
+        # radial (user): the central animals' feed / care / collect ride on every hand's way out -- at most
+        # sd_animal_cap animal jobs a route, and animal jobs after the first patch job cost sd_animal_late_w each
+        na_ = late_ = 0
+        seen_ = False
+        for j_ in r:
+            if P.anim[j_]:
+                na_ += 1
+                late_ += 1 if seen_ else 0
+            else:
+                seen_ = True
+        pen = (float(CFG.get("sd_animal_cap_w", 200.0)) * max(0, na_ - int(CFG["sd_animal_cap"]))
+               + float(CFG.get("sd_animal_late_w", 0.0)) * late_)
+    return (True, val - P.lam * (te - t0) - sw - pen, t, pw, pf, pa, kp, npk, fin)
 
 
 def _sd_obj(P):
@@ -5267,6 +5289,34 @@ def _sd_post(S, run, obs, me, step, day, hour, last_day, tiles, pos, tasks, assi
             CFG["hire_extra"] = int((hp["k0"] if hour == 0 else hp["k"]) - _T.hands[min(day, _T.n - 1)])
         elif "hire_extra0" in L:
             CFG["hire_extra"] = L["hire_extra0"]
+        if CFG.get("sd_path_collect") and actions and run.get("P") is not None and run.get("active"):
+            # user cycle: collect on the way out -- a planned unit carrying less fertilizer than sd_path_collect steps onto
+            # an animal with fertilizer available when that tile is on a shortest path to its next job (no detour); the
+            # collect-before-leaving rule then collects it, and the next plan can give it fertilize jobs
+            P_ = run["P"]
+            invs_ = ((obs.get("private") or {}).get("inventories") or []) if isinstance(obs, dict) else []
+            for u_ in range(min(len(pos), len(actions), len(invs_))):
+                a_ = actions[u_]
+                if not (isinstance(a_, list) and a_ and a_[0] in ("NORTH", "SOUTH", "EAST", "WEST")):
+                    continue
+                if int((invs_[u_] or {}).get("FERTILIZER", 0) or 0) >= int(CFG["sd_path_collect"]):
+                    continue
+                if u_ >= len(P_.routes) or not P_.routes[u_]:
+                    continue
+                ti_ = P_.jb[P_.routes[u_][0]][0]
+                tg_ = (ti_ % 10, ti_ // 10)
+                p_ = tuple(pos[u_])
+                dc_ = _dist(p_, tg_)
+                for dx_, dy_, mv_ in ((0, -1, "NORTH"), (0, 1, "SOUTH"), (1, 0, "EAST"), (-1, 0, "WEST")):
+                    q_ = (p_[0] + dx_, p_[1] + dy_)
+                    if not (0 <= q_[0] < 10 and 0 <= q_[1] < 10) or _dist(q_, tg_) >= dc_:
+                        continue
+                    t2_ = _tile(tiles, q_[1] * 10 + q_[0])
+                    if isinstance(t2_, dict) and t2_.get("animal") and t2_.get("fertilizer_available"):
+                        if mv_ != a_[0]:
+                            actions[u_] = [mv_]
+                            st["path_collect"] = st.get("path_collect", 0) + 1
+                        break
         if CFG.get("sd_finish_collect") and actions:
             # one visit per tile (user): a unit about to walk off an animal tile whose fertilizer is still there collects it first
             for u_ in range(min(len(pos), len(actions))):
@@ -5531,7 +5581,7 @@ def _sd_fert_first(ns, obs, player, jobs, k):
         return jobs
     farm = obs["farms"][player]
     priv = obs.get("private") or {}
-    avail = 0 if CFG.get("sd_fert_sell") else int((priv.get("shed") or {}).get("FERTILIZER", 0) or 0)   # sd_fert_sell: hands only
+    avail = 0 if CFG.get("sd_fert_sell") == 1 else int((priv.get("shed") or {}).get("FERTILIZER", 0) or 0)   # sd_fert_sell 1: hands only
     avail += sum(int((i or {}).get("FERTILIZER", 0) or 0) for i in (priv.get("inventories") or []))
     have = set(tuple(j["tile"]) for j in jobs if j.get("cmd") == "FERTILIZE")
     avail -= len(have)
@@ -5560,9 +5610,15 @@ def _sd_fert_first(ns, obs, player, jobs, k):
             p1 = ns["sm_tile_plan"](crop, st, day, hour, price, inp, True, fh, vc)
             p0 = ns["sm_tile_plan"](crop, st, day, hour, price, inp, False, fh, vc)
             du = int(p1["units"]) - int(p0["units"])
+            lg_ = _S["log"] if _S is not None else None
+            if lg_ is not None and crop == "WHEAT":
+                lg_["ffw_seen"] += 1
+                lg_["ffw_du0" if du <= 0 else ("ffw_val0" if du * price - inp <= 0 else "ffw_ok")] += 1
             if du > 0 and du * price - inp > 0:
                 cand.append((du * price - inp, x, y, crop, du, price, prod))
     cand.sort(reverse=True)
+    if _S is not None:
+        _S["log"]["ffw_capped"] += max(0, sum(1 for c_ in cand if c_[3] == "WHEAT") - sum(1 for c_ in cand[:avail] if c_[3] == "WHEAT"))
     for v, x, y, crop, du, price, prod in cand[:avail]:
         jobs.append({"tile": (x, y), "cmd": "FERTILIZE", "value": round(v, 1), "deadline": 23,
                      "needs": {"FERTILIZER": 1}, "reason": "fertilised yield +%d (first day it pays)" % du,
