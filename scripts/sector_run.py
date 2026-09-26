@@ -148,6 +148,14 @@ ARMS = {
     'F1': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
                      sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
                      sd_hv_pref=HVM, sd_hp_parity=1, mj_fertilize=True, **SHIP)),
+    # F3 (user, days 11-14): F1 + FERTILIZE on the first day it adds units; H1 (user, day 11, world 112673479): M_decay +
+    # hard ops cost 30 an hour after h16 + a hard job nobody can take ejects the least-value non-hard jobs
+    'F3': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                     sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                     sd_hv_pref=HVM, sd_hp_parity=1, mj_fertilize=True, sd_fert_first=1, **SHIP)),
+    'H1': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                     sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                     sd_hv_pref=HVM, sd_hp_parity=1, sd_hard_late_w=30.0, sd_hard_safe=16, sd_hard_eject=1, **SHIP)),
     # the same two arms under the shipping build's wall-clock caps (0.75 / 0.6 / 0.8 s; evaluation budgets unchanged)
     'Mship': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
                         sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
@@ -190,6 +198,8 @@ LABEL = {
     'M_idle': 'M_idle: M + idle fill (a water on a dry plant worth 40, idle hands deliver fertilizer)',
     'M2': 'M2: M + any hand on its empty coop with the goose places it + the coop/goose job due by h19 (then by day end)',
     'M2a': 'M2a: M + any hand on its empty coop with the goose places it',
+    'F3': 'F3: F1 + fertilize on the first day it adds units (fertilizer in hand or shed), days 11-14',
+    'H1': 'H1: M_decay + survival ops cost 30 an hour after h16 + hard jobs eject the least-value others',
     'M_once2': 'M_once2: M_once + an idle hand takes the nearest job it can start before its holder (limited reassignment)',
     'M_decay14': 'M_decay14: M_decay played days 11-14 (for the fertilizer comparison)',
     'F1': 'F1: M_decay + fertilizer charged at 0 in the maintenance module (fertilize by the extra units), days 11-14',

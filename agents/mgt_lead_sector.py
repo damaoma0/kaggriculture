@@ -217,6 +217,7 @@ CFG = {
     "sd_plan_once": 0,        # plan each unit's route once (first step from h1 with all hires on board), then local repairs only
     "sd_once_evals": 48000,   # evaluations for that one morning plan
     "sd_once_steal": 0,       # plan once, repair (c): an empty-route unit takes the nearest job it can start earlier than its holder
+    "sd_fert_first": 0,       # the maintenance jobs gain FERTILIZE on the first day it adds units (fertilizer in hand / shed)
     "sd_plan_log": 0,         # viewer: log each hand's planned job tiles (route order) on every change (L["plan_log"])
     "sd_early_animal": 0,     # a BUILD job's animal is bought while its tile still waits for the crop harvest
     "sd_seed_fix": 0,         # the warm start drops plantings the seeds held no longer cover (the plan never over-commits seeds)
@@ -5392,3 +5393,68 @@ def _sd_step_end(step, t_entry):
     if step >= 718:
         _sd_flush(S, True)
 # ===== END SEARCH DISPATCH BLOCK =============================================================
+
+
+# ---- sd_fert_first (user, F3): FERTILIZE on the first day it adds units, not the last -------------------------------
+# The maintenance module emits FERTILIZE only when today is the last day it still pays, timed against its own harvest
+# day; our executor harvests / replants on the leader's (earlier) schedule, so the deferred day rarely comes. With the
+# flag the module's job list also gets FERTILIZE for every unfertilized plant whose fertilizer-free plan makes more
+# units than its no-fertilizer plan, while fertilizer is in hand or in the shed (the highest gains first, at most as
+# many as the fertilizer held). The host's _sm() is wrapped here (the block is appended after it); off = unchanged.
+_SD_SM_ORIG = _sm
+
+
+def _sd_fert_first(ns, obs, player, jobs, k):
+    step = int(obs["step"])
+    day, hour = divmod(step, 24)
+    if day >= ns["SM_LAST_DAY"]:
+        return jobs
+    farm = obs["farms"][player]
+    priv = obs.get("private") or {}
+    avail = int((priv.get("shed") or {}).get("FERTILIZER", 0) or 0)
+    avail += sum(int((i or {}).get("FERTILIZER", 0) or 0) for i in (priv.get("inventories") or []))
+    have = set(tuple(j["tile"]) for j in jobs if j.get("cmd") == "FERTILIZE")
+    avail -= len(have)
+    if avail <= 0:
+        return jobs
+    pr = ns["_sm_prices"](obs, k.get("prices"))
+    fh, vc = k.get("future_hour", 8), k.get("visit_cost", 0.0)
+    cand = []
+    for y, row in enumerate(farm["tiles"]):
+        for x, t in enumerate(row):
+            if not (isinstance(t, dict) and t.get("kind") == "PLANT") or (x, y) in have:
+                continue
+            crop = t.get("crop")
+            if crop not in ns["SM_CROPS"] or int(t.get("fertilized_until_day", -1) or -1) >= day:
+                continue
+            prod = ns["_sm_product"](crop)
+            price = float(pr.get(prod, ns["SM_BASE_PRICE"][prod]))
+            st = ns["_sm_state"](crop, t)
+            p1 = ns["sm_tile_plan"](crop, st, day, hour, price, 0.0, True, fh, vc)
+            p0 = ns["sm_tile_plan"](crop, st, day, hour, price, 0.0, False, fh, vc)
+            du = int(p1["units"]) - int(p0["units"])
+            if du > 0:
+                cand.append((du * price, x, y, crop, du, price, prod))
+    cand.sort(reverse=True)
+    for v, x, y, crop, du, price, prod in cand[:avail]:
+        jobs.append({"tile": (x, y), "cmd": "FERTILIZE", "value": round(v, 1), "deadline": 23,
+                     "needs": {"FERTILIZER": 1}, "reason": "fertilised yield +%d (first day it pays)" % du,
+                     "kind": "bonus", "order": 0, "units": du, "product": prod, "price": price, "asset": crop})
+    return jobs
+
+
+def _sm():
+    ns = _SD_SM_ORIG()
+    if CFG.get("sd_fert_first") and ns is not None and not ns.get("_sd_ff"):
+        orig = ns["maintenance_jobs"]
+
+        def maintenance_jobs(obs, player, *a, **k):
+            jobs = orig(obs, player, *a, **k)
+            try:
+                return _sd_fert_first(ns, obs, player, jobs, k)
+            except Exception:
+                return jobs
+        ns["maintenance_jobs"] = maintenance_jobs
+        ns["_sd_ff"] = True
+    return ns
+
