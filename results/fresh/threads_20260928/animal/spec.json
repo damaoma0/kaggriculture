@@ -537,5 +537,96 @@
    "sd_evening_frac": 0.5
   },
   "label": "KU2 = KE7 + half of it at hours 20-23"
+ },
+ "KP1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_pen_round": 1
+  },
+  "label": "KP1 = KE7 + morning pen round (near-shed pens with a due harvest first, product into the shed)"
+ },
+ "KP2": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_pen_round": 1,
+   "sd_tier_pen_min": 3
+  },
+  "label": "KP2 = KP1 + near-shed pens holding >= 3 join the round"
+ },
+ "KP3": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_turn_plan": 1,
+   "sd_tier_turn_hour": 18
+  },
+  "label": "KP3 = KE7 + planned midday shed stop after the harvest leg (by h18, detour <= 2, >= 4 units)"
+ },
+ "KP4": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_pass_drop": 1
+  },
+  "label": "KP4 = KE7 + drop goods whenever the path crosses a shed tile"
+ },
+ "KP5": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_pen_round": 1,
+   "sd_tier_pen_min": 3,
+   "sd_tier_turn_plan": 1,
+   "sd_tier_turn_hour": 18,
+   "sd_tier_pass_drop": 1
+  },
+  "label": "KP5 = KE7 + pen round (min 3) + midday shed stop + pass drop"
  }
 }

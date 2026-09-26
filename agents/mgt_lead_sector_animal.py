@@ -274,6 +274,12 @@ CFG = {
     "sd_tier_anim_c_minv": 0.0,   # ... only bundles worth at least this (coins)
     "sd_tier_anim_c_mult": 1.0,   # ... their value multiplied by this in that pool
     "sd_tier_anim_mand_minv": None,  # FEED / CARE of a live animal become mandatory (tier B) when their joint value >= this
+    "sd_tier_pen_round": 0,   # 1 (user 2026-09-26, learned from DSM): a hand whose mandatory route holds animal harvests within sd_tier_pen_radius of the shed does them first and puts the product into the shed (DELIVER) before its other stops; planned right after the mandatory sector search, before the extras
+    "sd_tier_pen_radius": 2,
+    "sd_tier_pen_min": 0,     # > 0: a pen within the radius holding >= this many units keeps its harvest mandatory (joins the morning round) even when nothing overflows tonight
+    "sd_tier_pass_drop": 0,   # 1 (user 2026-09-26): a hand whose planned path crosses a shed-access tile at no extra distance (or stops on one) while carrying goods drops them there (DELIVER, sold at once; the feed wheat / fertilizer its later stops need is kept); planned after the mandatory search, no added lateness
+    "sd_tier_pass_min": 1,    # ... only when it carries at least this many units (fertilizer not counted)
+    "sd_tier_turn_plan": 0,   # 1 (user, learned from DSM): right after the mandatory sector search each outbound hand gets one shed stop after its harvest leg (>= sd_tier_turn_min units, reached by sd_tier_turn_hour, detour <= sd_tier_turn_detour, no added lateness); the extras then fill around it
     "sd_tier_turnaround": 0,  # 1 (leader shed-flow analysis): when the projected midnight dump will not fit, a hand whose harvest leg ends by sd_tier_turn_hour passes the shed between two stops (detour <= sd_tier_turn_detour tiles) and PLACEs its harvested goods there, sold at once (keeping the wheat / fertilizer its later stops need); end-of-day deliveries handle the rest
     "sd_tier_turn_hour": 16,
     "sd_tier_turn_detour": 2,
@@ -6243,6 +6249,126 @@ def _tier_load(seg, stops, tiles, day):
     return Counter({k: v for k, v in load.items() if v > 0})
 
 
+def _tier_pen_round(segs_m, tiles, day, st):
+    """sd_tier_pen_round: an outbound hand whose (mandatory) route holds animal harvests within sd_tier_pen_radius of
+    the shed does them first (nearest first) and, for pens off the access tiles, walks back to the shed and DELIVERs the
+    product (sold at once) before its other stops; kept only when the time model adds no lateness / supply failure."""
+    D = _TIER_D
+    rad = int(CFG["sd_tier_pen_radius"])
+    for sg in segs_m:
+        if sg["kind"] != "out" or not sg["stops"]:
+            continue
+        near = lambda x: min(D[x["tile"]][q] for q in _TIER_SHED_I)
+        pens = [x for x in sg["stops"] if not x.get("turn") and _animal(_tile(tiles, x["tile"]))
+                and any(o["c"][0] == "HARVEST" for o in x["ops"]) and near(x) <= rad]
+        if not pens:
+            continue
+        pens.sort(key=near)
+        rest = [x for x in sg["stops"] if not any(x is y for y in pens)]
+        off = [x for x in pens if x["tile"] not in _TIER_SHED_I]
+        new = list(pens)
+        if off:
+            prods = sorted({ANIMALS[_animal(_tile(tiles, x["tile"]))]["product"] for x in off})
+            last = pens[-1]["tile"]
+            sh = min(_TIER_SHED_I, key=lambda q: D[last][q] + (D[q][rest[0]["tile"]] if rest else 0))
+            new.append({"tile": sh, "ops": [_tier_op(["DELIVER"], True, 0.0, 2) for _ in prods], "rel": 0, "turn": True,
+                        "pen": True})
+        trial = new + rest
+        ev0, ev = _tier_eval(sg), _tier_eval(sg, trial)
+        if ev[1] > ev0[1] or ev[3] > ev0[3]:
+            st["tier_pen_rejected"] = st.get("tier_pen_rejected", 0) + 1
+            continue
+        sg["stops"] = trial
+        sg["ver"] += 1
+        st["tier_pen_rounds"] = st.get("tier_pen_rounds", 0) + 1
+        st["tier_pen_stops"] = st.get("tier_pen_stops", 0) + len(pens)
+
+
+def _tier_turn_plan(segs_m, tiles, day, st, prices):
+    """sd_tier_turn_plan: each outbound hand gets one shed stop after its harvest leg, inserted into the mandatory route
+    (before the extras fill): the insertion point after >= sd_tier_turn_min harvested units, reached by
+    sd_tier_turn_hour, detour <= sd_tier_turn_detour tiles, best delivered value per added hour, no added lateness."""
+    D = _TIER_D
+    hmax, dmax, umin = int(CFG["sd_tier_turn_hour"]), int(CFG["sd_tier_turn_detour"]), int(CFG["sd_tier_turn_min"])
+    for sg in segs_m:
+        stops = sg["stops"]
+        if sg["kind"] != "out" or len(stops) < 2:
+            continue
+        ev0 = _tier_eval(sg, want_hours=True)
+        hrs = ev0[4]
+        lt = max((i for i, x in enumerate(stops) if x.get("turn")), default=-1)
+        best, cum = None, 0
+        for j in range(1, len(stops)):
+            cum += len(stops[j - 1]["ops"])
+            if j <= lt + 1 or stops[j].get("turn") or cum == 0 or cum > len(hrs):
+                continue
+            if hrs[cum - 1][2] + 1 > hmax:
+                break
+            lk = _tier_load(sg, stops[:j], tiles, day)
+            dl = {p_: v for p_, v in lk.items() if p_ != "FERTILIZER" and v > 0}
+            units = sum(dl.values())
+            if units < umin:
+                continue
+            a, b = stops[j - 1]["tile"], stops[j]["tile"]
+            sh = min(_TIER_SHED_I, key=lambda q: D[a][q] + D[q][b])
+            if D[a][sh] + D[sh][b] - D[a][b] > dmax:
+                continue
+            turn = {"tile": sh, "ops": [_tier_op(["DELIVER"], True, 0.0, 2) for _ in dl], "rel": 0, "turn": True}
+            trial = stops[:j] + [turn] + stops[j:]
+            ev = _tier_eval(sg, trial)
+            if ev[1] > ev0[1] or ev[3] > ev0[3]:
+                continue
+            val = sum(v * float(prices.get(p_, 0) or 0) for p_, v in dl.items())
+            sc = val / max(1, ev[0] - ev0[0])
+            if best is None or sc > best[0]:
+                best = (sc, trial, units)
+        if best is not None:
+            sg["stops"] = best[1]
+            sg["ver"] += 1
+            st["tier_turn_plans"] = st.get("tier_turn_plans", 0) + 1
+            st["tier_turn_plan_units"] = st.get("tier_turn_plan_units", 0) + best[2]
+
+
+def _tier_pass_drop(segs_m, tiles, day, st):
+    """sd_tier_pass_drop: along each outbound route, wherever the walk between two stops can cross a shed-access tile at
+    no extra distance (or the next stop is on one) and the hand carries >= sd_tier_pass_min units, a DELIVER stop is put
+    on that tile (one op per product); kept only when the time model adds no lateness / supply failure."""
+    D = _TIER_D
+    umin = int(CFG["sd_tier_pass_min"])
+    for sg in segs_m:
+        if sg["kind"] != "out" or len(sg["stops"]) < 2:
+            continue
+        j = 1
+        while j < len(sg["stops"]):
+            stops = sg["stops"]
+            if stops[j].get("turn") or stops[j - 1].get("turn"):
+                j += 1
+                continue
+            a, b = stops[j - 1]["tile"], stops[j]["tile"]
+            on = [q for q in _TIER_SHED_I if q != a and D[a][q] + D[q][b] == D[a][b]]
+            if not on:
+                j += 1
+                continue
+            lk = _tier_load(sg, stops[:j], tiles, day)
+            dl = {p_: v for p_, v in lk.items() if p_ != "FERTILIZER" and v > 0}
+            if sum(dl.values()) < umin:
+                j += 1
+                continue
+            sh = b if b in on else min(on, key=lambda q: D[a][q])
+            turn = {"tile": sh, "ops": [_tier_op(["DELIVER"], True, 0.0, 2) for _ in dl], "rel": 0, "turn": True,
+                    "pass": True}
+            trial = stops[:j] + [turn] + stops[j:]
+            ev0, ev = _tier_eval(sg), _tier_eval(sg, trial)
+            if ev[1] > ev0[1] or ev[3] > ev0[3]:
+                st["tier_pass_rejected"] = st.get("tier_pass_rejected", 0) + 1
+                j += 1
+                continue
+            sg["stops"] = trial
+            sg["ver"] += 1
+            st["tier_pass_drops"] = st.get("tier_pass_drops", 0) + 1
+            j += 2
+
+
 def _tier_turn(segs, tiles, day, st, prices, room, total):
     """sd_tier_turnaround (the leaders' type-B delivery): while the projected midnight load exceeds room, insert into the
     best hand's route a shed stop between two stops (detour <= sd_tier_turn_detour tiles, reached by sd_tier_turn_hour)
@@ -6550,7 +6676,10 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                 m, tier = False, 4                 # FEED (not keep-alive), CARE, COLLECT_FERTILIZER
             v_ = vals[i] if i < len(vals) else 0.0
             if (c == "HARVEST" and CFG["sd_tier_anim_harv"] and i != hi and _animal(_tile(tiles, b))
-                    and not _tier_anim_harv_needed(_tile(tiles, b), day)):
+                    and not _tier_anim_harv_needed(_tile(tiles, b), day)
+                    and not (CFG["sd_tier_pen_round"] and int(CFG["sd_tier_pen_min"]) > 0
+                             and min(_TIER_D[b][q] for q in _TIER_SHED_I) <= int(CFG["sd_tier_pen_radius"])
+                             and int(_tile(tiles, b).get("yield_units", 0) or 0) >= int(CFG["sd_tier_pen_min"]))):
                 t_ = _tile(tiles, b)          # animal thread: harvest deferred (nothing overflows tonight)
                 m, tier = False, 4
                 v_ = (float(t_.get("yield_units", 0) or 0) * float(prices.get(ANIMALS[t_["animal"]]["product"], 0) or 0)
@@ -6808,6 +6937,12 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
                 owner[x["tile"]] = segs.index(s)
     late_m = sum(_tier_eval(s)[1] for s in segs_m if s["stops"])
     st["tier_mand_late"] = st.get("tier_mand_late", 0) + late_m
+    if CFG["sd_tier_pen_round"]:                   # learned from DSM: near-shed pens first, product into the shed
+        _tier_pen_round(segs_m, tiles, day, st)
+    if CFG["sd_tier_turn_plan"]:                   # learned from DSM: a shed stop after the harvest leg
+        _tier_turn_plan(segs_m, tiles, day, st, S.get("_tier_prices") or {})
+    if CFG["sd_tier_pass_drop"]:                   # user: whoever passes the shed with goods drops them
+        _tier_pass_drop(segs_m, tiles, day, st)
     # ---- extras catalogue: bundles per tile and tier (the ops not already planned)
     collects = {}
     b3, b4 = [], []
