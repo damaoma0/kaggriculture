@@ -628,5 +628,78 @@
    "sd_tier_pass_drop": 1
   },
   "label": "KP5 = KE7 + pen round (min 3) + midday shed stop + pass drop"
+ },
+ "KH0": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_h0_front": [
+    "WOOL",
+    "STRAWBERRY",
+    "MILK"
+   ],
+   "sd_h0_front_min": 5,
+   "sd_h0_front_n": 1,
+   "sd_h0_front_pos": 0
+  },
+  "label": "KH0 = KE7 + hour-0 sale of the largest wool / strawberry / milk pile (>= 5 units), FIRST in the order list (one hour-0 hire to hour 1 when the slots are full)"
+ },
+ "KH0c": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_h0_front": [
+    "WOOL",
+    "STRAWBERRY",
+    "MILK"
+   ],
+   "sd_h0_front_min": 5,
+   "sd_h0_front_n": 1,
+   "sd_h0_front_pos": 1
+  },
+  "label": "KH0c = KH0 with the sell order behind the hires (control for the order position)"
+ },
+ "KH0g": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_h0_front": [
+    "WOOL",
+    "STRAWBERRY",
+    "MILK"
+   ],
+   "sd_h0_front_min": 5,
+   "sd_h0_front_n": 1,
+   "sd_h0_front_pos": 0,
+   "sd_h0_front_gain": 70.0
+  },
+  "label": "KH0g = KH0 with the per-product gain rule: sell at hour 0 (first in the list) every wool / strawberry / milk pile whose stock x learned edge >= 70 (one delayed hire each; free slots at any positive gain)"
  }
 }

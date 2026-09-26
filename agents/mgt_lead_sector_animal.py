@@ -184,6 +184,12 @@ CFG = {
     "sd_dv_coins": {},        # v2: product -> coins per such unit (a number, or [[first_day, coins], ...])
     "sd_dv_hour": 22,         # v2: last DROP / PLACE hour that sells the same day (unit actions come before the market)
     "sd_dv_quota": 1,         # v2: with sell_source "leader" only products whose sell quota of the day has room get the credit
+    "sd_h0_front": [],        # (user 2026-09-26) products whose shed stock may be sold at hour 0 FIRST in the order list (the engine processes both players' orders position by position, so a sell behind the hires comes after the rival's hour-0 sales); the largest-value pile >= sd_h0_front_min, at most sd_h0_front_n orders; one hour-0 hire moves to hour 1 only when the 10 slots are full
+    "sd_h0_front_min": 5,
+    "sd_h0_front_n": 1,
+    "sd_h0_front_pos": 0,
+    "sd_h0_front_gain": 0.0,  # > 0 (user): instead of the largest pile, sell at hour 0 every listed product whose stock x edge >= this (the cost of one delayed hire, ~70 a day); free slots (fewer than 10 hour-0 orders) need only a positive gain. edge = price at the start of hour 0 minus at the start of hour 1, learned in the game on days the product was not sold at hour 0 (EMA 0.2), starting from sd_h0_front_edge0
+    "sd_h0_front_edge0": {"MILK": 21.0, "STRAWBERRY": 7.5, "WOOL": 7.0},     # 0: first in the list; 1 (control): after the hires and the wheat buy
     "sd_evening_sell": [],    # products (e.g. ["WOOL", "MILK", "STRAWBERRY"]) of which a share of the morning shed stock is held back and sold at sd_evening_hour..23 (the rival sells at hour 0: supply that reaches the market the evening before lowers its price; leaders sell 36-68% of the night's carry after hour 11)
     "sd_evening_frac": 0.5,
     "sd_evening_hour": 20,
@@ -2878,6 +2884,24 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
         if k_ > 0:                                 # first in the list: it lands before the hour-1 pickups
             orders = [["BUY_PRODUCT", "WHEAT", k_]] + [o for o in orders if not (o[0] == "BUY_PRODUCT" and o[1] == "WHEAT")][:9]
         TPw_["wheat_bought"] = True
+    if float(CFG["sd_h0_front_gain"]) > 0 and hour == 1 and (S.get("h0q") or {}).get("day") == day:   # learn the edge
+        q_ = S["h0q"]
+        ed_ = S.setdefault("h0edge", dict(CFG["sd_h0_front_edge0"] or {}))
+        for p_, q0_ in q_["q"].items():
+            if p_ not in q_["sold"] and q0_ > 0 and float(prices.get(p_, 0) or 0) > 0:
+                ed_[p_] = 0.8 * float(ed_.get(p_, 0.0)) + 0.2 * (q0_ - float(prices.get(p_, 0)))
+        q_["day"] = -1
+    TPh_ = S.get("tier") if CFG["sd_tier"] else None
+    if CFG["sd_h0_front"] and hour == 0 and not endgame and TPh_ and TPh_.get("day") == day and TPh_.get("h0_front"):
+        fr_ = [["SELL", p_, int(shed.get(p_, 0) or 0)] for p_ in TPh_["h0_front"] if int(shed.get(p_, 0) or 0) > 0]
+        hires_ = [o for o in orders if o[0] == "HIRE"][:int(TPh_.get("k0", 10))]
+        rest_ = [o for o in orders if o[0] != "HIRE" and not (o[0] == "SELL" and o[1] in TPh_["h0_front"])]
+        if int(CFG["sd_h0_front_pos"]) == 0:
+            orders = (fr_ + hires_ + rest_)[:10]
+        else:                                      # control: behind the hires and the wheat buy
+            orders = (hires_ + rest_[:max(0, 10 - len(hires_) - len(fr_))] + fr_)[:10]
+        TPh_["cnt"]["h0_front_units"] += sum(o[2] for o in fr_)
+        TPh_["cnt"]["h0_front_days"] += 1
     if CFG["sd_evening_sell"] and not endgame:
         E_ = S.setdefault("eve", {})
         if E_.get("day") != day and hour >= 1:     # the first market after the midnight dump: set the evening reserve
@@ -6787,6 +6811,20 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
         wbuy = max(0, nfeed - have_w)
         if wbuy and want >= 10:
             k0 = 9
+    front = []
+    if CFG["sd_h0_front"]:                         # hour-0 sale of the largest pile, first in the order list
+        cand_ = sorted(((int(shed.get(p_, 0) or 0) * float(prices.get(p_, 0) or 0), p_) for p_ in CFG["sd_h0_front"]
+                        if int(shed.get(p_, 0) or 0) >= int(CFG["sd_h0_front_min"])), reverse=True)
+        front = [p_ for _, p_ in cand_[:int(CFG["sd_h0_front_n"])]]
+        if float(CFG["sd_h0_front_gain"]) > 0:     # per-product expected gain against the cost of a delayed hire
+            ed_ = S.setdefault("h0edge", dict(CFG["sd_h0_front_edge0"] or {}))
+            gl_ = sorted(((int(shed.get(p_, 0) or 0) * float(ed_.get(p_, 0.0)), p_) for p_ in CFG["sd_h0_front"]
+                          if int(shed.get(p_, 0) or 0) > 0), reverse=True)
+            free_ = max(0, 10 - k0 - (1 if wbuy else 0))
+            front = [p_ for i_, (g_, p_) in enumerate(gl_) if (g_ > 0 if i_ < free_ else g_ >= float(CFG["sd_h0_front_gain"]))]
+            S["h0q"] = {"day": day, "q": {p_: float(prices.get(p_, 0) or 0) for p_ in CFG["sd_h0_front"]}, "sold": list(front)}
+        if front:
+            k0 = min(k0, 10 - len(front) - (1 if wbuy else 0))
     # ---- units: farmer (hour 0) + the day's hires (hour 1; beyond 10 hour 2). The hires spawn after the farmer's hour-0
     # command (least occupied shed tile), the late ones after everyone's hour-1 command: plan, derive the spawn tiles the
     # plan's own first moves imply, re-plan until they agree (at most 3 passes)
@@ -6818,6 +6856,10 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["summary"]["spawn"] = [list(q) for q in sp0 + sp1]
     TP["wheat_buy"] = wbuy
     TP["summary"]["wheat_buy"] = wbuy
+    TP["k0"] = k0
+    TP["h0_front"] = front
+    TP["summary"]["k0"] = k0
+    TP["summary"]["h0_front"] = front
     S["tier"] = TP
     L.setdefault("tier_days", {})[str(day)] = TP["summary"]
 
