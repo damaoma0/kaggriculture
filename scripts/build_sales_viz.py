@@ -2,7 +2,7 @@
 viz/sales_prices.html. Each game is replayed with the official engine; every step records the market price, the market's
 extra stock (inventory - 10,000, what sets the price), both players' holdings (shed + carried) and every SELL commit.
 
-usage: build_sales_viz.py [arm,...] [team:ep,...]   (defaults: k4f,k4nt and the three season worlds)
+usage: build_sales_viz.py [arm,...] [team:ep,...] [output name]   (defaults: k4f,k4nt, the three season worlds, sales_prices.html)
 """
 import json
 import sys
@@ -112,7 +112,7 @@ def main():
         out['worlds'].append(wd)
     tpl = (ROOT / 'viz' / 'sales_prices_template.html').read_text(encoding='utf-8')
     html = tpl.replace('/*__DATA__*/null', json.dumps(out, separators=(',', ':')))
-    dst = ROOT / 'viz' / 'sales_prices.html'
+    dst = ROOT / 'viz' / (sys.argv[3] if len(sys.argv) > 3 else 'sales_prices.html')
     dst.write_text(html, encoding='utf-8')
     print('wrote', dst, '%.2f MB' % (len(html) / 1e6))
 
