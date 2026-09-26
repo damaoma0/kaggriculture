@@ -189,6 +189,7 @@ CFG = {
     "sd_maint_floor": {},     # {product: floor} (abandonment research R2, docs/abandonment_research_20260926.md; KPT1 lost its sheep herd on day 24 when an evening wool sale left the dawn quote at 1): the maintenance module values these animal products at max(quote, floor) until sd_maint_floor_last, so one thin dawn quote cannot abandon a herd with productions left (R2: milk 60, wool 100, egg 45)
     "sd_maint_floor_last": 26,  # last day the floors apply (after it: the quote, the final cycle)
     "sd_books_sell": [],      # products (user 2026-09-26: "switch to DSM sell plans"): sold on the leader's own sell plan for this world (results/fresh/threads_20260928/dsm_sales/<ep>.json): at every step up to the leader's cumulative units through that step, capped by our shed, first in the order list (the leader's position); no sale on delivery; at hour 21 anything above the leader's sales of the next 12 steps is sold (our surplus does not fill the shed overnight)
+    "sd_books_cap": 0,        # 1 (KBK2 overflow days: the plan's held goods took shed room, the midnight dump deleted wheat): from hour 21 on, when shed + everything carried + what the routes still harvest today would not fit the shed (100 - sd_tier_dump_buffer), the held sd_books_sell goods are sold, cheapest first, down to what fits
     "sd_pattern_tick": [],    # products (user 2026-09-26: imitate DSM's selling; engine-isolated test +2.7k on world 112604454): sold only at hours 1 / 5 / 9 / 13 / 17 / 21 (the first market after a town consumption tick; the engine clears the market BEFORE the town consumes at hours 0 / 4 / 8 / 12 / 16 / 20) on the sd_hourly_profile quota; their deliveries are no longer sold on arrival and the overflow guards leave them alone at the tick hours themselves (hour 20). Needs sd_hourly_profile for these products
     "sd_wheat_pick_now": 0,   # 1 (2026-09-26, KQ plant deaths): the market's wheat reserve for the tiered plan's pickups also counts the WHEAT the executor picks up in this same step. Those pick items are marked done when the command is issued, but the wheat is still in the observed shed and the engine runs unit actions before the market, so without this the sale takes the wheat the later pickups (the hour-1 hires, acting from hour 2) need: they wait for a buy-back and their routes end an hour late (last WATER unfinished, plants die; FEED skipped)
     "sd_h0_front": [],        # (user 2026-09-26) products whose shed stock may be sold at hour 0 FIRST in the order list (the engine processes both players' orders position by position, so a sell behind the hires comes after the rival's hour-0 sales); the largest-value pile >= sd_h0_front_min, at most sd_h0_front_n orders; one hour-0 hire moves to hour 1 only when the 10 slots are full
@@ -328,6 +329,40 @@ CFG = {
                               # feeds / cares / collects the animals on its outbound leg (spawn -> first patch stop)
     "sd_tier_anim_out_detour": 0,    # ... animals at most this many tiles off a shortest path (0 = on it; 1 tile = 2 extra steps)
     "sd_tier_anim_out_spare": 1,     # ... a hand qualifies while its planned day ends by 24 - this (hours)
+    # ---- dawn thread (2026-09-28, KDW): DSM's dawn deliveries of wool / milk, all default OFF (= KS1fl)
+    "sd_tier_dawn": 0,        # 1 (user: "we want them early just like DSM did"; DSM makes short round trips at the start of the day):
+                              # at hour 0, before the mandatory sector search, a unit that starts its day at the shed by hour
+                              # sd_tier_dawn_t0max takes ONE near pen (within sd_tier_dawn_radius of a shed tile, holding >=
+                              # sd_tier_dawn_min units): walk there, HARVEST, walk back to the nearest shed tile and PLACE the
+                              # product (DELIVER, sold at once; a pen ON a shed tile: HARVEST + PLACE_HARVEST in place), all by
+                              # hour sd_tier_dawn_by; then it picks up its wheat and is a normal outbound hand from that shed
+                              # tile (DSM world 112604454: 8 trips / 38 units at hours 0-1, harvest h1-2, drop h3-4; we made 0)
+    "sd_tier_dawn_radius": 1, # DSM's round trips: all 8 to pens 1 tile from a shed tile (its near-pen harvests <= 2 tiles: 70 of 86 dawn wool, all 129 dawn milk)
+    "sd_tier_dawn_min": {"COW": 3, "SHEEP": 4},   # DSM's near-shed harvest sizes (cow 3.4-3.8, sheep 4.2-4.4: one production each, harvested the morning after it)
+    "sd_tier_dawn_by": 4,     # DSM's dawn drops: hours 1-4 (leave h0-1, back within 3 h)
+    "sd_tier_dawn_t0max": 1,  # units that act from hour 1 at the latest (farmer, hour-0 hires; DSM leaves at h0-1)
+    "sd_tier_dawn_max": 0,    # > 0: at most this many dawn legs a day (0 = one per eligible pen)
+                              # sd_tier_dawn 2: the same leg as an EXTRA (tier C pool, phase C) that competes with the other
+                              # extras by value per added hour, put at the start of an outbound hand's route (its pickups after
+                              # it); only pens whose harvest is deferred (sd_tier_anim_harv); legs no hand takes go back to plain
+                              # deferred harvests
+    "sd_tier_dawn_shape": None,  # sd_tier_dawn 3 (user: "imitate the exact shape of DSM's early morning trips: how many hands,
+                              # how many tiles"): {day: [[dsm unit, first acting hour, start tile, [[pen tile, animal], ...],
+                              # drop tile], ...]} from DSM's recorded game of this world (scripts/dsm_dawn_shape.py); each DSM
+                              # trip is given to one of our units acting from the same hour (the farmer for DSM's farmer; a hire
+                              # starting on DSM's start tile first, else the one nearest the pen), over the same pens where our
+                              # board holds the same animal with product (HARVEST; a lone pen on a shed tile: PLACE_HARVEST in
+                              # place, else DELIVER on DSM's drop tile), then its pickups and route; a DSM farmer trip at hour 0
+                              # makes our farmer act at hour 0 that day (no hold)
+    "sd_tier_dawn_service": 0,  # 1 (modes 1 / 3; DSM: after the trip's wheat pickup the unit feeds / cares / collects the pen it just
+                                # harvested, e.g. d12 u2 HARVEST 54 h1, PLACE h2, PICKUP h3, FEED h4, CARE h5, COLLECT h6): the leg pen's
+                                # FEED / CARE / COLLECT (mandatory, or extras worth > 0) become the first stop of that unit's route
+                                # after its pickups (KDS1b traced: splitting the pen visit lost 5 cow CAREs = 5 milk a season)
+    "sd_tier_dawn_cf": 0,     # diagnosis only: at hour 0 also plan the day with the dawn legs off, from the same state and the
+                              # same units / spawn tiles, and log that plan in the day summary ("cf": per unit end hour and
+                              # stops [tile, [[op, mandatory, tier, value], ...]], unplanned extras) -> the jobs the legs displaced
+    "sd_tier_dawn_frac": 0.25,  # mode 2: a dawn-delivered unit is worth price x this (DSM: timing ~1.4k wool + 1.9k milk here for
+                                # 49 + 68 units delivered within 2 h of a dawn harvest, ~28 a unit = 0.15-0.25 x price)
     "sd_melon_rule": 0,       # 1 (user): hard-coded melon trips (by 8 bonus / 8-12 penalty / never after 12), melon hands kept out of the planner
     "sd_mel_bonus": 10.0,     # coins per melon unit per hour delivered before 8
     "sd_mel_pen": 10.0,       # coins per melon unit per hour delivered after 8 (never after 12)
@@ -3060,6 +3095,25 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                 if n_ > 0:
                     pos_ = int(((DS_["steps"].get(str(step_)) or {}).get(p_) or {}).get("pos", 0))
                     front_.append((pos_, ["SELL", p_, n_]))
+            if CFG["sd_books_cap"] and hour >= 21:     # shed capacity at midnight
+                TPc_ = S.get("tier") or {}
+                load_ = (sum(int(v or 0) for v in shed.values()) + sum(int(v or 0) for inv_ in invs for v in (inv_ or {}).values())
+                         + int(TPc_.get("_harv_left", 0) or 0) if TPc_.get("day") == day else 0)
+                load_ -= sum(int(o_[2]) for o_ in orders if o_[0] == "SELL") + sum(o_[2] for _, o_ in front_)
+                excess_ = load_ - (100 - int(CFG["sd_tier_dump_buffer"]))
+                for p_ in sorted(bk_, key=lambda q: float(prices.get(q, 0) or 0)):
+                    if excess_ <= 0:
+                        break
+                    done_ = sum(o_[2] for _, o_ in front_ if o_[1] == p_)
+                    k_ = min(int(shed.get(p_, 0) or 0) - done_, excess_)
+                    if k_ > 0:
+                        hit_ = next((x for x in front_ if x[1][1] == p_), None)
+                        if hit_:
+                            hit_[1][2] += k_
+                        else:
+                            front_.append((0, ["SELL", p_, k_]))
+                        excess_ -= k_
+                        S["log"]["books_cap_" + p_] += k_
             for pos_, o_ in sorted(front_, key=lambda x: x[0]):
                 orders.insert(min(pos_, len(orders)), o_)
             while len(orders) > 10:                # never push a hire out of the 10-order cap
@@ -5846,20 +5900,28 @@ def _tier_eval(seg, stops=None, want_hours=False):
     nf, na = _tier_picks(stops)
     w, f = 0, 0
     an = Counter()
-    if nf or na:
-        if p not in _TIER_SHED_I:
-            s_ = _tier_near_shed(p)
-            t += D[p][s_]
-            p = s_
-        if nf:
-            t += 1
-            w = nf
-        for a_, v_ in na.items():
-            t = max(t, gr) + 1
-            an[a_] = v_
+    kd = 0
+    while kd < len(stops) and stops[kd].get("dawn"):   # sd_tier_dawn: the dawn leg first, the pickups after it (DSM's order)
+        kd += 1
     hours = [] if want_hours else None
     first = True
-    for s in stops:
+    for i_s in range(len(stops) + 1):
+        if i_s == kd:
+            if nf or na:
+                if p not in _TIER_SHED_I:
+                    s_ = _tier_near_shed(p)
+                    t += D[p][s_]
+                    p = s_
+                if nf:
+                    t += 1
+                    w = nf
+                for a_, v_ in na.items():
+                    t = max(t, gr) + 1
+                    an[a_] = v_
+            first = True
+        if i_s == len(stops):
+            break
+        s = stops[i_s]
         b = s["tile"]
         d = D[p][b]
         t += d
@@ -5905,7 +5967,7 @@ def _tier_cost(seg, ev=None, stops=None):
         need = sum(1 for s in stops if s["tile"] in seg["fneed"])
         if need:
             p = seg["p0"] if seg["p0"] in _TIER_SHED_I else _tier_near_shed(seg["p0"])
-            b1 = stops[0]["tile"]
+            b1 = next((x["tile"] for x in stops if not x.get("dawn")), stops[0]["tile"])
             D = _TIER_D
             on = sum(1 for a in seg["anim"] if D[p][a] + D[a][b1] == D[p][b1])
             c -= cw * min(on, need)
@@ -6082,7 +6144,7 @@ def _tier_merge(stops, tile, ops, rel=0, k=None):
     """stops with ops merged into the stop on tile (in rank order), else inserted as a new stop at position k."""
     out = [dict(s) for s in stops]
     for i, s in enumerate(out):
-        if s["tile"] == tile:
+        if s["tile"] == tile and not s.get("dawn"):
             s["ops"] = sorted(s["ops"] + [dict(o) for o in ops], key=lambda o: o["rank"])
             return out, i
     k = len(out) if k is None else k
@@ -6094,6 +6156,8 @@ def _tier_best_ins(seg, bundle, collects, lo=0):
     """best insertion of an extras bundle {"tile", "ops", "v"} into seg (merged into its stop on the tile, else a new
     stop at the best position >= lo); a FERTILIZE the route has no fertilizer for is paired with a COLLECT from the
     free collects (tile -> op) placed before it. Returns (score, delta hours, new stops, collect tile or None) or None."""
+    if bundle.get("dawn"):
+        return _tier_dawn_ins(seg, bundle)
     ev0 = _tier_eval(seg)
     c0 = _tier_cost(seg, ev0)
     has = any(s["tile"] == bundle["tile"] for s in seg["stops"])
@@ -6143,6 +6207,38 @@ def _tier_best_ins(seg, bundle, collects, lo=0):
     return best
 
 
+def _tier_dawn_ins(seg, bundle):
+    """sd_tier_dawn 2: a dawn leg bundle {"tile" (pen), "ops" (its HARVEST / PLACE_HARVEST), "v", "prod", "rel"} put at the
+    start of an outbound route that starts on a shed tile by hour sd_tier_dawn_t0max and has no dawn leg yet: walk to the
+    pen, harvest, DELIVER on the shed tile nearest to it (a pen on a shed tile: PLACE_HARVEST in place) by hour
+    sd_tier_dawn_by, then the route's pickups and stops. Returns (score, delta cost, new stops, None) or None."""
+    D = _TIER_D
+    if seg["kind"] != "out" or seg["t0"] > int(CFG["sd_tier_dawn_t0max"]) or seg["p0"] not in _TIER_SHED_I:
+        return None
+    if any(x.get("dawn") for x in seg["stops"]):
+        return None
+    idx, p0 = bundle["tile"], seg["p0"]
+    ops = sorted([dict(o) for o in bundle["ops"]], key=lambda o: o["rank"])
+    legs = [{"tile": idx, "ops": ops, "rel": bundle.get("rel", 0), "dawn": True}]
+    if idx in _TIER_SHED_I:
+        if not any(o["c"][0] == "PLACE_HARVEST" for o in ops):
+            ops.append(_tier_op(["PLACE_HARVEST", bundle["prod"]], False, 0.0, 4))
+    else:
+        sh = min(_TIER_SHED_I, key=lambda q: (D[idx][q], D[q][p0], q))
+        legs.append({"tile": sh, "ops": [_tier_op(["DELIVER"], True, 0.0, 2)], "rel": 0, "turn": True, "dawn": True})
+    trial = legs + list(seg["stops"])
+    ev0 = _tier_eval(seg)
+    ev = _tier_eval(seg, trial, want_hours=True)
+    if ev[1] > ev0[1] or ev[3] > ev0[3]:
+        return None
+    nd = sum(len(x["ops"]) for x in legs)
+    if ev[4][nd - 1][2] > int(CFG["sd_tier_dawn_by"]):
+        return None
+    c0 = _tier_cost(seg, ev0)
+    c = _tier_cost(seg, ev[:4], trial)
+    return (bundle["v"] / max(0.25, c - c0), c - c0, trial, None)
+
+
 def _tier_fill(segs, sidx, bundles, collects, owner, rate, st, tag):
     """greedy: repeatedly the best (value / added hours) feasible insertion of a bundle into one of the segments sidx."""
     n_ins = 0
@@ -6186,6 +6282,9 @@ def _tier_fill(segs, sidx, bundles, collects, owner, rate, st, tag):
         bd = bundles.pop(bi)
         segs[k]["stops"] = r[2]
         segs[k]["ver"] += 1
+        if bd.get("dawn"):                         # sd_tier_dawn 2: later insertions go after the dawn leg
+            segs[k]["lo"] = sum(1 for x in r[2] if x.get("dawn"))
+            st["tier_dawn_legs"] = st.get("tier_dawn_legs", 0) + 1
         if not bd.get("shared"):
             owner[bd["tile"]] = k
         if any(o["c"][0] == "COLLECT_FERTILIZER" for o in bd["ops"]):
@@ -6318,7 +6417,7 @@ def _tier_relief(segs, pool, collects, owner, rate, st):
                 evR = _tier_eval(R)
                 cR = _tier_cost(R, evR)
                 for i, x in enumerate(R["stops"]):
-                    if x.get("place") or x["tile"] == bd["tile"]:
+                    if x.get("place") or x.get("dawn") or x.get("svc") or x["tile"] == bd["tile"]:
                         continue
                     R2 = dict(R, stops=R["stops"][:i] + R["stops"][i + 1:])
                     ev2 = _tier_eval(R2)
@@ -6553,6 +6652,158 @@ def _tier_prio_ani(S, rec, tiles, day, fu, st):
     st["tier_prio_ani_pens"] = st.get("tier_prio_ani_pens", 0) + len(taken)
     return {"stops": final, "p0": pi, "t0": t0, "drop": drop_hour(ev),
             "hh": {b_: h for (b_, c_, h) in ev[4] if c_[0] == "HARVEST"}}
+
+
+def _tier_dawn(S, rec, tiles, day, units, busy, st):
+    """sd_tier_dawn: DSM's dawn round trips (see the flag). Pens by product value (units x price), each to the free
+    early unit whose leg ends first (ties: nearer start, lower index), one leg per unit. Returns {u: leg} with leg =
+    {"stops" (pen, then a DELIVER stop on the shed tile nearest the pen; a pen on a shed tile: HARVEST + PLACE_HARVEST),
+    "p0", "t0", "end" (hour the unit is free at the shed), "tile" (that shed tile), "drop", "pen", "units", "prod"};
+    the taken HARVEST / PLACE_HARVEST ops leave rec (the pen's FEED / CARE / COLLECT stay for the planner)."""
+    D = _TIER_D
+    prices = S.get("_tier_prices") or {}
+    mins = CFG["sd_tier_dawn_min"] or {}
+    rad = int(CFG["sd_tier_dawn_radius"])
+    by = int(CFG["sd_tier_dawn_by"])
+    t0max = int(CFG["sd_tier_dawn_t0max"])
+    nmax = int(CFG["sd_tier_dawn_max"] or 0)
+    pens = []
+    for idx, r_ in rec.items():
+        t_ = _tile(tiles, idx)
+        if not _animal(t_) or t_["animal"] not in mins:
+            continue
+        y_ = int(t_.get("yield_units", 0) or 0)
+        if y_ < int(mins[t_["animal"]]) or min(D[idx][q] for q in _TIER_SHED_I) > rad:
+            continue
+        hv = [o for o in r_["ops"] if o["c"][0] in ("HARVEST", "PLACE_HARVEST")]
+        if not any(o["c"][0] == "HARVEST" for o in hv):
+            continue
+        prod_ = ANIMALS[t_["animal"]]["product"]
+        pens.append((y_ * float(prices.get(prod_, 0) or 0), idx, hv, prod_, y_))
+    free = [(u, p0, t0) for u, p0, t0 in units if t0 <= t0max and u not in busy]
+    out = {}
+    for val, idx, hv, prod_, y_ in sorted(pens, key=lambda x: (-x[0], x[1])):
+        if nmax and len(out) >= nmax:
+            break
+        best = None
+        for u, p0, t0 in free:
+            if u in out:
+                continue
+            pi = p0[1] * 10 + p0[0]
+            ops = sorted([dict(o, m=True, tier=1) for o in hv], key=lambda o: o["rank"])
+            stops = [{"tile": idx, "ops": ops, "rel": rec[idx]["rel"]}]
+            if idx in _TIER_SHED_I:
+                if not any(o["c"][0] == "PLACE_HARVEST" for o in ops):
+                    ops.append(_tier_op(["PLACE_HARVEST", prod_], True, 1.0, 1))
+            else:
+                sh = min(_TIER_SHED_I, key=lambda q: (D[idx][q], D[q][pi], q))
+                stops.append({"tile": sh, "ops": [_tier_op(["DELIVER"], True, 0.0, 1)], "rel": 0, "turn": True})
+            ev = _tier_eval({"p0": pi, "t0": t0, "stops": []}, stops, want_hours=True)
+            drop = max(h for (b_, c_, h) in ev[4] if c_[0] in ("DELIVER", "PLACE_HARVEST"))
+            if ev[1] > 0 or ev[3] > 0 or drop > by:
+                continue
+            key = (ev[0], D[pi][idx], u)
+            if best is None or key < best[0]:
+                best = (key, u, pi, t0, stops, ev, drop)
+        if best is None:
+            st["tier_dawn_nounit"] = st.get("tier_dawn_nounit", 0) + 1
+            continue
+        _, u, pi, t0, stops, ev, drop = best
+        out[u] = {"stops": stops, "p0": pi, "t0": t0, "end": ev[0], "tile": stops[-1]["tile"], "drop": drop, "pen": idx,
+                  "units": y_, "prod": prod_, "hours": [(b_, c_[0], h) for b_, c_, h in ev[4]]}
+        ids = set(id(o) for o in hv)
+        rec[idx]["ops"] = [o for o in rec[idx]["ops"] if id(o) not in ids]
+        if not rec[idx]["ops"]:
+            rec.pop(idx)
+        out[u]["svc"] = _tier_dawn_svc(rec, [idx])
+        st["tier_dawn_legs"] = st.get("tier_dawn_legs", 0) + 1
+        st["tier_dawn_units"] = st.get("tier_dawn_units", 0) + y_
+    return out
+
+
+def _tier_dawn_svc(rec, pens):
+    """sd_tier_dawn_service: the pen's non-mandatory FEED / CARE / COLLECT_FERTILIZER ops worth > 0 leave rec (the mandatory
+    ones stay for the sector search); returned as service stops {"tile", "ops" (copies, mandatory), "orig" (the rec ops, put
+    back when the service does not fit), "rel", "svc"} for the leg's unit."""
+    out = []
+    if not CFG["sd_tier_dawn_service"]:
+        return out
+    for ti in pens:
+        r_ = rec.get(ti)
+        if not r_:
+            continue
+        sv = [o for o in r_["ops"] if o["c"][0] in ("FEED", "CARE", "COLLECT_FERTILIZER") and not o["m"] and o["v"] > 0]
+        if not sv:
+            continue
+        ids = set(id(o) for o in sv)
+        r_["ops"] = [o for o in r_["ops"] if id(o) not in ids]
+        if not r_["ops"]:
+            rec.pop(ti)
+        out.append({"tile": ti, "ops": sorted([dict(o, m=True, tier=2) for o in sv], key=lambda o: o["rank"]),
+                    "orig": sv, "rel": r_["rel"], "svc": True})
+    return out
+
+
+def _tier_dawn_shape(S, rec, tiles, day, units, busy, st):
+    """sd_tier_dawn 3: DSM's recorded early trips of this day (see sd_tier_dawn_shape), in its order, each to one of our
+    free units acting from the same hour; returns {u: leg} in _tier_dawn's format (+ "dsm": the DSM trip); the taken
+    HARVEST / PLACE_HARVEST ops leave rec."""
+    D = _TIER_D
+    trips = (CFG["sd_tier_dawn_shape"] or {}).get(str(day)) or []
+    out = {}
+    for tr in trips:
+        du, act_h, dstart, dtiles, ddrop = tr[0], int(tr[1]), int(tr[2]), tr[3], int(tr[4])
+        st["tier_shape_dsm"] = st.get("tier_shape_dsm", 0) + 1
+        take, prods = [], []
+        for ti, what in dtiles:
+            ti = int(ti)
+            t_ = _tile(tiles, ti)
+            r_ = rec.get(ti)
+            if not (_animal(t_) and t_["animal"] == what and int(t_.get("yield_units", 0) or 0) > 0 and r_):
+                continue
+            hv = [o for o in r_["ops"] if o["c"][0] in ("HARVEST", "PLACE_HARVEST")]
+            if not any(o["c"][0] == "HARVEST" for o in hv):
+                continue
+            take.append((ti, hv, int(t_.get("yield_units", 0) or 0)))
+            prods.append(ANIMALS[what]["product"])
+        if not take:
+            st["tier_shape_nomatch"] = st.get("tier_shape_nomatch", 0) + 1
+            continue
+        cand = [(u, p0, t0) for u, p0, t0 in units if u not in busy and u not in out and t0 == act_h
+                and (u == 0) == (du == 0)]
+        if not cand:
+            st["tier_shape_nounit"] = st.get("tier_shape_nounit", 0) + 1
+            continue
+        first = take[0][0]
+        u, p0, t0 = min(cand, key=lambda c: (0 if c[1][1] * 10 + c[1][0] == dstart else 1,
+                                             D[c[1][1] * 10 + c[1][0]][first], c[0]))
+        pi = p0[1] * 10 + p0[0]
+        stops = []
+        for ti, hv, y_ in take:
+            ops = sorted([dict(o, m=True, tier=1) for o in hv], key=lambda o: o["rank"])
+            if not (len(take) == 1 and ti in _TIER_SHED_I):
+                ops = [o for o in ops if o["c"][0] != "PLACE_HARVEST"]
+            elif not any(o["c"][0] == "PLACE_HARVEST" for o in ops):
+                ops.append(_tier_op(["PLACE_HARVEST", prods[0]], True, 1.0, 1))
+            stops.append({"tile": ti, "ops": ops, "rel": rec[ti]["rel"]})
+        if not (len(take) == 1 and take[0][0] in _TIER_SHED_I):
+            sh = ddrop if ddrop in _TIER_SHED_I else min(_TIER_SHED_I, key=lambda q: (D[stops[-1]["tile"]][q], q))
+            stops.append({"tile": sh, "ops": [_tier_op(["DELIVER"], True, 0.0, 1) for _ in sorted(set(prods))], "rel": 0,
+                          "turn": True})
+        ev = _tier_eval({"p0": pi, "t0": t0, "stops": []}, stops, want_hours=True)
+        drop = max(h for (b_, c_, h) in ev[4] if c_[0] in ("DELIVER", "PLACE_HARVEST"))
+        out[u] = {"stops": stops, "p0": pi, "t0": t0, "end": ev[0], "tile": stops[-1]["tile"], "drop": drop,
+                  "pen": take[0][0], "units": sum(y for _, _, y in take), "prod": prods[0],
+                  "hours": [(b_, c_[0], h) for b_, c_, h in ev[4]], "dsm": list(tr), "pens": [ti for ti, _, _ in take]}
+        for ti, hv, _ in take:
+            ids = set(id(o) for o in hv)
+            rec[ti]["ops"] = [o for o in rec[ti]["ops"] if id(o) not in ids]
+            if not rec[ti]["ops"]:
+                rec.pop(ti)
+        out[u]["svc"] = _tier_dawn_svc(rec, [ti for ti, _, _ in take])
+        st["tier_dawn_legs"] = st.get("tier_dawn_legs", 0) + 1
+        st["tier_dawn_units"] = st.get("tier_dawn_units", 0) + out[u]["units"]
+    return out
 
 
 def _tier_central(S, cseg, rec, tiles, day, st):
@@ -6799,6 +7050,8 @@ def _tier_turn(segs, tiles, day, st, prices, room, total):
                 end_h = hrs[cum - 1][2] + 1
                 if end_h > hmax:
                     break
+                if stops[j].get("dawn"):
+                    continue
                 lk = _tier_load(sg, stops[:j], tiles, day)
                 dl = {p_: v for p_, v in lk.items() if p_ != "FERTILIZER" and v > 0}
                 units = sum(dl.values())
@@ -7285,6 +7538,9 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     ft0 = 0
     if CFG["sd_tier_farmer_hold"] and min(_dist(f0, q) for q in SHED) <= 1:
         ft0 = 1                                    # on / next to the shed: he holds at hour 0, so the hires' spawn is known
+    if int(CFG["sd_tier_dawn"]) == 3 and f0 in SHED and any(
+            int(tr[0]) == 0 and int(tr[1]) == 0 for tr in ((CFG["sd_tier_dawn_shape"] or {}).get(str(day)) or [])):
+        ft0 = 0                                    # sd_tier_dawn 3: DSM's farmer makes his early trip from hour 0
     sp0 = _sd_spawn([f0] if ft0 else ([] if f0 in SHED else [f0]), k0)
     sp1 = _sd_spawn([], want - k0)
     TP = None
@@ -7336,6 +7592,21 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                 after1 = [_tier_walk(TP["routes"].get(0), f0, 2 - ft0)] + [
                     _tier_walk(TP["routes"].get(u + 1), q, 1) for u, q in enumerate(sp0)]
                 st["tier_spawn_buffer"] = st.get("tier_spawn_buffer", 0) + 1
+    if CFG["sd_tier_dawn_cf"] and int(CFG["sd_tier_dawn"]):   # same state, same units, dawn legs off (diagnosis)
+        units_cf = [(0, f0, TP["routes"][0]["t0"] if 0 in TP["routes"] else ft0)] + [
+            (u + 1, q, 1) for u, q in enumerate(sp0)] + [(u + 1 + k0, q, 2) for u, q in enumerate(sp1)]
+        if 0 in TP["routes"] and int(CFG["sd_tier_dawn"]) == 3 and TP["routes"][0]["t0"] == 0 and CFG["sd_tier_farmer_hold"] \
+                and min(_dist(f0, q) for q in SHED) <= 1:
+            units_cf[0] = (0, f0, 1)               # without the DSM trip the farmer would have held at hour 0
+        mode_ = CFG["sd_tier_dawn"]
+        try:
+            CFG["sd_tier_dawn"] = 0
+            TPc = _tier_core(S, L, {}, day, tiles, _tier_copy.deepcopy(rec), units_cf, want, t_start)
+        finally:
+            CFG["sd_tier_dawn"] = mode_
+        TP["summary"]["cf"] = {"units": [{"u": x["u"], "end": x["end"], "late": x["late"], "stops": x.get("stops_v") or x["stops"]}
+                                         for x in TPc["summary"]["units"]],
+                               "unplanned": TPc["summary"]["unplanned"], "mand_late": TPc["summary"]["mand_late"]}
     TP["summary"]["spawn"] = [list(q) for q in sp0 + sp1]
     TP["summary"]["after1"] = [list(q) for q in after1]     # diagnostics: the plan's unit positions at the hour-1 market
     TP["wheat_buy"] = wbuy
@@ -7452,6 +7723,11 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             if M_ is not None:
                 mel_of[best_[1]] = M_
                 st["tier_prio_straw_runs"] = st.get("tier_prio_straw_runs", 0) + 1
+    dawn_of = {}
+    if int(CFG["sd_tier_dawn"]) == 1:              # learned from DSM: short dawn round trips to the near pens (forced)
+        dawn_of = _tier_dawn(S, rec, tiles, day, units, set(mel_of) | ani_units, st)
+    elif int(CFG["sd_tier_dawn"]) == 3:            # user: DSM's recorded early trips of the day, same hands / pens / hours
+        dawn_of = _tier_dawn_shape(S, rec, tiles, day, units, set(mel_of) | ani_units, st)
     # ---- segments: outbound hands, the melon hands after their drop, animal hands
     anim = [i for i in range(100) if _animal(_tile(tiles, i))]
     fneed = set(i for i, r_ in rec.items() if any(o["c"][0] == "FERTILIZE" for o in r_["ops"]))
@@ -7465,11 +7741,14 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         elif u in ani_units:
             segs.append({"u": u, "kind": "ani", "p0": pi, "t0": t0, "stops": [], "wu": 1.0, "ver": 0, "anim": anim,
                          "fneed": fneed})
+        elif u in dawn_of:                         # sd_tier_dawn: an outbound hand from the shed tile of its dawn drop
+            segs.append({"u": u, "kind": "out", "p0": dawn_of[u]["tile"], "t0": dawn_of[u]["end"], "stops": [], "wu": 1.0,
+                         "ver": 0, "anim": anim, "fneed": fneed, "dawn": True})
         else:
             segs.append({"u": u, "kind": "out", "p0": pi, "t0": t0, "stops": [], "wu": 1.0, "ver": 0, "anim": anim,
                          "fneed": fneed})
     if CFG["sd_tier_central_hand"]:                # user: the farmer cares around the centre and returns to drop
-        cseg = next((s_ for s_ in segs if s_["u"] == 0 and s_["kind"] == "out"), None)
+        cseg = next((s_ for s_ in segs if s_["u"] == 0 and s_["kind"] == "out" and not s_.get("dawn")), None)
         if cseg is not None:
             _tier_central(S, cseg, rec, tiles, day, st)
     # ---- B. mandatory stops -> sectors (heuristic search)
@@ -7506,6 +7785,27 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         late_m = sum(_tier_eval(s)[1] for s in segs_m if s["stops"])
         st["tier_pen_bundle_fallback"] = st.get("tier_pen_bundle_fallback", 0) + 1
     st["tier_mand_late"] = st.get("tier_mand_late", 0) + late_m
+    for sg in segs_m:                              # sd_tier_dawn_service: the leg pen's feed / care / collect right after the pickups
+        sv_ = (dawn_of.get(sg["u"]) or {}).get("svc") if sg.get("dawn") else None
+        for x in sv_ or []:
+            ev0_ = _tier_eval(sg)
+            k_ = next((i for i, y in enumerate(sg["stops"]) if y["tile"] == x["tile"]), None)
+            if k_ is not None:                     # the search gave this unit the pen's mandatory work: same visit
+                trial = [dict(y) for y in sg["stops"]]
+                trial[k_]["ops"] = sorted(trial[k_]["ops"] + [dict(o) for o in x["ops"]], key=lambda o: o["rank"])
+            else:
+                trial = [{k2: v2 for k2, v2 in x.items() if k2 != "orig"}] + sg["stops"]
+            ev1_ = _tier_eval(sg, trial)
+            if ev1_[1] <= ev0_[1] and ev1_[3] <= ev0_[3] and ev1_[0] <= 24:
+                sg["stops"] = trial
+                sg["ver"] += 1
+                if k_ is None:
+                    sg["lo"] = max(sg.get("lo", 0), 1)   # the extras go after it
+                st["tier_dawn_svc"] = st.get("tier_dawn_svc", 0) + 1
+            else:                                  # it does not fit: its ops are plain extras again
+                r_ = rec.setdefault(x["tile"], {"ops": [], "rel": x["rel"]})
+                r_["ops"] = r_["ops"] + list(x["orig"])
+                st["tier_dawn_svc_back"] = st.get("tier_dawn_svc_back", 0) + 1
     if CFG["sd_tier_pen_round"]:                   # learned from DSM: near-shed pens first, product into the shed
         _tier_pen_round(segs_m, tiles, day, st)
     if CFG["sd_tier_turn_plan"]:                   # learned from DSM: a shed stop after the harvest leg
@@ -7533,7 +7833,17 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
                 else:
                     b4.append({"tile": i, "ops": fc, "v": vfc, "shared": True})
             hv = [o for o in ex if o["c"][0] in ("HARVEST", "PLACE_HARVEST")]
-            if hv and CFG["sd_tier_anim_harv"]:            # animal thread: a deferred animal harvest is an extra
+            t_d = _tile(tiles, i)
+            dmin_ = (CFG["sd_tier_dawn_min"] or {}).get(t_d["animal"]) if int(CFG["sd_tier_dawn"]) == 2 else None
+            if (hv and CFG["sd_tier_anim_harv"] and dmin_ is not None and any(o["c"][0] == "HARVEST" for o in hv)
+                    and int(t_d.get("yield_units", 0) or 0) >= int(dmin_)
+                    and min(_TIER_D[i][q] for q in _TIER_SHED_I) <= int(CFG["sd_tier_dawn_radius"])):
+                prod_ = ANIMALS[t_d["animal"]]["product"]    # sd_tier_dawn 2: the deferred harvest as a dawn-leg extra
+                y_ = int(t_d.get("yield_units", 0) or 0)
+                b3.append({"tile": i, "ops": hv, "v": y_ * float((S.get("_tier_prices") or {}).get(prod_, 0) or 0)
+                           * float(CFG["sd_tier_dawn_frac"]), "v0": sum(o["v"] for o in hv), "shared": True, "dawn": True,
+                           "prod": prod_, "units": y_, "rel": r_["rel"]})
+            elif hv and CFG["sd_tier_anim_harv"]:            # animal thread: a deferred animal harvest is an extra
                 b4.append({"tile": i, "ops": hv, "v": sum(o["v"] for o in hv), "shared": True})
         else:
             e3 = [o for o in ex if o["tier"] == 3]
@@ -7553,6 +7863,11 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         b3 = b3f + b3r
     else:
         _tier_fill(segs, idx_out, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st, "c")
+    if int(CFG["sd_tier_dawn"]) == 2:              # dawn legs no hand took: plain deferred harvests again (phases D / E)
+        for bd in [bd for bd in b3 if bd.get("dawn")]:
+            b3.remove(bd)
+            b4.append({"tile": bd["tile"], "ops": bd["ops"], "v": bd["v0"], "shared": True})
+            st["tier_dawn_left"] = st.get("tier_dawn_left", 0) + 1
     if CFG["sd_tier_relief"] and b3:               # relief for the outbound extras before the melon hands take the free collects
         _tier_relief(segs, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st)
     # D. animal work: the melon hands' leftover labour first (and an animal hand)
@@ -7585,23 +7900,43 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             for x in M["stops"]:
                 items.append({"kind": "place" if x.get("place") else "stop", "tile": x["tile"],
                               "ops": [o["c"] for o in x["ops"]], "mand": [o["m"] for o in x["ops"]]})
+        if u in dawn_of:                           # sd_tier_dawn: the round trip first, the wheat pickup after it
+            for x in dawn_of[u]["stops"]:
+                items.append({"kind": "stop", "tile": x["tile"], "ops": [o["c"] for o in x["ops"]],
+                              "mand": [o["m"] for o in x["ops"]], "rel": x.get("rel", 0)})
         nf, na = _tier_picks(s["stops"])
+        kd_ = 0
+        while kd_ < len(s["stops"]) and s["stops"][kd_].get("dawn"):   # sd_tier_dawn 2: the dawn leg before the pickups
+            x = s["stops"][kd_]
+            items.append({"kind": "stop", "tile": x["tile"], "ops": [o["c"] for o in x["ops"]],
+                          "mand": [o["m"] for o in x["ops"]], "rel": x.get("rel", 0)})
+            kd_ += 1
         if nf:
             items.append({"kind": "pick", "item": "WHEAT", "n": nf})
         for a_, v_ in na.items():
             items.append({"kind": "pick", "item": a_, "n": v_})
-        for x in s["stops"]:
+        for x in s["stops"][kd_:]:
             items.append({"kind": "stop", "tile": x["tile"], "ops": [o["c"] for o in x["ops"]],
                           "mand": [o["m"] for o in x["ops"]], "rel": x.get("rel", 0)})
             if x.get("copy"):
                 items[-1]["copy"] = True
         ev = _tier_eval(s, want_hours=True) if s["stops"] else (s["t0"], 0, 0, 0, [])
         routes_u[u] = {"items": items, "k": 0, "sub": 0, "kind": s["kind"], "waited": 0, "wait": {}, "t0plan": s["t0"],
-                       "plan_hours": [(b_, c_[0], h) for b_, c_, h in ev[4]]}
+                       "plan_hours": (list(dawn_of[u]["hours"]) if u in dawn_of else []) + [(b_, c_[0], h) for b_, c_, h in ev[4]]}
         summ.append({"u": u, "kind": s["kind"], "t0": s["t0"], "end": ev[0], "late": ev[1], "hop": ev[2], "bad": ev[3],
                      "drop": mel_of[u]["drop"] if u in mel_of else None,
                      "melons": [x["tile"] for x in mel_of[u]["stops"] if not x.get("place")] if u in mel_of else [],
                      "stops": [[x["tile"], [o["c"][0] for o in x["ops"]]] for x in s["stops"]]})
+        if u in dawn_of:
+            summ[-1]["dawn"] = [dawn_of[u]["pen"], dawn_of[u]["units"], dawn_of[u]["drop"]]
+            if "dsm" in dawn_of[u]:
+                summ[-1]["dawn_dsm"] = dawn_of[u]["dsm"]
+                summ[-1]["dawn_pens"] = dawn_of[u]["pens"]
+        elif s["stops"] and s["stops"][0].get("dawn"):
+            nd_ = sum(len(x["ops"]) for x in s["stops"] if x.get("dawn"))
+            t_p = _tile(tiles, s["stops"][0]["tile"])
+            summ[-1]["dawn"] = [s["stops"][0]["tile"], int(t_p.get("yield_units", 0) or 0) if isinstance(t_p, dict) else 0,
+                                ev[4][nd_ - 1][2] if len(ev[4]) >= nd_ else None]
         if CFG["sd_tier_log_v"]:                   # animal thread: [op, mandatory, tier, value] per planned op
             summ[-1]["stops_v"] = [[x["tile"], [[o["c"][0], int(o["m"]), o["tier"], round(o["v"], 1)] for o in x["ops"]]]
                                    for x in s["stops"]]
