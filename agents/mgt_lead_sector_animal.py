@@ -184,6 +184,8 @@ CFG = {
     "sd_dv_coins": {},        # v2: product -> coins per such unit (a number, or [[first_day, coins], ...])
     "sd_dv_hour": 22,         # v2: last DROP / PLACE hour that sells the same day (unit actions come before the market)
     "sd_dv_quota": 1,         # v2: with sell_source "leader" only products whose sell quota of the day has room get the credit
+    "sd_hourly_profile": None,   # {product: [24 cumulative shares]} (user 2026-09-26: follow DSM's market PATTERN): the sell quota at hour h of day d = the target's sales before day d + share[h] x its sales on day d (not its whole day at hour 1); catch-up when behind, never ahead
+    "sd_wheat_reserve_today": 0, # 1: the wheat reserve is today's remaining feeds only (not + n_animals x wheat_days): wheat sells on the target's pace, tomorrow's feed is bought at hour 0 (sd_tier_wheat)
     "sd_h0_front": [],        # (user 2026-09-26) products whose shed stock may be sold at hour 0 FIRST in the order list (the engine processes both players' orders position by position, so a sell behind the hires comes after the rival's hour-0 sales); the largest-value pile >= sd_h0_front_min, at most sd_h0_front_n orders; one hour-0 hire moves to hour 1 only when the 10 slots are full
     "sd_h0_front_min": 5,
     "sd_h0_front_n": 1,
@@ -283,6 +285,9 @@ CFG = {
     "sd_tier_pen_bundle": 0,  # 1 (user 2026-09-26, learned from DSM: feed + care + collect in one visit on 36% of its pen visits vs our 7%): on every live animal the COLLECT (fertilizer waiting), the CARE (a later production in the season can realise it) and the FEED (care in the bundle, or tonight's production cashes a bank) join the keep-alive feed / due harvest as ONE mandatory stop, so the sector search gives the pen to one hand; the collected fertilizer then supplies that hand's fertilizes
     "sd_tier_pen_bundle_hmin": 0,   # > 0: the pen's harvest joins the stop when it holds >= this many units (else the cap rule)
     "sd_tier_pen_bundle_collect": 1,   # 0: the COLLECT stays out of the pen stop (free for the fertilize pairing; KB1 lost 4.3 fertilizes a day with it in)
+    "sd_tier_prio_straw": 0,  # 1 (user 2026-09-26: strawberry "melon mode"): one hour-0 hire (not the farmer, no melon duty) first harvests the strawberry tiles holding >= sd_tier_prio_straw_min units (or due), watering them in the same visit, best units x price per added hour while its drop at the shed stays by sd_tier_prio_straw_by; then a normal post segment
+    "sd_tier_prio_straw_min": 2,  # DSM's mean units per strawberry harvest (1.95)
+    "sd_tier_prio_straw_by": 12,  # DSM delivers the same day 62% of strawberries harvested at hours 0-7, 13% at 12-15
     "sd_tier_prio_ani": 0,    # 1 (user 2026-09-26: "melon mode" for important animal harvests): the farmer (no melon duty that day) first harvests the cow / sheep pens holding >= sd_tier_prio_ani_min units (or due), feed / care in the same visit, best units x price per added hour while his drop at the shed stays by sd_tier_prio_ani_by; then he is a normal hand (post segment in the sector search), as after a melon delivery
     "sd_tier_prio_ani_min": {"COW": 3, "SHEEP": 4},   # DSM's mean units per harvest at pens near the shed (cow 3.4-3.8, sheep 4.2-4.4); eggs left out (DSM delivers only 18% of eggs the same day)
     "sd_tier_prio_ani_by": 8,     # the melon rule's morning deadline
@@ -2617,7 +2622,7 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     reserve = Counter()
     n_anim = sum(1 for r in farm["tiles"] for t in r if _animal(t))
     reserve["WHEAT"] = max(0, demand.get("WHEAT", 0) - carried.get("WHEAT", 0)
-                           + (n_anim * CFG["wheat_days"] if day < last_day - 1 else 0))
+                           + (n_anim * CFG["wheat_days"] if (day < last_day - 1 and not CFG["sd_wheat_reserve_today"]) else 0))
     n_plants = sum(1 for r in farm["tiles"] for t in r if _is_plant(t))
     tomorrow = min(len(T.fert[d + 1]) if d + 1 < T.n else 0, n_plants)
     if CFG["fert_release"] and not CFG.get("fert_follow"):
@@ -2667,6 +2672,11 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                     quota = have
             else:
                 quota = T.cum_sold[d].get(p, 0) - S["sold"][p]
+                prof_ = CFG["sd_hourly_profile"]
+                if prof_ and p in prof_:           # follow the target's hour-of-day pattern within the day
+                    prev_ = T.cum_sold[d - 1].get(p, 0) if d >= 1 else 0
+                    quota = prev_ + float(prof_[p][hour]) * (T.cum_sold[d].get(p, 0) - prev_) - S["sold"][p]
+                    quota = int(quota)
             if p in (CFG.get("sell_now") or ()):
                 quota = have                  # sell_now (user): sold as soon as it is in the shed (melons: no demand builds up)
             if CFG["sd_fert_sell"] and p == "FERTILIZER":
@@ -2905,9 +2915,34 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             if p_ not in q_["sold"] and q0_ > 0 and float(prices.get(p_, 0) or 0) > 0:
                 ed_[p_] = 0.8 * float(ed_.get(p_, 0.0)) + 0.2 * (q0_ - float(prices.get(p_, 0)))
         q_["day"] = -1
+    TPq_ = S.get("tier") if CFG["sd_tier"] else None
+    if CFG["sd_hourly_profile"] and hour == 23 and not endgame and TPq_ and TPq_.get("day") == day:
+        for p_ in CFG["sd_hourly_profile"]:
+            tot_ = T.cum_sold[d].get(p_, 0)
+            today_ = tot_ - (T.cum_sold[d - 1].get(p_, 0) if d >= 1 else 0)
+            TPq_["cnt"]["q_day|" + p_] += max(0, today_)
+            TPq_["cnt"]["q_behind|" + p_] += max(0, int(tot_ - S["sold"][p_]))
+            TPq_["cnt"]["q_ahead|" + p_] += max(0, int(S["sold"][p_] - tot_))
+        sc_ = TPq_.setdefault("summary", {}).setdefault("cnt", {})   # the day's summary was written before this market
+        for k_, v_ in TPq_["cnt"].items():
+            if k_.startswith("q_"):
+                sc_[k_] = v_
     TPh_ = S.get("tier") if CFG["sd_tier"] else None
     if CFG["sd_h0_front"] and hour == 0 and not endgame and TPh_ and TPh_.get("day") == day and TPh_.get("h0_front"):
         fr_ = [["SELL", p_, int(shed.get(p_, 0) or 0)] for p_ in TPh_["h0_front"] if int(shed.get(p_, 0) or 0) > 0]
+        if CFG["sd_hourly_profile"]:               # only the pattern's hour-0 share
+            prof_ = CFG["sd_hourly_profile"]
+            fr2_ = []
+            for o_ in fr_:
+                p_ = o_[1]
+                if p_ in prof_:
+                    prev_ = T.cum_sold[d - 1].get(p_, 0) if d >= 1 else 0
+                    q0_ = int(prev_ + float(prof_[p_][0]) * (T.cum_sold[d].get(p_, 0) - prev_) - S["sold"][p_])
+                    if q0_ > 0:
+                        fr2_.append(["SELL", p_, min(o_[2], q0_)])
+                else:
+                    fr2_.append(o_)
+            fr_ = fr2_
         hires_ = [o for o in orders if o[0] == "HIRE"][:int(TPh_.get("k0", 10))]
         rest_ = [o for o in orders if o[0] != "HIRE" and not (o[0] == "SELL" and o[1] in TPh_["h0_front"])]
         if int(CFG["sd_h0_front_pos"]) == 0:
@@ -6289,6 +6324,75 @@ def _tier_load(seg, stops, tiles, day):
     return Counter({k: v for k, v in load.items() if v > 0})
 
 
+def _tier_copy_rec(rec):
+    """a copy of rec whose op dicts are the SAME objects (a trial run removes them only from the copy's lists)."""
+    return {i: dict(r_, ops=list(r_["ops"])) for i, r_ in rec.items()}
+
+
+def _tier_prio_run(S, rec, tiles, day, fu, st, mode):
+    """a melon-mode run for strawberries (mode "straw"): tiles holding >= sd_tier_prio_straw_min (or due), with their
+    WATER in the same visit, best units x price per added hour while the drop at the shed stays by the deadline."""
+    D = _TIER_D
+    u, p0, t0 = fu
+    pi = p0[1] * 10 + p0[0]
+    prices = S.get("_tier_prices") or {}
+    smin = int(CFG["sd_tier_prio_straw_min"])
+    by = int(CFG["sd_tier_prio_straw_by"])
+    cand = {}
+    for idx, r_ in rec.items():
+        t_ = _tile(tiles, idx)
+        if not _is_plant(t_) or t_.get("crop") != "STRAWBERRY":
+            continue
+        hv = [o for o in r_["ops"] if o["c"][0] in ("HARVEST", "PLACE_HARVEST")]
+        if not any(o["c"][0] == "HARVEST" for o in hv):
+            continue
+        y_ = int(t_.get("yield_units", 0) or 0)
+        due = any(o["m"] for o in hv if o["c"][0] == "HARVEST")
+        if not (due or y_ >= smin):
+            continue
+        cand[idx] = {"ops": hv + [o for o in r_["ops"] if o["c"][0] == "WATER"], "dv": y_ * float(prices.get("STRAWBERRY", 0) or 0)}
+    if not cand:
+        return None
+    seg = {"p0": pi, "t0": t0, "stops": []}
+
+    def with_drop(sts):
+        sh = min(_TIER_SHED_I, key=lambda q: D[sts[-1]["tile"]][q])
+        return sts + [{"tile": sh, "ops": [_tier_op(["DELIVER"], True, 0.0, 1)], "rel": 0, "turn": True}]
+
+    stops, taken, value = [], [], 0.0
+    t_cur = t0
+    while cand:
+        best = None
+        for idx, c in cand.items():
+            stp = {"tile": idx, "ops": sorted([dict(o, m=True, tier=1) for o in c["ops"]], key=lambda o: o["rank"]),
+                   "rel": rec[idx]["rel"]}
+            ev = _tier_eval(seg, with_drop(stops + [stp]), want_hours=True)
+            if ev[1] > 0 or max(h for (b_, c_, h) in ev[4] if c_[0] == "DELIVER") > by:
+                continue
+            sc = c["dv"] / max(1, ev[0] - t_cur)
+            if best is None or sc > best[0]:
+                best = (sc, idx, stp, ev)
+        if best is None:
+            break
+        _, idx, stp, ev = best
+        stops.append(stp)
+        taken.append(idx)
+        t_cur = ev[0]
+        c = cand.pop(idx)
+        value += c["dv"]
+        ids = set(id(o) for o in c["ops"])
+        rec[idx]["ops"] = [o for o in rec[idx]["ops"] if id(o) not in ids]
+        if not rec[idx]["ops"]:
+            rec.pop(idx)
+    if not taken:
+        return None
+    final = with_drop(stops)
+    ev = _tier_eval(seg, final, want_hours=True)
+    return {"stops": final, "p0": pi, "t0": t0, "_value": value,
+            "drop": max(h for (b_, c_, h) in ev[4] if c_[0] == "DELIVER"),
+            "hh": {b_: h for (b_, c_, h) in ev[4] if c_[0] == "HARVEST"}}
+
+
 def _tier_prio_ani(S, rec, tiles, day, fu, st):
     """sd_tier_prio_ani: the farmer's morning run of important animal harvests (see the flag), built like a melon run:
     {"stops" (pens, then a DELIVER stop at the shed), "p0", "t0", "drop", "hh"}; the taken ops leave rec."""
@@ -7050,14 +7154,22 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
         if wbuy and want >= 10:
             k0 = 9
     front = []
+    stock_h0 = {p_: int(shed.get(p_, 0) or 0) for p_ in (CFG["sd_h0_front"] or [])}
+    if CFG["sd_hourly_profile"] and CFG["sd_h0_front"]:   # only the pattern's hour-0 share counts
+        d_ = min(day, _T.n - 1)
+        for p_ in list(stock_h0):
+            if p_ in CFG["sd_hourly_profile"]:
+                prev_ = _T.cum_sold[d_ - 1].get(p_, 0) if d_ >= 1 else 0
+                q0_ = int(prev_ + float(CFG["sd_hourly_profile"][p_][0]) * (_T.cum_sold[d_].get(p_, 0) - prev_) - S["sold"][p_])
+                stock_h0[p_] = max(0, min(stock_h0[p_], q0_))
     if CFG["sd_h0_front"]:                         # hour-0 sale of the largest pile, first in the order list
-        cand_ = sorted(((int(shed.get(p_, 0) or 0) * float(prices.get(p_, 0) or 0), p_) for p_ in CFG["sd_h0_front"]
-                        if int(shed.get(p_, 0) or 0) >= int(CFG["sd_h0_front_min"])), reverse=True)
+        cand_ = sorted(((stock_h0[p_] * float(prices.get(p_, 0) or 0), p_) for p_ in CFG["sd_h0_front"]
+                        if stock_h0[p_] >= int(CFG["sd_h0_front_min"])), reverse=True)
         front = [p_ for _, p_ in cand_[:int(CFG["sd_h0_front_n"])]]
         if float(CFG["sd_h0_front_gain"]) > 0:     # per-product expected gain against the cost of a delayed hire
             ed_ = S.setdefault("h0edge", dict(CFG["sd_h0_front_edge0"] or {}))
-            gl_ = sorted(((int(shed.get(p_, 0) or 0) * float(ed_.get(p_, 0.0)), p_) for p_ in CFG["sd_h0_front"]
-                          if int(shed.get(p_, 0) or 0) > 0), reverse=True)
+            gl_ = sorted(((stock_h0[p_] * float(ed_.get(p_, 0.0)), p_) for p_ in CFG["sd_h0_front"]
+                          if stock_h0[p_] > 0), reverse=True)
             free_ = max(0, 10 - k0 - (1 if wbuy else 0))
             front = [p_ for i_, (g_, p_) in enumerate(gl_) if (g_ > 0 if i_ < free_ else g_ >= float(CFG["sd_h0_front_gain"]))]
             S["h0q"] = {"day": day, "q": {p_: float(prices.get(p_, 0) or 0) for p_ in CFG["sd_h0_front"]}, "sold": list(front)}
@@ -7223,6 +7335,20 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             M_ = _tier_prio_ani(S, rec, tiles, day, fu_, st)
             if M_ is not None:
                 mel_of[0] = M_
+    if CFG["sd_tier_prio_straw"]:                   # user: strawberry harvests in melon mode (one hour-0 hire)
+        best_ = None
+        for u_, p0_, t0_ in units:
+            if u_ == 0 or u_ in mel_of or t0_ > 1 or u_ in ani_units:
+                continue
+            rec_try = _tier_copy_rec(rec)
+            M_ = _tier_prio_run(S, rec_try, tiles, day, (u_, p0_, t0_), st, "straw")
+            if M_ is not None and (best_ is None or M_["_value"] > best_[0]):
+                best_ = (M_["_value"], u_, (u_, p0_, t0_))
+        if best_ is not None:
+            M_ = _tier_prio_run(S, rec, tiles, day, best_[2], st, "straw")
+            if M_ is not None:
+                mel_of[best_[1]] = M_
+                st["tier_prio_straw_runs"] = st.get("tier_prio_straw_runs", 0) + 1
     # ---- segments: outbound hands, the melon hands after their drop, animal hands
     anim = [i for i in range(100) if _animal(_tile(tiles, i))]
     fneed = set(i for i, r_ in rec.items() if any(o["c"][0] == "FERTILIZE" for o in r_["ops"]))
