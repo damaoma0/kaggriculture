@@ -5328,14 +5328,19 @@ def _sd_post(S, run, obs, me, step, day, hour, last_day, tiles, pos, tasks, assi
                         break
         if CFG.get("sd_finish_collect") and actions:
             # one visit per tile (user): a unit about to walk off an animal tile whose fertilizer is still there collects it first
+            coll_ = {tuple(pos[v_]) for v_ in range(min(len(pos), len(actions)))
+                     if isinstance(actions[v_], list) and actions[v_][:1] == ["COLLECT_FERTILIZER"]}
             for u_ in range(min(len(pos), len(actions))):
                 a_ = actions[u_]
                 if not (isinstance(a_, list) and a_ and a_[0] in ("NORTH", "SOUTH", "EAST", "WEST", "PASS")):
                     continue
                 p_ = tuple(pos[u_])
+                if p_ in coll_:
+                    continue                    # another unit collects this tile this hour (one collect per tile)
                 t_ = _tile(tiles, p_[1] * 10 + p_[0])
                 if isinstance(t_, dict) and t_.get("animal") and t_.get("fertilizer_available") and day < last_day:
                     actions[u_] = ["COLLECT_FERTILIZER"]
+                    coll_.add(p_)
                     st["finish_collect"] = st.get("finish_collect", 0) + 1
         if CFG["sd_fert_ret"] and actions:
             # user cycle: a unit delivering goods at the shed drops everything, its unused fertilizer included (sold)
