@@ -282,6 +282,7 @@ CFG = {
     "sd_tier_deliver": 0,     # 1: when the projected midnight dump will not fit the shed, the hands with the most valuable loads end their day at the shed (DROP, sold at once)
     "sd_tier_dump_buffer": 5,
     "sd_tier_access_keep": 0, # 1 (bug fix, 2026-09-26, KDF2 day 12 on 112604454): the PLACE after a HARVEST on a shed tile (sd_tier_access_drop) keeps the wheat this route still needs for its remaining FEEDs; it used to place ALL wheat in the hand (feed wheat included, sold at once), so the later FEEDs were skipped and a goose and a cow escaped
+    "sd_tier_dump_defer": 0,  # 1 (KC2a on 112604454: hands carried 105-127 units into the midnight dump on days 20/24/26/28 while the planner projected 109-128 and found no delivery that fits; the excess was deleted): when the projected dump still exceeds 100 - sd_tier_dump_buffer after the deliveries, harvests whose tile can hold the units until tomorrow without losing production (animal: tonight's production fits max_held; ongoing crop: yield + tonight's production <= max_yield and not in its last day of life; one-time crop: not decaying by tomorrow; no melons, no replant on the tile) are left for tomorrow, cheapest units first
     "sd_tier_dump_fix": 0,    # 1 (2026-09-26, case world 112604454: hands carried 124-159 units into the midnight dump while the shed was empty): the executor skips a planned end-of-day DROP only when the PROJECTED midnight load (shed + carried + the units the routes still harvest today) fits, not the load at that hour
     "sd_tier_copy_returns": 0,  # 1 (user 2026-09-26: copy how many hands go back to the shed to drop): the plan holds at least as many daytime shed deliveries as the leader made that day at hour >= 5 (results/fresh/threads_20260928/dsm_returns/<ep>.json), best load value per added hour, extras at a route end trimmed if needed
     "sd_tier_copy_returns_from": 11,   # first day it applies
@@ -7162,9 +7163,41 @@ def _tier_deliver(S, segs, tiles, day, st):
         done.add(k)
         total -= sum(lk.values())
         st["tier_deliveries"] = st.get("tier_deliveries", 0) + 1
+    deferred_ = 0
+    if CFG["sd_tier_dump_defer"]:                  # leave holdable harvests for tomorrow instead of deleting them
+        cap_ = 100 - int(CFG["sd_tier_dump_buffer"])
+        while total > cap_:
+            best_ = None
+            for k, sg in enumerate(segs):
+                for x in sg["stops"]:
+                    if x.get("deliver") or x.get("turn") or x.get("place"):
+                        continue
+                    cs_ = [o["c"][0] for o in x["ops"]]
+                    if "HARVEST" not in cs_ or any(c_ in ("PLANT", "DIG", "BUILD_COOP", "BUILD_PASTURE") for c_ in cs_):
+                        continue
+                    t_ = _tile(tiles, x["tile"])
+                    if not isinstance(t_, dict):
+                        continue
+                    u_ = int(t_.get("yield_units", 0) or 0)
+                    if u_ <= 0 or not _tier_defer_ok(t_, day):
+                        continue
+                    prod_ = ANIMALS[t_["animal"]]["product"] if _animal(t_) else t_.get("crop")
+                    pr_ = float(prices.get(prod_, 0) or 0)
+                    if best_ is None or pr_ < best_[0]:
+                        best_ = (pr_, k, x, u_)
+            if best_ is None:
+                break
+            _, k, x, u_ = best_
+            x["ops"] = [o for o in x["ops"] if o["c"][0] not in ("HARVEST", "PLACE_HARVEST")]
+            if not x["ops"]:
+                segs[k]["stops"] = [y for y in segs[k]["stops"] if y is not x]
+            segs[k]["ver"] += 1
+            total -= u_
+            deferred_ += u_
+        st["tier_dump_deferred"] = st.get("tier_dump_deferred", 0) + deferred_
     st["tier_dump_left_over"] = st.get("tier_dump_left_over", 0) + max(0, total - room)
     st["_dump_day"] = {"proj": total0, "room": room, "left": total, "target": target_,
-                       "with_delivery": sum(1 for sg in segs if has_(sg))}
+                       "with_delivery": sum(1 for sg in segs if has_(sg)), "deferred": deferred_}
 
 
 def _tier_melon(day, tiles, units):
@@ -7201,6 +7234,26 @@ def _tier_melon(day, tiles, units):
         if best is None or key < best[0]:
             best = (key, asg)
     return (best[1] if best else []), left
+
+
+def _tier_defer_ok(t, day):
+    """sd_tier_dump_defer: the tile keeps its units until tomorrow without losing production."""
+    if _animal(t):
+        return not _tier_anim_harv_needed(t, day)
+    crop = t.get("crop")
+    if not crop or crop == "MELON":
+        return False
+    cd = CROPS[crop]
+    ls = int(t.get("max_lifespan_step", -1) or -1)
+    if ls != -1 and ls <= (day + 2) * 24:
+        return False                               # decays by tomorrow's end
+    if cd["ongoing"]:
+        dsf = day + 1 - int(t.get("planted_day", day)) - cd["first"]
+        add = 0
+        if dsf >= 0 and cd["interval"] and dsf % cd["interval"] == 0 and dsf // cd["interval"] + 1 <= cd["max"]:
+            add = 2 if int(t.get("fertilized_until_day", -1)) >= day else 1
+        return int(t.get("yield_units", 0) or 0) + add <= cd["max"]
+    return True
 
 
 def _tier_anim_harv_needed(t, day):
