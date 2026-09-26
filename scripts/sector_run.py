@@ -137,6 +137,17 @@ ARMS = {
     'M_once': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
                          sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
                          sd_hv_pref=HVM, sd_hp_parity=1, sd_plan_once=1, sd_once_evals=48000, **SHIP)),
+    # M_once2 (user, one world): M_once + repair (c) as a limited reassignment
+    'M_once2': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                          sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                          sd_hv_pref=HVM, sd_hp_parity=1, sd_plan_once=1, sd_once_evals=48000, sd_once_steal=1, **SHIP)),
+    # days 11-14 (mode multi): M_decay14 = M_decay; F1 = M_decay + mj_fertilize True (fertilizer charged at 0)
+    'M_decay14': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                            sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                            sd_hv_pref=HVM, sd_hp_parity=1, **SHIP)),
+    'F1': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                     sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                     sd_hv_pref=HVM, sd_hp_parity=1, mj_fertilize=True, **SHIP)),
     # the same two arms under the shipping build's wall-clock caps (0.75 / 0.6 / 0.8 s; evaluation budgets unchanged)
     'Mship': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
                         sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
@@ -179,6 +190,9 @@ LABEL = {
     'M_idle': 'M_idle: M + idle fill (a water on a dry plant worth 40, idle hands deliver fertilizer)',
     'M2': 'M2: M + any hand on its empty coop with the goose places it + the coop/goose job due by h19 (then by day end)',
     'M2a': 'M2a: M + any hand on its empty coop with the goose places it',
+    'M_once2': 'M_once2: M_once + an idle hand takes the nearest job it can start before its holder (limited reassignment)',
+    'M_decay14': 'M_decay14: M_decay played days 11-14 (for the fertilizer comparison)',
+    'F1': 'F1: M_decay + fertilizer charged at 0 in the maintenance module (fertilize by the extra units), days 11-14',
     'M_once': 'M_once: M_decay + each hand planned once in the morning (48k evals), then only local repairs (job gone, new must-do or job, empty route)',
     'M_decay': 'M_decay: M + the harvest decay bonus 500 (a one-time crop decaying from tomorrow is harvested today), as in S11cg',
     'M2i': 'M2i: M2 + idle fill v2 (idle hands only: same-day delivery, then the nearest dry plant in the home quadrant)',
@@ -235,9 +249,97 @@ def stream_job(args):
         return 'stream', game, arm, None, f'{type(exc).__name__}: {exc} ' + traceback.format_exc()[-2000:]
 
 
+def multi_job(args):
+    """days 11..11+nd-1 from the leader's exact day-11 morning (LEADER: the tape): both farms' money at every morning
+    264..(11+nd)*24, our fertilizer ops by crop, fertilizer sold / held per day, passes; the stream for 264..(11+nd)*24-1
+    -> OUT/multi/<arm>/<ep>.json and results/fresh/day12_viz/<arm>_streams/<ep>.json."""
+    import copy
+    import traceback
+    import kaggle_environments as KE
+    import lead_g1
+    import lead_ledger
+    _, game, arm, nd = args
+    try:
+        D = X.D
+        tape = X.tape_of(game)
+        seat = tape['seat']
+        envbox, box = {}, {}
+        orig_make = KE.make
+
+        def mk(*a, **k):
+            e = orig_make(*a, **k)
+            envbox['env'] = e
+            return e
+        KE.make = mk
+        try:
+            if arm == 'LEADER':
+                r = lead_ledger.play(game, 'leader')
+            else:
+                path, cfg = ARMS[arm]
+
+                def loader(_cfg):
+                    del _MODS[:]
+                    mod = X.load_module(path, 'xfix_' + arm)
+                    h = X.Handoff(mod, dict(X.BASE, **cfg), tape, hand=D, stop=(D + nd) * 24)
+                    h.record = {}
+                    box['h'] = h
+                    return h
+                lead_g1._load_agent = loader
+                r = lead_ledger.play(game, 'ours')
+        finally:
+            KE.make = orig_make
+        env = envbox['env']
+        money = {}
+        for d in range(D, D + nd + 1):
+            fs = env.steps[d * 24][0].observation.farms
+            money[d] = [float(fs[seat]['money']), float(fs[1 - seat]['money'])]
+        days = r['days']
+        out = dict(game=game, episode=int(game.split(':')[1]), arm=arm, seat=seat, ndays=nd, money=money,
+                   fert_ops={d: {k.split(':', 1)[1]: v for k, v in (days[d].get('opk') or {}).items() if k.startswith('FERTILIZE:')}
+                             for d in range(D, D + nd)},
+                   fert_sold={d: (days[d].get('sold') or {}).get('FERTILIZER', 0) for d in range(D, D + nd)},
+                   fert_held={d: (days[d].get('shed_after') or {}).get('FERTILIZER', 0)
+                              + (days[d].get('carried_mid') or {}).get('FERTILIZER', 0) for d in range(D, D + nd)},
+                   passes={d: days[d].get('passes', 0) for d in range(D, D + nd)},
+                   died={d: days[d].get('died', {}) for d in range(D, D + nd)})
+        (OUT / 'multi' / arm).mkdir(parents=True, exist_ok=True)
+        (OUT / 'multi' / arm / f"{game.split(':')[1]}.json").write_text(json.dumps(out, default=str), encoding='utf-8')
+        if arm != 'LEADER':
+            cfg = ARMS[arm][1]
+            acts = [copy.deepcopy(a) if isinstance(a, dict) and a else {} for a in tape['actions']]
+            for t_, a_ in box['h'].record.items():
+                if D * 24 <= t_ < (D + nd) * 24:
+                    acts[t_] = a_
+            for t_ in range((D + nd) * 24, len(acts)):
+                acts[t_] = {}
+            st_ = dict(game=game, episode=out['episode'], seat=seat, seed=tape['seed'], arm=LABEL.get(arm, arm),
+                       cfg=dict(X.BASE, **cfg), agent_path=ARMS[arm][0], first_step=D * 24, last_step=(D + nd) * 24 - 1,
+                       actions=acts, mode='multi',
+                       note='actions[t] = the leader tape for t < 264, the arm for 264..%d, {} after' % ((D + nd) * 24 - 1),
+                       cash=[d_['cash'] for d_ in days[:D + nd + 1]])
+            L_ = (getattr(box['h'].mod, '_S', None) or {}).get('sd') or {}
+            lo, hi = D * 24, (D + nd) * 24
+            if cfg.get('sd_sector_w'):
+                st_['sectors'] = {d: v for d, v in (L_.get('sector_log') or {}).items() if D <= int(d) < D + nd}
+                st_['sector_changes'] = [c for c in (L_.get('sector_changes') or []) if lo <= c[0] < hi]
+            if cfg.get('sd_plan_log'):
+                st_['plan'] = {s_: v for s_, v in (L_.get('plan_log') or {}).items() if lo <= int(s_) < hi}
+            if cfg.get('sd_plan_once'):
+                st_['once_steps'] = L_.get('once_steps') or []
+                st_['repairs'] = [x for x in (L_.get('repairs') or []) if lo <= x[0] < hi]
+            d_ = ROOT / 'results/fresh/day12_viz' / (arm.lower() + '_streams')
+            d_.mkdir(parents=True, exist_ok=True)
+            (d_ / f"{game.split(':')[1]}.json").write_text(json.dumps(st_, default=str), encoding='utf-8')
+        return 'multi', game, arm, money[D + nd][0], None
+    except Exception as exc:
+        return 'multi', game, arm, None, f'{type(exc).__name__}: {exc} ' + traceback.format_exc()[-2000:]
+
+
 def run_one(j):
     if j[0] == 'stream':
         return stream_job(j)
+    if j[0] == 'multi':
+        return multi_job(j)
     del _MODS[:]
     res = X.job(j)
     if j[0] == 'trace' and res[4] is None and _MODS:   # the planner's own counters: time caps, evals, plan ms per step

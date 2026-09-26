@@ -1821,6 +1821,56 @@ def _sd_search(P, rng, t_end, evals_max):
     return it, rr_t, rr_a, capped
 
 
+def _sd_once_steal(P, rec):
+    """sd_once_steal: a unit with an empty route takes the nearest job it can start earlier than its current holder would
+    (an unassigned job always qualifies; a job of another unit's route only if it is not that route's head, i.e. not
+    started or being walked to). Candidates nearest first until one fits; one job per repair."""
+    D = P.d
+
+    def starts(v):                                 # planned start hour of each job of route v (walk + ops, no detours)
+        t, at, out = P.ut0[v], P.up[v], {}
+        for j in P.routes[v]:
+            b = P.jb[j][0]
+            t = max(t + D[at][b], P.jb[j][9])
+            out[j] = t
+            t += P.jb[j][1]
+            at = b
+        return out
+    for u in range(P.n_real):
+        if P.ue[u] < 0 or P.routes[u]:
+            continue
+        cand = []
+        for j in range(P.J):
+            if P.where[j] < 0 and P.real[j]:
+                cand.append((D[P.up[u]][P.jb[j][0]], j, -1))
+        for v in range(P.n_real):
+            if v == u or len(P.routes[v]) < 2:
+                continue
+            sv = starts(v)
+            for j in P.routes[v][1:]:
+                arr = P.ut0[u] + D[P.up[u]][P.jb[j][0]]
+                if arr < sv[j]:
+                    cand.append((D[P.up[u]][P.jb[j][0]], j, v))
+        for d_, j, v in sorted(cand):
+            if not _sd_seed_ok(P, j) and v < 0:
+                continue
+            nu = [j]
+            evu = _sd_eval(P, u, nu)
+            if not evu[0]:
+                continue
+            if v >= 0:
+                rv = [x for x in P.routes[v] if x != j]
+                evv = _sd_eval(P, v, rv)
+                if not evv[0]:
+                    continue
+                _sd_commit(P, v, rv, evv)
+            _sd_commit(P, u, nu, _sd_eval(P, u, nu))
+            rec(u, "reassigned" if v >= 0 else "empty_route", j)
+            if v >= 0:
+                P.moved = getattr(P, "moved", 0) + 1
+            break
+
+
 def _sd_once_repair(P, L, ctx, prev, t_end):
     """sd_plan_once after the morning plan: the warm start kept every unit's own route (no re-optimisation, no
     reassignment); log what it dropped, then repair locally: (a) a planned job gone (its task vanished while the unit is
@@ -1862,8 +1912,10 @@ def _sd_once_repair(P, L, ctx, prev, t_end):
         for j in before:
             if P.where[j] >= 0:
                 rec(P.where[j], "must_do" if P.hard[j] else "new_job", j)
+    if CFG["sd_once_steal"]:                       # (c) as a limited reassignment
+        _sd_once_steal(P, rec)
     for u in range(P.n_real):
-        if P.ue[u] < 0 or P.routes[u]:
+        if CFG["sd_once_steal"] or P.ue[u] < 0 or P.routes[u]:
             continue
         added = 0
         while added < 3:
