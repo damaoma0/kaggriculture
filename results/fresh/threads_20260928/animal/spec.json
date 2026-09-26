@@ -899,5 +899,85 @@
    "sd_tier_prio_ani": 1
   },
   "label": "KM1 = KS1 + animal melon mode: the farmer first harvests cow / sheep pens holding >= 3 / 4 units (or due), feed / care in the same visit, drops at the shed by hour 8, then works as a normal hand"
+ },
+ "KH0s": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_h0_front": [
+    "WOOL",
+    "STRAWBERRY",
+    "MILK"
+   ],
+   "sd_h0_front_min": 5,
+   "sd_h0_front_n": 1,
+   "sd_h0_front_pos": 0,
+   "sd_h0_front_gain": 70.0
+  },
+  "label": "KH0s = KS1 + the KH0g hour-0 sale (gain rule 70, first in the order list), re-tested on the spawn-fixed base"
+ },
+ "KS1dbg": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1
+  },
+  "label": "KS1 debug copy (spawn diagnostics)"
+ },
+ "KS2": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_tier_spawn_remap": 1
+  },
+  "label": "KS2 = KS1 + hour-1 hires take the routes whose first stop is nearest their actual spawn tile"
+ },
+ "KS3": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_tier_spawn_buffer": 1,
+   "sd_tier_spawn_remap": 1
+  },
+  "label": "KS3 = KS1 + one hour of slack for the hour-1 hires on days their spawn prediction does not settle (+ route remap)"
  }
 }

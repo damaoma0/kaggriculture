@@ -290,6 +290,8 @@ CFG = {
     "sd_tier_central_radius": 2,
     "sd_tier_central_mode": "care",   # "deliver" (user: the central hand is for EARLY DELIVERY): first the central pens with product (due harvest or >= sd_tier_central_hmin), ranked by units x price per added hour, each with its feed / care in the same visit and a drop at the shed right after; then care of other central pens with the time left
     "sd_tier_central_hmin": None,  # e.g. {"COW": 3, "SHEEP": 4, "GOOSE": 3} (DSM's mean units per harvest at pens within 2 tiles: cow 3.4-3.8, sheep 4.2-4.4, goose 2.7-3.5): the central hand also harvests (and drops) a pen holding at least this many units   # DSM same-day milk delivery by distance from the access tiles: 95 / 61 / 42 / 27% at 0 / 1 / 2 / 3
+    "sd_tier_spawn_buffer": 0, # 1 (2026-09-26): when the hour-1 hires' spawn prediction has still not settled after the re-plan passes, re-plan once from the spawn tiles the plan's own hour-1 positions imply, with the hour-1 hires planned from hour 3 (one hour of slack: a spawn one tile off then costs no tail work)
+    "sd_tier_spawn_remap": 0,  # 1 (2026-09-26): at the first hour the hour-1 hires act, their routes are reassigned among them so each takes the route whose first stop is nearest its actual spawn tile (the spawn prediction does not always settle: 30% of them started late in KS1, all on a wrong spawn tile)
     "sd_tier_spawn_h2": 0,    # 1 (2026-09-26): the hour-1 hires spawn on the least occupied shed tile AFTER the hour-0 units' hour-1 commands; when that differs from the plan's assumption (empty shed tiles), re-plan once with the spawn tiles the plan's own hour-1 positions imply (KE7: 65% of hour-1 hires started ~0.9 h late and lost their route's tail ops)
     "sd_tier_water_exact": 0, # 1 (user 2026-09-26: shift the weights): a non-mandatory WATER is worth units x price by engine rules (one-time crop in its window: +1, +2 fertilized, to the cap; ongoing crop producing tonight and fertilized: +1 if under the cap; else 0) + sd_water_tomorrow   # > 0: the pen's harvest joins the stop when it holds >= this many units (else the cap rule)
     "sd_tier_pen_round": 0,   # 1 (user 2026-09-26, learned from DSM): a hand whose mandatory route holds animal harvests within sd_tier_pen_radius of the shed does them first and puts the product into the shed (DELIVER) before its other stops; planned right after the mandatory sector search, before the extras
@@ -7104,7 +7106,24 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                 st["tier_spawn_h2_replan"] = st.get("tier_spawn_h2_replan", 0) + 1
                 if _sd_spawn(after1, want - k0) == sp1:
                     break
+            if CFG["sd_tier_spawn_buffer"] and _sd_spawn(after1, want - k0) != sp1:
+                sp1 = _sd_spawn(after1, want - k0)     # still unsettled: plan the hour-1 hires with an hour of slack
+                units = [(0, f0, ft0)] + [(u + 1, q, 1) for u, q in enumerate(sp0)] + [
+                    (u + 1 + k0, q, 3) for u, q in enumerate(sp1)]
+                TP = _tier_core(S, L, st, day, tiles, _tier_copy.deepcopy(rec), units, want, t_start)
+                if 0 in TP["routes"]:
+                    TP["routes"][0]["t0"] = ft0
+                    if TP["routes"][0].get("kind") != "post":
+                        TP["routes"][0]["wt0"] = max(ft0, 1)
+                for u_ in range(k0 + 1, want + 1):
+                    if u_ in TP["routes"]:
+                        TP["routes"][u_]["t0plan"] = 2       # they still act from hour 2 (the executor starts them then)
+                        TP["routes"][u_]["t0"] = 0
+                after1 = [_tier_walk(TP["routes"].get(0), f0, 2 - ft0)] + [
+                    _tier_walk(TP["routes"].get(u + 1), q, 1) for u, q in enumerate(sp0)]
+                st["tier_spawn_buffer"] = st.get("tier_spawn_buffer", 0) + 1
     TP["summary"]["spawn"] = [list(q) for q in sp0 + sp1]
+    TP["summary"]["after1"] = [list(q) for q in after1]     # diagnostics: the plan's unit positions at the hour-1 market
     TP["wheat_buy"] = wbuy
     TP["summary"]["wheat_buy"] = wbuy
     TP["k0"] = k0
@@ -7346,7 +7365,7 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             items.append({"kind": "stop", "tile": x["tile"], "ops": [o["c"] for o in x["ops"]],
                           "mand": [o["m"] for o in x["ops"]], "rel": x.get("rel", 0)})
         ev = _tier_eval(s, want_hours=True) if s["stops"] else (s["t0"], 0, 0, 0, [])
-        routes_u[u] = {"items": items, "k": 0, "sub": 0, "kind": s["kind"], "waited": 0, "wait": {},
+        routes_u[u] = {"items": items, "k": 0, "sub": 0, "kind": s["kind"], "waited": 0, "wait": {}, "t0plan": s["t0"],
                        "plan_hours": [(b_, c_[0], h) for b_, c_, h in ev[4]]}
         summ.append({"u": u, "kind": s["kind"], "t0": s["t0"], "end": ev[0], "late": ev[1], "hop": ev[2], "bad": ev[3],
                      "drop": mel_of[u]["drop"] if u in mel_of else None,
@@ -7534,6 +7553,32 @@ def _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, sh
     snap = {}
     TP["_load_now"] = sum(int(v or 0) for v in shed.values()) + sum(int(v or 0) for inv_ in invs for k_, v_ in (inv_ or {}).items()
                                                                   for v in [v_] if k_ in PRODUCTS)
+    if CFG["sd_tier_spawn_remap"] and not TP.get("_remapped"):
+        late_ = sorted(u for u, R_ in TP["routes"].items() if R_.get("t0plan") == 2 and u > 0 and R_.get("k", 0) == 0)
+        if late_ and all(u < len(pos) for u in late_):
+            TP["_remapped"] = True                 # the hour-1 hires exist now: match routes to their real spawn tiles
+            import itertools as _it
+
+            def first_tile(R_):
+                for it_ in R_["items"]:
+                    if it_["kind"] != "pick":
+                        return (it_["tile"] % 10, it_["tile"] // 10)
+                return None
+
+            tgt = {u: first_tile(TP["routes"][u]) for u in late_}
+            cost_ = lambda a, u: 0 if tgt[u] is None else abs(pos[a][0] - tgt[u][0]) + abs(pos[a][1] - tgt[u][1])
+            best_ = None
+            for perm in _it.permutations(late_):
+                c_ = sum(cost_(a, u) for a, u in zip(late_, perm))
+                if best_ is None or c_ < best_[0]:
+                    best_ = (c_, perm)
+            base_ = sum(cost_(a, a) for a in late_)
+            if best_ and best_[0] < base_:
+                old_ = {u: TP["routes"][u] for u in late_}
+                for a, u in zip(late_, best_[1]):
+                    TP["routes"][a] = old_[u]
+                TP["cnt"]["spawn_remap"] += 1
+                TP["cnt"]["spawn_remap_saved"] += base_ - best_[0]
     for u in sorted(TP["routes"]):
         R = TP["routes"][u]
         if u >= len(pos) or u >= len(actions):
