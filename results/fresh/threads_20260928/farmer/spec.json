@@ -1,5 +1,52 @@
-{"KF0": {"base": "K5b", "cfg": {}, "label": "KF0: K5b re-run on the edited main copy (flags off)"},
- "KF1": {"base": "K5b", "cfg": {"sd_h23_sell_all": 1, "sd_farmer_hold_excess": 1, "sd_h1_sell_excess": 1}, "label": "KF1: sell all at 23, farmer holds the excess at 0 (always), sell the excess at 1"},
- "KF2": {"base": "K5b", "cfg": {"sd_h23_sell_all": 1, "sd_farmer_hold_excess": 2, "sd_h1_sell_excess": 1}, "label": "KF2: KF1 with the farmer holding only when the wheat buy needs room"},
- "KF3": {"base": "K5b", "cfg": {"sd_h23_sell_all": 1}, "label": "KF3: sell all at 23 only"},
- "KF4": {"base": "K5b", "cfg": {"sd_farmer_hold_excess": 1, "sd_h1_sell_excess": 1}, "label": "KF4: farmer holds the excess at 0, sell it at 1 (no h23 sale)"}}
+{
+ "KF0": {
+  "base": "K5b",
+  "cfg": {},
+  "label": "KF0: K5b re-run on the edited main copy (flags off)"
+ },
+ "KF1": {
+  "base": "K5b",
+  "cfg": {
+   "sd_h23_sell_all": 1,
+   "sd_farmer_hold_excess": 1,
+   "sd_h1_sell_excess": 1
+  },
+  "label": "KF1: sell all at 23, farmer holds the excess at 0 (always), sell the excess at 1"
+ },
+ "KF2": {
+  "base": "K5b",
+  "cfg": {
+   "sd_h23_sell_all": 1,
+   "sd_farmer_hold_excess": 2,
+   "sd_h1_sell_excess": 1
+  },
+  "label": "KF2: KF1 with the farmer holding only when the wheat buy needs room"
+ },
+ "KF3": {
+  "base": "K5b",
+  "cfg": {
+   "sd_h23_sell_all": 1
+  },
+  "label": "KF3: sell all at 23 only"
+ },
+ "KF4": {
+  "base": "K5b",
+  "cfg": {
+   "sd_farmer_hold_excess": 1,
+   "sd_h1_sell_excess": 1
+  },
+  "label": "KF4: farmer holds the excess at 0, sell it at 1 (no h23 sale)"
+ },
+ "KC1": {
+  "base": "K5b",
+  "cfg": {
+   "sd_farmer_central": 1,
+   "sd_farmer_radius": 2,
+   "sd_farmer_hold_excess": 2,
+   "sd_farmer_putback": 1,
+   "sd_h1_sell_excess": 1,
+   "sd_h1_sells_first": 1
+  },
+  "label": "KC1: farmer = melons or central unit (radius 2), holds the excess at 0 only when the wheat buy needs room, puts it back with PLACE at 2 (sold at once), the dump sold at hour 1 with sells before seed buys"
+ }
+}

@@ -255,6 +255,10 @@ CFG = {
     "sd_tier_rot_all": 0,     # 1: the sweep start routes every rotation of arcs to hands (no distance proxy; slower)
     "sd_tier_swap_oropt": 0,  # 1: a swap move re-optimizes both routes (slower)
     "sd_tier_spawn_passes": 2,  # plan / spawn-check passes at hour 0
+    "sd_farmer_central": 0,   # 1 (user 2026-09-28): a farmer without melon work is the CENTRAL unit: out of the sector search, animal work first, only tiles within sd_farmer_radius of a shed tile
+    "sd_farmer_radius": 2,
+    "sd_farmer_putback": 0,   # 1 (user): a farmer holding the excess (sd_farmer_hold_excess) puts it back with PLACE at hour 2 (after the hour-1 sale; PLACE keeps what does not fit), sold at once; his route then starts
+    "sd_h1_sells_first": 0,   # 1: at hour 1 the excess sales take their order slots before seed / animal purchases (hires still first)
     "sd_h23_sell_all": 0,     # 1 (user 2026-09-28): at hour 23 the market sells everything in the shed (the shed is empty for the midnight dump)
     "sd_farmer_hold_excess": 0,   # 1 (user): the farmer stays put at hour 0 holding the excess (PICKUP of the largest non-wheat pile) so the hour-0 wheat buy has room, drops it at hour 1; 2: only when the buy needs the room
     "sd_h1_sell_excess": 0,   # 1 (user): at hour 1 the market sells the excess: every non-wheat good in the shed (incl. what the farmer drops) and wheat beyond the day's remaining planned pickups
@@ -2870,7 +2874,18 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                 ex_[p_] = n_
         nonsell = [o for o in orders if o[0] != "SELL"]
         sells_ = sorted((["SELL", p_, n_] for p_, n_ in ex_.items()), key=lambda o: -o[2] * prices.get(o[1], 0))
-        orders = (nonsell + sells_)[:10]
+        if CFG["sd_h1_sells_first"]:               # hires first, then the dump's sales, then purchases (seeds can wait an hour)
+            hires_ = [o for o in nonsell if o[0] == "HIRE"]
+            rest_ = [o for o in nonsell if o[0] != "HIRE"]
+            orders = (hires_ + sells_ + rest_)[:10]
+        else:
+            orders = (nonsell + sells_)[:10]
+    if CFG["sd_farmer_putback"] and TPx_ and TPx_.get("day") == day and TPx_.get("h2_placed") and 2 <= hour <= 5:
+        pb_ = [["SELL", p_, int(n_)] for p_, n_ in TPx_["h2_placed"].items() if n_ > 0]
+        orders = [o for o in orders if o[0] == "HIRE"] + pb_ + [o for o in orders if o[0] != "HIRE" and not (
+            o[0] == "SELL" and o[1] in TPx_["h2_placed"])]
+        orders = orders[:10]
+        TPx_["h2_placed"] = Counter()
     for o in orders:
         if o[0] == "SELL":
             S["sold"][o[1]] += o[2]
@@ -5957,6 +5972,8 @@ def _tier_fill(segs, sidx, bundles, collects, owner, rate, st, tag):
                 o_ = owner.get(bd["tile"])
                 if o_ is not None and o_ != k and not bd.get("shared"):
                     continue
+                if segs[k]["kind"] == "central" and min(_TIER_D[bd["tile"]][q_] for q_ in _TIER_SHED_I) > int(CFG["sd_farmer_radius"]):
+                    continue
                 key = (id(bd), bd.get("bv", 0), k, segs[k]["ver"])
                 r = cache.get(key)
                 if r is None:
@@ -6128,6 +6145,8 @@ def _tier_relief(segs, pool, collects, owner, rate, st):
                     cR3 = _tier_cost(R, evR3, ins[2])
                     for k, S in enumerate(segs):
                         if k == r:
+                            continue
+                        if S["kind"] == "central" and min(_TIER_D[x["tile"]][q_] for q_ in _TIER_SHED_I) > int(CFG["sd_farmer_radius"]):
                             continue
                         evS = _tier_eval(S)
                         if evS[0] > 24 - slack:
@@ -6409,8 +6428,12 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     ft0 = 0
     if CFG["sd_tier_farmer_hold"] and min(_dist(f0, q) for q in SHED) <= 1:
         ft0 = 1                                    # on / next to the shed: he holds at hour 0, so the hires' spawn is known
+    hold_ = False
     if CFG["sd_farmer_hold_excess"] and f0 in SHED:
-        ft0 = 2                                    # user: hour 0 he holds the excess, hour 1 he drops it for the sale
+        room0_ = 100 - sum(int(v or 0) for v in shed.values())
+        hold_ = CFG["sd_farmer_hold_excess"] == 1 or wbuy > room0_
+        if hold_ or not CFG["sd_farmer_putback"]:
+            ft0 = 3 if (CFG["sd_farmer_putback"] and hold_) else 2   # hour 0 hold, (hour 1 wait,) put back, then his route
     sp0 = _sd_spawn([f0] if ft0 else ([] if f0 in SHED else [f0]), k0)
     sp1 = _sd_spawn([], want - k0)
     TP = None
@@ -6534,6 +6557,9 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         elif u in ani_units:
             segs.append({"u": u, "kind": "ani", "p0": pi, "t0": t0, "stops": [], "wu": 1.0, "ver": 0, "anim": anim,
                          "fneed": fneed})
+        elif u == 0 and CFG["sd_farmer_central"]:
+            segs.append({"u": u, "kind": "central", "p0": pi, "t0": t0, "stops": [], "wu": 1.0, "ver": 0, "anim": anim,
+                         "fneed": fneed})
         else:
             segs.append({"u": u, "kind": "out", "p0": pi, "t0": t0, "stops": [], "wu": 1.0, "ver": 0, "anim": anim,
                          "fneed": fneed})
@@ -6574,7 +6600,7 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
                 b3.append({"tile": i, "ops": e3, "v": sum(o["v"] for o in e3)})
     rate = float(CFG["sd_tier_rate"])
     idx_out = [k for k, s in enumerate(segs) if s["kind"] == "out"]
-    idx_pri = [k for k, s in enumerate(segs) if s["kind"] in ("post", "ani")]
+    idx_pri = [k for k, s in enumerate(segs) if s["kind"] in ("post", "ani", "central")]
     # C. extras on the outbound hands: fertilize (paired with a collect) and waterings, by value per hour
     _tier_fill(segs, idx_out, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st, "c")
     if CFG["sd_tier_relief"] and b3:               # relief for the outbound extras before the melon hands take the free collects
@@ -6788,11 +6814,27 @@ def _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, sh
                     fa_ = ["PICKUP", k_, n_]
                     TP["cnt"]["farmer_hold"] += 1
                     TP["cnt"]["farmer_hold_units"] += n_
-        elif any(int(v or 0) > 0 for k, v in inv0.items() if k in PRODUCTS):
+        elif not CFG["sd_farmer_putback"] and any(int(v or 0) > 0 for k, v in inv0.items() if k in PRODUCTS):
             fa_ = ["DROP"]
             TP["h1_held"] = {k: int(v) for k, v in inv0.items() if k in PRODUCTS and int(v or 0) > 0}
+        elif CFG["sd_farmer_putback"] and any(int(v or 0) > 0 for k, v in inv0.items() if k in PRODUCTS):
+            fa_ = ["PASS"]                             # hour 1: wait while the market sells the night's dump
         if fa_ is not None:
             actions[0] = fa_
+            TP["_farmer_cmd_done"] = hour
+    if (CFG["sd_farmer_hold_excess"] and CFG["sd_farmer_putback"] and actions and tuple(pos[0]) in SHED
+            and 2 <= hour <= 5):
+        inv0 = invs[0] if invs else {}
+        held = [(int(v or 0), k) for k, v in inv0.items() if k in PRODUCTS and int(v or 0) > 0]
+        if held:
+            n_, k_ = max(held)
+            room_ = 100 - sum(int(v or 0) for v in shed.values())
+            if room_ > 0:
+                actions[0] = ["PLACE", k_, n_]             # the engine places what fits and keeps the rest (no deletion)
+                TP.setdefault("h2_placed", Counter())[k_] += min(n_, room_)
+                TP["cnt"]["farmer_putback"] += 1
+            else:
+                actions[0] = ["PASS"]
             TP["_farmer_cmd_done"] = hour
     for u in sorted(TP["routes"]):
         R = TP["routes"][u]
