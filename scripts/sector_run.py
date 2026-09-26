@@ -255,6 +255,12 @@ ARMS = {
     'K1f60': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_fert_frac=0.6)),
     'K1f30': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_fert_frac=0.3)),
     'K1f0': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_fert_frac=0.0)),
+    # K2 (user 2026-09-28): K1 + pairs scored on the fertilize's own value + no fertilize on tiles harvested (one-time crop) /
+    # replanted today; charge sweep 100 / 60 / 30 / 0 % of today's fertilizer price
+    'K2f100': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1, sd_fert_frac=1.0)),
+    'K2f60': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1, sd_fert_frac=0.6)),
+    'K2f30': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1, sd_fert_frac=0.3)),
+    'K2f0': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1, sd_fert_frac=0.0)),
     'G0sM': (SEC, dict(MDEC, sd_fert_sell=1, sell_now=['MELON'], sd_melon_rule=1)),
     # melon morning push vs the new animal values (user: B1p's farmer collects instead of harvesting melons)
     **{f'B1pm{w}': (SEC, dict(ARMS_B1, sd_path_collect=6, sd_hv_pref=dict(HVM, MELON=dict(HVM['MELON'], hour_w=float(w)))))
@@ -357,6 +363,10 @@ LABEL = {
     'K1f60': 'K1f60: K0 + hour-0 fertilize supply + 2 collects/hand, fertilizer charged at 60% of price',
     'K1f30': 'K1f30: K0 + hour-0 fertilize supply + 2 collects/hand, fertilizer charged at 30% of price',
     'K1f0': 'K1f0: K0 + hour-0 fertilize supply + 2 collects/hand, fertilizer charged at 0% of price',
+    'K2f100': 'K2f100: K1 + pairs on the fertilize value, no fertilize where harvested / replanted today, charge 100%',
+    'K2f60': 'K2f60: K1 + pairs on the fertilize value, no fertilize where harvested / replanted today, charge 60%',
+    'K2f30': 'K2f30: K1 + pairs on the fertilize value, no fertilize where harvested / replanted today, charge 30%',
+    'K2f0': 'K2f0: K1 + pairs on the fertilize value, no fertilize where harvested / replanted today, charge 0%',
     'G0sM': 'G0sM: G0s + hard-coded melon rule',
     **{f'B1pm{w}': f'B1pm{w}: B1p + melon later than 8 AM costs {w} an hour' for w in (60, 150)},
     **{f'B1pc{c}': f'B1pc{c}: B1p + collect worth at least {c} (not 80)' for c in (20, 40)},

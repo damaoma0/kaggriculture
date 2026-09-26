@@ -243,6 +243,8 @@ CFG = {
     "sd_tier_wait_max": 4,    # executor: hours a hand waits for a tile / seed / animal before skipping the op
     "sd_tier_animal_hand": 0, # the last k hires are animal hands (animal work only)
     "sd_tier_fert_supply": 0, # 1: at hour 0 the first-useful-day fertilize jobs count today's collections (one per animal), not only what hands carry
+    "sd_tier_pair_own": 0,    # 1: a collect -> fertilize pair is scored on the fertilize's own value (the collect is worth its sale anyway)
+    "sd_tier_fert_skip_harv": 0,  # 1: no fertilize on a tile whose one-time crop is harvested today or which is replanted / rebuilt today
     "sd_tier_coll_cap": 0,    # >0: collects per hand; one more only when it is on the hand's way (no extra walking)
     "sd_melon_rule": 0,       # 1 (user): hard-coded melon trips (by 8 bonus / 8-12 penalty / never after 12), melon hands kept out of the planner
     "sd_mel_bonus": 10.0,     # coins per melon unit per hour delivered before 8
@@ -5853,7 +5855,7 @@ def _tier_best_ins(seg, bundle, collects, lo=0):
                         continue                   # the extra collect only on the way (no extra walking)
             c = _tier_cost(dict(seg, stops=st2), ev2)
             dh = max(0.25, c - c0)
-            sc = (bundle["v"] + va) / dh
+            sc = (bundle["v"] + (0.0 if CFG["sd_tier_pair_own"] else va)) / dh
             if best is None or sc > best[0]:
                 best = (sc, c - c0, st2, a)
     return best
@@ -6022,6 +6024,18 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
             r_["ops"] = sorted(r_["ops"] + new, key=lambda o: o["rank"])
             added += 1
     st["tier_plan_added"] = st.get("tier_plan_added", 0) + added
+    if CFG["sd_tier_fert_skip_harv"]:              # a fertilize is wasted where the crop is harvested (one-time) or replaced today
+        nd_ = 0
+        for idx, r_ in rec.items():
+            cm = [o["c"][0] for o in r_["ops"]]
+            if "FERTILIZE" not in cm:
+                continue
+            t = _tile(tiles, idx)
+            onetime = _is_plant(t) and not CROPS.get(t.get("crop"), {}).get("ongoing", True)
+            if ("HARVEST" in cm and onetime) or any(c in ("PLANT", "DIG", "BUILD_COOP", "BUILD_PASTURE") for c in cm):
+                r_["ops"] = [o for o in r_["ops"] if o["c"][0] != "FERTILIZE"]
+                nd_ += 1
+        st["tier_fert_dropped"] = st.get("tier_fert_dropped", 0) + nd_
     # ---- units: farmer (hour 0) + the day's hires (hour 1; beyond 10 hour 2). The hires spawn after the farmer's hour-0
     # command (least occupied shed tile), the late ones after everyone's hour-1 command: plan, derive the spawn tiles the
     # plan's own first moves imply, re-plan until they agree (at most 3 passes)
