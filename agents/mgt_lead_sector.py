@@ -242,6 +242,7 @@ CFG = {
     "idle_deliver": 0,        # 1: a unit left without a task carries its sellable stock (fertilizer included, beyond today's open fertilize need) to the shed while a same-day sale is still possible (arrival by hour 22) and the shed has room (DROP deletes overflow)
     "lead_harvest_bonus": 0,  # steps: cost bonus for a task that harvests a one-time crop (melon / wheat / carrot) with no yield left to gain, or a melon, on a tile the leader harvests today (melons: no shop demand, 250 - 0.01 x excess^2, the first units sold win; the leader harvests them at h4-7 and sells by h11)
     "harvest_policy": "leader_tendency",   # (default ON since the xfix port) # "leader_tendency" (user ruling, 2026-09-25; 540 leader tapes): SOFT value / priority bonuses toward the leaders' harvest windows, independent of the target: melons at the first allowed age (10) after watering to 6, early in the day (dispatch bonus before hp_melon_hour) and delivered for a same-day sale; wheat at age >= 2 on days 0-11 where a plan job replants the tile, at age >= 3 from day 12; carrots at age 3; tomatoes / strawberries at every production; water before a harvest that day; one-time crops at their last age join the survival routes (never decay)
+    "hp_wheat_min_units": 0,  # wheat cycle: before the max-yield age, wheat enters the harvest window only once today's water brings it to this many units (5 = fertilized wheat at age 3)
     "hp_crops": ["MELON"],   # (xfix port default: melons only; the wheat / carrot / ongoing tendencies measured worse) # crops the harvest tendency applies to
     "hp_frac": 0.5,           # harvest value inside the tendency window = held units x price x this (prio 1 above p1_min_value)
     "hp_melon_bonus": 6,      # dispatch cost bonus (steps) for a melon harvest task before hp_melon_hour
@@ -971,6 +972,13 @@ def _hp_window(t, day, idx):
     if t["crop"] == "WHEAT":
         if day <= 11:
             return age >= 2 and _S is not None and idx in _S.get("hp_jobs", ())   # early only where the plan replants
+        mu = int(CFG.get("hp_wheat_min_units", 0) or 0)
+        if mu and age < c["maxday"]:
+            # hp_wheat_min_units (wheat cycle): before the max-yield age only once today's water brings it to mu units
+            # (fertilized wheat: 5 at age 3); unfertilized wheat keeps growing to its age-4 harvest
+            exp = int(t.get("yield_units", 0)) + (0 if t.get("watered_today") else
+                                                 (2 if int(t.get("fertilized_until_day", -1)) >= day else 1))
+            return age >= 3 and min(exp, c["max"]) >= mu
         return age >= 3
     if t["crop"] == "CARROT":
         return age >= 3

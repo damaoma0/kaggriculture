@@ -44,6 +44,9 @@ HVM = {'decay': {'bonus': 500.0}, 'MELON': {'bonus': 80.0, 'full': 1, 'by_hour':
 HVM_MEL = {'MELON': HVM['MELON']}          # M: the melon part only (audit items 1-3; the decay item 8 stays off)
 MDEC = dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0, sd_dv_coins=DVC_M,
             sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1, sd_hv_pref=HVM, sd_hp_parity=1, **SHIP)   # = M_decay
+ARMS_C3F80 = dict(MDEC, sd_fert_sell=1, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16, sd_water_tomorrow=10.0,
+                  sd_fert_ret=1, sd_fert_first=1, sd_fert_first_crops=['WHEAT', 'CARROT'], sd_fert_frac=1.0,
+                  sd_collect_floor=80.0, sd_finish_collect=1)     # = C3f80
 ARMS = {
     'N0': (S2, dict(dispatch_search='off')),
     'N11': (S2, dict(dispatch_search='active', sd_days=[11, 23], **SHIP)),
@@ -182,6 +185,12 @@ ARMS = {
                             sd_collect_floor=float(f), sd_finish_collect=1)) for f in (20, 80)},   # C2 + finish the tile (collect before leaving)
     'C3n': (SEC, dict(MDEC, sd_fert_sell=1, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16, sd_water_tomorrow=10.0,
                       sd_fert_ret=1, sd_collect_floor=40.0, sd_finish_collect=1)),
+    # the wheat cycle on top of C3f80 (user, 2026-09-28): fertilized wheat harvested from age 3 (5 units after today's water)
+    # and replanted on the leader's tile; strength sweep: W3b = every wheat from age 3, W3c = W3a + an age-3 bonus of 40
+    'W3a': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5)),
+    'W3b': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'])),
+    'W3c': (SEC, dict(ARMS_C3F80, hp_crops=['MELON', 'WHEAT'], hp_wheat_min_units=5,
+                      sd_hv_pref=dict(HVM, WHEAT={'ages': [[12, 29, 3, 3]], 'bonus': 40.0}))),
     'C2n': (SEC, dict(MDEC, sd_fert_sell=1, sd_retire=1, sd_hard_late_w=10.0, sd_hard_safe=16, sd_water_tomorrow=10.0,
                       sd_fert_ret=1, sd_collect_floor=40.0)),     # the cycle without the wheat / carrot fertilize rule
     'M_decay30': (SEC, dict(MDEC)),               # = M_decay, run to the season end (multi, 19 days)
@@ -239,6 +248,9 @@ LABEL = {
     **{f'C2f{f}': f'C2f{f}: C1 + cycle (fertilizer back with the goods, sold) + wheat/carrot fertilize on the first useful day + collect worth >= {f}' for f in (20, 40, 80)},
     **{f'C3f{f}': f'C3f{f}: C2f{f} + collect before leaving an animal tile' for f in (20, 80)},
     'C3n': 'C3n: C2n + collect before leaving an animal tile',
+    'W3a': 'W3a: C3f80 + fertilized wheat harvested from age 3 (5 units) and replanted',
+    'W3b': 'W3b: C3f80 + every wheat harvested from age 3 (tendency)',
+    'W3c': 'W3c: W3a + age-3 wheat harvest bonus 40',
     'C2n': 'C2n: C1 + cycle (fertilizer back with the goods, sold) + collect worth >= 40, no extra fertilizing',
     'M_decay30': 'M_decay (season end)',
     'N0_30': 'current T (season end)',
