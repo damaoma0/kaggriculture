@@ -10,6 +10,7 @@ and items per effective PICKUP, per-unit worked tiles, hires by hour and wages, 
 plantings, deaths, day-start board counts (tile-days per crop / animal).
 """
 import gzip
+import os
 import json
 import sys
 import time
@@ -237,7 +238,10 @@ def play(game, side):
     E._apply_unit_action, E._commit_unit, E._do_hire, E._end_of_day, E._do_buy_land = (
         apply_hook, commit_hook, hire_hook, end_hook, land_hook)
     try:
-        env = make('kaggriculture', configuration={'episodeSteps': 720}, info={'seed': seed})
+        cfg_env = {'episodeSteps': 720}
+        if os.environ.get('KAGG_NO_TIMEOUT') == '1':    # research: no agent timeout (planner quality without a time limit)
+            cfg_env['actTimeout'] = 100000
+        env = make('kaggriculture', configuration=cfg_env, info={'seed': seed})
         box['orig'] = env.interpreter
         env.interpreter = real
         agents = [None, None]

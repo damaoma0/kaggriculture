@@ -285,6 +285,15 @@ ARMS = {
     # faster planner (2 spawn passes, no cache wipes); bank stop at its default 20 s
     'K4': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1,
                      sd_fert_frac=0.6, sd_tier_fert_exact=1, sd_tier_relief=1, sd_tier_rate_c=5.0, sd_days=[11, 28], sd_tier_wheat=1)),
+    # K4nt (user 2026-09-28: planner performance with no time limit): K4's wheat fix with the full-quality planner (every rotation
+    # routed, swaps re-optimize both routes, 8 sweep offsets, pairing on every position, relief for every extra, fill over all
+    # hands, 3 spawn passes, no farmer hold), bank stop off; run with KAGG_NO_TIMEOUT=1 so the harness never times the agent out
+    'K4nt': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1,
+                       sd_fert_frac=0.6, sd_tier_fert_exact=1, sd_tier_relief=1, sd_tier_rate_c=5.0, sd_days=[11, 28], sd_tier_wheat=1,
+                       sd_tier_rot_all=1, sd_tier_swap_oropt=1, sd_tier_spawn_passes=3, sd_tier_iters=6000, sd_bank_stop=1e9)),
+    'K4nt20': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1,
+                         sd_fert_frac=0.6, sd_tier_fert_exact=1, sd_tier_relief=1, sd_tier_rate_c=5.0, sd_days=[11, 28], sd_tier_wheat=1,
+                         sd_tier_rot_all=1, sd_tier_swap_oropt=1, sd_tier_spawn_passes=3, sd_tier_iters=20000, sd_bank_stop=1e9)),
     # K4f: K4 + the faster planner settings (4 sweep offsets, collect pairing for the 3 best positions / 4 animals)
     'K4f': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1,
                       sd_fert_frac=0.6, sd_tier_fert_exact=1, sd_tier_relief=1, sd_tier_rate_c=5.0, sd_days=[11, 28], sd_tier_wheat=1,
@@ -404,6 +413,8 @@ LABEL = {
     'K3c5s': 'K3c5s: K3c5 with the tiered plan on days 11-28',
     'K3c5sn': 'K3c5sn: K3c5s without the time-bank stop',
     'K4': 'K4: K3c5s + wheat bought at hour 0 for the feeds, faster planner',
+    'K4nt': 'K4nt: K4 wheat fix + full-quality planner, no time limit (6,000 iterations)',
+    'K4nt20': 'K4nt20: K4nt with 20,000 search iterations',
     'K4f': 'K4f: K4 + faster planner settings (4 sweep offsets, pairing on the 3 best positions)',
     'G0sM': 'G0sM: G0s + hard-coded melon rule',
     **{f'B1pm{w}': f'B1pm{w}: B1p + melon later than 8 AM costs {w} an hour' for w in (60, 150)},

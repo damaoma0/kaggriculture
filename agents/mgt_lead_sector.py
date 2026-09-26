@@ -252,6 +252,9 @@ CFG = {
     "sd_tier_relief_passes": 2,
     "sd_tier_relief_minv": 0.0,
     "sd_tier_fill_near": 0,
+    "sd_tier_rot_all": 0,     # 1: the sweep start routes every rotation of arcs to hands (no distance proxy; slower)
+    "sd_tier_swap_oropt": 0,  # 1: a swap move re-optimizes both routes (slower)
+    "sd_tier_spawn_passes": 2,  # plan / spawn-check passes at hour 0
     "sd_tier_farmer_hold": 0, # 1: a farmer on / next to the shed at hour 0 holds that hour (the hires' spawn is then known: one pass)   # >0: extras fill tries only this many hands nearest to each extra (speed)   # relief only for unplanned extras worth at least this (speed)
     "sd_tier_relief_slack": 2, # hours a hand must have free at the end of its day to take a tile
     "sd_tier_straw_water": None,  # value of an extra (not survival) WATER on a strawberry (None: the job list's own)
@@ -5750,14 +5753,15 @@ def _tier_search(segs, stops_all, budget, rng):
                         px += min(D[p_][stops_all[i]["tile"]] for i in arc)
                 if rbest is None or px < rbest[0]:
                     rbest = (px, rot)
-            rot = rbest[1]
-            asg = [[] for _ in segs]
-            for a_i, arc in enumerate(arcs):
-                asg[segs_by_ang[(a_i + rot) % K]] = arc
-            asg = [_tier_route(segs[k], asg[k], stops_all) if asg[k] else [] for k in range(len(segs))]
-            c = sum(_tier_seg_cost(segs[k], asg[k], stops_all) for k in range(len(segs)))
-            if best is None or c < best[0]:
-                best = (c, asg)
+            rots = range(K) if CFG["sd_tier_rot_all"] else [rbest[1]]   # rot_all: every rotation routed (no proxy)
+            for rot in rots:
+                asg = [[] for _ in segs]
+                for a_i, arc in enumerate(arcs):
+                    asg[segs_by_ang[(a_i + rot) % K]] = arc
+                asg = [_tier_route(segs[k], asg[k], stops_all) if asg[k] else [] for k in range(len(segs))]
+                c = sum(_tier_seg_cost(segs[k], asg[k], stops_all) for k in range(len(segs)))
+                if best is None or c < best[0]:
+                    best = (c, asg)
     if best is None:
         return [[] for _ in segs], 0.0
     cur = [list(r) for r in best[1]]
@@ -5806,12 +5810,17 @@ def _tier_search(segs, stops_all, budget, rng):
                 continue
             s2 = rng.choice(cand)
             b = where[s2]
-            ra0 = [i for i in cur[a] if i != s]
-            rb0 = [i for i in cur[b] if i != s2]
-            ca, ra = min(((_tier_seg_cost(segs[a], ra0[:k] + [s2] + ra0[k:], stops_all), ra0[:k] + [s2] + ra0[k:])
-                          for k in range(len(ra0) + 1)), key=lambda x: x[0])
-            cb, rb = min(((_tier_seg_cost(segs[b], rb0[:k] + [s] + rb0[k:], stops_all), rb0[:k] + [s] + rb0[k:])
-                          for k in range(len(rb0) + 1)), key=lambda x: x[0])
+            if CFG["sd_tier_swap_oropt"]:          # full: both routes re-optimized after the swap
+                ra = _tier_oropt(segs[a], [s2 if i == s else i for i in cur[a]], stops_all)
+                rb = _tier_oropt(segs[b], [s if i == s2 else i for i in cur[b]], stops_all)
+                ca, cb = _tier_seg_cost(segs[a], ra, stops_all), _tier_seg_cost(segs[b], rb, stops_all)
+            else:
+                ra0 = [i for i in cur[a] if i != s]
+                rb0 = [i for i in cur[b] if i != s2]
+                ca, ra = min(((_tier_seg_cost(segs[a], ra0[:k] + [s2] + ra0[k:], stops_all), ra0[:k] + [s2] + ra0[k:])
+                              for k in range(len(ra0) + 1)), key=lambda x: x[0])
+                cb, rb = min(((_tier_seg_cost(segs[b], rb0[:k] + [s] + rb0[k:], stops_all), rb0[:k] + [s] + rb0[k:])
+                              for k in range(len(rb0) + 1)), key=lambda x: x[0])
             delta = ca + cb - cc[a] - cc[b]
             if delta < 0 or rng.random() < _tier_math.exp(-delta / T):
                 cur[a], cur[b] = ra, rb
@@ -6289,7 +6298,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     sp0 = _sd_spawn([f0] if ft0 else ([] if f0 in SHED else [f0]), k0)
     sp1 = _sd_spawn([], want - k0)
     TP = None
-    for pass_ in range(2):
+    for pass_ in range(int(CFG["sd_tier_spawn_passes"])):
         units = [(0, f0, ft0)] + [(u + 1, q, 1) for u, q in enumerate(sp0)] + [
             (u + 1 + k0, q, 2) for u, q in enumerate(sp1)]
         TP = _tier_core(S, L, st, day, tiles, _tier_copy.deepcopy(rec), units, want, t_start)
