@@ -881,5 +881,23 @@
    }
   },
   "label": "KC8 = KS1 + central hand for early delivery: the farmer first harvests the central pens with product (due or >= DSM-size loads), drops each at the shed at once, then cares for other central pens"
+ },
+ "KM1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_tier_prio_ani": 1
+  },
+  "label": "KM1 = KS1 + animal melon mode: the farmer first harvests cow / sheep pens holding >= 3 / 4 units (or due), feed / care in the same visit, drops at the shed by hour 8, then works as a normal hand"
  }
 }

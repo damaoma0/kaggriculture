@@ -283,6 +283,9 @@ CFG = {
     "sd_tier_pen_bundle": 0,  # 1 (user 2026-09-26, learned from DSM: feed + care + collect in one visit on 36% of its pen visits vs our 7%): on every live animal the COLLECT (fertilizer waiting), the CARE (a later production in the season can realise it) and the FEED (care in the bundle, or tonight's production cashes a bank) join the keep-alive feed / due harvest as ONE mandatory stop, so the sector search gives the pen to one hand; the collected fertilizer then supplies that hand's fertilizes
     "sd_tier_pen_bundle_hmin": 0,   # > 0: the pen's harvest joins the stop when it holds >= this many units (else the cap rule)
     "sd_tier_pen_bundle_collect": 1,   # 0: the COLLECT stays out of the pen stop (free for the fertilize pairing; KB1 lost 4.3 fertilizes a day with it in)
+    "sd_tier_prio_ani": 0,    # 1 (user 2026-09-26: "melon mode" for important animal harvests): the farmer (no melon duty that day) first harvests the cow / sheep pens holding >= sd_tier_prio_ani_min units (or due), feed / care in the same visit, best units x price per added hour while his drop at the shed stays by sd_tier_prio_ani_by; then he is a normal hand (post segment in the sector search), as after a melon delivery
+    "sd_tier_prio_ani_min": {"COW": 3, "SHEEP": 4},   # DSM's mean units per harvest at pens near the shed (cow 3.4-3.8, sheep 4.2-4.4); eggs left out (DSM delivers only 18% of eggs the same day)
+    "sd_tier_prio_ani_by": 8,     # the melon rule's morning deadline
     "sd_tier_central_hand": 0,   # 1 (user 2026-09-26): the farmer (when he has no melon duty) is the CENTRAL hand: he serves the pens within sd_tier_central_radius of the shed (FEED, CARE when a later production realises it, the due HARVEST), chosen greedily by value per added hour (care = product price, feed cashing a bank = bank x price) while his day fits, and puts each harvest into the shed right after (DELIVER, sold at once; pens on access tiles use PLACE_HARVEST); the COLLECTs stay with the outbound hands; his pens leave the others' work; he is out of the sector search, fills and relief
     "sd_tier_central_radius": 2,
     "sd_tier_central_mode": "care",   # "deliver" (user: the central hand is for EARLY DELIVERY): first the central pens with product (due harvest or >= sd_tier_central_hmin), ranked by units x price per added hour, each with its feed / care in the same visit and a drop at the shed right after; then care of other central pens with the time left
@@ -6284,6 +6287,77 @@ def _tier_load(seg, stops, tiles, day):
     return Counter({k: v for k, v in load.items() if v > 0})
 
 
+def _tier_prio_ani(S, rec, tiles, day, fu, st):
+    """sd_tier_prio_ani: the farmer's morning run of important animal harvests (see the flag), built like a melon run:
+    {"stops" (pens, then a DELIVER stop at the shed), "p0", "t0", "drop", "hh"}; the taken ops leave rec."""
+    D = _TIER_D
+    u, p0, t0 = fu
+    pi = p0[1] * 10 + p0[0]
+    prices = S.get("_tier_prices") or {}
+    mins = CFG["sd_tier_prio_ani_min"] or {}
+    by = int(CFG["sd_tier_prio_ani_by"])
+    cand = {}
+    for idx, r_ in rec.items():
+        t_ = _tile(tiles, idx)
+        if not _animal(t_) or t_["animal"] not in mins:
+            continue
+        hv = [o for o in r_["ops"] if o["c"][0] in ("HARVEST", "PLACE_HARVEST")]
+        if not any(o["c"][0] == "HARVEST" for o in hv):
+            continue
+        y_ = int(t_.get("yield_units", 0) or 0)
+        due = any(o["m"] for o in hv if o["c"][0] == "HARVEST")
+        if not (due or y_ >= int(mins[t_["animal"]])):
+            continue
+        prod_ = ANIMALS[t_["animal"]]["product"]
+        cand[idx] = {"ops": hv + [o for o in r_["ops"] if o["c"][0] in ("FEED", "CARE")],
+                     "dv": y_ * float(prices.get(prod_, 0) or 0), "prod": prod_}
+    if not cand:
+        return None
+    seg = {"p0": pi, "t0": t0, "stops": []}
+
+    def with_drop(sts, prods):
+        sh = min(_TIER_SHED_I, key=lambda q: D[sts[-1]["tile"]][q])
+        return sts + [{"tile": sh, "ops": [_tier_op(["DELIVER"], True, 0.0, 1) for _ in sorted(prods)], "rel": 0, "turn": True}]
+
+    def drop_hour(ev):
+        return max(h for (b_, c_, h) in ev[4] if c_[0] == "DELIVER")
+
+    stops, prods, taken = [], set(), []
+    t_cur = t0
+    while cand:
+        best = None
+        for idx, c in cand.items():
+            pen = {"tile": idx, "ops": sorted([dict(o, m=True, tier=1) for o in c["ops"]], key=lambda o: o["rank"]),
+                   "rel": rec[idx]["rel"]}
+            full = with_drop(stops + [pen], prods | {c["prod"]})
+            ev = _tier_eval(seg, full, want_hours=True)
+            if ev[1] > 0 or drop_hour(ev) > by:
+                continue
+            sc = c["dv"] / max(1, ev[0] - t_cur)
+            if best is None or sc > best[0]:
+                best = (sc, idx, pen, ev)
+        if best is None:
+            break
+        _, idx, pen, ev = best
+        stops.append(pen)
+        prods.add(cand[idx]["prod"])
+        taken.append(idx)
+        t_cur = ev[0]
+        c = cand.pop(idx)
+        ids = set(id(o) for o in c["ops"])
+        rec[idx]["ops"] = [o for o in rec[idx]["ops"] if id(o) not in ids]
+        if not rec[idx]["ops"]:
+            rec.pop(idx)
+    if not taken:
+        return None
+    final = with_drop(stops, prods)
+    ev = _tier_eval(seg, final, want_hours=True)
+    st["tier_prio_ani_runs"] = st.get("tier_prio_ani_runs", 0) + 1
+    st["tier_prio_ani_pens"] = st.get("tier_prio_ani_pens", 0) + len(taken)
+    return {"stops": final, "p0": pi, "t0": t0, "drop": drop_hour(ev),
+            "hh": {b_: h for (b_, c_, h) in ev[4] if c_[0] == "HARVEST"}}
+
+
 def _tier_central(S, cseg, rec, tiles, day, st):
     """sd_tier_central_hand: build the farmer's whole day as the central hand (see the flag)."""
     D = _TIER_D
@@ -7124,6 +7198,12 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         for i, h in M["hh"].items():
             if i in rec:
                 rec[i]["rel"] = max(rec[i]["rel"], h + 1)
+    if CFG["sd_tier_prio_ani"]:                     # user: important animal harvests in melon mode (the farmer)
+        fu_ = next(((u, p0, t0) for u, p0, t0 in units if u == 0), None)
+        if fu_ is not None and 0 not in mel_of and fu_[2] <= 1:
+            M_ = _tier_prio_ani(S, rec, tiles, day, fu_, st)
+            if M_ is not None:
+                mel_of[0] = M_
     # ---- segments: outbound hands, the melon hands after their drop, animal hands
     anim = [i for i in range(100) if _animal(_tile(tiles, i))]
     fneed = set(i for i, r_ in rec.items() if any(o["c"][0] == "FERTILIZE" for o in r_["ops"]))
@@ -7251,6 +7331,9 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         items = []
         if s["kind"] == "post":
             M = mel_of[u]
+            nfm_ = sum(1 for x in M["stops"] for o in x["ops"] if o["c"][0] == "FEED")
+            if nfm_:                                   # an animal priority run feeds on its way: wheat first
+                items.append({"kind": "pick", "item": "WHEAT", "n": nfm_})
             for x in M["stops"]:
                 items.append({"kind": "place" if x.get("place") else "stop", "tile": x["tile"],
                               "ops": [o["c"] for o in x["ops"]], "mand": [o["m"] for o in x["ops"]]})

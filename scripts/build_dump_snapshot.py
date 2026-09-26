@@ -96,12 +96,15 @@ def run(tape, stream, day):
 
 
 if __name__ == '__main__':
-    g, day, arm = sys.argv[1], int(sys.argv[2]), sys.argv[3]
+    g, day, arms = sys.argv[1], int(sys.argv[2]), sys.argv[3].split(',')
     team, ep = g.split(':')
     tape = UE.load_tape(int(team), int(ep))
-    s = json.loads((ROOT / 'results/fresh/day12_viz' / f'{arm.lower()}_streams' / f'{ep}.json').read_text(encoding='utf-8'))['actions']
-    data = {'ep': ep, 'team': team, 'day': day, 'arm': arm, 'sides': {'DSM (leader)': run(tape, None, day), arm: run(tape, s, day)}}
-    out = Path(sys.argv[4]) if len(sys.argv) > 4 else ROOT / 'viz' / f'dump_snapshot_{ep}_d{day}.html'
+    sides = {'DSM (leader)': run(tape, None, day)}
+    for arm in arms:
+        s = json.loads((ROOT / 'results/fresh/day12_viz' / f'{arm.lower()}_streams' / f'{ep}.json').read_text(encoding='utf-8'))['actions']
+        sides[arm] = run(tape, s, day)
+    data = {'ep': ep, 'team': team, 'day': day, 'arm': ','.join(arms), 'sides': sides}
+    out = Path(sys.argv[4]) if len(sys.argv) > 4 else ROOT / 'viz' / f'dump_snapshot_{ep}_d{day}_{"_".join(a.lower() for a in arms)}.html'
     tpl = (ROOT / 'viz' / 'dump_snapshot_template.html').read_text(encoding='utf-8')
     out.write_text(tpl.replace('/*DATA*/null', json.dumps(data, separators=(',', ':'))), encoding='utf-8')
     print('wrote', out)

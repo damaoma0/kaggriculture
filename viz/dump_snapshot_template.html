@@ -127,7 +127,7 @@ function boardSVG(S, hour) {
   for (let i = 0; i < nU; i++) {
     const pts = [];
     for (let h = 0; h <= hmax; h++) { const p = S.hours[h].pos[i]; if (p) pts.push(p); }
-    if (pts.length > 1) s += `<polyline fill="none" stroke="${unitCol(i)}" stroke-width="2" stroke-opacity="0.55" points="${pts.map(p => `${P + p[0] * C + C / 2 + (i % 5 - 2) * 2},${P + p[1] * C + C / 2 + (Math.floor(i / 5) - 1) * 2}`).join(' ')}"/>`;
+    if (pts.length > 1) s += `<polyline fill="none" stroke="${unitCol(i)}" stroke-width="${i === 0 ? 4 : 2}" stroke-opacity="${i === 0 ? 0.9 : 0.55}" points="${pts.map(p => `${P + p[0] * C + C / 2 + (i % 5 - 2) * 2},${P + p[1] * C + C / 2 + (Math.floor(i / 5) - 1) * 2}`).join(' ')}"/>`;
   }
   const H = hour >= 24 ? S.hours[S.hours.length - 1] : S.hours[hmax];
   const inv = hour >= 24 && S.night ? S.night.per_unit : H.inv;
@@ -135,7 +135,7 @@ function boardSVG(S, hour) {
     const load = sum(inv[i]);
     const r = 5 + Math.sqrt(load) * 2.2;
     const cx = P + p[0] * C + C / 2 + (i % 5 - 2) * 2, cy = P + p[1] * C + C / 2 + (Math.floor(i / 5) - 1) * 2;
-    s += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${unitCol(i)}" fill-opacity="0.8" stroke="var(--panel)" stroke-width="1"><title>${unitName(i)}: ${fmtGoods(inv[i])}</title></circle>`;
+    s += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${unitCol(i)}" fill-opacity="0.8" stroke="${i === 0 ? '#f5c518' : 'var(--panel)'}" stroke-width="${i === 0 ? 2.5 : 1}"><title>${unitName(i)}: ${fmtGoods(inv[i])}</title></circle>`;
     if (load) s += `<text x="${cx}" y="${cy + 3}" text-anchor="middle" style="fill:#fff;font-weight:700">${load}</text>`;
   });
   return s + '</svg>';
@@ -193,7 +193,7 @@ function render(hour) {
         <span>sold today <b>${sm.sold}</b></span>
       </div>
       ${boardSVG(S, hour)}
-      <div class="legend">${Object.entries(TILE_COL).filter(([k]) => !['LOCKED'].includes(k)).map(([k, c]) => `<span><span class="sw" style="background:${c}"></span>${k.toLowerCase()}</span>`).join('')}<span><span class="sw" style="border:1.5px solid var(--ink)"></span>shed access</span></div>
+      <div class="legend">${Object.entries(TILE_COL).filter(([k]) => !['LOCKED'].includes(k)).map(([k, c]) => `<span><span class="sw" style="background:${c}"></span>${k.toLowerCase()}</span>`).join('')}<span><span class="sw" style="border:1.5px solid var(--ink)"></span>shed access</span><span><span class="sw" style="background:#444;outline:2px solid #f5c518"></span>farmer (thick dark path)</span></div>
       <div class="h3">Shed + carried, by hour</div>
       ${chartSVG(S, hour)}
       <div class="legend"><span><span class="sw" style="background:var(--shed)"></span>shed</span><span><span class="sw" style="background:var(--carry)"></span>carried by units</span><span><span class="sw" style="background:var(--deleted)"></span>deleted at midnight</span></div>
