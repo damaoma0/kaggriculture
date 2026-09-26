@@ -242,6 +242,8 @@ CFG = {
     "sd_tier_rate_c": 20.0,   # extras on the outbound hands (phase C): minimum coins per added hour
     "sd_tier_wait_max": 4,    # executor: hours a hand waits for a tile / seed / animal before skipping the op
     "sd_tier_animal_hand": 0, # the last k hires are animal hands (animal work only)
+    "sd_tier_fert_supply": 0, # 1: at hour 0 the first-useful-day fertilize jobs count today's collections (one per animal), not only what hands carry
+    "sd_tier_coll_cap": 0,    # >0: collects per hand; one more only when it is on the hand's way (no extra walking)
     "sd_melon_rule": 0,       # 1 (user): hard-coded melon trips (by 8 bonus / 8-12 penalty / never after 12), melon hands kept out of the planner
     "sd_mel_bonus": 10.0,     # coins per melon unit per hour delivered before 8
     "sd_mel_pen": 10.0,       # coins per melon unit per hour delivered after 8 (never after 12)
@@ -5830,13 +5832,25 @@ def _tier_best_ins(seg, bundle, collects, lo=0):
         if need_f and ev[3] > ev0[3] and collects:
             D = _TIER_D
             b = bundle["tile"]
-            for a in sorted(collects, key=lambda a: D[a][b])[:4]:
+            p0_ = seg["p0"]
+            near_ = sorted(collects, key=lambda a: D[a][b])[:4]
+            near_ += [a for a in sorted(collects, key=lambda a: D[a][p0_])[:4] if a not in near_]   # on the way out
+            for a in near_:
                 for k2 in range(lo, kpos + 1):
                     st2, _ = _tier_merge(st_, a, [collects[a]], 0, k2)
                     cands.append((st2, _tier_eval(seg, st2), a, float(collects[a]["v"])))
+        cap = int(CFG["sd_tier_coll_cap"])
+        n0c = sum(1 for s_ in seg["stops"] for o in s_["ops"] if o["c"][0] == "COLLECT_FERTILIZER") if cap else 0
         for st2, ev2, a, va in cands:
             if ev2[1] > ev0[1] or ev2[3] > ev0[3]:
                 continue
+            if cap:
+                n2c = sum(1 for s_ in st2 for o in s_["ops"] if o["c"][0] == "COLLECT_FERTILIZER")
+                if n2c > n0c and n2c > cap:
+                    if n2c > cap + 1:
+                        continue
+                    if ev2[0] - ev0[0] > len(bundle["ops"]) + (1 if a is not None else 0):
+                        continue                   # the extra collect only on the way (no extra walking)
             c = _tier_cost(dict(seg, stops=st2), ev2)
             dh = max(0.25, c - c0)
             sc = (bundle["v"] + va) / dh
@@ -6693,6 +6707,9 @@ def _sd_fert_first(ns, obs, player, jobs, k):
     priv = obs.get("private") or {}
     avail = 0 if CFG.get("sd_fert_sell") == 1 else int((priv.get("shed") or {}).get("FERTILIZER", 0) or 0)   # sd_fert_sell 1: hands only
     avail += sum(int((i or {}).get("FERTILIZER", 0) or 0) for i in (priv.get("inventories") or []))
+    if CFG.get("sd_tier") and CFG.get("sd_tier_fert_supply"):   # tiered plan: today's collections supply the fertilize jobs
+        avail += sum(1 for row in farm["tiles"] for t in row
+                     if isinstance(t, dict) and "animal" in t and t.get("fertilizer_available"))
     have = set(tuple(j["tile"]) for j in jobs if j.get("cmd") == "FERTILIZE")
     avail -= len(have)
     if avail <= 0:

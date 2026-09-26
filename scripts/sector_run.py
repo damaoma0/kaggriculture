@@ -249,6 +249,12 @@ ARMS = {
     # heuristic search, extras, animal work from the melon hands' leftover); the hourly route search is not used
     'K0': (SEC, dict(ARMS_B1, sd_tier=1)),
     'K0a': (SEC, dict(ARMS_B1, sd_tier=1, hire_extra=1, sd_tier_animal_hand=1)),   # + one animal hand
+    # K1 (user 2026-09-28): K0 + fertilize jobs at hour 0 against today's collections + at most 2 collects per hand (a third
+    # only on its way); sweep of the charged fertilizer price (fraction of today's price: 1.0 / 0.6 / 0.3 / 0)
+    'K1f100': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_fert_frac=1.0)),
+    'K1f60': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_fert_frac=0.6)),
+    'K1f30': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_fert_frac=0.3)),
+    'K1f0': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_fert_frac=0.0)),
     'G0sM': (SEC, dict(MDEC, sd_fert_sell=1, sell_now=['MELON'], sd_melon_rule=1)),
     # melon morning push vs the new animal values (user: B1p's farmer collects instead of harvesting melons)
     **{f'B1pm{w}': (SEC, dict(ARMS_B1, sd_path_collect=6, sd_hv_pref=dict(HVM, MELON=dict(HVM['MELON'], hour_w=float(w)))))
@@ -347,6 +353,10 @@ LABEL = {
     'B1pM': 'B1pM: B1p + hard-coded melon rule (by 8, else by 12 with penalty)',
     'K0': 'K0: B1 + tiered plan fixed at hour 0 (melon hands, sectors by search, extras, animal work)',
     'K0a': 'K0a: K0 + one animal hand',
+    'K1f100': 'K1f100: K0 + hour-0 fertilize supply + 2 collects/hand, fertilizer charged at 100% of price',
+    'K1f60': 'K1f60: K0 + hour-0 fertilize supply + 2 collects/hand, fertilizer charged at 60% of price',
+    'K1f30': 'K1f30: K0 + hour-0 fertilize supply + 2 collects/hand, fertilizer charged at 30% of price',
+    'K1f0': 'K1f0: K0 + hour-0 fertilize supply + 2 collects/hand, fertilizer charged at 0% of price',
     'G0sM': 'G0sM: G0s + hard-coded melon rule',
     **{f'B1pm{w}': f'B1pm{w}: B1p + melon later than 8 AM costs {w} an hour' for w in (60, 150)},
     **{f'B1pc{c}': f'B1pc{c}: B1p + collect worth at least {c} (not 80)' for c in (20, 40)},
