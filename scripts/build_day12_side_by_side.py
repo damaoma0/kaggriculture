@@ -263,7 +263,7 @@ def build_exact_arm(directory, ep, leader_tape, leader_frames, seed, shops, seat
     if stream is None:
         return dict(available=False)
     cb = stream['cash_by_day']
-    checkpoints = [(11, 0), (12, DAY12_START - DAY11_START), (13, DAY13_MORNING - DAY11_START)]
+    checkpoints = [(11, 0), (12, DAY12_START - DAY11_START), (13, 312 - DAY11_START)]   # fixed day-11/12/13 mornings (season mode moves DAY13_MORNING)
 
     def cash_check_for(frames):
         if not cb:
@@ -477,6 +477,10 @@ select{max-width:100%}.row{display:flex;gap:8px;align-items:center;flex-wrap:wra
 .board{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px}
 .routesvg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .routeline{fill:none;stroke-width:.11;stroke-linecap:round;stroke-linejoin:round;opacity:.92}
+.traceline{fill:none;stroke-width:.15;stroke-linecap:round;stroke-linejoin:round;opacity:.95}
+.tracefuture{fill:none;stroke-width:.07;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:.2 .16;opacity:.6}
+.following .tile .unit{opacity:.3}
+.following .tile .unit.follow{opacity:1;outline:2px solid #fff;outline-offset:0;background:#b3261e}
 .quadline{stroke:#efc777;stroke-width:.045;stroke-dasharray:.12,.09;opacity:.85}
 .plantile{stroke:#0b120d;stroke-width:.03;rx:.05}
 .tile.shared{background-image:repeating-linear-gradient(45deg,#5a5a4a 0 5px,#33332b 5px 10px)!important}
@@ -554,6 +558,7 @@ html,body{overflow-x:hidden}
 <button id="jumpD11" type="button">Day 11</button>
 <button id="jumpD12" type="button">Day 12</button>
 <label>Day <select id="daySel"></select></label>
+<label>Follow <select id="followSel"><option value="">none</option></select></label>
 <label>Speed <select id="speed"><option value="700">Slow</option><option value="220" selected>Normal</option><option value="80">Fast</option></select></label>
 <strong id="clock"></strong>
 </div>
@@ -670,7 +675,7 @@ function drawBoard(elId,g,mine,other){
       us.forEach(u=>{
         const act=u===0?(mine.action&&mine.action.farmer):((mine.action&&mine.action.hands)||[])[u-1];
         const op=Array.isArray(act)&&act.length?act[0]:'PASS';
-        const tag=document.createElement('span');tag.className='unit'+(u===0?' key':'');
+        const tag=document.createElement('span');tag.className='unit'+(u===0?' key':'')+(followUnit===u?' follow':'');
         tag.textContent=(u===0?'F':u)+(ACTS[op]?':'+ACTS[op]:'');
         wrap.append(tag);
       });
@@ -684,7 +689,7 @@ function drawBoard(elId,g,mine,other){
 const HAND_COLORS=['#e8c15a','#7fb8e0','#e08b7f','#8fd19e','#c48fe0','#e0a5c4','#9fd1d1','#d1b88f','#8f9fd1','#d1d18f','#b88fd1','#8fd1b8','#d18f9f','#d1c48f','#8fc4d1','#c4d18f'];
 const FIELD_OPS=new Set(['WATER','FERTILIZE','HARVEST','PLANT','FEED','CARE','COLLECT_FERTILIZER']);
 const SHED_TILES=[[4,4],[5,4],[4,5],[5,5]];
-let sectorsOn=false,selectedHand=null,sectorView='worked';
+let sectorsOn=false,selectedHand=null,sectorView='worked',followUnit=null;
 function handColor(u){return HAND_COLORS[u%HAND_COLORS.length];}
 function shedDist(x,y){return Math.min(...SHED_TILES.map(([sx,sy])=>Math.abs(x-sx)+Math.abs(y-sy)));}
 function isCentral(x,y){return shedDist(x,y)<=2;}
@@ -858,6 +863,34 @@ function drawRoute(svgId,frames,day,u,showQuadrants,assignedTiles){
   }
   svg.innerHTML=html;
 }
+// Follow: one unit's trace for the day on a board -- walked so far (solid, its colour), the rest of its day
+// (dashed), a dot where it did a job (letter = the action), a ring where it stands now.
+function drawTrace(svgId,frames,day,u,step){
+  const svg=$(svgId),col=handColor(u);
+  const fr=dayFrames(frames,day).filter(f=>u<f.units.length);
+  if(!fr.length){return;}
+  const past=fr.filter(f=>f.step<=step),fut=fr.filter(f=>f.step>=step);
+  const pl=a=>a.map(f=>`${f.units[u][0]+.5},${f.units[u][1]+.5}`).join(' ');
+  let html='';
+  if(fut.length>1)html+=`<polyline class="tracefuture" points="${pl(fut)}" style="stroke:${col}"/>`;
+  if(past.length>1)html+=`<polyline class="traceline" points="${pl(past)}" style="stroke:${col}"/>`;
+  past.forEach(f=>{const op=unitOpAt(f,u);if(op==='PASS'||MOVES_JS.has(op))return;const[x,y]=f.units[u];
+    html+=`<circle cx="${x+.5}" cy="${y+.5}" r=".13" fill="${col}" stroke="#0b120d" stroke-width=".03"/>`+
+          `<text x="${x+.5}" y="${y+.5-.2}" font-size=".24" fill="#fff" text-anchor="middle" stroke="#0b120d" stroke-width=".04" paint-order="stroke">${ACTS[op]||op[0]}</text>`;});
+  const now=past.length?past[past.length-1]:fr[0];const[nx,ny]=now.units[u];
+  html+=`<circle cx="${nx+.5}" cy="${ny+.5}" r=".34" fill="none" stroke="#fff" stroke-width=".07"/>`;
+  svg.insertAdjacentHTML('beforeend',html);
+}
+const MOVES_JS=new Set(['NORTH','SOUTH','EAST','WEST']);
+function renderFollowPicker(LF,RF,day){
+  const sel=$('followSel'),n=Math.max(maxUnitsThatDay(LF,day),maxUnitsThatDay(RF,day));
+  const want=followUnit==null?'':String(followUnit);
+  if(sel.options.length!==n+1){
+    sel.replaceChildren(new Option('none',''));
+    for(let u=0;u<n;u++)sel.append(new Option(u===0?'F (farmer)':'hand '+u,String(u)));
+  }
+  sel.value=want;
+}
 function renderSectorStats(tag,frames,day){
   const el=$('sectorStats'+tag);
   if(!sectorsOn){el.textContent='';return;}
@@ -1018,6 +1051,9 @@ function render(){
   renderSectorStats('L',LF,day);
   renderSectorStats('R',RF,day);
   renderHandPicker(LF,RF,day);
+  renderFollowPicker(LF,RF,day);
+  $('boardL').classList.toggle('following',followUnit!=null);$('boardR').classList.toggle('following',followUnit!=null);
+  if(followUnit!=null&&!(sectorsOn&&selectedHand!=null)){drawTrace('routeL',LF,day,followUnit,lf.step);drawTrace('routeR',RF,day,followUnit,rf.step);}
 }
 
 function jumpToDay(day){
@@ -1074,6 +1110,7 @@ $('sectorsToggle').onchange=()=>{sectorsOn=$('sectorsToggle').checked;$('sectorV
 $('sectorView').onchange=()=>{sectorView=$('sectorView').value;render();};
 $('jumpD11').onclick=()=>jumpToDay(11);
 $('jumpD12').onclick=()=>jumpToDay(12);
+$('followSel').onchange=()=>{const v=$('followSel').value;followUnit=v===''?null:+v;render();};
 (function(){const s=$('daySel');for(let d=11;d<=29;d++){const o=document.createElement('option');o.value=d;o.textContent='Day '+d;s.appendChild(o);}s.onchange=()=>jumpToDay(+s.value);})();
 $('speed').onchange=()=>{if(timer){stop();$('play').click();}};
 $('world').onchange=()=>selectWorld(games.findIndex(g=>String(g.episode)===$('world').value));

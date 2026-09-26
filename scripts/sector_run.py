@@ -358,7 +358,7 @@ def multi_job(args):
                        cfg=dict(X.BASE, **cfg), agent_path=ARMS[arm][0], first_step=D * 24, last_step=(D + nd) * 24 - 1,
                        actions=acts, mode='multi',
                        note='actions[t] = the leader tape for t < 264, the arm for 264..%d, {} after' % ((D + nd) * 24 - 1),
-                       cash=[d_['cash'] for d_ in days[:D + nd + 1]])
+                       cash=[0.0] * D + [money[d][0] for d in range(D, D + nd + 1)])   # morning cash by day (the viewer's oracle; days < D unchecked)
             L_ = (getattr(box['h'].mod, '_S', None) or {}).get('sd') or {}
             lo, hi = D * 24, (D + nd) * 24
             if cfg.get('sd_sector_w'):
