@@ -231,6 +231,17 @@ CFG = {
     "sd_wheat_frac": None,    # feeding is charged this fraction of the wheat price in the maintenance values (None = full)
     "sd_feed_bonus": 0.0,     # coins added to every FEED / CARE op of a live animal (user: bonus on animals fed / cared)
     "sell_now": [],           # products sold as soon as they reach the shed, whatever the leader's quota (e.g. MELON)
+    "sd_tier": 0,             # 1 (user, 2026-09-28): tiered plan fixed at hour 0 (melon hands / sectors by heuristic search / extras / animal work)
+    "sd_tier_budget": 10.0,   # safety cap (seconds) of one sector search at hour 0
+    "sd_tier_iters": 6000,    # sector search iterations (deterministic)
+    "sd_tier_hop_w": 1.0,     # sector cost: hours per extra step between consecutive stops of a patch (contiguity)
+    "sd_tier_coll_w": 2.0,    # sector cost: hours credited per fertilizer collectable on the outbound leg (capped by the patch's fertilize tiles)
+    "sd_tier_prio_w": 2.0,    # sector cost weight of an hour of mandatory work on a melon hand after its drop
+    "sd_tier_t0": 2.0,        # annealing start temperature (hours)
+    "sd_tier_rate": 1.0,      # extras: minimum coins per added hour
+    "sd_tier_rate_c": 20.0,   # extras on the outbound hands (phase C): minimum coins per added hour
+    "sd_tier_wait_max": 4,    # executor: hours a hand waits for a tile / seed / animal before skipping the op
+    "sd_tier_animal_hand": 0, # the last k hires are animal hands (animal work only)
     "sd_melon_rule": 0,       # 1 (user): hard-coded melon trips (by 8 bonus / 8-12 penalty / never after 12), melon hands kept out of the planner
     "sd_mel_bonus": 10.0,     # coins per melon unit per hour delivered before 8
     "sd_mel_pen": 10.0,       # coins per melon unit per hour delivered after 8 (never after 12)
@@ -1816,6 +1827,18 @@ def agent(obs, config=None):
 
     if _sd_run is not None:   # SEARCH DISPATCH HOOK 3
         _sd_post(S, _sd_run, obs, me, step, day, hour, last_day, tiles, pos, tasks, assign, actions)
+    if CFG["sd_tier"] and CFG["dispatch_search"] != "off":   # tiered fixed plan: every planned unit follows its list
+        try:
+            _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, shed)
+        except Exception as exc:
+            try:
+                import traceback as _tb
+                L_ = _sd_state(S)
+                L_["st"]["errors"] += 1
+                L_["st"]["last_error"] = ("tier_exec %s: %s" % (type(exc).__name__, exc))[:300]
+                L_["st"]["tier_tb"] = _tb.format_exc()[-1500:]
+            except Exception:
+                pass
     # ---- market
     orders = _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, demand, prices,
                      unlocked, farm, pos, last_day)
@@ -2707,6 +2730,16 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             if k in ANIMALS:
                 need_an[k] += v
     # also place jobs whose structure is not yet ready (tasks exist anyway via BUILD)
+    if CFG["sd_tier"]:                             # tiered plan: the day's structures' animals are bought at once
+        tl_ = farm["tiles"]
+        for idx_, job_ in jobs.items():
+            if job_ and job_[0] == "BUILD" and len(job_) > 2 and job_[2] in ANIMALS:
+                t_ = tl_[idx_ // 10][idx_ % 10]
+                if isinstance(t_, dict) and "animal" in t_:
+                    continue
+                if idx_ in tasks and any(k_ in ANIMALS for k_ in tasks[idx_][1]):
+                    continue
+                need_an[job_[2]] += 1
     for sp, v in need_an.items():
         k = v - shed.get(sp, 0) - carried.get(sp, 0)
         short |= k > int(cash // ANIMALS[sp]["cost"])
@@ -5013,6 +5046,20 @@ def _sd_pre(S, obs, me, step, day, hour, last_day, tiles, pos, invs, tasks, jobs
     win = CFG["sd_days"]
     if L["off"] or (win is not None and not (int(win[0]) <= day <= int(win[1]))):
         return run
+    if CFG["sd_tier"]:                             # tiered fixed plan: planned at hour 0, executed by _tier_override
+        try:
+            _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, jobs, shed, seeds, prices, assign,
+                      deliv_u, fert_keep, demand)
+        except Exception as exc:
+            L["st"]["errors"] += 1
+            L["st"]["last_error"] = ("tier %s: %s" % (type(exc).__name__, exc))[:300]
+            try:
+                import traceback as _tb
+                L["st"]["tier_tb"] = _tb.format_exc()[-1500:]
+                S["log"]["sd_err:" + L["st"]["last_error"][:100]] += 1
+            except Exception:
+                pass
+        return run
     if CFG["dispatch_search"] == "active" and CFG["sd_finish_tile"] and L["day"] == day:
         for u in [u for u, v in assign.items() if v == "D" and prev.get(u) != "D" and u < len(pos)]:
             p = tuple(pos[u])
@@ -5475,6 +5522,849 @@ def _mel_act(S, day, hour, tiles, pos, invs, actions, last_day):
             continue
         s = _near_shed(p)
         actions[u] = _step_toward(p, s) if p != s else ["PLACE", "MELON", n]
+
+
+# ---------------------------------------------------------------- tiered fixed plan (user, 2026-09-28) ----------------
+# sd_tier = 1: the day is planned ONCE at hour 0 and never re-planned. Every hand is a PRIORITY-HARVEST hand (melons, the
+# melon rule's partition: back at the shed by 8, else by 12 with a penalty) or an OUTBOUND hand (never walks back; what it
+# carries reaches the shed with the midnight dump). Order (user):
+#   A. melon hands (a melon hand also replants its melon tile when its drop stays on time, i.e. by 8);
+#   B. mandatory work -- harvests, the leader's plantings / builds (replants), keep-alive waterings (and the water before a
+#      harvest), keep-alive feeds -- split into SECTORS = each hand's tiles of responsibility (one owner per plant tile) by
+#      a heuristic search: every mandatory op done by hour 23 (hard), each patch consecutive (hop weight), fertilizer
+#      collectable on the outbound leg rewarded (for the fertilize work in the patch);
+#   C. extras on the outbound hands: collect -> fertilize pairs, extra waterings;
+#   D. animal work (feed / care / collect) from the melon hands' leftover labour first (and an animal hand, if hired);
+#   E. the slack left anywhere, by value per hour.
+# Execution: each hand walks its fixed list; the only fixes are local (dig a weed before planting, skip an op that cannot
+# be done, wait for a tile another hand has not cleared yet). Every breakage is logged in S["tier"]["log"].
+import math as _tier_math
+import random as _tier_random
+
+_TIER_SHED_I = [q[1] * 10 + q[0] for q in SHED]
+_TIER_D = [[abs(a % 10 - b % 10) + abs(a // 10 - b // 10) for b in range(100)] for a in range(100)]
+_TIER_ANG = [_tier_math.atan2(-((i // 10) - 4.5), (i % 10) - 4.5) for i in range(100)]
+_TIER_BIG = 1000.0
+_TIER_RANK = {"DIG": 0, "COLLECT_FERTILIZER": 1, "FEED": 2, "CARE": 3, "FERTILIZE": 4, "WATER": 5, "HARVEST": 6,
+              "PLANT": 7, "WATER2": 8, "BUILD_COOP": 9, "BUILD_PASTURE": 9, "PLACE": 10}
+
+
+def _tier_near_shed(i):
+    return min(_TIER_SHED_I, key=lambda s: (_TIER_D[i][s], s))
+
+
+def _tier_op(c, m, v, tier, after_plant=False):
+    k = "WATER2" if (c[0] == "WATER" and after_plant) else c[0]
+    return {"c": list(c), "m": bool(m), "v": float(v), "tier": int(tier), "rank": _TIER_RANK.get(k, 5)}
+
+
+def _tier_picks(stops):
+    nf, na = 0, Counter()
+    for s in stops:
+        for o in s["ops"]:
+            c = o["c"]
+            if c[0] == "FEED":
+                nf += 1
+            elif c[0] == "PLACE" and len(c) > 1 and c[1] in ANIMALS:
+                na[c[1]] += 1
+    return nf, na
+
+
+def _tier_eval(seg, stops=None, want_hours=False):
+    """(end hour, lateness, hops inside the patch, supply failures[, op hours]) of a segment {"p0", "t0", "stops"}: the
+    pickups (one wheat per FEED, the animals it PLACEs) happen at the shed before its first stop; lateness = hours a
+    mandatory op runs after 23 plus hours any op runs past the day."""
+    D = _TIER_D
+    stops = seg["stops"] if stops is None else stops
+    t, p = seg["t0"], seg["p0"]
+    gr = seg.get("goose_ready", 2)
+    late = hop = bad = 0
+    nf, na = _tier_picks(stops)
+    w, f = 0, 0
+    an = Counter()
+    if nf or na:
+        if p not in _TIER_SHED_I:
+            s_ = _tier_near_shed(p)
+            t += D[p][s_]
+            p = s_
+        if nf:
+            t += 1
+            w = nf
+        for a_, v_ in na.items():
+            t = max(t, gr) + 1
+            an[a_] = v_
+    hours = [] if want_hours else None
+    first = True
+    for s in stops:
+        b = s["tile"]
+        d = D[p][b]
+        t += d
+        if not first and d > 1:
+            hop += d - 1
+        first = False
+        if t < s["rel"]:
+            t = s["rel"]
+        for o in s["ops"]:
+            c = o["c"][0]
+            if c == "COLLECT_FERTILIZER":
+                f += 1
+            elif c == "FERTILIZE":
+                if f <= 0:
+                    bad += 1
+                else:
+                    f -= 1
+            elif c == "FEED":
+                w -= 1
+            elif c == "PLACE" and len(o["c"]) > 1 and o["c"][1] in ANIMALS:
+                an[o["c"][1]] -= 1
+            if want_hours:
+                hours.append((b, o["c"], t))
+            t += 1
+            if o["m"] and t - 1 > 23:
+                late += t - 1 - 23
+        p = b
+    if t > 24:
+        late += t - 24
+    if want_hours:
+        return t, late, hop, bad, hours
+    return t, late, hop, bad
+
+
+def _tier_cost(seg, ev=None):
+    if not seg["stops"]:
+        return 0.0
+    t, late, hop, bad = ev if ev is not None else _tier_eval(seg)
+    c = _TIER_BIG * (late + bad) + seg["wu"] * (t - seg["t0"]) + float(CFG["sd_tier_hop_w"]) * hop
+    cw = float(CFG["sd_tier_coll_w"])
+    if cw and seg.get("fneed"):
+        need = sum(1 for s in seg["stops"] if s["tile"] in seg["fneed"])
+        if need:
+            p = seg["p0"] if seg["p0"] in _TIER_SHED_I else _tier_near_shed(seg["p0"])
+            b1 = seg["stops"][0]["tile"]
+            D = _TIER_D
+            on = sum(1 for a in seg["anim"] if D[p][a] + D[a][b1] == D[p][b1])
+            c -= cw * min(on, need)
+    return c
+
+
+def _tier_route(seg, ids, stops_all):
+    """nearest-neighbour order of the stop ids from the segment's start, then or-opt; returns the ordered ids."""
+    D = _TIER_D
+    p = seg["p0"]
+    rest = list(ids)
+    out = []
+    while rest:
+        j = min(rest, key=lambda i: (D[p][stops_all[i]["tile"]], stops_all[i]["tile"]))
+        out.append(j)
+        rest.remove(j)
+        p = stops_all[j]["tile"]
+    return _tier_oropt(seg, out, stops_all)
+
+
+def _tier_seg_cost(seg, ids, stops_all):
+    return _tier_cost(dict(seg, stops=[stops_all[i] for i in ids]))
+
+
+def _tier_oropt(seg, ids, stops_all):
+    best = _tier_seg_cost(seg, ids, stops_all)
+    improved = True
+    while improved and len(ids) > 1:
+        improved = False
+        for i in range(len(ids)):
+            x = ids[i]
+            r = ids[:i] + ids[i + 1:]
+            for k in range(len(r) + 1):
+                if k == i:
+                    continue
+                nr = r[:k] + [x] + r[k:]
+                c = _tier_seg_cost(seg, nr, stops_all)
+                if c < best - 1e-9:
+                    best, ids, improved = c, nr, True
+                    break
+            if improved:
+                break
+    return ids
+
+
+def _tier_search(segs, stops_all, budget, rng):
+    """sectors: stop ids per segment. Sweep start (angular arcs of balanced work over the outbound segments, every
+    rotation of arcs to segments), then simulated annealing over relocate / swap / intra moves within the budget."""
+    D = _TIER_D
+    n = len(stops_all)
+    outs = [k for k, s in enumerate(segs) if s["kind"] == "out"]
+    t_end = time.perf_counter() + budget
+    best = None
+    if outs and n:
+        order = sorted(range(n), key=lambda i: _TIER_ANG[stops_all[i]["tile"]])
+        work = [len(stops_all[i]["ops"]) + 1.5 for i in order]
+        tot = sum(work)
+        K = len(outs)
+        segs_by_ang = sorted(outs, key=lambda k: (_TIER_ANG[segs[k]["p0"]], k))
+        for off in range(0, n, max(1, n // 8)):
+            seq = order[off:] + order[:off]
+            wq = work[off:] + work[:off]
+            arcs, cur, acc = [], [], 0.0
+            for i, w_ in zip(seq, wq):
+                cur.append(i)
+                acc += w_
+                if acc >= tot * (len(arcs) + 1) / K - 1e-9 and len(arcs) < K - 1:
+                    arcs.append(cur)
+                    cur = []
+            arcs.append(cur)
+            while len(arcs) < K:
+                arcs.append([])
+            for rot in range(K):
+                asg = [[] for _ in segs]
+                for a_i, arc in enumerate(arcs):
+                    asg[segs_by_ang[(a_i + rot) % K]] = arc
+                asg = [_tier_route(segs[k], asg[k], stops_all) if asg[k] else [] for k in range(len(segs))]
+                c = sum(_tier_seg_cost(segs[k], asg[k], stops_all) for k in range(len(segs)))
+                if best is None or c < best[0]:
+                    best = (c, asg)
+    if best is None:
+        return [[] for _ in segs], 0.0
+    cur = [list(r) for r in best[1]]
+    cc = [_tier_seg_cost(segs[k], cur[k], stops_all) for k in range(len(segs))]
+    tot_c = sum(cc)
+    best_c, best_r = tot_c, [list(r) for r in cur]
+    where = {}
+    for k, r in enumerate(cur):
+        for i in r:
+            where[i] = k
+    T0, T1 = float(CFG["sd_tier_t0"]), 0.05
+    it = 0
+    t_start = time.perf_counter()
+    while True:
+        it += 1
+        if it > int(CFG["sd_tier_iters"]) or (it % 64 == 0 and time.perf_counter() > t_end):
+            break
+        frac = min(1.0, it / max(1.0, float(CFG["sd_tier_iters"])))
+        T = T0 * (1.0 - frac) + T1
+        mv = rng.random()
+        s = rng.randrange(n)
+        a = where[s]
+        if mv < 0.55:                              # relocate s to the best position of a route near it
+            near = [k for k in range(len(segs)) if k != a and (not cur[k] and segs[k]["kind"] != "post" or any(
+                D[stops_all[s]["tile"]][stops_all[i]["tile"]] <= 3 for i in cur[k]))]
+            if not near:
+                continue
+            b = rng.choice(near)
+            ra = [i for i in cur[a] if i != s]
+            ca = _tier_seg_cost(segs[a], ra, stops_all)
+            bb = None
+            for k in range(len(cur[b]) + 1):
+                rb = cur[b][:k] + [s] + cur[b][k:]
+                c = _tier_seg_cost(segs[b], rb, stops_all)
+                if bb is None or c < bb[0]:
+                    bb = (c, rb)
+            delta = ca + bb[0] - cc[a] - cc[b]
+            if delta < 0 or rng.random() < _tier_math.exp(-delta / T):
+                cur[a], cur[b] = ra, bb[1]
+                cc[a], cc[b] = ca, bb[0]
+                where[s] = b
+                tot_c += delta
+        elif mv < 0.8:                             # swap s with a stop of another route near it
+            cand = [i for i in range(n) if where[i] != a and D[stops_all[s]["tile"]][stops_all[i]["tile"]] <= 4]
+            if not cand:
+                continue
+            s2 = rng.choice(cand)
+            b = where[s2]
+            ra = [s2 if i == s else i for i in cur[a]]
+            rb = [s if i == s2 else i for i in cur[b]]
+            ra = _tier_oropt(segs[a], ra, stops_all)
+            rb = _tier_oropt(segs[b], rb, stops_all)
+            ca, cb = _tier_seg_cost(segs[a], ra, stops_all), _tier_seg_cost(segs[b], rb, stops_all)
+            delta = ca + cb - cc[a] - cc[b]
+            if delta < 0 or rng.random() < _tier_math.exp(-delta / T):
+                cur[a], cur[b] = ra, rb
+                cc[a], cc[b] = ca, cb
+                where[s], where[s2] = b, a
+                tot_c += delta
+        else:                                      # intra: move s within its route
+            r = [i for i in cur[a] if i != s]
+            bb = None
+            for k in range(len(r) + 1):
+                nr = r[:k] + [s] + r[k:]
+                c = _tier_seg_cost(segs[a], nr, stops_all)
+                if bb is None or c < bb[0]:
+                    bb = (c, nr)
+            delta = bb[0] - cc[a]
+            if delta < -1e-9:
+                cur[a], cc[a] = bb[1], bb[0]
+                tot_c += delta
+        if tot_c < best_c - 1e-9:
+            best_c, best_r = tot_c, [list(r) for r in cur]
+    return best_r, best_c
+
+
+def _tier_merge(stops, tile, ops, rel=0, k=None):
+    """stops with ops merged into the stop on tile (in rank order), else inserted as a new stop at position k."""
+    out = [dict(s) for s in stops]
+    for i, s in enumerate(out):
+        if s["tile"] == tile:
+            s["ops"] = sorted(s["ops"] + [dict(o) for o in ops], key=lambda o: o["rank"])
+            return out, i
+    k = len(out) if k is None else k
+    out.insert(k, {"tile": tile, "ops": sorted([dict(o) for o in ops], key=lambda o: o["rank"]), "rel": rel})
+    return out, k
+
+
+def _tier_best_ins(seg, bundle, collects, lo=0):
+    """best insertion of an extras bundle {"tile", "ops", "v"} into seg (merged into its stop on the tile, else a new
+    stop at the best position >= lo); a FERTILIZE the route has no fertilizer for is paired with a COLLECT from the
+    free collects (tile -> op) placed before it. Returns (score, delta hours, new stops, collect tile or None) or None."""
+    ev0 = _tier_eval(seg)
+    c0 = _tier_cost(seg, ev0)
+    has = any(s["tile"] == bundle["tile"] for s in seg["stops"])
+    opts = []
+    if has:
+        opts.append(_tier_merge(seg["stops"], bundle["tile"], bundle["ops"]))
+    else:
+        for k in range(lo, len(seg["stops"]) + 1):
+            opts.append(_tier_merge(seg["stops"], bundle["tile"], bundle["ops"], 0, k))
+    best = None
+    need_f = any(o["c"][0] == "FERTILIZE" for o in bundle["ops"])
+    for st_, kpos in opts:
+        ev = _tier_eval(seg, st_)
+        cands = [(st_, ev, None, 0.0)]
+        if need_f and ev[3] > ev0[3] and collects:
+            D = _TIER_D
+            b = bundle["tile"]
+            for a in sorted(collects, key=lambda a: D[a][b])[:4]:
+                for k2 in range(lo, kpos + 1):
+                    st2, _ = _tier_merge(st_, a, [collects[a]], 0, k2)
+                    cands.append((st2, _tier_eval(seg, st2), a, float(collects[a]["v"])))
+        for st2, ev2, a, va in cands:
+            if ev2[1] > ev0[1] or ev2[3] > ev0[3]:
+                continue
+            c = _tier_cost(dict(seg, stops=st2), ev2)
+            dh = max(0.25, c - c0)
+            sc = (bundle["v"] + va) / dh
+            if best is None or sc > best[0]:
+                best = (sc, c - c0, st2, a)
+    return best
+
+
+def _tier_fill(segs, sidx, bundles, collects, owner, rate, st, tag):
+    """greedy: repeatedly the best (value / added hours) feasible insertion of a bundle into one of the segments sidx."""
+    n_ins = 0
+    cache = {}
+    while bundles:
+        best = None
+        for bi, bd in enumerate(bundles):
+            for k in sidx:
+                o_ = owner.get(bd["tile"])
+                if o_ is not None and o_ != k and not bd.get("shared"):
+                    continue
+                key = (id(bd), k, segs[k]["ver"])
+                r = cache.get(key)
+                if r is None:
+                    r = _tier_best_ins(segs[k], bd, collects if segs[k]["kind"] != "prio_melon" else {},
+                                       segs[k].get("lo", 0))
+                    cache[key] = r if r is not None else False
+                if not r:
+                    continue
+                if r[0] < rate:
+                    continue
+                if best is None or r[0] > best[0]:
+                    best = (r[0], bi, k, r)
+        if best is None:
+            break
+        _, bi, k, r = best
+        bd = bundles.pop(bi)
+        segs[k]["stops"] = r[2]
+        segs[k]["ver"] += 1
+        if not bd.get("shared"):
+            owner[bd["tile"]] = k
+        if any(o["c"][0] == "COLLECT_FERTILIZER" for o in bd["ops"]):
+            collects.pop(bd["tile"], None)
+        if r[3] is not None:
+            collects.pop(r[3], None)
+            for bd2 in list(bundles):                  # that animal's fertilizer is taken
+                if bd2["tile"] == r[3]:
+                    bd2["ops"] = [o for o in bd2["ops"] if o["c"][0] != "COLLECT_FERTILIZER"]
+                    bd2["v"] = sum(o["v"] for o in bd2["ops"])
+                    if not bd2["ops"]:
+                        bundles.remove(bd2)
+            cache = {}
+        n_ins += 1
+    st["tier_fill_" + tag] = st.get("tier_fill_" + tag, 0) + n_ins
+    return n_ins
+
+
+def _tier_melon(day, tiles, units):
+    """the melon rule's partition over units [(u, p0 xy, t0)] each from its own start hour: blocks ranked (lateness
+    cost, blocks, -early bonus); melons nobody can drop by 12 are left out (normal harvest)."""
+    ripe = [i for i in range(100) if _mel_ripe(_tile(tiles, i), day)]
+    if not ripe or not units:
+        return [], ripe
+    ok = [i for i in ripe if min(_mel_block(p0, t0, [i], tiles, day)[0] for _, p0, t0 in units) <= 12]
+    left = [i for i in ripe if i not in ok]
+    best = None
+    for part in _mel_partitions(ok[:8]):
+        if len(part) > len(units):
+            continue
+        cand = []
+        for b in part:
+            opts = sorted((_mel_block(p0, t0, b, tiles, day) + (u,) for u, p0, t0 in units), key=lambda x: (x[1], x[0]))
+            cand.append((opts, b))
+        cand.sort(key=lambda c: -c[0][0][1] if c[0][0][1] != float("inf") else -1e18)
+        used, tot, bonus, asg = set(), 0.0, 0.0, []
+        ok_ = True
+        for opts, b in cand:
+            pick = next((o for o in opts if o[5] not in used), None)
+            if pick is None or pick[1] == float("inf"):
+                ok_ = False
+                break
+            used.add(pick[5])
+            tot += max(0.0, pick[1])
+            bonus += max(0.0, -pick[1])
+            asg.append((pick[5], list(pick[3]), pick[0], pick[4]))
+        if not ok_:
+            continue
+        key = (round(tot, 3), len(part), -bonus)
+        if best is None or key < best[0]:
+            best = (key, asg)
+    return (best[1] if best else []), left
+
+
+def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, jobs, shed, seeds, prices, assign,
+              deliv_u, fert_keep, demand):
+    """hour 0: plan the whole day (S["tier"]); later hours: nothing (the plan is fixed)."""
+    if hour != 0 or len(pos) != 1 or day >= last_day or (S.get("tier") or {}).get("day") == day:
+        return
+    t_start = time.perf_counter()
+    st = L["st"]
+    want = _sd_want_hands(day)
+    k0 = min(want, 10)
+    vunits = [(q, 1) for q in _sd_spawn(pos, k0)] + [(q, 2) for q in _sd_spawn([], want - k0)]
+    ctx = {"keep": set(), "stiles": set(), "mflag": {}, "obs": obs, "day": day, "hour": hour, "step": step,
+           "tiles": tiles, "tasks": tasks, "invs": invs, "pos": pos, "shed": shed, "seeds": seeds, "assign": assign,
+           "last_day": last_day, "jobs": jobs, "prices": prices, "deliv_u": deliv_u, "fert_keep": fert_keep,
+           "demand": demand, "vunits": vunits}
+    P = _sd_build(S, L, ctx)
+    # ---- per-tile ops (pre job, then plan job), tiered
+    rec = {}
+    skipped = 0
+    for j in range(P.J):
+        key = P.key[j]
+        if not P.real[j]:
+            skipped += 1
+            continue
+        b = P.jb[j][0]
+        ops = P.ops[j]
+        vals = P.jb[j][7]
+        hi = P.jb[j][10]
+        r_ = rec.setdefault(b, {"ops": [], "rel": 0})
+        r_["rel"] = max(r_["rel"], int(P.jb[j][9]))
+        plant_seen = any(o["c"][0] == "PLANT" for o in r_["ops"])
+        for i, o in enumerate(ops):
+            c = o[0]
+            if c == "PLANT":
+                plant_seen = True
+            nxt = ops[i + 1][0] if i + 1 < len(ops) else None
+            if i == hi or c in ("PLANT", "DIG", "BUILD_COOP", "BUILD_PASTURE", "PLACE", "HARVEST"):
+                m, tier = True, 2
+            elif c == "WATER" and (plant_seen or nxt == "HARVEST"):
+                m, tier = True, 2
+            elif c in ("WATER", "FERTILIZE"):
+                m, tier = False, 3
+            else:
+                m, tier = False, 4                 # FEED (not keep-alive), CARE, COLLECT_FERTILIZER
+            r_["ops"].append(_tier_op(o, m, vals[i] if i < len(vals) else 0.0, tier, after_plant=plant_seen and c == "WATER"))
+    st["tier_pred_skipped"] = st.get("tier_pred_skipped", 0) + skipped
+    # ---- the leader's plan for today that the hour-0 task list does not show yet (seeds / animals bought later)
+    added = 0
+    for idx, job in sorted(jobs.items()):
+        if not job:
+            continue
+        r_ = rec.setdefault(idx, {"ops": [], "rel": 0})
+        cm = [o["c"][0] for o in r_["ops"]]
+        t = _tile(tiles, idx)
+        pre = []
+        if job[0] in ("PLANT", "BUILD") and not any(c in ("PLANT", "BUILD_COOP", "BUILD_PASTURE") for c in cm):
+            if t is None:
+                pre = []
+            elif _is_plant(t):
+                c_ = CROPS.get(t.get("crop"), {})
+                ripe_ = (int(t.get("yield_units", 0) or 0) > 0
+                         and day - int(t.get("planted_day", day)) >= c_.get("first", 99))
+                if "HARVEST" in cm:
+                    pre = [["DIG"]] if c_.get("ongoing") else []
+                elif ripe_ and not c_.get("ongoing"):
+                    pre = [["HARVEST"]]
+                else:
+                    pre = [["DIG"]]
+            elif isinstance(t, dict) and "animal" not in t:
+                pre = [["DIG"]]
+            new = [_tier_op(o, True, 0.0, 2) for o in pre]
+            if job[0] == "PLANT":
+                new += [_tier_op(["PLANT", job[1]], True, float(CFG["plan_value"]), 2),
+                        _tier_op(["WATER"], True, 0.0, 2, after_plant=True)]
+            else:
+                new += [_tier_op(["BUILD_" + job[1]], True, 0.0, 2)]
+                if len(job) > 2 and job[2] in ANIMALS:
+                    new += [_tier_op(["PLACE", job[2]], True, float(CFG["plan_value"]), 2)]
+            r_["ops"] = sorted(r_["ops"] + new, key=lambda o: o["rank"])
+            added += 1
+    st["tier_plan_added"] = st.get("tier_plan_added", 0) + added
+    # ---- units: farmer (hour 0) + the day's hires (hour 1; beyond 10 hour 2). The hires spawn after the farmer's hour-0
+    # command (least occupied shed tile), the late ones after everyone's hour-1 command: plan, derive the spawn tiles the
+    # plan's own first moves imply, re-plan until they agree (at most 3 passes)
+    import copy as _tier_copy
+    sp0 = _sd_spawn([] if tuple(pos[0]) in SHED else [tuple(pos[0])], k0)
+    sp1 = _sd_spawn([], want - k0)
+    TP = None
+    for pass_ in range(3):
+        units = [(0, tuple(pos[0]), 0)] + [(u + 1, q, 1) for u, q in enumerate(sp0)] + [
+            (u + 1 + k0, q, 2) for u, q in enumerate(sp1)]
+        TP = _tier_core(S, L, st, day, tiles, _tier_copy.deepcopy(rec), units, want, t_start)
+        f1 = _tier_walk(TP["routes"].get(0), tuple(pos[0]), 1)
+        n0 = _sd_spawn([f1], k0)
+        after1 = [_tier_walk(TP["routes"].get(0), tuple(pos[0]), 2)] + [
+            _tier_walk(TP["routes"].get(u + 1), q, 1) for u, q in enumerate(n0)]
+        n1 = _sd_spawn(after1, want - k0)
+        TP["summary"]["spawn_pass"] = pass_ + 1
+        if n0 == sp0 and n1 == sp1:
+            break
+        sp0, sp1 = n0, n1
+        st["tier_respawn"] = st.get("tier_respawn", 0) + 1
+    TP["summary"]["spawn"] = [list(q) for q in sp0 + sp1]
+    S["tier"] = TP
+    L.setdefault("tier_days", {})[str(day)] = TP["summary"]
+
+
+def _tier_walk(R, p, n):
+    """position of a unit after its first n commands of route R (geometry only: picks and ops stay, moves step)."""
+    p = tuple(p)
+    if not R:
+        return p
+    items, k, sub = R["items"], 0, 0
+    for _ in range(n):
+        if k >= len(items):
+            break
+        it = items[k]
+        q = _near_shed(p) if it["kind"] == "pick" else (it["tile"] % 10, it["tile"] // 10)
+        if p != q:
+            dx, dy = q[0] - p[0], q[1] - p[1]
+            p = (p[0] + (1 if dx > 0 else -1), p[1]) if dx else (p[0], p[1] + (1 if dy > 0 else -1))
+            continue
+        if it["kind"] in ("pick", "place"):
+            k += 1
+            continue
+        sub += 1
+        if sub >= len(it["ops"]):
+            k, sub = k + 1, 0
+    return p
+
+
+def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
+    n_ani = int(CFG["sd_tier_animal_hand"])
+    ani_units = set(u for u, _, _ in units[-n_ani:]) if n_ani > 0 else set()
+    # ---- A. melon hands
+    mel_units = [(u, p0, t0) for u, p0, t0 in units if t0 <= 1 and u not in ani_units]
+    masg, left = _tier_melon(day, tiles, mel_units)
+    segs, owner = [], {}
+    mel_of = {}
+    melon_tiles = set()
+    for u, order, drop, hh in masg:
+        p0 = next(p for uu, p, _ in units if uu == u)
+        t0 = next(t for uu, _, t in units if uu == u)
+        stops = []
+        for i in order:
+            t = _tile(tiles, i)
+            ops = ([_tier_op(["WATER"], True, 0.0, 1)] if _mel_needs_water(t, day) else []) + [
+                _tier_op(["HARVEST"], True, 0.0, 1)]
+            stops.append({"tile": i, "ops": ops, "rel": 0})
+            melon_tiles.add(i)
+        last = order[-1]
+        sh = _tier_near_shed(last)
+        stops.append({"tile": sh, "ops": [_tier_op(["PLACE", "MELON", 0], True, 0.0, 1)], "rel": 0, "place": True})
+        mel_of[u] = {"stops": stops, "p0": p0[1] * 10 + p0[0], "t0": t0, "drop": drop, "hh": dict(hh)}
+    # the rest of a melon tile's work: the melon hand does it when its drop stays by 8, else the tile's owner after the
+    # planned harvest (harvested-by flag)
+    for u, M in mel_of.items():
+        for i in [s["tile"] for s in M["stops"] if not s.get("place")]:
+            r_ = rec.get(i)
+            if r_:
+                r_["ops"] = [o for o in r_["ops"] if o["c"][0] not in ("WATER", "HARVEST") or o["rank"] == 8]
+                if not r_["ops"]:
+                    rec.pop(i)
+                    continue
+            else:
+                continue
+            rest = [o for o in r_["ops"] if o["m"] and not (o["c"][0] == "PLACE" and o["c"][1:2] and o["c"][1] in ANIMALS)]
+            if rest and len(rest) == len([o for o in r_["ops"] if o["m"]]):
+                seg_ = {"p0": M["p0"], "t0": M["t0"], "stops": M["stops"]}
+                st2 = [dict(s) for s in M["stops"]]
+                for s in st2:
+                    if s["tile"] == i:
+                        s["ops"] = s["ops"] + [dict(o) for o in rest]
+                ev = _tier_eval(seg_, st2, want_hours=True)
+                drop_h = next(h for (b_, c_, h) in ev[4] if c_[0] == "PLACE" and c_[1] == "MELON")
+                if drop_h <= 8:
+                    M["stops"] = st2
+                    r_["ops"] = [o for o in r_["ops"] if o not in rest]
+                    st["tier_melon_replant"] = st.get("tier_melon_replant", 0) + 1
+                    if not r_["ops"]:
+                        rec.pop(i)
+                    continue
+        ev = _tier_eval({"p0": M["p0"], "t0": M["t0"], "stops": M["stops"]}, want_hours=True)
+        M["drop"] = next(h for (b_, c_, h) in ev[4] if c_[0] == "PLACE" and c_[1] == "MELON")
+        for b_, c_, h in ev[4]:
+            if c_[0] == "HARVEST":
+                M["hh"][b_] = h
+        for i, h in M["hh"].items():
+            if i in rec:
+                rec[i]["rel"] = max(rec[i]["rel"], h + 1)
+    # ---- segments: outbound hands, the melon hands after their drop, animal hands
+    anim = [i for i in range(100) if _animal(_tile(tiles, i))]
+    fneed = set(i for i, r_ in rec.items() if any(o["c"][0] == "FERTILIZE" for o in r_["ops"]))
+    for u, p0, t0 in units:
+        pi = p0[1] * 10 + p0[0]
+        if u in mel_of:
+            M = mel_of[u]
+            sh = M["stops"][-1]["tile"]
+            segs.append({"u": u, "kind": "post", "p0": sh, "t0": M["drop"] + 1, "stops": [], "wu": float(CFG["sd_tier_prio_w"]),
+                         "ver": 0, "anim": anim, "fneed": fneed})
+        elif u in ani_units:
+            segs.append({"u": u, "kind": "ani", "p0": pi, "t0": t0, "stops": [], "wu": 1.0, "ver": 0, "anim": anim,
+                         "fneed": fneed})
+        else:
+            segs.append({"u": u, "kind": "out", "p0": pi, "t0": t0, "stops": [], "wu": 1.0, "ver": 0, "anim": anim,
+                         "fneed": fneed})
+    # ---- B. mandatory stops -> sectors (heuristic search)
+    stops_all = []
+    for i, r_ in sorted(rec.items()):
+        mops = [o for o in r_["ops"] if o["m"]]
+        if mops:
+            stops_all.append({"tile": i, "ops": mops, "rel": r_["rel"]})
+    rng = _tier_random.Random(int(CFG["sd_seed"]) * 7907 + day)
+    segs_m = [s for s in segs if s["kind"] in ("out", "post")]
+    routes, cost = _tier_search(segs_m, stops_all, float(CFG["sd_tier_budget"]), rng)
+    for s, r in zip(segs_m, routes):
+        s["stops"] = [dict(stops_all[i], ops=[dict(o) for o in stops_all[i]["ops"]]) for i in r]
+        for x in s["stops"]:
+            if x["tile"] not in anim:
+                owner[x["tile"]] = segs.index(s)
+    late_m = sum(_tier_eval(s)[1] for s in segs_m if s["stops"])
+    st["tier_mand_late"] = st.get("tier_mand_late", 0) + late_m
+    # ---- extras catalogue: bundles per tile and tier (the ops not already planned)
+    collects = {}
+    b3, b4 = [], []
+    for i, r_ in sorted(rec.items()):
+        ex = [o for o in r_["ops"] if not o["m"] and o["v"] > 0]
+        if not ex:
+            continue
+        if i in anim:
+            for o in ex:
+                if o["c"][0] == "COLLECT_FERTILIZER":
+                    collects[i] = o
+                    b4.append({"tile": i, "ops": [o], "v": o["v"], "shared": True})
+            fc = [o for o in ex if o["tier"] == 4 and o["c"][0] in ("FEED", "CARE")]
+            if fc:
+                b4.append({"tile": i, "ops": fc, "v": sum(o["v"] for o in fc), "shared": True})
+        else:
+            e3 = [o for o in ex if o["tier"] == 3]
+            if e3:
+                b3.append({"tile": i, "ops": e3, "v": sum(o["v"] for o in e3)})
+    rate = float(CFG["sd_tier_rate"])
+    idx_out = [k for k, s in enumerate(segs) if s["kind"] == "out"]
+    idx_pri = [k for k, s in enumerate(segs) if s["kind"] in ("post", "ani")]
+    # C. extras on the outbound hands: fertilize (paired with a collect) and waterings, by value per hour
+    _tier_fill(segs, idx_out, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st, "c")
+    # D. animal work: the melon hands' leftover labour first (and an animal hand)
+    for bd in b4:                                  # collects already paired away are gone
+        bd["ops"] = [o for o in bd["ops"] if o["c"][0] != "COLLECT_FERTILIZER" or bd["tile"] in collects]
+        bd["v"] = sum(o["v"] for o in bd["ops"])
+    b4 = [bd for bd in b4 if bd["ops"]]
+    _tier_fill(segs, idx_pri, b4, collects, owner, rate, st, "d")
+    # E. the slack left anywhere
+    for bd in b4:
+        bd["ops"] = [o for o in bd["ops"] if o["c"][0] != "COLLECT_FERTILIZER" or bd["tile"] in collects]
+        bd["v"] = sum(o["v"] for o in bd["ops"])
+    rest = [bd for bd in b3 + b4 if bd["ops"]]
+    _tier_fill(segs, list(range(len(segs))), rest, collects, owner, rate, st, "e")
+    # ---- routes per unit
+    routes_u = {}
+    summ = []
+    for s in segs:
+        u = s["u"]
+        items = []
+        if s["kind"] == "post":
+            M = mel_of[u]
+            for x in M["stops"]:
+                items.append({"kind": "place" if x.get("place") else "stop", "tile": x["tile"],
+                              "ops": [o["c"] for o in x["ops"]], "mand": [o["m"] for o in x["ops"]]})
+        nf, na = _tier_picks(s["stops"])
+        if nf:
+            items.append({"kind": "pick", "item": "WHEAT", "n": nf})
+        for a_, v_ in na.items():
+            items.append({"kind": "pick", "item": a_, "n": v_})
+        for x in s["stops"]:
+            items.append({"kind": "stop", "tile": x["tile"], "ops": [o["c"] for o in x["ops"]],
+                          "mand": [o["m"] for o in x["ops"]], "rel": x.get("rel", 0)})
+        ev = _tier_eval(s, want_hours=True) if s["stops"] else (s["t0"], 0, 0, 0, [])
+        routes_u[u] = {"items": items, "k": 0, "sub": 0, "kind": s["kind"], "waited": 0, "wait": {},
+                       "plan_hours": [(b_, c_[0], h) for b_, c_, h in ev[4]]}
+        summ.append({"u": u, "kind": s["kind"], "t0": s["t0"], "end": ev[0], "late": ev[1], "hop": ev[2], "bad": ev[3],
+                     "drop": mel_of[u]["drop"] if u in mel_of else None,
+                     "melons": [x["tile"] for x in mel_of[u]["stops"] if not x.get("place")] if u in mel_of else [],
+                     "stops": [[x["tile"], [o["c"][0] for o in x["ops"]]] for x in s["stops"]]})
+    unplanned = [[bd["tile"], [o["c"][0] for o in bd["ops"]], round(bd["v"], 1)] for bd in rest]
+    return {"day": day, "routes": routes_u, "log": [], "cnt": Counter(), "owner": owner,
+                 "summary": {"units": summ, "left_out_melons": left, "mand_late": late_m, "unplanned": unplanned,
+                             "plan_ms": round(1000 * (time.perf_counter() - t_start), 1), "search_cost": round(cost, 2),
+                             "want": want, "n_mand_stops": len(stops_all)}}
+
+
+def _tier_check(c, t, inv, day, seeds_left):
+    """do / skip / dig / wait for command c on tile t with the unit's inventory."""
+    op = c[0]
+    if op == "WATER":
+        return "do" if (_is_plant(t) and not t.get("watered_today")) else "skip"
+    if op == "HARVEST":
+        if isinstance(t, dict) and int(t.get("yield_units", 0) or 0) > 0:
+            if _is_plant(t):
+                cr = CROPS.get(t.get("crop"))
+                return "do" if cr and day - int(t.get("planted_day", day)) >= cr["first"] else "skip"
+            return "do" if _animal(t) else "skip"
+        return "skip"
+    if op in ("PLANT", "BUILD_COOP", "BUILD_PASTURE"):
+        if t is None:
+            if op == "PLANT" and seeds_left.get(c[1], 0) <= 0:
+                return "noseed"
+            return "do"
+        if _is_weed(t) or (isinstance(t, dict) and t.get("kind") in ("COOP", "PASTURE") and "animal" not in t
+                           and not (op == "BUILD_COOP" and t.get("kind") == "COOP")):
+            return "dig"
+        if _is_plant(t):
+            return "wait"
+        return "skip"
+    if op == "DIG":
+        return "do" if (t is not None and not _animal(t)) else "skip"
+    if op == "PLACE":
+        if len(c) > 1 and c[1] in ANIMALS:
+            ok = (isinstance(t, dict) and t.get("kind") == ANIMALS[c[1]]["structure"] and "animal" not in t
+                  and inv.get(c[1], 0) > 0)
+            return "do" if ok else "skip"
+        return "skip"
+    if op == "FEED":
+        return "do" if (_animal(t) and not t.get("fed_today") and inv.get("WHEAT", 0) > 0) else "skip"
+    if op == "CARE":
+        return "do" if (_animal(t) and not t.get("cared_today")) else "skip"
+    if op == "COLLECT_FERTILIZER":
+        return "do" if (_animal(t) and t.get("fertilizer_available")) else "skip"
+    if op == "FERTILIZE":
+        return "do" if (_is_plant(t) and inv.get("FERTILIZER", 0) > 0
+                        and int(t.get("fertilized_until_day", -1)) < day) else "skip"
+    return "do"
+
+
+def _tier_cmd(TP, R, u, p, inv, tiles, day, hour, step, seeds_left, shed_left):
+    items = R["items"]
+    lg = TP["log"]
+    cnt = TP["cnt"]
+    guard = 0
+    while R["k"] < len(items) and guard < 50:
+        guard += 1
+        it = items[R["k"]]
+        if it["kind"] == "pick":
+            s = _near_shed(p)
+            if p != s:
+                return _step_toward(p, s)
+            have = int(shed_left.get(it["item"], 0))
+            n = min(int(it["n"]), have)
+            if n <= 0:
+                if it["item"] in ANIMALS and hour < 20 and R["waited"] < 6:
+                    R["waited"] += 1
+                    cnt["wait_pick"] += 1
+                    return ["PASS"]
+                lg.append([step, u, "pick_none", s[1] * 10 + s[0], it["item"]])
+                cnt["pick_none"] += 1
+                R["k"] += 1
+                continue
+            shed_left[it["item"]] = have - n
+            R["k"] += 1
+            R.setdefault("done", []).append((hour, s[1] * 10 + s[0], "PICKUP"))
+            if n < int(it["n"]):
+                lg.append([step, u, "pick_short", s[1] * 10 + s[0], "%s %d/%d" % (it["item"], n, it["n"])])
+                cnt["pick_short"] += 1
+            return ["PICKUP", it["item"], n]
+        if it["kind"] == "place":
+            m = int(inv.get("MELON", 0) or 0)
+            q = (it["tile"] % 10, it["tile"] // 10)
+            if m <= 0:
+                R["k"] += 1
+                continue
+            if p != q:
+                return _step_toward(p, q)
+            R["k"] += 1
+            R.setdefault("done", []).append((hour, it["tile"], "PLACE"))
+            return ["PLACE", "MELON", m]
+        q = (it["tile"] % 10, it["tile"] // 10)
+        if p != q:
+            return _step_toward(p, q)
+        if R["sub"] >= len(it["ops"]):
+            R["k"] += 1
+            R["sub"] = 0
+            continue
+        c = it["ops"][R["sub"]]
+        t = _tile(tiles, it["tile"])
+        v = _tier_check(c, t, inv, day, seeds_left)
+        if v == "do":
+            R["sub"] += 1
+            if c[0] == "PLANT":
+                seeds_left[c[1]] = seeds_left.get(c[1], 0) - 1
+            R.setdefault("done", []).append((hour, it["tile"], c[0]))
+            return list(c)
+        if v == "dig":
+            lg.append([step, u, "dig_fix", it["tile"], c[0]])
+            cnt["dig_fix"] += 1
+            return ["DIG"]
+        wk = (R["k"], R["sub"])
+        nw = R["wait"].get(wk, 0)
+        if v in ("wait", "noseed") and hour < 23 and nw < int(CFG["sd_tier_wait_max"]):
+            R["wait"][wk] = nw + 1
+            cnt["wait_" + v] += 1
+            if nw == 0:
+                lg.append([step, u, "wait_" + v, it["tile"], c[0]])
+            return ["PASS"]
+        lg.append([step, u, "skip", it["tile"], " ".join(str(x) for x in c)])
+        cnt["skip_" + c[0]] += 1
+        R["sub"] += 1
+    return ["PASS"]
+
+
+def _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, shed):
+    TP = S.get("tier")
+    if not TP or TP.get("day") != day:
+        return
+    L = _sd_state(S)
+    seeds_left = dict(seeds)
+    shed_left = dict(shed)
+    snap = {}
+    for u in sorted(TP["routes"]):
+        R = TP["routes"][u]
+        if u >= len(pos) or u >= len(actions):
+            if not R.get("missing") and hour >= 2:
+                R["missing"] = True
+                TP["log"].append([step, u, "unit_missing", -1, ""])
+                TP["cnt"]["unit_missing"] += 1
+            continue
+        inv = invs[u] if u < len(invs) else {}
+        actions[u] = _tier_cmd(TP, R, u, tuple(pos[u]), inv, tiles, day, hour, step, seeds_left, shed_left)
+        snap[str(u)] = [it["tile"] for it in R["items"][R["k"]:] if it["kind"] == "stop"]
+    if CFG["sd_plan_log"] and snap != L.get("plan_last"):
+        L.setdefault("plan_log", {})[str(step)] = snap
+        L["plan_last"] = snap
+    if hour == 23:
+        TP["summary"]["breakages"] = list(TP["log"])
+        TP["summary"]["exec"] = {str(u): {"plan": R.get("plan_hours"), "done": R.get("done", [])} for u, R in TP["routes"].items()}
+        TP["summary"]["cnt"] = dict(TP["cnt"])
+        TP["summary"]["unfinished"] = {str(u): [[it.get("tile", it.get("item")), (it["ops"][R["sub"]:] if i == 0 else it["ops"]) if "ops" in it else it.get("n")]
+                                                for i, it in enumerate(R["items"][R["k"]:])]
+                                       for u, R in TP["routes"].items() if R["k"] < len(R["items"])}
 
 
 def _is_shed_adjacent_t(p):

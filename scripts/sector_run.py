@@ -245,6 +245,10 @@ ARMS = {
     'B1p': (SEC, dict(ARMS_B1, sd_path_collect=6)),             # B1 + collect on the way out
     # hard-coded melon rule (user): by 8 +10 / unit / hour early, 8-12 -10 / unit / hour late, never after 12
     'B1pM': (SEC, dict(ARMS_B1, sd_path_collect=6, sd_melon_rule=1)),
+    # K0 (user design 2026-09-28): B1 recipe + the tiered plan fixed at hour 0 (sd_tier; its own melon rule, sectors by
+    # heuristic search, extras, animal work from the melon hands' leftover); the hourly route search is not used
+    'K0': (SEC, dict(ARMS_B1, sd_tier=1)),
+    'K0a': (SEC, dict(ARMS_B1, sd_tier=1, hire_extra=1, sd_tier_animal_hand=1)),   # + one animal hand
     'G0sM': (SEC, dict(MDEC, sd_fert_sell=1, sell_now=['MELON'], sd_melon_rule=1)),
     # melon morning push vs the new animal values (user: B1p's farmer collects instead of harvesting melons)
     **{f'B1pm{w}': (SEC, dict(ARMS_B1, sd_path_collect=6, sd_hv_pref=dict(HVM, MELON=dict(HVM['MELON'], hour_w=float(w)))))
@@ -341,6 +345,8 @@ LABEL = {
     'B1-fb': 'B1 without the feed bonus',
     'B1p': 'B1p: B1 + collect on the way out',
     'B1pM': 'B1pM: B1p + hard-coded melon rule (by 8, else by 12 with penalty)',
+    'K0': 'K0: B1 + tiered plan fixed at hour 0 (melon hands, sectors by search, extras, animal work)',
+    'K0a': 'K0a: K0 + one animal hand',
     'G0sM': 'G0sM: G0s + hard-coded melon rule',
     **{f'B1pm{w}': f'B1pm{w}: B1p + melon later than 8 AM costs {w} an hour' for w in (60, 150)},
     **{f'B1pc{c}': f'B1pc{c}: B1p + collect worth at least {c} (not 80)' for c in (20, 40)},
