@@ -1,0 +1,25 @@
+40 worlds, per world; units valued at the leader price
+
+product    sales gap |    made deleted  unsold    used  bought |   price |    check
+WHEAT         -2739 |   -1037    -528    -343    +743   -1412 |     -89 |      -72
+CARROT         -822 |    -523    -168    -211      -0      +0 |     +82 |       -3
+TOMATO         -772 |    -441    -250     -46      -0      +0 |     -31 |       -4
+MELON           -49 |      +0      -0      -0      -0      +0 |     -49 |       +0
+STRAWBERRY    -2107 |    -384   -1444     -18      -0      +0 |    -257 |       -4
+MILK          -1067 |   -1147    -883     +81      -0      +0 |    +884 |       -3
+EGG           -2038 |   -1932    -159     -53      -0      +0 |    +107 |       -1
+WOOL          -2809 |   -2715    -946      -4      -0      +0 |    +857 |       +0
+FERTILIZER    -1154 |   -1622    -149     -18    +264     -28 |    +401 |       -2
+
+BY CAUSE (sales gap parts + spending)
+  made                              -9800
+  deleted                           -4527
+  bought                            -1440
+  spend: animals                     -615
+  unsold                             -612
+  spend: hires                        -85
+  spend: seeds                       +126
+  used                              +1007
+  spend: wheat / product purchases    +1606
+  price                             +1904
+  SUM                              -12436   (money gap -12524; the rest is start-of-window stock and rounding)

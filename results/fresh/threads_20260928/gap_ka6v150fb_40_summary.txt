@@ -1,0 +1,95 @@
+40 worlds, per world means (leader | KA6v150fb | gap)
+final money us      117684 |    105609 |   -12075
+final money opp     100027 |    112843 |   +12816
+
+OWN CASH GAP BY FLOW (days 11-29)
+  sales WHEAT          -4534   units 487 -> 350, price 36.0 -> 37.2
+  sales STRAWBERRY     -2444   units 237 -> 220, price 146.2 -> 146.0
+  sales FERTILIZER     -1250   units 172 -> 128, price 38.9 -> 42.5
+  sales EGG            -1219   units 174 -> 147, price 47.8 -> 48.2
+  sales CARROT          -987   units 166 -> 139, price 41.3 -> 42.0
+  sales TOMATO          -934   units 129 -> 116, price 70.5 -> 70.6
+  sales WOOL            -872   units 134 -> 131, price 155.1 -> 151.3
+  sales MILK            -787   units 189 -> 197, price 108.0 -> 99.3
+  animals bought        -518   COW 0.2->0.8, GOOSE 1.0->1.2, SHEEP 1.8->2.3
+  hires                  -85   hand-days 219 -> 220
+  sales MELON            -48   units 24 -> 24, price 176.3 -> 174.3
+  land                    -0   
+  buy FERTILIZER         +42   units 1 -> 0
+  seeds                 +130   CARROT 53->52, STRAWBERRY 9->9, TOMATO 15->14, WHEAT 130->127
+  buy WHEAT            +1431   units 43 -> 7
+  SUM                 -12075   (money gap -12075)
+
+PRODUCTION (units harvested / collected) and what happened to them
+  WHEAT      got    706 ->    669 (  -37) | deleted   4.1 ->  28.0 | end stock   1.1 ->  12.3
+  CARROT     got    167 ->    154 (  -13) | deleted   0.8 ->   8.7 | end stock   0.5 ->   5.9
+  TOMATO     got    131 ->    123 (   -8) | deleted   1.1 ->   6.0 | end stock   0.3 ->   1.0
+  MELON      got     24 ->     24 (   +0) | deleted   0.0 ->   0.0 | end stock   0.0 ->   0.0
+  STRAWBERRY got    238 ->    233 (   -5) | deleted   1.4 ->  12.5 | end stock   0.2 ->   0.6
+  MILK       got    184 ->    206 (  +21) | deleted   0.3 ->  13.8 | end stock   1.0 ->   0.4
+  EGG        got    171 ->    156 (  -16) | deleted   0.3 ->  10.2 | end stock   0.2 ->   1.3
+  WOOL       got    134 ->    144 (  +10) | deleted   0.1 ->  12.8 | end stock   0.1 ->   0.3
+  FERTILIZER got    390 ->    341 (  -49) | deleted   0.5 ->   5.0 | end stock   0.6 ->   1.8
+
+WORK (successful actions) and board (tile-days / 19 = mean count)
+  CARE|COW                        111 ->    111 (   -0)
+  CARE|GOOSE                       85 ->     50 (  -34)
+  CARE|SHEEP                       93 ->     86 (   -7)
+  COLLECT_FERTILIZER|COW          163 ->    148 (  -14)
+  COLLECT_FERTILIZER|GOOSE        106 ->     95 (  -10)
+  COLLECT_FERTILIZER|SHEEP        121 ->     97 (  -24)
+  FEED|COW                        111 ->    137 (  +26)
+  FEED|GOOSE                       87 ->     83 (   -3)
+  FEED|SHEEP                       98 ->    103 (   +5)
+  FERTILIZE|CARROT                 21 ->     24 (   +4)
+  FERTILIZE|STRAWBERRY             73 ->     60 (  -13)
+  FERTILIZE|TOMATO                 29 ->     24 (   -5)
+  FERTILIZE|WHEAT                 111 ->    113 (   +2)
+  HARVEST|CARROT                   53 ->     49 (   -4)
+  HARVEST|COW                      53 ->     56 (   +3)
+  HARVEST|GOOSE                    66 ->     59 (   -7)
+  HARVEST|MELON                     4 ->      4 (   +0)
+  HARVEST|SHEEP                    32 ->     36 (   +4)
+  HARVEST|STRAWBERRY              122 ->    124 (   +2)
+  HARVEST|TOMATO                   62 ->     67 (   +4)
+  HARVEST|WHEAT                   153 ->    149 (   -4)
+  PLANT|CARROT                     53 ->     52 (   -1)
+  PLANT|STRAWBERRY                  9 ->      9 (   -0)
+  PLANT|TOMATO                     15 ->     15 (   +0)
+  PLANT|WHEAT                     131 ->    130 (   -2)
+  WATER|CARROT                    150 ->    158 (   +8)
+  WATER|MELON                       4 ->      4 (   +0)
+  WATER|STRAWBERRY                266 ->    231 (  -35)
+  WATER|TOMATO                    142 ->    149 (   +7)
+  WATER|WHEAT                     467 ->    446 (  -21)
+  harvest units per harvest:
+    WHEAT       4.62 (153) -> 4.48 (149)
+    CARROT      3.15 (53) -> 3.18 (49)
+    TOMATO      2.10 (62) -> 1.85 (67)
+    STRAWBERRY  1.95 (122) -> 1.88 (124)
+    MELON       6.00 (4) -> 6.00 (4)
+    COW         3.48 (53) -> 3.66 (56)
+    GOOSE       2.59 (66) -> 2.62 (59)
+    SHEEP       4.19 (32) -> 4.03 (36)
+  board CARROT                7.9 ->    7.9
+  board COOP                  0.1 ->    0.0
+  board COW                   8.7 ->    9.6
+  board GOOSE                 5.8 ->    6.0
+  board MELON                 0.2 ->    0.2
+  board PASTURE               0.6 ->    0.5
+  board SHEEP                 6.6 ->    7.0
+  board STRAWBERRY           21.9 ->   22.8
+  board TOMATO               10.7 ->   11.1
+  board WEED                  1.9 ->    2.7
+  board WHEAT                25.8 ->   24.0
+
+RIVAL SALES (windfall)
+  WHEAT        +1788 (price 36.4 -> 38.2)
+  CARROT        +143 (price 40.6 -> 41.8)
+  MELON          +56 (price 151.7 -> 153.0)
+  STRAWBERRY   +3974 (price 130.5 -> 147.9)
+  MILK         +2674 (price 93.4 -> 108.0)
+  EGG            +68 (price 46.1 -> 46.9)
+  WOOL         +4234 (price 126.9 -> 156.6)
+  FERTILIZER   +1054 (price 36.3 -> 41.4)
+  total +14008
