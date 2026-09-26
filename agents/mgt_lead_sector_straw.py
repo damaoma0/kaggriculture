@@ -188,7 +188,6 @@ CFG = {
     "sd_wheat_reserve_today": 0, # 1: the wheat reserve is today's remaining feeds only (not + n_animals x wheat_days): wheat sells on the target's pace, tomorrow's feed is bought at hour 0 (sd_tier_wheat)
     "sd_maint_floor": {},     # {product: floor} (abandonment research R2, docs/abandonment_research_20260926.md; KPT1 lost its sheep herd on day 24 when an evening wool sale left the dawn quote at 1): the maintenance module values these animal products at max(quote, floor) until sd_maint_floor_last, so one thin dawn quote cannot abandon a herd with productions left (R2: milk 60, wool 100, egg 45)
     "sd_maint_floor_last": 26,  # last day the floors apply (after it: the quote, the final cycle)
-    "sd_books_sell": [],      # products (user 2026-09-26: "switch to DSM sell plans"): sold on the leader's own sell plan for this world (results/fresh/threads_20260928/dsm_sales/<ep>.json): at every step up to the leader's cumulative units through that step, capped by our shed, first in the order list (the leader's position); no sale on delivery; at hour 21 anything above the leader's sales of the next 12 steps is sold (our surplus does not fill the shed overnight)
     "sd_pattern_tick": [],    # products (user 2026-09-26: imitate DSM's selling; engine-isolated test +2.7k on world 112604454): sold only at hours 1 / 5 / 9 / 13 / 17 / 21 (the first market after a town consumption tick; the engine clears the market BEFORE the town consumes at hours 0 / 4 / 8 / 12 / 16 / 20) on the sd_hourly_profile quota; their deliveries are no longer sold on arrival and the overflow guards leave them alone at the tick hours themselves (hour 20). Needs sd_hourly_profile for these products
     "sd_wheat_pick_now": 0,   # 1 (2026-09-26, KQ plant deaths): the market's wheat reserve for the tiered plan's pickups also counts the WHEAT the executor picks up in this same step. Those pick items are marked done when the command is issued, but the wheat is still in the observed shed and the engine runs unit actions before the market, so without this the sale takes the wheat the later pickups (the hour-1 hires, acting from hour 2) need: they wait for a buy-back and their routes end an hour late (last WATER unfinished, plants die; FEED skipped)
     "sd_h0_front": [],        # (user 2026-09-26) products whose shed stock may be sold at hour 0 FIRST in the order list (the engine processes both players' orders position by position, so a sell behind the hires comes after the rival's hour-0 sales); the largest-value pile >= sd_h0_front_min, at most sd_h0_front_n orders; one hour-0 hire moves to hour 1 only when the 10 slots are full
@@ -278,11 +277,6 @@ CFG = {
     "sd_tier_wheat": 0,       # 1: the day's feeds are bought at hour 0 when the shed lacks the wheat (first order); pickups wait for it
     "sd_tier_deliver": 0,     # 1: when the projected midnight dump will not fit the shed, the hands with the most valuable loads end their day at the shed (DROP, sold at once)
     "sd_tier_dump_buffer": 5,
-    "sd_tier_access_keep": 0, # 1 (bug fix, 2026-09-26, KDF2 day 12 on 112604454): the PLACE after a HARVEST on a shed tile (sd_tier_access_drop) keeps the wheat this route still needs for its remaining FEEDs; it used to place ALL wheat in the hand (feed wheat included, sold at once), so the later FEEDs were skipped and a goose and a cow escaped
-    "sd_tier_dump_fix": 0,    # 1 (2026-09-26, case world 112604454: hands carried 124-159 units into the midnight dump while the shed was empty): the executor skips a planned end-of-day DROP only when the PROJECTED midnight load (shed + carried + the units the routes still harvest today) fits, not the load at that hour
-    "sd_tier_copy_returns": 0,  # 1 (user 2026-09-26: copy how many hands go back to the shed to drop): the plan holds at least as many daytime shed deliveries as the leader made that day at hour >= 5 (results/fresh/threads_20260928/dsm_returns/<ep>.json), best load value per added hour, extras at a route end trimmed if needed
-    "sd_tier_copy_returns_from": 11,   # first day it applies
-    "sd_tier_copy_returns_end": 0,    # >0 (KDF2 trace: copied drops left the hour-1 hires no slack, their last waterings went unfinished): a copied delivery only where the route still ends by this hour, and the executor never skips a copied delivery (the drop check cancelled them after the plan had made room)
     "sd_tier_deliver_check": 0,   # 1: a planned delivery is skipped when shed + everything carried already fits at that hour
     "sd_tier_deliver_keep": None, # products a delivery does not sell at once (e.g. ["MILK"]: dearer the next morning) # units kept free in the shed at midnight beyond tomorrow's feed wheat (one per animal)
     "sd_tier_coll_cap": 0,    # >0: collects per hand; one more only when it is on the hand's way (no extra walking)
@@ -319,6 +313,36 @@ CFG = {
     "sd_tier_turn_hour": 16,
     "sd_tier_turn_detour": 2,
     "sd_tier_turn_min": 4,    # ... only loads of at least this many units
+    # ---- strawberry return runs (thread KSR, 2026-09-26; user: "melon mode for strawberry, best by 12 / must back by
+    # 18, not exactly melon mode"): all default OFF (= KS1fl). Planned right after the mandatory sector search, per
+    # outbound hand, inside its own sector (no dedicated runner: KM2's runner took about one tile per run and lost a
+    # hand's morning): its route gets one shed stop SRET after its strawberry harvests, the stops re-ordered around it
+    # (or-opt on rate x added hours - value) so the far strawberries come first and the rest after the return; kept only
+    # when the value of the strawberries it carries exceeds rate x the added hours, with no added lateness / supply
+    # failure. The SRET stop carries a hard deadline (sd_tier_sret_by) that the time model enforces as lateness, so the
+    # extras fill, relief and turnarounds packed around it cannot push it later. Executor: SRET = DROP everything
+    # (sold at once, except wheat / fertilizer / sd_tier_deliver_keep) when nothing the rest of the route needs is carried
+    # and the shed has room, else PLACE the strawberries (sold at once). DSM on world 112604454: 80 of its 318
+    # strawberries delivered during the day (KS1fl 6), 64 at hours 12-17, by hands that harvested far tiles (median
+    # distance 4, carry 8 h) and went out again after the drop
+    "sd_tier_sret": 0,
+    "sd_tier_sret_soft": 12,      # soft target: value bonus per hour earlier, penalty per hour later
+    "sd_tier_sret_by": 18,        # hard limit: the SRET op runs by this hour
+    "sd_tier_sret_v": 40.0,       # coins per strawberry unit delivered at the soft hour (mars: ~2.9k / 80 DSM day units)
+    "sd_tier_sret_bonus": 3.0,    # coins per unit per hour before the soft hour
+    "sd_tier_sret_pen": 3.0,      # coins per unit per hour after the soft hour
+    "sd_tier_sret_rate": 70.0,    # coins per added hand-hour (the marginal hand-hour in our packed plans)
+    "sd_tier_sret_min": 2,        # strawberry units the return must carry (DSM's smallest day drops: 2)
+    "sd_tier_sret_slack": None,   # hours the extras may delay the planned arrival (None: up to sd_tier_sret_by)
+    "sd_tier_sret_evals": 400,    # route evaluations per hand (candidate starts + or-opt)
+    "sd_tier_sret_drop": 1,       # 1: SRET drops everything when allowed (DSM drops strawberries + milk together)
+    "sd_tier_sret_wheat": 0,      # 1 (DSM hands drop strawberries + milk and pick up wheat at the same shed visit): the
+                                  # wheat for the FEEDs after the return is picked up there (SRETW), not at the route start,
+                                  # so SRET can DROP everything even when those FEEDs follow
+    "sd_tier_sret_pull": 0,       # k > 0: the return may take up to k strawberry stops of other hands lying within
+    "sd_tier_sret_pull_d": 2,     # ... this many tiles of its cargo (DSM's returns carry 5-12 from adjacent tiles; ours 2-4)
+    "sd_tier_sret_relief": 0,     # m > 0: a return that makes the hand's mandatory work late may hand up to m of its
+                                  # non-strawberry stops to other hands (their added hours count against it)
     "sd_tier_access_drop": 0, # 1 (leader shed-flow analysis, 2026-09-26): a HARVEST on a shed-access tile is followed by a PLACE of the harvested product into the shed, sold at once (leaders deliver 89-97% of such milk / wool / eggs the same day, K5b 8-19%)
     "sd_tier_feed_bank": 0,   # N >= 1 (coordinator 2026-09-26): a FEED on the animal's production day is mandatory (tier B) when its banked care bonus is >= N (an unfed production day wipes the bank: K5b loses 23 eggs / 19 milk / 13 wool a world that way vs DSM 15 / 8 / 3)
     "sd_tier_anim_harv": 0,   # 1: an animal HARVEST is mandatory only when tonight's production would overflow max_held
@@ -529,30 +553,10 @@ class Target:
 
 
 def configure(sem, **cfg):
-    global _T, _S, _TGT_EP
+    global _T, _S
     _T = Target(sem)
     _S = None
-    _TGT_EP = (sem.get("meta") or {}).get("episode")
-    _DSM_DATA.clear()
     CFG.update(cfg)
-
-
-_TGT_EP = None
-_DSM_DATA = {}
-
-
-def _dsm_data(kind):
-    """research copies only: per-episode leader data built by scripts/build_dsm_<kind>.py (None when missing)"""
-    if kind not in _DSM_DATA:
-        _DSM_DATA[kind] = None
-        try:
-            import json as _j
-            from pathlib import Path as _P
-            f = _P(__file__).resolve().parents[1] / "results/fresh/threads_20260928" / ("dsm_" + kind) / ("%s.json" % _TGT_EP)
-            _DSM_DATA[kind] = _j.loads(f.read_text(encoding="utf-8"))
-        except Exception:
-            _DSM_DATA[kind] = None
-    return _DSM_DATA[kind]
 
 
 def _new_state():
@@ -2690,16 +2694,23 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             pn_ = TPw_.get("_picked_now")
             if pn_ and pn_[0] == int(_g(obs, "step", 0)):
                 left_ += int(pn_[1].get("WHEAT", 0))
+        if CFG["sd_tier_sret_wheat"]:              # the returns' pending wheat pickups (FEEDs after an SRETW)
+            for R_ in TPw_["routes"].values():
+                seen_ = False
+                for i_, it_ in enumerate(R_["items"][R_["k"]:]):
+                    if it_["kind"] != "stop":
+                        continue
+                    for c_ in (it_["ops"][R_["sub"]:] if i_ == 0 else it_["ops"]):
+                        if c_[0] == "SRETW":
+                            seen_ = True
+                        elif c_[0] == "FEED" and seen_:
+                            left_ += 1
         reserve["WHEAT"] = max(reserve["WHEAT"], left_)
     if endgame:
         reserve = Counter()
     # sell following the target's cumulative sold units
     pt_ = set(CFG["sd_pattern_tick"] or ())
-    bk_ = set(CFG["sd_books_sell"] or ())
-    pt_ |= bk_
     for p in PRODUCTS:
-        if p in bk_ and not endgame:
-            continue                      # sd_books_sell: sold below on the leader's plan
         have = shed.get(p, 0) - reserve.get(p, 0)
         if have <= 0:
             continue
@@ -3032,45 +3043,6 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             for p_, k_ in rel_.items():
                 res_[p_] = max(0, res_[p_] - k_)
             orders = new_[:10]
-    if bk_ and not endgame:                        # sd_books_sell: the leader's sell plan, capped by our shed
-        DS_ = _dsm_data("sales")
-        if DS_ is not None:
-            if S.get("_books_cum") is None:
-                cum_, run_ = {}, Counter()
-                for t_ in range(0, 720):          # from step 0: the harness starts S["sold"] with the leader's days 0-10
-                    for p_, v_ in (DS_["steps"].get(str(t_)) or {}).items():
-                        run_[p_] += int(v_["n"])
-                    cum_[t_] = dict(run_)
-                S["_books_cum"] = cum_
-            step_ = int(_g(obs, "step", 0))
-            cum_ = S["_books_cum"]
-            orders = [o for o in orders if not (o[0] == "SELL" and o[1] in bk_)]
-            front_ = []
-            for p_ in sorted(bk_):
-                have_ = int(shed.get(p_, 0) or 0)
-                q_ = int((cum_.get(step_) or {}).get(p_, 0)) - int(S["sold"][p_])
-                if hour == 21:                     # our surplus over the leader's next 12 steps goes now
-                    nxt_ = int((cum_.get(min(719, step_ + 12)) or {}).get(p_, 0)) - int((cum_.get(step_) or {}).get(p_, 0))
-                    q_ = max(q_, have_ - nxt_)
-                n_ = min(have_, q_)
-                TPb_ = S.get("tier")
-                if TPb_ and TPb_.get("day") == day and hour in (1, 5, 13, 21):   # diagnostics: the plan vs our count
-                    TPb_["cnt"]["books_h%02d_%s" % (hour, p_)] = "have %d sold %d plan %d q %d step %d" % (
-                        have_, int(S["sold"][p_]), int((cum_.get(step_) or {}).get(p_, 0)), q_, step_)
-                if n_ > 0:
-                    pos_ = int(((DS_["steps"].get(str(step_)) or {}).get(p_) or {}).get("pos", 0))
-                    front_.append((pos_, ["SELL", p_, n_]))
-            for pos_, o_ in sorted(front_, key=lambda x: x[0]):
-                orders.insert(min(pos_, len(orders)), o_)
-            while len(orders) > 10:                # never push a hire out of the 10-order cap
-                drop_ = next((i_ for i_ in range(len(orders) - 1, -1, -1)
-                              if orders[i_][0] != "HIRE" and not (orders[i_][0] == "SELL" and orders[i_][1] in bk_)), None)
-                if drop_ is None:
-                    drop_ = next((i_ for i_ in range(len(orders) - 1, -1, -1) if orders[i_][0] != "HIRE"), None)
-                if drop_ is None:
-                    break
-                orders.pop(drop_)
-                S["log"]["books_dropped_order"] += 1
     if CFG["sd_final_sell_all"] and int(_g(obs, "step", 0)) >= 718:
         orders = [["SELL", p_, int(shed.get(p_, 0) or 0) + int(carried.get(p_, 0) or 0)] for p_ in PRODUCTS
                   if int(shed.get(p_, 0) or 0) + int(carried.get(p_, 0) or 0) > 0][:10]
@@ -5810,7 +5782,8 @@ _TIER_D = [[abs(a % 10 - b % 10) + abs(a // 10 - b // 10) for b in range(100)] f
 _TIER_ANG = [_tier_math.atan2(-((i // 10) - 4.5), (i % 10) - 4.5) for i in range(100)]
 _TIER_BIG = 1000.0
 _TIER_RANK = {"DIG": 0, "COLLECT_FERTILIZER": 1, "FEED": 2, "CARE": 3, "FERTILIZE": 4, "WATER": 5, "HARVEST": 6, "PLACE_HARVEST": 6.5,
-              "PLANT": 7, "WATER2": 8, "BUILD_COOP": 9, "BUILD_PASTURE": 9, "PLACE": 10}
+              "PLANT": 7, "WATER2": 8, "BUILD_COOP": 9, "BUILD_PASTURE": 9, "PLACE": 10,
+              "SRET": 6.8, "SRETW": 6.9}           # sd_tier_sret: after a harvest merged into the return stop's tile
 
 
 def _tier_near_shed(i):
@@ -5824,10 +5797,13 @@ def _tier_op(c, m, v, tier, after_plant=False):
 
 def _tier_picks(stops):
     nf, na = 0, Counter()
+    wp = False                                     # sd_tier_sret_wheat: FEEDs after the return's wheat pickup (SRETW)
     for s in stops:
         for o in s["ops"]:
             c = o["c"]
-            if c[0] == "FEED":
+            if c[0] == "SRETW":
+                wp = True
+            elif c[0] == "FEED" and not wp:
                 nf += 1
             elif c[0] == "PLACE" and len(c) > 1 and c[1] in ANIMALS:
                 na[c[1]] += 1
@@ -5868,8 +5844,11 @@ def _tier_eval(seg, stops=None, want_hours=False):
         first = False
         if t < s["rel"]:
             t = s["rel"]
+        by_ = s.get("by")                          # sd_tier_sret: the return's hard deadline (lateness past it)
         for o in s["ops"]:
             c = o["c"][0]
+            if by_ is not None and c == "SRET" and t > by_:
+                late += t - by_
             if c == "COLLECT_FERTILIZER":
                 f += 1
             elif c == "FERTILIZE":
@@ -6318,7 +6297,7 @@ def _tier_relief(segs, pool, collects, owner, rate, st):
                 evR = _tier_eval(R)
                 cR = _tier_cost(R, evR)
                 for i, x in enumerate(R["stops"]):
-                    if x.get("place") or x["tile"] == bd["tile"]:
+                    if x.get("place") or x["tile"] == bd["tile"] or x.get("sret") or x.get("sret_cargo"):
                         continue
                     R2 = dict(R, stops=R["stops"][:i] + R["stops"][i + 1:])
                     ev2 = _tier_eval(R2)
@@ -6380,7 +6359,23 @@ def _tier_load(seg, stops, tiles, day):
     """units a segment still carries at midnight: harvests (today's held yield, + the watering before it inside a one-time
     crop's window), collected fertilizer not used."""
     load = Counter()
-    for x in stops:
+    for pos_, x in enumerate(stops):
+        if x.get("sret"):                          # sd_tier_sret: what the executor's SRET really leaves in the shed
+            full = seg["stops"]
+            i_ = next((i for i, y in enumerate(full) if y is x), None)
+            later = full[i_ + 1:] if i_ is not None else stops[pos_ + 1:]
+            k_ = next((i for i, o in enumerate(x["ops"]) if o["c"][0] == "SRET"), len(x["ops"]))
+            cl_ = [o["c"] for o in x["ops"][k_ + 1:]] + [o["c"] for y in later for o in y["ops"]]
+            wret_ = any(c[0] == "SRETW" for c in cl_)
+            need_ = ((not wret_ and any(c[0] == "FEED" for c in cl_))
+                     or (load["FERTILIZER"] > 0 and any(c[0] == "FERTILIZE" for c in cl_))
+                     or any(c[0] == "PLACE" and len(c) > 1 and c[1] in ANIMALS for c in cl_))
+            if need_ or not CFG["sd_tier_sret_drop"]:
+                load["STRAWBERRY"] = 0             # only the strawberries are PLACEd
+            else:
+                load = Counter({"FERTILIZER": load["FERTILIZER"]})   # DROP: everything (fertilizer sold on arrival)
+                load["FERTILIZER"] = 0
+            continue
         if x.get("turn"):                          # sd_tier_turnaround: the goods carried so far go to the shed here
             load = Counter({"FERTILIZER": load["FERTILIZER"]})
             continue
@@ -6776,6 +6771,349 @@ def _tier_pass_drop(segs_m, tiles, day, st):
             j += 2
 
 
+def _tier_sret_value(units, a):
+    """sd_tier_sret: value of `units` strawberries reaching the shed at hour a (soft target sd_tier_sret_soft)."""
+    soft = int(CFG["sd_tier_sret_soft"])
+    v0 = float(CFG["sd_tier_sret_v"])
+    if a <= soft:
+        return units * (v0 + float(CFG["sd_tier_sret_bonus"]) * (soft - a))
+    return units * max(0.0, v0 - float(CFG["sd_tier_sret_pen"]) * (a - soft))
+
+
+def _tier_sret(segs, segs_m, owner, tiles, day, st):
+    """sd_tier_sret (see the flag): per outbound hand, one strawberry return inside its own (mandatory) route. Candidate
+    starts: the SRET stop inserted at every position of the searched route, and nearest-neighbour chains of its first
+    k strawberry stops, then SRET, then the other stops from the shed; the two best feasible starts are improved by
+    or-opt (single-stop relocations, SRET included) on J = rate x added hours - value(units carried, arrival hour).
+    With sd_tier_sret_relief = m > 0, a candidate that makes the hand's mandatory work late (the day is full) may hand
+    up to m of its non-strawberry stops to other hands (cheapest insertion, no added lateness / supply failure there);
+    their added hours count in J. Kept when J < 0, with no added lateness / supply failure and the arrival by
+    sd_tier_sret_by. Returns a per-hand log for the day summary."""
+    D = _TIER_D
+    hard = int(CFG["sd_tier_sret_by"])
+    rate = float(CFG["sd_tier_sret_rate"])
+    umin = int(CFG["sd_tier_sret_min"])
+    budget = int(CFG["sd_tier_sret_evals"])
+    slack = CFG["sd_tier_sret_slack"]
+    maxm = int(CFG["sd_tier_sret_relief"])
+    wflag = bool(CFG["sd_tier_sret_wheat"])
+    pullk = int(CFG["sd_tier_sret_pull"])
+    op_sret, op_sretw = _tier_op(["SRET"], True, 0.0, 2), _tier_op(["SRETW"], True, 0.0, 2)
+    log = [["ends"] + [[sg_["u"], round(_tier_eval(sg_)[0], 1) if sg_["stops"] else None] for sg_ in segs_m]]
+    for sg in segs_m:
+        stops = sg["stops"]
+        if sg["kind"] != "out" or not stops or any(x.get("sret") or x.get("turn") for x in stops):
+            continue
+        straw = {}
+        for x in stops:
+            t_ = _tile(tiles, x["tile"])
+            if _is_plant(t_) and t_.get("crop") == "STRAWBERRY" and any(o["c"][0] == "HARVEST" for o in x["ops"]):
+                u_ = int(t_.get("yield_units", 0) or 0)
+                if u_ > 0:
+                    straw[x["tile"]] = u_
+        if sum(straw.values()) < umin:
+            continue
+        st["tier_sret_hands"] = st.get("tier_sret_hands", 0) + 1
+        ev0 = _tier_eval(sg)
+        end0 = ev0[0]
+        ret0 = {"tile": _TIER_SHED_I[0], "ops": [op_sret], "rel": 0, "turn": True, "sret": True, "by": hard}
+        cnt = [0]
+        why = Counter()                            # diagnostics: why candidates fail
+
+        def fix(sts):
+            r = next(i for i, x in enumerate(sts) if x.get("sret"))
+            a = sts[r - 1]["tile"] if r > 0 else sg["p0"]
+            b = sts[r + 1]["tile"] if r + 1 < len(sts) else None
+            sh = min(_TIER_SHED_I, key=lambda q: (D[a][q] + (D[q][b] if b is not None else 0), q))
+            ops_ = sts[r]["ops"]
+            if wflag:                              # the wheat for the FEEDs after the return is picked up there
+                fa_ = any(o["c"][0] == "FEED" for y in sts[r + 1:] for o in y["ops"])
+                ops_ = [op_sret, op_sretw] if fa_ else [op_sret]
+            if sts[r]["tile"] != sh or len(ops_) != len(sts[r]["ops"]):
+                sts = sts[:r] + [dict(sts[r], tile=sh, ops=ops_)] + sts[r + 1:]
+            return sts
+
+        def raw(sts):
+            """(eval, strawberry units before the return, arrival hour) or None (too few units / no arrival)."""
+            cnt[0] += 1
+            ev = _tier_eval(sg, sts, want_hours=True)
+            units, seen = 0, set()
+            for x in sts:
+                if x.get("sret"):
+                    break
+                if x["tile"] in straw and x["tile"] not in seen:
+                    seen.add(x["tile"])
+                    units += straw[x["tile"]]
+            if units < umin:
+                why["units"] += 1
+                return None
+            a = next((h for (b_, c_, h) in ev[4] if c_[0] == "SRET"), None)
+            if a is None:
+                return None
+            return ev, units, a
+
+        def score(sts):
+            r_ = raw(sts)
+            if r_ is None:
+                return None
+            ev, units, a = r_
+            if ev[1] > ev0[1] or ev[3] > ev0[3]:
+                why["late" if ev[1] > ev0[1] else "bad"] += 1
+                return None
+            if a > hard:
+                why["hour"] += 1
+                return None
+            val = _tier_sret_value(units, a)
+            return (rate * (ev[0] - end0) - val, val, a, units, ev[0] - end0)
+
+        starts = []                                # (route) candidates: insertion into the searched order, then chains
+        for j in range(1, len(stops) + 1):
+            starts.append(fix(stops[:j] + [ret0] + stops[j:]))
+        chain, p, rest = [], sg["p0"], [x for x in stops if x["tile"] in straw]
+        while rest:                                # the strawberries first (nearest-neighbour chain from the start)
+            x = min(rest, key=lambda y: (D[p][y["tile"]], y["tile"]))
+            chain.append(x)
+            rest.remove(x)
+            p = x["tile"]
+        for k in range(1, len(chain) + 1):
+            l1 = chain[:k]
+            p2 = _tier_near_shed(l1[-1]["tile"])
+            rest2 = [x for x in stops if not any(x is y for y in l1)]
+            l2 = []
+            while rest2:
+                y = min(rest2, key=lambda z: (D[p2][z["tile"]], z["tile"]))
+                l2.append(y)
+                rest2.remove(y)
+                p2 = y["tile"]
+            starts.append(fix(l1 + [ret0] + l2))
+        cands = []
+        for i_, trial in enumerate(starts):
+            s = score(trial)
+            if s is not None:
+                cands.append((s[0], i_, trial))
+        best = None
+        cands.sort(key=lambda c: (c[0], c[1]))
+        for _, _, s0 in cands[:2]:                 # or-opt from the two best feasible starts
+            cur, cs = s0, score(s0)
+            improved = True
+            while improved and cnt[0] < budget:
+                improved = False
+                m = len(cur)
+                for i in range(m):
+                    x = cur[i]
+                    r = cur[:i] + cur[i + 1:]
+                    for k in range(m):
+                        if k == i:
+                            continue
+                        nr = fix(r[:k] + [x] + r[k:])
+                        s = score(nr)
+                        if s is not None and s[0] < cs[0] - 1e-9:
+                            cur, cs, improved = nr, s, True
+                            break
+                        if cnt[0] >= budget:
+                            break
+                    if improved or cnt[0] >= budget:
+                        break
+            if best is None or cs[0] < best[0][0] - 1e-9:
+                best = (cs, cur, [], 0.0)
+        if maxm > 0:                               # relief: late candidates hand stops to hands with room
+            rk = []
+            for i_, trial in enumerate(starts):
+                r_ = raw(trial)
+                if r_ is None or r_[0][3] > ev0[3] or r_[0][1] <= ev0[1]:
+                    continue                       # feasible ones are covered above
+                rk.append((rate * (r_[0][0] - end0) - _tier_sret_value(r_[1], min(r_[2], hard)), i_, trial))
+            rk.sort(key=lambda c: (c[0], c[1]))
+            for _, _, trial in rk[:2]:
+                res = _tier_sret_offload(sg, trial, [s_ for s_ in segs_m if s_ is not sg], ev0, straw, maxm, fix, cnt)
+                if res is None:
+                    why["relief_fail"] += 1
+                    continue
+                cur, moves, added_o = res
+                cs = score(cur)
+                if cs is None:
+                    why["relief_fail"] += 1
+                    continue
+                cs = (cs[0] + rate * added_o,) + tuple(cs[1:4]) + (cs[4] + added_o,)
+                if best is None or cs[0] < best[0][0] - 1e-9:
+                    best = (cs, cur, moves, added_o)
+        pulls = []
+        tent = {}                                  # id(seg) -> its tentative stops (handed-over / pulled stops)
+        if best is not None:
+            for s2, st2, xt in best[2]:
+                tent[id(s2)] = st2
+        if best is not None and pullk > 0:         # gather the adjacent strawberries of other hands into the return
+            cs, cur, moves, added = best
+            for _k in range(pullk):
+                r = next(i for i, x in enumerate(cur) if x.get("sret"))
+                cargo = [x["tile"] for x in cur[:r] if x["tile"] in straw]
+                if not cargo:
+                    break
+                bp = None
+                for s2 in segs_m:
+                    if s2 is sg:
+                        continue
+                    st2 = tent.get(id(s2), s2["stops"])
+                    e_old = None
+                    for iy, y in enumerate(st2):
+                        if y.get("sret") or y.get("sret_cargo") or y.get("turn") or y.get("place"):
+                            continue
+                        if min(D[y["tile"]][c_] for c_ in cargo) > int(CFG["sd_tier_sret_pull_d"]):
+                            continue
+                        t_ = _tile(tiles, y["tile"])
+                        if not (_is_plant(t_) and t_.get("crop") == "STRAWBERRY"
+                                and any(o["c"][0] == "HARVEST" for o in y["ops"])):
+                            continue
+                        u_ = int(t_.get("yield_units", 0) or 0)
+                        if u_ <= 0:
+                            continue
+                        st2n = st2[:iy] + st2[iy + 1:]
+                        if e_old is None:
+                            e_old = _tier_eval(s2, st2)
+                        e_new = _tier_eval(s2, st2n)
+                        if e_new[3] > e_old[3]:
+                            continue               # the stop supplied a later fertilize
+                        straw[y["tile"]] = u_
+                        for k in range(0, r + 1):  # before the return
+                            c2 = fix(cur[:k] + [y] + cur[k:])
+                            s_ = score(c2)
+                            if s_ is None:
+                                continue
+                            jt = s_[0] + rate * (added + e_new[0] - e_old[0])
+                            if bp is None or jt < bp[0] - 1e-9:
+                                bp = (jt, s_, c2, s2, st2n, y["tile"], u_, e_new[0] - e_old[0])
+                        del straw[y["tile"]]
+                if bp is None or bp[0] >= cs[0] - 1e-9:
+                    break
+                jt, s_, cur, s2, st2n, yt, u_, dd = bp
+                straw[yt] = u_
+                added += dd
+                tent[id(s2)] = st2n
+                pulls.append((s2, st2n, yt))
+                cs = (jt,) + tuple(s_[1:4]) + (s_[4] + added,)
+            best = (cs, cur, moves, added)
+        st["tier_sret_evals"] = st.get("tier_sret_evals", 0) + cnt[0]
+        if best is None:
+            st["tier_sret_infeasible"] = st.get("tier_sret_infeasible", 0) + 1
+            log.append([sg["u"], sum(straw.values()), "infeasible", cnt[0], dict(why), round(ev0[0], 1), ev0[1]])
+            continue
+        cs, cur, moves, _ = best
+        if cs[0] >= 0:
+            st["tier_sret_rejected"] = st.get("tier_sret_rejected", 0) + 1
+            log.append([sg["u"], sum(straw.values()), "rejected", round(cs[0], 1), round(cs[1], 1), int(cs[2]), int(cs[4]),
+                        int(cs[3]), cnt[0], len(moves), len(pulls)])
+            for s2, st2n, yt in pulls:             # not taken: the pulled tiles are no longer this hand's cargo
+                straw.pop(yt, None)
+            continue
+        by = hard if slack is None else min(hard, int(cs[2]) + int(slack))
+        r = next(i for i, x in enumerate(cur) if x.get("sret"))
+        cur = ([dict(x, sret_cargo=True) if x["tile"] in straw else x for x in cur[:r]]     # the relief step keeps them
+               + [dict(cur[r], by=by, sret_info=[int(cs[2]), int(cs[3]), round(cs[1], 1), int(cs[4]), len(moves),
+                                                 len(pulls)])] + cur[r + 1:])
+        sg["stops"] = cur
+        sg["ver"] += 1
+        done_ = set()
+        for s2, st2, xt in list(moves) + list(pulls):   # the stops handed over / pulled: final stops per hand
+            if id(s2) not in done_:
+                done_.add(id(s2))
+                s2["stops"] = tent[id(s2)]
+                s2["ver"] += 1
+        for s2, st2, xt in moves:
+            if owner.get(xt) is not None and xt not in sg.get("anim", ()):
+                owner[xt] = segs.index(s2)
+        for s2, st2, xt in pulls:
+            if owner.get(xt) is not None:
+                owner[xt] = segs.index(sg)
+        st["tier_sret_plans"] = st.get("tier_sret_plans", 0) + 1
+        st["tier_sret_units"] = st.get("tier_sret_units", 0) + int(cs[3])
+        st["tier_sret_hours"] = st.get("tier_sret_hours", 0) + int(cs[4])
+        st["tier_sret_moves"] = st.get("tier_sret_moves", 0) + len(moves)
+        log.append([sg["u"], sum(straw.values()), "planned", round(cs[0], 1), round(cs[1], 1), int(cs[2]), int(cs[4]),
+                    int(cs[3]), cnt[0], len(moves), len(pulls)])
+    return log
+
+
+def _tier_sret_offload(sg, cur, others, ev0, straw, maxm, fix, cnt):
+    """sd_tier_sret_relief: move up to maxm non-strawberry stops of cur (hand sg's route with its return) to the other
+    hands until cur adds no lateness; each move is the one with the smallest net walking + op hours (distance proxy),
+    confirmed by the time model (receiver: no added lateness / supply failure; cur: no added supply failure). Returns
+    (cur, [(receiver seg, its new stops, moved tile)], hours added to the receivers) or None."""
+    D = _TIER_D
+    new = {}                                       # id(seg) -> its tentative stops
+    base_ev = {}
+    moves, added = [], 0.0
+    tried = set()
+    ev = _tier_eval(sg, cur)
+    while ev[1] > ev0[1]:
+        if len(moves) >= maxm:
+            return None
+        opts = []
+        for i, x in enumerate(cur):
+            if x.get("sret") or x.get("turn") or x.get("place") or x["tile"] in straw:
+                continue
+            a = cur[i - 1]["tile"] if i > 0 else sg["p0"]
+            b = cur[i + 1]["tile"] if i + 1 < len(cur) else None
+            xt = x["tile"]
+            save = D[a][xt] + len(x["ops"]) + ((D[xt][b] - D[a][b]) if b is not None else 0)
+            for s2 in others:
+                st2 = new.get(id(s2), s2["stops"])
+                if id(s2) not in base_ev:
+                    base_ev[id(s2)] = _tier_eval(s2)
+                e2 = _tier_eval(s2, st2) if st2 is not s2["stops"] else base_ev[id(s2)]
+                if e2[1] > 0 or (id(x), id(s2)) in tried:
+                    continue
+                pts = [s2["p0"]] + [y["tile"] for y in st2]
+                for k in range(s2.get("lo", 0), len(st2) + 1):
+                    a2 = pts[k]
+                    b2 = pts[k + 1] if k + 1 < len(pts) else None
+                    add = D[a2][xt] + len(x["ops"]) + ((D[xt][b2] - D[a2][b2]) if b2 is not None else 0)
+                    if e2[0] + add > 24:
+                        continue
+                    opts.append((add - save, add, i, id(s2), k, s2))
+        if not opts:
+            return None
+        opts.sort(key=lambda o: (o[0], o[1], o[2], o[4]))
+        done_ = False
+        for _, add, i, _, k, s2 in opts[:12]:
+            x = cur[i]
+            st2 = new.get(id(s2), s2["stops"])
+            e2a = _tier_eval(s2, st2) if st2 is not s2["stops"] else base_ev[id(s2)]
+            if any(y["tile"] == x["tile"] for y in st2):
+                trial2, _ = _tier_merge(st2, x["tile"], x["ops"])
+            else:
+                trial2 = st2[:k] + [x] + st2[k:]
+            cnt[0] += 2
+            e2b = _tier_eval(s2, trial2)
+            b0 = base_ev[id(s2)]
+            if e2b[1] > b0[1] or e2b[3] > b0[3]:
+                tried.add((id(x), id(s2)))
+                continue
+            cur2 = fix(cur[:i] + cur[i + 1:])
+            ev2 = _tier_eval(sg, cur2)
+            if ev2[3] > ev0[3]:
+                tried.add((id(x), id(s2)))
+                continue
+            added += e2b[0] - e2a[0]
+            new[id(s2)] = trial2
+            moves.append((s2, trial2, x["tile"]))
+            cur, ev = cur2, ev2
+            done_ = True
+            break
+        if not done_:
+            return None
+    return cur, [(s2, new[id(s2)], xt) for s2, st2, xt in moves], added
+
+
+def _tier_sret_dbg(segs, tag, out):
+    """sd_tier_sret diagnostics: per hand with a return, [tag, u, index of the SRET stop, stops before it, SRET hour]."""
+    for sg in segs:
+        r = next((i for i, x in enumerate(sg["stops"]) if any(o["c"][0] == "SRET" for o in x["ops"])), None)
+        if r is not None:
+            ev = _tier_eval(sg, want_hours=True)
+            out.append([tag, sg["u"], r, [x["tile"] for x in sg["stops"][:r + 1]],
+                        next((h for b_, c_, h in ev[4] if c_[0] == "SRET"), None)])
+
+
 def _tier_turn(segs, tiles, day, st, prices, room, total):
     """sd_tier_turnaround (the leaders' type-B delivery): while the projected midnight load exceeds room, insert into the
     best hand's route a shed stop between two stops (detour <= sd_tier_turn_detour tiles, reached by sd_tier_turn_hour)
@@ -6842,14 +7180,8 @@ def _tier_deliver(S, segs, tiles, day, st):
     if CFG["sd_tier_turnaround"]:
         total = _tier_turn(segs, tiles, day, st, prices, room, total)
         loads = [_tier_load(sg, sg["stops"], tiles, day) for sg in segs]
-    total0 = total
-    target_ = 0
-    if CFG["sd_tier_copy_returns"] and day >= int(CFG["sd_tier_copy_returns_from"]):
-        dr_ = _dsm_data("returns")
-        target_ = int((((dr_ or {}).get("days") or {}).get(str(day)) or {}).get("hands", 0))
-    has_ = lambda sg: any(x.get("deliver") or x.get("turn") for x in sg["stops"])
     done = set()
-    while total > room or (target_ and sum(1 for sg in segs if has_(sg)) < target_):
+    while total > room:
         best = None
         for k, sg in enumerate(segs):
             if k in done or not loads[k]:
@@ -6861,12 +7193,9 @@ def _tier_deliver(S, segs, tiles, day, st):
             for trim in range(4):
                 last = stops[-1]["tile"] if stops else sg["p0"]
                 sh = _tier_near_shed(last)
-                copy_ = total <= room                 # added only to reach the leader's count of daytime returns
-                trial = stops + [{"tile": sh, "ops": [_tier_op(["DROP"], True, 0.0, 2)], "rel": 0, "deliver": True,
-                                  "copy": bool(copy_ and int(CFG["sd_tier_copy_returns_end"]))}]
+                trial = stops + [{"tile": sh, "ops": [_tier_op(["DROP"], True, 0.0, 2)], "rel": 0, "deliver": True}]
                 ev = _tier_eval(sg, trial)
-                end_ok_ = not (copy_ and int(CFG["sd_tier_copy_returns_end"])) or ev[0] <= int(CFG["sd_tier_copy_returns_end"])
-                if ev[1] <= ev0[1] and ev[3] <= ev0[3] and end_ok_:
+                if ev[1] <= ev0[1] and ev[3] <= ev0[3]:
                     lk = _tier_load(sg, trial[:-1], tiles, day)
                     v2 = sum(v * float(prices.get(p, 0) or 0) for p, v in lk.items())
                     dh = max(1, ev[0] - ev0[0])
@@ -6887,8 +7216,6 @@ def _tier_deliver(S, segs, tiles, day, st):
         total -= sum(lk.values())
         st["tier_deliveries"] = st.get("tier_deliveries", 0) + 1
     st["tier_dump_left_over"] = st.get("tier_dump_left_over", 0) + max(0, total - room)
-    st["_dump_day"] = {"proj": total0, "room": room, "left": total, "target": target_,
-                       "with_delivery": sum(1 for sg in segs if has_(sg))}
 
 
 def _tier_melon(day, tiles, units):
@@ -7336,11 +7663,12 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                 after1 = [_tier_walk(TP["routes"].get(0), f0, 2 - ft0)] + [
                     _tier_walk(TP["routes"].get(u + 1), q, 1) for u, q in enumerate(sp0)]
                 st["tier_spawn_buffer"] = st.get("tier_spawn_buffer", 0) + 1
+    if CFG["sd_tier_sret"]:                        # returns planned in every spawn pass of the day (units)
+        TP["summary"]["sret_passes"] = [x[1] for x in st.get("_sret_passes", []) if x[0] == day]
     TP["summary"]["spawn"] = [list(q) for q in sp0 + sp1]
     TP["summary"]["after1"] = [list(q) for q in after1]     # diagnostics: the plan's unit positions at the hour-1 market
     TP["wheat_buy"] = wbuy
     TP["summary"]["wheat_buy"] = wbuy
-    TP["summary"]["dump"] = st.pop("_dump_day", None)
     TP["k0"] = k0
     TP["h0_front"] = front
     TP["summary"]["k0"] = k0
@@ -7512,6 +7840,12 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         _tier_turn_plan(segs_m, tiles, day, st, S.get("_tier_prices") or {})
     if CFG["sd_tier_pass_drop"]:                   # user: whoever passes the shed with goods drops them
         _tier_pass_drop(segs_m, tiles, day, st)
+    if CFG["sd_tier_sret"]:                        # user: strawberry return runs (best by 12, back by 18)
+        sret_log = _tier_sret(segs, segs_m, owner, tiles, day, st)
+        st.setdefault("_sret_passes", []).append([day, [x[0] for x in sret_log[1:] if x[2] == "planned"]])
+    sret_dbg = []
+    if CFG["sd_tier_sret"]:
+        _tier_sret_dbg(segs, "commit", sret_dbg)
     # ---- extras catalogue: bundles per tile and tier (the ops not already planned)
     collects = {}
     b3, b4 = [], []
@@ -7553,24 +7887,34 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         b3 = b3f + b3r
     else:
         _tier_fill(segs, idx_out, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st, "c")
+    if CFG["sd_tier_sret"]:
+        _tier_sret_dbg(segs, "fill_c", sret_dbg)
     if CFG["sd_tier_relief"] and b3:               # relief for the outbound extras before the melon hands take the free collects
         _tier_relief(segs, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st)
+    if CFG["sd_tier_sret"]:
+        _tier_sret_dbg(segs, "relief1", sret_dbg)
     # D. animal work: the melon hands' leftover labour first (and an animal hand)
     for bd in b4:                                  # collects already paired away are gone
         bd["ops"] = [o for o in bd["ops"] if o["c"][0] != "COLLECT_FERTILIZER" or bd["tile"] in collects]
         bd["v"] = sum(o["v"] for o in bd["ops"])
     b4 = [bd for bd in b4 if bd["ops"]]
     _tier_fill(segs, idx_pri, b4, collects, owner, rate, st, "d")
+    if CFG["sd_tier_sret"]:
+        _tier_sret_dbg(segs, "fill_d", sret_dbg)
     # E. the slack left anywhere
     for bd in b4:
         bd["ops"] = [o for o in bd["ops"] if o["c"][0] != "COLLECT_FERTILIZER" or bd["tile"] in collects]
         bd["v"] = sum(o["v"] for o in bd["ops"])
     rest = [bd for bd in b3 + b4 if bd["ops"]]
     _tier_fill(segs, list(range(len(segs))), rest, collects, owner, rate, st, "e")
+    if CFG["sd_tier_sret"]:
+        _tier_sret_dbg(segs, "fill_e", sret_dbg)
     if CFG["sd_tier_relief"] and rest:
         _tier_relief(segs, rest, collects, owner, rate, st)
     if CFG["sd_tier_deliver"]:
         _tier_deliver(S, segs, tiles, day, st)
+    if CFG["sd_tier_sret"]:
+        _tier_sret_dbg(segs, "final", sret_dbg)
     # ---- routes per unit
     routes_u = {}
     summ = []
@@ -7593,8 +7937,6 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         for x in s["stops"]:
             items.append({"kind": "stop", "tile": x["tile"], "ops": [o["c"] for o in x["ops"]],
                           "mand": [o["m"] for o in x["ops"]], "rel": x.get("rel", 0)})
-            if x.get("copy"):
-                items[-1]["copy"] = True
         ev = _tier_eval(s, want_hours=True) if s["stops"] else (s["t0"], 0, 0, 0, [])
         routes_u[u] = {"items": items, "k": 0, "sub": 0, "kind": s["kind"], "waited": 0, "wait": {}, "t0plan": s["t0"],
                        "plan_hours": [(b_, c_[0], h) for b_, c_, h in ev[4]]}
@@ -7605,11 +7947,17 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         if CFG["sd_tier_log_v"]:                   # animal thread: [op, mandatory, tier, value] per planned op
             summ[-1]["stops_v"] = [[x["tile"], [[o["c"][0], int(o["m"]), o["tier"], round(o["v"], 1)] for o in x["ops"]]]
                                    for x in s["stops"]]
+        if CFG["sd_tier_sret"]:                    # strawberry return: [arrival planned at the return search, units,
+            for x in s["stops"]:                   # value, added hours, arrival in the final plan, deadline]
+                if x.get("sret"):
+                    summ[-1]["sret"] = list(x.get("sret_info") or []) + [
+                        next((h for b_, c_, h in ev[4] if c_[0] == "SRET"), None), x.get("by")]
     unplanned = [[bd["tile"], [o["c"][0] for o in bd["ops"]], round(bd["v"], 1)] for bd in rest]
     return {"day": day, "routes": routes_u, "log": [], "cnt": Counter(), "owner": owner,
                  "summary": {"units": summ, "left_out_melons": left, "mand_late": late_m, "unplanned": unplanned,
                              "plan_ms": round(1000 * (time.perf_counter() - t_start), 1), "search_cost": round(cost, 2),
-                             "want": want, "n_mand_stops": len(stops_all)}}
+                             "want": want, "n_mand_stops": len(stops_all),
+                             **({"sret_log": sret_log, "sret_dbg": sret_dbg} if CFG["sd_tier_sret"] else {})}}
 
 
 def _tier_check(c, t, inv, day, seeds_left):
@@ -7730,18 +8078,61 @@ def _tier_cmd(TP, R, u, p, inv, tiles, day, hour, step, seeds_left, shed_left):
                 R.setdefault("done", []).append((hour, it["tile"], "DELIVER"))
                 return ["PLACE", k_, n_]
             continue
+        if c[0] == "SRET":                         # sd_tier_sret: the strawberry return
+            R["sub"] += 1
+            if not _is_shed_adjacent_t(p):
+                continue
+            later = list(it["ops"][R["sub"]:]) + [c2 for it2 in items[R["k"] + 1:] if it2["kind"] == "stop"
+                                                   for c2 in it2["ops"]]
+            goods = {k_: int(n_ or 0) for k_, n_ in inv.items() if int(n_ or 0) > 0}
+            if not any(k_ in PRODUCTS for k_ in goods):
+                cnt["sret_empty"] += 1
+                continue
+            wret_ = any(c2[0] == "SRETW" for c2 in it["ops"][R["sub"]:])   # the wheat is picked up again here
+            need_ = ((goods.get("WHEAT", 0) and any(c2[0] == "FEED" for c2 in later) and not wret_)
+                     or (goods.get("FERTILIZER", 0) and any(c2[0] == "FERTILIZE" for c2 in later))
+                     or any(goods.get(a_, 0) for a_ in ANIMALS))
+            room_ = 100 - sum(int(v_ or 0) for v_ in shed_left.values())
+            if CFG["sd_tier_sret_drop"] and not need_ and sum(goods.values()) <= room_:
+                nosell_ = set(CFG["sd_tier_deliver_keep"] or ()) | {"WHEAT", "FERTILIZER"}
+                TP.setdefault("dsell", Counter()).update({k_: n_ for k_, n_ in goods.items()
+                                                          if k_ in PRODUCTS and k_ not in nosell_})
+                cnt["sret_drop"] += 1
+                cnt["sret_straw"] += goods.get("STRAWBERRY", 0)
+                cnt["sret_units"] += sum(n_ for k_, n_ in goods.items() if k_ in PRODUCTS)
+                R.setdefault("done", []).append((hour, it["tile"], "SRET"))
+                return ["DROP"]
+            n_ = min(goods.get("STRAWBERRY", 0), max(0, room_))
+            if n_ > 0:
+                TP.setdefault("dsell", Counter())["STRAWBERRY"] += n_
+                cnt["sret_place"] += 1
+                cnt["sret_straw"] += n_
+                cnt["sret_units"] += n_
+                R.setdefault("done", []).append((hour, it["tile"], "SRET"))
+                return ["PLACE", "STRAWBERRY", n_]
+            cnt["sret_nostraw"] += 1
+            continue
+        if c[0] == "SRETW":                        # sd_tier_sret_wheat: the wheat for the FEEDs after the return
+            R["sub"] += 1
+            if not _is_shed_adjacent_t(p):
+                continue
+            later = list(it["ops"][R["sub"]:]) + [c2 for it2 in items[R["k"] + 1:] if it2["kind"] == "stop"
+                                                   for c2 in it2["ops"]]
+            need_ = sum(1 for c2 in later if c2[0] == "FEED") - int(inv.get("WHEAT", 0) or 0)
+            have_ = int(shed_left.get("WHEAT", 0))
+            n_ = min(need_, have_)
+            if need_ > 0 and n_ < need_:
+                lg.append([step, u, "sretw_short", it["tile"], "WHEAT %d/%d" % (max(0, n_), need_)])
+                cnt["sretw_short"] += 1
+            if n_ > 0:
+                shed_left["WHEAT"] = have_ - n_
+                cnt["sret_wheat"] += n_
+                R.setdefault("done", []).append((hour, it["tile"], "SRETW"))
+                return ["PICKUP", "WHEAT", n_]
+            continue
         if c[0] == "PLACE_HARVEST":                # sd_tier_access_drop: the harvested product into the shed, sold at once
             R["sub"] += 1
             n_ = int(inv.get(c[1], 0) or 0)
-            if CFG["sd_tier_access_keep"] and c[1] == "WHEAT":   # keep the feed wheat of the rest of this route
-                need_ = 0
-                for j_, it2_ in enumerate(R["items"][R["k"]:]):
-                    ops2_ = it2_.get("ops") or []
-                    ops2_ = ops2_[R["sub"]:] if j_ == 0 else ops2_
-                    need_ += sum(1 for c2_ in ops2_ if isinstance(c2_, list) and c2_ and c2_[0] == "FEED")
-                n_ = max(0, n_ - need_)
-                if need_:
-                    TP["cnt"]["access_keep_wheat"] += min(need_, int(inv.get(c[1], 0) or 0))
             if n_ > 0 and _is_shed_adjacent_t(p):
                 TP.setdefault("dsell", Counter())[c[1]] += n_
                 TP["cnt"]["access_drop"] += 1
@@ -7750,8 +8141,8 @@ def _tier_cmd(TP, R, u, p, inv, tiles, day, hour, step, seeds_left, shed_left):
                 return ["PLACE", c[1], n_]
             continue
         v = _tier_check(c, t, inv, day, seeds_left)
-        if v == "do" and c[0] == "DROP" and CFG["sd_tier_deliver_check"] and TP.get("_load_now") is not None and not it.get("copy"):
-            if TP["_load_now"] + (int(TP.get("_harv_left", 0)) if CFG["sd_tier_dump_fix"] else 0) <= 100 - int(CFG["sd_tier_dump_buffer"]):
+        if v == "do" and c[0] == "DROP" and CFG["sd_tier_deliver_check"] and TP.get("_load_now") is not None:
+            if TP["_load_now"] <= 100 - int(CFG["sd_tier_dump_buffer"]):
                 v = "skip"                             # the shed will hold everything at midnight: no delivery needed
                 cnt["deliver_skipped"] += 1
         if v == "do":
@@ -7793,16 +8184,6 @@ def _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, sh
     snap = {}
     TP["_load_now"] = sum(int(v or 0) for v in shed.values()) + sum(int(v or 0) for inv_ in invs for k_, v_ in (inv_ or {}).items()
                                                                   for v in [v_] if k_ in PRODUCTS)
-    if CFG["sd_tier_dump_fix"]:                    # units the routes still harvest today (they reach the midnight dump)
-        hl_ = 0
-        for R_ in TP["routes"].values():
-            for j_, it_ in enumerate(R_["items"][R_["k"]:]):
-                if it_.get("kind") != "stop":
-                    continue
-                ops_ = it_["ops"][R_["sub"]:] if j_ == 0 else it_["ops"]
-                if any(isinstance(c_, list) and c_ and c_[0] == "HARVEST" for c_ in ops_):
-                    hl_ += int((_tile(tiles, it_["tile"]) or {}).get("yield_units", 0) or 0) if isinstance(_tile(tiles, it_["tile"]), dict) else 0
-        TP["_harv_left"] = hl_
     if CFG["sd_tier_spawn_remap"] and not TP.get("_remapped"):
         late_ = sorted(u for u, R_ in TP["routes"].items() if R_.get("t0plan") == 2 and u > 0 and R_.get("k", 0) == 0)
         if late_ and all(u < len(pos) for u in late_):

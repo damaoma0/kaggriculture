@@ -2749,5 +2749,341 @@
    "sd_tier_copy_returns_from": 20
   },
   "label": "KDF3 = KDF2 from day 20 only"
+ },
+ "KDF1k": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_access_keep": 1
+  },
+  "label": "KDF1k = KDF1 + access drop keeps the route's feed wheat (bug fix)"
+ },
+ "KDF2k": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1
+  },
+  "label": "KDF2k = KDF2 (copied daytime returns) + the feed-wheat fix"
+ },
+ "KDF2e22": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22
+  },
+  "label": "KDF2k + copied deliveries only where the route ends by 22, never skipped"
+ },
+ "KDF2e21": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 21
+  },
+  "label": "KDF2k + copied deliveries only where the route ends by 21, never skipped"
+ },
+ "KDF1b": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_spawn_buffer": 1
+  },
+  "label": "KDF1k + hour-1 hires planned with an hour of slack (sd_tier_spawn_buffer)"
+ },
+ "KDF2b": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1
+  },
+  "label": "KDF2e22 + hour-1 hires planned with an hour of slack (sd_tier_spawn_buffer)"
+ },
+ "KBK1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ]
+  },
+  "label": "KDF1b + DSM's exact sell plan for strawberry / wool / milk (sd_books_sell)"
+ },
+ "KBK2": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ]
+  },
+  "label": "KDF2b (copied daytime returns) + DSM's exact sell plan for strawberry / wool / milk"
+ },
+ "KPT3": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_pattern_tick": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_hourly_profile": {
+    "STRAWBERRY": [
+     0.232,
+     0.353,
+     0.369,
+     0.371,
+     0.373,
+     0.442,
+     0.444,
+     0.447,
+     0.45,
+     0.521,
+     0.538,
+     0.558,
+     0.571,
+     0.644,
+     0.687,
+     0.714,
+     0.734,
+     0.819,
+     0.853,
+     0.875,
+     0.893,
+     0.964,
+     0.977,
+     1.0
+    ],
+    "WOOL": [
+     0.058,
+     0.194,
+     0.251,
+     0.313,
+     0.368,
+     0.445,
+     0.474,
+     0.49,
+     0.498,
+     0.599,
+     0.612,
+     0.63,
+     0.64,
+     0.727,
+     0.749,
+     0.757,
+     0.764,
+     0.834,
+     0.84,
+     0.845,
+     0.848,
+     0.965,
+     0.979,
+     1.0
+    ],
+    "MILK": [
+     0.044,
+     0.185,
+     0.247,
+     0.25,
+     0.289,
+     0.367,
+     0.383,
+     0.406,
+     0.416,
+     0.51,
+     0.522,
+     0.532,
+     0.535,
+     0.655,
+     0.667,
+     0.671,
+     0.673,
+     0.818,
+     0.823,
+     0.828,
+     0.833,
+     0.978,
+     0.986,
+     1.0
+    ]
+   }
+  },
+  "label": "KDF2b + DSM's hourly pattern at hours 1/5/9/.. for strawberry / wool / milk"
  }
 }

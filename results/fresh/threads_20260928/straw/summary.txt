@@ -1,0 +1,378 @@
+# KSR strawberry return runs, world 16732748:112604454 (one world). Generated 2026-09-27 00:18:01
+
+## per-arm outcome vs KS1fl (straw_eval.py)
+KS1fl      own 106394 rival 115410 margin -9016 (vs KS1fl +0; own +0, rival +0) | died {'plant_WHEAT': 2, 'animal_SHEEP': 10} | unfinished WATER 3 | bank stop False err 0 >1s 1 | returns planned 0 (0 straw planned, 0 stops handed over) | access_drop=20 access_drop_units=101 deliver=11 deliver_skipped=6 | deleted 67 {'WHEAT': 36, 'EGG': 7, 'STRAWBERRY': 9, 'FERTILIZER': 3, 'WOOL': 9, 'CARROT': 3}
+KSR1       own 106394 rival 115410 margin -9016 (vs KS1fl +0; own +0, rival +0) | died {'plant_WHEAT': 2, 'animal_SHEEP': 10} | unfinished WATER 3 | bank stop False err 0 >1s 4 | returns planned 0 (0 straw planned, 0 stops handed over) | access_drop=20 access_drop_units=101 deliver=11 deliver_skipped=6
+KSR2       own 106394 rival 115410 margin -9016 (vs KS1fl +0; own +0, rival +0) | died {'plant_WHEAT': 2, 'animal_SHEEP': 10} | unfinished WATER 3 | bank stop False err 0 >1s 1 | returns planned 0 (0 straw planned, 0 stops handed over) | access_drop=20 access_drop_units=101 deliver=11 deliver_skipped=6
+KSR1v80    own 106374 rival 116414 margin -10040 (vs KS1fl -1024; own -20, rival +1004) | died {'plant_WHEAT': 2, 'animal_SHEEP': 10} | unfinished WATER 5 | bank stop False err 0 >1s 2 | returns planned 1 (8 straw planned, 0 stops handed over) | access_drop=22 access_drop_units=90 deliver=5 deliver_skipped=6 sret_drop=1 sret_straw=8 sret_units=11 turn_place=1 turn_units=6 | deleted 86 {'WHEAT': 35, 'EGG': 10, 'TOMATO': 7, 'STRAWBERRY': 14, 'FERTILIZER': 4, 'WOOL': 12, 'CARROT': 4}
+KSR2v80    own 106374 rival 116414 margin -10040 (vs KS1fl -1024; own -20, rival +1004) | died {'plant_WHEAT': 2, 'animal_SHEEP': 10} | unfinished WATER 5 | bank stop False err 0 >1s 5 | returns planned 1 (8 straw planned, 0 stops handed over) | access_drop=22 access_drop_units=90 deliver=5 deliver_skipped=6 sret_drop=1 sret_straw=8 sret_units=11 turn_place=1 turn_units=6 | deleted 86 {'WHEAT': 35, 'EGG': 10, 'TOMATO': 7, 'STRAWBERRY': 14, 'FERTILIZER': 4, 'WOOL': 12, 'CARROT': 4}
+KSR2v120   own 105922 rival 116516 margin -10594 (vs KS1fl -1578; own -472, rival +1106) | died {'plant_TOMATO': 2, 'plant_WHEAT': 2, 'animal_SHEEP': 10} | unfinished WATER 6 | bank stop False err 0 >1s 4 | returns planned 5 (20 straw planned, 4 stops handed over) | access_drop=22 access_drop_units=88 deliver=6 deliver_skipped=8 sret_drop=2 sret_place=3 sret_straw=22 sret_units=22 turn_place=1 turn_units=5 | deleted 58 {'WHEAT': 23, 'EGG': 3, 'STRAWBERRY': 9, 'WOOL': 10, 'FERTILIZER': 1, 'MILK': 3, 'CARROT': 8, 'TOMATO': 1}
+KSR1v160   own 108410 rival 116764 margin -8354 (vs KS1fl +662; own +2016, rival +1354) | died {'plant_TOMATO': 1, 'plant_WHEAT': 2, 'plant_STRAWBERRY': 1, 'animal_SHEEP': 10} | unfinished WATER 6 | bank stop False err 0 >1s 2 | returns planned 10 (43 straw planned, 0 stops handed over) | access_drop=19 access_drop_units=92 deliver=7 deliver_skipped=7 sret_drop=9 sret_place=1 sret_straw=43 sret_units=45 | deleted 26 {'WHEAT': 16, 'EGG': 3, 'STRAWBERRY': 7}
+KSR2v160   own 108616 rival 118743 margin -10127 (vs KS1fl -1111; own +2222, rival +3333) | died {'plant_TOMATO': 1, 'plant_STRAWBERRY': 2, 'plant_WHEAT': 2, 'animal_SHEEP': 10} | unfinished WATER 6 | bank stop False err 0 >1s 4 | returns planned 15 (75 straw planned, 16 stops handed over) | access_drop=20 access_drop_units=91 deliver=7 deliver_skipped=9 sret_drop=8 sret_place=7 sret_straw=75 sret_units=77 | deleted 32 {'WHEAT': 10, 'EGG': 7, 'STRAWBERRY': 7, 'MILK': 6, 'FERTILIZER': 1, 'TOMATO': 1}
+KSR3       own 107840 rival 118731 margin -10891 (vs KS1fl -1875; own +1446, rival +3321) | died {'plant_TOMATO': 1, 'plant_STRAWBERRY': 2, 'plant_WHEAT': 1, 'animal_SHEEP': 10} | unfinished WATER 5 | bank stop False err 0 >1s 5 | returns planned 16 (71 straw planned, 15 stops handed over) | access_drop=20 access_drop_units=96 deliver=5 deliver_skipped=6 sret_drop=12 sret_place=4 sret_straw=71 sret_units=76 sret_wheat=4 | deleted 60 {'WHEAT': 17, 'EGG': 15, 'STRAWBERRY': 9, 'MILK': 7, 'WOOL': 8, 'FERTILIZER': 1, 'CARROT': 3}
+KSR4       own 107699 rival 118384 margin -10685 (vs KS1fl -1669; own +1305, rival +2974) | died {'plant_STRAWBERRY': 1, 'plant_WHEAT': 1, 'plant_TOMATO': 1, 'animal_SHEEP': 7} | unfinished WATER 4 | bank stop False err 0 >1s 4 | returns planned 11 (43 straw planned, 4 stops handed over) | access_drop=22 access_drop_units=96 deliver=10 deliver_skipped=5 sret_drop=6 sret_place=5 sret_straw=43 sret_units=44 | deleted 25 {'WHEAT': 7, 'EGG': 3, 'STRAWBERRY': 13, 'WOOL': 2}
+KSR4b      own 107680 rival 117623 margin -9943 (vs KS1fl -927; own +1286, rival +2213) | died {'plant_STRAWBERRY': 2, 'animal_SHEEP': 10} | unfinished WATER 1 | bank stop False err 0 >1s 2 | returns planned 10 (32 straw planned, 5 stops handed over) | access_drop=21 access_drop_units=93 deliver=6 deliver_skipped=7 sret_drop=6 sret_place=4 sret_straw=32 sret_units=35 | deleted 42 {'WHEAT': 14, 'EGG': 9, 'STRAWBERRY': 7, 'TOMATO': 2, 'CARROT': 10}
+KSR5       own 106394 rival 115410 margin -9016 (vs KS1fl +0; own +0, rival +0) | died {'plant_WHEAT': 2, 'animal_SHEEP': 10} | unfinished WATER 3 | bank stop False err 0 >1s 2 | returns planned 0 (0 straw planned, 0 stops handed over) | access_drop=20 access_drop_units=101 deliver=11 deliver_skipped=6
+KSR5v80    own 105227 rival 115156 margin -9929 (vs KS1fl -913; own -1167, rival -254) | died {'plant_WHEAT': 2, 'plant_TOMATO': 1, 'animal_SHEEP': 7} | unfinished WATER 7 | bank stop False err 0 >1s 7 | returns planned 1 (10 straw planned, 0 stops handed over) | access_drop=20 access_drop_units=90 deliver=6 deliver_skipped=7 sret_drop=1 sret_straw=10 sret_units=10 | deleted 88 {'WHEAT': 36, 'EGG': 10, 'TOMATO': 8, 'STRAWBERRY': 15, 'WOOL': 6, 'FERTILIZER': 1, 'MILK': 4, 'CARROT': 8}
+KSR5v160   own 107833 rival 115582 margin -7749 (vs KS1fl +1267; own +1439, rival +172) | died {'plant_WHEAT': 1, 'plant_TOMATO': 1, 'plant_STRAWBERRY': 1, 'animal_SHEEP': 10} | unfinished WATER 3 | bank stop False err 0 >1s 6 | returns planned 18 (80 straw planned, 9 stops handed over) | access_drop=19 access_drop_units=89 deliver=6 deliver_skipped=6 sret_drop=9 sret_place=9 sret_straw=80 sret_units=87 | deleted 60 {'WHEAT': 23, 'EGG': 15, 'WOOL': 5, 'STRAWBERRY': 1, 'TOMATO': 2, 'CARROT': 14}
+
+## returns planned vs executed and strawberry day deliveries vs DSM (sret_table.py)
+  d24 u3: plan h18 (by h18) 8 straw +4h moves 0 | exec h18 DROP {'STRAWBERRY': 8} | sold at that step 8 @ 141 | next day h1 our strawberry price 90
+KSR1v80: returns planned 1 (straw planned 8, added h 4, stops handed over 0), executed 1 (not 0), strawberries dropped 8, other goods dropped 0, ops DROP 1 / PLACE 0, exec hour - plan hour: {0: 1}; dropped strawberries sold at once @ 141 (n 8), next-day h1 strawberry price those days @ 90
+  DSM: strawberries harvested 296, delivered in the day 80 (h0-11 4, h12-17 64, h18-23 12), carry median 8.0 h; by hour h9:4 h12:4 h13:16 h14:18 h15:2 h17:24 h19:4 h20:8
+  KSR1v80: strawberries harvested 273, delivered in the day 10 (h0-11 0, h12-17 0, h18-23 10), carry median 10.5 h; by hour h18:8 h21:2
+  d18 u5: plan h11 (by h18) 4 straw +7h moves 1 | exec h11 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 210 | next day h1 our strawberry price 203
+  d22 u12: plan h18 (by h18) 4 straw +4h moves 0 | exec h18 PLACE {'STRAWBERRY': 6} | sold at that step 6 @ 187 | next day h1 our strawberry price 156
+  d24 u3: plan h12 (by h18) 6 straw +5h moves 0 | exec h12 DROP {'STRAWBERRY': 6} | sold at that step 6 @ 132 | next day h1 our strawberry price 90
+  d25 u7: plan h17 (by h18) 4 straw +4h moves 0 | exec h17 PLACE {'STRAWBERRY': 4} | sold at that step 4 @ 77 | next day h1 our strawberry price 28
+  d26 u9: plan h17 (by h18) 2 straw +0h moves 3 | exec h17 PLACE {'STRAWBERRY': 2} | sold at that step 2 @ 55 | next day h1 our strawberry price -
+KSR2v120: returns planned 5 (straw planned 20, added h 20, stops handed over 4), executed 5 (not 0), strawberries dropped 22, other goods dropped 0, ops DROP 2 / PLACE 3, exec hour - plan hour: {0: 5}; dropped strawberries sold at once @ 144 (n 22), next-day h1 strawberry price those days @ 119
+  DSM: strawberries harvested 296, delivered in the day 80 (h0-11 4, h12-17 64, h18-23 12), carry median 8.0 h; by hour h9:4 h12:4 h13:16 h14:18 h15:2 h17:24 h19:4 h20:8
+  KSR2v120: strawberries harvested 286, delivered in the day 25 (h0-11 4, h12-17 12, h18-23 9), carry median 7 h; by hour h11:4 h12:6 h17:6 h18:6 h20:1 h21:1 h22:1
+  d16 u1: plan h11 (by h18) 4 straw +9h moves 0 | exec h11 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 218 | next day h1 our strawberry price 211
+  d18 u4: plan h12 (by h18) 4 straw +9h moves 0 | exec h12 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 210 | next day h1 our strawberry price 204
+  d22 u0: plan h18 (by h18) 8 straw +6h moves 0 | exec h18 DROP {'STRAWBERRY': 8} | sold at that step 8 @ 185 | next day h1 our strawberry price 152
+  d22 u7: plan h7 (by h18) 2 straw +5h moves 0 | exec h7 DROP {'STRAWBERRY': 2} | sold at that step 2 @ 184 | next day h1 our strawberry price 152
+  d24 u1: plan h17 (by h18) 10 straw +7h moves 0 | exec h17 DROP {'STRAWBERRY': 10} | sold at that step 10 @ 132 | next day h1 our strawberry price 79
+  d24 u6: plan h18 (by h18) 4 straw +5h moves 0 | exec h18 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 109 | next day h1 our strawberry price 79
+  d25 u11: plan h12 (by h18) 2 straw +5h moves 0 | exec h13 PLACE {'STRAWBERRY': 2} | sold at that step 2 @ 79 | next day h1 our strawberry price 29
+  d26 u9: plan h12 (by h18) 4 straw +8h moves 0 | exec h12 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 35 | next day h1 our strawberry price -
+  d28 u1: plan h10 (by h18) 2 straw +5h moves 0 | exec h10 DROP {'STRAWBERRY': 2} | sold at that step 2 @ 44 | next day h1 our strawberry price 42
+  d28 u7: plan h18 (by h18) 3 straw +4h moves 0 | exec h18 DROP {'STRAWBERRY': 3} | sold at that step 3 @ 59 | next day h1 our strawberry price 42
+KSR1v160: returns planned 10 (straw planned 43, added h 63, stops handed over 0), executed 10 (not 0), strawberries dropped 43, other goods dropped 0, ops DROP 9 / PLACE 1, exec hour - plan hour: {0: 9, 1: 1}; dropped strawberries sold at once @ 137 (n 43), next-day h1 strawberry price those days @ 110
+  DSM: strawberries harvested 296, delivered in the day 80 (h0-11 4, h12-17 64, h18-23 12), carry median 8.0 h; by hour h9:4 h12:4 h13:16 h14:18 h15:2 h17:24 h19:4 h20:8
+  KSR1v160: strawberries harvested 282, delivered in the day 44 (h0-11 8, h12-17 20, h18-23 16), carry median 7.0 h; by hour h7:2 h10:2 h11:4 h12:8 h13:2 h17:10 h18:15 h22:1
+  d16 u1: plan h11 (by h18) 4 straw +9h moves 0 | exec h11 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 218 | next day h1 our strawberry price 211
+  d18 u4: plan h18 (by h18) 8 straw +9h moves 1 | exec h18 DROP {'STRAWBERRY': 8} | sold at that step 8 @ 213 | next day h1 our strawberry price 203
+  d19 u6: plan h18 (by h18) 2 straw +1h moves 1 | exec h18 PLACE {'STRAWBERRY': 2} | sold at that step 2 @ 206 | next day h1 our strawberry price 197
+  d21 u0: plan h18 (by h18) 4 straw +6h moves 0 | exec h18 PLACE {'STRAWBERRY': 4} | sold at that step 4 @ 197 | next day h1 our strawberry price 186
+  d21 u11: plan h15 (by h18) 6 straw +8h moves 2 | exec h16 DROP {'STRAWBERRY': 6} | sold at that step 6 @ 198 | next day h1 our strawberry price 186
+  d22 u3: plan h18 (by h18) 12 straw +3h moves 2 | exec h18 DROP {'STRAWBERRY': 12} | sold at that step 12 @ 184 | next day h1 our strawberry price 155
+  d22 u5: plan h17 (by h18) 6 straw +3h moves 1 | exec h17 PLACE {'STRAWBERRY': 6} | sold at that step 6 @ 188 | next day h1 our strawberry price 155
+  d23 u6: plan h11 (by h18) 4 straw +6h moves 1 | exec h11 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 152 | next day h1 our strawberry price 152
+  d24 u3: plan h18 (by h18) 8 straw +6h moves 1 | exec h18 DROP {'STRAWBERRY': 8} | sold at that step 8 @ 150 | next day h1 our strawberry price 102
+  d24 u12: plan h18 (by h18) 2 straw +5h moves 0 | exec h20 PLACE {'STRAWBERRY': 2} | sold at that step 2 @ 143 | next day h1 our strawberry price 102
+  d25 u6: plan h18 (by h18) 4 straw +6h moves 1 | exec h18 PLACE {'STRAWBERRY': 4} | sold at that step 4 @ 81 | next day h1 our strawberry price 38
+  d25 u10: plan h8 (by h18) 2 straw +3h moves 1 | exec h8 DROP {'STRAWBERRY': 2} | sold at that step 2 @ 92 | next day h1 our strawberry price 38
+  d26 u7: plan h18 (by h18) 5 straw +1h moves 3 | exec h18 DROP {'STRAWBERRY': 5} | sold at that step 5 @ 51 | next day h1 our strawberry price 24
+  d27 u1: plan h11 (by h18) 2 straw +5h moves 0 | exec h11 PLACE {'STRAWBERRY': 2} | sold at that step 2 @ 36 | next day h1 our strawberry price 34
+  d28 u3: plan h18 (by h18) 6 straw +8h moves 2 | exec h18 PLACE {'STRAWBERRY': 6} | sold at that step 6 @ 58 | next day h1 our strawberry price 55
+KSR2v160: returns planned 15 (straw planned 75, added h 79, stops handed over 16), executed 15 (not 0), strawberries dropped 75, other goods dropped 0, ops DROP 8 / PLACE 7, exec hour - plan hour: {0: 13, 1: 1, 2: 1}; dropped strawberries sold at once @ 154 (n 75), next-day h1 strawberry price those days @ 122
+  DSM: strawberries harvested 296, delivered in the day 80 (h0-11 4, h12-17 64, h18-23 12), carry median 8.0 h; by hour h9:4 h12:4 h13:16 h14:18 h15:2 h17:24 h19:4 h20:8
+  KSR2v160: strawberries harvested 265, delivered in the day 82 (h0-11 12, h12-17 12, h18-23 58), carry median 8.0 h; by hour h8:2 h11:10 h16:6 h17:6 h18:49 h19:3 h20:2 h21:2 h22:2
+  d16 u1: plan h11 (by h18) 4 straw +9h moves 0 | exec h11 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 218 | next day h1 our strawberry price 211
+  d18 u4: plan h18 (by h18) 8 straw +9h moves 1 | exec h18 DROP {'STRAWBERRY': 8} | sold at that step 8 @ 213 | next day h1 our strawberry price 203
+  d19 u6: plan h18 (by h18) 2 straw +1h moves 1 | exec h18 PLACE {'STRAWBERRY': 2} | sold at that step 2 @ 206 | next day h1 our strawberry price 197
+  d21 u11: plan h15 (by h18) 6 straw +8h moves 2 | exec h16 DROP {'STRAWBERRY': 6} | sold at that step 6 @ 198 | next day h1 our strawberry price 186
+  d22 u7: plan h11 (by h18) 4 straw +7h moves 0 | exec h11 PLACE {'STRAWBERRY': 4} | sold at that step 8 @ 186 | next day h1 our strawberry price 155
+  d22 u9: plan h11 (by h18) 4 straw +9h moves 0 | exec h11 DROP {'STRAWBERRY': 4} | sold at that step 8 @ 186 | next day h1 our strawberry price 155
+  d22 u10: plan h17 (by h18) 8 straw +8h moves 3 | exec h17 DROP {'STRAWBERRY': 8} | sold at that step 8 @ 184 | next day h1 our strawberry price 155
+  d22 u12: plan h18 (by h18) 4 straw +5h moves 2 | exec h19 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 180 | next day h1 our strawberry price 155
+  d24 u3: plan h18 (by h18) 10 straw +7h moves 0 | exec h18 DROP {'STRAWBERRY': 10} | sold at that step 10 @ 150 | next day h1 our strawberry price 104
+  d25 u4: plan h18 (by h18) 4 straw +4h moves 1 | exec h18 DROP {'STRAWBERRY': 4} | sold at that step 6 @ 73 | next day h1 our strawberry price 35
+  d25 u6: plan h13 (by h18) 4 straw +7h moves 2 | exec h13 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 94 | next day h1 our strawberry price 35
+  d25 u7: plan h8 (by h18) 2 straw +4h moves 0 | exec h8 DROP {'STRAWBERRY': 2} | sold at that step 2 @ 94 | next day h1 our strawberry price 35
+  d25 u9: plan h18 (by h18) 2 straw +2h moves 1 | exec h18 PLACE {'STRAWBERRY': 2} | sold at that step 6 @ 73 | next day h1 our strawberry price 35
+  d26 u3: plan h9 (by h18) 2 straw +5h moves 0 | exec h9 DROP {'STRAWBERRY': 2} | sold at that step 2 @ 46 | next day h1 our strawberry price 28
+  d27 u11: plan h9 (by h18) 2 straw +5h moves 0 | exec h9 DROP {'STRAWBERRY': 2, 'MILK': 3} | sold at that step 2 @ 36 | next day h1 our strawberry price 32
+  d28 u3: plan h18 (by h18) 5 straw +5h moves 2 | exec h18 PLACE {'STRAWBERRY': 5} | sold at that step 5 @ 59 | next day h1 our strawberry price 54
+KSR3: returns planned 16 (straw planned 71, added h 95, stops handed over 15), executed 16 (not 0), strawberries dropped 71, other goods dropped 3, ops DROP 12 / PLACE 4, exec hour - plan hour: {0: 14, 1: 2}; dropped strawberries sold at once @ 150 (n 85), next-day h1 strawberry price those days @ 111
+  DSM: strawberries harvested 296, delivered in the day 80 (h0-11 4, h12-17 64, h18-23 12), carry median 8.0 h; by hour h9:4 h12:4 h13:16 h14:18 h15:2 h17:24 h19:4 h20:8
+  KSR3: strawberries harvested 269, delivered in the day 75 (h0-11 18, h12-17 18, h18-23 39), carry median 8 h; by hour h8:2 h9:4 h11:12 h13:4 h16:6 h17:8 h18:31 h19:4 h21:3 h22:1
+  d16 u1: plan h11 (by h18) 4 straw +9h moves 0 | exec h11 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 218 | next day h1 our strawberry price 211
+  d21 u10: plan h12 (by h18) 4 straw +9h moves 1 | exec h12 PLACE {'STRAWBERRY': 4} | sold at that step 4 @ 194 | next day h1 our strawberry price 185
+  d22 u3: plan h9 (by h18) 4 straw +7h moves 0 | exec h9 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 186 | next day h1 our strawberry price 153
+  d22 u5: plan h11 (by h18) 4 straw +9h moves 0 | exec h11 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 184 | next day h1 our strawberry price 153
+  d22 u7: plan h18 (by h18) 4 straw +5h moves 0 | exec h18 PLACE {'STRAWBERRY': 4} | sold at that step 4 @ 183 | next day h1 our strawberry price 153
+  d24 u3: plan h18 (by h18) 4 straw +4h moves 0 | exec h18 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 148 | next day h1 our strawberry price 112
+  d25 u10: plan h9 (by h18) 2 straw +2h moves 0 | exec h9 PLACE {'STRAWBERRY': 2} | sold at that step 2 @ 115 | next day h1 our strawberry price 56
+  d26 u3: plan h14 (by h18) 7 straw +5h moves 0 | exec h14 DROP {'STRAWBERRY': 7} | sold at that step 7 @ 62 | next day h1 our strawberry price 29
+  d27 u5: plan h11 (by h18) 2 straw +5h moves 0 | exec h11 PLACE {'STRAWBERRY': 2} | sold at that step 2 @ 36 | next day h1 our strawberry price 38
+  d28 u6: plan h10 (by h18) 2 straw +5h moves 0 | exec h10 PLACE {'STRAWBERRY': 2} | sold at that step 2 @ 42 | next day h1 our strawberry price 57
+  d28 u7: plan h12 (by h18) 6 straw +7h moves 3 | exec h12 DROP {'STRAWBERRY': 6} | sold at that step 6 @ 35 | next day h1 our strawberry price 57
+KSR4: returns planned 11 (straw planned 43, added h 67, stops handed over 4), executed 11 (not 0), strawberries dropped 43, other goods dropped 0, ops DROP 6 / PLACE 5, exec hour - plan hour: {0: 11}; dropped strawberries sold at once @ 128 (n 43), next-day h1 strawberry price those days @ 109
+  DSM: strawberries harvested 296, delivered in the day 80 (h0-11 4, h12-17 64, h18-23 12), carry median 8.0 h; by hour h9:4 h12:4 h13:16 h14:18 h15:2 h17:24 h19:4 h20:8
+  KSR4: strawberries harvested 274, delivered in the day 49 (h0-11 18, h12-17 19, h18-23 12), carry median 7 h; by hour h9:6 h10:2 h11:10 h12:10 h13:2 h14:7 h18:8 h21:4
+  d16 u1: plan h11 (by h18) 4 straw +9h moves 0 | exec h11 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 218 | next day h1 our strawberry price 211
+  d20 u3: plan h15 (by h18) 2 straw +4h moves 0 | exec h15 PLACE {'STRAWBERRY': 2} | sold at that step 2 @ 193 | next day h1 our strawberry price 194
+  d20 u5: plan h11 (by h18) 4 straw +9h moves 0 | exec h11 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 192 | next day h1 our strawberry price 194
+  d21 u6: plan h12 (by h18) 4 straw +9h moves 0 | exec h12 PLACE {'STRAWBERRY': 4} | sold at that step 4 @ 194 | next day h1 our strawberry price 184
+  d22 u7: plan h9 (by h18) 4 straw +7h moves 0 | exec h9 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 185 | next day h1 our strawberry price 154
+  d22 u9: plan h12 (by h18) 4 straw +8h moves 1 | exec h12 PLACE {'STRAWBERRY': 4} | sold at that step 4 @ 182 | next day h1 our strawberry price 154
+  d24 u6: plan h10 (by h18) 4 straw +7h moves 3 | exec h10 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 138 | next day h1 our strawberry price 95
+  d25 u5: plan h8 (by h18) 2 straw +5h moves 1 | exec h8 DROP {'STRAWBERRY': 2} | sold at that step 2 @ 79 | next day h1 our strawberry price 32
+  d27 u3: plan h9 (by h18) 2 straw +5h moves 0 | exec h9 PLACE {'STRAWBERRY': 2} | sold at that step 2 @ 36 | next day h1 our strawberry price 36
+  d28 u7: plan h18 (by h18) 2 straw +3h moves 0 | exec h18 DROP {'STRAWBERRY': 2, 'MILK': 3} | sold at that step 2 @ 61 | next day h1 our strawberry price 51
+KSR4b: returns planned 10 (straw planned 32, added h 66, stops handed over 5), executed 10 (not 0), strawberries dropped 32, other goods dropped 3, ops DROP 6 / PLACE 4, exec hour - plan hour: {0: 10}; dropped strawberries sold at once @ 162 (n 32), next-day h1 strawberry price those days @ 131
+  DSM: strawberries harvested 296, delivered in the day 80 (h0-11 4, h12-17 64, h18-23 12), carry median 8.0 h; by hour h9:4 h12:4 h13:16 h14:18 h15:2 h17:24 h19:4 h20:8
+  KSR4b: strawberries harvested 264, delivered in the day 36 (h0-11 20, h12-17 10, h18-23 6), carry median 5.0 h; by hour h8:2 h9:6 h10:4 h11:8 h12:8 h15:2 h18:2 h21:2 h22:2
+  d22 u2: plan h18 (by h18) 10 straw +6h moves 0 | exec h18 DROP {'STRAWBERRY': 10} | sold at that step 10 @ 184 | next day h1 our strawberry price 149
+KSR5v80: returns planned 1 (straw planned 10, added h 6, stops handed over 0), executed 1 (not 0), strawberries dropped 10, other goods dropped 0, ops DROP 1 / PLACE 0, exec hour - plan hour: {0: 1}; dropped strawberries sold at once @ 184 (n 10), next-day h1 strawberry price those days @ 149
+  DSM: strawberries harvested 296, delivered in the day 80 (h0-11 4, h12-17 64, h18-23 12), carry median 8.0 h; by hour h9:4 h12:4 h13:16 h14:18 h15:2 h17:24 h19:4 h20:8
+  KSR5v80: strawberries harvested 290, delivered in the day 13 (h0-11 0, h12-17 0, h18-23 13), carry median 9 h; by hour h18:10 h21:3
+  d16 u1: plan h11 (by h18) 4 straw +9h moves 0 | exec h11 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 218 | next day h1 our strawberry price 211
+  d17 u0: plan h18 (by h18) 4 straw +5h moves 0 | exec h18 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 214 | next day h1 our strawberry price 210
+  d18 u0: plan h18 (by h18) 4 straw +5h moves 0 | exec h18 PLACE {'STRAWBERRY': 4} | sold at that step 4 @ 214 | next day h1 our strawberry price 204
+  d19 u3: plan h18 (by h18) 6 straw +6h moves 0 | exec h18 DROP {'STRAWBERRY': 6} | sold at that step 12 @ 204 | next day h1 our strawberry price 195
+  d19 u9: plan h18 (by h18) 6 straw +6h moves 1 | exec h18 PLACE {'STRAWBERRY': 6} | sold at that step 12 @ 204 | next day h1 our strawberry price 195
+  d20 u4: plan h13 (by h18) 6 straw +11h moves 3 | exec h13 DROP {'STRAWBERRY': 6} | sold at that step 6 @ 194 | next day h1 our strawberry price 194
+  d21 u0: plan h18 (by h18) 4 straw +6h moves 0 | exec h18 PLACE {'STRAWBERRY': 4} | sold at that step 4 @ 197 | next day h1 our strawberry price 183
+  d22 u3: plan h18 (by h18) 8 straw +4h moves 0 | exec h18 DROP {'STRAWBERRY': 8} | sold at that step 12 @ 178 | next day h1 our strawberry price 144
+  d22 u5: plan h11 (by h18) 4 straw +9h moves 0 | exec h11 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 184 | next day h1 our strawberry price 144
+  d22 u7: plan h12 (by h18) 4 straw +9h moves 0 | exec h12 PLACE {'STRAWBERRY': 4} | sold at that step 4 @ 182 | next day h1 our strawberry price 144
+  d22 u12: plan h18 (by h18) 4 straw +5h moves 1 | exec h18 PLACE {'STRAWBERRY': 4} | sold at that step 12 @ 178 | next day h1 our strawberry price 144
+  d23 u0: plan h18 (by h18) 4 straw +5h moves 2 | exec h18 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 147 | next day h1 our strawberry price 132
+  d23 u10: plan h14 (by h18) 4 straw +7h moves 1 | exec h14 DROP {'STRAWBERRY': 4} | sold at that step 4 @ 147 | next day h1 our strawberry price 132
+  d24 u3: plan h12 (by h18) 6 straw +9h moves 0 | exec h12 DROP {'STRAWBERRY': 6} | sold at that step 6 @ 118 | next day h1 our strawberry price 80
+  d24 u11: plan h18 (by h18) 4 straw +5h moves 0 | exec h18 PLACE {'STRAWBERRY': 4} | sold at that step 4 @ 115 | next day h1 our strawberry price 80
+  d25 u3: plan h14 (by h18) 2 straw +5h moves 0 | exec h14 PLACE {'STRAWBERRY': 2} | sold at that step 2 @ 56 | next day h1 our strawberry price 23
+  d25 u6: plan h12 (by h18) 4 straw +7h moves 0 | exec h12 PLACE {'STRAWBERRY': 4} | sold at that step 4 @ 63 | next day h1 our strawberry price 23
+  d27 u1: plan h8 (by h18) 2 straw +3h moves 1 | exec h8 PLACE {'STRAWBERRY': 2} | sold at that step 2 @ 27 | next day h1 our strawberry price -
+KSR5v160: returns planned 18 (straw planned 80, added h 116, stops handed over 9), executed 18 (not 0), strawberries dropped 80, other goods dropped 0, ops DROP 9 / PLACE 9, exec hour - plan hour: {0: 18}; dropped strawberries sold at once @ 173 (n 104), next-day h1 strawberry price those days @ 143
+  DSM: strawberries harvested 296, delivered in the day 80 (h0-11 4, h12-17 64, h18-23 12), carry median 8.0 h; by hour h9:4 h12:4 h13:16 h14:18 h15:2 h17:24 h19:4 h20:8
+  KSR5v160: strawberries harvested 280, delivered in the day 83 (h0-11 10, h12-17 26, h18-23 47), carry median 7 h; by hour h8:2 h11:8 h12:14 h13:6 h14:6 h18:44 h22:3
+== leader: harvested 296 ({'midnight': 216, 'day': 80})  day-delivered 80
+   day-delivery hour: h9:4 h12:4 h13:16 h14:18 h15:2 h17:24 h19:4 h20:8
+   carry h median 8.0 mean 8.2; tile dist median 4.0
+   by window: {'h12-17': 64, 'h0-11': 4, 'h18-23': 12}
+   harvest hour: h3:4 h4:14 h5:8 h6:14 h7:10 h8:14 h9:22 h10:4 h11:22 h12:8 h13:12 h14:16 h15:13 h16:14 h17:21 h18:21 h19:26 h20:8 h21:19 h22:26
+   midnight-dump units carry h median 7.0
+   day-delivered by day: 16:4 18:4 20:12 21:6 22:26 24:16 26:2 28:6 29:4
+== KS1fl: harvested 271 ({'midnight': 265, 'day': 6})  day-delivered 6
+   day-delivery hour: h19:4 h21:1 h22:1
+   carry h median 8.0 mean 9.2; tile dist median 2.5
+   by window: {'h18-23': 6}
+   harvest hour: h4:1 h5:5 h6:4 h7:9 h8:10 h9:9 h10:12 h11:18 h12:16 h13:16 h14:14 h15:15 h16:19 h17:27 h18:15 h19:13 h20:26 h21:27 h22:15
+   midnight-dump units carry h median 8
+   day-delivered by day: 28:4 29:2
+
+## isolated value of the returns (ret_value.py: farm fixed, returned strawberries delayed to the next day)
+KSR1v80: value of the daytime deliveries: own +155, rival -327, margin +482 (+60.2 per returned strawberry)
+KSR2v120: value of the daytime deliveries: own +286, rival -776, margin +1062 (+48.3 per returned strawberry)
+KSR1v160: value of the daytime deliveries: own +318, rival -1196, margin +1514 (+35.2 per returned strawberry)
+KSR2v160: value of the daytime deliveries: own +600, rival -1611, margin +2211 (+29.5 per returned strawberry)
+KSR3: value of the daytime deliveries: own +752, rival -1836, margin +2588 (+36.5 per returned strawberry)
+KSR4: value of the daytime deliveries: own +76, rival -1043, margin +1119 (+26.0 per returned strawberry)
+KSR4b: value of the daytime deliveries: own +115, rival -670, margin +785 (+24.5 per returned strawberry)
+KSR5v80: value of the daytime deliveries: own +159, rival -219, margin +378 (+37.8 per returned strawberry)
+KSR5v160: value of the daytime deliveries: own +525, rival -1785, margin +2310 (+28.9 per returned strawberry)
+
+## calibration on KS1fl (early_arrival.py: strawberries harvested by hour HMAX delivered at HARR the same day, sold at once)
+units moved per day: {16: 4, 18: 2, 19: 2, 20: 4, 21: 2, 22: 10, 23: 4, 24: 14, 25: 4, 26: 8, 27: 4, 28: 7} total 65
+base (actual on Mars): us 307 units 44476, rival 278 units 41247
+arrive h9: us 307 units 44508 (+32), rival 39322 (-1925); margin +1957 = +30.1 per moved unit
+arrive h13: us 307 units 44824 (+348), rival 39451 (-1796); margin +2144 = +33.0 per moved unit
+arrive h17: us 307 units 44999 (+523), rival 39736 (-1511); margin +2034 = +31.3 per moved unit
+arrive h13: us 307 units 44652 (+176), rival 40911 (-336); margin +512 = +21.3 per moved unit
+arrive h17: us 307 units 44687 (+211), rival 40921 (-326); margin +537 = +22.4 per moved unit
+arrive h13: us 307 units 44648 (+172), rival 39787 (-1460); margin +1632 = +39.8 per moved unit
+arrive h17: us 307 units 44788 (+312), rival 40062 (-1185); margin +1497 = +36.5 per moved unit
+
+## mars_engine strawberry / wool / milk gaps vs DSM (actual, pattern_tick, books_deliv)
+== KS1fl
+STRAWBERRY | arm   -5973 | actual   -5973 | pattern_tick   -4647 | books_deliv   -3906
+WOOL       | arm   -1555 | actual   -1555 | pattern_tick   -2323 | books_deliv   -1106
+MILK       | arm   -2256 | actual   -2256 | pattern_tick   -1578 | books_deliv    -679
+TOTAL      | arm   -9784 | actual   -9784 | pattern_tick   -8548 | books_deliv   -5691
+== KSR1v80
+STRAWBERRY | arm   -5743 | actual   -5743 | pattern_tick   -4250 | books_deliv   -3500
+WOOL       | arm   -1407 | actual   -1407 | pattern_tick   -2315 | books_deliv   -1098
+MILK       | arm   -2961 | actual   -2961 | pattern_tick   -2467 | books_deliv   -1640
+TOTAL      | arm  -10111 | actual  -10111 | pattern_tick   -9032 | books_deliv   -6238
+== KSR2v120
+STRAWBERRY | arm   -4803 | actual   -4803 | pattern_tick   -3333 | books_deliv   -2777
+WOOL       | arm   -2704 | actual   -2704 | pattern_tick   -2000 | books_deliv   -1493
+MILK       | arm   -2739 | actual   -2739 | pattern_tick   -2348 | books_deliv   -1239
+TOTAL      | arm  -10246 | actual  -10246 | pattern_tick   -7681 | books_deliv   -5509
+== KSR1v160
+STRAWBERRY | arm   -3727 | actual   -3727 | pattern_tick   -2946 | books_deliv   -2381
+WOOL       | arm   -2660 | actual   -2660 | pattern_tick   -1896 | books_deliv    -611
+MILK       | arm   -2871 | actual   -2871 | pattern_tick   -2589 | books_deliv   -1167
+TOTAL      | arm   -9258 | actual   -9258 | pattern_tick   -7431 | books_deliv   -4159
+== KSR2v160
+STRAWBERRY | arm   -5246 | actual   -5246 | pattern_tick   -4447 | books_deliv   -3901
+WOOL       | arm   -2325 | actual   -2325 | pattern_tick   -1887 | books_deliv    -608
+MILK       | arm   -2620 | actual   -2620 | pattern_tick   -2484 | books_deliv   -1419
+TOTAL      | arm  -10191 | actual  -10191 | pattern_tick   -8818 | books_deliv   -5928
+== KSR3
+STRAWBERRY | arm   -5124 | actual   -5124 | pattern_tick   -4132 | books_deliv   -3615
+WOOL       | arm   -2366 | actual   -2366 | pattern_tick   -1890 | books_deliv    -606
+MILK       | arm   -2237 | actual   -2237 | pattern_tick   -2229 | books_deliv   -1055
+TOTAL      | arm   -9727 | actual   -9727 | pattern_tick   -8251 | books_deliv   -5276
+== KSR4
+STRAWBERRY | arm   -7061 | actual   -7061 | pattern_tick   -5942 | books_deliv   -4871
+WOOL       | arm   -1388 | actual   -1388 | pattern_tick   -1851 | books_deliv    -592
+MILK       | arm   -3541 | actual   -3541 | pattern_tick   -2754 | books_deliv   -2363
+TOTAL      | arm  -11990 | actual  -11990 | pattern_tick  -10547 | books_deliv   -7826
+== KSR4b
+STRAWBERRY | arm   -5225 | actual   -5225 | pattern_tick   -4318 | books_deliv   -3543
+WOOL       | arm   -2714 | actual   -2714 | pattern_tick   -1888 | books_deliv    -604
+MILK       | arm   -2471 | actual   -2471 | pattern_tick   -1943 | books_deliv    -866
+TOTAL      | arm  -10410 | actual  -10410 | pattern_tick   -8149 | books_deliv   -5013
+== KSR5v80
+STRAWBERRY | arm   -5022 | actual   -5022 | pattern_tick   -3484 | books_deliv   -2907
+WOOL       | arm   -1588 | actual   -1588 | pattern_tick   -2310 | books_deliv   -1080
+MILK       | arm   -2321 | actual   -2321 | pattern_tick   -2059 | books_deliv   -1322
+TOTAL      | arm   -8931 | actual   -8931 | pattern_tick   -7853 | books_deliv   -5309
+== KSR5v160
+STRAWBERRY | arm   -2876 | actual   -2876 | pattern_tick   -2444 | books_deliv   -1809
+WOOL       | arm   -1604 | actual   -1604 | pattern_tick   -2248 | books_deliv    -473
+MILK       | arm   -2822 | actual   -2822 | pattern_tick   -3055 | books_deliv   -2089
+TOTAL      | arm   -7302 | actual   -7302 | pattern_tick   -7747 | books_deliv   -4371
+
+## margin decomposition vs KS1fl (season_margin_ab.py)
+1 worlds, per world, KSR1v80 - KS1fl: own -20, rival +1004, MARGIN -1024
+product    |    made deleted  unsold    used  bought   price | our sales |  rival $  rival px |   MARGIN
+WHEAT      |    -511     +36      -0     +73     -14    +166 |     -249 |      +47 34.1->34.3 |     -296
+CARROT     |    +104     -26      -0      -0      +0      -5 |      +73 |       -4 31.2->31.2 |      +77
+TOMATO     |     +53    -370      -0      -0      +0     +53 |     -264 |      +12 52.0->52.8 |     -276
+MELON      |      +0      -0      -0      -0      +0      +0 |       +0 |       +0 151.1->151.1 |       +0
+STRAWBERRY |    +724    -724    -145      -0      +0    +105 |      -40 |     -270 148.4->147.4 |     +230
+MILK       |    -658      -0      -0      -0      +0    +951 |     +293 |     +998 106.6->111.4 |     -705
+EGG        |      +0    -158      -0      -0      +0     +10 |     -148 |       +3 53.0->53.0 |     -151
+WOOL       |   +1083    -295      -0      -0      +0    -443 |     +344 |     +196 99.0->100.2 |     +148
+FERTILIZER |    -127     -32      -0      -0      +0    +130 |      -29 |      +22 33.5->33.6 |      -51
+seeds      | spend +0
+animals    | spend +0
+hires      | spend +0
+TOTAL      |    +668   -1569    -145     +73     -14    +966 |      -20 |    +1004           |    -1024
+1 worlds, per world, KSR2v120 - KS1fl: own -472, rival +1106, MARGIN -1578
+product    |    made deleted  unsold    used  bought   price | our sales |  rival $  rival px |   MARGIN
+WHEAT      |    -511    +474      -0      -0      +5     -93 |     -125 |     +149 34.1->34.6 |     -274
+CARROT     |    -182    -130      -0      -0      +0     +38 |     -274 |      -12 31.2->31.1 |     -262
+TOMATO     |    -317     -53    -106      -0      +0     +80 |     -395 |       +2 52.0->52.1 |     -397
+MELON      |      +0      -0      -0      -0      +0      +0 |       +0 |       +0 151.1->151.1 |       +0
+STRAWBERRY |   +1014      -0      -0      -0      +0    -593 |     +421 |     -749 148.4->145.7 |    +1170
+MILK       |    -188    -282      -0      -0      +0    +823 |     +353 |     +836 106.6->110.6 |     -483
+EGG        |    -210    +210      -0      -0      +0      +0 |       +0 |      +12 53.0->53.1 |      -12
+WOOL       |    -886     -98      -0      -0      +0    +652 |     -332 |     +817 99.0->103.9 |    -1149
+FERTILIZER |    -350     +64      -0    +350      +0    -114 |      -50 |      +51 33.5->33.7 |     -101
+seeds      | spend +70
+animals    | spend +0
+hires      | spend +0
+TOTAL      |   -1630    +185    -106    +350      +5    +794 |     -472 |    +1106           |    -1578
+1 worlds, per world, KSR1v160 - KS1fl: own +2016, rival +1354, MARGIN +662
+product    |    made deleted  unsold    used  bought   price | our sales |  rival $  rival px |   MARGIN
+WHEAT      |    -985    +730    -109    +182      +6     -40 |     -216 |     +135 34.1->34.6 |     -351
+CARROT     |     -52     +78      -0      -0      +0     +38 |      +64 |      -42 31.2->30.7 |     +106
+TOMATO     |    +370      -0      -0      -0      +0     -67 |     +303 |       -8 52.0->51.5 |     +311
+MELON      |      +0      -0      -0      -0      +0      +0 |       +0 |       +0 151.1->151.1 |       +0
+STRAWBERRY |    -145    +290    -290      -0      +0    +983 |     +838 |    -1408 148.4->143.3 |    +2246
+MILK       |    -564      -0      -0      -0      +0   +1848 |    +1284 |    +1899 106.6->115.8 |     -615
+EGG        |    +105    +210      -0      -0      +0      +3 |     +318 |       -3 53.0->52.9 |     +321
+WOOL       |   -1083    +886      -0      -0      +0    -214 |     -411 |     +694 99.0->103.1 |    -1105
+FERTILIZER |    -763     +95      -0    +254      +0    +299 |     -114 |      +87 33.5->34.0 |     -201
+seeds      | spend +50
+animals    | spend +0
+hires      | spend +0
+TOTAL      |   -3117   +2289    -399    +437      +6   +2850 |    +2016 |    +1354           |     +662
+1 worlds, per world, KSR2v160 - KS1fl: own +2222, rival +3333, MARGIN -1111
+product    |    made deleted  unsold    used  bought   price | our sales |  rival $  rival px |   MARGIN
+WHEAT      |   -1058    +949      -0    +109      +7     -19 |      -12 |      +27 34.1->34.2 |      -39
+CARROT     |     -78     +78      -0      -0      +0     +20 |      +20 |      -20 31.2->31.0 |      +40
+TOMATO     |     +53     -53      -0      -0      +0      +1 |       +1 |       +0 52.0->52.0 |       +1
+MELON      |      +0      -0      -0      -0      +0      +0 |       +0 |       +0 151.1->151.1 |       +0
+STRAWBERRY |   -1159    +290      -0      -0      +0   +1977 |    +1108 |     +381 148.4->149.7 |     +727
+MILK       |    -376    -564      -0      -0      +0   +3138 |    +2199 |    +2563 106.6->119.0 |     -364
+EGG        |    -473      -0      -0      -0      +0     +46 |     -427 |      +33 53.0->53.3 |     -460
+WOOL       |    -787    +886      -0      -0      +0    -627 |     -529 |     +241 99.0->100.5 |     -770
+FERTILIZER |    -922     +64      -0    +413      +0    +307 |     -138 |     +108 33.5->34.3 |     -246
+seeds      | spend +0
+animals    | spend +0
+hires      | spend +0
+TOTAL      |   -4801   +1650      +0    +523      +7   +4844 |    +2222 |    +3333           |    -1111
+1 worlds, per world, KSR3 - KS1fl: own +1446, rival +3321, MARGIN -1875
+product    |    made deleted  unsold    used  bought   price | our sales |  rival $  rival px |   MARGIN
+WHEAT      |    -985    +693      -0     +36      +8     +13 |     -235 |     +138 34.1->34.6 |     -373
+CARROT     |    -156      -0      -0      -0      +0      +9 |     -147 |       +5 31.2->31.3 |     -152
+TOMATO     |     -53      -0      -0      -0      +0     +10 |      -43 |       +0 52.0->52.0 |      -43
+MELON      |      +0      -0      -0      -0      +0      +0 |       +0 |       +0 151.1->151.1 |       +0
+STRAWBERRY |    -869      -0      -0      -0      +0   +2020 |    +1151 |     +302 148.4->149.5 |     +849
+MILK       |      +0    -658      -0      -0      +0   +2566 |    +1908 |    +1889 106.6->115.7 |      +19
+EGG        |    -684    -421      -0      -0      +0     +34 |    -1070 |      +42 53.0->53.4 |    -1112
+WOOL       |    -394     +98      -0      -0      +0    +320 |      +25 |     +836 99.0->104.0 |     -811
+FERTILIZER |    -827     +64      -0    +382      +0    +249 |     -133 |     +109 33.5->34.2 |     -242
+seeds      | spend +10
+animals    | spend +0
+hires      | spend +0
+TOTAL      |   -3968    -223      +0    +418      +8   +5221 |    +1446 |    +3321           |    -1875
+1 worlds, per world, KSR4 - KS1fl: own +1305, rival +2974, MARGIN -1669
+product    |    made deleted  unsold    used  bought   price | our sales |  rival $  rival px |   MARGIN
+WHEAT      |    -584   +1058    -182     +73     +20     +68 |     +453 |     -406 34.1->32.8 |     +859
+CARROT     |    -130     +78      -0      -0      +0     +16 |      -36 |      -11 31.2->31.1 |      -25
+TOMATO     |    -317      -0      -0      -0      +0     +52 |     -265 |       +5 52.0->52.3 |     -270
+MELON      |      +0      -0      -0      -0      +0      +0 |       +0 |       +0 151.1->151.1 |       +0
+STRAWBERRY |    -290    -579      -0      -0      +0   +1385 |     +516 |    +1604 148.4->154.1 |    -1088
+MILK       |   -1127      -0      -0      -0      +0   +1599 |     +472 |    +1757 106.6->115.1 |    -1285
+EGG        |     +53    +210      -0      -0      +0      -5 |     +258 |      -12 53.0->52.9 |     +270
+WOOL       |    +984    +689      -0      -0      +0   -1605 |      +68 |      -99 99.0->98.5 |     +167
+FERTILIZER |    -604     +95      -0    +159      +0    +189 |     -161 |     +136 33.5->34.5 |     -297
+seeds      | spend +0
+animals    | spend +0
+hires      | spend +0
+TOTAL      |   -2015   +1551    -182    +232     +20   +1699 |    +1305 |    +2974           |    -1669
+1 worlds, per world, KSR4b - KS1fl: own +1286, rival +2213, MARGIN -927
+product    |    made deleted  unsold    used  bought   price | our sales |  rival $  rival px |   MARGIN
+WHEAT      |    -547    +803      -0    +182     +22     -85 |     +374 |     -222 34.1->33.4 |     +596
+CARROT     |    -130    -182      -0      -0      +0     +11 |     -301 |      +15 31.2->31.4 |     -316
+TOMATO     |     +53    -106      -0      -0      +0     +15 |      -38 |       -3 52.0->51.8 |      -35
+MELON      |      +0      -0      -0      -0      +0      +0 |       +0 |       +0 151.1->151.1 |       +0
+STRAWBERRY |    -869    +290      -0      -0      +0   +1245 |     +666 |      -82 148.4->148.1 |     +748
+MILK       |    -752      -0      -0      -0      +0   +2582 |    +1830 |    +2045 106.6->116.5 |     -215
+EGG        |    -105    -105      -0      -0      +0     +10 |     -200 |       +7 53.0->53.0 |     -207
+WOOL       |    -984    +886      -0      -0      +0    -769 |     -867 |     +292 99.0->100.8 |    -1159
+FERTILIZER |    -668     +95      -0    +159      +0    +225 |     -188 |     +161 33.5->34.5 |     -349
+seeds      | spend -10
+animals    | spend +0
+hires      | spend +0
+TOTAL      |   -4003   +1681      +0    +341     +22   +3235 |    +1286 |    +2213           |     -927
+1 worlds, per world, KSR5v80 - KS1fl: own -1167, rival -254, MARGIN -913
+product    |    made deleted  unsold    used  bought   price | our sales |  rival $  rival px |   MARGIN
+WHEAT      |     -73      -0      -0    -219      -4     -45 |     -341 |     +198 34.1->34.8 |     -539
+CARROT     |    -156    -130      -0      -0      +0     +38 |     -274 |      -12 31.2->31.1 |     -262
+TOMATO     |    -370    -423      -0      -0      +0    +121 |     -671 |      +11 52.0->52.7 |     -682
+MELON      |      +0      -0      -0      -0      +0      +0 |       +0 |       +0 151.1->151.1 |       +0
+STRAWBERRY |    +724    -869      -0      -0      +0     +96 |      -49 |    -1000 148.4->144.8 |     +951
+MILK       |    +188    -376      -0      -0      +0    +593 |     +405 |     +470 106.6->108.9 |      -65
+EGG        |     -53    -158      -0      -0      +0     +19 |     -191 |       +9 53.0->53.0 |     -200
+WOOL       |   +1673    +295      -0      -0      +0   -1969 |       -1 |      +32 99.0->99.2 |      -33
+FERTILIZER |    -350     +64      -0    +127      +0    +114 |      -45 |      +38 33.5->33.8 |      -83
+seeds      | spend +0
+animals    | spend +0
+hires      | spend +0
+TOTAL      |   +1584   -1597      +0     -92      -4   -1032 |    -1167 |     -254           |     -913
+1 worlds, per world, KSR5v160 - KS1fl: own +1439, rival +172, MARGIN +1267
+product    |    made deleted  unsold    used  bought   price | our sales |  rival $  rival px |   MARGIN
+WHEAT      |    -657    +474      -0    +255     +23     +28 |     +124 |      -99 34.1->33.8 |     +223
+CARROT     |    -156    -286      -0      -0      +0     +21 |     -421 |      +15 31.2->31.4 |     -436
+TOMATO     |    +264    -106      -0      -0      +0     -26 |     +132 |       -3 52.0->51.8 |     +135
+MELON      |      +0      -0      -0      -0      +0      +0 |       +0 |       +0 151.1->151.1 |       +0
+STRAWBERRY |   -1304   +1159      -0      -0      +0    +873 |     +728 |    -2369 148.4->139.8 |    +3097
+MILK       |    -939      -0      -0      -0      +0   +2821 |    +1882 |    +2448 106.6->118.4 |     -566
+EGG        |    -263    -421      -0      -0      +0     +49 |     -635 |      +42 53.0->53.4 |     -677
+WOOL       |    -689    +394      -0      -0      +0    +189 |     -106 |      -57 99.0->98.7 |      -49
+FERTILIZER |    -954     +95      -0    +413      +0    +220 |     -225 |     +195 33.5->34.8 |     -420
+seeds      | spend +40
+animals    | spend +0
+hires      | spend +0
+TOTAL      |   -4698   +1310      +0    +669     +23   +4175 |    +1439 |     +172           |    +1267
+== case_hold KSR1v160
+== STRAWBERRY
+  DSM  sold 318 (arrivals: 80 daytime, 238 at hour 0) | on arrival (h0 = before the tick) 61 (19%, @185) | on arrival 40 (13%, @177) | same window 24 (8%, @160) | next tick hour 63 (20%, @190) | held, same day 73 (23%, @123) | held, later day 57 (18%, @96)
+       sold at hours 1/5/9/13/17/21: 150 (47%)
+  KSR1v160 sold 306 (arrivals: 44 daytime, 262 at hour 0) | on arrival 35 (11%, @158) | same window 3 (1%, @53) | next tick hour 212 (69%, @163) | held, same day 47 (15%, @72) | held, later day 9 (3%, @190)
+== case_hold KSR2v160
+== STRAWBERRY
+  DSM  sold 318 (arrivals: 80 daytime, 238 at hour 0) | on arrival (h0 = before the tick) 61 (19%, @185) | on arrival 40 (13%, @177) | same window 24 (8%, @160) | next tick hour 63 (20%, @190) | held, same day 73 (23%, @123) | held, later day 57 (18%, @96)
+       sold at hours 1/5/9/13/17/21: 150 (47%)
+  KSR2v160 sold 301 (arrivals: 82 daytime, 219 at hour 0) | on arrival 72 (24%, @160) | same window 8 (3%, @60) | next tick hour 184 (61%, @159) | held, same day 24 (8%, @105) | held, later day 13 (4%, @141)
+== case_hold KSR5v160
+== STRAWBERRY
+  DSM  sold 318 (arrivals: 80 daytime, 238 at hour 0) | on arrival (h0 = before the tick) 61 (19%, @185) | on arrival 40 (13%, @177) | same window 24 (8%, @160) | next tick hour 63 (20%, @190) | held, same day 73 (23%, @123) | held, later day 57 (18%, @96)
+       sold at hours 1/5/9/13/17/21: 150 (47%)
+  KSR5v160 sold 306 (arrivals: 83 daytime, 223 at hour 0) | on arrival 79 (26%, @165) | next tick hour 168 (55%, @160) | held, same day 51 (17%, @69) | held, later day 8 (3%, @210)
+== case_hold KS1fl
+== STRAWBERRY
+  DSM  sold 318 (arrivals: 80 daytime, 238 at hour 0) | on arrival (h0 = before the tick) 61 (19%, @185) | on arrival 40 (13%, @177) | same window 24 (8%, @160) | next tick hour 63 (20%, @190) | held, same day 73 (23%, @123) | held, later day 57 (18%, @96)
+       sold at hours 1/5/9/13/17/21: 150 (47%)
+  KS1fl sold 307 (arrivals: 6 daytime, 301 at hour 0) | on arrival 1 (0%, @64) | same window 5 (2%, @46) | next tick hour 244 (79%, @161) | held, same day 48 (16%, @65) | held, later day 7 (2%, @211) | before arrival? 2 (1%, @186)

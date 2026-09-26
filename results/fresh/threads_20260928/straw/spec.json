@@ -1,0 +1,381 @@
+{
+ "KSR0": {
+  "agent": "agents/mgt_lead_sector_straw.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   }
+  },
+  "label": "KSR0 = KS1fl config on the straw copy (identity check)"
+ },
+ "KSR1": {
+  "agent": "agents/mgt_lead_sector_straw.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_sret": 1
+  },
+  "label": "KSR1 = KS1fl + strawberry return runs (soft 12: 40/unit +-3 per hour, hard 18, rate 70/h, >= 2 units)"
+ },
+ "KSR2": {
+  "agent": "agents/mgt_lead_sector_straw.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_sret": 1,
+   "sd_tier_sret_relief": 3
+  },
+  "label": "KSR2 = KSR1 + relief: a return may hand up to 3 non-strawberry stops to hands with room"
+ },
+ "KSR1v80": {
+  "agent": "agents/mgt_lead_sector_straw.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_sret": 1,
+   "sd_tier_sret_v": 80.0,
+   "sd_tier_sret_bonus": 6.0,
+   "sd_tier_sret_pen": 6.0
+  },
+  "label": "KSR1v80 = KSR1 with 80/unit at hour 12 (+-6 per unit-hour), rate 70/h"
+ },
+ "KSR2v80": {
+  "agent": "agents/mgt_lead_sector_straw.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_sret": 1,
+   "sd_tier_sret_relief": 3,
+   "sd_tier_sret_v": 80.0,
+   "sd_tier_sret_bonus": 6.0,
+   "sd_tier_sret_pen": 6.0
+  },
+  "label": "KSR2v80 = KSR2 (relief 3) with 80/unit at hour 12 (+-6 per unit-hour), rate 70/h"
+ },
+ "KSR1v160": {
+  "agent": "agents/mgt_lead_sector_straw.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_sret": 1,
+   "sd_tier_sret_v": 160.0,
+   "sd_tier_sret_bonus": 12.0,
+   "sd_tier_sret_pen": 12.0
+  },
+  "label": "KSR1v160 = KSR1 with 160/unit at hour 12 (+-12 per unit-hour), rate 70/h"
+ },
+ "KSR2v160": {
+  "agent": "agents/mgt_lead_sector_straw.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_sret": 1,
+   "sd_tier_sret_relief": 3,
+   "sd_tier_sret_v": 160.0,
+   "sd_tier_sret_bonus": 12.0,
+   "sd_tier_sret_pen": 12.0
+  },
+  "label": "KSR2v160 = KSR2 (relief 3) with 160/unit at hour 12 (+-12 per unit-hour), rate 70/h"
+ },
+ "KSR2v120": {
+  "agent": "agents/mgt_lead_sector_straw.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_sret": 1,
+   "sd_tier_sret_relief": 3,
+   "sd_tier_sret_v": 120.0,
+   "sd_tier_sret_bonus": 9.0,
+   "sd_tier_sret_pen": 9.0
+  },
+  "label": "KSR2v120 = KSR2 (relief 3) with 120/unit at hour 12 (+-9 per unit-hour), rate 70/h"
+ },
+ "KSR3": {
+  "agent": "agents/mgt_lead_sector_straw.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_sret": 1,
+   "sd_tier_sret_relief": 3,
+   "sd_tier_sret_v": 160.0,
+   "sd_tier_sret_bonus": 12.0,
+   "sd_tier_sret_pen": 12.0,
+   "sd_tier_sret_wheat": 1
+  },
+  "label": "KSR3 = KSR2v160 + the wheat for the FEEDs after the return picked up at the return (DROP everything, then PICKUP WHEAT)"
+ },
+ "KSR4": {
+  "agent": "agents/mgt_lead_sector_straw.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_sret": 1,
+   "sd_tier_sret_relief": 3,
+   "sd_tier_sret_v": 160.0,
+   "sd_tier_sret_bonus": 12.0,
+   "sd_tier_sret_pen": 30.0
+  },
+  "label": "KSR4 = KSR2v160 with a steep late penalty (30 per unit-hour after 12: an arrival at 17 is worth 10, at 18 nothing)"
+ },
+ "KSR4b": {
+  "agent": "agents/mgt_lead_sector_straw.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_sret": 1,
+   "sd_tier_sret_relief": 3,
+   "sd_tier_sret_v": 160.0,
+   "sd_tier_sret_bonus": 12.0,
+   "sd_tier_sret_pen": 20.0
+  },
+  "label": "KSR4b = KSR2v160 with late penalty 20 per unit-hour after 12 (arrival at 18 worth 40)"
+ },
+ "KSR5": {
+  "agent": "agents/mgt_lead_sector_straw.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_sret": 1,
+   "sd_tier_sret_relief": 3,
+   "sd_tier_sret_pull": 4
+  },
+  "label": "KSR5 = KSR2 (40/unit, relief 3) + the return pulls up to 4 strawberry stops of other hands within 2 tiles of its cargo"
+ },
+ "KSR5v80": {
+  "agent": "agents/mgt_lead_sector_straw.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_sret": 1,
+   "sd_tier_sret_relief": 3,
+   "sd_tier_sret_pull": 4,
+   "sd_tier_sret_v": 80.0,
+   "sd_tier_sret_bonus": 6.0,
+   "sd_tier_sret_pen": 6.0
+  },
+  "label": "KSR5v80 = KSR5 with 80/unit (+-6 per unit-hour)"
+ },
+ "KSR5v160": {
+  "agent": "agents/mgt_lead_sector_straw.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_sret": 1,
+   "sd_tier_sret_relief": 3,
+   "sd_tier_sret_pull": 4,
+   "sd_tier_sret_v": 160.0,
+   "sd_tier_sret_bonus": 12.0,
+   "sd_tier_sret_pen": 12.0
+  },
+  "label": "KSR5v160 = KSR5 with 160/unit (+-12 per unit-hour)"
+ }
+}

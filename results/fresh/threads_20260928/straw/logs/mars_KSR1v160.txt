@@ -1,0 +1,11 @@
+1 worlds, per world. margin gap vs DSM on a product = (our revenue - DSM's) - (rival revenue in that game - in DSM's game)
+STRAWBERRY | arm   -3727 | actual   -3727 | pattern_tick   -2946 | books_deliv   -2381
+WOOL       | arm   -2660 | actual   -2660 | pattern_tick   -1896 | books_deliv    -611
+MILK       | arm   -2871 | actual   -2871 | pattern_tick   -2589 | books_deliv   -1167
+TOTAL      | arm   -9258 | actual   -9258 | pattern_tick   -7431 | books_deliv   -4159
+  pattern_tick vs actual: margin +1827 (t +0.00, better 1/1); STRAWBERRY +781, WOOL +764, MILK +282
+  books_deliv vs actual: margin +5099 (t +0.00, better 1/1); STRAWBERRY +1346, WOOL +2049, MILK +1704
+  checks actual: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 26.0 (arm 26.0)
+  checks pattern_tick: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 26.0 (arm 26.0)
+  checks books_deliv: shed identical 1/1, other orders identical 1/1, hands identical 1/1, midnight deletions per world 26.0 (arm 26.0)
+  units sold per world (ours / DSM): STRAWBERRY 306 / 318, WOOL 202 / 166, MILK 203 / 202
