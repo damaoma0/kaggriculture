@@ -294,6 +294,17 @@ ARMS = {
     'K4nt20': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1,
                          sd_fert_frac=0.6, sd_tier_fert_exact=1, sd_tier_relief=1, sd_tier_rate_c=5.0, sd_days=[11, 28], sd_tier_wheat=1,
                          sd_tier_rot_all=1, sd_tier_swap_oropt=1, sd_tier_spawn_passes=3, sd_tier_iters=20000, sd_bank_stop=1e9)),
+    # K5 (user 2026-09-28): K4f + planned deliveries: when the projected midnight dump will not fit the shed, the hands with the
+    # most valuable loads end the day at the shed (DROP, sold at once)
+    'K5': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1,
+                     sd_fert_frac=0.6, sd_tier_fert_exact=1, sd_tier_relief=1, sd_tier_rate_c=5.0, sd_days=[11, 28], sd_tier_wheat=1,
+                     sd_tier_offsets=4, sd_tier_pair_top=3, sd_tier_iters=2500, sd_tier_relief_minv=20.0,
+                     sd_tier_fill_near=5, sd_tier_farmer_hold=1, sd_tier_deliver=1)),
+    'K5b': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1,
+                      sd_fert_frac=0.6, sd_tier_fert_exact=1, sd_tier_relief=1, sd_tier_rate_c=5.0, sd_days=[11, 28], sd_tier_wheat=1,
+                      sd_tier_offsets=4, sd_tier_pair_top=3, sd_tier_iters=2500, sd_tier_relief_minv=20.0,
+                      sd_tier_fill_near=5, sd_tier_farmer_hold=1, sd_tier_deliver=1, sd_tier_deliver_check=1,
+                      sd_tier_deliver_keep=['MILK'])),
     # K4f: K4 + the faster planner settings (4 sweep offsets, collect pairing for the 3 best positions / 4 animals)
     'K4f': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1,
                       sd_fert_frac=0.6, sd_tier_fert_exact=1, sd_tier_relief=1, sd_tier_rate_c=5.0, sd_days=[11, 28], sd_tier_wheat=1,
@@ -414,6 +425,8 @@ LABEL = {
     'K3c5sn': 'K3c5sn: K3c5s without the time-bank stop',
     'K4': 'K4: K3c5s + wheat bought at hour 0 for the feeds, faster planner',
     'K4nt': 'K4nt: K4 wheat fix + full-quality planner, no time limit (6,000 iterations)',
+    'K5': 'K5: K4f + planned deliveries when the midnight dump will not fit the shed',
+    'K5b': 'K5b: K5, a delivery skipped when the shed already fits everything, milk not sold at once',
     'K4nt20': 'K4nt20: K4nt with 20,000 search iterations',
     'K4f': 'K4f: K4 + faster planner settings (4 sweep offsets, pairing on the 3 best positions)',
     'G0sM': 'G0sM: G0s + hard-coded melon rule',
