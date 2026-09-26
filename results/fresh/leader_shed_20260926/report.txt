@@ -1,0 +1,249 @@
+
+###### nights
+group          n | shed23  carry  total   lost | >100% >=95%   max | midDel h23Del |   held sold0-2 sold23
+Boey          40 |   13.1   70.2   83.2   0.33 |   6.5  21.0   113 |   26.5    3.8 |    8.6   0.23   0.03
+DECEM        100 |    5.2   81.5   86.7   0.92 |  13.6  27.3   139 |   19.8    1.6 |   13.7   0.36   0.04
+DSM          100 |    5.9   82.3   88.1   0.44 |  10.7  30.7   119 |   20.0    1.2 |   16.2   0.35   0.04
+K5b           53 |    8.7   86.6   95.3   3.09 |  30.0  54.7   152 |    3.6    1.3 |    0.1   0.74   0.02
+MG           142 |    6.5   77.2   83.7   0.48 |   8.4  20.0   133 |   19.5    1.2 |   11.6   0.33   0.05
+MMPQ         113 |   17.1   67.4   84.5   0.38 |   8.3  26.4   116 |   18.4    4.4 |   11.2   0.34   0.08
+Vadim        140 |    5.8   80.3   86.1   0.38 |   8.5  24.2   124 |   18.6    1.2 |   15.7   0.37   0.04
+leader@K5b    57 |    6.4   81.1   87.5   0.46 |  11.8  29.2   114 |   19.7    1.1 |   15.0   0.34   0.04
+
+###### types
+== DSM games 100
+  A_atshed    drops/day 1.12 units/day   4.2 units/drop  3.7 sold same h  39% detour med 0 mean 0.0 | MILK 2.6, EGG 0.9, WOOL 0.6, CARRO 0.0, WHEAT 0.0, FERTI 0.0
+              units by 4h block: 00:3.8 04:0.1 08:0.0 12:0.0 16:0.1 20:0.2
+  B_turn      drops/day 1.75 units/day  14.3 units/drop  8.2 sold same h  43% detour med 2.0 mean 1.5 | MILK 3.1, WHEAT 2.9, STRAW 2.5, WOOL 2.2, CARRO 1.0, MELON 1.0
+              units by 4h block: 00:0.4 04:2.4 08:1.7 12:2.0 16:4.7 20:3.2
+  C_endroute  drops/day 0.14 units/day   1.6 units/drop 11.1 sold same h  34% detour med 0.0 mean 0.0 | WHEAT 0.6, EGG 0.2, CARRO 0.2, MILK 0.2, FERTI 0.1, STRAW 0.1
+              units by 4h block: 12:0.0 16:0.1 20:1.5
+  E_h23       drops/day 0.10 units/day   1.1 units/drop 10.8 sold same h  56% detour med - mean 0.0 | WHEAT 0.5, CARRO 0.1, EGG 0.1, MILK 0.1, WOOL 0.1, FERTI 0.1
+              units by 4h block: 20:1.1
+== MG games 142
+  A_atshed    drops/day 1.04 units/day   3.8 units/drop  3.6 sold same h  43% detour med 0.0 mean 0.0 | MILK 2.5, EGG 0.6, WOOL 0.6, CARRO 0.0, WHEAT 0.0, FERTI 0.0
+              units by 4h block: 00:3.5 04:0.1 08:0.0 12:0.0 16:0.1 20:0.1
+  B_turn      drops/day 1.67 units/day  12.8 units/drop  7.6 sold same h  47% detour med 2.0 mean 1.6 | MILK 3.4, WOOL 2.4, WHEAT 2.2, STRAW 1.8, MELON 1.1, CARRO 0.7
+              units by 4h block: 00:0.4 04:2.7 08:1.9 12:1.7 16:4.0 20:2.0
+  C_endroute  drops/day 0.30 units/day   3.0 units/drop  9.9 sold same h  30% detour med 0.0 mean 0.0 | WHEAT 1.0, STRAW 0.5, MILK 0.4, EGG 0.3, CARRO 0.3, FERTI 0.3
+              units by 4h block: 08:0.0 12:0.0 16:0.4 20:2.6
+  E_h23       drops/day 0.12 units/day   1.2 units/drop 10.4 sold same h  50% detour med - mean 0.0 | WHEAT 0.5, CARRO 0.2, STRAW 0.1, WOOL 0.1, EGG 0.1, FERTI 0.1
+              units by 4h block: 20:1.2
+== Vadim games 140
+  A_atshed    drops/day 1.14 units/day   4.2 units/drop  3.7 sold same h  40% detour med 0.0 mean 0.0 | MILK 2.5, EGG 0.8, WOOL 0.7, CARRO 0.1, FERTI 0.0, TOMAT 0.0
+              units by 4h block: 00:3.8 04:0.1 08:0.0 12:0.0 16:0.1 20:0.1
+  B_turn      drops/day 1.62 units/day  13.0 units/drop  8.0 sold same h  41% detour med 2 mean 1.4 | MILK 3.1, WHEAT 2.8, WOOL 2.1, STRAW 1.7, MELON 1.0, CARRO 0.8
+              units by 4h block: 00:0.4 04:2.3 08:1.5 12:1.8 16:3.7 20:3.3
+  C_endroute  drops/day 0.14 units/day   1.4 units/drop  9.8 sold same h  34% detour med 0.0 mean 0.0 | WHEAT 0.5, EGG 0.2, CARRO 0.2, WOOL 0.1, FERTI 0.1, STRAW 0.1
+              units by 4h block: 16:0.1 20:1.3
+  E_h23       drops/day 0.11 units/day   1.1 units/drop 10.1 sold same h  49% detour med - mean 0.0 | WHEAT 0.4, MILK 0.1, CARRO 0.1, FERTI 0.1, EGG 0.1, WOOL 0.1
+              units by 4h block: 20:1.1
+== DECEM games 100
+  A_atshed    drops/day 1.28 units/day   4.4 units/drop  3.5 sold same h  44% detour med 0.0 mean 0.0 | MILK 2.3, EGG 1.5, WOOL 0.6, CARRO 0.1, STRAW 0.0, FERTI 0.0
+              units by 4h block: 00:4.1 04:0.1 08:0.0 12:0.0 16:0.1 20:0.2
+  B_turn      drops/day 1.69 units/day  13.5 units/drop  8.0 sold same h  47% detour med 2.0 mean 1.5 | MILK 3.0, WHEAT 2.8, WOOL 2.4, STRAW 1.9, CARRO 1.1, MELON 1.1
+              units by 4h block: 00:0.4 04:2.4 08:1.6 12:1.8 16:3.9 20:3.3
+  C_endroute  drops/day 0.18 units/day   1.8 units/drop 10.0 sold same h  36% detour med 0.0 mean 0.0 | WHEAT 0.7, STRAW 0.2, MILK 0.2, EGG 0.2, CARRO 0.2, FERTI 0.2
+              units by 4h block: 12:0.0 16:0.1 20:1.7
+  E_h23       drops/day 0.15 units/day   1.5 units/drop 10.2 sold same h  50% detour med - mean 0.0 | WHEAT 0.7, CARRO 0.2, MILK 0.1, STRAW 0.1, FERTI 0.1, EGG 0.1
+              units by 4h block: 20:1.5
+== MMPQ games 113
+  A_atshed    drops/day 0.72 units/day   2.4 units/drop  3.3 sold same h  48% detour med 0 mean 0.0 | MILK 1.2, WOOL 1.2, FERTI 0.1, STRAW 0.0, CARRO 0.0, WHEAT 0.0
+              units by 4h block: 00:2.2 04:0.1 08:0.0 12:0.0 16:0.0 20:0.0
+  B_turn      drops/day 1.79 units/day  11.2 units/drop  6.2 sold same h  62% detour med 2.0 mean 1.7 | STRAW 2.9, MILK 2.7, WOOL 2.5, WHEAT 1.7, FERTI 0.7, CARRO 0.5
+              units by 4h block: 00:0.3 04:2.5 08:1.5 12:2.2 16:3.3 20:1.4
+  C_endroute  drops/day 0.55 units/day   4.9 units/drop  8.9 sold same h  65% detour med 0.0 mean 0.0 | WHEAT 2.0, CARRO 0.8, STRAW 0.7, MILK 0.6, FERTI 0.5, WOOL 0.3
+              units by 4h block: 08:0.0 12:0.0 16:0.8 20:4.1
+  E_h23       drops/day 0.42 units/day   4.3 units/drop 10.3 sold same h  90% detour med - mean 0.0 | WHEAT 1.4, STRAW 0.7, MILK 0.6, FERTI 0.5, CARRO 0.4, EGG 0.3
+              units by 4h block: 20:4.3
+== Boey games 40
+  A_atshed    drops/day 1.54 units/day   5.5 units/drop  3.6 sold same h  82% detour med 0.0 mean 0.2 | MILK 2.0, WOOL 1.6, EGG 1.1, FERTI 0.5, WHEAT 0.2, CARRO 0.0
+              units by 4h block: 00:1.6 04:0.6 08:0.1 12:0.4 16:0.8 20:2.0
+  B_turn      drops/day 2.20 units/day  13.1 units/drop  6.0 sold same h  85% detour med 2.0 mean 1.5 | MILK 3.7, WOOL 2.6, STRAW 2.3, WHEAT 2.1, FERTI 1.0, EGG 0.9
+              units by 4h block: 04:1.8 08:1.9 12:2.7 16:3.7 20:3.0
+  C_endroute  drops/day 1.08 units/day   8.3 units/drop  7.7 sold same h  88% detour med 0.0 mean 0.0 | WHEAT 2.8, EGG 1.5, MILK 1.1, FERTI 1.0, STRAW 0.8, WOOL 0.6
+              units by 4h block: 12:0.1 16:1.2 20:7.1
+  E_h23       drops/day 0.47 units/day   3.3 units/drop  7.1 sold same h  90% detour med - mean 0.0 | WHEAT 1.1, EGG 0.7, FERTI 0.5, WOOL 0.3, CARRO 0.3, MILK 0.2
+              units by 4h block: 20:3.3
+== K5b games 53
+  B_turn      drops/day 0.16 units/day   1.0 units/drop  6.0 sold same h   0% detour med 0.0 mean 0.8 | MELON 1.0
+              units by 4h block: 04:0.3 08:0.6
+  C_endroute  drops/day 0.32 units/day   2.7 units/drop  8.2 sold same h  52% detour med - mean 0.0 | MILK 0.8, WHEAT 0.7, FERTI 0.5, WOOL 0.3, EGG 0.2, CARRO 0.1
+              units by 4h block: 12:0.0 16:0.2 20:2.4
+  E_h23       drops/day 0.16 units/day   1.3 units/drop  8.1 sold same h  57% detour med - mean 0.0 | WHEAT 0.3, MILK 0.3, FERTI 0.2, WOOL 0.2, EGG 0.1, STRAW 0.1
+              units by 4h block: 20:1.3
+
+###### load
+== DSM nights 1800  cf total (no midday) >100: 62%   actual >100: 11%
+   quintile 1 of (midday+carry): midday   8.1 carried  69.2 shed23   7.2 total  76.3 held  11.4 lost 0.02  share midday 11%
+   quintile 2 of (midday+carry): midday   8.6 carried  83.2 shed23   4.9 total  88.2 held  20.1 lost 0.08  share midday 9%
+   quintile 3 of (midday+carry): midday  15.7 carried  85.4 shed23   5.5 total  90.9 held  20.3 lost 0.35  share midday 16%
+   quintile 4 of (midday+carry): midday  22.0 carried  88.8 shed23   4.5 total  93.3 held  18.0 lost 0.98  share midday 20%
+   quintile 5 of (midday+carry): midday  45.7 carried  84.7 shed23   7.2 total  91.9 held  11.2 lost 0.77  share midday 35%
+== MG nights 2556  cf total (no midday) >100: 54%   actual >100: 8%
+   quintile 1 of (midday+carry): midday   8.4 carried  63.7 shed23   7.3 total  71.0 held  11.5 lost 0.00  share midday 12%
+   quintile 2 of (midday+carry): midday  10.2 carried  76.0 shed23   6.7 total  82.7 held  14.8 lost 0.02  share midday 12%
+   quintile 3 of (midday+carry): midday  16.4 carried  79.4 shed23   6.5 total  85.9 held  13.4 lost 0.18  share midday 17%
+   quintile 4 of (midday+carry): midday  22.0 carried  83.3 shed23   5.2 total  88.5 held  10.9 lost 0.55  share midday 21%
+   quintile 5 of (midday+carry): midday  40.5 carried  83.7 shed23   6.7 total  90.4 held   7.7 lost 1.64  share midday 33%
+== Vadim nights 2520  cf total (no midday) >100: 55%   actual >100: 8%
+   quintile 1 of (midday+carry): midday   7.8 carried  68.2 shed23   6.6 total  74.8 held  11.7 lost 0.01  share midday 10%
+   quintile 2 of (midday+carry): midday   9.1 carried  78.8 shed23   5.9 total  84.7 held  18.8 lost 0.04  share midday 10%
+   quintile 3 of (midday+carry): midday  14.2 carried  82.7 shed23   5.7 total  88.4 held  19.0 lost 0.18  share midday 15%
+   quintile 4 of (midday+carry): midday  20.1 carried  86.3 shed23   4.3 total  90.6 held  17.2 lost 0.49  share midday 19%
+   quintile 5 of (midday+carry): midday  41.6 carried  85.3 shed23   6.8 total  92.1 held  11.8 lost 1.17  share midday 33%
+== DECEM nights 1800  cf total (no midday) >100: 58%   actual >100: 14%
+   quintile 1 of (midday+carry): midday   9.3 carried  67.5 shed23   5.5 total  73.0 held  10.9 lost 0.00  share midday 12%
+   quintile 2 of (midday+carry): midday  10.3 carried  79.8 shed23   5.4 total  85.3 held  16.9 lost 0.05  share midday 11%
+   quintile 3 of (midday+carry): midday  14.7 carried  84.4 shed23   4.4 total  88.7 held  16.1 lost 0.38  share midday 15%
+   quintile 4 of (midday+carry): midday  21.1 carried  88.3 shed23   4.7 total  93.0 held  15.5 lost 1.56  share midday 19%
+   quintile 5 of (midday+carry): midday  43.4 carried  87.5 shed23   6.0 total  93.5 held   9.1 lost 2.59  share midday 33%
+== MMPQ nights 2034  cf total (no midday) >100: 55%   actual >100: 8%
+   quintile 1 of (midday+carry): midday   5.2 carried  55.3 shed23  21.9 total  77.2 held  13.9 lost 0.02  share midday 9%
+   quintile 2 of (midday+carry): midday  10.5 carried  64.9 shed23  19.1 total  84.0 held  13.0 lost 0.31  share midday 14%
+   quintile 3 of (midday+carry): midday  16.5 carried  69.0 shed23  18.2 total  87.2 held  12.5 lost 0.52  share midday 19%
+   quintile 4 of (midday+carry): midday  22.0 carried  73.3 shed23  14.5 total  87.8 held  10.8 lost 0.55  share midday 23%
+   quintile 5 of (midday+carry): midday  37.8 carried  74.4 shed23  11.9 total  86.3 held   5.9 lost 0.48  share midday 34%
+== Boey nights 720  cf total (no midday) >100: 70%   actual >100: 7%
+   quintile 1 of (midday+carry): midday  13.7 carried  58.4 shed23  12.8 total  71.2 held   5.4 lost 0.21  share midday 19%
+   quintile 2 of (midday+carry): midday  20.5 carried  68.4 shed23  15.9 total  84.3 held   9.4 lost 0.38  share midday 23%
+   quintile 3 of (midday+carry): midday  24.7 carried  72.9 shed23  13.9 total  86.7 held   9.8 lost 0.42  share midday 25%
+   quintile 4 of (midday+carry): midday  32.5 carried  73.4 shed23  12.7 total  86.1 held   8.9 lost 0.32  share midday 31%
+   quintile 5 of (midday+carry): midday  41.4 carried  77.8 shed23  10.1 total  87.8 held   9.7 lost 0.33  share midday 35%
+== K5b nights 954  cf total (no midday) >100: 42%   actual >100: 30%
+   quintile 1 of (midday+carry): midday   4.9 carried  58.1 shed23  19.8 total  77.9 held   0.1 lost 0.01  share midday 8%
+   quintile 2 of (midday+carry): midday   1.1 carried  80.8 shed23  10.6 total  91.5 held   0.1 lost 0.29  share midday 1%
+   quintile 3 of (midday+carry): midday   1.2 carried  89.8 shed23   6.4 total  96.2 held   0.1 lost 0.83  share midday 1%
+   quintile 4 of (midday+carry): midday   3.4 carried  95.8 shed23   3.9 total  99.7 held   0.1 lost 2.16  share midday 3%
+   quintile 5 of (midday+carry): midday   7.5 carried 107.8 shed23   2.9 total 110.7 held   0.0 lost 11.95  share midday 6%
+
+###### fates
+== six leader teams games 635
+  WHEAT       35.6/day  same-day  10%  h23  2%  carried  82%  consumed   6% | by harvest hour: same-day% (units/day) 00: 22%( 0.8) 04: 18%( 6.6) 08: 19%( 7.2) 12: 12%( 8.4) 16:  2%( 7.7) 20:  0%( 4.9)
+  CARROT       8.7/day  same-day  13%  h23  2%  carried  84%  consumed   0% | by harvest hour: same-day% (units/day) 00: 36%( 0.2) 04: 25%( 1.0) 08: 22%( 1.8) 12: 16%( 2.2) 16:  3%( 2.1) 20:  0%( 1.4)
+  TOMATO       4.8/day  same-day   5%  h23  1%  carried  94%  consumed   0% | by harvest hour: same-day% (units/day) 00: 24%( 0.1) 04: 19%( 0.3) 08: 13%( 0.6) 12:  6%( 1.1) 16:  1%( 1.5) 20:  0%( 1.3)
+  MELON        1.4/day  same-day  62%  h23  2%  carried  37%  consumed   0% | by harvest hour: same-day% (units/day) 00: 88%( 0.0) 04: 99%( 0.8) 08: 36%( 0.1) 12:  5%( 0.3) 16:  0%( 0.1) 20:  0%( 0.0)
+  STRAWBERRY  12.0/day  same-day  21%  h23  2%  carried  78%  consumed   0% | by harvest hour: same-day% (units/day) 00: 62%( 0.2) 04: 62%( 1.7) 08: 39%( 2.3) 12: 13%( 2.5) 16:  2%( 2.7) 20:  0%( 2.6)
+  MILK         9.6/day  same-day  59%  h23  3%  carried  38%  consumed   0% | by harvest hour: same-day% (units/day) 00: 85%( 4.2) 04: 56%( 2.0) 08: 30%( 1.3) 12: 31%( 1.0) 16: 41%( 0.6) 20: 10%( 0.6)
+  EGG          8.5/day  same-day  18%  h23  2%  carried  79%  consumed   0% | by harvest hour: same-day% (units/day) 00: 57%( 1.4) 04: 13%( 2.4) 08:  7%( 2.3) 12: 10%( 1.3) 16: 19%( 0.6) 20:  5%( 0.5)
+  WOOL         6.4/day  same-day  52%  h23  2%  carried  46%  consumed   0% | by harvest hour: same-day% (units/day) 00: 88%( 2.3) 04: 41%( 1.8) 08: 25%( 1.0) 12: 27%( 0.6) 16: 34%( 0.4) 20:  9%( 0.3)
+  FERTILIZER  19.4/day  same-day   5%  h23  1%  carried  43%  consumed  51% | by harvest hour: same-day% (units/day) 00: 27%( 3.8) 04: 12%( 7.2) 08:  6%( 4.6) 12:  7%( 2.2) 16:  9%( 1.0) 20:  1%( 0.6)
+== DSM games 100
+  WHEAT       36.7/day  same-day  10%  h23  1%  carried  81%  consumed   8% | by harvest hour: same-day% (units/day) 00: 23%( 1.2) 04: 17%( 7.9) 08: 20%( 6.7) 12: 12%( 8.2) 16:  2%( 7.2) 20:  0%( 5.4)
+  CARROT       8.4/day  same-day  15%  h23  1%  carried  84%  consumed   0% | by harvest hour: same-day% (units/day) 00: 33%( 0.3) 04: 30%( 0.9) 08: 25%( 1.8) 12: 18%( 1.9) 16:  4%( 1.9) 20:  0%( 1.6)
+  TOMATO       6.9/day  same-day   6%  h23  1%  carried  93%  consumed   0% | by harvest hour: same-day% (units/day) 00: 17%( 0.1) 04: 27%( 0.4) 08: 17%( 0.9) 12:  8%( 1.4) 16:  1%( 2.1) 20:  0%( 2.2)
+  MELON        1.3/day  same-day  75%  h23  0%  carried  25%  consumed   0% | by harvest hour: same-day% (units/day) 04:100%( 1.0) 08:100%( 0.0) 12:  0%( 0.3) 16:  0%( 0.0)
+  STRAWBERRY  13.0/day  same-day  20%  h23  1%  carried  80%  consumed   0% | by harvest hour: same-day% (units/day) 00: 86%( 0.1) 04: 73%( 1.6) 08: 44%( 2.2) 12: 12%( 2.8) 16:  1%( 2.9) 20:  0%( 3.4)
+  MILK         9.9/day  same-day  59%  h23  2%  carried  39%  consumed   0% | by harvest hour: same-day% (units/day) 00: 90%( 4.6) 04: 55%( 1.7) 08: 25%( 1.3) 12: 27%( 0.9) 16: 36%( 0.7) 20:  8%( 0.8)
+  EGG         10.6/day  same-day  18%  h23  1%  carried  82%  consumed   0% | by harvest hour: same-day% (units/day) 00: 55%( 2.0) 04: 14%( 2.6) 08:  5%( 3.3) 12:  8%( 1.7) 16: 18%( 0.6) 20:  5%( 0.5)
+  WOOL         6.0/day  same-day  48%  h23  2%  carried  51%  consumed   0% | by harvest hour: same-day% (units/day) 00: 94%( 1.8) 04: 36%( 1.9) 08: 22%( 1.0) 12: 22%( 0.6) 16: 26%( 0.3) 20:  9%( 0.4)
+  FERTILIZER  20.8/day  same-day   3%  h23  0%  carried  40%  consumed  57% | by harvest hour: same-day% (units/day) 00: 22%( 4.0) 04: 10%( 7.7) 08:  4%( 5.2) 12:  5%( 2.4) 16:  7%( 1.0) 20:  0%( 0.5)
+== K5b games 53
+  WHEAT       34.7/day  same-day   2%  h23  1%  carried  97%  consumed   0% | by harvest hour: same-day% (units/day) 00:  0%( 0.3) 04:  4%( 3.8) 08:  3%( 6.9) 12:  3%( 8.1) 16:  1%( 8.0) 20:  0%( 7.5)
+  CARROT       7.3/day  same-day   2%  h23  1%  carried  97%  consumed   0% | by harvest hour: same-day% (units/day) 00:  7%( 0.1) 04:  1%( 0.8) 08:  4%( 1.4) 12:  2%( 1.8) 16:  1%( 1.6) 20:  0%( 1.6)
+  TOMATO       6.6/day  same-day   1%  h23  1%  carried  99%  consumed   0% | by harvest hour: same-day% (units/day) 00: 11%( 0.0) 04:  2%( 0.4) 08:  1%( 0.8) 12:  2%( 1.3) 16:  1%( 1.8) 20:  0%( 2.3)
+  MELON        1.3/day  same-day  74%  h23  0%  carried  26%  consumed   0% | by harvest hour: same-day% (units/day) 04:100%( 1.0) 08:  0%( 0.1) 12:  0%( 0.1) 16:  0%( 0.1) 20:  0%( 0.1)
+  STRAWBERRY  12.7/day  same-day   1%  h23  1%  carried  99%  consumed   0% | by harvest hour: same-day% (units/day) 00:  0%( 0.0) 04:  2%( 0.7) 08:  2%( 1.9) 12:  1%( 3.1) 16:  0%( 3.5) 20:  0%( 3.5)
+  MILK         9.6/day  same-day   8%  h23  3%  carried  89%  consumed   0% | by harvest hour: same-day% (units/day) 00:  7%( 1.8) 04:  7%( 3.7) 08:  9%( 2.1) 12: 12%( 1.2) 16: 13%( 0.5) 20:  1%( 0.3)
+  EGG          7.0/day  same-day   2%  h23  2%  carried  96%  consumed   0% | by harvest hour: same-day% (units/day) 00:  4%( 0.6) 04:  3%( 2.2) 08:  1%( 2.0) 12:  3%( 1.2) 16:  3%( 0.6) 20:  1%( 0.4)
+  WOOL         5.9/day  same-day   5%  h23  3%  carried  92%  consumed   0% | by harvest hour: same-day% (units/day) 00:  2%( 0.7) 04:  4%( 2.2) 08:  6%( 1.5) 12:  9%( 0.6) 16:  6%( 0.4) 20:  0%( 0.3)
+  FERTILIZER  18.5/day  same-day   2%  h23  1%  carried  31%  consumed  65% | by harvest hour: same-day% (units/day) 00: 11%( 5.2) 04:  7%( 6.9) 08:  6%( 3.4) 12:  8%( 1.7) 16:  8%( 0.9) 20:  1%( 0.4)
+
+###### volume
+volume quintile 1: harvested 65/day, same-day 8.9: MELON 4.0, MILK 1.6, STRAW 1.0, WOOL 0.8, EGG 0.5, FERTI 0.4
+volume quintile 2: harvested 84/day, same-day 11.3: MILK 3.8, WOOL 2.0, STRAW 2.0, WHEAT 1.3, EGG 1.2, FERTI 0.6
+volume quintile 3: harvested 94/day, same-day 16.4: MILK 5.6, WOOL 3.2, STRAW 2.8, WHEAT 2.0, EGG 1.3, FERTI 0.8
+volume quintile 4: harvested 104/day, same-day 21.9: MILK 7.9, WOOL 4.1, STRAW 3.2, WHEAT 3.0, EGG 1.7, FERTI 1.0
+volume quintile 5: harvested 125/day, same-day 39.9: WHEAT 10.9, MILK 9.3, WOOL 6.5, CARRO 3.9, STRAW 3.5, EGG 3.1
+
+MILK       d0:  98%(  37)  76%(   1)  65%(   3) | d1:  73%(  36)  49%(   4)  43%(   5) | d2:  60%(  30)  33%(  20)  36%(   6) | d3:  56%(   7)  28%(  10)  21%(   4) | d4+:  55%(   1)  30%(   5)   9%(   4)
+WOOL       d0:  94%(  14)  79%(   0)  70%(   1) | d1:  66%(  36)  35%(   4)  38%(   4) | d2:  52%(  16)  27%(  13)  32%(   2) | d3:  65%(   6)  28%(   7)  23%(   2) | d4+:  60%(   2)  28%(   5)   5%(   3)
+EGG        d0:  89%(  14)  51%(   0)  64%(   2) | d1:  15%(  25)  19%(   4)  36%(   2) | d2:  17%(  23)  10%(  24)  29%(   4) | d3:  14%(   6)   9%(  22)  13%(   4) | d4+:  35%(   0)   8%(  15)   2%(   8)
+STRAWBERRY d0:  74%(   0) 100%(   0) 100%(   0) | d1:  62%(   2)  52%(   0)  86%(   0) | d2:  52%(   6)  36%(   1)  46%(   0) | d3:  63%(  16)  24%(  11)  21%(   2) | d4+:  73%(  11)  28%(  75)   1%(  92)
+WHEAT      d0:  19%(   3)  29%(   0)  52%(   0) | d1:  25%(  12)  14%(   1)  47%(   1) | d2:  22%(  35)  22%(  12)  19%(   4) | d3:  19%(  52)  21%(  65)  11%(  15) | d4+:  21%(   6)  16%( 192)   1%( 205)
+CARROT     d0:  51%(   2)  79%(   0)  83%(   0) | d1:  24%(   4)  28%(   0)  51%(   0) | d2:  30%(   8)  19%(   4)  24%(   1) | d3:  29%(   7)  22%(  19)  14%(   3) | d4+:  24%(   1)  22%(  49)   2%(  59)
+TOMATO     d0:  48%(   0) 100%(   0)  67%(   0) | d1:  18%(   1)   0%(   0)  23%(   0) | d2:  24%(   3)  10%(   3)  30%(   0) | d3:  20%(   1)  14%(   4)  11%(   1) | d4+:  37%(   0)  10%(  24)   1%(  48)
+
+###### k5b_distance
+== leader on K5b worlds
+  MILK       same-day by distance: d0  95% ( 50/w) d1  61% ( 52/w) d2  42% ( 55/w) d3  27% ( 19/w) d4  15% (  7/w)
+  WOOL       same-day by distance: d0  97% ( 11/w) d1  59% ( 40/w) d2  36% ( 37/w) d3  37% ( 21/w) d4  32% (  7/w)
+  EGG        same-day by distance: d0  89% ( 16/w) d1  14% ( 31/w) d2  11% ( 63/w) d3   7% ( 39/w) d4   6% ( 24/w)
+  STRAWBERRY same-day by distance: d0   0% (  0/w) d1  89% (  0/w) d2  51% (  3/w) d3  47% ( 30/w) d4  16% (198/w)
+  WHEAT      same-day by distance: d0  19% (  6/w) d1  21% ( 18/w) d2  20% ( 56/w) d3  15% (142/w) d4   8% (377/w)
+== K5b
+  MILK       same-day by distance: d0  14% ( 45/w) d1  12% ( 49/w) d2  11% ( 54/w) d3   6% ( 19/w) d4   3% (  7/w)
+  WOOL       same-day by distance: d0  19% ( 10/w) d1   9% ( 38/w) d2   7% ( 32/w) d3   6% ( 17/w) d4   1% (  8/w)
+  EGG        same-day by distance: d0   8% ( 12/w) d1   5% ( 22/w) d2   4% ( 48/w) d3   3% ( 28/w) d4   2% ( 16/w)
+  STRAWBERRY same-day by distance: d0   0% (  0/w) d1   6% (  1/w) d2   5% (  4/w) d3   4% ( 30/w) d4   1% (194/w)
+  WHEAT      same-day by distance: d0   6% ( 10/w) d1   7% ( 24/w) d2   7% ( 65/w) d3   4% (139/w) d4   1% (385/w)
+
+###### cf
+K5b nights 954 units moved to same-day at leader rates 17.3/night
+deleted per world (days 11-28): actual 55.5 -> at leader delivery rates 2.1
+nights over 100: 30% -> 3%
+deleted value per world at next-morning quote: 4885 -> 147 (rough)
+
+###### prices
+== six leaders
+   MILK       avg sale price (share of units): h0-2 120.7 (  29%) h3-11 114.7 (  29%) h12-22  88.5 (  40%) h23 113.6 (   2%)
+   WOOL       avg sale price (share of units): h0-2 133.6 (  27%) h3-11 140.8 (  36%) h12-22 119.0 (  34%) h23 119.1 (   3%)
+   STRAWBERRY avg sale price (share of units): h0-2 159.9 (  33%) h3-11 137.1 (  22%) h12-22 137.2 (  42%) h23 137.1 (   3%)
+   EGG        avg sale price (share of units): h0-2  47.2 (  19%) h3-11  46.6 (   9%) h12-22  46.2 (  65%) h23  45.6 (   8%)
+   CARROT     avg sale price (share of units): h0-2  42.8 (  35%) h3-11  42.5 (  16%) h12-22  43.0 (  41%) h23  42.2 (   8%)
+   TOMATO     avg sale price (share of units): h0-2  66.9 (  26%) h3-11  70.9 (   8%) h12-22  71.4 (  59%) h23  76.6 (   7%)
+   WHEAT      avg sale price (share of units): h0-2  35.2 (  29%) h3-11  37.1 (  28%) h12-22  35.2 (  39%) h23  33.8 (   4%)
+   MELON      avg sale price (share of units): h0-2 161.8 (  38%) h3-11 186.6 (  56%) h12-22 154.3 (   5%) h23 180.5 (   2%)
+   FERTILIZER avg sale price (share of units): h0-2  45.1 (  65%) h3-11  32.9 (  15%) h12-22  24.8 (  17%) h23  26.0 (   3%)
+   quote by hour MILK       0:91 1:94 2:88 3:86 4:86 6:87 8:86 12:86 16:86 20:86 23:85
+   quote by hour WOOL       0:73 1:81 2:74 3:72 4:70 6:71 8:70 12:71 16:71 20:72 23:70
+   quote by hour STRAWBERRY 0:137 1:136 2:134 3:134 4:134 6:135 8:135 12:135 16:135 20:135 23:134
+   quote by hour EGG        0:48 1:48 2:48 3:48 4:48 6:48 8:48 12:48 16:48 20:48 23:48
+== DSM
+   MILK       avg sale price (share of units): h0-2 131.8 (  25%) h3-11 121.7 (  29%) h12-22  93.9 (  44%) h23  79.9 (   2%)
+   WOOL       avg sale price (share of units): h0-2 142.1 (  25%) h3-11 154.8 (  38%) h12-22 129.9 (  35%) h23 113.4 (   2%)
+   STRAWBERRY avg sale price (share of units): h0-2 163.9 (  38%) h3-11 134.5 (  20%) h12-22 140.4 (  40%) h23 133.0 (   2%)
+   EGG        avg sale price (share of units): h0-2  48.4 (  12%) h3-11  47.1 (   8%) h12-22  45.9 (  73%) h23  45.2 (   7%)
+   CARROT     avg sale price (share of units): h0-2  42.6 (  32%) h3-11  41.9 (  20%) h12-22  43.3 (  39%) h23  42.7 (   9%)
+   TOMATO     avg sale price (share of units): h0-2  68.4 (  22%) h3-11  71.4 (   6%) h12-22  72.7 (  65%) h23  81.5 (   6%)
+   WHEAT      avg sale price (share of units): h0-2  35.6 (  41%) h3-11  37.3 (  20%) h12-22  35.2 (  36%) h23  32.3 (   4%)
+   MELON      avg sale price (share of units): h0-2 156.1 (  26%) h3-11 186.8 (  73%) h12-22 136.2 (   1%) h23   0.0 (   0%)
+   FERTILIZER avg sale price (share of units): h0-2  47.0 (  80%) h3-11  34.7 (   2%) h12-22  16.4 (  16%) h23  18.1 (   2%)
+   quote by hour MILK       0:96 1:99 2:93 3:91 4:91 6:92 8:91 12:91 16:91 20:91 23:90
+   quote by hour WOOL       0:75 1:81 2:75 3:74 4:72 6:73 8:72 12:72 16:73 20:74 23:73
+   quote by hour STRAWBERRY 0:140 1:139 2:135 3:135 4:135 6:137 8:137 12:137 16:137 20:136 23:136
+   quote by hour EGG        0:47 1:48 2:47 3:47 4:47 6:47 8:47 12:48 16:48 20:48 23:47
+== K5b
+   MILK       avg sale price (share of units): h0-2 130.4 (  81%) h3-11   0.0 (   0%) h12-22  58.9 (  15%) h23 145.1 (   4%)
+   WOOL       avg sale price (share of units): h0-2 177.6 (  75%) h3-11   0.0 (   0%) h12-22  64.3 (  21%) h23 172.5 (   4%)
+   STRAWBERRY avg sale price (share of units): h0-2 152.7 (  90%) h3-11   0.0 (   0%) h12-22  99.6 (   9%) h23 135.8 (   1%)
+   EGG        avg sale price (share of units): h0-2  49.0 (  95%) h3-11   0.0 (   0%) h12-22  49.8 (   4%) h23  48.7 (   2%)
+   CARROT     avg sale price (share of units): h0-2  43.2 (  82%) h3-11   0.0 (   0%) h12-22  44.9 (  16%) h23  43.2 (   2%)
+   TOMATO     avg sale price (share of units): h0-2  71.1 (  82%) h3-11   0.0 (   0%) h12-22  71.9 (  17%) h23  68.4 (   1%)
+   WHEAT      avg sale price (share of units): h0-2  37.0 (  42%) h3-11  37.2 (   2%) h12-22  37.1 (  54%) h23  35.9 (   2%)
+   MELON      avg sale price (share of units): h0-2 145.3 (  27%) h3-11 184.7 (  48%) h12-22 163.3 (  25%) h23   0.0 (   0%)
+   FERTILIZER avg sale price (share of units): h0-2  44.6 (  90%) h3-11   0.0 (   0%) h12-22  39.7 (   7%) h23  38.9 (   3%)
+   quote by hour MILK       0:117 1:121 2:105 3:104 4:103 6:107 8:106 12:109 16:112 20:115 23:114
+   quote by hour WOOL       0:98 1:102 2:92 3:91 4:91 6:93 8:92 12:94 16:96 20:97 23:97
+   quote by hour STRAWBERRY 0:149 1:151 2:137 3:137 4:137 6:140 8:140 12:142 16:144 20:146 23:146
+   quote by hour EGG        0:50 1:50 2:49 3:49 4:49 6:49 8:49 12:49 16:50 20:50 23:50
+
+###### lags
+== six leaders
+  MILK       midday-delivered sold: same h 40% 1-3h 25% 4-11h 18% later same day 10% next day+  6% || night-carry sold: h0 13% h1-2 32% h3-11 19% later 36%
+  WOOL       midday-delivered sold: same h 51% 1-3h 15% 4-11h 16% later same day  6% next day+ 12% || night-carry sold: h0  8% h1-2 20% h3-11 19% later 53%
+  STRAWBERRY midday-delivered sold: same h 56% 1-3h 30% 4-11h  8% later same day  0% next day+  7% || night-carry sold: h0 24% h1-2 13% h3-11 20% later 42%
+  EGG        midday-delivered sold: same h 15% 1-3h 29% 4-11h 14% later same day 40% next day+  2% || night-carry sold: h0  1% h1-2 21% h3-11 10% later 68%
+  CARROT     midday-delivered sold: same h 34% 1-3h 51% 4-11h 10% later same day  3% next day+  1% || night-carry sold: h0 24% h1-2 19% h3-11 19% later 39%
+  TOMATO     midday-delivered sold: same h  4% 1-3h 67% 4-11h 24% later same day  1% next day+  4% || night-carry sold: h0 21% h1-2  5% h3-11  9% later 65%
+  MELON      midday-delivered sold: same h 97% 1-3h  2% 4-11h  0% later same day  0% next day+  0% || night-carry sold: h0 62% h1-2 24% h3-11  9% later  5%
+  WHEAT      midday-delivered sold: same h  0% 1-3h  0% 4-11h  0% later same day  0% next day+ 100% || night-carry sold: h0  0% h1-2  0% h3-11  0% later 100%
+== K5b
+  MILK       midday-delivered sold: same h  0% 1-3h 95% 4-11h  3% later same day  0% next day+  2% || night-carry sold: h0  0% h1-2 86% h3-11  0% later 14%
+  WOOL       midday-delivered sold: same h 98% 1-3h  1% 4-11h  0% later same day  0% next day+  0% || night-carry sold: h0  0% h1-2 80% h3-11  0% later 20%
+  STRAWBERRY midday-delivered sold: same h 96% 1-3h  4% 4-11h  0% later same day  0% next day+  0% || night-carry sold: h0  0% h1-2 89% h3-11  0% later 11%
+  EGG        midday-delivered sold: same h 94% 1-3h  4% 4-11h  1% later same day  0% next day+  0% || night-carry sold: h0  0% h1-2 98% h3-11  0% later  2%
+  CARROT     midday-delivered sold: same h 83% 1-3h  6% 4-11h  7% later same day  0% next day+  4% || night-carry sold: h0  0% h1-2 83% h3-11  0% later 17%
+  TOMATO     midday-delivered sold: same h 82% 1-3h 11% 4-11h  4% later same day  0% next day+  4% || night-carry sold: h0  0% h1-2 81% h3-11  0% later 19%
+  MELON      midday-delivered sold: same h  0% 1-3h 100% 4-11h  0% later same day  0% next day+  0% || night-carry sold: h0  0% h1-2 100% h3-11  0% later  0%
+  WHEAT      midday-delivered sold: same h  0% 1-3h  0% 4-11h  0% later same day  0% next day+ 100% || night-carry sold: h0  0% h1-2  0% h3-11  0% later 100%
