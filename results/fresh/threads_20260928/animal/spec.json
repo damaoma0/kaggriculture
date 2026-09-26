@@ -493,5 +493,49 @@
    "sd_tier_turnaround": 2
   },
   "label": "KT3 = KE4 + every feasible midday turnaround (not only on projected overflow)"
+ },
+ "KU1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_evening_sell": [
+    "WOOL",
+    "MILK",
+    "STRAWBERRY"
+   ],
+   "sd_evening_frac": 1.0
+  },
+  "label": "KU1 = KE7 + all of the morning wool / milk / strawberry stock sold at hours 20-23"
+ },
+ "KU2": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_evening_sell": [
+    "WOOL",
+    "MILK",
+    "STRAWBERRY"
+   ],
+   "sd_evening_frac": 0.5
+  },
+  "label": "KU2 = KE7 + half of it at hours 20-23"
  }
 }
