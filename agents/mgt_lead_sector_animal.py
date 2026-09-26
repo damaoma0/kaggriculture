@@ -264,6 +264,20 @@ CFG = {
     "sd_tier_deliver_check": 0,   # 1: a planned delivery is skipped when shed + everything carried already fits at that hour
     "sd_tier_deliver_keep": None, # products a delivery does not sell at once (e.g. ["MILK"]: dearer the next morning) # units kept free in the shed at midnight beyond tomorrow's feed wheat (one per animal)
     "sd_tier_coll_cap": 0,    # >0: collects per hand; one more only when it is on the hand's way (no extra walking)
+    # ---- animal thread (2026-09-28): all default OFF (= K5b)
+    "sd_tier_log_v": 0,       # 1: the day summary logs every planned op as [op, mandatory, tier, value] (diagnosis only)
+    "sd_tier_anim_c": 0,      # 1: the animal FEED / CARE bundles join the outbound extras pool (tier C, by value per hour)
+    "sd_tier_anim_c_minv": 0.0,   # ... only bundles worth at least this (coins)
+    "sd_tier_anim_c_mult": 1.0,   # ... their value multiplied by this in that pool
+    "sd_tier_anim_mand_minv": None,  # FEED / CARE of a live animal become mandatory (tier B) when their joint value >= this
+    "sd_tier_feed_bank": 0,   # N >= 1 (coordinator 2026-09-26): a FEED on the animal's production day is mandatory (tier B) when its banked care bonus is >= N (an unfed production day wipes the bank: K5b loses 23 eggs / 19 milk / 13 wool a world that way vs DSM 15 / 8 / 3)
+    "sd_tier_anim_harv": 0,   # 1: an animal HARVEST is mandatory only when tonight's production would overflow max_held
+    "sd_tier_anim_harv_frac": 0.1,   # ... else an extra worth held x price x this
+    "sd_tier_anim_harv_end": 27,     # ... from this day every animal harvest stays mandatory (season end)
+    "sd_tier_anim_out": 0,    # 1 (user idea): in phase C, after the collect -> fertilize pairs, an outbound hand with spare time
+                              # feeds / cares / collects the animals on its outbound leg (spawn -> first patch stop)
+    "sd_tier_anim_out_detour": 0,    # ... animals at most this many tiles off a shortest path (0 = on it; 1 tile = 2 extra steps)
+    "sd_tier_anim_out_spare": 1,     # ... a hand qualifies while its planned day ends by 24 - this (hours)
     "sd_melon_rule": 0,       # 1 (user): hard-coded melon trips (by 8 bonus / 8-12 penalty / never after 12), melon hands kept out of the planner
     "sd_mel_bonus": 10.0,     # coins per melon unit per hour delivered before 8
     "sd_mel_pen": 10.0,       # coins per melon unit per hour delivered after 8 (never after 12)
@@ -6267,6 +6281,127 @@ def _tier_melon(day, tiles, units):
     return (best[1] if best else []), left
 
 
+def _tier_anim_harv_needed(t, day):
+    """animal thread (sd_tier_anim_harv): today's harvest is needed when tonight's production (1 + the banked bonus) would
+    not fit under max_held, or from sd_tier_anim_harv_end on (everything held must reach the market by the end)."""
+    if day >= int(CFG["sd_tier_anim_harv_end"]):
+        return True
+    a = ANIMALS[t["animal"]]
+    held = int(t.get("yield_units", 0) or 0)
+    dsf = day + 1 - int(t.get("placed_day", day)) - a["first"]
+    if dsf < 0 or dsf % a["interval"] != 0:
+        return held >= a["max_held"]
+    return held + 1 + int(t.get("pending_care_bonus", 0) or 0) > a["max_held"]
+
+
+def _tier_anim_mand(rec, tiles, minv, st):
+    """animal thread (sd_tier_anim_mand_minv): on a live animal the non-mandatory FEED / CARE become mandatory (tier B) when
+    their joint value is >= minv; a CARE only with a feed today (mandatory FEED or already fed), as it pays only then."""
+    n = 0
+    for idx, r_ in rec.items():
+        t = _tile(tiles, idx)
+        if not _animal(t):
+            continue
+        fc = [o for o in r_["ops"] if o["c"][0] in ("FEED", "CARE") and not o["m"]]
+        if not fc or sum(o["v"] for o in fc) < minv:
+            continue
+        fed = t.get("fed_today") or any(o["c"][0] == "FEED" for o in r_["ops"])
+        for o in fc:
+            if o["c"][0] == "CARE" and not fed:
+                continue
+            o["m"], o["tier"] = True, 2
+            n += 1
+    st["tier_anim_mand"] = st.get("tier_anim_mand", 0) + n
+
+
+def _tier_anim_out(segs, idx, pool_a, pool_b, collects, anim, rate, st):
+    """user idea (sd_tier_anim_out): an outbound hand whose planned day ends by 24 - spare feeds / cares / collects the
+    animals lying on (or within sd_tier_anim_out_detour tiles of) a shortest path from its start to its first patch stop
+    (the first stop off the animal tiles), inserted before that stop by value per added hour (detour 0 first); FEED /
+    CARE come from the unplanned animal bundles (pool_a / pool_b), a COLLECT from the free collects within the per-hand
+    cap (one more only at detour 0). The wheat pickup is the route's implicit one (+1 hour for its first FEED)."""
+    D = _TIER_D
+    dmax = 2 * int(CFG["sd_tier_anim_out_detour"])
+    spare = int(CFG["sd_tier_anim_out_spare"])
+    cap = int(CFG["sd_tier_coll_cap"])
+    n_ins = 0
+    for k in idx:
+        sg = segs[k]
+        if not sg["stops"]:
+            continue
+        ev0 = _tier_eval(sg)
+        p0 = sg["p0"]
+        kb = next((i for i, x in enumerate(sg["stops"]) if x["tile"] not in anim), None)
+        if kb is None:
+            continue
+        b1 = sg["stops"][kb]["tile"]
+        fcb = {}
+        for pl in (pool_a, pool_b):
+            for bd in pl:
+                if bd["tile"] in anim and any(o["c"][0] in ("FEED", "CARE") for o in bd["ops"]):
+                    fcb[bd["tile"]] = (pl, bd)
+        cands = sorted((D[p0][a] + D[a][b1] - D[p0][b1],
+                        -((fcb[a][1]["v"] if a in fcb else 0.0) + (collects[a]["v"] if a in collects else 0.0)), a)
+                       for a in set(fcb) | set(collects))
+        for det, _nv, a in cands:
+            if det > dmax:
+                break
+            if ev0[0] > 24 - spare:
+                break
+            ops = []
+            pb = fcb.get(a)
+            if pb is not None:
+                ops += [o for o in pb[1]["ops"] if o["c"][0] in ("FEED", "CARE")]
+            use_c = False
+            if a in collects:
+                nc = sum(1 for x in sg["stops"] for o in x["ops"] if o["c"][0] == "COLLECT_FERTILIZER")
+                if not cap or nc < cap or (nc == cap and det == 0):
+                    ops.append(collects[a])
+                    use_c = True
+            if not ops:
+                continue
+            v = sum(o["v"] for o in ops)
+            kb_now = next(i for i, x in enumerate(sg["stops"]) if x["tile"] == b1)
+            if any(x["tile"] == a for x in sg["stops"][:kb_now]):
+                opts = [_tier_merge(sg["stops"], a, ops)[0]]
+            else:
+                opts = [_tier_merge(sg["stops"], a, ops, 0, pos)[0] for pos in range(sg.get("lo", 0), kb_now + 1)]
+            best = None
+            for st_ in opts:
+                ev = _tier_eval(sg, st_)
+                if ev[1] > ev0[1] or ev[3] > ev0[3] or ev[0] > 24:
+                    continue
+                sc = v / max(0.25, ev[0] - ev0[0])
+                if sc >= rate and (best is None or sc > best[0]):
+                    best = (sc, st_, ev)
+            if best is None:
+                continue
+            sg["stops"] = best[1]
+            sg["ver"] += 1
+            ev0 = best[2]
+            n_ins += 1
+            if pb is not None:
+                pl, bd = pb
+                bd["ops"] = [o for o in bd["ops"] if o["c"][0] not in ("FEED", "CARE")]
+                bd["v"] = sum(o["v"] for o in bd["ops"])
+                bd["bv"] = bd.get("bv", 0) + 1
+                if not bd["ops"]:
+                    pl.remove(bd)
+                fcb.pop(a, None)
+            if use_c:
+                collects.pop(a, None)
+                for pl in (pool_a, pool_b):            # the tile's collect bundle is taken
+                    for bd in list(pl):
+                        if bd["tile"] == a and any(o["c"][0] == "COLLECT_FERTILIZER" for o in bd["ops"]):
+                            bd["ops"] = [o for o in bd["ops"] if o["c"][0] != "COLLECT_FERTILIZER"]
+                            bd["v"] = sum(o["v"] for o in bd["ops"])
+                            bd["bv"] = bd.get("bv", 0) + 1
+                            if not bd["ops"]:
+                                pl.remove(bd)
+    st["tier_anim_out"] = st.get("tier_anim_out", 0) + n_ins
+    return n_ins
+
+
 def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, jobs, shed, seeds, prices, assign,
               deliv_u, fert_keep, demand):
     """hour 0: plan the whole day (S["tier"]); later hours: nothing (the plan is fixed)."""
@@ -6311,8 +6446,31 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                 m, tier = False, 3
             else:
                 m, tier = False, 4                 # FEED (not keep-alive), CARE, COLLECT_FERTILIZER
-            r_["ops"].append(_tier_op(o, m, vals[i] if i < len(vals) else 0.0, tier, after_plant=plant_seen and c == "WATER"))
+            v_ = vals[i] if i < len(vals) else 0.0
+            if (c == "HARVEST" and CFG["sd_tier_anim_harv"] and i != hi and _animal(_tile(tiles, b))
+                    and not _tier_anim_harv_needed(_tile(tiles, b), day)):
+                t_ = _tile(tiles, b)          # animal thread: harvest deferred (nothing overflows tonight)
+                m, tier = False, 4
+                v_ = (float(t_.get("yield_units", 0) or 0) * float(prices.get(ANIMALS[t_["animal"]]["product"], 0) or 0)
+                      * float(CFG["sd_tier_anim_harv_frac"]))
+                st["tier_anim_harv_deferred"] = st.get("tier_anim_harv_deferred", 0) + 1
+            r_["ops"].append(_tier_op(o, m, v_, tier, after_plant=plant_seen and c == "WATER"))
     st["tier_pred_skipped"] = st.get("tier_pred_skipped", 0) + skipped
+    if CFG["sd_tier_anim_mand_minv"] is not None:  # animal thread: valuable FEED / CARE are mandatory (tier B)
+        _tier_anim_mand(rec, tiles, float(CFG["sd_tier_anim_mand_minv"]), st)
+    if int(CFG["sd_tier_feed_bank"]) > 0:         # protect the bank: feed on the production day
+        for idx, r_ in rec.items():
+            t_ = _tile(tiles, idx)
+            if not _animal(t_) or t_.get("fed_today"):
+                continue
+            a_ = ANIMALS[t_["animal"]]
+            dsf_ = day + 1 - int(t_.get("placed_day", day)) - a_["first"]
+            if dsf_ < 0 or dsf_ % a_["interval"] != 0 or int(t_.get("pending_care_bonus", 0) or 0) < int(CFG["sd_tier_feed_bank"]):
+                continue
+            for o in r_["ops"]:
+                if o["c"][0] == "FEED" and not o["m"]:
+                    o["m"], o["tier"] = True, 2
+                    st["tier_feed_bank"] = st.get("tier_feed_bank", 0) + 1
     # ---- the leader's plan for today that the hour-0 task list does not show yet (seeds / animals bought later)
     added = 0
     for idx, job in sorted(jobs.items()):
@@ -6543,7 +6701,15 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
                     b4.append({"tile": i, "ops": [o], "v": o["v"], "shared": True})
             fc = [o for o in ex if o["tier"] == 4 and o["c"][0] in ("FEED", "CARE")]
             if fc:
-                b4.append({"tile": i, "ops": fc, "v": sum(o["v"] for o in fc), "shared": True})
+                vfc = sum(o["v"] for o in fc)
+                if CFG["sd_tier_anim_c"] and vfc >= float(CFG["sd_tier_anim_c_minv"]):   # animal thread: tier C pool
+                    b3.append({"tile": i, "ops": fc, "v": vfc * float(CFG["sd_tier_anim_c_mult"]), "shared": True})
+                    st["tier_anim_c"] = st.get("tier_anim_c", 0) + 1
+                else:
+                    b4.append({"tile": i, "ops": fc, "v": vfc, "shared": True})
+            hv = [o for o in ex if o["c"][0] == "HARVEST"]
+            if hv and CFG["sd_tier_anim_harv"]:            # animal thread: a deferred animal harvest is an extra
+                b4.append({"tile": i, "ops": hv, "v": sum(o["v"] for o in hv), "shared": True})
         else:
             e3 = [o for o in ex if o["tier"] == 3]
             if e3:
@@ -6552,7 +6718,16 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
     idx_out = [k for k, s in enumerate(segs) if s["kind"] == "out"]
     idx_pri = [k for k, s in enumerate(segs) if s["kind"] in ("post", "ani")]
     # C. extras on the outbound hands: fertilize (paired with a collect) and waterings, by value per hour
-    _tier_fill(segs, idx_out, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st, "c")
+    if CFG["sd_tier_anim_out"]:                    # user idea: pairs, then animals on the outbound leg, then the other extras
+        rc_ = max(rate, float(CFG["sd_tier_rate_c"]))
+        b3f = [bd for bd in b3 if any(o["c"][0] == "FERTILIZE" for o in bd["ops"])]
+        b3r = [bd for bd in b3 if not any(o["c"][0] == "FERTILIZE" for o in bd["ops"])]
+        _tier_fill(segs, idx_out, b3f, collects, owner, rc_, st, "c")
+        _tier_anim_out(segs, idx_out, b3r, b4, collects, set(anim), rc_, st)
+        _tier_fill(segs, idx_out, b3r, collects, owner, rc_, st, "c2")
+        b3 = b3f + b3r
+    else:
+        _tier_fill(segs, idx_out, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st, "c")
     if CFG["sd_tier_relief"] and b3:               # relief for the outbound extras before the melon hands take the free collects
         _tier_relief(segs, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st)
     # D. animal work: the melon hands' leftover labour first (and an animal hand)
@@ -6597,6 +6772,9 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
                      "drop": mel_of[u]["drop"] if u in mel_of else None,
                      "melons": [x["tile"] for x in mel_of[u]["stops"] if not x.get("place")] if u in mel_of else [],
                      "stops": [[x["tile"], [o["c"][0] for o in x["ops"]]] for x in s["stops"]]})
+        if CFG["sd_tier_log_v"]:                   # animal thread: [op, mandatory, tier, value] per planned op
+            summ[-1]["stops_v"] = [[x["tile"], [[o["c"][0], int(o["m"]), o["tier"], round(o["v"], 1)] for o in x["ops"]]]
+                                   for x in s["stops"]]
     unplanned = [[bd["tile"], [o["c"][0] for o in bd["ops"]], round(bd["v"], 1)] for bd in rest]
     return {"day": day, "routes": routes_u, "log": [], "cnt": Counter(), "owner": owner,
                  "summary": {"units": summ, "left_out_melons": left, "mand_late": late_m, "unplanned": unplanned,

@@ -1,0 +1,335 @@
+{
+ "KA0": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1
+  },
+  "label": "KA0: K5b + op-value log (identity check)"
+ },
+ "KA1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_c": 1
+  },
+  "label": "KA1: animal FEED/CARE bundles in the tier-C pool"
+ },
+ "KA1v100": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 100.0
+  },
+  "label": "KA1v100: KA1, bundles worth >= 100 only"
+ },
+ "KA1x2": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_mult": 2.0
+  },
+  "label": "KA1x2: KA1, animal values x2 in the pool"
+ },
+ "KA2m200": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_mand_minv": 200.0
+  },
+  "label": "KA2m200: FEED/CARE mandatory when worth >= 200"
+ },
+ "KA2m120": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_mand_minv": 120.0
+  },
+  "label": "KA2m120: FEED/CARE mandatory when worth >= 120"
+ },
+ "KA2m60": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_mand_minv": 60.0
+  },
+  "label": "KA2m60: FEED/CARE mandatory when worth >= 60"
+ },
+ "KA3": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1
+  },
+  "label": "KA3: animal harvest mandatory only before the held cap"
+ },
+ "KA4a1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_animal_hand": 1,
+   "hire_extra": 1
+  },
+  "label": "KA4a1: + one animal hand (extra hire)"
+ },
+ "KA4a2": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_animal_hand": 2,
+   "hire_extra": 2
+  },
+  "label": "KA4a2: + two animal hands (extra hires)"
+ },
+ "KAr0": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_relief": 0
+  },
+  "label": "KAr0: K5b with the relief step off"
+ },
+ "KAo_d0s1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_out": 1,
+   "sd_tier_anim_out_detour": 0,
+   "sd_tier_anim_out_spare": 1
+  },
+  "label": "KAo_d0s1: outbound hands feed/care/collect animals on their outbound leg (detour 0 tiles, spare 1 h)"
+ },
+ "KAo_d0s3": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_out": 1,
+   "sd_tier_anim_out_detour": 0,
+   "sd_tier_anim_out_spare": 3
+  },
+  "label": "KAo_d0s3: outbound hands feed/care/collect animals on their outbound leg (detour 0 tiles, spare 3 h)"
+ },
+ "KAo_d1s1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_out": 1,
+   "sd_tier_anim_out_detour": 1,
+   "sd_tier_anim_out_spare": 1
+  },
+  "label": "KAo_d1s1: outbound hands feed/care/collect animals on their outbound leg (detour 1 tiles, spare 1 h)"
+ },
+ "KAo_d1s3": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_out": 1,
+   "sd_tier_anim_out_detour": 1,
+   "sd_tier_anim_out_spare": 3
+  },
+  "label": "KAo_d1s3: outbound hands feed/care/collect animals on their outbound leg (detour 1 tiles, spare 3 h)"
+ },
+ "KAo_d2s1": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_out": 1,
+   "sd_tier_anim_out_detour": 2,
+   "sd_tier_anim_out_spare": 1
+  },
+  "label": "KAo_d2s1: outbound hands feed/care/collect animals on their outbound leg (detour 2 tiles, spare 1 h)"
+ },
+ "KAo_d2s3": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_out": 1,
+   "sd_tier_anim_out_detour": 2,
+   "sd_tier_anim_out_spare": 3
+  },
+  "label": "KAo_d2s3: outbound hands feed/care/collect animals on their outbound leg (detour 2 tiles, spare 3 h)"
+ },
+ "KA5": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_mand_minv": 120.0
+  },
+  "label": "KA5: KA3 (harvest before the cap) + KA2m120 (FEED/CARE >= 120 mandatory)"
+ },
+ "KA5b": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_mand_minv": 60.0
+  },
+  "label": "KA5b: KA3 + KA2m60"
+ },
+ "KA6": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 100.0
+  },
+  "label": "KA6: KA3 + KA1v100"
+ },
+ "KA6v50": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 50.0
+  },
+  "label": "KA6v50: KA3 + animal bundles >= 50 in the tier-C pool"
+ },
+ "KA6v150": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0
+  },
+  "label": "KA6v150: KA3 + animal bundles >= 150 in the tier-C pool"
+ },
+ "KA6v200": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 200.0
+  },
+  "label": "KA6v200: KA3 + animal bundles >= 200 in the tier-C pool"
+ },
+ "KA6f0": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_harv_frac": 0.0,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 100.0
+  },
+  "label": "KA6f0: KA6 with deferred animal harvests valued 0"
+ },
+ "KA6f3": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_harv_frac": 0.3,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 100.0
+  },
+  "label": "KA6f3: KA6 with deferred animal harvests valued 0.3 x held x price"
+ },
+ "KA3f0": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_harv_frac": 0.0
+  },
+  "label": "KA3f0: KA3 with deferred harvests valued 0"
+ },
+ "KA3f3": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_harv_frac": 0.3
+  },
+  "label": "KA3f3: KA3 with deferred harvests valued 0.3"
+ },
+ "KAo_d0s1r0": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_out": 1,
+   "sd_tier_anim_out_detour": 0,
+   "sd_tier_anim_out_spare": 1,
+   "sd_tier_relief": 0
+  },
+  "label": "KAo_d0s1r0: KAo_d0s1 with the relief step off"
+ },
+ "KAo_d1s1r0": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_out": 1,
+   "sd_tier_anim_out_detour": 1,
+   "sd_tier_anim_out_spare": 1,
+   "sd_tier_relief": 0
+  },
+  "label": "KAo_d1s1r0: KAo_d1s1 with the relief step off"
+ },
+ "KA7": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_animal_hand": 1,
+   "hire_extra": 1
+  },
+  "label": "KA7: KA3 + one animal hand (extra hire)"
+ },
+ "KA3fb": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_feed_bank": 1
+  },
+  "label": "KA3fb: KA3 + a FEED on the production day is mandatory when the banked care bonus is >= 1"
+ },
+ "KA6v150fb": {
+  "agent": "agents/mgt_lead_sector_animal.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1
+  },
+  "label": "KA6v150fb: KA6v150 + a FEED on the production day is mandatory when the banked care bonus is >= 1"
+ }
+}
