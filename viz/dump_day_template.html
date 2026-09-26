@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Midnight Dump Day</title>
+<style>
+:root {
+  --bg: #f7f7f5; --panel: #ffffff; --ink: #1d1d1b; --muted: #6b6b66; --line: #d9d9d4; --cell: #efeee9;
+  --shed: #8a8a84; --carry: #3d7cc9; --deleted: #d64541; --good: #2e8b57; --hl: #f5c518; --hlbg: rgba(245,197,24,.18);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #161615; --panel: #1f1f1d; --ink: #ecebe6; --muted: #a09f98; --line: #3a3a37; --cell: #2a2a27;
+    --shed: #9a9a93; --carry: #5b9be0; --deleted: #ef6461; --good: #4fbf7f; --hl: #f5c518; --hlbg: rgba(245,197,24,.14);
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #161615; --panel: #1f1f1d; --ink: #ecebe6; --muted: #a09f98; --line: #3a3a37; --cell: #2a2a27;
+  --shed: #9a9a93; --carry: #5b9be0; --deleted: #ef6461; --good: #4fbf7f; --hl: #f5c518; --hlbg: rgba(245,197,24,.14);
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+header, .controls, main, .wide, .note { max-width: 1400px; margin: 0 auto; }
+header { padding: 16px 16px 8px; }
+h1 { font-size: 20px; margin: 0 0 4px; }
+.sub { color: var(--muted); }
+.controls { position: sticky; top: 0; z-index: 5; background: var(--bg); padding: 8px 16px; display: flex; gap: 12px;
+  align-items: center; flex-wrap: wrap; border-bottom: 1px solid var(--line); }
+.controls input[type=range] { flex: 1; min-width: 160px; }
+button { font: inherit; padding: 4px 12px; border: 1px solid var(--line); background: var(--panel); color: var(--ink); border-radius: 6px; cursor: pointer; }
+.hourlab { font-variant-numeric: tabular-nums; min-width: 110px; font-weight: 600; }
+.wide { padding: 12px 16px 0; }
+main { padding: 12px 16px 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 560px), 1fr)); gap: 16px; }
+.side { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px; min-width: 0; }
+.side h2 { margin: 0 0 6px; font-size: 16px; }
+.kpis { display: flex; flex-wrap: wrap; gap: 4px 14px; margin-bottom: 6px; color: var(--muted); font-size: 13px; }
+.kpis b { color: var(--ink); font-variant-numeric: tabular-nums; }
+.kpis .bad b { color: var(--deleted); }
+svg { display: block; width: 100%; height: auto; }
+.boardwrap { max-width: 440px; }
+.board text { font-size: 9px; fill: #1d1d1b; pointer-events: none; }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 10px; font-size: 12px; color: var(--muted); margin: 6px 0; }
+.sw { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 4px; vertical-align: -1px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 6px; }
+th, td { text-align: left; padding: 3px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-weight: 600; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+.del { color: var(--deleted); font-weight: 600; }
+.h3 { font-weight: 600; margin: 12px 0 2px; font-size: 13px; }
+details { margin-top: 8px; }
+summary { cursor: pointer; font-weight: 600; font-size: 13px; }
+.strip { overflow-x: auto; margin-top: 4px; }
+.strip table { width: auto; border-collapse: separate; border-spacing: 1px; margin: 0; }
+.strip td, .strip th { padding: 0; border: 0; text-align: center; font-size: 10px; }
+.strip th { font-weight: 500; color: var(--muted); width: 20px; }
+.strip th.cur { color: var(--ink); font-weight: 700; }
+.strip td.lab { text-align: left; padding-right: 6px; white-space: nowrap; font-size: 11px; cursor: pointer; }
+.strip tr.sel td.lab { font-weight: 700; color: var(--ink); background: var(--hlbg); }
+.cellw { width: 20px; height: 26px; position: relative; border-radius: 3px; background: var(--cell); cursor: default; overflow: hidden; }
+.cellw .op { position: absolute; top: 1px; left: 0; right: 0; font-weight: 700; line-height: 12px; color: #1d1d1b; }
+.cellw .ld { position: absolute; left: 0; right: 0; bottom: 0; background: var(--carry); opacity: .75; }
+.cellw .n { position: absolute; bottom: 1px; left: 0; right: 0; font-size: 8px; line-height: 9px; color: var(--ink); }
+.cellw.cur { outline: 2px solid var(--hl); outline-offset: -1px; }
+.cellw.del { outline: 2px solid var(--deleted); outline-offset: -2px; }
+.cellw.dlv { box-shadow: inset 0 0 0 2px var(--good); }
+.cellw.off { background: repeating-linear-gradient(45deg, transparent 0 3px, var(--line) 3px 4px); }
+.chip { display: inline-block; padding: 0 6px; border-radius: 9px; font-size: 11px; color: #fff; white-space: nowrap; }
+.f-del { background: var(--deleted); } .f-car { background: var(--carry); } .f-dlv { background: var(--good); } .f-use { background: var(--shed); }
+.cmp td:first-child { color: var(--muted); }
+.note { padding: 0 16px 24px; color: var(--muted); font-size: 13px; }
+.note p { margin: 6px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="title">Midnight dump day</h1>
+  <div class="sub" id="subtitle"></div>
+</header>
+<div class="controls">
+  <button id="play">Play</button>
+  <input type="range" id="hour" min="0" max="24" value="0" step="1" aria-label="hour">
+  <span class="hourlab" id="hourlab"></span>
+  <button id="theme" title="toggle light / dark">Theme</button>
+</div>
+<div class="wide"><div class="side"><div class="h3" style="margin-top:0">The day side by side</div><div id="cmp"></div></div></div>
+<main id="main"></main>
+<div class="note">
+  <p><b>Board</b>: tile state at the start of the selected hour (letter = crop / animal, bold number = units on the tile,
+  f / c = fed / cared today, a dot = watered). At "midnight dump" it shows the board after hour 23, before tonight's production.
+  Circles are units with the goods they carry; lines are their paths so far. Click a unit's row in the strip to highlight it;
+  on the arm's side, the dashed line is that hand's planned route at the selected hour (the arm's plan log).</p>
+  <p><b>Unit strip</b>: one row per unit, one cell per hour: H harvest (coloured by product), K collect fertilizer, F feed,
+  C care, W water, Z fertilize, P plant, G dig, B build, U pickup, D drop / place at the shed (green frame), A place an animal,
+  arrows = moves. The blue bar and small number are the load after the hour. The last column is the midnight dump:
+  carried, with a red frame when some of it is deleted.</p>
+  <p><b>Dump order</b> (engine `_drop_inventories_to_shed`): the shed first, then the farmer, then hands 1, 2, ... in index
+  order, each unit's goods in its inventory order; everything past 100 is deleted. So the deletions land on the highest-index
+  hands, whoever overloaded the night. Harvest fates split a unit's deleted units onto its latest harvests of that product.</p>
+</div>
+<script>
+const DATA = /*DATA*/null;
+const PROD_COL = { WHEAT: '#d4a72c', CARROT: '#e5822b', TOMATO: '#d64541', STRAWBERRY: '#e0578f', MELON: '#4caf50',
+  MILK: '#9ec5e8', EGG: '#f2d68a', WOOL: '#c8c2b4', FERTILIZER: '#9a7a5a' };
+const TILE_COL = { WHEAT: '#e9cf7a', CARROT: '#f1b27a', TOMATO: '#ec9a93', STRAWBERRY: '#f0a6c4', MELON: '#9fd6a1',
+  COW: '#c9a27c', SHEEP: '#d9d5cc', GOOSE: '#f3e3a6', WEED: '#6f8f5a', COOP: '#cdbb8e', PASTURE: '#a9c98f', LOCKED: '#8a8a84' };
+const ABBR = { WHEAT: 'W', CARROT: 'C', TOMATO: 'T', STRAWBERRY: 'S', MELON: 'M', COW: 'cow', SHEEP: 'shp', GOOSE: 'gse' };
+const PRODUCT_OF = { COW: 'MILK', SHEEP: 'WOOL', GOOSE: 'EGG' };
+const ANIMAL_PROD = new Set(['MILK', 'WOOL', 'EGG']);
+const OP = { HARVEST: ['H', null], COLLECT_FERTILIZER: ['K', '#b89a78'], FEED: ['F', '#d9b98c'], CARE: ['C', '#e7b7cf'],
+  WATER: ['W', '#a9d2f0'], FERTILIZE: ['Z', '#a58869'], PLANT: ['P', '#9fd6a1'], DIG: ['G', '#8fae7a'],
+  BUILD_COOP: ['B', '#cdbb8e'], BUILD_PASTURE: ['B', '#a9c98f'], PICKUP: ['U', '#b8b8b2'], DROP: ['D', '#bfe3c9'],
+  PLACE: ['D', '#bfe3c9'], NORTH: ['↑', null], SOUTH: ['↓', null], EAST: ['→', null], WEST: ['←', null] };
+const ACCESS = [[4,4],[5,4],[4,5],[5,5]];
+const isAccess = p => p && ACCESS.some(a => a[0] === p[0] && a[1] === p[1]);
+const dist = p => Math.min(...ACCESS.map(a => Math.abs(a[0] - p[0]) + Math.abs(a[1] - p[1])));
+const sum = o => Object.values(o || {}).reduce((a, b) => a + (Array.isArray(b) ? b[0] : b), 0);
+const fmtGoods = o => Object.entries(o || {}).filter(([, v]) => v > 0).sort((a, b) => b[1] - a[1]).map(([k, v]) => `${k.toLowerCase()} ${v}`).join(', ') || '-';
+const unitCol = i => i === 0 ? '#444' : `hsl(${(i * 47) % 360} 65% 45%)`;
+const unitName = i => i === 0 ? 'farmer' : `hand ${i}`;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+const SEL = {};   // side name -> selected unit
+
+function tileOf(v) {        // [label, yield, ...] -> {kind, name}
+  const lab = v[0] || '';
+  if (lab.startsWith('P:')) return { kind: 'PLANT', name: lab.slice(2) };
+  if (lab.startsWith('A:')) return { kind: 'ANIMAL', name: lab.slice(2) };
+  return { kind: lab, name: lab };
+}
+
+function summary(S) {
+  const n = S.night;
+  const carried = n.per_unit.reduce((a, u) => a + sum(u), 0);
+  const hv = { anim: 0, crop: 0 }, fate = { dlv: 0, car: 0, del: 0, use: 0 };
+  S.harv.forEach(([h, u, k, m, pos, f]) => {
+    hv[ANIMAL_PROD.has(k) ? 'anim' : 'crop'] += m;
+    fate[f === 'deleted' ? 'del' : f === 'carried' ? 'car' : f === 'used' ? 'use' : 'dlv'] += m;
+  });
+  const drops = S.drops.filter(d => d.h < 23 && sum(d.produce) > 0);
+  const dropped = drops.reduce((a, d) => a + sum(d.produce), 0);
+  const sold = S.sales.reduce((a, s) => a + sum(s), 0);
+  const rev = S.sales.reduce((a, s) => a + Object.values(s).reduce((b, v) => b + v[1], 0), 0);
+  const nUnits = Math.max(...S.hours.map(H => H.pos.length));
+  return { carried, shed23: sum(n.shed23), lost: sum(n.lost), hv, fate, drops, dropped, sold, rev, nUnits,
+    cash: S.money_end[0] - S.hours[0].money[0] };
+}
+
+function cmpTable() {
+  const names = Object.keys(DATA.sides), sm = names.map(k => summary(DATA.sides[k]));
+  const row = (lab, f, bad) => `<tr><td>${lab}</td>${sm.map((s, i) => `<td class="num ${bad && bad(s) ? 'del' : ''}">${f(s, DATA.sides[names[i]])}</td>`).join('')}</tr>`;
+  const pens = S => { const P = pensOf(S); return `${P.length} pens: ${P.reduce((a, p) => a + p.dawn, 0)} units at dawn -> ${P.reduce((a, p) => a + p.end, 0)} left at 23`; };
+  return `<table class="cmp"><tr><th></th>${names.map(k => `<th class="num">${esc(k)}</th>`).join('')}</tr>
+    ${row('units at work (farmer + hands)', s => s.nUnits)}
+    ${row('harvested today: animal products', s => s.hv.anim)}
+    ${row('harvested today: crops + fertilizer collected', s => s.hv.crop)}
+    ${row('animal stock on pens', (s, S) => pens(S))}
+    ${row('delivered to the shed before hour 23', s => `${s.dropped} (${s.drops.length} drops)`)}
+    ${row('harvested units used on the farm', s => s.fate.use)}
+    ${row('carried into the midnight dump', s => s.carried)}
+    ${row('shed stock at hour 23 (after the hour-23 sales)', s => s.shed23)}
+    ${row('deleted at the dump', s => `${s.lost}${s.lost ? ' (' + fmtGoods(DATA.sides[names[sm.indexOf(s)]].night.lost) + ')' : ''}`, s => s.lost > 0)}
+    ${row('sold today (units / coins)', s => `${s.sold} / ${Math.round(s.rev)}`)}
+    ${row('cash change over the day', s => Math.round(s.cash))}
+  </table>`;
+}
+
+function pensOf(S) {
+  const t0 = S.hours[0].tiles, out = [];
+  t0.forEach((v, idx) => {
+    const T = tileOf(v);
+    if (T.kind !== 'ANIMAL') return;
+    const x = idx % 10, y = Math.floor(idx / 10), prod = PRODUCT_OF[T.name];
+    const hv = S.harv.filter(r => r[4][0] === x && r[4][1] === y && r[2] === prod);
+    const e = S.end[idx], m = S.morning[idx];
+    const endY = tileOf(e).kind === 'ANIMAL' ? e[1] : 0, mY = tileOf(m).kind === 'ANIMAL' ? m[1] : 0;
+    out.push({ x, y, name: T.name, prod, d: dist([x, y]), dawn: v[1], harvested: hv.reduce((a, r) => a + r[3], 0),
+      hours: [...new Set(hv.map(r => r[0]))], fates: hv, end: endY, fed: e[2], cared: e[3], bank: e[4], prodTonight: Math.max(0, mY - endY) });
+  });
+  return out.sort((a, b) => b.harvested - a.harvested || a.d - b.d);
+}
+
+function boardSVG(name, S, hour) {
+  const C = 34, P = 4, W = C * 10 + P * 2;
+  const tiles = hour >= 24 ? S.end : S.hours[Math.min(hour, S.hours.length - 1)].tiles;
+  let s = `<svg class="board" viewBox="0 0 ${W} ${W}" role="img" aria-label="farm board at the selected hour">`;
+  for (let y = 0; y < 10; y++) for (let x = 0; x < 10; x++) {
+    const v = tiles[y * 10 + x], T = tileOf(v);
+    let fill = 'var(--cell)', lab = '', y2 = '', flags = '';
+    if (T.kind === 'PLANT') { fill = TILE_COL[T.name] || fill; lab = ABBR[T.name] || '?'; y2 = v[1] || ''; flags = (v[3] ? '•' : ''); }
+    else if (T.kind === 'ANIMAL') { fill = TILE_COL[T.name] || fill; lab = ABBR[T.name] || '?'; y2 = v[1] || ''; flags = (v[2] ? 'f' : '') + (v[3] ? 'c' : ''); }
+    else if (T.kind) { fill = TILE_COL[T.kind] || fill; lab = T.kind === 'WEED' ? 'wd' : (T.kind === 'LOCKED' ? '' : T.kind.slice(0, 3).toLowerCase()); }
+    const acc = isAccess([x, y]);
+    s += `<rect x="${P + x * C + 1}" y="${P + y * C + 1}" width="${C - 2}" height="${C - 2}" rx="3" fill="${fill}" stroke="${acc ? 'var(--ink)' : 'none'}" stroke-width="${acc ? 1.5 : 0}" opacity="0.85"/>`;
+    if (lab) s += `<text x="${P + x * C + 4}" y="${P + y * C + 12}">${lab}</text>`;
+    if (flags) s += `<text x="${P + x * C + C - 4}" y="${P + y * C + 12}" text-anchor="end">${flags}</text>`;
+    if (y2 !== '') s += `<text x="${P + x * C + C - 5}" y="${P + y * C + C - 5}" text-anchor="end" font-weight="700" font-size="11">${y2}</text>`;
+  }
+  s += `<rect x="${P + 5 * C - 7}" y="${P + 5 * C - 7}" width="14" height="14" fill="var(--shed)" stroke="var(--ink)"/>`;
+  const hmax = Math.min(hour, S.hours.length - 1), sel = SEL[name];
+  const off = i => [(i % 5 - 2) * 2, (Math.floor(i / 5) - 1) * 2];
+  const nU = S.hours[hmax].pos.length;
+  for (let i = 0; i < nU; i++) {
+    const pts = [];
+    for (let h = 0; h <= hmax; h++) { const p = S.hours[h].pos[i]; if (p) pts.push(p); }
+    const [ox, oy] = off(i);
+    if (pts.length > 1) s += `<polyline fill="none" stroke="${unitCol(i)}" stroke-width="${sel === i ? 3.5 : 2}" stroke-opacity="${sel == null || sel === i ? 0.6 : 0.15}" points="${pts.map(p => `${P + p[0] * C + C / 2 + ox},${P + p[1] * C + C / 2 + oy}`).join(' ')}"/>`;
+  }
+  if (sel != null && S.plan) {
+    const pl = S.plan[String(Math.min(hour, 23))];
+    const route = pl && pl[String(sel)];
+    const cur = S.hours[hmax].pos[sel];
+    if (route && route.length && cur) {
+      const pts = [cur].concat(route.map(t => [t % 10, Math.floor(t / 10)]));
+      s += `<polyline fill="none" stroke="${unitCol(sel)}" stroke-width="2.5" stroke-dasharray="5 4" points="${pts.map(p => `${P + p[0] * C + C / 2},${P + p[1] * C + C / 2}`).join(' ')}"/>`;
+      route.forEach((t, j) => { s += `<text x="${P + (t % 10) * C + C / 2}" y="${P + Math.floor(t / 10) * C + C / 2 + 3}" text-anchor="middle" font-size="8" style="fill:${unitCol(sel)};font-weight:700">${j + 1}</text>`; });
+    }
+  }
+  const H = S.hours[hmax];
+  const inv = hour >= 24 ? S.night.per_unit : H.inv;
+  H.pos.forEach((p, i) => {
+    if (!p) return;
+    const load = sum(inv[i]);
+    const r = 5 + Math.sqrt(load) * 2.2, [ox, oy] = off(i);
+    const cx = P + p[0] * C + C / 2 + ox, cy = P + p[1] * C + C / 2 + oy;
+    s += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${unitCol(i)}" fill-opacity="${sel == null || sel === i ? 0.85 : 0.3}" stroke="${sel === i ? 'var(--hl)' : 'var(--panel)'}" stroke-width="${sel === i ? 2.5 : 1}"><title>${unitName(i)}: ${fmtGoods(inv[i])}</title></circle>`;
+    if (load) s += `<text x="${cx}" y="${cy + 3}" text-anchor="middle" style="fill:#fff;font-weight:700">${load}</text>`;
+  });
+  return s + '</svg>';
+}
+
+function chartSVG(S, hour) {
+  const W = 360, Hh = 150, L = 30, B = 20, T = 8, bw = (W - L - 6) / 25;
+  const top = 160, y = v => T + (Hh - T - B) * (1 - Math.min(v, top) / top);
+  let s = `<svg viewBox="0 0 ${W} ${Hh}" role="img" aria-label="shed and carried load by hour">`;
+  [0, 50, 100, 150].forEach(v => { s += `<line x1="${L}" x2="${W - 4}" y1="${y(v)}" y2="${y(v)}" stroke="var(--line)"/><text x="${L - 4}" y="${y(v) + 3}" text-anchor="end" font-size="9" fill="var(--muted)">${v}</text>`; });
+  for (let h = 0; h < S.hours.length; h++) {
+    const Hr = S.hours[h], shed = sum(Hr.shed), car = Hr.inv.reduce((a, u) => a + sum(u), 0);
+    const x = L + h * bw + 1, op = h <= hour ? 1 : 0.35;
+    s += `<rect x="${x}" y="${y(shed)}" width="${bw - 2}" height="${y(0) - y(shed)}" fill="var(--shed)" opacity="${op}"><title>h${h}: shed ${shed}, carried ${car}</title></rect>`;
+    s += `<rect x="${x}" y="${y(shed + car)}" width="${bw - 2}" height="${y(shed) - y(shed + car)}" fill="var(--carry)" opacity="${op}"><title>h${h}: shed ${shed}, carried ${car}</title></rect>`;
+    if (h % 3 === 0) s += `<text x="${x + bw / 2}" y="${Hh - 6}" text-anchor="middle" font-size="9" fill="var(--muted)">${h}</text>`;
+  }
+  const n = S.night, sh = sum(n.shed23), car = n.per_unit.reduce((a, u) => a + sum(u), 0), lost = sum(n.lost);
+  const x = L + 24 * bw + 1, op = hour >= 24 ? 1 : 0.35;
+  s += `<rect x="${x}" y="${y(sh)}" width="${bw - 2}" height="${y(0) - y(sh)}" fill="var(--shed)" opacity="${op}"/>`;
+  s += `<rect x="${x}" y="${y(sh + car - lost)}" width="${bw - 2}" height="${y(sh) - y(sh + car - lost)}" fill="var(--carry)" opacity="${op}"/>`;
+  if (lost) s += `<rect x="${x}" y="${y(sh + car)}" width="${bw - 2}" height="${y(sh + car - lost) - y(sh + car)}" fill="var(--deleted)" opacity="${op}"><title>deleted ${lost}</title></rect>`;
+  s += `<text x="${x + bw / 2}" y="${Hh - 6}" text-anchor="middle" font-size="9" fill="var(--muted)">24</text>`;
+  s += `<line x1="${L}" x2="${W - 4}" y1="${y(100)}" y2="${y(100)}" stroke="var(--deleted)" stroke-dasharray="4 3"/><text x="${L + 4}" y="${y(100) - 3}" text-anchor="start" font-size="9" fill="var(--deleted)">shed cap 100</text>`;
+  return s + '</svg>';
+}
+
+function stripHTML(name, S, hour) {
+  const nU = Math.max(...S.hours.map(H => H.pos.length));
+  const harvAt = {};
+  S.harv.forEach(r => { const k = r[0] + ':' + r[1]; (harvAt[k] = harvAt[k] || []).push(r); });
+  const del = S.night.deleted;
+  let s = `<div class="strip"><table><tr><th></th>${[...Array(24).keys()].map(h => `<th class="${h === hour ? 'cur' : ''}">${h}</th>`).join('')}<th style="width:30px" class="${hour >= 24 ? 'cur' : ''}">dump</th></tr>`;
+  for (let i = 0; i < nU; i++) {
+    const first = S.hours.findIndex(H => H.pos[i]);
+    s += `<tr class="${SEL[name] === i ? 'sel' : ''}" data-u="${i}"><td class="lab" data-u="${i}" style="color:${unitCol(i)}">${unitName(i)}</td>`;
+    for (let h = 0; h < 24; h++) {
+      const H = S.hours[h];
+      if (!H || !H.pos[i]) { s += `<td><div class="cellw off"></div></td>`; continue; }
+      const a = H.act[i] || ['PASS'], op = a[0], nx = S.hours[h + 1];
+      const after = nx ? nx.inv[i] : S.night.per_unit[i];
+      const load = sum(after || {});
+      let [code, bg] = OP[op] || ['', null];
+      const hv = harvAt[h + ':' + i];
+      if (op === 'HARVEST' || op === 'COLLECT_FERTILIZER') {
+        if (hv && hv.length) bg = PROD_COL[hv[0][2]] || bg;
+        else { code = code.toLowerCase(); }
+      }
+      let cls = 'cellw' + (h === hour ? ' cur' : '');
+      const delivering = (op === 'DROP' || op === 'PLACE') && isAccess(H.pos[i]) && sum(H.inv[i]) > sum(after || {});
+      if (delivering) cls += ' dlv';
+      if (op === 'PLACE' && ['COW', 'SHEEP', 'GOOSE'].includes(a[1]) && !isAccess(H.pos[i])) code = 'A';
+      const tip = `${unitName(i)} h${h} at (${H.pos[i]}): ${a.join(' ')}${hv ? ' -> ' + hv.map(r => `${r[3]} ${r[2].toLowerCase()} (${typeof r[5] === 'number' ? 'delivered h' + r[5] : r[5]})`).join(', ') : ''} | carries after: ${fmtGoods(after)}`;
+      s += `<td><div class="${cls}" title="${esc(tip)}" style="${bg ? `background:${bg}` : ''}"><span class="op">${code}</span>` +
+           `<span class="ld" style="height:${Math.min(load, 20) / 20 * 9}px"></span><span class="n">${load || ''}</span></div></td>`;
+    }
+    const car = sum(S.night.per_unit[i] || {}), dl = sum(del[i] || {});
+    s += `<td><div class="cellw${dl ? ' del' : ''}${hour >= 24 ? ' cur' : ''}" style="width:30px" title="${esc(`${unitName(i)} at midnight: carried ${fmtGoods(S.night.per_unit[i])}; deleted ${fmtGoods(del[i])}`)}"><span class="op">${car}</span><span class="n ${dl ? 'del' : ''}">${dl ? '-' + dl : ''}</span></div></td></tr>`;
+  }
+  return s + '</table></div>';
+}
+
+function fateChip(f) {
+  if (f === 'deleted') return '<span class="chip f-del">deleted</span>';
+  if (f === 'carried') return '<span class="chip f-car">carried</span>';
+  if (f === 'used') return '<span class="chip f-use">used</span>';
+  return `<span class="chip f-dlv">shed h${f}</span>`;
+}
+
+function tables(name, S) {
+  const P = pensOf(S);
+  const pens = P.map(p => `<tr><td>(${p.x},${p.y})</td><td>${p.name.toLowerCase()}</td><td class="num">${p.d}</td><td class="num">${p.dawn}</td>` +
+    `<td class="num">${p.harvested || ''}${p.hours.length ? ' @h' + p.hours.join(',') : ''}</td><td>${p.fates.map(r => fateChip(r[5]) + ' ' + r[3]).join(' ')}</td>` +
+    `<td class="num">${p.end}</td><td>${p.fed ? 'fed' : '<span class="del">unfed</span>'} ${p.cared ? 'cared' : ''}</td><td class="num">${p.prodTonight || ''}</td></tr>`).join('');
+  const hv = S.harv.map(r => `<tr><td>h${r[0]}</td><td style="color:${unitCol(r[1])}">${unitName(r[1])}</td><td>(${r[4]})</td><td class="num">${dist(r[4])}</td><td>${r[2].toLowerCase()}</td><td class="num">${r[3]}</td><td>${fateChip(r[5])}</td></tr>`).join('');
+  const drops = S.drops.filter(d => sum(d.produce) + sum(d.putback) > 0).map(d => `<tr><td>h${d.h}</td><td style="color:${unitCol(d.unit)}">${unitName(d.unit)}</td><td>${fmtGoods(d.produce)}${sum(d.putback) ? ' (+ put back ' + fmtGoods(d.putback) + ')' : ''}</td><td>${fmtGoods(Object.fromEntries(Object.entries(d.sold_same_h).map(([k, v]) => [k, v])))}</td></tr>`).join('') || '<tr><td colspan="4">none</td></tr>';
+  const n = S.night;
+  const dump = n.per_unit.map((u, i) => sum(u) ? `<tr class="${sum(n.deleted[i]) ? 'del' : ''}"><td style="color:${unitCol(i)}">${unitName(i)}</td><td class="num">${sum(u)}</td><td>${fmtGoods(u)}</td><td>${fmtGoods(n.deleted[i])}</td></tr>` : '').join('');
+  const sales = S.sales.map((s, h) => Object.keys(s).length ? `<tr><td>h${h}</td><td>${Object.entries(s).map(([k, v]) => `${k.toLowerCase()} ${v[0]} @ ${(v[1] / v[0]).toFixed(1)}`).join(', ')}</td></tr>` : '').join('') || '<tr><td colspan="2">none</td></tr>';
+  return `
+    <details open><summary>Animal pens (${P.length})</summary>
+      <table><tr><th>tile</th><th>animal</th><th class="num">dist</th><th class="num">at dawn</th><th class="num">harvested</th><th>fate</th><th class="num">left at 23</th><th>service</th><th class="num">made tonight</th></tr>${pens}</table></details>
+    <details><summary>Every harvest / collection today (${S.harv.length})</summary>
+      <table><tr><th>hour</th><th>unit</th><th>tile</th><th class="num">dist</th><th>product</th><th class="num">units</th><th>fate</th></tr>${hv}</table></details>
+    <details open><summary>Drops at the shed</summary>
+      <table><tr><th>hour</th><th>unit</th><th>goods</th><th>our sales that hour</th></tr>${drops}</table></details>
+    <details open><summary>Midnight dump by unit (shed at 23: ${sum(n.shed23)}; ${fmtGoods(n.shed23)})</summary>
+      <table><tr><th>unit</th><th class="num">carried</th><th>goods</th><th>deleted</th></tr>${dump}</table></details>
+    <details><summary>Our sales by hour</summary><table><tr><th>hour</th><th>units @ average price</th></tr>${sales}</table></details>`;
+}
+
+let HOUR = 0;
+function render(hour) {
+  HOUR = hour;
+  document.getElementById('hourlab').textContent = hour >= 24 ? 'midnight dump' : `hour ${hour}`;
+  const main = document.getElementById('main');
+  main.innerHTML = '';
+  for (const [name, S] of Object.entries(DATA.sides)) {
+    const sm = summary(S);
+    const H = hour >= 24 ? null : S.hours[Math.min(hour, S.hours.length - 1)];
+    const nowShed = H ? sum(H.shed) : sm.shed23, nowCar = H ? H.inv.reduce((a, u) => a + sum(u), 0) : sm.carried;
+    const div = document.createElement('div');
+    div.className = 'side';
+    div.innerHTML = `
+      <h2>${esc(name)}</h2>
+      <div class="kpis"><span>${hour >= 24 ? 'at the dump' : 'start of hour ' + hour}: shed <b>${nowShed}</b>, carried <b>${nowCar}</b>, total <b>${nowShed + nowCar}</b></span></div>
+      <div class="kpis"><span>harvested <b>${sm.hv.anim + sm.hv.crop}</b> (animal <b>${sm.hv.anim}</b>)</span><span>to the shed before 23 <b>${sm.dropped}</b></span>
+        <span>carried at midnight <b>${sm.carried}</b></span><span class="${sm.lost ? 'bad' : ''}">deleted <b>${sm.lost}</b></span></div>
+      <div class="boardwrap">${boardSVG(name, S, hour)}</div>
+      <div class="h3">Shed + carried, by hour</div>
+      ${chartSVG(S, hour)}
+      <div class="legend"><span><span class="sw" style="background:var(--shed)"></span>shed</span><span><span class="sw" style="background:var(--carry)"></span>carried by units</span><span><span class="sw" style="background:var(--deleted)"></span>deleted at midnight</span></div>
+      <div class="h3">Units, hour by hour (click a row to highlight the unit)</div>
+      ${stripHTML(name, S, hour)}
+      <div class="legend">${Object.entries(PROD_COL).map(([k, c]) => `<span><span class="sw" style="background:${c}"></span>${k.toLowerCase()}</span>`).join('')}</div>
+      ${tables(name, S)}`;
+    div.querySelectorAll('[data-u]').forEach(el => el.addEventListener('click', () => {
+      const u = +el.dataset.u; SEL[name] = SEL[name] === u ? null : u; render(HOUR);
+    }));
+    main.appendChild(div);
+  }
+}
+
+(function init() {
+  const names = Object.keys(DATA.sides);
+  document.getElementById('title').textContent = `Day ${DATA.day}, world ${DATA.ep}: ${names.join(' vs ')}`;
+  const s = names.map(k => { const m = summary(DATA.sides[k]); return `${k}: carried ${m.carried}, deleted ${m.lost}`; }).join(' | ');
+  document.getElementById('subtitle').textContent = `Same seed, shops and rival moves (the rival replays its recorded game). ${s}. ${DATA.arm}: ${DATA.arm_label}`;
+  document.getElementById('cmp').innerHTML = cmpTable();
+  const sl = document.getElementById('hour');
+  sl.addEventListener('input', () => render(+sl.value));
+  let timer = null;
+  document.getElementById('play').addEventListener('click', e => {
+    if (timer) { clearInterval(timer); timer = null; e.target.textContent = 'Play'; return; }
+    if (+sl.value >= 24) sl.value = 0;
+    e.target.textContent = 'Pause';
+    timer = setInterval(() => { sl.value = +sl.value + 1; render(+sl.value); if (+sl.value >= 24) { clearInterval(timer); timer = null; e.target.textContent = 'Play'; } }, 700);
+  });
+  document.getElementById('theme').addEventListener('click', () => {
+    const r = document.documentElement, cur = r.getAttribute('data-theme');
+    const dark = cur ? cur === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+    r.setAttribute('data-theme', dark ? 'light' : 'dark');
+  });
+  sl.value = 24;
+  render(24);
+})();
+</script>
+</body>
+</html>

@@ -134,3 +134,74 @@ Candidate rules for the tiered plan, stated as the leaders' pattern and not yet 
 The earlier KD thread (`results/fresh/threads_20260928/dump/`) worked on END-of-day deliveries and room estimates. The
 leaders deliver early and on the way, so that thread's conclusion ("every hand's route is already packed to hour 23 with
 no slack for a delivery detour") does not apply to a turnaround planned at the start of the day.
+
+## 4. KE4: the day-27 blowup and a mid-season heavy day (2026-09-26 evening)
+
+KE4, KE6 and KE7 on the 40 DSM confirmation worlds were extracted with
+`leader_shed_flow.py arm ke4|ke6|ke7 results/fresh/threads_20260928/panel_dsm40b.txt results/fresh/leader_shed_20260926/<arm>.jsonl.gz`.
+The table below comes from `leader_shed_report.py endgame` (saved as `results/fresh/leader_shed_20260926/endgame.txt`).
+
+**End of season, per world and day.** Columns: animal product left on the pens at the end of the day / share of the
+day's harvest delivered to the shed that day / deliveries per day / carried at midnight / deleted.
+
+| day | all 635 leader games | DSM on the 40 worlds | KE4 | KE7 |
+|---|---|---|---|---|
+| 25 | 18.0 / 17% / 1.2 / 83 / 0.9 | 20.1 / 15% / 0.9 / 87 / 1.0 | 33.6 / 7% / 0.4 / 81 / 0.7 | = KE4 |
+| 26 | 15.3 / 21% / 1.6 / 83 / 1.0 | 19.1 / 18% / 1.2 / 87 / 0.9 | 30.8 / 7% / 0.5 / 99 / **7.7** | = KE4 |
+| 27 | 12.6 / 30% / 2.8 / 80 / 0.9 | 15.2 / 31% / 3.1 / 84 / 0.4 | 0.1 / 11% / 0.9 / **129 / 32.4** | 29.4 / 13% / 1.1 / 103 / 8.4 |
+| 28 | 4.3 / 51% / 5.4 / 69 / 0.8 | 4.7 / 49% / 5.2 / 76 / 0.9 | 0.0 / 11% / 1.1 / 90 / 2.4 | 6.5 / 21% / 2.2 / 100 / 7.3 |
+| 29 | 0.2 / 99% / 11.8 / 1 / 0 | 0.8 / 98% / 12.4 / 2 / 0 | 0.2 / 98% / 13.6 / 3 / 0 | 0.1 / 98% / 13.4 / 3 / 0 |
+
+- **Cause of the day-27 spike.** `sd_tier_anim_harv_end = 27` makes every pen's harvest mandatory on day 27. KE4 keeps
+  about 30 units on its pens through the season (the leaders 15-20). On day 27 it harvests 61.6 animal units (DSM 33) and
+  delivers 21% of them the same day. The carry reaches 129 and 32.4 units are deleted: wheat 9.4, wool 5.7, carrot 4.4,
+  eggs 4.1 and more.
+- **Already measured: moving the cut-over later.** Paired against KE4 on the 40 worlds:
+
+  | arm | mandatory from | own | margin | deleted per world |
+  |---|---|---|---|---|
+  | KE4 | day 27 | - | - | 69.0 |
+  | KE6 | day 28 | +1,270 (t 7.5, better in 35/40) | +1,396 (t 6.6, 35/40) | 55.7 |
+  | KE7 | day 29 | +1,325 (t 8.2, 38/40) | +1,474 (t 7.5, 36/40) | 49.9 |
+
+  KE7 still loses 7.7 / 8.4 / 7.3 units on nights 26 / 27 / 28 (DSM 0.9 / 0.4 / 0.9). These losses are mostly wheat,
+  carrots and tomatoes.
+- **What the leaders do.** They never have a cut-over day:
+  - The pen stock drains gradually: 18 -> 15 -> 13 -> 4 -> 0 over days 25-29.
+  - The same-day share rises from about 17% to 21 / 30 / 51% on days 26 / 27 / 28, with 1.6 / 2.8 / 5.4 deliveries a day.
+    On day 28 DSM brings back 32 wheat, 12 carrots and 10 milk the same day.
+  - As a result their midnight carry falls (83 -> 80 -> 69) while their daily harvest rises (99 -> 112 -> 139).
+
+**Proposed fix (not yet built or tested):**
+1. Take KE7's cut-over: every pen harvest is mandatory only on day 29 (measured above).
+2. Drain the pens under a nightly room budget from day 26. Each day, add pen harvests, largest stock and nearest the
+   shed first, in the morning, until the projected midnight carry reaches about 85 (the leaders' ceiling). Aim for the
+   leaders' stock path of about 15 / 13 / 4 units left at the end of days 26 / 27 / 28.
+3. Relax the end-game turnaround on days 26-28: last hour 16 -> 20, detour 2 -> 4, minimum load 4 -> 2. The aim is the
+   leaders' same-day shares above (KE7: 7 / 13 / 21%).
+
+**Mid-season heavy day: `viz/dump_day_112588791_d22.html`** (built by `scripts/build_dump_day_viewer.py <team:ep> <day> <arm>`).
+Across KE4's 41 nights on days 12-24 with at least 10 deleted, compared with DSM on the same nights:
+
+| | KE4 | DSM |
+|---|---|---|
+| harvested | 127 | 108 |
+| of which animal product | 45 | 31 |
+| delivered to the shed the same day | 10 | 22 |
+| carried at midnight | 113 | 88 |
+
+On day 22 of world 112588791:
+- KE4 starts the day with 70 units on 24 pens (DSM: 31 on 21). Nine sheep hold 4 wool each and four geese hold 4 eggs,
+  all on the same cycle.
+- KE4 empties 11 of those pens (44 units) over the day and carries everything to midnight. Four wool from each of
+  sheep (7,3) and (8,4), and four eggs from goose (4,6), are among the 33 units deleted.
+- DSM's sheep are empty at dawn; it harvests 12 animal units that day.
+
+The viewer shows, for each side:
+- the board at every hour;
+- a per-unit hour strip (action, load);
+- every harvest's fate;
+- the pens (stock at dawn, harvested, stock at 23, service, tonight's production);
+- the drops at the shed;
+- the dump attributed to units in engine order;
+- on the KE4 side only, each hand's planned route from the plan log.

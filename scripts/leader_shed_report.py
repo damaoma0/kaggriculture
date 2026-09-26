@@ -1,5 +1,5 @@
 """Reports over leader_shed_flow.py output (results/fresh/leader_shed_20260926/).
-usage: leader_shed_report.py [section ...]   (sections: nights types load fates volume k5b_distance cf prices lags;
+usage: leader_shed_report.py [section ...]   (sections: nights types load fates volume k5b_distance cf prices lags endgame;
        default all). Days 11-28 (K5b's season window). Output: results/fresh/leader_shed_20260926/report.txt"""
 import gzip
 import json
@@ -321,7 +321,55 @@ def sec_lags():
                   ' '.join('%s %2.0f%%' % (x, 100*b[x]/max(1,s2)) for x in ('h0','h1-2','h3-11','later'))))
 
 
-SECTIONS = ['nights', 'types', 'load', 'fates', 'volume', 'k5b_distance', 'cf', 'prices', 'lags']
+def sec_endgame():
+    """Days 25-29: pen stock, animal harvests, same-day deliveries, carry and deletions; leaders vs KE4 / KE7, and KE6 / KE7
+    paired against KE4 (needs ke4 / ke6 / ke7 .jsonl.gz from leader_shed_flow.py arm)."""
+    L = [r for v in G().values() for r in v if r['arm'] == 'leader']
+    L = list({(r['team'], r['ep']): r for r in L}.values())
+    arms = {a: list(load(a)) for a in ('ke4','ke7')}
+    eps = {r['ep'] for r in arms['ke4']}
+    dsm40 = [r for r in L if r['ep'] in eps and r['team'] == '16732748']
+    ACC = [(4,4),(5,4),(4,5),(5,5)]
+    dist = lambda p: min(min(abs(p[0]-a[0]) + abs(p[1]-a[1]) for a in ACC), 4)
+    def endgame(games, label):
+        print('==', label, len(games))
+        for d in (25, 26, 27, 28, 29):
+            c = Counter(); hh = Counter(); prod_mid = Counter(); lostp = Counter()
+            for r in games:
+                n = r['nights'][d]
+                c['held'] += sum(n.get('held', {}).values()); c['carried'] += sum(n.get('carried', {}).values()); c['lost'] += sum(n.get('lost', {}).values())
+                lostp.update(n.get('lost', {}))
+                for day, unit, k, h, nn, fate, pos in r['harv']:
+                    if day != d or fate == -1: continue
+                    if k in ('MILK','WOOL','EGG'):
+                        c['anim'] += nn; hh['h0-7' if h < 8 else ('h8-15' if h < 16 else 'h16+')] += nn
+                        if 0 <= fate <= 23: c['anim_same'] += nn
+                    c['all'] += nn
+                    if 0 <= fate <= 23: c['same'] += nn; prod_mid[k] += nn
+                tn = [x for x in r['drops'] if x['day'] == d and x['trip_start'] is not None and x['h'] < 23 and sum(x['produce'].values()) > 0]
+                c['turns'] += len(tn)
+            G = len(games)
+            print('  d%d held %4.1f | animal harvested %4.1f (h0-7 %2.0f%% h8-15 %2.0f%% h16+ %2.0f%%) same-day %3.0f%% | all harvested %5.1f same-day %4.1f (%2.0f%%) deliveries-out %4.1f/day | carried %5.1f lost %4.1f %s | same-day: %s' % (
+                d, c['held']/G, c['anim']/G, 100*hh['h0-7']/max(1,c['anim']), 100*hh['h8-15']/max(1,c['anim']), 100*hh['h16+']/max(1,c['anim']), 100*c['anim_same']/max(1,c['anim']),
+                c['all']/G, c['same']/G, 100*c['same']/max(1,c['all']), c['turns']/G, c['carried']/G, c['lost']/G,
+                dict((k[:4], round(v/G,1)) for k, v in lostp.most_common(4)), ' '.join('%s %.1f' % (k[:4], v/G) for k, v in prod_mid.most_common(6))))
+    TOP = ['DSM','MG','Vadim','DECEM','MMPQ','Boey']
+    endgame(L, 'all six leader teams')
+    endgame(dsm40, 'DSM on the 40 KE4 worlds')
+    endgame(arms['ke4'], 'KE4')
+    endgame(arms['ke7'], 'KE7')
+    # paired KE7 vs KE4
+    m4 = {r['ep']: r['money'][r['seat']] - r['money'][1-r['seat']] for r in arms['ke4']}
+    o4 = {r['ep']: r['money'][r['seat']] for r in arms['ke4']}
+    for a in ('ke6','ke7'):
+        g = list(load(a))
+        dm = [ (r['money'][r['seat']] - r['money'][1-r['seat']]) - m4[r['ep']] for r in g]
+        do = [ r['money'][r['seat']] - o4[r['ep']] for r in g]
+        for nm, x in (('margin', dm), ('own', do)):
+            print(a, 'vs KE4', nm, '%+.0f  t %.2f  better %d/40' % (st.mean(x), st.mean(x)/(st.stdev(x)/len(x)**.5), sum(v > 0 for v in x)))
+
+
+SECTIONS = ['nights', 'types', 'load', 'fates', 'volume', 'k5b_distance', 'cf', 'prices', 'lags'] + (['endgame'] if (D / 'ke7.jsonl.gz').exists() else [])
 
 if __name__ == '__main__':
     for s in (sys.argv[1:] or SECTIONS):
