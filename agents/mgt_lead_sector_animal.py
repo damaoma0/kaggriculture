@@ -286,6 +286,8 @@ CFG = {
     "sd_tier_dump_buffer": 5,
     "sd_tier_access_keep": 0, # 1 (bug fix, 2026-09-26, KDF2 day 12 on 112604454): the PLACE after a HARVEST on a shed tile (sd_tier_access_drop) keeps the wheat this route still needs for its remaining FEEDs; it used to place ALL wheat in the hand (feed wheat included, sold at once), so the later FEEDs were skipped and a goose and a cow escaped
     "sd_tier_dump_defer": 0,  # 1 (KC2a on 112604454: hands carried 105-127 units into the midnight dump on days 20/24/26/28 while the planner projected 109-128 and found no delivery that fits; the excess was deleted): when the projected dump still exceeds 100 - sd_tier_dump_buffer after the deliveries, harvests whose tile can hold the units until tomorrow without losing production (animal: tonight's production fits max_held; ongoing crop: yield + tonight's production <= max_yield and not in its last day of life; one-time crop: not decaying by tomorrow; no melons, no replant on the tile) are left for tomorrow, cheapest units first
+    "sd_tier_dump_defer_cap": 0,   # > 0: the deferral works down to this projected midnight load (default 100 - sd_tier_dump_buffer); lower leaves room for goods the seller holds in the shed
+    "sd_tier_dump_refill": 0, # 1 (KC5 on 112604454: idle 200 unit-hours vs DSM 7, 167 of them at h20-23, freed when sd_tier_dump_defer took tail harvests out after the extras fill): after the deliveries / deferral, one more fill pass with the extras left over, without harvests (they would refill the dump)
     "sd_tier_dump_fix": 0,    # 1 (2026-09-26, case world 112604454: hands carried 124-159 units into the midnight dump while the shed was empty): the executor skips a planned end-of-day DROP only when the PROJECTED midnight load (shed + carried + the units the routes still harvest today) fits, not the load at that hour
     "sd_tier_copy_returns": 0,  # 1 (user 2026-09-26: copy how many hands go back to the shed to drop): the plan holds at least as many daytime shed deliveries as the leader made that day at hour >= 5 (results/fresh/threads_20260928/dsm_returns/<ep>.json), best load value per added hour, extras at a route end trimmed if needed
     "sd_tier_copy_returns_from": 11,   # first day it applies
@@ -7235,7 +7237,7 @@ def _tier_deliver(S, segs, tiles, day, st):
         st["tier_deliveries"] = st.get("tier_deliveries", 0) + 1
     deferred_ = 0
     if CFG["sd_tier_dump_defer"]:                  # leave holdable harvests for tomorrow instead of deleting them
-        cap_ = 100 - int(CFG["sd_tier_dump_buffer"])
+        cap_ = int(CFG["sd_tier_dump_defer_cap"]) or (100 - int(CFG["sd_tier_dump_buffer"]))
         while total > cap_:
             best_ = None
             for k, sg in enumerate(segs):
@@ -8082,6 +8084,17 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         _tier_relief(segs, rest, collects, owner, rate, st)
     if CFG["sd_tier_deliver"]:
         _tier_deliver(S, segs, tiles, day, st)
+        if CFG["sd_tier_dump_refill"]:            # the hours the deferral / delivery trims freed: non-harvest extras
+            rest2 = []
+            for bd in rest:
+                ops2 = [o for o in bd["ops"] if o["c"][0] not in ("HARVEST", "PLACE_HARVEST")
+                        and (o["c"][0] != "COLLECT_FERTILIZER" or bd["tile"] in collects)]
+                if ops2:
+                    bd2 = dict(bd)
+                    bd2["ops"] = ops2
+                    bd2["v"] = sum(o["v"] for o in ops2)
+                    rest2.append(bd2)
+            _tier_fill(segs, list(range(len(segs))), rest2, collects, owner, rate, st, "r")
     # ---- routes per unit
     routes_u = {}
     summ = []
