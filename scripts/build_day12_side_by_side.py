@@ -595,7 +595,7 @@ html,body{overflow-x:hidden}
 <h2>Legend</h2>
 <div id="legend"></div>
 <p class="muted">Unit badge: <strong>F</strong> = farmer, otherwise hand index; after the colon, that hour's action (&uarr;&darr;&rarr;&larr; move, P plant, W water, H harvest, Fd feed, C care, Fz fertilize, Cf collect fertilizer, D dig, Pk pickup, Dr drop, Pl place, Bc/Bp build coop/pasture). A gold outline on a tile means the two boards disagree there this hour. Click any tile to inspect it below both boards.
-Sectors mode colours every tile worked that day (water/fertilize/harvest/plant/feed/care/collect fertilizer) by which hand did it; a hatch pattern means 2+ different hands worked it, faded tiles are within 2 steps of the shed (central, on-the-way -- not counted as overlap). Click a hand below the transport controls to draw its route for the day, split into numbered trips at each shed stop (pickup/drop/place) that follows field work.</p>
+Sectors mode colours every tile worked that day (water/fertilize/harvest/plant/feed/care/collect fertilizer) by which hand did it; a hatch pattern means 2+ different hands worked it, faded tiles are within 2 steps of the shed (central, on-the-way -- not counted as overlap). Click a hand below the transport controls to draw its route for the day, split into numbered trips at each shed stop (pickup/drop/place) that follows field work. A sector-planner arm also labels each hand's home quadrant in the picker, outlines the quadrant borders, tints that hand's home quadrant when selected, and flags any tile it worked outside that quadrant.</p>
 </section>
 </main>
 <footer id="provenance">Built by scripts/build_day12_side_by_side.py &middot; replayed through scripts/upkeep_engine.py (official kaggriculture 1.32.7 engine, loaded by path). Space: play/pause. Arrow keys: one hour; Shift+arrow: one day.</footer>
@@ -741,6 +741,33 @@ function sectorStats(frames,day){
   });
   return {tripBuckets,adj:adjPairs?adjHits/adjPairs:null,sharedAll,sharedNonCentral,idle};
 }
+const MOVE_DELTA={NORTH:[0,-1],SOUTH:[0,1],EAST:[1,0],WEST:[-1,0]};
+function moveStats(frames,day){
+  // Per hand: classify each MOVE by whether it increases/decreases/keeps the Manhattan distance to the
+  // nearest shed-access tile; mean per hand of out/in/side counts, and mean reversals (switches between an
+  // outward move and an inward move, ignoring sideways moves in between).
+  const n=maxUnitsThatDay(frames,day);
+  let out=0,inn=0,side=0,rev=0;
+  for(let u=0;u<n;u++){
+    let prevDir=null;
+    for(const f of dayFrames(frames,day)){
+      if(u>=f.units.length)continue;
+      const op=unitOpAt(f,u),delta=MOVE_DELTA[op];
+      if(!delta)continue;
+      const[x,y]=f.units[u];
+      const d0=shedDist(x,y);
+      const nx=Math.min(9,Math.max(0,x+delta[0])),ny=Math.min(9,Math.max(0,y+delta[1]));
+      const d1=shedDist(nx,ny);
+      const dir=d1>d0?'out':d1<d0?'in':'side';
+      if(dir==='out')out++;else if(dir==='in')inn++;else side++;
+      if(dir!=='side'){if(prevDir&&prevDir!==dir)rev++;prevDir=dir;}
+    }
+  }
+  // Mean per hand present that day (every unit slot counts, including hands that made no moves at all).
+  return n?{out:out/n,in:inn/n,side:side/n,rev:rev/n}:{out:0,in:0,side:0,rev:0};
+}
+const QUAD_ORIGIN={NW:[0,0],NE:[5,0],SW:[0,5],SE:[5,5]};
+function quadrantOf(x,y){return (y<5?'N':'S')+(x<5?'W':'E');}
 function applySectorOverlay(elId,frames,day){
   const el=$(elId),patch=buildPatch(frames,day);
   for(let i=0;i<100;i++){
@@ -757,9 +784,22 @@ function applySectorOverlay(elId,frames,day){
     if(unitsSpan)b.append(unitsSpan);
   }
 }
-function drawRoute(svgId,frames,day,u,showQuadrants){
+function drawRoute(svgId,frames,day,u,showQuadrants,homeQuadrant){
   const svg=$(svgId);
   let html=showQuadrants?'<line class="quadline" x1="5" y1="0" x2="5" y2="10"/><line class="quadline" x1="0" y1="5" x2="10" y2="5"/>':'';
+  if(u!=null&&homeQuadrant&&QUAD_ORIGIN[homeQuadrant]){
+    const col=handColor(u),[qx,qy]=QUAD_ORIGIN[homeQuadrant];
+    html+=`<rect x="${qx}" y="${qy}" width="5" height="5" fill="${col}" opacity=".16"/>`;
+    // Flag tiles this hand worked outside its home quadrant.
+    buildPatch(frames,day).forEach((owners,ti)=>{
+      if(!owners.has(u))return;
+      const x=ti%10,y=Math.floor(ti/10);
+      if(quadrantOf(x,y)===homeQuadrant)return;
+      html+=`<rect x="${x+.08}" y="${y+.08}" width=".84" height=".84" fill="none" stroke="#ff6b5e" stroke-width=".09"/>`+
+            `<line x1="${x+.2}" y1="${y+.2}" x2="${x+.8}" y2="${y+.8}" stroke="#ff6b5e" stroke-width=".07"/>`+
+            `<line x1="${x+.8}" y1="${y+.2}" x2="${x+.2}" y2="${y+.8}" stroke="#ff6b5e" stroke-width=".07"/>`;
+    });
+  }
   if(u!=null){
     const trips=splitTrips(handTrack(frames,day,u));
     trips.forEach((trip,ti)=>{
@@ -776,8 +816,8 @@ function drawRoute(svgId,frames,day,u,showQuadrants){
 function renderSectorStats(tag,frames,day){
   const el=$('sectorStats'+tag);
   if(!sectorsOn){el.textContent='';return;}
-  const s=sectorStats(frames,day),tb=s.tripBuckets;
-  el.textContent=`Trips/hand: 1×${tb[1]||0} 2×${tb[2]||0} 3+×${tb['3+']||0} · Next job on adjacent tile (within trips, non-central): ${s.adj==null?'—':Math.round(s.adj*100)+'%'} · Shared tiles: ${s.sharedAll} (${s.sharedNonCentral} excl. central) · Idle: ${s.idle}`;
+  const s=sectorStats(frames,day),tb=s.tripBuckets,m=moveStats(frames,day);
+  el.textContent=`Trips/hand: 1×${tb[1]||0} 2×${tb[2]||0} 3+×${tb['3+']||0} · Next job on adjacent tile (within trips, non-central): ${s.adj==null?'—':Math.round(s.adj*100)+'%'} · Shared tiles: ${s.sharedAll} (${s.sharedNonCentral} excl. central) · Idle: ${s.idle} · Moves/hand out ${m.out.toFixed(1)} / in ${m.in.toFixed(1)} / side ${m.side.toFixed(1)} · Reversals/hand ${m.rev.toFixed(2)}`;
 }
 function armSectorsFor(g,side){
   const arm=side==='L'?g.leader:g[MODE_ARM[mode]];
@@ -925,8 +965,10 @@ function render(){
     applySectorOverlay('boardL',LF,day);
     applySectorOverlay('boardR',RF,day);
   }
-  drawRoute('routeL',LF,day,sectorsOn?selectedHand:null,showQuad);
-  drawRoute('routeR',RF,day,sectorsOn?selectedHand:null,showQuad);
+  const homeL=sectorsOn&&selectedHand!=null?((armSectorsFor(g,'L')||{})[day]||{})[selectedHand]:null;
+  const homeR=sectorsOn&&selectedHand!=null?((armSectorsFor(g,'R')||{})[day]||{})[selectedHand]:null;
+  drawRoute('routeL',LF,day,sectorsOn?selectedHand:null,showQuad,homeL);
+  drawRoute('routeR',RF,day,sectorsOn?selectedHand:null,showQuad,homeR);
   renderSectorStats('L',LF,day);
   renderSectorStats('R',RF,day);
   renderHandPicker(LF,RF,day);
@@ -939,6 +981,7 @@ function jumpToDay(day){
 }
 
 function selectWorld(idx){
+  if(!games.length||!games[idx])return;  // guard against a stray change event before boot() populates games
   gi=idx;const g=games[gi];$('world').value=String(g.episode);
   for(const opt of $('mode').options){
     if(opt.value==='t0')continue;
