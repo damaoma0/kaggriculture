@@ -273,6 +273,23 @@ ARMS = {
                        sd_fert_frac=0.6, sd_tier_fert_exact=1, sd_tier_relief=1, sd_tier_rate_c=12.0)),
     'K3c5': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1,
                        sd_fert_frac=0.6, sd_tier_fert_exact=1, sd_tier_relief=1, sd_tier_rate_c=5.0)),
+    # K3c5s (user 2026-09-28, season trial): K3c5 with the tiered plan on days 11-28 (MDEC's window is 11-23; day 29 = the
+    # executor's endgame either way)
+    'K3c5s': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1,
+                        sd_fert_frac=0.6, sd_tier_fert_exact=1, sd_tier_relief=1, sd_tier_rate_c=5.0, sd_days=[11, 28])),
+    # K3c5sn: K3c5s with the planner's time-bank stop lifted (research: the policy over the whole season; runtime measured apart)
+    'K3c5sn': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1,
+                         sd_fert_frac=0.6, sd_tier_fert_exact=1, sd_tier_relief=1, sd_tier_rate_c=5.0, sd_days=[11, 28],
+                         sd_bank_stop=1e9)),
+    # K4 (2026-09-28): K3c5s + wheat for the day's feeds bought at hour 0 (first order) with pickups waiting for it, and the
+    # faster planner (2 spawn passes, no cache wipes); bank stop at its default 20 s
+    'K4': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1,
+                     sd_fert_frac=0.6, sd_tier_fert_exact=1, sd_tier_relief=1, sd_tier_rate_c=5.0, sd_days=[11, 28], sd_tier_wheat=1)),
+    # K4f: K4 + the faster planner settings (4 sweep offsets, collect pairing for the 3 best positions / 4 animals)
+    'K4f': (SEC, dict(ARMS_B1, sd_tier=1, sd_tier_fert_supply=1, sd_tier_coll_cap=2, sd_tier_pair_own=1, sd_tier_fert_skip_harv=1,
+                      sd_fert_frac=0.6, sd_tier_fert_exact=1, sd_tier_relief=1, sd_tier_rate_c=5.0, sd_days=[11, 28], sd_tier_wheat=1,
+                      sd_tier_offsets=4, sd_tier_pair_top=3, sd_tier_iters=2500, sd_tier_relief_minv=20.0,
+                      sd_tier_fill_near=5, sd_tier_farmer_hold=1)),
     'G0sM': (SEC, dict(MDEC, sd_fert_sell=1, sell_now=['MELON'], sd_melon_rule=1)),
     # melon morning push vs the new animal values (user: B1p's farmer collects instead of harvesting melons)
     **{f'B1pm{w}': (SEC, dict(ARMS_B1, sd_path_collect=6, sd_hv_pref=dict(HVM, MELON=dict(HVM['MELON'], hour_w=float(w)))))
@@ -384,6 +401,10 @@ LABEL = {
     'K3s40': 'K3s40: K3 + strawberry extra water worth 40',
     'K3c12': 'K3c12: K3 with the outbound extras floor at 12 coins per hour (K3: 20)',
     'K3c5': 'K3c5: K3 with the outbound extras floor at 5 coins per hour (K3: 20)',
+    'K3c5s': 'K3c5s: K3c5 with the tiered plan on days 11-28',
+    'K3c5sn': 'K3c5sn: K3c5s without the time-bank stop',
+    'K4': 'K4: K3c5s + wheat bought at hour 0 for the feeds, faster planner',
+    'K4f': 'K4f: K4 + faster planner settings (4 sweep offsets, pairing on the 3 best positions)',
     'G0sM': 'G0sM: G0s + hard-coded melon rule',
     **{f'B1pm{w}': f'B1pm{w}: B1p + melon later than 8 AM costs {w} an hour' for w in (60, 150)},
     **{f'B1pc{c}': f'B1pc{c}: B1p + collect worth at least {c} (not 80)' for c in (20, 40)},
@@ -512,6 +533,12 @@ def multi_job(args):
                               + (days[d].get('carried_mid') or {}).get('FERTILIZER', 0) for d in range(D, D + nd)},
                    passes={d: days[d].get('passes', 0) for d in range(D, D + nd)},
                    died={d: days[d].get('died', {}) for d in range(D, D + nd)})
+        if arm != 'LEADER' and ARMS[arm][1].get('sd_tier'):      # tiered plan: per-day plan summaries, errors, bank use
+            L_ = (getattr(box['h'].mod, '_S', None) or {}).get('sd') or {}
+            st_ = L_.get('st') or {}
+            out['tier_days'] = L_.get('tier_days') or {}
+            out['tier_err'] = dict(errors=st_.get('errors'), last_error=st_.get('last_error'), tb=st_.get('tier_tb'),
+                                   bank_used=st_.get('bank_used'), steps_over_1s=st_.get('steps_over_1s'))
         (OUT / 'multi' / arm).mkdir(parents=True, exist_ok=True)
         (OUT / 'multi' / arm / f"{game.split(':')[1]}.json").write_text(json.dumps(out, default=str), encoding='utf-8')
         if arm != 'LEADER':
