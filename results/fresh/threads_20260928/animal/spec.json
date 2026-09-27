@@ -53912,5 +53912,133 @@
    "sd_tier_farmer_h0pick": 1
   },
   "label": "KB101 = KB78 + farmer works his hour 0 in place (pickup at the shed or a job on his own tile; never a move - the hires spawn around him)"
+ },
+ "KB102": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_route_swap": 1
+  },
+  "label": "KB102 = KB78 + whole-route swaps between same-start hands right after the mandatory search (each re-ordered from its new start)"
+ },
+ "KB103": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_route_swap": 2
+  },
+  "label": "KB103 = KB78 + finished same-start routes traded between hands so each starts from the spawn tile nearest its first stop (order kept, no route past 24)"
  }
 }

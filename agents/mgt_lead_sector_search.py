@@ -380,6 +380,7 @@ CFG = {
     "sd_tier_collect_c_max": 0,  # > 0: at most this many phase C collects a day (the midnight shed room)
     "sd_tier_spawn_exact": 0,  # 1 (user 2026-09-27, spawn investigation panel_spawn.py: the hour-1 hires spawn by the engine rule on our units' positions after their hour-1 commands, which the plan predicts 100%, but the plan is self-consistent on only 49% of days - it assumes spawn tiles, re-routes the hour-0 hires around them, and their hour-1 positions then imply other tiles; the buffer plans those hires from hour 3 and they run ahead / idle): two-stage plan - inside each planning pass, after all routes are built, the farmer's and the hour-0 hires' routes stay fixed, their hour-1 positions give the exact spawn tiles, and the hour-1 hires' routes are reassigned to those tiles (best permutation by full route evaluation, from hour 2), optional tail ops trimmed while that makes a route late, freed time filled with the leftover extras (no harvests); the outer re-plan / buffer then sees a consistent plan; the executor remap is skipped when the hires stand where planned. KB96 (mode 1) vs KB78 -1,052: spawns 100% right but the first pass plans the hour-1 hires from an empty-shed guess (33 of 43 wrong), the reassignment leaves 1.0 late route and trims 15 optional ops a world (strawberry plant-days -2.0, weeds +2.5), and the fill's collects add midnight load (deleted +5 units a world). 2: re-plan up to twice with the exact tiles fed back into the search (keep the pass with the fewest mismatches), no collects in the fill. KB97 (mode 2) vs KB78 -414 (t -1.44): spawns 100% right, deaths back to 1.2, but work +0.02 a hand-day (idle -0.10 h turns into moves +0.08) and the hour-1 hires carry 16 more units into the midnight dump, where they come last (deleted 9.0 -> 11.9 a world; 7.8 of KB78's 9.0 are the hour-1 hires' goods). Parked with mechanism: the buffer hour is worth little because the planner does not turn it into work
     "sd_tier_farmer_h0pick": 0,  # 1 (user 2026-09-27, labor viewer: the farmer idles at hour 0; DSM's farmer PICKs UP wheat at hour 0 on 71% of days, ours PASSes on 73% and picks up at hour 1): with the hour-0 hold, the farmer's ordinary outbound route starts at hour 0 with the rule that his hour-0 command never moves him (a pickup at the shed or a job on his own tile, else he waits that hour) - the hires' spawn stays known and the search gets his hour 0; the executor turns any hour-0 move into PASS
+    "sd_tier_route_swap": 0,  # 1 (user 2026-09-27, labor viewer day 17: hand 4 spawned on (4,4) with a route that starts next to (4,5), a step lost, while another hand could have taken it; the hour-0 hires spawn in a fixed order on known tiles and the sector search moves single stops, never whole routes - first planned stop 1.47 steps from the hand's spawn tile vs 1.20 from the nearest shed tile, 40-world mean): right after the mandatory search, whole routes are swapped between outbound hands with the same start hour (each re-ordered from its new start), best improvement first, while the pair's cost falls and no lateness is added; spawns do not change (they follow the hire order). KB102 (mode 1) on 2 worlds -1,541 / -3,756 and first stops FARTHER from the spawn (1.45 -> 1.63 steps): the fills change each route's start after the swap and the re-plan passes shuffle again. 2: on the FINISHED routes, just before they are built: the same-start outbound hands trade whole routes (order kept) so that the sum of their end hours falls - i.e. each route starts from the spawn tile nearest its first stop - kept only when no route gets later than 24 or later lateness
     "sd_tier_fert_merge_collect": 0,  # 1: a merged fertilize may use fertilizer the route already collects and does not spend (look-back pen collects) before asking for a shed pickup (one spare hour instead of two)
     "sd_tier_prio_ani": 0,    # 1 (user 2026-09-26: "melon mode" for important animal harvests): the farmer (no melon duty that day) first harvests the cow / sheep pens holding >= sd_tier_prio_ani_min units (or due), feed / care in the same visit, best units x price per added hour while his drop at the shed stays by sd_tier_prio_ani_by; then he is a normal hand (post segment in the sector search), as after a melon delivery
     "sd_tier_prio_ani_min": {"COW": 3, "SHEEP": 4},   # DSM's mean units per harvest at pens near the shed (cow 3.4-3.8, sheep 4.2-4.4); eggs left out (DSM delivers only 18% of eggs the same day)
@@ -9289,6 +9290,98 @@ def _tier_wy_fill(tiles):
             _TIER_WY[i_] = int(t_["yield_units"])
 
 
+def _tier_route_swap_final(segs, owner, anim, st):
+    """sd_tier_route_swap 2: finished same-start outbound routes traded between hands (their spawn tiles) to cut the sum
+    of end hours; the route's own order is kept; returns swaps made."""
+    cand = [sg for sg in segs if sg["kind"] == "out" and not sg.get("dawn") and sg["stops"]
+            and not any(x.get("dawn") for x in sg["stops"])]
+    keys = ("stops", "fpick", "lo")
+
+    def ev_with(sg, route):
+        return _tier_eval(dict(sg, **route))
+
+    n = 0
+    for _it in range(40):
+        best = None
+        for a in range(len(cand)):
+            for b in range(a + 1, len(cand)):
+                A, B = cand[a], cand[b]
+                if A["t0"] != B["t0"] or A["p0"] == B["p0"]:
+                    continue
+                ra = {k: A.get(k) for k in keys}
+                rb = {k: B.get(k) for k in keys}
+                ea, eb = _tier_eval(A), _tier_eval(B)
+                ea2, eb2 = ev_with(A, rb), ev_with(B, ra)
+                if ea2[0] > 24 or eb2[0] > 24 or ea2[1] + eb2[1] > ea[1] + eb[1] or ea2[3] + eb2[3] > ea[3] + eb[3]:
+                    continue
+                d = (ea2[0] + eb2[0]) - (ea[0] + eb[0])
+                if d < 0 and (best is None or d < best[0]):
+                    best = (d, A, B, ra, rb)
+        if best is None:
+            break
+        d, A, B, ra, rb = best
+        for k in keys:
+            A[k], B[k] = rb[k], ra[k]
+        A["ver"] = A.get("ver", 0) + 1
+        B["ver"] = B.get("ver", 0) + 1
+        for sg in (A, B):
+            for x in sg["stops"]:
+                if x["tile"] not in anim:
+                    owner[x["tile"]] = segs.index(sg)
+        n += 1
+        st["tier_route_swap2_hours"] = st.get("tier_route_swap2_hours", 0) - d
+    st["tier_route_swap2"] = st.get("tier_route_swap2", 0) + n
+    return n
+
+
+def _tier_route_swap(segs_m, owner, anim, segs, st):
+    """sd_tier_route_swap: whole-route swaps between same-start outbound segments (see the flag); returns swaps made."""
+    cand = [sg for sg in segs_m if sg["kind"] == "out" and not sg.get("dawn") and sg["stops"]]
+
+    def reorder(sg, stops):
+        if len(stops) <= 1:
+            return stops
+        ids = _tier_route(sg, list(range(len(stops))), stops)
+        return [stops[i] for i in ids]
+
+    def cost(sg, stops):
+        ev = _tier_eval(sg, stops)
+        return _tier_cost(sg, ev, stops), ev[1]
+    n = 0
+    for _it in range(40):
+        best = None
+        for a in range(len(cand)):
+            for b in range(a + 1, len(cand)):
+                A, B = cand[a], cand[b]
+                if A["t0"] != B["t0"] or A["p0"] == B["p0"]:
+                    continue
+                ca, la = cost(A, A["stops"])
+                cb, lb = cost(B, B["stops"])
+                sa = reorder(A, [dict(x) for x in B["stops"]])
+                sb = reorder(B, [dict(x) for x in A["stops"]])
+                ca2, la2 = cost(A, sa)
+                cb2, lb2 = cost(B, sb)
+                if la2 + lb2 > la + lb:
+                    continue
+                d = (ca2 + cb2) - (ca + cb)
+                if d < -0.5 and (best is None or d < best[0]):
+                    best = (d, A, B, sa, sb)
+        if best is None:
+            break
+        d, A, B, sa, sb = best
+        A["stops"], B["stops"] = sa, sb
+        A["ver"] = A.get("ver", 0) + 1
+        B["ver"] = B.get("ver", 0) + 1
+        for sg in (A, B):
+            for x in sg["stops"]:
+                if x["tile"] not in anim:
+                    owner[x["tile"]] = segs.index(sg)
+        n += 1
+        st["tier_route_swap_gain"] = st.get("tier_route_swap_gain", 0.0) - d
+    st["tier_route_swap"] = st.get("tier_route_swap", 0) + n
+    return n
+
+
 def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
     _TIER_WY.clear()
     _TIER_CC["n"] = 0
@@ -9458,6 +9551,8 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         late_m = sum(_tier_eval(s)[1] for s in segs_m if s["stops"])
         st["tier_pen_bundle_fallback"] = st.get("tier_pen_bundle_fallback", 0) + 1
     st["tier_mand_late"] = st.get("tier_mand_late", 0) + late_m
+    if int(CFG["sd_tier_route_swap"]) == 1:        # user: whole routes to the hands whose spawn tile suits them
+        _tier_route_swap(segs_m, owner, set(anim), segs, st)
     for sg in segs_m:                              # sd_tier_dawn_service: the leg pen's feed / care / collect right after the pickups
         sv_ = (dawn_of.get(sg["u"]) or {}).get("svc") if sg.get("dawn") else None
         for x in sv_ or []:
@@ -9759,6 +9854,8 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
                              for x in s["stops"]]
         return r_out, sm
 
+    if int(CFG["sd_tier_route_swap"]) == 2:        # user: finished routes to the hands whose spawn tile suits them
+        _tier_route_swap_final(segs, owner, set(anim), st)
     sp1_true = None
     spx_wrong = None
     if int(CFG["sd_tier_spawn_exact"]):            # two-stage plan: the hour-1 hires from their exact spawn tiles (see the flag)
