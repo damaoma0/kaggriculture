@@ -338,6 +338,13 @@ CFG = {
     "sd_tier_sclu_by": 22,    # hard deadline of the DELIVER
     "sd_tier_sclu_extra": 1,  # 1: ops on the legs' shortest-path tiles join the trip (water, care, feed, collect, harvest)
     "sd_tier_sclu_extra_h": 2,   # extra work may delay the drop by at most this many hours past the cluster-only drop (user: early return ranks above extra work)
+    "sd_tier_sclu_fert": 0,   # 1 (8-world demo KB31: strawberry made -7.7 a world - the trip took the cluster tiles' HARVEST / WATER, their lone FERTILIZE stayed with the sectors and went unplanned: 29.4 unfertilized production nights vs 21.6): the trip picks up fertilizer at the shed and fertilizes its cluster tiles in the same visit
+    "sd_tier_sclu_dmax": None,  # cluster tiles at most this many steps from the nearest shed tile (DSM: mean 3.9, farthest 4.7)
+    "sd_tier_sclu_day_min": 0,  # a trip only when today's ready strawberry units reach this (DSM returns on batch days: 21.9 harvested vs 9.3)
+    "sd_tier_sclu_sector_d": None,  # user: "if the distance is short enough we can also make the path to the cluster in the sector of this hand": clusters whose farthest tile is within this distance take all path work that fits by the deadline (no extra-hours cap)
+    "sd_tier_sclu_outfert": 0,  # 1 (user): extra labor on the outbound and a safe shed stock: pick up more fertilizer and do the other hands' FERTILIZE jobs on the outbound leg's shortest-path tiles
+    "sd_tier_sclu_outfert_h": 3,  # hours the outbound fertilizing may add to the drop
+    "sd_tier_sclu_fert_keep": 0,  # fertilizer left in the shed (the pickups take at most the hour-0 stock minus this)
     "sd_tier_prio_ani": 0,    # 1 (user 2026-09-26: "melon mode" for important animal harvests): the farmer (no melon duty that day) first harvests the cow / sheep pens holding >= sd_tier_prio_ani_min units (or due), feed / care in the same visit, best units x price per added hour while his drop at the shed stays by sd_tier_prio_ani_by; then he is a normal hand (post segment in the sector search), as after a melon delivery
     "sd_tier_prio_ani_min": {"COW": 3, "SHEEP": 4},   # DSM's mean units per harvest at pens near the shed (cow 3.4-3.8, sheep 4.2-4.4); eggs left out (DSM delivers only 18% of eggs the same day)
     "sd_tier_prio_ani_by": 8,     # the melon rule's morning deadline
@@ -2935,6 +2942,11 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             if pn_ and pn_[0] == int(_g(obs, "step", 0)):
                 left_ += int(pn_[1].get("WHEAT", 0))
         reserve["WHEAT"] = max(reserve["WHEAT"], left_)
+    TPf_ = S.get("tier") if CFG["sd_tier"] and (CFG["sd_tier_sclu_fert"] or CFG["sd_tier_sclu_outfert"]) else None
+    if TPf_ and TPf_.get("day") == day:            # sd_tier_sclu_fert: the trips' fertilizer stays in the shed until picked up
+        left_f = sum(it_["n"] for R_ in TPf_["routes"].values() for it_ in R_["items"][R_["k"]:]
+                     if it_["kind"] == "pick" and it_["item"] == "FERTILIZER")
+        reserve["FERTILIZER"] = max(int(reserve.get("FERTILIZER", 0) or 0), left_f)
     if endgame:
         reserve = Counter()
     # sell following the target's cumulative sold units
@@ -6174,6 +6186,7 @@ def _tier_eval(seg, stops=None, want_hours=False):
     gr = seg.get("goose_ready", 2)
     late = hop = bad = 0
     nf, na = _tier_picks(stops)
+    fp_ = int(seg.get("fpick", 0) or 0)                # sd_tier_sclu_fert: fertilizer picked up at the start
     w, f = 0, 0
     an = Counter()
     kd = 0
@@ -6183,7 +6196,7 @@ def _tier_eval(seg, stops=None, want_hours=False):
     first = True
     for i_s in range(len(stops) + 1):
         if i_s == kd:
-            if nf or na:
+            if nf or na or fp_:
                 if p not in _TIER_SHED_I:
                     s_ = _tier_near_shed(p)
                     t += D[p][s_]
@@ -6191,6 +6204,9 @@ def _tier_eval(seg, stops=None, want_hours=False):
                 if nf:
                     t += 1
                     w = nf
+                if fp_:
+                    t += 1
+                    f += fp_
                 for a_, v_ in na.items():
                     t = max(t, gr) + 1
                     an[a_] = v_
@@ -6967,6 +6983,24 @@ def _tier_srun(S, rec, tiles, day, fu, st):
             "drop": st["_srun_day"]["drop"], "hh": {b_: h for (b_, c_, h) in ev[4] if c_[0] == "HARVEST"}}
 
 
+def _fert_useful(t, day):
+    """a FERTILIZE on this plant still buys a unit: the engine covers day..day+2; an ongoing crop needs a production
+    night in that window, within its max_yield productions and not already covered (user: a strawberry at the end of its
+    life is not fertilized - it is replanted)"""
+    if not _is_plant(t):
+        return False
+    cd = CROPS.get(t.get("crop"))
+    if not cd or not cd["ongoing"]:
+        return True
+    pd = int(t.get("planted_day", day))
+    itv = max(1, int(cd.get("interval", 1) or 1))
+    for d in (day, day + 1, day + 2):
+        k = d + 1 - pd - cd["first"]
+        if k >= 0 and k % itv == 0 and k // itv + 1 <= cd["max"] and d > int(t.get("fertilized_until_day", -1) or -1):
+            return True
+    return False
+
+
 def _tier_sclu(S, rec, tiles, day, units, busy, st):
     """sd_tier_sclu: strawberry cluster trips (see the flag). Returns {u: melon-style run}; the taken ops leave rec."""
     import itertools as _it
@@ -6975,7 +7009,9 @@ def _tier_sclu(S, rec, tiles, day, units, busy, st):
     by = int(CFG["sd_tier_sclu_by"])
     umin = int(CFG["sd_tier_sclu_min"])
     xy = lambda i: (i % 10, i // 10)
+    dsh = lambda i: min(D[i][q] for q in _TIER_SHED_I)
     cand = {}
+    ready_ = 0
     for idx, r_ in rec.items():
         t_ = _tile(tiles, idx)
         if not _is_plant(t_) or t_.get("crop") != "STRAWBERRY":
@@ -6983,15 +7019,21 @@ def _tier_sclu(S, rec, tiles, day, units, busy, st):
         if not any(o["c"][0] == "HARVEST" for o in r_["ops"]):
             continue
         y_ = int(t_.get("yield_units", 0) or 0)
-        if y_ > 0:
+        ready_ += max(0, y_)
+        if y_ > 0 and (CFG["sd_tier_sclu_dmax"] is None or dsh(idx) <= int(CFG["sd_tier_sclu_dmax"])):
             cand[idx] = y_
+    fert_ = int(CFG["sd_tier_sclu_fert"]) or int(CFG["sd_tier_sclu_outfert"])
+    favail = max(0, int((S.get("_shed_h0") or {}).get("FERTILIZER", 0) or 0) - int(CFG["sd_tier_sclu_fert_keep"])) if fert_ else 0
+    if ready_ < int(CFG["sd_tier_sclu_day_min"]):
+        st["_sclu_day"] = {"clusters": [], "cand": len(cand), "cand_units": sum(cand.values()), "ready": ready_, "gate": "closed"}
+        return {}
     dawn_u = set()
     if int(CFG["sd_tier_dawn"]) == 3:
         dawn_u = {int(tr[0]) for tr in (_dawn_shape(day, tiles).get(str(day)) or [])}
     free = [(u, p0, t0) for u, p0, t0 in units if u != 0 and u not in busy and t0 <= 1 and u not in dawn_u]
     EXTRA = ("WATER", "CARE", "FEED", "COLLECT_FERTILIZER", "HARVEST", "PLACE_HARVEST")
     out = {}
-    rec_ = st["_sclu_day"] = {"clusters": [], "cand": len(cand), "cand_units": sum(cand.values())}
+    rec_ = st["_sclu_day"] = {"clusters": [], "cand": len(cand), "cand_units": sum(cand.values()), "ready": ready_, "favail": favail}
     while cand and free and len(out) < int(CFG["sd_tier_sclu_max"]):
         best = None
         for c0 in cand:                             # a cluster grown from each seed: nearest first, all pairs within R
@@ -7033,13 +7075,20 @@ def _tier_sclu(S, rec, tiles, day, units, busy, st):
             dl_ = [_tier_op(["DELIVER", p_], True, 0.0, 1) for p_ in sorted(prods_, key=lambda q: q != "STRAWBERRY")]
             return out_ + [{"tile": sh, "ops": dl_, "rel": 0, "turn": True, "sell_now": True}]
 
+        def nfert(seq):
+            return sum(1 for b in seq for o in taken.get(b, []) if o["c"][0] == "FERTILIZE")
+
         def feasible(seq):
+            seg["fpick"] = nfert(seq)
             ev = _tier_eval(seg, stops_of(seq), want_hours=True)
             dh = max(h for (b_, c_, h) in ev[4] if c_[0] == "DELIVER")
             return ev[1] == 0 and ev[3] == 0 and dh <= by, ev, dh
 
         for b in perm:
             taken[b] = [o for o in rec[b]["ops"] if o["c"][0] in ("HARVEST", "PLACE_HARVEST", "WATER")]
+            fz_ = [o for o in rec[b]["ops"] if o["c"][0] == "FERTILIZE"] if _fert_useful(_tile(tiles, b), day) else []
+            if int(CFG["sd_tier_sclu_fert"]) and fz_ and nfert(perm) + len(fz_) <= favail:
+                taken[b] += fz_                     # the cluster's own fertilize, fertilizer from the shed
         seq = list(perm)
         f_, ev, dh = feasible(seq)
         if not f_:
@@ -7047,8 +7096,10 @@ def _tier_sclu(S, rec, tiles, day, units, busy, st):
                 taken.pop(b, None)
             cand = {k: v for k, v in cand.items() if k not in mem}
             continue
+        sector_ = CFG["sd_tier_sclu_sector_d"] is not None and max(dsh(b) for b in perm) <= int(CFG["sd_tier_sclu_sector_d"])
         if int(CFG["sd_tier_sclu_extra"]):         # extra work on the legs: tiles inside each leg's box, monotone order
-            dmax_ = dh + int(CFG["sd_tier_sclu_extra_h"])
+            dmax_ = by if sector_ else dh + int(CFG["sd_tier_sclu_extra_h"])   # a short trip: the path is this hand's sector
+            dh0_ = dh
             legs = [pi] + perm + [sh]
             new_seq = []
             for k in range(len(legs) - 1):
@@ -7057,9 +7108,11 @@ def _tier_sclu(S, rec, tiles, day, units, busy, st):
                 (ax, ay), (bx, by_) = xy(a), xy(b)
                 sx = (bx > ax) - (bx < ax)
                 sy = (by_ > ay) - (by_ < ay)
+                of_ = k == 0 and int(CFG["sd_tier_sclu_outfert"])   # branch 2: other hands' fertilize on the outbound
+                EX_ = EXTRA + (("FERTILIZE",) if of_ else ())
                 box = [t for t in rec if t not in taken and t not in (a, b)
                        and min(ax, bx) <= t % 10 <= max(ax, bx) and min(ay, by_) <= t // 10 <= max(ay, by_)
-                       and any(o["c"][0] in EXTRA for o in rec[t]["ops"])]
+                       and any(o["c"][0] in EX_ for o in rec[t]["ops"])]
                 box.sort(key=lambda t: (D[a][t], -sum(o["v"] + (1000 if o["m"] else 0) for o in rec[t]["ops"] if o["c"][0] in EXTRA)))
                 last = a
                 for t in box:
@@ -7067,8 +7120,17 @@ def _tier_sclu(S, rec, tiles, day, units, busy, st):
                     if (qx - px) * sx < 0 or (qy - py) * sy < 0:
                         continue
                     taken[t] = [o for o in rec[t]["ops"] if o["c"][0] in EXTRA]
+                    fz_ = [o for o in rec[t]["ops"] if o["c"][0] == "FERTILIZE"] if (of_ and _fert_useful(_tile(tiles, t), day)) else []
+                    if fz_ and nfert(new_seq + rest) + nfert([x for x in seq if x not in new_seq and x not in rest]) + len(fz_) <= favail:
+                        taken[t] += fz_
+                    else:
+                        fz_ = []
+                    if not taken[t]:
+                        taken.pop(t)
+                        continue
+                    cap_ = min(by, max(dmax_, dh0_ + int(CFG["sd_tier_sclu_extra_h"]) + int(CFG["sd_tier_sclu_outfert_h"]))) if fz_ else dmax_
                     ok_, _, dh_ = feasible(new_seq + [t] + rest)
-                    if ok_ and dh_ <= dmax_:
+                    if ok_ and dh_ <= cap_:
                         new_seq.append(t)
                         last = t
                     else:
@@ -7091,10 +7153,14 @@ def _tier_sclu(S, rec, tiles, day, units, busy, st):
             if not rec[b]["ops"]:
                 rec.pop(b)
         final = stops_of(seq)
-        out[u] = {"stops": final, "p0": pi, "t0": t0, "drop": dh, "_value": sum(cand[m] for m in mem),
+        fp_ = nfert(seq)
+        favail -= fp_
+        out[u] = {"stops": final, "p0": pi, "t0": t0, "drop": dh, "_value": sum(cand[m] for m in mem), "fpick": fp_,
                   "hh": {b_: h for (b_, c_, h) in ev[4] if c_[0] == "HARVEST"}}
         rec_["clusters"].append({"u": u, "tiles": list(perm), "units": sum(cand[m] for m in mem), "extra": [b for b in seq if b not in perm],
-                                 "drop": dh})
+                                 "drop": dh, "fpick": fp_, "sector": bool(sector_),
+                                 "fert_cluster": sum(1 for b in perm for o in taken.get(b, []) if o["c"][0] == "FERTILIZE"),
+                                 "fert_out": sum(1 for b in seq if b not in perm for o in taken.get(b, []) if o["c"][0] == "FERTILIZE")})
         free = [f for f in free if f[0] != u]
         cand = {k: v for k, v in cand.items() if k not in mem and k in rec and any(o["c"][0] == "HARVEST" for o in rec[k]["ops"])}
     return out
@@ -8773,6 +8839,8 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             nfm_ = sum(1 for x in M["stops"] for o in x["ops"] if o["c"][0] == "FEED")
             if nfm_:                                   # an animal priority run feeds on its way: wheat first
                 items.append({"kind": "pick", "item": "WHEAT", "n": nfm_})
+            if M.get("fpick"):                         # sd_tier_sclu_fert: the trip's fertilizer from the shed
+                items.append({"kind": "pick", "item": "FERTILIZER", "n": int(M["fpick"])})
             for x in M["stops"]:
                 items.append({"kind": "place" if x.get("place") else "stop", "tile": x["tile"],
                               "ops": [o["c"] for o in x["ops"]], "mand": [o["m"] for o in x["ops"]]})
