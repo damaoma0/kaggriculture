@@ -306,6 +306,7 @@ CFG = {
     "sd_harvest_follow_keep": 0,   # 1 (KB9, 40 worlds: we sell wool 9-15 units behind DSM at the rival's sales from day 18; sheep harvest days match DSM on 16.4 pen-days a world, 15.1 DSM-only / 16.5 ours-only; on 112604454 day 17 the dump deferral removed the 3 pens DSM harvested): harvests added or kept by sd_harvest_follow_dsm are exempt from the dump deferral
     "sd_maint_follow_dsm": [],   # ops (FEED / CARE / WATER / FERTILIZE; KB17 on 112604454: idle 182 -> 106 unit-hours changed nothing, the freed hours went to walking and low-value waters; DSM does +32 fertilizes, +38 cares, +32 collects and -38 feeds with the same hands, geese cared 85 vs our 43 a world): on the tiles DSM did the op today (semantics maintenance lists, tile-exact board) our optional op becomes mandatory; a missing FEED / CARE / WATER is added (FERTILIZE only promoted: it needs fertilizer in hand)
     "sd_maint_follow_drop": [],  # ops of sd_maint_follow_dsm whose optional instances are dropped on tiles DSM did not service today (frees the labor DSM does not spend; keep-alive and feed-bank feeds are added later and stay)
+    "sd_maint_follow_kinds": [],  # animals / crops the maintenance follow applies to (empty: all; KB20 dropped sheep care on DSM's glut days: wool made -0.6k and the rival's wool windfall +0.7k)
     "sd_tier_dump_fix": 0,    # 1 (2026-09-26, case world 112604454: hands carried 124-159 units into the midnight dump while the shed was empty): the executor skips a planned end-of-day DROP only when the PROJECTED midnight load (shed + carried + the units the routes still harvest today) fits, not the load at that hour
     "sd_tier_copy_returns": 0,  # 1 (user 2026-09-26: copy how many hands go back to the shed to drop): the plan holds at least as many daytime shed deliveries as the leader made that day at hour >= 5 (results/fresh/threads_20260928/dsm_returns/<ep>.json), best load value per added hour, extras at a route end trimmed if needed
     "sd_tier_copy_returns_from": 11,   # first day it applies
@@ -325,6 +326,11 @@ CFG = {
     "sd_tier_prio_straw": 0,  # 1 (user 2026-09-26: strawberry "melon mode"): one hour-0 hire (not the farmer, no melon duty) first harvests the strawberry tiles holding >= sd_tier_prio_straw_min units (or due), watering them in the same visit, best units x price per added hour while its drop at the shed stays by sd_tier_prio_straw_by; then a normal post segment
     "sd_tier_prio_straw_min": 2,  # DSM's mean units per strawberry harvest (1.95)
     "sd_tier_prio_straw_by": 12,  # DSM delivers the same day 62% of strawberries harvested at hours 0-7, 13% at 12-15
+    "sd_tier_srun": 0,        # 1 (user 2026-09-27: "bring back strawberry in close proximity. So one labor with following priorities: hard deadline 22, bring back as much as possible, then a bonus on getting back early and bonus on getting extra work done"; DSM brings 54 strawberries a world home by day vs our 8, its returns ~3 tiles each dropped at hour ~16): one hour-0 hire runs the strawberry harvests first and DELIVERs them at the shed - (1) its drop by sd_tier_srun_by and no op late, (2) most strawberry units (cheapest insertion, units per added hour incl. the walk back), (3) earliest drop for that set (reordering), (4) the tiles' WATER in the same visit, ties to visits carrying a mandatory op; then a normal post segment
+    "sd_tier_srun_by": 22,    # the run's hard deadline: DELIVER at the shed by this hour
+    "sd_tier_srun_min": 1,    # strawberry tiles holding >= this many units (or with a due harvest) are candidates
+    "sd_tier_srun_radius": None,  # candidates within this many steps of the nearest shed tile (None: any)
+    "sd_tier_srun_passes": 2,  # improvement passes (reorder for an earlier drop, swap for more units)
     "sd_tier_prio_ani": 0,    # 1 (user 2026-09-26: "melon mode" for important animal harvests): the farmer (no melon duty that day) first harvests the cow / sheep pens holding >= sd_tier_prio_ani_min units (or due), feed / care in the same visit, best units x price per added hour while his drop at the shed stays by sd_tier_prio_ani_by; then he is a normal hand (post segment in the sector search), as after a melon delivery
     "sd_tier_prio_ani_min": {"COW": 3, "SHEEP": 4},   # DSM's mean units per harvest at pens near the shed (cow 3.4-3.8, sheep 4.2-4.4); eggs left out (DSM delivers only 18% of eggs the same day)
     "sd_tier_prio_ani_by": 8,     # the melon rule's morning deadline
@@ -6835,6 +6841,114 @@ def _tier_prio_run(S, rec, tiles, day, fu, st, mode):
             "hh": {b_: h for (b_, c_, h) in ev[4] if c_[0] == "HARVEST"}}
 
 
+def _tier_srun(S, rec, tiles, day, fu, st):
+    """sd_tier_srun: one hand's strawberry run (see the flag), built like a melon run: {"stops" (strawberry tiles, then a
+    DELIVER at the nearest shed tile), "p0", "t0", "drop", "hh", "_units"}; the taken ops leave rec."""
+    D = _TIER_D
+    u, p0, t0 = fu
+    pi = p0[1] * 10 + p0[0]
+    by = int(CFG["sd_tier_srun_by"])
+    smin = int(CFG["sd_tier_srun_min"])
+    rad = CFG["sd_tier_srun_radius"]
+    cand = {}
+    for idx, r_ in rec.items():
+        t_ = _tile(tiles, idx)
+        if not _is_plant(t_) or t_.get("crop") != "STRAWBERRY":
+            continue
+        if rad is not None and min(D[idx][q] for q in _TIER_SHED_I) > int(rad):
+            continue
+        hv = [o for o in r_["ops"] if o["c"][0] in ("HARVEST", "PLACE_HARVEST")]
+        if not any(o["c"][0] == "HARVEST" for o in hv):
+            continue
+        y_ = int(t_.get("yield_units", 0) or 0)
+        due = any(o["m"] for o in hv if o["c"][0] == "HARVEST")
+        if not (due or y_ >= smin) or y_ <= 0:
+            continue
+        wt = [o for o in r_["ops"] if o["c"][0] == "WATER"]
+        cand[idx] = {"ops": hv + wt, "units": y_, "mx": sum(1 for o in wt if o["m"])}
+    if not cand:
+        return None
+    seg = {"p0": pi, "t0": t0, "stops": []}
+
+    def stop_of(idx):
+        return {"tile": idx, "ops": sorted([dict(o, m=True, tier=1) for o in cand[idx]["ops"]], key=lambda o: o["rank"]),
+                "rel": rec[idx]["rel"]}
+
+    def with_drop(sts):
+        sh = min(_TIER_SHED_I, key=lambda q: D[sts[-1]["tile"]][q])
+        return sts + [{"tile": sh, "ops": [_tier_op(["DELIVER"], True, 0.0, 1)], "rel": 0, "turn": True}]
+
+    def ok(sts):                                   # (feasible, drop hour, end)
+        if not sts:
+            return True, t0, t0
+        ev = _tier_eval(seg, with_drop(sts), want_hours=True)
+        dh = max(h for (b_, c_, h) in ev[4] if c_[0] == "DELIVER")
+        return (ev[1] == 0 and ev[3] == 0 and dh <= by), dh, ev[0]
+
+    route, taken = [], set()
+    end0 = t0
+    while True:                                    # (2) most units: cheapest insertion by units per added hour
+        best = None
+        for idx, c in cand.items():
+            if idx in taken:
+                continue
+            stp = stop_of(idx)
+            for k in range(len(route) + 1):
+                trial = route[:k] + [stp] + route[k:]
+                f_, dh, end = ok(trial)
+                if not f_:
+                    continue
+                sc = (c["units"] / max(1, end - end0), c["mx"], -dh)
+                if best is None or sc > best[0]:
+                    best = (sc, idx, trial, end)
+        if best is None:
+            break
+        _, idx, route, end0 = best
+        taken.add(idx)
+    if not route:
+        return None
+    for _ in range(int(CFG["sd_tier_srun_passes"])):
+        moved = False
+        _, dh0, _ = ok(route)
+        for i_ in range(len(route)):               # (3) earliest drop for the same set: move one stop to its best place
+            rest = route[:i_] + route[i_ + 1:]
+            for k in range(len(rest) + 1):
+                trial = rest[:k] + [route[i_]] + rest[k:]
+                f_, dh, _ = ok(trial)
+                if f_ and dh < dh0:
+                    route, dh0, moved = trial, dh, True
+                    break
+            if moved:
+                break
+        units0 = sum(cand[x["tile"]]["units"] for x in route)
+        for i_ in range(len(route)):               # (2) more units: swap a taken tile for a richer untaken one
+            for idx, c in cand.items():
+                if idx in taken or c["units"] <= cand[route[i_]["tile"]]["units"]:
+                    continue
+                trial = route[:i_] + [stop_of(idx)] + route[i_ + 1:]
+                f_, dh, _ = ok(trial)
+                if f_:
+                    taken.discard(route[i_]["tile"])
+                    taken.add(idx)
+                    route, moved = trial, True
+                    break
+        if not moved:
+            break
+    for x in route:                                # the taken ops leave rec
+        ids = set(id(o) for o in cand[x["tile"]]["ops"])
+        rec[x["tile"]]["ops"] = [o for o in rec[x["tile"]]["ops"] if id(o) not in ids]
+        if not rec[x["tile"]]["ops"]:
+            rec.pop(x["tile"])
+    final = with_drop(route)
+    ev = _tier_eval(seg, final, want_hours=True)
+    units = sum(cand[x["tile"]]["units"] for x in route)
+    st["_srun_day"] = {"u": u, "tiles": [x["tile"] for x in route], "units": units,
+                       "drop": max(h for (b_, c_, h) in ev[4] if c_[0] == "DELIVER"),
+                       "cand": len(cand), "cand_units": sum(c["units"] for c in cand.values())}
+    return {"stops": final, "p0": pi, "t0": t0, "_units": units, "_value": units,
+            "drop": st["_srun_day"]["drop"], "hh": {b_: h for (b_, c_, h) in ev[4] if c_[0] == "HARVEST"}}
+
+
 def _tier_prio_ani(S, rec, tiles, day, fu, st):
     """sd_tier_prio_ani: the farmer's morning run of important animal harvests (see the flag), built like a melon run:
     {"stops" (pens, then a DELIVER stop at the shed), "p0", "t0", "drop", "hh"}; the taken ops leave rec."""
@@ -7860,6 +7974,8 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                 t_ = _tile(tiles, idx_)
                 if not (_animal(t_) if c_ in ("FEED", "CARE") else _is_plant(t_)):
                     continue
+                if CFG["sd_maint_follow_kinds"] and (t_.get("animal") or t_.get("crop")) not in CFG["sd_maint_follow_kinds"]:
+                    continue
                 r_ = rec.get(idx_)
                 ops_ = [o for o in (r_ or {}).get("ops", []) if o["c"][0] == c_]
                 if idx_ in dsm_t_:
@@ -8170,6 +8286,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["summary"]["dayret"] = st.pop("_dayret_day", None)
     TP["summary"]["refill"] = st.pop("_refill_day", None)
     TP["summary"]["follow"] = st.pop("_follow_day", None)
+    TP["summary"]["srun"] = st.pop("_srun_day", None)
     TP["summary"]["mfollow"] = dict(st.pop("_mfollow_day", None) or {}) or None
     TP["k0"] = k0
     TP["h0_books"] = nb0
@@ -8284,6 +8401,21 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             if M_ is not None:
                 mel_of[best_[1]] = M_
                 st["tier_prio_straw_runs"] = st.get("tier_prio_straw_runs", 0) + 1
+    if CFG["sd_tier_srun"]:                        # user: one hand brings strawberries home (deadline, units, early, extra work)
+        best_ = None
+        seen_ = set()
+        for u_, p0_, t0_ in units:                 # one trial per distinct start (the hour-0 hires stand on shed tiles)
+            if u_ == 0 or u_ in mel_of or t0_ > 1 or u_ in ani_units or (tuple(p0_), t0_) in seen_:
+                continue
+            seen_.add((tuple(p0_), t0_))
+            M_ = _tier_srun(S, _tier_copy_rec(rec), tiles, day, (u_, p0_, t0_), {})
+            if M_ is not None and (best_ is None or (M_["_units"], -M_["drop"]) > best_[0]):
+                best_ = ((M_["_units"], -M_["drop"]), u_, (u_, p0_, t0_))
+        if best_ is not None:
+            M_ = _tier_srun(S, rec, tiles, day, best_[2], st)
+            if M_ is not None:
+                mel_of[best_[1]] = M_
+                st["tier_srun_runs"] = st.get("tier_srun_runs", 0) + 1
     dawn_of = {}
     if int(CFG["sd_tier_dawn"]) == 1:              # learned from DSM: short dawn round trips to the near pens (forced)
         dawn_of = _tier_dawn(S, rec, tiles, day, units, set(mel_of) | ani_units, st)
