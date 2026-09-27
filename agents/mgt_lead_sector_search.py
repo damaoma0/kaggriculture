@@ -312,6 +312,11 @@ CFG = {
     "sd_tier_copy_returns_from": 11,   # first day it applies
     "sd_tier_copy_returns_end": 0,    # >0 (KDF2 trace: copied drops left the hour-1 hires no slack, their last waterings went unfinished): a copied delivery only where the route still ends by this hour, and the executor never skips a copied delivery (the drop check cancelled them after the plan had made room)
     "sd_tier_deliver_check": 0,   # 1: a planned delivery is skipped when shed + everything carried already fits at that hour
+    "sd_tier_deliver_skip": 0,  # 1 (user 2026-09-27: "on these heavy nights dump waste thousands of coins while a trip back home only costs a few waterings... make a few hands skip their nonmandatory jobs and go home by 23 to make drops"; KB54 112592389 days 26 / 27: projected 121 / 136 carried, zero deliveries planned - every route ran to 24 and only trailing extras could be trimmed - 41 units deleted): when no delivery fits and the projected carried load exceeds 100 - sd_tier_dump_buffer, a hand drops its cheapest optional jobs anywhere in the route until a DROP at the shed fits the day; kept when the goods it saves from deletion (min(its load, the excess) x average price) exceed the jobs given up
+    "sd_tier_deliver_skip_max": 12,  # optional jobs one hand may give up
+    "sd_tier_deliver_skip_min": 10,  # go-home only when the excess still projected AFTER the harvest deferral is at least this many units (KB63 fired on 4.3 world-days a world before the deferral, KB54 loses goods on 2.3)
+    "sd_tier_deliver_skip_trips": 2,  # drops a hand may make (end of day or mid-route, user: two trips instead of one)
+    "sd_tier_deliver_skip_collects": 0,  # 1 (KB64 112592389 day 27: 47 optional jobs, 28 of them collects, were off limits, so only one hand could go home): optional collects may be given up too (the route check still rejects a trial that leaves a fertilize without fertilizer)
     "sd_tier_deliver_keep": None, # products a delivery does not sell at once (e.g. ["MILK"]: dearer the next morning) # units kept free in the shed at midnight beyond tomorrow's feed wheat (one per animal)
     "sd_tier_coll_cap": 0,    # >0: collects per hand; one more only when it is on the hand's way (no extra walking)
     # ---- animal thread (2026-09-28): all default OFF (= K5b)
@@ -7886,8 +7891,67 @@ def _tier_deliver(S, segs, tiles, day, st):
             total -= u_
             deferred_ += u_
         st["tier_dump_deferred"] = st.get("tier_dump_deferred", 0) + deferred_
+    cap_true_ = 100 - int(CFG["sd_tier_dump_buffer"])
+    if CFG["sd_tier_deliver_skip"] and total - cap_true_ >= int(CFG["sd_tier_deliver_skip_min"]):
+        # user: heavy overflow expected even after the deferral - a few hands give up optional jobs to drop at the shed
+        # (end of day or mid-route, up to sd_tier_deliver_skip_trips drops a hand)
+        ntr_ = {k: sum(1 for x in sg["stops"] if x.get("deliver") or x.get("turn")) for k, sg in enumerate(segs)}
+        for _round in range(2 * len(segs)):
+            if total <= cap_true_:
+                break
+            best = None
+            for k, sg in enumerate(segs):
+                if sg["kind"] not in ("out", "post", "ani") or not sg["stops"] or ntr_.get(k, 0) >= int(CFG["sd_tier_deliver_skip_trips"]):
+                    continue
+                ev0 = _tier_eval(sg)
+                l0 = sum(v for v in _tier_load(sg, sg["stops"], tiles, day).values() if v > 0)
+                stops2 = list(sg["stops"])
+                lost2 = 0.0
+                for _i in range(int(CFG["sd_tier_deliver_skip_max"]) + 1):
+                    found_ = None
+                    for pos in range(1, len(stops2) + 1):   # a DROP after stop pos-1 (pos = len: the end of the day)
+                        prev_ = stops2[pos - 1]
+                        if prev_.get("dawn"):
+                            continue
+                        dstop = {"tile": _tier_near_shed(prev_["tile"]), "ops": [_tier_op(["DROP"], True, 0.0, 2)], "rel": 0,
+                                 "deliver": pos == len(stops2), "turn": pos < len(stops2), "sell_all": True}
+                        trial = stops2[:pos] + [dstop] + stops2[pos:]
+                        ev = _tier_eval(sg, trial)
+                        if ev[1] > ev0[1] or ev[3] > ev0[3] or ev[0] > 24:
+                            continue
+                        lk_after = _tier_load(sg, trial, tiles, day) if pos < len(stops2) else Counter()
+                        lk_drop = _tier_load(sg, trial[:pos], tiles, day)
+                        red_ = l0 - sum(v for v in lk_after.values() if v > 0)
+                        nd_ = sum(v for v in lk_drop.values() if v > 0)
+                        if red_ <= 0 or nd_ <= 0:
+                            continue
+                        avgp = sum(max(0, v) * float(prices.get(p, 0) or 0) for p, v in lk_drop.items()) / nd_
+                        net_ = min(red_, total - cap_true_) * avgp - lost2
+                        if net_ > 0 and (found_ is None or net_ > found_[0]):
+                            found_ = (net_, trial, red_)
+                    if found_ is not None:
+                        if best is None or found_[0] > best[0]:
+                            best = (found_[0], k, found_[1], found_[2])
+                        break
+                    cand_ = [(float(o["v"]), i_, j_) for i_, x in enumerate(stops2) if not x.get("dawn") and not x.get("turn") and not x.get("deliver")
+                             for j_, o in enumerate(x["ops"]) if not o["m"] and (CFG["sd_tier_deliver_skip_collects"] or o["c"][0] != "COLLECT_FERTILIZER")]
+                    if not cand_:
+                        break
+                    v_, i_, j_ = min(cand_)
+                    lost2 += v_
+                    x = stops2[i_]
+                    ops2 = [o for jj, o in enumerate(x["ops"]) if jj != j_]
+                    stops2 = stops2[:i_] + ([dict(x, ops=ops2)] if ops2 else []) + stops2[i_ + 1:]
+            if best is None:
+                break
+            _, k, trial, red_ = best
+            segs[k]["stops"] = trial
+            segs[k]["ver"] += 1
+            ntr_[k] = ntr_.get(k, 0) + 1
+            total -= red_
+            st["tier_deliver_skip"] = st.get("tier_deliver_skip", 0) + 1
     st["tier_dump_left_over"] = st.get("tier_dump_left_over", 0) + max(0, total - room)
-    st["_dump_day"] = {"proj": total0, "room": room, "left": total, "target": target_,
+    st["_dump_day"] = {"proj": total0, "room": room, "left": total, "target": target_, "skip": st.get("tier_deliver_skip", 0),
                        "with_delivery": sum(1 for sg in segs if has_(sg)), "deferred": deferred_}
 
 
@@ -9159,6 +9223,8 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
                           "mand": [o["m"] for o in x["ops"]], "rel": x.get("rel", 0)})
             if x.get("copy"):
                 items[-1]["copy"] = True
+            if x.get("sell_all"):                  # sd_tier_deliver_skip: a go-home drop sells everything, wheat included
+                items[-1]["sell_all"] = True
         ev = _tier_eval(s, want_hours=True) if s["stops"] else (s["t0"], 0, 0, 0, [])
         routes_u[u] = {"items": items, "k": 0, "sub": 0, "kind": s["kind"], "waited": 0, "wait": {}, "t0plan": s["t0"],
                        "plan_hours": (list(dawn_of[u]["hours"]) if u in dawn_of else []) + [(b_, c_[0], h) for b_, c_, h in ev[4]]}
@@ -9485,8 +9551,11 @@ def _tier_cmd(TP, R, u, p, inv, tiles, day, hour, step, seeds_left, shed_left):
                 seeds_left[c[1]] = seeds_left.get(c[1], 0) - 1
             if c[0] == "DROP":                         # planned delivery: the market sells the goods this hour
                 nosell_ = set(CFG["sd_tier_deliver_keep"] or ())
+                all_ = bool(it.get("sell_all"))       # a go-home drop on a heavy night: wheat too (room beats keeping it)
                 TP.setdefault("dsell", Counter()).update(
-                    {k: int(v) for k, v in inv.items() if k in PRODUCTS and k != "WHEAT" and k not in nosell_ and v > 0})
+                    {k: int(v) for k, v in inv.items() if k in PRODUCTS and (all_ or (k != "WHEAT" and k not in nosell_)) and v > 0})
+                if all_:
+                    cnt["skipdrop_units"] += sum(int(v) for k, v in inv.items() if k in PRODUCTS and v > 0)
                 cnt["deliver"] += 1
             R.setdefault("done", []).append((hour, it["tile"], c[0]))
             return list(c)
