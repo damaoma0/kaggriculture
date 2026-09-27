@@ -298,6 +298,7 @@ CFG = {
     "sd_keep_alive_guard_min": 2,   # productions left (nights up to 28) from which the keep-alive guard holds; 1 = every animal that still produces once more (KH5 lost 1.2 animals a world before day 27 vs 0.3 with DSM's data: the module abandons flocks in their last cycles when the wool price path dips, and our wool keeps the rival's price down)
     "sd_tier_dayret_shape": None,   # "file" (user 2026-09-27: improve with DSM knowledge; the dawn SHAPE copy was worth +2.0k where copying only the COUNT of returns was worth nothing): DSM's daytime returns of this world (results/fresh/threads_20260928/dsm_dayret/<ep>.json: hand, drop hour, the tiles it harvested the goods on); each return goes to our outbound hand whose mandatory route holds the most of those tiles, as a shed stop (DELIVER) right after the last of them, kept when it adds no lateness; never skipped by the executor
     "sd_tier_dayret_relocate": 0,   # > 0: a DSM return that would make its hand late may move up to this many of the hand's tail stops (after the return) to the outbound hand where each fits cheapest without lateness (user: reassign tiles from busy sectors to non-busy)
+    "sd_defer_shed": 0,       # > 0 (KB0 on 40 worlds: on 219 overflow nights the shed already held wool 7.0 / milk 4.7 units - our surplus over DSM's plan that the price floor keeps unsold - vs DSM's 0.9 / 1.3; DSM keeps its glut wool ON the sheep): at planning, a product whose shed stock is at least this many units has its animal harvests left on the animals when the tile can hold them without losing production (sd_tier_dump_defer's check)
     "sd_tier_dump_fix": 0,    # 1 (2026-09-26, case world 112604454: hands carried 124-159 units into the midnight dump while the shed was empty): the executor skips a planned end-of-day DROP only when the PROJECTED midnight load (shed + carried + the units the routes still harvest today) fits, not the load at that hour
     "sd_tier_copy_returns": 0,  # 1 (user 2026-09-26: copy how many hands go back to the shed to drop): the plan holds at least as many daytime shed deliveries as the leader made that day at hour >= 5 (results/fresh/threads_20260928/dsm_returns/<ep>.json), best load value per added hour, extras at a route end trimmed if needed
     "sd_tier_copy_returns_from": 11,   # first day it applies
@@ -7429,6 +7430,27 @@ def _tier_deliver(S, segs, tiles, day, st):
         total -= sum(lk.values())
         st["tier_deliveries"] = st.get("tier_deliveries", 0) + 1
     deferred_ = 0
+    if int(CFG["sd_defer_shed"]):                  # DSM: glut goods stay on the animals, not in the shed
+        shed0_ = (S.get("_shed_h0") or {})
+        glut_ = {p_ for p_, v_ in shed0_.items() if int(v_ or 0) >= int(CFG["sd_defer_shed"])}
+        if glut_:
+            for k, sg in enumerate(segs):
+                for x in list(sg["stops"]):
+                    if x.get("deliver") or x.get("turn") or x.get("place"):
+                        continue
+                    t_ = _tile(tiles, x["tile"])
+                    if not _animal(t_) or ANIMALS[t_["animal"]]["product"] not in glut_:
+                        continue
+                    if not any(o["c"][0] == "HARVEST" for o in x["ops"]) or not _tier_defer_ok(t_, day):
+                        continue
+                    u_ = int(t_.get("yield_units", 0) or 0)
+                    x["ops"] = [o for o in x["ops"] if o["c"][0] not in ("HARVEST", "PLACE_HARVEST")]
+                    if not x["ops"]:
+                        sg["stops"] = [y for y in sg["stops"] if y is not x]
+                    sg["ver"] += 1
+                    total -= u_
+                    deferred_ += u_
+                    st["tier_defer_shed"] = st.get("tier_defer_shed", 0) + u_
     if CFG["sd_tier_dump_defer"]:                  # leave holdable harvests for tomorrow instead of deleting them
         cap_ = int(CFG["sd_tier_dump_defer_cap"]) or (100 - int(CFG["sd_tier_dump_buffer"]))
         while total > cap_:
@@ -7690,6 +7712,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
         return
     t_start = time.perf_counter()
     st = L["st"]
+    S["_shed_h0"] = dict(shed or {})
     want = _sd_want_hands(day)
     k0 = min(want, 10)
     vunits = [(q, 1) for q in _sd_spawn(pos, k0)] + [(q, 2) for q in _sd_spawn([], want - k0)]
