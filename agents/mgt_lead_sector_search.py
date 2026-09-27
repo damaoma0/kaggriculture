@@ -304,6 +304,8 @@ CFG = {
     "sd_defer_shed": 0,       # > 0 (KB0 on 40 worlds: on 219 overflow nights the shed already held wool 7.0 / milk 4.7 units - our surplus over DSM's plan that the price floor keeps unsold - vs DSM's 0.9 / 1.3; DSM keeps its glut wool ON the sheep): at planning, a product whose shed stock is at least this many units has its animal harvests left on the animals when the tile can hold them without losing production (sd_tier_dump_defer's check)
     "sd_harvest_follow_dsm": [],   # crops or animals (SHEEP / COW / GOOSE: same rule on the pens; KB2: 46% of DSM's daytime returns found no match because 30% of our strawberry harvests fall on another day than DSM's, same 44 tiles): harvest a tile of these crops on the days DSM harvested it (the target's harvested tiles per day); on other days its harvest waits when the plant can hold the units without losing production
     "sd_harvest_follow_keep": 0,   # 1 (KB9, 40 worlds: we sell wool 9-15 units behind DSM at the rival's sales from day 18; sheep harvest days match DSM on 16.4 pen-days a world, 15.1 DSM-only / 16.5 ours-only; on 112604454 day 17 the dump deferral removed the 3 pens DSM harvested): harvests added or kept by sd_harvest_follow_dsm are exempt from the dump deferral
+    "sd_maint_follow_dsm": [],   # ops (FEED / CARE / WATER / FERTILIZE; KB17 on 112604454: idle 182 -> 106 unit-hours changed nothing, the freed hours went to walking and low-value waters; DSM does +32 fertilizes, +38 cares, +32 collects and -38 feeds with the same hands, geese cared 85 vs our 43 a world): on the tiles DSM did the op today (semantics maintenance lists, tile-exact board) our optional op becomes mandatory; a missing FEED / CARE / WATER is added (FERTILIZE only promoted: it needs fertilizer in hand)
+    "sd_maint_follow_drop": [],  # ops of sd_maint_follow_dsm whose optional instances are dropped on tiles DSM did not service today (frees the labor DSM does not spend; keep-alive and feed-bank feeds are added later and stay)
     "sd_tier_dump_fix": 0,    # 1 (2026-09-26, case world 112604454: hands carried 124-159 units into the midnight dump while the shed was empty): the executor skips a planned end-of-day DROP only when the PROJECTED midnight load (shed + carried + the units the routes still harvest today) fits, not the load at that hour
     "sd_tier_copy_returns": 0,  # 1 (user 2026-09-26: copy how many hands go back to the shed to drop): the plan holds at least as many daytime shed deliveries as the leader made that day at hour >= 5 (results/fresh/threads_20260928/dsm_returns/<ep>.json), best load value per added hour, extras at a route end trimmed if needed
     "sd_tier_copy_returns_from": 11,   # first day it applies
@@ -7847,6 +7849,34 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                 fr_["marked"].append(idx_)
         for idx_ in [i for i, r_ in rec.items() if not r_["ops"]]:
             del rec[idx_]
+    if CFG["sd_maint_follow_dsm"]:                 # upkeep on DSM's tiles of the day (same board: the plan is tile-exact)
+        lm_ = _T.maint[day] if day < len(getattr(_T, "maint", ())) else {}
+        mf_ = st["_mfollow_day"] = Counter()
+        drop_ = set(CFG["sd_maint_follow_drop"] or ())
+        done_key_ = {"FEED": "fed_today", "CARE": "cared_today", "WATER": "watered_today"}
+        for c_ in CFG["sd_maint_follow_dsm"]:
+            dsm_t_ = set(lm_.get(c_, ()))
+            for idx_ in range(100):
+                t_ = _tile(tiles, idx_)
+                if not (_animal(t_) if c_ in ("FEED", "CARE") else _is_plant(t_)):
+                    continue
+                r_ = rec.get(idx_)
+                ops_ = [o for o in (r_ or {}).get("ops", []) if o["c"][0] == c_]
+                if idx_ in dsm_t_:
+                    if ops_:
+                        for o in ops_:
+                            if not o["m"]:
+                                o["m"], o["tier"] = True, 2
+                                mf_["promoted_" + c_] += 1
+                    elif c_ in done_key_ and not t_.get(done_key_[c_]):
+                        r_ = rec.setdefault(idx_, {"ops": [], "rel": 0})
+                        r_["ops"].append(_tier_op([c_], True, 0.0, 2))
+                        mf_["added_" + c_] += 1
+                elif c_ in drop_ and ops_ and all(not o["m"] for o in ops_):
+                    r_["ops"] = [o for o in r_["ops"] if o["c"][0] != c_]
+                    mf_["dropped_" + c_] += 1
+        for idx_ in [i for i, r_ in rec.items() if not r_["ops"]]:
+            del rec[idx_]
     if CFG["sd_keep_alive_guard"]:                 # R2 exact: no animal with >= 2 production nights left may escape
         for idx_ in range(100):
             t_ = _tile(tiles, idx_)
@@ -8140,6 +8170,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["summary"]["dayret"] = st.pop("_dayret_day", None)
     TP["summary"]["refill"] = st.pop("_refill_day", None)
     TP["summary"]["follow"] = st.pop("_follow_day", None)
+    TP["summary"]["mfollow"] = dict(st.pop("_mfollow_day", None) or {}) or None
     TP["k0"] = k0
     TP["h0_books"] = nb0
     TP["summary"]["h0_books"] = nb0
