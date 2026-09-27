@@ -389,6 +389,12 @@ CFG = {
     "sd_tier_out_collect_late": 0,  # 1 (user: collect "if they have free steps at the end"; KB47 collect-only in phase C -1,320 on 8 worlds - the pass reorders phase C and its collects take the hours of waterings worth more than their value): after all fills, a hand whose plan still has free hours collects fertilizer at animals on its shortest path out (detour sd_tier_anim_out_detour) when the route still ends by hour 24 and the midnight dump has room for the fertilizer
     "sd_tier_path_collect": 0,  # 1 (user 2026-09-27: "if after planning we have a hand with unspent hour, we can retroactively inspect animal pens along the path"): after all fills, a hand whose planned day ends before 24 collects the free fertilizer of pens it already stops at (merged, no walking) and of pens inside any leg's shortest-path box (no detour), cheapest first, while the route still ends by 24 with no added lateness and the midnight dump has room
     "sd_tier_path_collect_detour": 0,  # pens up to this many tiles off a leg's shortest path also qualify (1 tile = 2 extra steps)
+    "sd_tier_collect_swap": 0,  # 1 (user: "retroactively swap out a collection from central hand to outbound hand when it turns out that it has 1 hr extra... central hand saves 1hr"): after planning, a COLLECT in a full hand's route (planned to hour 24, not supplying its own fertilize) moves to a hand with spare time that stops at the pen or passes it (sd_tier_path_collect_detour), and the full hand refills the freed hour from the day's leftover extras
+    "sd_tier_straw_fert_mult": 1.0,  # strawberry FERTILIZE extras' value x this (user: "add value to strawberry fertilization"; KB54 leaves 14.3 watered production nights a world unfertilized vs DSM 4.5 - the missing ones are the cycle's first (+9) and third (+13) fertilizes)
+    "sd_tier_straw_fert_days": [],  # user: strawberry fertilizes on these days since planting (9, 13: each covers two production nights, p+9/p+11 and p+13/p+15) get value x sd_tier_straw_fert_day_mult
+    "sd_tier_straw_fert_day_mult": 10.0,
+    "sd_tier_straw_odd_water": 0,  # 1 (user: "stagger the watering from the fertilization days"): strawberries are watered on odd days since planting (the production nights +9/+11/+13/+15 and the fertilize days are odd; every other day keeps them alive; blocks planted on even / odd days alternate): an optional strawberry WATER on an odd day gets value >= sd_tier_straw_odd_water_v (a production night of a fertilized plant: the strawberry price), one on an even day is dropped (mandatory keep-alive waters stay)
+    "sd_tier_straw_odd_water_v": 40.0,
     # ---- dawn thread (2026-09-28, KDW): DSM's dawn deliveries of wool / milk, all default OFF (= KS1fl)
     "sd_tier_dawn": 0,        # 1 (user: "we want them early just like DSM did"; DSM makes short round trips at the start of the day):
                               # at hour 0, before the mandatory sector search, a unit that starts its day at the shed by hour
@@ -8015,6 +8021,79 @@ def _tier_goose_care(rec, tiles, day, last_day, prices, st):
     st["tier_goose_feed"] = st.get("tier_goose_feed", 0) + n_f
 
 
+def _tier_collect_swap(segs, rest, owner, rate, st):
+    """sd_tier_collect_swap: move collects from full hands to hands with spare time on the way (see the flag)."""
+    D = _TIER_D
+    det = 2 * int(CFG["sd_tier_path_collect_detour"])
+    n = 0
+    for ka, A in enumerate(segs):
+        for _rep in range(3):                      # up to three swaps a hand
+            if A["kind"] not in ("out", "post", "ani") or not A["stops"]:
+                break
+            evA = _tier_eval(A)
+            if evA[0] < 24:
+                break                              # only a full hand gains from giving work away
+            done_ = False
+            for ia, x in enumerate(A["stops"]):
+                cops = [o for o in x["ops"] if o["c"][0] == "COLLECT_FERTILIZER"]
+                if not cops or x.get("dawn"):
+                    continue
+                a = x["tile"]
+                if len(cops) == len(x["ops"]):
+                    stA = A["stops"][:ia] + A["stops"][ia + 1:]
+                else:
+                    stA = A["stops"][:ia] + [dict(x, ops=[o for o in x["ops"] if o["c"][0] != "COLLECT_FERTILIZER"])] + A["stops"][ia + 1:]
+                evA2 = _tier_eval(A, stA)
+                if evA2[3] > evA[3] or evA2[1] > evA[1] or evA[0] - evA2[0] < 1:
+                    continue                       # it feeds A's own fertilize, or frees nothing
+                best = None
+                for kb, B in enumerate(segs):
+                    if kb == ka or B["kind"] not in ("out", "post", "ani") or not B["stops"]:
+                        continue
+                    evB = _tier_eval(B)
+                    if evB[0] >= 24:
+                        continue
+                    tb_ = [B["p0"]] + [y["tile"] for y in B["stops"]]
+                    opts = []
+                    if any(y["tile"] == a for y in B["stops"]):
+                        opts.append(_tier_merge(B["stops"], a, cops)[0])
+                    else:
+                        for k in range(len(B["stops"])):
+                            if D[tb_[k]][a] + D[a][tb_[k + 1]] <= D[tb_[k]][tb_[k + 1]] + det and not B["stops"][k].get("dawn"):
+                                opts.append(_tier_merge(B["stops"], a, cops, 0, k)[0])
+                    for stB in opts:
+                        evB2 = _tier_eval(B, stB)
+                        if evB2[0] > 24 or evB2[1] > evB[1] or evB2[3] > evB[3]:
+                            continue
+                        if best is None or evB2[0] - evB[0] < best[0]:
+                            best = (evB2[0] - evB[0], kb, stB)
+                if best is None:
+                    continue
+                _, kb, stB = best
+                segs[kb]["stops"] = stB
+                segs[kb]["ver"] += 1
+                A["stops"] = stA
+                A["ver"] += 1
+                n += 1
+                pool_ = []                         # refill without harvests: the dump deferral already cut them (KB55: +352 deleted a world)
+                for bd in rest:
+                    ops2 = [o for o in bd["ops"] if o["c"][0] not in ("HARVEST", "PLACE_HARVEST")]
+                    if ops2:
+                        pool_.append(dict(bd, ops=ops2, v=sum(o["v"] for o in ops2), _src=bd))
+                n_r_ = _tier_fill(segs, [ka], pool_, {}, owner, rate, st, "swap")
+                if n_r_:
+                    taken_ = {id(bd.get("_src")) for bd in pool_}
+                    for bd in [b for b in rest if id(b) not in taken_]:
+                        bd["ops"] = [o for o in bd["ops"] if o["c"][0] in ("HARVEST", "PLACE_HARVEST")]
+                    rest[:] = [b for b in rest if b["ops"]]
+                st["tier_swap_refill"] = st.get("tier_swap_refill", 0) + n_r_
+                done_ = True
+                break
+            if not done_:
+                break
+    return n
+
+
 def _tier_path_collect(segs, collects, st, budget):
     """sd_tier_path_collect: collects on the pens a planned route already passes (see the flag); returns the count."""
     D = _TIER_D
@@ -8407,6 +8486,52 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
         st["tier_fert_dropped"] = st.get("tier_fert_dropped", 0) + nd_
     if CFG["sd_tier_fert_exact"]:
         _tier_fert_exact(rec, tiles, day, prices, st)
+    if CFG["sd_tier_straw_fert_days"]:             # user: very high weight on the cycle's fertilize days (9, 13)
+        fdays_ = set(int(x) for x in CFG["sd_tier_straw_fert_days"])
+        for idx, r_ in rec.items():
+            t_ = _tile(tiles, idx)
+            if _is_plant(t_) and t_.get("crop") == "STRAWBERRY" and day - int(t_.get("planted_day", day)) in fdays_:
+                for o in r_["ops"]:
+                    if o["c"][0] == "FERTILIZE" and not o["m"]:
+                        o["v"] = float(o["v"]) * float(CFG["sd_tier_straw_fert_day_mult"])
+                        st["tier_straw_fert_day"] = st.get("tier_straw_fert_day", 0) + 1
+    if CFG["sd_tier_straw_odd_water"]:             # user: strawberry waters staggered from the fertilize days (odd days since planting)
+        pr_s_ = float(prices.get("STRAWBERRY", 0) or 0)
+        cds_ = CROPS["STRAWBERRY"]
+        for idx in range(100):
+            t_ = _tile(tiles, idx)
+            if not (_is_plant(t_) and t_.get("crop") == "STRAWBERRY"):
+                continue
+            off_ = day - int(t_.get("planted_day", day))
+            if off_ <= 0 or t_.get("watered_today"):
+                continue
+            r_ = rec.get(idx)
+            wops_ = [o for o in (r_ or {}).get("ops", []) if o["c"][0] == "WATER"]
+            if off_ % 2 == 1:
+                k_ = off_ + 1 - cds_["first"]
+                prod_ = k_ >= 0 and k_ % cds_["interval"] == 0 and k_ // cds_["interval"] + 1 <= cds_["max"]
+                fz_ = int(t_.get("fertilized_until_day", -1) or -1) >= day or any(
+                    o["c"][0] == "FERTILIZE" for o in (r_ or {}).get("ops", []))
+                v_ = max(float(CFG["sd_tier_straw_odd_water_v"]), pr_s_ if (prod_ and fz_) else 0.0)
+                if wops_:
+                    for o in wops_:
+                        if not o["m"] and o["v"] < v_:
+                            o["v"] = v_
+                else:
+                    rec.setdefault(idx, {"ops": [], "rel": 0})["ops"].append(_tier_op(["WATER"], False, v_, 3))
+                    st["tier_straw_odd_added"] = st.get("tier_straw_odd_added", 0) + 1
+            elif r_ is not None and any(not o["m"] for o in wops_):
+                r_["ops"] = [o for o in r_["ops"] if not (o["c"][0] == "WATER" and not o["m"])]
+                st["tier_straw_even_dropped"] = st.get("tier_straw_even_dropped", 0) + 1
+        for idx_ in [i for i, r_ in rec.items() if not r_["ops"]]:
+            del rec[idx_]
+    if float(CFG["sd_tier_straw_fert_mult"]) != 1.0:   # user: more value on strawberry fertilization
+        for idx, r_ in rec.items():
+            t_ = _tile(tiles, idx)
+            if _is_plant(t_) and t_.get("crop") == "STRAWBERRY":
+                for o in r_["ops"]:
+                    if o["c"][0] == "FERTILIZE" and not o["m"]:
+                        o["v"] = float(o["v"]) * float(CFG["sd_tier_straw_fert_mult"])
     if CFG["sd_tier_water_exact"]:                 # extra waterings valued by engine rules (user: shift the weights)
         nw_ = 0
         for idx, r_ in rec.items():
@@ -8578,6 +8703,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["summary"]["fcarry"] = st.pop("_fcarry_day", None)
     TP["summary"]["ocl"] = st.pop("_ocl_day", None)
     TP["summary"]["pcl"] = st.pop("_pcl_day", None)
+    TP["summary"]["swap"] = st.pop("_swap_day", None)
     TP["summary"]["mfollow"] = dict(st.pop("_mfollow_day", None) or {}) or None
     TP["k0"] = k0
     TP["h0_books"] = nb0
@@ -8912,6 +9038,10 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         n_pc_ = _tier_path_collect(segs, collects, st, bud_)
         free1_ = sum(max(0, 24 - _tier_eval(sg)[0]) for sg in segs if sg["kind"] in ("out", "post", "ani") and sg["stops"])
         st["_pcl_day"] = {"collects": n_pc_, "room": b0_, "free_h_before": free0_, "free_h_after": free1_, "left_collects": len(collects)}
+    if CFG["sd_tier_collect_swap"]:                # user: a full hand's collect moves to a hand with a spare hour on the way
+        r0_ = st.get("tier_swap_refill", 0)
+        n_sw_ = _tier_collect_swap(segs, rest, owner, rate, st)
+        st["_swap_day"] = {"swaps": n_sw_, "refilled": st.get("tier_swap_refill", 0) - r0_}
     if CFG["sd_tier_out_collect_late"]:            # user: hands with free steps at the end collect fertilizer on the way out
         dd_ = st.get("_dump_day") or {}
         bud_ = [max(0, 100 - int(CFG["sd_tier_dump_buffer"]) - int(dd_.get("left", 0) or 0))]
