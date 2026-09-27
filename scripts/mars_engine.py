@@ -28,6 +28,10 @@ import upkeep_engine as UE  # noqa: E402
 E = UE.engine()
 PRODS = tuple(sys.argv[sys.argv.index('--prods') + 1].split(',')) if '--prods' in sys.argv else ('STRAWBERRY', 'WOOL', 'MILK')
 STRATS = tuple(sys.argv[sys.argv.index('--strats') + 1].split(',')) if '--strats' in sys.argv else ('actual', 'books', 'books_cap', 'books_deliv')
+_hz = ROOT / 'results/fresh/threads_20260928/dsm_sell_hazard.json'
+HAZ = json.loads(_hz.read_text())['hazard'] if _hz.exists() else {}
+_hz2 = ROOT / 'results/fresh/threads_20260928/dsm_sell_hazard2.json'
+HAZ2 = json.loads(_hz2.read_text())['hazard2'] if _hz2.exists() else {}
 R = {'w': None, 'seat': 0, 't': 0, 'ev': None, 'mars': False, 'other': None, 'lost': None, 'lostd': None}
 _commit, _drop = E._commit_unit, E._drop_inventories_to_shed
 
@@ -211,6 +215,59 @@ def world(g, arm):
         def fn(t, orders, w, seat):
             if strategy == 'actual':
                 return capped(t, orders)
+            if strategy == 'hazard_rival':
+                # DSM-free seller, rival-aware: DSM's hazard by product / phase / hour / the rival's habit (its units at this
+                # hour and in the next 4 on the previous 3 days, from the market events seen so far), with the price floor
+                h, d = t % 24, t // 24
+                ph = 'early' if d <= 17 else ('mid' if d <= 23 else 'late')
+                sold_us = Counter(e[2] for e in R['ev'] if e[1] == 'us')
+                riv = Counter((e[0], e[2]) for e in R['ev'] if e[1] == 'opp')
+                out = capped(t, orders, skip=PRODS)
+                front = []
+                inv_m = w.market['inventory']
+                days = [d - k for k in (1, 2, 3) if d - k >= 11]
+                for p in PRODS:
+                    have = avail2[p][t] - sold_us[p]
+                    if have <= 0:
+                        continue
+                    if t == 718:
+                        q = have
+                    else:
+                        now = soon = 0
+                        if days:
+                            now = int(sum(riv[(dd * 24 + h, p)] for dd in days) / len(days) >= 1)
+                            soon = int(sum(riv[(dd * 24 + hh, p)] for dd in days for hh in range(h + 1, min(24, h + 5))) / len(days) >= 2)
+                        hz = HAZ2.get(f'{p}|{ph}|{h}|{now}|{soon}', HAZ.get(f'{p}|{ph}|{h}', 0.0))
+                        q = int(round(hz * have))
+                        k = 0
+                        while k < q and E.market_price(p, inv_m[p] + k, w.market.get('params')) > 5:
+                            k += 1
+                        q = k
+                    if q > 0:
+                        front.append(['SELL', p, q])
+                return front + out
+            if strategy in ('hazard', 'hazard_walk'):
+                # DSM-free seller: DSM's learned hazard (share of the shed stock sold, by product / season phase / hour,
+                # results/fresh/threads_20260928/dsm_sell_hazard.json) x our units in the shed now; everything at step 718
+                h = t % 24
+                ph = 'early' if t // 24 <= 17 else ('mid' if t // 24 <= 23 else 'late')
+                sold_us = Counter(e[2] for e in R['ev'] if e[1] == 'us')
+                out = capped(t, orders, skip=PRODS)
+                front = []
+                inv_m = w.market['inventory']
+                for p in PRODS:
+                    have = avail2[p][t] - sold_us[p]
+                    if have <= 0:
+                        continue
+                    q = have if t == 718 else int(round(HAZ.get(f'{p}|{ph}|{h}', 0.0) * have))
+                    if strategy == 'hazard_walk' and t != 718:
+                        k = 0
+                        while k < q and E.market_price(p, inv_m[p] + k, w.market.get('params')) > 5:
+                            k += 1
+                        q = k
+                    if q > 0:
+                        front.append(['SELL', p, q])
+                return front + out
             if strategy in ('pattern_tick', 'pattern_tick0', 'pattern_tick_inf'):
                 av2_ = avail2i if strategy.endswith('_inf') else avail2
                 h = t % 24
