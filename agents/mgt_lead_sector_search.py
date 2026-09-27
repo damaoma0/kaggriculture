@@ -198,6 +198,7 @@ CFG = {
     "sd_books_minpx": 5,
     "sd_books_walk": 0,       # 1 (KC4 still sold 14 wool at $1: near the floor a unit lowers the wool price by ~6, so a batch of 8 from quote 24 ends at 1; DSM never sold wool at $1): every sd_books_sell sell stops before the engine price of the next unit (market stock + units already sold this step) would be <= sd_books_minpx
     "sd_books_source": "dsm", # "dsm": the leader's recorded sell plan (dsm_sales); "hazard" (DSM-free, user 2026-09-27: we will not have DSM's plans): DSM's learned selling hazard x our shed stock, by product / season phase / hour / the rival's habit (its units at this hour and in the next 4 on the previous 3 days, inferred from the market: stock change - our sales + shop consumption); tables results/fresh/threads_20260928/dsm_sell_hazard2.json (fallback dsm_sell_hazard.json), 40 recordings
+    "sd_books_cap_free": 0,   # 1 (KB0 on 40 worlds: on overflow nights the shed holds wool 7.0 / milk 4.7 the price floor keeps unsold, and the dump deletes the strawberries / wheat carried in; leaving glut goods on the animals cost -0.9k: less supply lets the rival sell dearer): the capacity sells of the plan (sd_books_cap, from hour 21 when tonight would overflow) ignore the batch cap and the price floor - room for carried goods worth more beats the price of a glut unit, and a sale above $1 still lowers the rival's price
     "sd_pattern_tick": [],    # products (user 2026-09-26: imitate DSM's selling; engine-isolated test +2.7k on world 112604454): sold only at hours 1 / 5 / 9 / 13 / 17 / 21 (the first market after a town consumption tick; the engine clears the market BEFORE the town consumes at hours 0 / 4 / 8 / 12 / 16 / 20) on the sd_hourly_profile quota; their deliveries are no longer sold on arrival and the overflow guards leave them alone at the tick hours themselves (hour 20). Needs sd_hourly_profile for these products
     "sd_wheat_pick_now": 0,   # 1 (2026-09-26, KQ plant deaths): the market's wheat reserve for the tiered plan's pickups also counts the WHEAT the executor picks up in this same step. Those pick items are marked done when the command is issued, but the wheat is still in the observed shed and the engine runs unit actions before the market, so without this the sale takes the wheat the later pickups (the hour-1 hires, acting from hour 2) need: they wait for a buy-back and their routes end an hour late (last WATER unfinished, plants die; FEED skipped)
     "sd_h0_front": [],        # (user 2026-09-26) products whose shed stock may be sold at hour 0 FIRST in the order list (the engine processes both players' orders position by position, so a sell behind the hires comes after the rival's hour-0 sales); the largest-value pile >= sd_h0_front_min, at most sd_h0_front_n orders; one hour-0 hire moves to hour 1 only when the 10 slots are full
@@ -3301,8 +3302,11 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                         break
                     done_ = sum(o_[2] for _, o_ in front_ if o_[1] == p_)
                     k_ = min(int(shed.get(p_, 0) or 0) - done_, excess_)
-                    if int(CFG["sd_books_batch"]):     # DSM: small lots, never at the floor
+                    if int(CFG["sd_books_batch"]) and not CFG["sd_books_cap_free"]:     # DSM: small lots, never at the floor
                         k_ = 0 if float(prices.get(p_, 0) or 0) <= float(CFG["sd_books_minpx"]) else min(k_, max(0, int(CFG["sd_books_batch"]) - done_))
+                    if k_ > 0 and CFG["sd_books_cap_free"]:
+                        st_c_ = S.setdefault("_cap_free", set())
+                        st_c_.add((int(_g(obs, "step", 0)), p_))   # exempt from the walk floor below (room beats price)
                     if k_ > 0:
                         hit_ = next((x for x in front_ if x[1][1] == p_), None)
                         if hit_:
@@ -3314,8 +3318,9 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             if CFG["sd_books_walk"]:                  # never walk a sale down to the floor (DSM: no wool at $1)
                 inv_m_ = dict(_g(_g(obs, "market", {}), "inventory", {}) or {})
                 kept_ = []
+                cf_ = S.get("_cap_free") or set()
                 for pos_, o_ in front_:
-                    if o_[1] in inv_m_:
+                    if o_[1] in inv_m_ and (int(_g(obs, "step", 0)), o_[1]) not in cf_:
                         k_ = _walk_cap(o_[1], int(inv_m_[o_[1]]), float(CFG["sd_books_minpx"]), o_[2])
                         if k_ < o_[2]:
                             S["log"]["books_walk_cut_" + o_[1]] += o_[2] - k_
