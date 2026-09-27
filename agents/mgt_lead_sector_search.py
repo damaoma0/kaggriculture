@@ -296,6 +296,7 @@ CFG = {
     "sd_keep_alive_guard": 0,  # 1 (KS5a on 112604454: the maintenance module abandoned the whole sheep flock on days 23-24 when the trailing wool floor followed a glut down; R2 of docs/abandonment_research_20260926.md): an animal unfed yesterday with >= 2 production nights left (up to night 28) always gets a mandatory keep-alive FEED, whatever the module decided
     "sd_tier_dawn_learned_max": 4,   # sd_tier_dawn_shape "learned": at most this many dawn trips a day (DSM: 0-4, 1.8 on average)
     "sd_keep_alive_guard_min": 2,   # productions left (nights up to 28) from which the keep-alive guard holds; 1 = every animal that still produces once more (KH5 lost 1.2 animals a world before day 27 vs 0.3 with DSM's data: the module abandons flocks in their last cycles when the wool price path dips, and our wool keeps the rival's price down)
+    "sd_tier_dayret_shape": None,   # "file" (user 2026-09-27: improve with DSM knowledge; the dawn SHAPE copy was worth +2.0k where copying only the COUNT of returns was worth nothing): DSM's daytime returns of this world (results/fresh/threads_20260928/dsm_dayret/<ep>.json: hand, drop hour, the tiles it harvested the goods on); each return goes to our outbound hand whose mandatory route holds the most of those tiles, as a shed stop (DELIVER) right after the last of them, kept when it adds no lateness; never skipped by the executor
     "sd_tier_dump_fix": 0,    # 1 (2026-09-26, case world 112604454: hands carried 124-159 units into the midnight dump while the shed was empty): the executor skips a planned end-of-day DROP only when the PROJECTED midnight load (shed + carried + the units the routes still harvest today) fits, not the load at that hour
     "sd_tier_copy_returns": 0,  # 1 (user 2026-09-26: copy how many hands go back to the shed to drop): the plan holds at least as many daytime shed deliveries as the leader made that day at hour >= 5 (results/fresh/threads_20260928/dsm_returns/<ep>.json), best load value per added hour, extras at a route end trimmed if needed
     "sd_tier_copy_returns_from": 11,   # first day it applies
@@ -7117,6 +7118,46 @@ def _tier_central(S, cseg, rec, tiles, day, st):
     st["tier_central_days"] = st.get("tier_central_days", 0) + 1
 
 
+def _tier_dayret(segs_m, tiles, day, st):
+    """sd_tier_dayret_shape: DSM's daytime returns of this day (see the flag) inserted into our mandatory routes."""
+    D = _TIER_D
+    data = ((_dsm_data("dayret") or {}).get("days") or {}).get(str(day)) or []
+    used = set()
+    rec_ = st["_dayret_day"] = {"dsm": len(data), "in": [], "late": 0, "nomatch": 0}
+    for ret in data:
+        rtiles = [int(x[0]) for x in ret[3]]
+        prods = sorted({x[1] for x in ret[3]})
+        best = None
+        for k, sg in enumerate(segs_m):
+            if sg["kind"] != "out" or k in used or not sg["stops"]:
+                continue
+            pos = [i for i, x in enumerate(sg["stops"]) if x["tile"] in rtiles and any(o["c"][0] == "HARVEST" for o in x["ops"])]
+            if pos and (best is None or len(pos) > best[0]):
+                best = (len(pos), k, pos[-1])
+        st["tier_dayret_dsm"] = st.get("tier_dayret_dsm", 0) + 1
+        if best is None:
+            st["tier_dayret_nomatch"] = st.get("tier_dayret_nomatch", 0) + 1
+            rec_["nomatch"] += 1
+            continue
+        _, k, j = best
+        sg = segs_m[k]
+        a = sg["stops"][j]["tile"]
+        b = sg["stops"][j + 1]["tile"] if j + 1 < len(sg["stops"]) else None
+        sh = min(_TIER_SHED_I, key=lambda q: D[a][q] + (D[q][b] if b is not None else 0))
+        turn = {"tile": sh, "ops": [_tier_op(["DELIVER", p_], True, 0.0, 2) for p_ in prods], "rel": 0, "turn": True, "copy": True}
+        trial = sg["stops"][:j + 1] + [turn] + sg["stops"][j + 1:]
+        ev0, ev = _tier_eval(sg), _tier_eval(sg, trial)
+        if ev[1] > ev0[1] or ev[3] > ev0[3]:
+            st["tier_dayret_late"] = st.get("tier_dayret_late", 0) + 1
+            rec_["late"] += 1
+            continue
+        rec_["in"].append([sg.get("u"), prods, j])
+        sg["stops"] = trial
+        sg["ver"] += 1
+        used.add(k)
+        st["tier_dayret_in"] = st.get("tier_dayret_in", 0) + 1
+
+
 def _tier_pen_round(segs_m, tiles, day, st):
     """sd_tier_pen_round: an outbound hand whose (mandatory) route holds animal harvests within sd_tier_pen_radius of
     the shed does them first (nearest first) and, for pens off the access tiles, walks back to the shed and DELIVERs the
@@ -7946,6 +7987,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["wheat_buy"] = wbuy
     TP["summary"]["wheat_buy"] = wbuy
     TP["summary"]["dump"] = st.pop("_dump_day", None)
+    TP["summary"]["dayret"] = st.pop("_dayret_day", None)
     TP["summary"]["refill"] = st.pop("_refill_day", None)
     TP["k0"] = k0
     TP["h0_front"] = front
@@ -8141,6 +8183,8 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
                 r_ = rec.setdefault(x["tile"], {"ops": [], "rel": x["rel"]})
                 r_["ops"] = r_["ops"] + list(x["orig"])
                 st["tier_dawn_svc_back"] = st.get("tier_dawn_svc_back", 0) + 1
+    if CFG["sd_tier_dayret_shape"]:                # DSM's daytime return shape: shed stops after the same harvests
+        _tier_dayret(segs_m, tiles, day, st)
     if CFG["sd_tier_pen_round"]:                   # learned from DSM: near-shed pens first, product into the shed
         _tier_pen_round(segs_m, tiles, day, st)
     if CFG["sd_tier_turn_plan"]:                   # learned from DSM: a shed stop after the harvest leg
@@ -8416,6 +8460,8 @@ def _tier_cmd(TP, R, u, p, inv, tiles, day, hour, step, seeds_left, shed_left):
             keep_ = {"WHEAT": sum(1 for c2 in later if c2[0] == "FEED"),
                      "FERTILIZER": sum(1 for c2 in later if c2[0] == "FERTILIZE")}
             cand_ = [(int(n_ or 0) - keep_.get(k_, 0), k_) for k_, n_ in inv.items() if k_ in PRODUCTS]
+            if len(c) > 1:                             # a named product (sd_tier_dayret_shape): that product, not the largest pile
+                cand_ = [x for x in cand_ if x[1] == c[1]]
             cand_ = [x for x in cand_ if x[0] > 0]
             if cand_ and _is_shed_adjacent_t(p):
                 n_, k_ = max(cand_)
