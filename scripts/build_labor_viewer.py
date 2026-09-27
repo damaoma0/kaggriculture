@@ -2,14 +2,15 @@
 side-by-side viewer (build_day12_side_by_side.py: its engine replay, frames, Follow / Regions / Assigned views and HTML
 template) for worlds that have no T-tape or xopen ledger. The 'T' comparison slot shows the same arm from day 12.
 Writes its own files, never the shared day12 viewer: viz/labor_<ep>.html and results/fresh/labor_viz/<ep>.json.
-usage: build_labor_viewer.py team:ep [ARM]   (ARM default kb78; its stream dir results/fresh/day12_viz/<arm>_streams)"""
+usage: build_labor_viewer.py team:ep [ARM[,ARM...]]   (default kb78; stream dirs results/fresh/day12_viz/<arm>_streams)"""
 import os
 import sys
 from pathlib import Path
 
-ARM = (sys.argv[2] if len(sys.argv) > 2 else 'kb78').lower()
+ARMS = (sys.argv[2] if len(sys.argv) > 2 else 'kb78').lower()   # comma list: the first fills the 'T' slot
+ARM = ARMS.split(',')[0]
 os.environ['VIEWER_LAST_DAY'] = os.environ.get('VIEWER_LAST_DAY', '29')
-os.environ['VIEWER_ARMS'] = ARM
+os.environ['VIEWER_ARMS'] = ARMS
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / 'scripts'))
 import build_day12_side_by_side as B  # noqa: E402
@@ -48,7 +49,7 @@ def main():
     game = sys.argv[1]
     ep = game.split(':')[1]
     B.OUT_DIR = ROOT / 'results/fresh/labor_viz'
-    B.OUT_HTML = ROOT / 'viz' / f'labor_{ep}.html'
+    B.OUT_HTML = ROOT / 'viz' / (f'labor_{ep}.html' if ARM == 'kb78' else f'labor_{ep}_{ARM}.html')
     B.check_memory('start')
     E = UE.engine()
     ctx = B.install_hooks(E)

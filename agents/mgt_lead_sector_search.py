@@ -381,6 +381,13 @@ CFG = {
     "sd_tier_spawn_exact": 0,  # 1 (user 2026-09-27, spawn investigation panel_spawn.py: the hour-1 hires spawn by the engine rule on our units' positions after their hour-1 commands, which the plan predicts 100%, but the plan is self-consistent on only 49% of days - it assumes spawn tiles, re-routes the hour-0 hires around them, and their hour-1 positions then imply other tiles; the buffer plans those hires from hour 3 and they run ahead / idle): two-stage plan - inside each planning pass, after all routes are built, the farmer's and the hour-0 hires' routes stay fixed, their hour-1 positions give the exact spawn tiles, and the hour-1 hires' routes are reassigned to those tiles (best permutation by full route evaluation, from hour 2), optional tail ops trimmed while that makes a route late, freed time filled with the leftover extras (no harvests); the outer re-plan / buffer then sees a consistent plan; the executor remap is skipped when the hires stand where planned. KB96 (mode 1) vs KB78 -1,052: spawns 100% right but the first pass plans the hour-1 hires from an empty-shed guess (33 of 43 wrong), the reassignment leaves 1.0 late route and trims 15 optional ops a world (strawberry plant-days -2.0, weeds +2.5), and the fill's collects add midnight load (deleted +5 units a world). 2: re-plan up to twice with the exact tiles fed back into the search (keep the pass with the fewest mismatches), no collects in the fill. KB97 (mode 2) vs KB78 -414 (t -1.44): spawns 100% right, deaths back to 1.2, but work +0.02 a hand-day (idle -0.10 h turns into moves +0.08) and the hour-1 hires carry 16 more units into the midnight dump, where they come last (deleted 9.0 -> 11.9 a world; 7.8 of KB78's 9.0 are the hour-1 hires' goods). Parked with mechanism: the buffer hour is worth little because the planner does not turn it into work
     "sd_tier_farmer_h0pick": 0,  # 1 (user 2026-09-27, labor viewer: the farmer idles at hour 0; DSM's farmer PICKs UP wheat at hour 0 on 71% of days, ours PASSes on 73% and picks up at hour 1): with the hour-0 hold, the farmer's ordinary outbound route starts at hour 0 with the rule that his hour-0 command never moves him (a pickup at the shed or a job on his own tile, else he waits that hour) - the hires' spawn stays known and the search gets his hour 0; the executor turns any hour-0 move into PASS
     "sd_tier_route_swap": 0,  # 1 (user 2026-09-27, labor viewer day 17: hand 4 spawned on (4,4) with a route that starts next to (4,5), a step lost, while another hand could have taken it; the hour-0 hires spawn in a fixed order on known tiles and the sector search moves single stops, never whole routes - first planned stop 1.47 steps from the hand's spawn tile vs 1.20 from the nearest shed tile, 40-world mean): right after the mandatory search, whole routes are swapped between outbound hands with the same start hour (each re-ordered from its new start), best improvement first, while the pair's cost falls and no lateness is added; spawns do not change (they follow the hire order). KB102 (mode 1) on 2 worlds -1,541 / -3,756 and first stops FARTHER from the spawn (1.45 -> 1.63 steps): the fills change each route's start after the swap and the re-plan passes shuffle again. 2: on the FINISHED routes, just before they are built: the same-start outbound hands trade whole routes (order kept) so that the sum of their end hours falls - i.e. each route starts from the spawn tile nearest its first stop - kept only when no route gets later than 24 or later lateness
+    "sd_path_planner": 0,  # 1 (user 2026-09-27, audit docs/tier_planner_audit.md: routes are already path-like, the gap is work per visit 1.75 vs DSM 2.06 ops a tile - required work routed first, optional pieces filled after, hours-only objective): one search over TILE SERVICES (all worthwhile ops of a tile together; a tile with required ops may also run required-only or without its fertilize), objective = value of the optional work done - sd_path_lambda x the route's hours - 1000 x lateness / supply failures; required tiles always placed, optional-only tiles may stay unvisited; starts from the mandatory search, upgrades / inserts greedily, then anneals (relocate, swap, reorder, mode toggle, pool insert / remove, whole-route swap between same-start hands); replaces the extras fills
+    "sd_path_lambda": 0.0,  # coins an hour of a hand's time inside its day (user: the hand is bought - no cost <= 24 h, infinite beyond; KB104 at 30: idle 569 h a world on 2 worlds, -18k: jobs valued under 30 an hour left undone in free time)
+    "sd_path_eps": 0.01,  # tie-break per route hour: the shorter of two equal-value routes
+    "sd_path_eject": 1,  # 1 (KB108 day 17: optional sheep pens worth ~400 left out because every nearby route ended at 24 with waterings worth 10): inserts and upgrades make room by dropping the least valuable optional work of that route
+    "sd_path_iters": 3000,  # annealing iterations per planning pass
+    "sd_path_near": 4,  # tiles: a move only targets routes with a stop this close
+    "sd_path_t0": 20.0,  # annealing start temperature (coins)
     "sd_tier_fert_merge_collect": 0,  # 1: a merged fertilize may use fertilizer the route already collects and does not spend (look-back pen collects) before asking for a shed pickup (one spare hour instead of two)
     "sd_tier_prio_ani": 0,    # 1 (user 2026-09-26: "melon mode" for important animal harvests): the farmer (no melon duty that day) first harvests the cow / sheep pens holding >= sd_tier_prio_ani_min units (or due), feed / care in the same visit, best units x price per added hour while his drop at the shed stays by sd_tier_prio_ani_by; then he is a normal hand (post segment in the sector search), as after a melon delivery
     "sd_tier_prio_ani_min": {"COW": 3, "SHEEP": 4},   # DSM's mean units per harvest at pens near the shed (cow 3.4-3.8, sheep 4.2-4.4); eggs left out (DSM delivers only 18% of eggs the same day)
@@ -3007,7 +3014,7 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                 left_ += int(pn_[1].get("WHEAT", 0))
         reserve["WHEAT"] = max(reserve["WHEAT"], left_)
     TPf_ = S.get("tier") if CFG["sd_tier"] and (CFG["sd_tier_sclu_fert"] or CFG["sd_tier_sclu_outfert"] or CFG["sd_tier_fert_carry"]
-                                                 or CFG["sd_tier_fert_shed"] or CFG["sd_tier_fert_merge"]) else None
+                                                 or CFG["sd_tier_fert_shed"] or CFG["sd_tier_fert_merge"] or CFG["sd_path_planner"]) else None
     if TPf_ and TPf_.get("day") == day:            # sd_tier_sclu_fert: the trips' fertilizer stays in the shed until picked up
         left_f = sum(it_["n"] for R_ in TPf_["routes"].values() for it_ in R_["items"][R_["k"]:]
                      if it_["kind"] == "pick" and it_["item"] == "FERTILIZER")
@@ -6795,6 +6802,41 @@ def _tier_fert_gain(idx, t, day):
     return sum(1 for dd in range(day, last + 1) if prod(dd) and dd > fu)
 
 
+def _tier_anim_value(rec, tiles, day, last_day, prices, st):
+    """sd_path_planner (KB107: sheep care 236 -> 170, wool -70 units, when care was valued ~20-40 against a collect's 80):
+    CARE and optional FEED valued by the engine rule - a fed + cared day banks one unit for the next production (paid
+    only when fed that night), a fed production night cashes the bank. CARE = product price when a production night
+    is still ahead; FEED = bank x price on a production day + half a unit when a production is still ahead. The larger
+    of this and the op's old value."""
+    n = 0
+    for idx, r_ in rec.items():
+        t = _tile(tiles, idx)
+        if not _animal(t):
+            continue
+        a = ANIMALS[t["animal"]]
+        pr = float(prices.get(a["product"], 0) or 0)
+        pd = int(t.get("placed_day", day))
+
+        def prod(k):
+            ds = k + 1 - pd - a["first"]
+            return ds >= 0 and ds % a["interval"] == 0
+        later = any(prod(k) for k in range(day + 1, last_day))
+        today = prod(day)
+        bank = int(t.get("pending_care_bonus", 0) or 0)
+        for o in r_["ops"]:
+            c = o["c"][0]
+            if c == "CARE" and later:
+                v = pr
+            elif c == "FEED" and not o["m"]:
+                v = (bank * pr if today else 0.0) + (0.5 * pr if later else 0.0)
+            else:
+                continue
+            if v > o["v"]:
+                o["v"] = v
+                n += 1
+    st["tier_anim_value"] = st.get("tier_anim_value", 0) + n
+
+
 def _tier_fert_exact(rec, tiles, day, prices, st):
     """sd_tier_fert_exact: every plant's FERTILIZE valued by _tier_fert_gain x its product's price - the charged fertilizer
     price; added where it pays and is missing (with the day's WATER it depends on), removed where it does not."""
@@ -8905,6 +8947,8 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
         st["tier_fert_dropped"] = st.get("tier_fert_dropped", 0) + nd_
     if CFG["sd_tier_fert_exact"]:
         _tier_fert_exact(rec, tiles, day, prices, st)
+    if int(CFG["sd_path_planner"]):                # the path planner trusts values: care / feed by their engine effect
+        _tier_anim_value(rec, tiles, day, last_day, prices, st)
     if CFG["sd_tier_straw_fert_days"]:             # user: very high weight on the cycle's fertilize days (9, 13)
         fdays_ = set(int(x) for x in CFG["sd_tier_straw_fert_days"])
         for idx, r_ in rec.items():
@@ -9163,6 +9207,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["summary"]["pdrop"] = st.pop("_pdrop_day", None)
     TP["summary"]["feedh"] = st.pop("_feedh_day", None)
     TP["summary"]["spx"] = dict(st.pop("_spx_day", None) or {}) or None
+    TP["summary"]["path"] = dict(st.pop("_path_day", None) or {}) or None
     st.pop("_hold0", None)
     TP["summary"]["mfollow"] = dict(st.pop("_mfollow_day", None) or {}) or None
     TP["k0"] = k0
@@ -9288,6 +9333,335 @@ def _tier_wy_fill(tiles):
         t_ = _tile(tiles, i_)
         if _is_plant(t_) and t_.get("crop") == "WHEAT" and int(t_.get("yield_units", 0) or 0) > 0:
             _TIER_WY[i_] = int(t_["yield_units"])
+
+
+def _tier_psearch(segs, segs_m, rec, anim, owner, st, rng, fbud=0):
+    """sd_path_planner: routes of whole tile services by value of the work done minus a labour price (see the flag).
+    Sets the stops of segs_m; returns the optional services left unvisited as bundles (diagnostics)."""
+    D = _TIER_D
+    lam = float(CFG["sd_path_lambda"]) + float(CFG["sd_path_eps"])
+    near_d = int(CFG["sd_path_near"])
+    srv = {}                                       # tile -> {mode: ops}, values, rel
+    for i, r_ in rec.items():
+        ops_all = sorted([o for o in r_["ops"] if o["m"] or o["v"] > 0], key=lambda o: o["rank"])
+        if not ops_all:
+            continue
+        req = [o for o in ops_all if o["m"]]
+        opt = [o for o in ops_all if not o["m"]]
+        modes = {}
+        if req:
+            modes["req"] = (req, 0.0)
+        if opt:
+            modes["full"] = (ops_all, sum(o["v"] for o in opt))
+            nof = [o for o in ops_all if o["c"][0] != "FERTILIZE"]
+            if len(nof) < len(ops_all) and any(not o["m"] for o in nof):
+                modes["nof"] = (nof, sum(o["v"] for o in nof if not o["m"]))
+        srv[i] = {"modes": modes, "req": bool(req), "rel": r_["rel"]}
+    K = len(segs_m)
+    pre = [list(sg["stops"][:int(sg.get("lo", 0) or 0)]) for sg in segs_m]   # fixed legs (dawn service) stay first
+    ent = []
+    seen = set()
+    for k, sg in enumerate(segs_m):
+        e = []
+        for x in sg["stops"][int(sg.get("lo", 0) or 0):]:
+            t = x["tile"]
+            if t in srv and "req" in srv[t]["modes"] and t not in seen:
+                e.append([t, "req"])
+                seen.add(t)
+        ent.append(e)
+    pool = [t for t, v in srv.items() if not v["req"] and t not in seen]
+
+    def build(k, e):
+        return pre[k] + [{"tile": t, "ops": [dict(o) for o in srv[t]["modes"][m][0]], "rel": srv[t]["rel"]} for t, m in e]
+
+    def need_fp(stops):                            # fertilizer to pick up at the shed: the route's worst deficit
+        run = need = 0
+        for x in stops:
+            for o in x["ops"]:
+                c = o["c"][0]
+                if c == "COLLECT_FERTILIZER":
+                    run -= 1
+                elif c == "FERTILIZE":
+                    run += 1
+                    need = max(need, run)
+        return need
+
+    def rcost(k, e):
+        sg = segs_m[k]
+        stops = build(k, e)
+        fp = need_fp(stops) if fbud > 0 else 0
+        ev = _tier_eval(dict(sg, fpick=fp) if fp else sg, stops)
+        val = sum(srv[t]["modes"][m][1] for t, m in e)
+        return _TIER_BIG * (ev[1] + ev[3]) + lam * sg["wu"] * (ev[0] - sg["t0"]) - val
+
+    cc = [rcost(k, ent[k]) for k in range(K)]
+
+    def best_ins(k, t, modes):
+        best = None
+        e = ent[k]
+        for m in modes:
+            for pos in range(len(e) + 1):
+                e2 = e[:pos] + [[t, m]] + e[pos:]
+                c = rcost(k, e2)
+                if best is None or c < best[0]:
+                    best = (c, e2)
+        return best
+
+    def late_of(k, e):
+        sg = segs_m[k]
+        stops = build(k, e)
+        fp = need_fp(stops) if fbud > 0 else 0
+        ev = _tier_eval(dict(sg, fpick=fp) if fp else sg, stops)
+        return ev[1] + ev[3]
+
+    def make_room(k, e, keep):
+        """drop the least valuable optional work (optional-only tiles out, others to required-only / no fertilize)
+        until the route has no lateness; keep = the index just inserted (never dropped). Returns (entries, ejected)."""
+        e = [list(x) for x in e]
+        ej = []
+        guard = 0
+        while late_of(k, e) > 0 and guard < 12:
+            guard += 1
+            best = None
+            for j, (t, m) in enumerate(e):
+                if keep is not None and t == keep:
+                    continue
+                md = srv[t]["modes"]
+                v, nops = md[m][1], len(md[m][0])
+                if not srv[t]["req"]:
+                    cand = (v / max(1, nops), j, None)          # the whole tile out
+                else:
+                    lo = [q for q in ("nof", "req") if q in md and q != m and len(md[q][0]) < nops]
+                    if not lo:
+                        continue
+                    q = lo[-1] if m == "full" else lo[0]
+                    cand = ((v - md[q][1]) / max(1, nops - len(md[q][0])), j, q)
+                if best is None or cand[0] < best[0]:
+                    best = cand
+            if best is None:
+                break
+            _, j, q = best
+            if q is None:
+                ej.append(e[j][0])
+                e = e[:j] + e[j + 1:]
+            else:
+                e[j][1] = q
+        return e, ej
+
+    def best_ins_eject(k, t, modes):
+        """best insertion of tile t into route k, making room by dropping cheaper optional work"""
+        best = None
+        e = ent[k]
+        for m in modes:
+            for pos in range(len(e) + 1):
+                e2 = e[:pos] + [[t, m]] + e[pos:]
+                e3, ej = make_room(k, e2, t)
+                c = rcost(k, e3)
+                if best is None or c < best[0]:
+                    best = (c, e3, ej)
+        return best
+
+    def near_routes(t, skip=None):
+        out = []
+        for k in range(K):
+            if k == skip:
+                continue
+            if ((not ent[k] and segs_m[k]["kind"] == "out") or D[t][segs_m[k]["p0"]] <= near_d
+                    or any(D[t][x[0]] <= near_d for x in ent[k])):
+                out.append(k)
+        return out
+
+    rec_ = st.setdefault("_path_day", Counter())
+    # 1. upgrades: required-only stops to their best mode
+    for k in range(K):
+        for idx in range(len(ent[k])):
+            t, m0 = ent[k][idx]
+            for m in srv[t]["modes"]:
+                if m == ent[k][idx][1]:
+                    continue
+                e2 = [list(x) for x in ent[k]]
+                e2[idx][1] = m
+                ej = []
+                if int(CFG["sd_path_eject"]) and late_of(k, e2) > 0:
+                    e2, ej = make_room(k, e2, t)
+                c = rcost(k, e2)
+                if c < cc[k] - 1e-9:
+                    ent[k], cc[k] = e2, c
+                    pool.extend(ej)
+                    rec_["upgraded"] += 1
+    # 2. optional-only tiles by value, each to its best route / position if it pays
+    for t in sorted(pool, key=lambda t: -max(v[1] for v in srv[t]["modes"].values())):
+        if t not in pool:
+            continue
+        best = None
+        for k in near_routes(t):
+            b = best_ins_eject(k, t, list(srv[t]["modes"])) if int(CFG["sd_path_eject"]) else best_ins(k, t, list(srv[t]["modes"]))
+            if b is not None and b[0] - cc[k] < -1e-9 and (best is None or b[0] - cc[k] < best[0]):
+                best = (b[0] - cc[k], k, b)
+        if best is not None:
+            _, k, b = best
+            ent[k], cc[k] = b[1], b[0]
+            pool.remove(t)
+            for x in (b[2] if len(b) > 2 else []):
+                pool.append(x)
+                rec_["ejected"] += 1
+            rec_["inserted"] += 1
+    # 3. annealing
+    T0, T1 = float(CFG["sd_path_t0"]), 0.5
+    n_it = int(CFG["sd_path_iters"])
+    tot = sum(cc)
+    best_tot, best_ent = tot, [[list(x) for x in e] for e in ent]
+    for it in range(n_it):
+        T = T0 * (1.0 - it / max(1, n_it)) + T1
+        mv = rng.random()
+        if mv < 0.3:                               # relocate
+            ks = [k for k in range(K) if ent[k]]
+            if not ks:
+                continue
+            a = rng.choice(ks)
+            idx = rng.randrange(len(ent[a]))
+            t, m = ent[a][idx]
+            tgt = near_routes(t, skip=a)
+            if not tgt:
+                continue
+            b = rng.choice(tgt)
+            ra = ent[a][:idx] + ent[a][idx + 1:]
+            ca = rcost(a, ra)
+            bb = best_ins(b, t, [m])
+            d = ca + bb[0] - cc[a] - cc[b]
+            if d < 0 or rng.random() < _tier_math.exp(-d / T):
+                ent[a], cc[a], ent[b], cc[b] = ra, ca, bb[1], bb[0]
+                tot += d
+        elif mv < 0.45:                            # swap two entries of two routes
+            ks = [k for k in range(K) if ent[k]]
+            if len(ks) < 2:
+                continue
+            a = rng.choice(ks)
+            ia = rng.randrange(len(ent[a]))
+            ta = ent[a][ia][0]
+            cand = [(k, j) for k in ks if k != a for j, x in enumerate(ent[k]) if D[ta][x[0]] <= near_d]
+            if not cand:
+                continue
+            b, ib = rng.choice(cand)
+            ra = [list(x) for x in ent[a]]
+            rb = [list(x) for x in ent[b]]
+            ra[ia], rb[ib] = rb[ib], ra[ia]
+            ca, cb = rcost(a, ra), rcost(b, rb)
+            d = ca + cb - cc[a] - cc[b]
+            if d < 0 or rng.random() < _tier_math.exp(-d / T):
+                ent[a], cc[a], ent[b], cc[b] = ra, ca, rb, cb
+                tot += d
+        elif mv < 0.6:                             # reorder within a route
+            ks = [k for k in range(K) if len(ent[k]) > 1]
+            if not ks:
+                continue
+            a = rng.choice(ks)
+            idx = rng.randrange(len(ent[a]))
+            x = ent[a][idx]
+            r = ent[a][:idx] + ent[a][idx + 1:]
+            bb = None
+            for pos in range(len(r) + 1):
+                r2 = r[:pos] + [x] + r[pos:]
+                c = rcost(a, r2)
+                if bb is None or c < bb[0]:
+                    bb = (c, r2)
+            d = bb[0] - cc[a]
+            if d < -1e-9:
+                ent[a], cc[a] = bb[1], bb[0]
+                tot += d
+        elif mv < 0.75:                            # toggle a stop's mode
+            ks = [k for k in range(K) if ent[k]]
+            if not ks:
+                continue
+            a = rng.choice(ks)
+            idx = rng.randrange(len(ent[a]))
+            t, m = ent[a][idx]
+            ms = [q for q in srv[t]["modes"] if q != m]
+            if not ms:
+                continue
+            e2 = [list(x) for x in ent[a]]
+            e2[idx][1] = rng.choice(ms)
+            c = rcost(a, e2)
+            d = c - cc[a]
+            if d < 0 or rng.random() < _tier_math.exp(-d / T):
+                ent[a], cc[a] = e2, c
+                tot += d
+        elif mv < 0.87:                            # visit an unvisited optional tile
+            if not pool:
+                continue
+            t = rng.choice(pool)
+            tgt = near_routes(t)
+            if not tgt:
+                continue
+            b = rng.choice(tgt)
+            bb = best_ins_eject(b, t, list(srv[t]["modes"])) if int(CFG["sd_path_eject"]) else best_ins(b, t, list(srv[t]["modes"]))
+            d = bb[0] - cc[b]
+            if d < 0 or rng.random() < _tier_math.exp(-d / T):
+                ent[b], cc[b] = bb[1], bb[0]
+                pool.remove(t)
+                pool.extend(bb[2] if len(bb) > 2 else [])
+                tot += d
+        elif mv < 0.95:                            # drop an optional-only tile
+            opts = [(k, j) for k in range(K) for j, x in enumerate(ent[k]) if not srv[x[0]]["req"]]
+            if not opts:
+                continue
+            a, idx = rng.choice(opts)
+            t = ent[a][idx][0]
+            r = ent[a][:idx] + ent[a][idx + 1:]
+            c = rcost(a, r)
+            d = c - cc[a]
+            if d < 0 or rng.random() < _tier_math.exp(-d / T):
+                ent[a], cc[a] = r, c
+                pool.append(t)
+                tot += d
+        else:                                      # whole routes between two same-start hands
+            ks = [k for k in range(K) if segs_m[k]["kind"] == "out" and not pre[k]]
+            if len(ks) < 2:
+                continue
+            a, b = rng.sample(ks, 2)
+            if segs_m[a]["t0"] != segs_m[b]["t0"] or segs_m[a]["p0"] == segs_m[b]["p0"]:
+                continue
+            ca, cb = rcost(a, ent[b]), rcost(b, ent[a])
+            d = ca + cb - cc[a] - cc[b]
+            if d < 0 or rng.random() < _tier_math.exp(-d / T):
+                ent[a], ent[b] = ent[b], ent[a]
+                cc[a], cc[b] = ca, cb
+                tot += d
+                rec_["route_swaps"] += 1
+        if tot < best_tot - 1e-9:
+            best_tot, best_ent = tot, [[list(x) for x in e] for e in ent]
+    ent = best_ent
+    fps = [need_fp(build(k, ent[k])) if fbud > 0 else 0 for k in range(K)]
+    while sum(fps) > fbud:                         # the shed holds fbud: the least valuable fertilizes go
+        cand = [(srv[t]["modes"][m][1] - srv[t]["modes"].get("nof", srv[t]["modes"].get("req", ((), 0.0)))[1], k, j)
+                for k in range(K) if fps[k] > 0 for j, (t, m) in enumerate(ent[k])
+                if m == "full" and any(o["c"][0] == "FERTILIZE" for o in srv[t]["modes"]["full"][0])
+                and ("nof" in srv[t]["modes"] or "req" in srv[t]["modes"])]
+        if not cand:
+            break
+        _, k, j = min(cand)
+        t = ent[k][j][0]
+        ent[k][j][1] = "nof" if "nof" in srv[t]["modes"] else "req"
+        fps[k] = need_fp(build(k, ent[k]))
+        rec_["fert_trimmed"] += 1
+    placed = set()
+    for k, sg in enumerate(segs_m):
+        sg["stops"] = build(k, ent[k])
+        if fps[k] > 0:
+            sg["fpick"] = fps[k]
+            rec_["fert_picked"] += fps[k]
+        sg["ver"] = sg.get("ver", 0) + 1
+        for x in sg["stops"]:
+            placed.add(x["tile"])
+            if x["tile"] not in anim:
+                owner[x["tile"]] = segs.index(sg)
+        for t, m in ent[k]:
+            rec_["mode_" + m] += 1
+    left = [t for t in srv if t not in placed]
+    rec_["left_optional"] += len(left)
+    rec_["value"] += sum(srv[t]["modes"][m][1] for e in ent for t, m in e)
+    return [{"tile": t, "ops": [o for o in srv[t]["modes"]["full"][0] if not o["m"]], "v": srv[t]["modes"]["full"][1]}
+            for t in left if "full" in srv[t]["modes"]]
 
 
 def _tier_route_swap_final(segs, owner, anim, st):
@@ -9586,89 +9960,95 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         _tier_wy_fill(tiles)                       # shed hours -11 a world but moves +13: supply only after the search
     if CFG["sd_tier_pdrop"] and int(CFG["sd_tier_pdrop_early"]):   # the mid-day drop before the fills
         _tier_pdrop(S, segs_m, tiles, day, st)
-    # ---- extras catalogue: bundles per tile and tier (the ops not already planned)
-    collects = {}
-    b3, b4 = [], []
-    for i, r_ in sorted(rec.items()):
-        ex = [o for o in r_["ops"] if not o["m"] and o["v"] > 0]
-        if not ex:
-            continue
-        if i in anim:
-            for o in ex:
-                if o["c"][0] == "COLLECT_FERTILIZER":
-                    collects[i] = o
-                    if int(CFG["sd_tier_collect_c"]):  # the stand-alone collect competes in phase C (see the flag)
-                        b3.append({"tile": i, "ops": [o], "v": o["v"], "shared": True, "coll_c": True,
-                                   "inplace": int(CFG["sd_tier_collect_c"]) == 1})
-                    else:
-                        b4.append({"tile": i, "ops": [o], "v": o["v"], "shared": True})
-            fc = [o for o in ex if o["tier"] == 4 and o["c"][0] in ("FEED", "CARE")]
-            if fc:
-                vfc = sum(o["v"] for o in fc)
-                minv_ = float(CFG["sd_tier_anim_c_minv"])
-                if CFG["sd_tier_goose_c_minv"] is not None and _animal(_tile(tiles, i)) == "GOOSE":
-                    minv_ = float(CFG["sd_tier_goose_c_minv"])   # KWE: goose bundles against the waterings
-                if CFG["sd_tier_anim_c"] and vfc >= minv_:   # animal thread: tier C pool
-                    mult_ = float(CFG["sd_tier_anim_c_mult"])
-                    if CFG["sd_tier_goose_c_minv"] is not None and _animal(_tile(tiles, i)) == "GOOSE":
-                        mult_ = float(CFG["sd_tier_goose_c_mult"])
-                        st["tier_goose_c"] = st.get("tier_goose_c", 0) + 1
-                    b3.append({"tile": i, "ops": fc, "v": vfc * mult_, "shared": True})
-                    st["tier_anim_c"] = st.get("tier_anim_c", 0) + 1
-                else:
-                    b4.append({"tile": i, "ops": fc, "v": vfc, "shared": True})
-            hv = [o for o in ex if o["c"][0] in ("HARVEST", "PLACE_HARVEST")]
-            t_d = _tile(tiles, i)
-            dmin_ = (CFG["sd_tier_dawn_min"] or {}).get(t_d["animal"]) if int(CFG["sd_tier_dawn"]) == 2 else None
-            if (hv and CFG["sd_tier_anim_harv"] and dmin_ is not None and any(o["c"][0] == "HARVEST" for o in hv)
-                    and int(t_d.get("yield_units", 0) or 0) >= int(dmin_)
-                    and min(_TIER_D[i][q] for q in _TIER_SHED_I) <= int(CFG["sd_tier_dawn_radius"])):
-                prod_ = ANIMALS[t_d["animal"]]["product"]    # sd_tier_dawn 2: the deferred harvest as a dawn-leg extra
-                y_ = int(t_d.get("yield_units", 0) or 0)
-                b3.append({"tile": i, "ops": hv, "v": y_ * float((S.get("_tier_prices") or {}).get(prod_, 0) or 0)
-                           * float(CFG["sd_tier_dawn_frac"]), "v0": sum(o["v"] for o in hv), "shared": True, "dawn": True,
-                           "prod": prod_, "units": y_, "rel": r_["rel"]})
-            elif hv and CFG["sd_tier_anim_harv"]:            # animal thread: a deferred animal harvest is an extra
-                b4.append({"tile": i, "ops": hv, "v": sum(o["v"] for o in hv), "shared": True})
-        else:
-            e3 = [o for o in ex if o["tier"] == 3]
-            if e3:
-                b3.append({"tile": i, "ops": e3, "v": sum(o["v"] for o in e3)})
-    rate = float(CFG["sd_tier_rate"])
-    idx_out = [k for k, s in enumerate(segs) if s["kind"] == "out"]
-    idx_pri = [k for k, s in enumerate(segs) if s["kind"] in ("post", "ani")]
-    # C. extras on the outbound hands: fertilize (paired with a collect) and waterings, by value per hour
-    if CFG["sd_tier_anim_out"]:                    # user idea: pairs, then animals on the outbound leg, then the other extras
-        rc_ = max(rate, float(CFG["sd_tier_rate_c"]))
-        b3f = [bd for bd in b3 if any(o["c"][0] == "FERTILIZE" for o in bd["ops"])]
-        b3r = [bd for bd in b3 if not any(o["c"][0] == "FERTILIZE" for o in bd["ops"])]
-        _tier_fill(segs, idx_out, b3f, collects, owner, rc_, st, "c")
-        _tier_anim_out(segs, idx_out, b3r, b4, collects, set(anim), rc_, st)
-        _tier_fill(segs, idx_out, b3r, collects, owner, rc_, st, "c2")
-        b3 = b3f + b3r
+    if int(CFG["sd_path_planner"]):              # user: tile services by value per hour, one search (see the flag)
+        rest = _tier_psearch(segs, segs_m, rec, set(anim), owner, st, rng,
+                             fbud=int((S.get("_shed_h0") or {}).get("FERTILIZER", 0) or 0))
+        collects = {}
+        rate = float(CFG["sd_tier_rate"])
     else:
-        _tier_fill(segs, idx_out, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st, "c")
-    if int(CFG["sd_tier_dawn"]) == 2:              # dawn legs no hand took: plain deferred harvests again (phases D / E)
-        for bd in [bd for bd in b3 if bd.get("dawn")]:
-            b3.remove(bd)
-            b4.append({"tile": bd["tile"], "ops": bd["ops"], "v": bd["v0"], "shared": True})
-            st["tier_dawn_left"] = st.get("tier_dawn_left", 0) + 1
-    if CFG["sd_tier_relief"] and b3:               # relief for the outbound extras before the melon hands take the free collects
-        _tier_relief(segs, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st)
-    # D. animal work: the melon hands' leftover labour first (and an animal hand)
-    for bd in b4:                                  # collects already paired away are gone
-        bd["ops"] = [o for o in bd["ops"] if o["c"][0] != "COLLECT_FERTILIZER" or bd["tile"] in collects]
-        bd["v"] = sum(o["v"] for o in bd["ops"])
-    b4 = [bd for bd in b4 if bd["ops"]]
-    _tier_fill(segs, idx_pri, b4, collects, owner, rate, st, "d")
-    # E. the slack left anywhere
-    for bd in b4:
-        bd["ops"] = [o for o in bd["ops"] if o["c"][0] != "COLLECT_FERTILIZER" or bd["tile"] in collects]
-        bd["v"] = sum(o["v"] for o in bd["ops"])
-    rest = [bd for bd in b3 + b4 if bd["ops"]]
-    _tier_fill(segs, list(range(len(segs))), rest, collects, owner, rate, st, "e")
-    if CFG["sd_tier_relief"] and rest:
-        _tier_relief(segs, rest, collects, owner, rate, st)
+        # ---- extras catalogue: bundles per tile and tier (the ops not already planned)
+        collects = {}
+        b3, b4 = [], []
+        for i, r_ in sorted(rec.items()):
+            ex = [o for o in r_["ops"] if not o["m"] and o["v"] > 0]
+            if not ex:
+                continue
+            if i in anim:
+                for o in ex:
+                    if o["c"][0] == "COLLECT_FERTILIZER":
+                        collects[i] = o
+                        if int(CFG["sd_tier_collect_c"]):  # the stand-alone collect competes in phase C (see the flag)
+                            b3.append({"tile": i, "ops": [o], "v": o["v"], "shared": True, "coll_c": True,
+                                       "inplace": int(CFG["sd_tier_collect_c"]) == 1})
+                        else:
+                            b4.append({"tile": i, "ops": [o], "v": o["v"], "shared": True})
+                fc = [o for o in ex if o["tier"] == 4 and o["c"][0] in ("FEED", "CARE")]
+                if fc:
+                    vfc = sum(o["v"] for o in fc)
+                    minv_ = float(CFG["sd_tier_anim_c_minv"])
+                    if CFG["sd_tier_goose_c_minv"] is not None and _animal(_tile(tiles, i)) == "GOOSE":
+                        minv_ = float(CFG["sd_tier_goose_c_minv"])   # KWE: goose bundles against the waterings
+                    if CFG["sd_tier_anim_c"] and vfc >= minv_:   # animal thread: tier C pool
+                        mult_ = float(CFG["sd_tier_anim_c_mult"])
+                        if CFG["sd_tier_goose_c_minv"] is not None and _animal(_tile(tiles, i)) == "GOOSE":
+                            mult_ = float(CFG["sd_tier_goose_c_mult"])
+                            st["tier_goose_c"] = st.get("tier_goose_c", 0) + 1
+                        b3.append({"tile": i, "ops": fc, "v": vfc * mult_, "shared": True})
+                        st["tier_anim_c"] = st.get("tier_anim_c", 0) + 1
+                    else:
+                        b4.append({"tile": i, "ops": fc, "v": vfc, "shared": True})
+                hv = [o for o in ex if o["c"][0] in ("HARVEST", "PLACE_HARVEST")]
+                t_d = _tile(tiles, i)
+                dmin_ = (CFG["sd_tier_dawn_min"] or {}).get(t_d["animal"]) if int(CFG["sd_tier_dawn"]) == 2 else None
+                if (hv and CFG["sd_tier_anim_harv"] and dmin_ is not None and any(o["c"][0] == "HARVEST" for o in hv)
+                        and int(t_d.get("yield_units", 0) or 0) >= int(dmin_)
+                        and min(_TIER_D[i][q] for q in _TIER_SHED_I) <= int(CFG["sd_tier_dawn_radius"])):
+                    prod_ = ANIMALS[t_d["animal"]]["product"]    # sd_tier_dawn 2: the deferred harvest as a dawn-leg extra
+                    y_ = int(t_d.get("yield_units", 0) or 0)
+                    b3.append({"tile": i, "ops": hv, "v": y_ * float((S.get("_tier_prices") or {}).get(prod_, 0) or 0)
+                               * float(CFG["sd_tier_dawn_frac"]), "v0": sum(o["v"] for o in hv), "shared": True, "dawn": True,
+                               "prod": prod_, "units": y_, "rel": r_["rel"]})
+                elif hv and CFG["sd_tier_anim_harv"]:            # animal thread: a deferred animal harvest is an extra
+                    b4.append({"tile": i, "ops": hv, "v": sum(o["v"] for o in hv), "shared": True})
+            else:
+                e3 = [o for o in ex if o["tier"] == 3]
+                if e3:
+                    b3.append({"tile": i, "ops": e3, "v": sum(o["v"] for o in e3)})
+        rate = float(CFG["sd_tier_rate"])
+        idx_out = [k for k, s in enumerate(segs) if s["kind"] == "out"]
+        idx_pri = [k for k, s in enumerate(segs) if s["kind"] in ("post", "ani")]
+        # C. extras on the outbound hands: fertilize (paired with a collect) and waterings, by value per hour
+        if CFG["sd_tier_anim_out"]:                    # user idea: pairs, then animals on the outbound leg, then the other extras
+            rc_ = max(rate, float(CFG["sd_tier_rate_c"]))
+            b3f = [bd for bd in b3 if any(o["c"][0] == "FERTILIZE" for o in bd["ops"])]
+            b3r = [bd for bd in b3 if not any(o["c"][0] == "FERTILIZE" for o in bd["ops"])]
+            _tier_fill(segs, idx_out, b3f, collects, owner, rc_, st, "c")
+            _tier_anim_out(segs, idx_out, b3r, b4, collects, set(anim), rc_, st)
+            _tier_fill(segs, idx_out, b3r, collects, owner, rc_, st, "c2")
+            b3 = b3f + b3r
+        else:
+            _tier_fill(segs, idx_out, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st, "c")
+        if int(CFG["sd_tier_dawn"]) == 2:              # dawn legs no hand took: plain deferred harvests again (phases D / E)
+            for bd in [bd for bd in b3 if bd.get("dawn")]:
+                b3.remove(bd)
+                b4.append({"tile": bd["tile"], "ops": bd["ops"], "v": bd["v0"], "shared": True})
+                st["tier_dawn_left"] = st.get("tier_dawn_left", 0) + 1
+        if CFG["sd_tier_relief"] and b3:               # relief for the outbound extras before the melon hands take the free collects
+            _tier_relief(segs, b3, collects, owner, max(rate, float(CFG["sd_tier_rate_c"])), st)
+        # D. animal work: the melon hands' leftover labour first (and an animal hand)
+        for bd in b4:                                  # collects already paired away are gone
+            bd["ops"] = [o for o in bd["ops"] if o["c"][0] != "COLLECT_FERTILIZER" or bd["tile"] in collects]
+            bd["v"] = sum(o["v"] for o in bd["ops"])
+        b4 = [bd for bd in b4 if bd["ops"]]
+        _tier_fill(segs, idx_pri, b4, collects, owner, rate, st, "d")
+        # E. the slack left anywhere
+        for bd in b4:
+            bd["ops"] = [o for o in bd["ops"] if o["c"][0] != "COLLECT_FERTILIZER" or bd["tile"] in collects]
+            bd["v"] = sum(o["v"] for o in bd["ops"])
+        rest = [bd for bd in b3 + b4 if bd["ops"]]
+        _tier_fill(segs, list(range(len(segs))), rest, collects, owner, rate, st, "e")
+        if CFG["sd_tier_relief"] and rest:
+            _tier_relief(segs, rest, collects, owner, rate, st)
     if CFG["sd_tier_deliver"]:
         _tier_deliver(S, segs, tiles, day, st)
         if CFG["sd_tier_dump_refill"]:            # the hours the deferral / delivery trims freed: non-harvest extras

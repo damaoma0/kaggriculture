@@ -1,11 +1,13 @@
 """Chart page for scripts/panel_idle.py output: idle (wasted) unit-hours per world by hour, where in the day, distance
 from the shed and idle hours per unit-day, the leader vs arms. Inline SVG, no external libraries.
-usage: build_idle_chart.py <idle.json> <out.html>"""
+usage: build_idle_chart.py <idle.json> <out.html> ["intro text"]"""
 import json
 import sys
 from pathlib import Path
 
 d = json.loads(Path(sys.argv[1]).read_text(encoding='utf-8'))
+INTRO = sys.argv[3] if len(sys.argv) > 3 else ("Idle unit-hours (a unit that exists and is given PASS) per world, days 11-28, averaged over the 40-world DSM "
+                                               "panel. DSM = the leader's recorded game.")
 arms = list(d)
 COL = {'DSM': 'var(--c-dsm)', arms[1] if len(arms) > 1 else 'x': 'var(--c-a)', arms[2] if len(arms) > 2 else 'y': 'var(--c-b)'}
 
@@ -53,10 +55,9 @@ svg{{width:100%;height:auto;display:block}} .grid{{stroke:var(--grid)}} .ax{{fil
 .lgs{{display:flex;flex-wrap:wrap;gap:14px;margin:8px 0 18px}} .lg i{{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}}
 </style></head><body><main>
 <h1>Wasted hand hours</h1>
-<p>Idle unit-hours (a unit that exists and is given PASS) per world, days 11-28, averaged over the 40-world DSM panel. DSM = the leader's recorded game;
-KB12 = current baseline; KB54 = KB12 + collects on the pens along each hand's planned path.</p>
+<p>{INTRO}</p>
 <div class="lgs">{legend}</div>
-{bars("By hour of day", "Almost all of ours falls at hours 21-23; hour 0 is the farmer holding while the hires spawn", hours, [str(h) for h in hours], lambda h: "h%02d" % h)}
+{bars("By hour of day", "Idle unit-hours per world at each hour of the day", hours, [str(h) for h in hours], lambda h: "h%02d" % h)}
 {bars("Where in the hand's day", "Before its first action / between actions / after its last action", ["before", "between", "after"], ["before first action", "between actions", "after last action"], lambda c: "where|" + c)}
 {bars("Distance from the shed at the idle hour", "Steps to the nearest shed tile (6 = 6 or more)", list(range(7)), [str(i) if i < 6 else "6+" for i in range(7)], lambda c: "dist|%d" % c)}
 {bars("Idle hours per hand-day", "How many hand-days (per world) have 0, 1, 2 ... idle hours", list(range(7)), [str(i) if i < 6 else "6+" for i in range(7)], lambda c: "perday|%d" % c)}

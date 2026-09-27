@@ -2,7 +2,7 @@
 exists at a step and is given PASS (or no command) counts one idle hour. Split by hour of day, by where it falls in the
 unit's day (before its first action, between actions, after its last action), by distance from the shed, and by idle
 hours per unit-day. Also no-effect ops (a command that changed nothing). Writes JSON for the chart.
-usage: panel_idle.py <out.json> <ARM>[,<ARM>...] [--workers 4]"""
+usage: panel_idle.py <out.json> <ARM>[,<ARM>...] [--workers 4] [--games team:ep,...] [--d0 11]"""
 import json
 import sys
 from collections import Counter, defaultdict
@@ -17,7 +17,7 @@ SHED = [(4, 4), (5, 4), (4, 5), (5, 5)]
 
 
 def job(args):
-    g, arm = args
+    g, arm, d0 = args
     team, ep = g.split(':')
     ep = ep.strip()
     tape = UE.load_tape(int(team), int(ep))
@@ -28,7 +28,7 @@ def job(args):
     while w.t < 696:
         t = w.t
         own = UE.tape_action(tape['actions'], t) if (s is None or t < 264) else (s[t] if isinstance(s[t], dict) and s[t] else dict(UE.PASS))
-        if t >= 264:
+        if t >= d0 * 24:
             farm = w.farms[seat]
             units = [tuple(farm['farmer'])] + [tuple(q) for q in farm['hands']]
             cmds = [own.get('farmer')] + list(own.get('hands') or [])
@@ -62,9 +62,12 @@ if __name__ == '__main__':
     out, arms = sys.argv[1], ['DSM'] + sys.argv[2].split(',')
     nw = int(sys.argv[sys.argv.index('--workers') + 1]) if '--workers' in sys.argv else 1
     games = (ROOT / 'results/fresh/threads_20260928/panel_dsm40b.txt').read_text().replace(',', ' ').split()
+    if '--games' in sys.argv:                    # a subset of worlds (team:ep,...)
+        games = sys.argv[sys.argv.index('--games') + 1].split(',')
+    d0 = int(sys.argv[sys.argv.index('--d0') + 1]) if '--d0' in sys.argv else 11   # first day counted
     tot = {a: Counter() for a in arms}
     with Pool(nw) as pool:
-        for arm, c in pool.imap_unordered(job, [(g, a) for a in arms for g in games]):
+        for arm, c in pool.imap_unordered(job, [(g, a, d0) for a in arms for g in games]):
             tot[arm].update(c)
     n = len(games)
     res = {a: {k: v / n for k, v in c.items()} for a, c in tot.items()}
