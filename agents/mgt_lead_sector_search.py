@@ -295,6 +295,7 @@ CFG = {
     "sd_tier_rebalance": 0,   # 1 (user 2026-09-27: "for waste of work post-20 o'clock could we reassign tiles from busy sectors to non-busy"): the refill pass (sd_tier_dump_refill) may give a leftover extra on a tile another hand owns to any hand with room (tile ownership and the nearest-hands filter off), so the hands that end at 20-23 take the busy sectors' undone waterings / fertilizing / care
     "sd_keep_alive_guard": 0,  # 1 (KS5a on 112604454: the maintenance module abandoned the whole sheep flock on days 23-24 when the trailing wool floor followed a glut down; R2 of docs/abandonment_research_20260926.md): an animal unfed yesterday with >= 2 production nights left (up to night 28) always gets a mandatory keep-alive FEED, whatever the module decided
     "sd_tier_dawn_learned_max": 4,   # sd_tier_dawn_shape "learned": at most this many dawn trips a day (DSM: 0-4, 1.8 on average)
+    "sd_keep_alive_guard_min": 2,   # productions left (nights up to 28) from which the keep-alive guard holds; 1 = every animal that still produces once more (KH5 lost 1.2 animals a world before day 27 vs 0.3 with DSM's data: the module abandons flocks in their last cycles when the wool price path dips, and our wool keeps the rival's price down)
     "sd_tier_dump_fix": 0,    # 1 (2026-09-26, case world 112604454: hands carried 124-159 units into the midnight dump while the shed was empty): the executor skips a planned end-of-day DROP only when the PROJECTED midnight load (shed + carried + the units the routes still harvest today) fits, not the load at that hour
     "sd_tier_copy_returns": 0,  # 1 (user 2026-09-26: copy how many hands go back to the shed to drop): the plan holds at least as many daytime shed deliveries as the leader made that day at hour >= 5 (results/fresh/threads_20260928/dsm_returns/<ep>.json), best load value per added hour, extras at a route end trimmed if needed
     "sd_tier_copy_returns_from": 11,   # first day it applies
@@ -7678,7 +7679,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
             a_ = ANIMALS[t_["animal"]]
             left_ = sum(1 for k_ in range(day, 29) if (k_ + 1 - int(t_.get("placed_day", day)) - a_["first"]) >= 0
                         and (k_ + 1 - int(t_.get("placed_day", day)) - a_["first"]) % a_["interval"] == 0)
-            if left_ < 2:
+            if left_ < int(CFG["sd_keep_alive_guard_min"]):
                 continue
             r_ = rec.setdefault(idx_, {"ops": [], "rel": 0})
             fd_ = [o for o in r_["ops"] if o["c"][0] == "FEED"]
