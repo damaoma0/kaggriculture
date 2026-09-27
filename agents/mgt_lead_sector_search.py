@@ -345,6 +345,13 @@ CFG = {
     "sd_tier_sclu_outfert": 0,  # 1 (user): extra labor on the outbound and a safe shed stock: pick up more fertilizer and do the other hands' FERTILIZE jobs on the outbound leg's shortest-path tiles
     "sd_tier_sclu_outfert_h": 3,  # hours the outbound fertilizing may add to the drop
     "sd_tier_sclu_fert_keep": 0,  # fertilizer left in the shed (the pickups take at most the hour-0 stock minus this)
+    "sd_tier_fert_carry": 0,  # 1 (user 2026-09-27: "if shed has good headroom, normal hands could pick up more fertilizer during the outbound if they have free steps at the end, and also we can look back and apply more during their day. So that excess end up in shed during evening dump, and more wheat is fertilized"; DSM fertilizes 72.6 strawberries / 110.6 wheat a world vs our 59.3 / 106.0, fertilizer comes only from paired pen collects): after the fills, hands starting at the shed take a fertilizer pickup and the day's unplanned useful FERTILIZE extras are inserted into their routes (no added lateness); the pickups take at most the shed's hour-0 stock
+    "sd_tier_fert_carry_spare": 0,  # spare fertilizer per carrying hand when the projected midnight dump has that much headroom (returns at the dump)
+    "sd_tier_fert_carry_min": 0,  # hands whose planned route ends by hour 23 carry this many shed fertilizer even with no planned insertion (KB12 on 112604454: 150 of 170 idle unit-hours fall at hours 21-23, away from the shed, when the shed holds no fertilizer - it is sold during the day; the pickup at the outbound feeds sd_tier_idle_fert at the day's end)
+    "sd_tier_idle_fert": 0,   # 1 (user: hands with free steps at the end pick up shed fertilizer and fertilize more, the excess returns at the evening dump; KB37 found the PLANNED routes full - 153 of 227 end at 24, the rest at 22-23 - the idle hours (182 unit-hours on 112604454) appear in execution): a hand whose plan is done fertilizes the nearest plant where one FERTILIZE still adds units (_tier_fert_gain), reachable before hour 23; without fertilizer it first picks up at the shed as many as the reachable targets, the shed stock and the midnight headroom allow
+    "sd_tier_idle_fert_max": 4,  # fertilizer an idle hand picks up at most
+    "sd_tier_fert_opp": 0,    # 1 (KB40 on 112604454: 36 hands carried 67 shed fertilizer, 2 were used - the idle hours fall at hour 23 with no time to reach a target): a hand carrying fertilizer beyond its own remaining plan fertilizes the plant it stands on (stops and the tiles it walks across) when one FERTILIZE still adds units, no plan fertilizes it today, and its remaining plan still ends by hour 23 with the extra hour(s); then WATERs it when not watered and no plan waters it today
+    "sd_tier_fert_shed": 0,   # 1 (user: "the rule to fertilize and pick up for regular hands"; KB37/40/41 added fertilizes after the fills, when the routes were already filled to hour 24 with low-value extras - 2 to 6 a season): a FERTILIZE extra a hand has no fertilizer for may be supplied by a shed pickup at the start of its route (besides the paired pen collect), inside the normal fill, competing on value; the pickups share a day budget = the shed's hour-0 fertilizer minus sd_tier_sclu_fert_keep and the trips' pickups
     "sd_tier_prio_ani": 0,    # 1 (user 2026-09-26: "melon mode" for important animal harvests): the farmer (no melon duty that day) first harvests the cow / sheep pens holding >= sd_tier_prio_ani_min units (or due), feed / care in the same visit, best units x price per added hour while his drop at the shed stays by sd_tier_prio_ani_by; then he is a normal hand (post segment in the sector search), as after a melon delivery
     "sd_tier_prio_ani_min": {"COW": 3, "SHEEP": 4},   # DSM's mean units per harvest at pens near the shed (cow 3.4-3.8, sheep 4.2-4.4); eggs left out (DSM delivers only 18% of eggs the same day)
     "sd_tier_prio_ani_by": 8,     # the melon rule's morning deadline
@@ -623,6 +630,7 @@ def configure(sem, **cfg):
 
 _TGT_EP = None
 _DSM_DATA = {}
+_FSHED = {"left": 0}                               # sd_tier_fert_shed: shed fertilizer the day's route pickups may still take
 
 
 def _dawn_shape(day=None, tiles=None):
@@ -2942,7 +2950,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             if pn_ and pn_[0] == int(_g(obs, "step", 0)):
                 left_ += int(pn_[1].get("WHEAT", 0))
         reserve["WHEAT"] = max(reserve["WHEAT"], left_)
-    TPf_ = S.get("tier") if CFG["sd_tier"] and (CFG["sd_tier_sclu_fert"] or CFG["sd_tier_sclu_outfert"]) else None
+    TPf_ = S.get("tier") if CFG["sd_tier"] and (CFG["sd_tier_sclu_fert"] or CFG["sd_tier_sclu_outfert"] or CFG["sd_tier_fert_carry"]
+                                                 or CFG["sd_tier_fert_shed"]) else None
     if TPf_ and TPf_.get("day") == day:            # sd_tier_sclu_fert: the trips' fertilizer stays in the shed until picked up
         left_f = sum(it_["n"] for R_ in TPf_["routes"].values() for it_ in R_["items"][R_["k"]:]
                      if it_["kind"] == "pick" and it_["item"] == "FERTILIZER")
@@ -6466,9 +6475,16 @@ def _tier_best_ins(seg, bundle, collects, lo=0):
     pair_ok = None
     if top_ and need_f:                            # pairing only for the best positions (by time, supply ignored)
         pair_ok = set(id(x[0]) for x in sorted(evs_, key=lambda x: (x[2][1], x[2][0]))[:top_])
-    for st_, kpos, ev in evs_:
-        cands = [(st_, ev, None, 0.0)]
-        if need_f and ev[3] > ev0[3] and collects and (pair_ok is None or id(st_) in pair_ok):
+    shed_ok_ = (need_f and CFG["sd_tier_fert_shed"] and _FSHED["left"] > 0 and seg["kind"] in ("out", "post")
+                and seg["p0"] in _TIER_SHED_I and not any(x.get("dawn") for x in seg["stops"]))
+    for pass_s_ in ((False, True) if shed_ok_ else (False,)):
+      if pass_s_ and best is not None:
+          break                                    # sd_tier_fert_shed: the shed only when no collect pairing fits (adds, not replaces)
+      for st_, kpos, ev in evs_:
+        cands = [(st_, ev, None, 0.0)] if not pass_s_ else []
+        if pass_s_ and ev[3] > ev0[3]:             # one more fertilizer picked up at the route start
+            cands.append((st_, _tier_eval(dict(seg, fpick=int(seg.get("fpick", 0) or 0) + 1), st_), "SHED", 0.0))
+        if not pass_s_ and need_f and ev[3] > ev0[3] and collects and (pair_ok is None or id(st_) in pair_ok):
             D = _TIER_D
             b = bundle["tile"]
             p0_ = seg["p0"]
@@ -6558,7 +6574,7 @@ def _tier_fill(segs, sidx, bundles, collects, owner, rate, st, tag, steal=False)
                     cache[key] = r if r is not None else False
                 if not r:
                     continue
-                if r[3] is not None and r[3] not in collects:   # its paired collect was taken since: recompute
+                if (r[3] == "SHED" and _FSHED["left"] <= 0) or (r[3] is not None and r[3] != "SHED" and r[3] not in collects):   # recompute
                     r = _tier_best_ins(segs[k], bd, collects if segs[k]["kind"] != "prio_melon" else {},
                                        segs[k].get("lo", 0))
                     cache[key] = r if r is not None else False
@@ -6581,7 +6597,11 @@ def _tier_fill(segs, sidx, bundles, collects, owner, rate, st, tag, steal=False)
             owner[bd["tile"]] = k
         if any(o["c"][0] == "COLLECT_FERTILIZER" for o in bd["ops"]):
             collects.pop(bd["tile"], None)             # cached pairings on it are rechecked when picked
-        if r[3] is not None:
+        if r[3] == "SHED":                         # sd_tier_fert_shed: the fertilizer comes from the shed at the route start
+            segs[k]["fpick"] = int(segs[k].get("fpick", 0) or 0) + 1
+            _FSHED["left"] -= 1
+            st["tier_fert_shed"] = st.get("tier_fert_shed", 0) + 1
+        elif r[3] is not None:
             collects.pop(r[3], None)
             for bd2 in list(bundles):                  # that animal's fertilizer is taken
                 if bd2["tile"] == r[3]:
@@ -8505,6 +8525,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["summary"]["follow"] = st.pop("_follow_day", None)
     TP["summary"]["srun"] = st.pop("_srun_day", None)
     TP["summary"]["sclu"] = st.pop("_sclu_day", None)
+    TP["summary"]["fcarry"] = st.pop("_fcarry_day", None)
     TP["summary"]["mfollow"] = dict(st.pop("_mfollow_day", None) or {}) or None
     TP["k0"] = k0
     TP["h0_books"] = nb0
@@ -8643,6 +8664,9 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         dawn_of = _tier_dawn(S, rec, tiles, day, units, set(mel_of) | ani_units, st)
     elif int(CFG["sd_tier_dawn"]) == 3:            # user: DSM's recorded early trips of the day, same hands / pens / hours
         dawn_of = _tier_dawn_shape(S, rec, tiles, day, units, set(mel_of) | ani_units, st)
+    if CFG["sd_tier_fert_shed"]:                   # the day's shed fertilizer for route pickups (reset every planning pass)
+        _FSHED["left"] = max(0, int((S.get("_shed_h0") or {}).get("FERTILIZER", 0) or 0) - int(CFG["sd_tier_sclu_fert_keep"])
+                             - sum(int(M_.get("fpick", 0) or 0) for M_ in mel_of.values()))
     # ---- segments: outbound hands, the melon hands after their drop, animal hands
     anim = [i for i in range(100) if _animal(_tile(tiles, i))]
     fneed = set(i for i, r_ in rec.items() if any(o["c"][0] == "FERTILIZE" for o in r_["ops"]))
@@ -8828,6 +8852,71 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
                        steal=bool(CFG["sd_tier_rebalance"]))
             st["_refill_day"] = {"cands": n0_, "left": len(rest2), "kinds": dict(kinds_),
                                  "ends": sorted(_tier_eval(sg)[0] for sg in segs if sg["stops"])}
+    if CFG["sd_tier_fert_carry"]:                  # user: hands with free hours carry shed fertilizer and fertilize more
+        fav_ = max(0, int((S.get("_shed_h0") or {}).get("FERTILIZER", 0) or 0) - int(CFG["sd_tier_sclu_fert_keep"])
+                   - sum(int(M_.get("fpick", 0) or 0) for M_ in mel_of.values()))
+        dd_ = st.get("_dump_day") or {}
+        head_ = max(0, 100 - int(CFG["sd_tier_dump_buffer"]) - int(dd_.get("left", 0) or 0))
+        fb_ = []                                   # unplanned useful fertilize jobs (one bundle a tile)
+        placed_ = {(x["tile"]) for sg in segs for x in sg["stops"] if any(o["c"][0] == "FERTILIZE" for o in x["ops"])}
+        for i_, r_ in rec.items():
+            fz_ = [o for o in r_["ops"] if o["c"][0] == "FERTILIZE"]
+            if fz_ and i_ not in placed_ and _fert_useful(_tile(tiles, i_), day):
+                fb_.append({"tile": i_, "ops": fz_[:1], "v": float(fz_[0]["v"]), "shared": True})
+        fc_ = {"hands": 0, "picked": 0, "fert": 0, "cand": len(fb_), "avail": fav_, "head": head_}
+        order_ = sorted(range(len(segs)), key=lambda k: _tier_eval(segs[k])[0]) if int(CFG["sd_tier_fert_carry_min"]) else range(len(segs))
+        for k_ in order_:                          # earliest-ending hands first (sd_tier_fert_carry_min)
+            sg = segs[k_]
+            if fav_ <= 0:
+                break
+            if sg["kind"] not in ("out", "post") or sg["p0"] not in _TIER_SHED_I or sg.get("dawn"):
+                continue
+            ev0_ = _tier_eval(sg)
+            if ev0_[0] >= 24:
+                continue                           # no free hours at the end
+            if not fb_:
+                bm_ = min(int(CFG["sd_tier_fert_carry_min"]), fav_, head_)
+                if bm_ > 0:                        # nothing to insert: carry for the day's end (sd_tier_idle_fert)
+                    sg["fpick"] = bm_
+                    head_ -= bm_
+                    fav_ -= bm_
+                    sg["ver"] += 1
+                    fc_["hands"] += 1
+                    fc_["picked"] += bm_
+                    fc_["carry_only"] = fc_.get("carry_only", 0) + 1
+                continue
+            nf0_ = sum(1 for x in sg["stops"] for o in x["ops"] if o["c"][0] == "FERTILIZE")
+            sg["fpick"] = min(fav_, 24 - ev0_[0])
+            n_ = _tier_fill(segs, [k_], fb_, {}, owner, rate, st, "fc")
+            need_, run_ = 0, 0                     # the pickup the route needs: max over the route of fertilizes - collects
+            for x in sg["stops"]:
+                for o in x["ops"]:
+                    if o["c"][0] == "COLLECT_FERTILIZER":
+                        run_ -= 1
+                    elif o["c"][0] == "FERTILIZE":
+                        run_ += 1
+                        need_ = max(need_, run_)
+            if not n_ or need_ <= 0:
+                bm_ = min(int(CFG["sd_tier_fert_carry_min"]), fav_, head_)
+                sg["fpick"] = bm_ if bm_ > 0 else 0
+                if bm_ > 0:                        # nothing inserted: carry for the day's end (sd_tier_idle_fert)
+                    head_ -= bm_
+                    fav_ -= bm_
+                    sg["ver"] += 1
+                    fc_["hands"] += 1
+                    fc_["picked"] += bm_
+                    fc_["carry_only"] = fc_.get("carry_only", 0) + 1
+                continue
+            need_ = max(need_, int(CFG["sd_tier_fert_carry_min"]))
+            sp_ = min(int(CFG["sd_tier_fert_carry_spare"]), head_, fav_ - need_)
+            sg["fpick"] = need_ + max(0, sp_)
+            head_ -= max(0, sp_)
+            fav_ -= sg["fpick"]
+            sg["ver"] += 1
+            fc_["hands"] += 1
+            fc_["picked"] += sg["fpick"]
+            fc_["fert"] += sum(1 for x in sg["stops"] for o in x["ops"] if o["c"][0] == "FERTILIZE") - nf0_
+        st["_fcarry_day"] = fc_
     # ---- routes per unit
     routes_u = {}
     summ = []
@@ -8859,6 +8948,8 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             kd_ += 1
         if nf:
             items.append({"kind": "pick", "item": "WHEAT", "n": nf})
+        if s.get("fpick"):                         # sd_tier_fert_carry: the route's fertilizer from the shed
+            items.append({"kind": "pick", "item": "FERTILIZER", "n": int(s["fpick"])})
         for a_, v_ in na.items():
             items.append({"kind": "pick", "item": a_, "n": v_})
         for x in s["stops"][kd_:]:
@@ -8940,12 +9031,159 @@ def _tier_check(c, t, inv, day, seeds_left):
     return "do"
 
 
+def _tier_pending(TP, skip_u=None):
+    """tiles the routes (all units, or all but skip_u) still FERTILIZE / WATER today"""
+    pf, pw = set(), set()
+    for u2, R2 in TP["routes"].items():
+        if u2 == skip_u:
+            continue
+        for j2, it2 in enumerate(R2["items"][R2["k"]:]):
+            if it2.get("kind") != "stop":
+                continue
+            ops2 = it2["ops"][R2["sub"]:] if j2 == 0 else it2["ops"]
+            if any(c2[0] == "FERTILIZE" for c2 in ops2):
+                pf.add(it2["tile"])
+            if any(c2[0] == "WATER" for c2 in ops2):
+                pw.add(it2["tile"])
+    return pf, pw
+
+
+def _tier_rest_time(R, p):
+    """hours the unit's remaining plan needs from position p (walks + ops + shed pickups)"""
+    t, q = 0, tuple(p)
+    for j, it in enumerate(R["items"][R["k"]:]):
+        if it["kind"] == "pick":
+            s_ = _near_shed(q)
+            t += abs(q[0] - s_[0]) + abs(q[1] - s_[1]) + 1
+            q = s_
+        else:
+            b = (it["tile"] % 10, it["tile"] // 10)
+            t += abs(q[0] - b[0]) + abs(q[1] - b[1]) + len(it["ops"][R["sub"]:] if j == 0 else it["ops"])
+            q = b
+    return t
+
+
+def _tier_fert_opp(TP, R, u, p, inv, tiles, day, hour):
+    """sd_tier_fert_opp: FERTILIZE / WATER on the tile the unit stands on, or None (see the flag)."""
+    idx = p[1] * 10 + p[0]
+    cur = R.get("_opp_tgt")
+    t = _tile(tiles, idx)
+    if cur is not None:
+        R["_opp_tgt"] = None
+        if cur == idx and _is_plant(t) and not t.get("watered_today") and int(t.get("fertilized_until_day", -1) or -1) >= day and hour <= 23:
+            TP["cnt"]["fert_opp_water"] += 1
+            R.setdefault("done", []).append((hour, idx, "WATER"))
+            return ["WATER"]
+    if not _is_plant(t) or int(t.get("fertilized_until_day", -1) or -1) >= day:
+        return None
+    own_f = sum(1 for j, it in enumerate(R["items"][R["k"]:]) if it["kind"] == "stop"
+                for c in (it["ops"][R["sub"]:] if j == 0 else it["ops"]) if c[0] == "FERTILIZE")
+    if int(inv.get("FERTILIZER", 0) or 0) <= own_f:
+        return None
+    if _tier_fert_gain(idx, t, day) <= 0:
+        return None
+    pf, pw = _tier_pending(TP)
+    if idx in pf:
+        return None
+    wat = not t.get("watered_today") and idx not in pw
+    if hour + 1 + (1 if wat else 0) + _tier_rest_time(R, p) > 23:
+        return None
+    R["_opp_tgt"] = idx if wat else None
+    TP["cnt"]["fert_opp_done"] += 1
+    R.setdefault("done", []).append((hour, idx, "FERTILIZE"))
+    return ["FERTILIZE"]
+
+
+def _tier_idle_fert(TP, R, u, p, inv, tiles, day, hour, shed_left):
+    """sd_tier_idle_fert: the next command of a hand with no planned work left, or None (see the flag). A target gets
+    FERTILIZE then WATER when not watered today (engine: a one-time crop grows on a WATER in its window, +2 when fertilized
+    at that moment; an ongoing crop's fertilized production needs the night's water) - unwatered targets first."""
+    cnt = TP["cnt"]
+    claims = TP.setdefault("_idle_fert_claims", {})         # tile -> unit, for the day
+    if TP.get("_idle_fert_day") != day:
+        claims.clear()
+        TP["_idle_fert_day"] = day
+    left = 23 - hour
+    dist = lambda a, b: abs(a[0] - b[0]) + abs(a[1] - b[1])
+    cur = R.get("_idle_tgt")
+    if cur is not None:                             # finishing a target: its WATER after the FERTILIZE
+        t = _tile(tiles, cur)
+        if tuple(p) == (cur % 10, cur // 10) and _is_plant(t) and not t.get("watered_today") and int(t.get("fertilized_until_day", -1) or -1) >= day                 and left >= 1:
+            R["_idle_tgt"] = None
+            claims.pop(cur, None)
+            cnt["idle_fert_water"] += 1
+            R.setdefault("done", []).append((hour, cur, "WATER"))
+            return ["WATER"]
+        R["_idle_tgt"] = None
+        claims.pop(cur, None)
+    pend_f, pend_w = set(), set()                  # tiles other hands' plans still fertilize / water today
+    for u2, R2 in TP["routes"].items():
+        if u2 == u:
+            continue
+        for j2, it2 in enumerate(R2["items"][R2["k"]:]):
+            if it2.get("kind") != "stop":
+                continue
+            ops2 = it2["ops"][R2["sub"]:] if j2 == 0 else it2["ops"]
+            if any(c2[0] == "FERTILIZE" for c2 in ops2):
+                pend_f.add(it2["tile"])
+            if any(c2[0] == "WATER" for c2 in ops2):
+                pend_w.add(it2["tile"])
+    targets = []
+    for i in range(100):
+        t = _tile(tiles, i)
+        if not _is_plant(t) or claims.get(i, u) != u or i in pend_f:
+            continue
+        if int(t.get("fertilized_until_day", -1) or -1) >= day:
+            continue
+        g = _tier_fert_gain(i, t, day)
+        if g <= 0:
+            continue
+        wet = bool(t.get("watered_today")) or i in pend_w   # a planned water later collects the bonus
+        targets.append((wet, dist(p, (i % 10, i // 10)), -g, i))
+    targets.sort()
+    have = int(inv.get("FERTILIZER", 0) or 0)
+    if have > 0:
+        for wet, d_, g_, i in targets:
+            if d_ + 1 + (0 if wet else 1) > left:
+                continue
+            for k2 in [k2 for k2, v2 in claims.items() if v2 == u and k2 != i]:
+                del claims[k2]
+            claims[i] = u
+            q = (i % 10, i // 10)
+            if d_ == 0:
+                R["_idle_tgt"] = None if wet else i
+                if wet:
+                    claims.pop(i, None)
+                cnt["idle_fert_done"] += 1
+                R.setdefault("done", []).append((hour, i, "FERTILIZE"))
+                return ["FERTILIZE"]
+            return _step_toward(p, q)
+        return None
+    sh = _near_shed(p)
+    ds = dist(p, sh)
+    reach = [i for wet, d_, g_, i in targets if ds + 1 + dist(sh, (i % 10, i // 10)) + 1 + (0 if wet else 1) <= left]
+    stock = int(shed_left.get("FERTILIZER", 0) or 0)
+    head = 100 - int(CFG["sd_tier_dump_buffer"]) - int(TP.get("_load_now", 0) or 0) - int(TP.get("_harv_left", 0) or 0)
+    k = min(len(reach), stock, int(CFG["sd_tier_idle_fert_max"]), max(0, head))
+    if k <= 0:
+        return None
+    if p != sh:
+        return _step_toward(p, sh)
+    shed_left["FERTILIZER"] = stock - k
+    cnt["idle_fert_picked"] += k
+    return ["PICKUP", "FERTILIZER", k]
+
+
 def _tier_cmd(TP, R, u, p, inv, tiles, day, hour, step, seeds_left, shed_left):
     items = R["items"]
     lg = TP["log"]
     cnt = TP["cnt"]
     if hour < int(R.get("t0", 0)):
         return ["PASS"]                            # the farmer holds at hour 0 (sd_tier_farmer_hold)
+    if CFG["sd_tier_fert_opp"] and int(inv.get("FERTILIZER", 0) or 0) > 0:
+        a_ = _tier_fert_opp(TP, R, u, p, inv, tiles, day, hour)
+        if a_ is not None:
+            return a_
     guard = 0
     while R["k"] < len(items) and guard < 50:
         guard += 1
@@ -9065,6 +9303,10 @@ def _tier_cmd(TP, R, u, p, inv, tiles, day, hour, step, seeds_left, shed_left):
         lg.append([step, u, "skip", it["tile"], " ".join(str(x) for x in c)])
         cnt["skip_" + c[0]] += 1
         R["sub"] += 1
+    if CFG["sd_tier_idle_fert"] and hour < 23:     # the plan is done: fertilize more with shed fertilizer (user)
+        a_ = _tier_idle_fert(TP, R, u, p, inv, tiles, day, hour, shed_left)
+        if a_ is not None:
+            return a_
     return ["PASS"]
 
 
