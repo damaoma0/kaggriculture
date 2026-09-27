@@ -1,5 +1,5 @@
 """Daytime shed visits over the 40-world panel (days 11-28), the leader vs arms. A visit = a unit exchanges goods with the
-shed (DROP or PICKUP) at hours 2-22 after having been 2+ steps from the shed since its last exchange (the hour-1..3
+shed (DROP, PICKUP, or PLACE of a product from an access tile) at hours 2-22 after having been 2+ steps from the shed since its last exchange (the hour-1..3
 loading at the start of a hand's day is not a visit). Per visit: deposit only / pickup only / both, the units it drops
 (the unit's inventory decrease), whether the unit goes out again or ends its day there, and the hour. Also the
 morning loading (exchanges before the first excursion) for comparison.
@@ -66,6 +66,8 @@ def job(args):
                     close((d, u), False)
                 cm = cmds[u] if u < len(cmds) else None
                 op = cm[0] if isinstance(cm, list) and cm else 'PASS'
+                if op == 'PLACE' and dist(p) == 0 and len(cm) > 1 and cm[1] not in ('COW', 'SHEEP', 'GOOSE'):
+                    op = 'DROP'                          # a product PLACEd from an access tile: a deposit (our DELIVER stops)
                 if op in ('DROP', 'PICKUP') and 1 <= h <= 22:
                     if far[(d, u)] and h >= 2:
                         if (d, u) not in vis:
