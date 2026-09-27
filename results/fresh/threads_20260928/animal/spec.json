@@ -48792,5 +48792,177 @@
    "sd_tier_srun_min": 2
   },
   "label": "KB30 = KB28 with tiles holding >= 2 units only"
+ },
+ "KB31": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_sclu": 1,
+   "sd_tier_sclu_min": 4
+  },
+  "label": "KB31 = KB12 + strawberry cluster trips (>= 4 units, all tiles within 2 of each other, direct path + extra work on it, deadline 22, sale on arrival)"
+ },
+ "KB32": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_sclu": 1,
+   "sd_tier_sclu_min": 6
+  },
+  "label": "KB32 = KB31 with clusters >= 6 units"
+ },
+ "KB33": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_sclu": 1,
+   "sd_tier_sclu_min": 4,
+   "sd_tier_sclu_extra": 0
+  },
+  "label": "KB33 = KB31 without extra work on the path"
  }
 }

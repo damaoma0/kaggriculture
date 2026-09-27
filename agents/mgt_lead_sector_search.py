@@ -331,6 +331,13 @@ CFG = {
     "sd_tier_srun_min": 1,    # strawberry tiles holding >= this many units (or with a due harvest) are candidates
     "sd_tier_srun_radius": None,  # candidates within this many steps of the nearest shed tile (None: any)
     "sd_tier_srun_passes": 2,  # improvement passes (reorder for an earlier drop, swap for more units)
+    "sd_tier_sclu": 0,        # 1 (user 2026-09-27: "we find a cluster of strawberries of at least 4 or 6, assign a hand and direct path to harvest and come back, doing extra work along the path"; "radius constraints applies ... mainly distance between the strawberry cluster"; KB28 whole-day runner -993: +121 moves crossing the map, the sectors lost collects / cares; DSM's returns ~3 tiles within 2 of each other): clusters of harvestable strawberry tiles all within sd_tier_sclu_r of each other holding >= sd_tier_sclu_min units; per cluster one hour-0 hire (not the farmer, not in DSM's dawn trips today) walks shed -> cluster (best order) -> shed and DELIVERs by sd_tier_sclu_by, doing the ops of tiles on its shortest-path legs (no detour); then its normal post segment
+    "sd_tier_sclu_min": 4,    # units a cluster must hold
+    "sd_tier_sclu_r": 2,      # max Manhattan distance between any two tiles of a cluster
+    "sd_tier_sclu_max": 2,    # clusters (hands) a day at most
+    "sd_tier_sclu_by": 22,    # hard deadline of the DELIVER
+    "sd_tier_sclu_extra": 1,  # 1: ops on the legs' shortest-path tiles join the trip (water, care, feed, collect, harvest)
+    "sd_tier_sclu_extra_h": 2,   # extra work may delay the drop by at most this many hours past the cluster-only drop (user: early return ranks above extra work)
     "sd_tier_prio_ani": 0,    # 1 (user 2026-09-26: "melon mode" for important animal harvests): the farmer (no melon duty that day) first harvests the cow / sheep pens holding >= sd_tier_prio_ani_min units (or due), feed / care in the same visit, best units x price per added hour while his drop at the shed stays by sd_tier_prio_ani_by; then he is a normal hand (post segment in the sector search), as after a melon delivery
     "sd_tier_prio_ani_min": {"COW": 3, "SHEEP": 4},   # DSM's mean units per harvest at pens near the shed (cow 3.4-3.8, sheep 4.2-4.4); eggs left out (DSM delivers only 18% of eggs the same day)
     "sd_tier_prio_ani_by": 8,     # the melon rule's morning deadline
@@ -3370,6 +3377,17 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                             continue
                     new_.append(o_)
                 orders = new_
+            TPn_ = S.get("tier") or {}
+            if TPn_.get("day") == day and TPn_.get("dsell_now"):   # sd_tier_sclu: the trip's delivery sold on arrival
+                for p_, n_ in TPn_["dsell_now"].items():
+                    if p_ in bk_ and n_ > 0:
+                        hit_ = next((o_ for o_ in orders if o_[0] == "SELL" and o_[1] == p_), None)
+                        if hit_:
+                            hit_[2] = int(hit_[2]) + int(n_)
+                        else:
+                            orders.insert(0, ["SELL", p_, int(n_)])
+                        S["log"]["sclu_sold_now_" + p_] += int(n_)
+                TPn_["dsell_now"] = Counter()
             while len(orders) > 10:                # 10-order cap: never drop a hire or a buy (the hour-0 feed wheat buy:
                 # dropping it left the hour-1 hires short of wheat, feeds skipped, KC1 day 19); ordinary sells go first,
                 # then the plan's own sells
@@ -6949,6 +6967,139 @@ def _tier_srun(S, rec, tiles, day, fu, st):
             "drop": st["_srun_day"]["drop"], "hh": {b_: h for (b_, c_, h) in ev[4] if c_[0] == "HARVEST"}}
 
 
+def _tier_sclu(S, rec, tiles, day, units, busy, st):
+    """sd_tier_sclu: strawberry cluster trips (see the flag). Returns {u: melon-style run}; the taken ops leave rec."""
+    import itertools as _it
+    D = _TIER_D
+    R = int(CFG["sd_tier_sclu_r"])
+    by = int(CFG["sd_tier_sclu_by"])
+    umin = int(CFG["sd_tier_sclu_min"])
+    xy = lambda i: (i % 10, i // 10)
+    cand = {}
+    for idx, r_ in rec.items():
+        t_ = _tile(tiles, idx)
+        if not _is_plant(t_) or t_.get("crop") != "STRAWBERRY":
+            continue
+        if not any(o["c"][0] == "HARVEST" for o in r_["ops"]):
+            continue
+        y_ = int(t_.get("yield_units", 0) or 0)
+        if y_ > 0:
+            cand[idx] = y_
+    dawn_u = set()
+    if int(CFG["sd_tier_dawn"]) == 3:
+        dawn_u = {int(tr[0]) for tr in (_dawn_shape(day, tiles).get(str(day)) or [])}
+    free = [(u, p0, t0) for u, p0, t0 in units if u != 0 and u not in busy and t0 <= 1 and u not in dawn_u]
+    EXTRA = ("WATER", "CARE", "FEED", "COLLECT_FERTILIZER", "HARVEST", "PLACE_HARVEST")
+    out = {}
+    rec_ = st["_sclu_day"] = {"clusters": [], "cand": len(cand), "cand_units": sum(cand.values())}
+    while cand and free and len(out) < int(CFG["sd_tier_sclu_max"]):
+        best = None
+        for c0 in cand:                             # a cluster grown from each seed: nearest first, all pairs within R
+            mem = [c0]
+            for t in sorted(cand, key=lambda q: (D[c0][q], q)):
+                if t != c0 and all(D[t][m] <= R for m in mem):
+                    mem.append(t)
+            uu = sum(cand[m] for m in mem)
+            key = (uu, -len(mem), -min(D[m][q] for m in mem for q in _TIER_SHED_I))
+            if best is None or key > best[0]:
+                best = (key, mem)
+        if best is None or best[0][0] < umin:
+            break
+        mem = best[1]
+        if len(mem) > 6:                            # keep the richest 6 (brute-force order below)
+            mem = sorted(mem, key=lambda q: -cand[q])[:6]
+        fu = min(free, key=lambda f: min(D[f[1][1] * 10 + f[1][0]][m] for m in mem))
+        u, p0, t0 = fu
+        pi = p0[1] * 10 + p0[0]
+        order = None
+        for perm in _it.permutations(mem):          # the direct path: shed -> cluster -> nearest shed tile
+            c_ = D[pi][perm[0]] + sum(D[perm[k]][perm[k + 1]] for k in range(len(perm) - 1)) + min(D[perm[-1]][q] for q in _TIER_SHED_I)
+            if order is None or c_ < order[0]:
+                order = (c_, perm)
+        perm = list(order[1])
+        sh = min(_TIER_SHED_I, key=lambda q: D[perm[-1]][q])
+        seg = {"p0": pi, "t0": t0, "stops": []}
+        taken = {}                                  # tile -> [ops]
+
+        def stops_of(seq):
+            out_ = []
+            prods_ = {"STRAWBERRY"}
+            for b in seq:
+                ops = sorted([dict(o, m=True, tier=1) for o in taken[b]], key=lambda o: o["rank"])
+                out_.append({"tile": b, "ops": ops, "rel": rec[b]["rel"] if b in rec else 0})
+                if any(o["c"][0] == "HARVEST" for o in ops):
+                    tb_ = _tile(tiles, b)
+                    prods_.add(ANIMALS[tb_["animal"]]["product"] if _animal(tb_) else tb_.get("crop"))
+            dl_ = [_tier_op(["DELIVER", p_], True, 0.0, 1) for p_ in sorted(prods_, key=lambda q: q != "STRAWBERRY")]
+            return out_ + [{"tile": sh, "ops": dl_, "rel": 0, "turn": True, "sell_now": True}]
+
+        def feasible(seq):
+            ev = _tier_eval(seg, stops_of(seq), want_hours=True)
+            dh = max(h for (b_, c_, h) in ev[4] if c_[0] == "DELIVER")
+            return ev[1] == 0 and ev[3] == 0 and dh <= by, ev, dh
+
+        for b in perm:
+            taken[b] = [o for o in rec[b]["ops"] if o["c"][0] in ("HARVEST", "PLACE_HARVEST", "WATER")]
+        seq = list(perm)
+        f_, ev, dh = feasible(seq)
+        if not f_:
+            for b in perm:
+                taken.pop(b, None)
+            cand = {k: v for k, v in cand.items() if k not in mem}
+            continue
+        if int(CFG["sd_tier_sclu_extra"]):         # extra work on the legs: tiles inside each leg's box, monotone order
+            dmax_ = dh + int(CFG["sd_tier_sclu_extra_h"])
+            legs = [pi] + perm + [sh]
+            new_seq = []
+            for k in range(len(legs) - 1):
+                a, b = legs[k], legs[k + 1]
+                rest = perm[k:]
+                (ax, ay), (bx, by_) = xy(a), xy(b)
+                sx = (bx > ax) - (bx < ax)
+                sy = (by_ > ay) - (by_ < ay)
+                box = [t for t in rec if t not in taken and t not in (a, b)
+                       and min(ax, bx) <= t % 10 <= max(ax, bx) and min(ay, by_) <= t // 10 <= max(ay, by_)
+                       and any(o["c"][0] in EXTRA for o in rec[t]["ops"])]
+                box.sort(key=lambda t: (D[a][t], -sum(o["v"] + (1000 if o["m"] else 0) for o in rec[t]["ops"] if o["c"][0] in EXTRA)))
+                last = a
+                for t in box:
+                    (px, py), (qx, qy) = xy(last), xy(t)
+                    if (qx - px) * sx < 0 or (qy - py) * sy < 0:
+                        continue
+                    taken[t] = [o for o in rec[t]["ops"] if o["c"][0] in EXTRA]
+                    ok_, _, dh_ = feasible(new_seq + [t] + rest)
+                    if ok_ and dh_ <= dmax_:
+                        new_seq.append(t)
+                        last = t
+                    else:
+                        taken.pop(t)
+                if k < len(perm):
+                    new_seq.append(perm[k])
+            seq = new_seq
+        f_, ev, dh = feasible(seq)
+        if not f_:                                  # safety: the cluster alone
+            for b in list(taken):
+                if b not in perm:
+                    taken.pop(b)
+            seq = list(perm)
+            f_, ev, dh = feasible(seq)
+            if not f_:
+                break
+        for b, ops in taken.items():                # the taken ops leave rec
+            ids = set(id(o) for o in ops)
+            rec[b]["ops"] = [o for o in rec[b]["ops"] if id(o) not in ids]
+            if not rec[b]["ops"]:
+                rec.pop(b)
+        final = stops_of(seq)
+        out[u] = {"stops": final, "p0": pi, "t0": t0, "drop": dh, "_value": sum(cand[m] for m in mem),
+                  "hh": {b_: h for (b_, c_, h) in ev[4] if c_[0] == "HARVEST"}}
+        rec_["clusters"].append({"u": u, "tiles": list(perm), "units": sum(cand[m] for m in mem), "extra": [b for b in seq if b not in perm],
+                                 "drop": dh})
+        free = [f for f in free if f[0] != u]
+        cand = {k: v for k, v in cand.items() if k not in mem and k in rec and any(o["c"][0] == "HARVEST" for o in rec[k]["ops"])}
+    return out
+
+
 def _tier_prio_ani(S, rec, tiles, day, fu, st):
     """sd_tier_prio_ani: the farmer's morning run of important animal harvests (see the flag), built like a melon run:
     {"stops" (pens, then a DELIVER stop at the shed), "p0", "t0", "drop", "hh"}; the taken ops leave rec."""
@@ -8287,6 +8438,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["summary"]["refill"] = st.pop("_refill_day", None)
     TP["summary"]["follow"] = st.pop("_follow_day", None)
     TP["summary"]["srun"] = st.pop("_srun_day", None)
+    TP["summary"]["sclu"] = st.pop("_sclu_day", None)
     TP["summary"]["mfollow"] = dict(st.pop("_mfollow_day", None) or {}) or None
     TP["k0"] = k0
     TP["h0_books"] = nb0
@@ -8401,6 +8553,10 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             if M_ is not None:
                 mel_of[best_[1]] = M_
                 st["tier_prio_straw_runs"] = st.get("tier_prio_straw_runs", 0) + 1
+    if CFG["sd_tier_sclu"]:                        # user: strawberry clusters, one hand each, direct path + extra work on it
+        for u_, M_ in _tier_sclu(S, rec, tiles, day, units, set(mel_of) | ani_units, st).items():
+            mel_of[u_] = M_
+            st["tier_sclu_runs"] = st.get("tier_sclu_runs", 0) + 1
     if CFG["sd_tier_srun"]:                        # user: one hand brings strawberries home (deadline, units, early, extra work)
         best_ = None
         seen_ = set()
@@ -8620,6 +8776,8 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             for x in M["stops"]:
                 items.append({"kind": "place" if x.get("place") else "stop", "tile": x["tile"],
                               "ops": [o["c"] for o in x["ops"]], "mand": [o["m"] for o in x["ops"]]})
+                if x.get("sell_now"):
+                    items[-1]["sell_now"] = True
         if u in dawn_of:                           # sd_tier_dawn: the round trip first, the wheat pickup after it
             for x in dawn_of[u]["stops"]:
                 items.append({"kind": "stop", "tile": x["tile"], "ops": [o["c"] for o in x["ops"]],
@@ -8782,6 +8940,8 @@ def _tier_cmd(TP, R, u, p, inv, tiles, day, hour, step, seeds_left, shed_left):
             if cand_ and _is_shed_adjacent_t(p):
                 n_, k_ = max(cand_)
                 TP.setdefault("dsell", Counter())[k_] += n_
+                if it.get("sell_now"):             # sd_tier_sclu: sold on arrival, books products included
+                    TP.setdefault("dsell_now", Counter())[k_] += n_
                 TP["cnt"]["turn_place"] += 1
                 TP["cnt"]["turn_units"] += n_
                 R.setdefault("done", []).append((hour, it["tile"], "DELIVER"))
