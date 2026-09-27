@@ -201,6 +201,10 @@ CFG = {
     "sd_books_cap_free": 0,   # 1 (KB0 on 40 worlds: on overflow nights the shed holds wool 7.0 / milk 4.7 the price floor keeps unsold, and the dump deletes the strawberries / wheat carried in; leaving glut goods on the animals cost -0.9k: less supply lets the rival sell dearer): the capacity sells of the plan (sd_books_cap, from hour 21 when tonight would overflow) ignore the batch cap and the price floor - room for carried goods worth more beats the price of a glut unit, and a sale above $1 still lowers the rival's price
     "sd_books_h0_slots": 0,   # N > 0 (KB4 on 112604454: every hour-0 list is 10 HIREs, so the 10-order cap drops the plan's hour-0 sells - DSM sells strawberry 11 at hour 0 on days 17/19/20 ahead of the rival's hour-0 dump, we sell an hour later behind it; DSM itself hires 8 at hour 0 and the rest at hour 1 and keeps its sells first): up to N of the plan's hour-0 sells keep their slots, the day plan moves as many hour-0 hires to hour 1 (they act from hour 2) and the hour-0 market trims the hires to the plan's count
     "sd_books_h0_lot": 0,   # 1 (KB7 on 112604454: the hour-0 slot flushed the whole backlog - strawberry 31 / 35 on days 22 / 23 where DSM sells 6-11, milk 17 on day 21 where DSM sells none - into the price before the hour-0 town tick): at hour 0 the plan sells at most DSM's own hour-0 lot of that step; the backlog waits for hour 1, after the tick
+    "sd_books_even": [],      # products (user 2026-09-27: "dump strawberries in nearly equal lumps in tick 1,5,... if they arrive midnight"; item trace on 112604454: catch-up lumps of 21-31 strawberries at hour 1 walk our price down): when we are behind DSM's cumulative sales, the backlog is sold in equal lots over the day's remaining post-tick hours (1/5/9/13/17/21); other hours sell only DSM's own lot of that step
+    "sd_books_sur_h": 12,     # the 21:00 surplus rule sells what exceeds DSM's sales over the next this-many steps (item trace: DSM holds day-26/27 strawberries to day 28 22:00 / day 29 05:00 at 97-110, we sold them at day 27 21:00 at 62 -> 22)
+    "sd_books_cap_order": 0,  # 1 (item trace: the room-making sells on overflow nights picked strawberries - the cheapest books product - at glut prices; wheat / carrots / tomatoes are not books products and were never considered): room is made with every product in the shed, cheapest first; products in sd_books_cap_protect only when room is still short, in batches and above the price floor
+    "sd_books_cap_protect": ["STRAWBERRY"],
     "sd_pattern_tick": [],    # products (user 2026-09-26: imitate DSM's selling; engine-isolated test +2.7k on world 112604454): sold only at hours 1 / 5 / 9 / 13 / 17 / 21 (the first market after a town consumption tick; the engine clears the market BEFORE the town consumes at hours 0 / 4 / 8 / 12 / 16 / 20) on the sd_hourly_profile quota; their deliveries are no longer sold on arrival and the overflow guards leave them alone at the tick hours themselves (hour 20). Needs sd_hourly_profile for these products
     "sd_wheat_pick_now": 0,   # 1 (2026-09-26, KQ plant deaths): the market's wheat reserve for the tiered plan's pickups also counts the WHEAT the executor picks up in this same step. Those pick items are marked done when the command is issued, but the wheat is still in the observed shed and the engine runs unit actions before the market, so without this the sale takes the wheat the later pickups (the hour-1 hires, acting from hour 2) need: they wait for a buy-back and their routes end an hour late (last WATER unfinished, plants die; FEED skipped)
     "sd_h0_front": [],        # (user 2026-09-26) products whose shed stock may be sold at hour 0 FIRST in the order list (the engine processes both players' orders position by position, so a sell behind the hires comes after the rival's hour-0 sales); the largest-value pile >= sd_h0_front_min, at most sd_h0_front_n orders; one hour-0 hire moves to hour 1 only when the 10 slots are full
@@ -3356,8 +3360,18 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                 q_ = int((cum_.get(step_) or {}).get(p_, 0)) - int(S["sold"][p_])
                 if int(CFG["sd_books_h0_lot"]) and hour == 0:   # hour 0: DSM's own lot only, the backlog waits for the tick
                     q_ = min(q_, int((cum_.get(step_) or {}).get(p_, 0)) - int((cum_.get(step_ - 1) or {}).get(p_, 0)))
-                if hour == 21:                     # our surplus over the leader's next 12 steps goes now
-                    nxt_ = int((cum_.get(min(719, step_ + 12)) or {}).get(p_, 0)) - int((cum_.get(step_) or {}).get(p_, 0))
+                if p_ in (CFG["sd_books_even"] or ()):  # user: the backlog in equal lots over the remaining post-tick hours
+                    lot_ = int((cum_.get(step_) or {}).get(p_, 0)) - int((cum_.get(step_ - 1) or {}).get(p_, 0))
+                    back_ = q_ - lot_
+                    if back_ > 0:
+                        rem_ = [hh_ for hh_ in (1, 5, 9, 13, 17, 21) if hh_ >= hour]
+                        if hour in (1, 5, 9, 13, 17, 21) and rem_:
+                            q_ = lot_ + -(-back_ // len(rem_))
+                        elif rem_:
+                            q_ = lot_
+                        S["log"]["books_even_" + p_] += 1
+                if hour == 21:                     # our surplus over the leader's next sd_books_sur_h steps goes now
+                    nxt_ = int((cum_.get(min(719, step_ + int(CFG["sd_books_sur_h"]))) or {}).get(p_, 0)) - int((cum_.get(step_) or {}).get(p_, 0))
                     sur_ = have_ - nxt_
                     if int(CFG["sd_books_batch"]):     # DSM: small lots, never at the floor
                         sur_ = 0 if float(prices.get(p_, 0) or 0) <= float(CFG["sd_books_minpx"]) else min(sur_, max(q_, 0) + int(CFG["sd_books_batch"]))
@@ -3376,14 +3390,35 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                          + int(TPc_.get("_harv_left", 0) or 0) if TPc_.get("day") == day else 0)
                 load_ -= sum(int(o_[2]) for o_ in orders if o_[0] == "SELL") + sum(o_[2] for _, o_ in front_)
                 excess_ = load_ - (100 - int(CFG["sd_tier_dump_buffer"]))
+                if int(CFG["sd_books_cap_order"]):     # room from every product in the shed, cheapest first; protected ones last
+                    prot_ = set(CFG["sd_books_cap_protect"] or ())
+                    cf2_ = S.setdefault("_cap_free", set())
+                    for p_ in sorted([q for q in PRODUCTS if q not in prot_ and int(shed.get(q, 0) or 0) > 0],
+                                     key=lambda q: float(prices.get(q, 0) or 0)):
+                        if excess_ <= 0:
+                            break
+                        done_ = sum(o_[2] for _, o_ in front_ if o_[1] == p_) + sum(int(o_[2]) for o_ in orders if o_[0] == "SELL" and o_[1] == p_)
+                        k_ = min(int(shed.get(p_, 0) or 0) - done_, excess_)
+                        if k_ > 0:
+                            cf2_.add((int(_g(obs, "step", 0)), p_))
+                            hit_ = next((x for x in front_ if x[1][1] == p_), None)
+                            if hit_:
+                                hit_[1][2] += k_
+                            else:
+                                front_.append((0, ["SELL", p_, k_]))
+                            excess_ -= k_
+                            S["log"]["books_cap2_" + p_] += k_
                 for p_ in sorted(bk_, key=lambda q: float(prices.get(q, 0) or 0)):
                     if excess_ <= 0:
                         break
+                    if int(CFG["sd_books_cap_order"]) and p_ not in set(CFG["sd_books_cap_protect"] or ()):
+                        continue                   # already offered above
                     done_ = sum(o_[2] for _, o_ in front_ if o_[1] == p_)
                     k_ = min(int(shed.get(p_, 0) or 0) - done_, excess_)
-                    if int(CFG["sd_books_batch"]) and not CFG["sd_books_cap_free"]:     # DSM: small lots, never at the floor
+                    prot2_ = int(CFG["sd_books_cap_order"]) and p_ in set(CFG["sd_books_cap_protect"] or ())
+                    if int(CFG["sd_books_batch"]) and (not CFG["sd_books_cap_free"] or prot2_):     # DSM: small lots, never at the floor
                         k_ = 0 if float(prices.get(p_, 0) or 0) <= float(CFG["sd_books_minpx"]) else min(k_, max(0, int(CFG["sd_books_batch"]) - done_))
-                    if k_ > 0 and CFG["sd_books_cap_free"]:
+                    if k_ > 0 and CFG["sd_books_cap_free"] and not prot2_:
                         st_c_ = S.setdefault("_cap_free", set())
                         st_c_.add((int(_g(obs, "step", 0)), p_))   # exempt from the walk floor below (room beats price)
                     if k_ > 0:
