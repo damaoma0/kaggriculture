@@ -52056,5 +52056,1158 @@
    "sd_tier_sclu_need_min": 3
   },
   "label": "KB82 = KB78 (equal strawberry lots) + batch-day strawberry trips (KB70 settings)"
+ },
+ "KB78id": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ]
+  },
+  "label": "KB78 identity check"
+ },
+ "KB83": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_pdrop": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ]
+  },
+  "label": "KB83 = KB78 + mid-day drops where the route passes a shed access tile (strawberry / wool / milk, lag-gated, +1 h max)"
+ },
+ "KB84": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_pdrop": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_tier_pdrop_cost": 2
+  },
+  "label": "KB84 = KB83 with +2 h max"
+ },
+ "KB85": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_pdrop": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK",
+    "EGG",
+    "MELON",
+    "CARROT",
+    "TOMATO"
+   ]
+  },
+  "label": "KB85 = KB83 + egg / melon / carrot / tomato (sold on arrival)"
+ },
+ "KB86": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_pdrop": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_tier_pdrop_need": 0
+  },
+  "label": "KB86 = KB83 without the lag gate"
+ },
+ "KB87": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_pdrop": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_tier_pdrop_early": 1
+  },
+  "label": "KB87 = KB78 + mid-day drops planned before the fills (strawberry / wool / milk, lag-gated, +1 h)"
+ },
+ "KB88": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_pdrop": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_tier_pdrop_early": 1,
+   "sd_tier_pdrop_cost": 2
+  },
+  "label": "KB88 = KB87 with +2 h"
+ },
+ "KB89": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_pdrop": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK",
+    "EGG",
+    "MELON",
+    "CARROT",
+    "TOMATO"
+   ],
+   "sd_tier_pdrop_early": 1
+  },
+  "label": "KB89 = KB87 + egg / melon / carrot / tomato sold on arrival"
+ },
+ "KB90": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_pdrop": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_tier_pdrop_early": 1,
+   "sd_tier_pdrop_cost": 3
+  },
+  "label": "KB90 = KB87 with +3 h"
+ },
+ "KB78cap": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_step_cap": 100.0
+  },
+  "label": "KB78 with sd_step_cap 100 (wall-clock check)"
+ },
+ "KB87cap": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_pdrop": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_tier_pdrop_early": 1,
+   "sd_step_cap": 100.0
+  },
+  "label": "KB87 with sd_step_cap 100 (wall-clock check)"
+ },
+ "KB78cap2": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_step_cap": 100.0
+  },
+  "label": "KB78 with sd_step_cap 100 (wall-clock check)"
+ },
+ "KB87d1": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_pdrop": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_tier_pdrop_early": 1,
+   "sd_tier_pdrop_dbg": 1
+  },
+  "label": "KB87 debug stage 1"
+ },
+ "KB87d2": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_pdrop": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_tier_pdrop_early": 1,
+   "sd_tier_pdrop_dbg": 2
+  },
+  "label": "KB87 debug stage 2"
+ },
+ "KB91": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_feed_harvest": 1
+  },
+  "label": "KB91 = KB78 + feeds supplied by the route's own earlier mandatory wheat harvests (DSM: 31 feeding hand-days a world, no shed pickup)"
+ },
+ "KB92": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_feed_harvest": 2
+  },
+  "label": "KB92 = KB78 + feed supply from the route's own wheat harvests applied after the search (fills / executor only)"
+ },
+ "KB91id": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_books_cap_free": 1,
+   "sd_books_h0_slots": 2,
+   "sd_tier_spawn_remap": 1,
+   "sd_books_h0_lot": 1,
+   "sd_harvest_follow_dsm": [
+    "SHEEP",
+    "COW",
+    "GOOSE"
+   ],
+   "sd_harvest_follow_keep": 1,
+   "sd_tier_path_collect": 1,
+   "sd_tier_path_collect_detour": 1,
+   "sd_tier_deliver_skip": 1,
+   "sd_tier_deliver_skip_min": 5,
+   "sd_tier_deliver_skip_collects": 1,
+   "sd_books_even": [
+    "STRAWBERRY"
+   ],
+   "sd_tier_feed_harvest": 1
+  },
+  "label": "KB91 re-check"
  }
 }
