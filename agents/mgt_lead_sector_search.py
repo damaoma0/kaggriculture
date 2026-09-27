@@ -300,6 +300,7 @@ CFG = {
     "sd_tier_dayret_shape": None,   # "file" (user 2026-09-27: improve with DSM knowledge; the dawn SHAPE copy was worth +2.0k where copying only the COUNT of returns was worth nothing): DSM's daytime returns of this world (results/fresh/threads_20260928/dsm_dayret/<ep>.json: hand, drop hour, the tiles it harvested the goods on); each return goes to our outbound hand whose mandatory route holds the most of those tiles, as a shed stop (DELIVER) right after the last of them, kept when it adds no lateness; never skipped by the executor
     "sd_tier_dayret_relocate": 0,   # > 0: a DSM return that would make its hand late may move up to this many of the hand's tail stops (after the return) to the outbound hand where each fits cheapest without lateness (user: reassign tiles from busy sectors to non-busy)
     "sd_defer_shed": 0,       # > 0 (KB0 on 40 worlds: on 219 overflow nights the shed already held wool 7.0 / milk 4.7 units - our surplus over DSM's plan that the price floor keeps unsold - vs DSM's 0.9 / 1.3; DSM keeps its glut wool ON the sheep): at planning, a product whose shed stock is at least this many units has its animal harvests left on the animals when the tile can hold them without losing production (sd_tier_dump_defer's check)
+    "sd_harvest_follow_dsm": [],   # crops (KB2: 46% of DSM's daytime returns found no match because 30% of our strawberry harvests fall on another day than DSM's, same 44 tiles): harvest a tile of these crops on the days DSM harvested it (the target's harvested tiles per day); on other days its harvest waits when the plant can hold the units without losing production
     "sd_tier_dump_fix": 0,    # 1 (2026-09-26, case world 112604454: hands carried 124-159 units into the midnight dump while the shed was empty): the executor skips a planned end-of-day DROP only when the PROJECTED midnight load (shed + carried + the units the routes still harvest today) fits, not the load at that hour
     "sd_tier_copy_returns": 0,  # 1 (user 2026-09-26: copy how many hands go back to the shed to drop): the plan holds at least as many daytime shed deliveries as the leader made that day at hour >= 5 (results/fresh/threads_20260928/dsm_returns/<ep>.json), best load value per added hour, extras at a route end trimmed if needed
     "sd_tier_copy_returns_from": 11,   # first day it applies
@@ -7778,6 +7779,24 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                         continue                       # DSM: a trickle of service once the product is glutted
             r_["ops"].append(_tier_op(o, m, v_, tier, after_plant=plant_seen and c == "WATER"))
     st["tier_pred_skipped"] = st.get("tier_pred_skipped", 0) + skipped
+    if CFG["sd_harvest_follow_dsm"]:               # harvest days as DSM's (same tiles: the plan is followed tile-exact)
+        hs_ = _T.harv_tiles[day] if day < len(getattr(_T, "harv_tiles", ())) else set()
+        crops_ = set(CFG["sd_harvest_follow_dsm"])
+        for idx_ in range(100):
+            t_ = _tile(tiles, idx_)
+            if not (_is_plant(t_) and t_.get("crop") in crops_):
+                continue
+            r_ = rec.get(idx_)
+            has_ = bool(r_) and any(o["c"][0] == "HARVEST" for o in r_["ops"])
+            if has_ and idx_ not in hs_ and _tier_defer_ok(t_, day):
+                r_["ops"] = [o for o in r_["ops"] if o["c"][0] not in ("HARVEST", "PLACE_HARVEST")]
+                st["tier_follow_held"] = st.get("tier_follow_held", 0) + 1
+            elif not has_ and idx_ in hs_ and int(t_.get("yield_units", 0) or 0) > 0 and                     day - int(t_.get("planted_day", day)) >= CROPS[t_["crop"]]["first"]:
+                r_ = rec.setdefault(idx_, {"ops": [], "rel": 0})
+                r_["ops"].append(_tier_op(["HARVEST"], True, 0.0, 2))
+                st["tier_follow_added"] = st.get("tier_follow_added", 0) + 1
+        for idx_ in [i for i, r_ in rec.items() if not r_["ops"]]:
+            del rec[idx_]
     if CFG["sd_keep_alive_guard"]:                 # R2 exact: no animal with >= 2 production nights left may escape
         for idx_ in range(100):
             t_ = _tile(tiles, idx_)
