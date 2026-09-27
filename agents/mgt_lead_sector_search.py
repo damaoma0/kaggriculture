@@ -379,6 +379,7 @@ CFG = {
     "sd_tier_collect_c": 0,  # 1 (user: why is fertilizer lost? KB78 loses 97.5 pen-days of fertilizer a world, DSM 7.2; 82.5 of them on pens a hand WORKED that day without collecting, 18.3 by a hand that ended its day idle; in the plans 76 a world are listed extras worth 80 at a pen the route already visits, never placed: stand-alone collects are offered only in phases D / E, after phase C has filled the outbound routes with waterings ~10 and feed / care): the stand-alone collects join the phase C pool, merged only into a stop the route already has on that pen (no extra walking; 2 = any insertion); collects paired with a fertilize are unchanged. Case world: planned collects 363 -> 362 (1) / 353 (2), fertilizes 205 -> 190 / 160: the hands at those pens are full (84 of 89 such routes end at 24, mostly MANDATORY work), so a phase C collect only takes a fertilize pairing's collect. Parked with mechanism
     "sd_tier_collect_c_max": 0,  # > 0: at most this many phase C collects a day (the midnight shed room)
     "sd_tier_spawn_exact": 0,  # 1 (user 2026-09-27, spawn investigation panel_spawn.py: the hour-1 hires spawn by the engine rule on our units' positions after their hour-1 commands, which the plan predicts 100%, but the plan is self-consistent on only 49% of days - it assumes spawn tiles, re-routes the hour-0 hires around them, and their hour-1 positions then imply other tiles; the buffer plans those hires from hour 3 and they run ahead / idle): two-stage plan - inside each planning pass, after all routes are built, the farmer's and the hour-0 hires' routes stay fixed, their hour-1 positions give the exact spawn tiles, and the hour-1 hires' routes are reassigned to those tiles (best permutation by full route evaluation, from hour 2), optional tail ops trimmed while that makes a route late, freed time filled with the leftover extras (no harvests); the outer re-plan / buffer then sees a consistent plan; the executor remap is skipped when the hires stand where planned. KB96 (mode 1) vs KB78 -1,052: spawns 100% right but the first pass plans the hour-1 hires from an empty-shed guess (33 of 43 wrong), the reassignment leaves 1.0 late route and trims 15 optional ops a world (strawberry plant-days -2.0, weeds +2.5), and the fill's collects add midnight load (deleted +5 units a world). 2: re-plan up to twice with the exact tiles fed back into the search (keep the pass with the fewest mismatches), no collects in the fill. KB97 (mode 2) vs KB78 -414 (t -1.44): spawns 100% right, deaths back to 1.2, but work +0.02 a hand-day (idle -0.10 h turns into moves +0.08) and the hour-1 hires carry 16 more units into the midnight dump, where they come last (deleted 9.0 -> 11.9 a world; 7.8 of KB78's 9.0 are the hour-1 hires' goods). Parked with mechanism: the buffer hour is worth little because the planner does not turn it into work
+    "sd_tier_farmer_h0pick": 0,  # 1 (user 2026-09-27, labor viewer: the farmer idles at hour 0; DSM's farmer PICKs UP wheat at hour 0 on 71% of days, ours PASSes on 73% and picks up at hour 1): with the hour-0 hold, the farmer's ordinary outbound route starts at hour 0 with the rule that his hour-0 command never moves him (a pickup at the shed or a job on his own tile, else he waits that hour) - the hires' spawn stays known and the search gets his hour 0; the executor turns any hour-0 move into PASS
     "sd_tier_fert_merge_collect": 0,  # 1: a merged fertilize may use fertilizer the route already collects and does not spend (look-back pen collects) before asking for a shed pickup (one spare hour instead of two)
     "sd_tier_prio_ani": 0,    # 1 (user 2026-09-26: "melon mode" for important animal harvests): the farmer (no melon duty that day) first harvests the cow / sheep pens holding >= sd_tier_prio_ani_min units (or due), feed / care in the same visit, best units x price per added hour while his drop at the shed stays by sd_tier_prio_ani_by; then he is a normal hand (post segment in the sector search), as after a melon delivery
     "sd_tier_prio_ani_min": {"COW": 3, "SHEEP": 4},   # DSM's mean units per harvest at pens near the shed (cow 3.4-3.8, sheep 4.2-4.4); eggs left out (DSM delivers only 18% of eggs the same day)
@@ -6320,6 +6321,9 @@ def _tier_eval(seg, stops=None, want_hours=False):
     kd = 0
     while kd < len(stops) and stops[kd].get("dawn"):   # sd_tier_dawn: the dawn leg first, the pickups after it (DSM's order)
         kd += 1
+    if seg.get("hold0") and t == 0 and not ((kd == 0 and (nf or na or fp_) and p in _TIER_SHED_I)
+                                            or (stops and stops[0]["tile"] == p)):
+        t = 1                                      # sd_tier_farmer_h0pick: he may not move at hour 0 (the hires' spawn)
     hours = [] if want_hours else None
     first = True
     for i_s in range(len(stops) + 1):
@@ -9052,13 +9056,14 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
         ft0 = 0                                    # sd_tier_dawn 3: DSM's farmer makes his early trip from hour 0
     sp0 = _sd_spawn([f0] if ft0 else ([] if f0 in SHED else [f0]), k0)
     sp1 = _sd_spawn([], want - k0)
+    st["_hold0"] = bool(int(CFG["sd_tier_farmer_h0pick"]) and ft0 == 1 and f0 in SHED)
     TP = None
     for pass_ in range(int(CFG["sd_tier_spawn_passes"])):
         units = [(0, f0, ft0)] + [(u + 1, q, 1) for u, q in enumerate(sp0)] + [
             (u + 1 + k0, q, 2) for u, q in enumerate(sp1)]
         TP = _tier_core(S, L, st, day, tiles, _tier_copy.deepcopy(rec), units, want, t_start)
         if 0 in TP["routes"]:
-            TP["routes"][0]["t0"] = ft0
+            TP["routes"][0]["t0"] = 0 if TP["routes"][0].get("hold0") else ft0
         f1 = f0 if ft0 else _tier_walk(TP["routes"].get(0), f0, 1)
         n0 = _sd_spawn([f1], k0)
         TP["summary"]["spawn_pass"] = pass_ + 1
@@ -9066,7 +9071,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
             break
         sp0 = n0
         st["tier_respawn"] = st.get("tier_respawn", 0) + 1
-    after1 = [_tier_walk(TP["routes"].get(0), f0, 2 - ft0)] + [
+    after1 = [_tier_walk(TP["routes"].get(0), f0, _tier_f_cmds(TP["routes"].get(0), f0, ft0))] + [
         _tier_walk(TP["routes"].get(u + 1), q, 1) for u, q in enumerate(sp0)]
     if int(CFG["sd_tier_spawn_exact"]) >= 2 and TP.get("_sp1_true") is not None:
         for pass3_ in range(2):                    # feed the exact tiles back into the search; keep the fewest mismatches
@@ -9077,13 +9082,13 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                 (u + 1 + k0, q, 2) for u, q in enumerate(sp1_try)]
             TP2 = _tier_core(S, L, st, day, tiles, _tier_copy.deepcopy(rec), units, want, t_start)
             if 0 in TP2["routes"]:
-                TP2["routes"][0]["t0"] = ft0
+                TP2["routes"][0]["t0"] = 0 if TP2["routes"][0].get("hold0") else ft0
             st["tier_spawn_exact_replan"] = st.get("tier_spawn_exact_replan", 0) + 1
             if TP2.get("_sp1_true") is not None and (TP2.get("_spx_wrong") or 0) <= (TP.get("_spx_wrong") or 0):
                 TP = TP2
             else:
                 break
-        after1 = [_tier_walk(TP["routes"].get(0), f0, 2 - ft0)] + [
+        after1 = [_tier_walk(TP["routes"].get(0), f0, _tier_f_cmds(TP["routes"].get(0), f0, ft0))] + [
             _tier_walk(TP["routes"].get(u + 1), q, 1) for u, q in enumerate(sp0)]
         TP["summary"]["spx_wrong_final"] = TP.get("_spx_wrong")
     if int(CFG["sd_tier_spawn_exact"]) and TP.get("_sp1_true") is not None:
@@ -9099,10 +9104,10 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                     (u + 1 + k0, q, 2) for u, q in enumerate(sp1)]
                 TP = _tier_core(S, L, st, day, tiles, _tier_copy.deepcopy(rec), units, want, t_start)
                 if 0 in TP["routes"]:
-                    TP["routes"][0]["t0"] = ft0
+                    TP["routes"][0]["t0"] = 0 if TP["routes"][0].get("hold0") else ft0
                     if TP["routes"][0].get("kind") != "post":
                         TP["routes"][0]["wt0"] = max(ft0, 1)
-                after1 = [_tier_walk(TP["routes"].get(0), f0, 2 - ft0)] + [
+                after1 = [_tier_walk(TP["routes"].get(0), f0, _tier_f_cmds(TP["routes"].get(0), f0, ft0))] + [
                     _tier_walk(TP["routes"].get(u + 1), q, 1) for u, q in enumerate(sp0)]
                 st["tier_spawn_h2_replan"] = st.get("tier_spawn_h2_replan", 0) + 1
                 if _sd_spawn(after1, want - k0) == sp1:
@@ -9113,14 +9118,14 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                     (u + 1 + k0, q, 3) for u, q in enumerate(sp1)]
                 TP = _tier_core(S, L, st, day, tiles, _tier_copy.deepcopy(rec), units, want, t_start)
                 if 0 in TP["routes"]:
-                    TP["routes"][0]["t0"] = ft0
+                    TP["routes"][0]["t0"] = 0 if TP["routes"][0].get("hold0") else ft0
                     if TP["routes"][0].get("kind") != "post":
                         TP["routes"][0]["wt0"] = max(ft0, 1)
                 for u_ in range(k0 + 1, want + 1):
                     if u_ in TP["routes"]:
                         TP["routes"][u_]["t0plan"] = 2       # they still act from hour 2 (the executor starts them then)
                         TP["routes"][u_]["t0"] = 0
-                after1 = [_tier_walk(TP["routes"].get(0), f0, 2 - ft0)] + [
+                after1 = [_tier_walk(TP["routes"].get(0), f0, _tier_f_cmds(TP["routes"].get(0), f0, ft0))] + [
                     _tier_walk(TP["routes"].get(u + 1), q, 1) for u, q in enumerate(sp0)]
                 st["tier_spawn_buffer"] = st.get("tier_spawn_buffer", 0) + 1
     if CFG["sd_tier_dawn_cf"] and int(CFG["sd_tier_dawn"]):   # same state, same units, dawn legs off (diagnosis)
@@ -9157,6 +9162,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["summary"]["pdrop"] = st.pop("_pdrop_day", None)
     TP["summary"]["feedh"] = st.pop("_feedh_day", None)
     TP["summary"]["spx"] = dict(st.pop("_spx_day", None) or {}) or None
+    st.pop("_hold0", None)
     TP["summary"]["mfollow"] = dict(st.pop("_mfollow_day", None) or {}) or None
     TP["k0"] = k0
     TP["h0_books"] = nb0
@@ -9238,6 +9244,17 @@ def _tier_spawn_exact(segs, units, rest, collects, owner, rate, st, build_route)
             pool.append(dict(bd, ops=ops2, v=sum(o["v"] for o in ops2)))
     rec_["filled"] += _tier_fill(segs, [segs.index(sg) for sg in movable], pool, collects, owner, rate, st, "spx")
     return true_
+
+
+def _tier_f_cmds(R, f0, ft0):
+    """commands the farmer issues before the hour-1 market: 2 - ft0, or 2 for a sd_tier_farmer_h0pick route whose
+    hour-0 command is a pickup / an in-place job (else it PASSes at hour 0 and only its hour-1 command counts)."""
+    if not (R and R.get("hold0")):
+        return 2 - ft0
+    it = next(iter(R["items"]), None)
+    if it is not None and (it["kind"] == "pick" or (it["kind"] == "stop" and (it["tile"] % 10, it["tile"] // 10) == tuple(f0))):
+        return 2
+    return 1
 
 
 def _tier_walk(R, p, n):
@@ -9400,8 +9417,9 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             segs.append({"u": u, "kind": "out", "p0": dawn_of[u]["tile"], "t0": dawn_of[u]["end"], "stops": [], "wu": 1.0,
                          "ver": 0, "anim": anim, "fneed": fneed, "dawn": True})
         else:
-            segs.append({"u": u, "kind": "out", "p0": pi, "t0": t0, "stops": [], "wu": 1.0, "ver": 0, "anim": anim,
-                         "fneed": fneed})
+            h0_ = bool(u == 0 and t0 == 1 and st.get("_hold0") and pi in _TIER_SHED_I)
+            segs.append({"u": u, "kind": "out", "p0": pi, "t0": 0 if h0_ else t0, "stops": [], "wu": 1.0, "ver": 0, "anim": anim,
+                         "fneed": fneed, "hold0": h0_})
     if CFG["sd_tier_central_hand"]:                # user: the farmer cares around the centre and returns to drop
         cseg = next((s_ for s_ in segs if s_["u"] == 0 and s_["kind"] == "out" and not s_.get("dawn")), None)
         if cseg is not None:
@@ -9720,6 +9738,7 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
                 items[-1]["sell_all"] = True
         ev = _tier_eval(s, want_hours=True) if s["stops"] else (s["t0"], 0, 0, 0, [])
         r_out = {"items": items, "k": 0, "sub": 0, "kind": s["kind"], "waited": 0, "wait": {}, "t0plan": s["t0"], "p0plan": s["p0"],
+                 "hold0": bool(s.get("hold0")),
                  "plan_hours": (list(dawn_of[u]["hours"]) if u in dawn_of else []) + [(b_, c_[0], h) for b_, c_, h in ev[4]]}
         sm = {"u": u, "kind": s["kind"], "t0": s["t0"], "end": ev[0], "late": ev[1], "hop": ev[2], "bad": ev[3],
               "drop": mel_of[u]["drop"] if u in mel_of else None,
@@ -10149,6 +10168,11 @@ def _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, sh
             continue
         inv = invs[u] if u < len(invs) else {}
         actions[u] = _tier_cmd(TP, R, u, tuple(pos[u]), inv, tiles, day, hour, step, seeds_left, shed_left)
+        if hour == 0 and R.get("hold0") and isinstance(actions[u], list) and actions[u] and actions[u][0] in ("NORTH", "SOUTH", "EAST", "WEST"):
+            actions[u] = ["PASS"]                  # sd_tier_farmer_h0pick: the hour-0 hires spawn around where he stands
+            TP["cnt"]["h0pick_hold"] += 1
+        elif hour == 0 and R.get("hold0"):
+            TP["cnt"]["h0pick_" + str((actions[u] or ["?"])[0])] += 1
         snap[str(u)] = [it["tile"] for it in R["items"][R["k"]:] if it["kind"] == "stop"]
     if CFG["sd_wheat_pick_now"]:                   # the shed stock this step's PICKUP commands take (read by _market)
         TP["_picked_now"] = (int(step), {k_: int(shed.get(k_, 0) or 0) - int(shed_left.get(k_, 0) or 0)
