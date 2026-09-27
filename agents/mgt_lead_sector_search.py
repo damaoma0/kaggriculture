@@ -7499,11 +7499,13 @@ def _tier_deliver(S, segs, tiles, day, st):
                     cs_ = [o["c"][0] for o in x["ops"]]
                     if "HARVEST" not in cs_ or any(c_ in ("PLANT", "DIG", "BUILD_COOP", "BUILD_PASTURE") for c_ in cs_):
                         continue
-                    if int(CFG["sd_harvest_follow_keep"]) and any(o.get("follow") for o in x["ops"]):
-                        continue                   # DSM harvested it today (sd_harvest_follow_keep)
                     t_ = _tile(tiles, x["tile"])
                     if not isinstance(t_, dict):
                         continue
+                    kf_ = CFG["sd_harvest_follow_keep"]
+                    if kf_ and any(o.get("follow") for o in x["ops"]) and (
+                            not isinstance(kf_, (list, tuple)) or (t_.get("animal") or t_.get("crop")) in kf_):
+                        continue                   # DSM harvested it today (sd_harvest_follow_keep: 1 = all, or kinds)
                     u_ = int(t_.get("yield_units", 0) or 0)
                     if u_ <= 0 or not _tier_defer_ok(t_, day):
                         continue
