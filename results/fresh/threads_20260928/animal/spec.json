@@ -792,7 +792,7 @@
   "label": "KW2 = KH0g (hour-0 sale gain rule) + waterings valued by engine rules"
  },
  "KB2": {
-  "agent": "agents/mgt_lead_sector_animal.py",
+  "agent": "agents/mgt_lead_sector_search.py",
   "base": "K5b",
   "cfg": {
    "sd_tier_log_v": 1,
@@ -804,10 +804,39 @@
    "sd_tier_access_drop": 1,
    "sd_tier_turnaround": 1,
    "sd_tier_anim_harv_end": 29,
-   "sd_tier_pen_bundle": 1,
-   "sd_tier_pen_bundle_collect": 0
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "file",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_keep_alive_guard_min": 1,
+   "sd_tier_dayret_shape": "file",
+   "sd_tier_dayret_relocate": 3
   },
-  "label": "KB2 = KB1 without the collect in the pen stop (feed / care / due harvest bundled; collects stay free for the fertilize pairing)"
+  "label": "KB2 = KB1 + make room for DSM's returns by moving up to 3 tail stops to hands with room"
  },
  "KS1": {
   "agent": "agents/mgt_lead_sector_animal.py",

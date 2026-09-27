@@ -297,6 +297,7 @@ CFG = {
     "sd_tier_dawn_learned_max": 4,   # sd_tier_dawn_shape "learned": at most this many dawn trips a day (DSM: 0-4, 1.8 on average)
     "sd_keep_alive_guard_min": 2,   # productions left (nights up to 28) from which the keep-alive guard holds; 1 = every animal that still produces once more (KH5 lost 1.2 animals a world before day 27 vs 0.3 with DSM's data: the module abandons flocks in their last cycles when the wool price path dips, and our wool keeps the rival's price down)
     "sd_tier_dayret_shape": None,   # "file" (user 2026-09-27: improve with DSM knowledge; the dawn SHAPE copy was worth +2.0k where copying only the COUNT of returns was worth nothing): DSM's daytime returns of this world (results/fresh/threads_20260928/dsm_dayret/<ep>.json: hand, drop hour, the tiles it harvested the goods on); each return goes to our outbound hand whose mandatory route holds the most of those tiles, as a shed stop (DELIVER) right after the last of them, kept when it adds no lateness; never skipped by the executor
+    "sd_tier_dayret_relocate": 0,   # > 0: a DSM return that would make its hand late may move up to this many of the hand's tail stops (after the return) to the outbound hand where each fits cheapest without lateness (user: reassign tiles from busy sectors to non-busy)
     "sd_tier_dump_fix": 0,    # 1 (2026-09-26, case world 112604454: hands carried 124-159 units into the midnight dump while the shed was empty): the executor skips a planned end-of-day DROP only when the PROJECTED midnight load (shed + carried + the units the routes still harvest today) fits, not the load at that hour
     "sd_tier_copy_returns": 0,  # 1 (user 2026-09-26: copy how many hands go back to the shed to drop): the plan holds at least as many daytime shed deliveries as the leader made that day at hour >= 5 (results/fresh/threads_20260928/dsm_returns/<ep>.json), best load value per added hour, extras at a route end trimmed if needed
     "sd_tier_copy_returns_from": 11,   # first day it applies
@@ -7147,10 +7148,47 @@ def _tier_dayret(segs_m, tiles, day, st):
         turn = {"tile": sh, "ops": [_tier_op(["DELIVER", p_], True, 0.0, 2) for p_ in prods], "rel": 0, "turn": True, "copy": True}
         trial = sg["stops"][:j + 1] + [turn] + sg["stops"][j + 1:]
         ev0, ev = _tier_eval(sg), _tier_eval(sg, trial)
+        moves_ = {}
+        if (ev[1] > ev0[1] or ev[3] > ev0[3]) and int(CFG["sd_tier_dayret_relocate"]):
+            # make room (user: reassign tiles from busy sectors): move this hand's tail stops after the return, last first,
+            # to the outbound hand where each fits cheapest without lateness, until the return adds no lateness
+            cur_ = list(trial)
+            ti_ = cur_.index(turn)
+            for _ in range(int(CFG["sd_tier_dayret_relocate"])):
+                tail_ = [i for i in range(ti_ + 1, len(cur_)) if not cur_[i].get("turn")]
+                if not tail_:
+                    break
+                i_ = tail_[-1]
+                stop_ = cur_[i_]
+                bd_ = {"tile": stop_["tile"], "ops": stop_["ops"], "v": 1.0}
+                best2_ = None
+                for kk, s2 in enumerate(segs_m):
+                    if kk == k or s2["kind"] != "out":
+                        continue
+                    tmp_ = dict(s2, stops=moves_.get(kk, s2["stops"]))
+                    r2_ = _tier_best_ins(tmp_, bd_, {}, 0)
+                    if r2_ and (best2_ is None or r2_[1] < best2_[0][1]):
+                        best2_ = (r2_, kk)
+                if best2_ is None:
+                    break
+                cur_ = cur_[:i_] + cur_[i_ + 1:]
+                moves_[best2_[1]] = best2_[0][2]
+                ev = _tier_eval(sg, cur_)
+                if ev[1] <= ev0[1] and ev[3] <= ev0[3]:
+                    trial = cur_
+                    break
+            else:
+                moves_ = {}
+            if ev[1] > ev0[1] or ev[3] > ev0[3]:
+                moves_ = {}
         if ev[1] > ev0[1] or ev[3] > ev0[3]:
             st["tier_dayret_late"] = st.get("tier_dayret_late", 0) + 1
             rec_["late"] += 1
             continue
+        for kk, ns_ in moves_.items():
+            segs_m[kk]["stops"] = ns_
+            segs_m[kk]["ver"] += 1
+        rec_["moved"] = rec_.get("moved", 0) + len(moves_)
         rec_["in"].append([sg.get("u"), prods, j])
         sg["stops"] = trial
         sg["ver"] += 1
