@@ -590,6 +590,14 @@ _TGT_EP = None
 _DSM_DATA = {}
 
 
+def _dawn_shape():
+    """sd_tier_dawn_shape: the dict itself, or "file" = results/fresh/threads_20260928/dsm_dawn/<ep>.json (build_dsm_dawn.py)"""
+    v = CFG["sd_tier_dawn_shape"]
+    if v == "file":
+        return ((_dsm_data("dawn") or {}).get("days")) or {}
+    return v or {}
+
+
 def _dsm_data(kind):
     """research copies only: per-episode leader data built by scripts/build_dsm_<kind>.py (None when missing)"""
     if kind not in _DSM_DATA:
@@ -6859,7 +6867,7 @@ def _tier_dawn_shape(S, rec, tiles, day, units, busy, st):
     free units acting from the same hour; returns {u: leg} in _tier_dawn's format (+ "dsm": the DSM trip); the taken
     HARVEST / PLACE_HARVEST ops leave rec."""
     D = _TIER_D
-    trips = (CFG["sd_tier_dawn_shape"] or {}).get(str(day)) or []
+    trips = _dawn_shape().get(str(day)) or []
     out = {}
     for tr in trips:
         du, act_h, dstart, dtiles, ddrop = tr[0], int(tr[1]), int(tr[2]), tr[3], int(tr[4])
@@ -7753,7 +7761,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     if CFG["sd_tier_farmer_hold"] and min(_dist(f0, q) for q in SHED) <= 1:
         ft0 = 1                                    # on / next to the shed: he holds at hour 0, so the hires' spawn is known
     if int(CFG["sd_tier_dawn"]) == 3 and f0 in SHED and any(
-            int(tr[0]) == 0 and int(tr[1]) == 0 for tr in ((CFG["sd_tier_dawn_shape"] or {}).get(str(day)) or [])):
+            int(tr[0]) == 0 and int(tr[1]) == 0 for tr in (_dawn_shape().get(str(day)) or [])):
         ft0 = 0                                    # sd_tier_dawn 3: DSM's farmer makes his early trip from hour 0
     sp0 = _sd_spawn([f0] if ft0 else ([] if f0 in SHED else [f0]), k0)
     sp1 = _sd_spawn([], want - k0)
