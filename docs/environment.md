@@ -160,6 +160,11 @@ but our valuation code did not use them; any value model must.
     ones far less. A melon's value depends on selling before the other player's melons, not only on its units.
   - Milk, wool, strawberry also have steep glut curves (linear 1.6 x base over T=122 / sq 3.2 x base over T=105 /
     linear 1.6 x base over T=100); wheat, carrot, egg absorb gluts well.
+  - The draws are unconditional (`_town_consume` subtracts from the market inventory with no floor; inventory may go
+    below the reference and even negative), so demand never goes unmet and is the same in both players' games. The
+    market stock at any step = start + both players' cumulative sales - a fixed draw schedule: against a replayed rival,
+    the stock difference between two of our games equals our cumulative sales difference, and the rival's price change
+    comes only from WHEN our units reach the market (2026-09-27, scripts/panel_lag_at_rival.py).
 - **Every unit sold moves the price for the next unit** (orders are resolved unit by unit, interleaved between the two
   players); a unit sold at the $1 floor does not add to market inventory. Only WHEAT and FERTILIZER can be bought back.
 - **One-time crops** (wheat, carrot, melon): planted with 1 unit; each WATER on a day inside the growth window
