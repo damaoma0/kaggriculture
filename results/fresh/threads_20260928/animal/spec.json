@@ -36664,5 +36664,9997 @@
    "sd_books_walk": 1
   },
   "label": "ablation: KC5F without DSM's dawn trip shape"
+ },
+ "KS5a": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 0,
+   "sd_tier_rebalance": 1
+  },
+  "label": "KS5a = KC5 + refill with tiles reassigned from busy sectors (rate 0)"
+ },
+ "KS5as1": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 0,
+   "sd_tier_rebalance": 1,
+   "sd_seed": 1
+  },
+  "label": "KS5a planner seed 1"
+ },
+ "KS5as2": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 0,
+   "sd_tier_rebalance": 1,
+   "sd_seed": 2
+  },
+  "label": "KS5a planner seed 2"
+ },
+ "KS5as3": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 0,
+   "sd_tier_rebalance": 1,
+   "sd_seed": 3
+  },
+  "label": "KS5a planner seed 3"
+ },
+ "KS5as4": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 0,
+   "sd_tier_rebalance": 1,
+   "sd_seed": 4
+  },
+  "label": "KS5a planner seed 4"
+ },
+ "KS5b": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 20,
+   "sd_tier_rebalance": 1
+  },
+  "label": "KS5b = KC5 + refill with tiles reassigned from busy sectors (rate 20)"
+ },
+ "KS5bs1": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 20,
+   "sd_tier_rebalance": 1,
+   "sd_seed": 1
+  },
+  "label": "KS5b planner seed 1"
+ },
+ "KS5bs2": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 20,
+   "sd_tier_rebalance": 1,
+   "sd_seed": 2
+  },
+  "label": "KS5b planner seed 2"
+ },
+ "KS5bs3": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 20,
+   "sd_tier_rebalance": 1,
+   "sd_seed": 3
+  },
+  "label": "KS5b planner seed 3"
+ },
+ "KS5bs4": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 20,
+   "sd_tier_rebalance": 1,
+   "sd_seed": 4
+  },
+  "label": "KS5b planner seed 4"
+ },
+ "KS5id": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1
+  },
+  "label": "identity: KC5 on the search copy"
+ },
+ "KG5": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1
+  },
+  "label": "KG5 = KC5 + keep-alive guard (R2 exact: no escape with >= 2 productions left)"
+ },
+ "KG5s1": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_seed": 1
+  },
+  "label": "KG5 planner seed 1"
+ },
+ "KG5s2": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_seed": 2
+  },
+  "label": "KG5 planner seed 2"
+ },
+ "KG5s3": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_seed": 3
+  },
+  "label": "KG5 planner seed 3"
+ },
+ "KG5s4": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_seed": 4
+  },
+  "label": "KG5 planner seed 4"
+ },
+ "KG5a": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 0,
+   "sd_tier_rebalance": 1,
+   "sd_keep_alive_guard": 1
+  },
+  "label": "KG5a = KS5a + keep-alive guard (R2 exact: no escape with >= 2 productions left)"
+ },
+ "KG5as1": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 0,
+   "sd_tier_rebalance": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_seed": 1
+  },
+  "label": "KG5a planner seed 1"
+ },
+ "KG5as2": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 0,
+   "sd_tier_rebalance": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_seed": 2
+  },
+  "label": "KG5a planner seed 2"
+ },
+ "KG5as3": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 0,
+   "sd_tier_rebalance": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_seed": 3
+  },
+  "label": "KG5a planner seed 3"
+ },
+ "KG5as4": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": {
+    "12": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "14": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        37,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "15": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        34,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      44,
+      [
+       [
+        43,
+        "SHEEP"
+       ]
+      ],
+      44
+     ],
+     [
+      2,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      6,
+      1,
+      45,
+      [
+       [
+        46,
+        "SHEEP"
+       ]
+      ],
+      45
+     ]
+    ],
+    "16": [
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "17": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ],
+     [
+      6,
+      1,
+      54,
+      [
+       [
+        53,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "18": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "19": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "20": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ]
+    ],
+    "21": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "22": [
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "23": [
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "26": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      4,
+      1,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ]
+    ],
+    "27": [
+     [
+      1,
+      1,
+      45,
+      [
+       [
+        45,
+        "SHEEP"
+       ]
+      ],
+      45
+     ],
+     [
+      2,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ],
+    "28": [
+     [
+      0,
+      0,
+      44,
+      [
+       [
+        44,
+        "COW"
+       ]
+      ],
+      44
+     ],
+     [
+      3,
+      1,
+      55,
+      [
+       [
+        55,
+        "COW"
+       ]
+      ],
+      55
+     ],
+     [
+      5,
+      1,
+      45,
+      [
+       [
+        35,
+        "COW"
+       ],
+       [
+        25,
+        "COW"
+       ]
+      ],
+      45
+     ]
+    ],
+    "29": [
+     [
+      3,
+      1,
+      54,
+      [
+       [
+        54,
+        "COW"
+       ]
+      ],
+      54
+     ]
+    ]
+   },
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_tier_dump_refill": 1,
+   "sd_tier_dump_refill_rate": 0,
+   "sd_tier_rebalance": 1,
+   "sd_keep_alive_guard": 1,
+   "sd_seed": 4
+  },
+  "label": "KG5a planner seed 4"
+ },
+ "KL5": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "learned",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1
+  },
+  "label": "KL5 = KC5 with DSM's dawn shape replaced by the learned dawn rule (DSM-free)"
+ },
+ "KL5s1": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "learned",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_seed": 1
+  },
+  "label": "KL5 planner seed 1"
+ },
+ "KL5s2": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "learned",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_seed": 2
+  },
+  "label": "KL5 planner seed 2"
+ },
+ "KL5s3": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "learned",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_seed": 3
+  },
+  "label": "KL5 planner seed 3"
+ },
+ "KL5s4": {
+  "agent": "agents/mgt_lead_sector_search.py",
+  "base": "K5b",
+  "cfg": {
+   "sd_tier_log_v": 1,
+   "sd_tier_anim_harv": 1,
+   "sd_tier_anim_c": 1,
+   "sd_tier_anim_c_minv": 150.0,
+   "sd_tier_feed_bank": 1,
+   "sd_final_sell_all": 1,
+   "sd_tier_access_drop": 1,
+   "sd_tier_turnaround": 1,
+   "sd_tier_anim_harv_end": 29,
+   "sd_tier_spawn_h2": 1,
+   "sd_bank_stop": 1000000000.0,
+   "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+   },
+   "sd_tier_dump_fix": 1,
+   "sd_tier_copy_returns": 1,
+   "sd_tier_access_keep": 1,
+   "sd_tier_copy_returns_end": 22,
+   "sd_tier_spawn_buffer": 1,
+   "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK"
+   ],
+   "sd_books_cap": 1,
+   "sd_tier_dawn": 3,
+   "sd_tier_dawn_shape": "learned",
+   "sd_maint_floor_trail": 48,
+   "sd_maint_floor_stat": "mean",
+   "sd_wheat_pick_now": 1,
+   "sd_tier_dump_defer": 1,
+   "sd_books_batch": 8,
+   "sd_books_minpx": 5,
+   "sd_books_walk": 1,
+   "sd_seed": 4
+  },
+  "label": "KL5 planner seed 4"
  }
 }

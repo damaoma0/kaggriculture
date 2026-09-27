@@ -1,0 +1,51 @@
+done 112570602 1
+done 112570782 2
+done 112571815 3
+done 112573049 4
+done 112574236 5
+done 112575429 6
+done 112576658 7
+done 112577829 8
+done 112579036 9
+done 112580238 10
+done 112581436 11
+done 112582639 12
+done 112583842 13
+done 112585076 14
+done 112586293 15
+done 112587591 16
+done 112588103 17
+done 112588791 18
+done 112589990 19
+done 112591190 20
+done 112592389 21
+done 112593664 22
+done 112594857 23
+done 112596061 24
+done 112597248 25
+done 112598450 26
+done 112599653 27
+done 112600855 28
+done 112602061 29
+done 112603263 30
+done 112604454 31
+done 112605661 32
+done 112605939 33
+done 112606801 34
+done 112608021 35
+done 112610623 36
+done 112616236 37
+done 112621294 38
+done 112621356 39
+done 112626851 40
+40 worlds, per world. margin gap vs DSM on a product = (our revenue - DSM's) - (rival revenue in that game - in DSM's game)
+STRAWBERRY | arm   -3739 | actual   -3739 | hazard_walk   -3303 | hazard_rival   -3219
+WOOL       | arm   -3130 | actual   -3130 | hazard_walk   -3461 | hazard_rival   -3340
+MILK       | arm   -1062 | actual   -1062 | hazard_walk   -1485 | hazard_rival   -1452
+TOTAL      | arm   -7931 | actual   -7931 | hazard_walk   -8249 | hazard_rival   -8011
+  hazard_walk vs actual: margin -318 (t -0.90, better 16/40); STRAWBERRY +435, WOOL -331, MILK -423
+  hazard_rival vs actual: margin -80 (t -0.23, better 17/40); STRAWBERRY +520, WOOL -210, MILK -390
+  checks actual: shed identical 13/40, other orders identical 31/40, hands identical 40/40, midnight deletions per world 64.6 (arm 65.5)
+  checks hazard_walk: shed identical 13/40, other orders identical 31/40, hands identical 40/40, midnight deletions per world 64.6 (arm 65.5)
+  checks hazard_rival: shed identical 13/40, other orders identical 31/40, hands identical 40/40, midnight deletions per world 64.6 (arm 65.5)
+  units sold per world (ours / DSM): STRAWBERRY 230 / 237, WOOL 136 / 134, MILK 200 / 189
