@@ -376,6 +376,8 @@ CFG = {
     "sd_tier_pdrop_min": 2,  # min units per drop
     "sd_tier_pdrop_early": 0,  # 1 (case world: after all fills 140 of 179 routes end at 24, 1 drop a season): planned right after the mandatory search, before the fills pack the routes around it
     "sd_tier_feed_harvest": 0,  # 1 (DSM, 40 worlds: 31.1 feeding hand-days a world feed from wheat the hand harvested earlier on its route, no morning pickup; we 0 - every feeding hand loads wheat first, 41.9 hand-days a world load wheat for a single feed, DSM 6.4): a route's FEEDs are supplied first by the wheat of its earlier MANDATORY wheat harvests (today's yield on the tile), only the rest is picked up at the shed; the search, the fills and the executor's pickup all use this count. KB91 (mode 1) vs KB78 -460 (t -1.82): wheat loads 131 -> 120 a world but the search routes hands through the wheat field first: shed hours -11, moves +13, work -3 (no labor gained). 2: the supply is applied only after the mandatory search (the fills and the executor use it, the routes' order is the search's)
+    "sd_tier_collect_c": 0,  # 1 (user: why is fertilizer lost? KB78 loses 97.5 pen-days of fertilizer a world, DSM 7.2; 82.5 of them on pens a hand WORKED that day without collecting, 18.3 by a hand that ended its day idle; in the plans 76 a world are listed extras worth 80 at a pen the route already visits, never placed: stand-alone collects are offered only in phases D / E, after phase C has filled the outbound routes with waterings ~10 and feed / care): the stand-alone collects join the phase C pool, merged only into a stop the route already has on that pen (no extra walking; 2 = any insertion); collects paired with a fertilize are unchanged. Case world: planned collects 363 -> 362 (1) / 353 (2), fertilizes 205 -> 190 / 160: the hands at those pens are full (84 of 89 such routes end at 24, mostly MANDATORY work), so a phase C collect only takes a fertilize pairing's collect. Parked with mechanism
+    "sd_tier_collect_c_max": 0,  # > 0: at most this many phase C collects a day (the midnight shed room)
     "sd_tier_fert_merge_collect": 0,  # 1: a merged fertilize may use fertilizer the route already collects and does not spend (look-back pen collects) before asking for a shed pickup (one spare hour instead of two)
     "sd_tier_prio_ani": 0,    # 1 (user 2026-09-26: "melon mode" for important animal harvests): the farmer (no melon duty that day) first harvests the cow / sheep pens holding >= sd_tier_prio_ani_min units (or due), feed / care in the same visit, best units x price per added hour while his drop at the shed stays by sd_tier_prio_ani_by; then he is a normal hand (post segment in the sector search), as after a melon delivery
     "sd_tier_prio_ani_min": {"COW": 3, "SHEEP": 4},   # DSM's mean units per harvest at pens near the shed (cow 3.4-3.8, sheep 4.2-4.4); eggs left out (DSM delivers only 18% of eggs the same day)
@@ -6229,6 +6231,7 @@ import random as _tier_random
 
 _TIER_SHED_I = [q[1] * 10 + q[0] for q in SHED]
 _TIER_D = [[abs(a % 10 - b % 10) + abs(a // 10 - b // 10) for b in range(100)] for a in range(100)]
+_TIER_CC = {"n": 0}    # sd_tier_collect_c: phase C collects placed today
 _TIER_WY = {}          # sd_tier_feed_harvest: tile -> wheat units a harvest there yields today (set per planning call)
 _TIER_ANG = [_tier_math.atan2(-((i // 10) - 4.5), (i % 10) - 4.5) for i in range(100)]
 _TIER_BIG = 1000.0
@@ -6537,9 +6540,13 @@ def _tier_best_ins(seg, bundle, collects, lo=0):
     free collects (tile -> op) placed before it. Returns (score, delta hours, new stops, collect tile or None) or None."""
     if bundle.get("dawn"):
         return _tier_dawn_ins(seg, bundle)
+    if bundle.get("coll_c") and int(CFG["sd_tier_collect_c_max"]) and _TIER_CC["n"] >= int(CFG["sd_tier_collect_c_max"]):
+        return None
+    has = any(s["tile"] == bundle["tile"] for s in seg["stops"])
+    if bundle.get("inplace") and not has:
+        return None                                # sd_tier_collect_c 1: only into a stop the route already has on the pen
     ev0 = _tier_eval(seg)
     c0 = _tier_cost(seg, ev0)
-    has = any(s["tile"] == bundle["tile"] for s in seg["stops"])
     opts = []
     if has:
         opts.append(_tier_merge(seg["stops"], bundle["tile"], bundle["ops"]))
@@ -6675,6 +6682,9 @@ def _tier_fill(segs, sidx, bundles, collects, owner, rate, st, tag, steal=False)
             owner[bd["tile"]] = k
         if any(o["c"][0] == "COLLECT_FERTILIZER" for o in bd["ops"]):
             collects.pop(bd["tile"], None)             # cached pairings on it are rechecked when picked
+        if bd.get("coll_c"):
+            _TIER_CC["n"] += 1
+            st["tier_collect_c"] = st.get("tier_collect_c", 0) + 1
         if r[3] == "SHED":                         # sd_tier_fert_shed: the fertilizer comes from the shed at the route start
             segs[k]["fpick"] = int(segs[k].get("fpick", 0) or 0) + 1
             _FSHED["left"] -= 1
@@ -9119,6 +9129,7 @@ def _tier_wy_fill(tiles):
 
 def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
     _TIER_WY.clear()
+    _TIER_CC["n"] = 0
     st.pop("_feedh_day", None)                     # the day's last planning pass counts
     if int(CFG["sd_tier_feed_harvest"]) == 1:
         _tier_wy_fill(tiles)
@@ -9328,7 +9339,11 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             for o in ex:
                 if o["c"][0] == "COLLECT_FERTILIZER":
                     collects[i] = o
-                    b4.append({"tile": i, "ops": [o], "v": o["v"], "shared": True})
+                    if int(CFG["sd_tier_collect_c"]):  # the stand-alone collect competes in phase C (see the flag)
+                        b3.append({"tile": i, "ops": [o], "v": o["v"], "shared": True, "coll_c": True,
+                                   "inplace": int(CFG["sd_tier_collect_c"]) == 1})
+                    else:
+                        b4.append({"tile": i, "ops": [o], "v": o["v"], "shared": True})
             fc = [o for o in ex if o["tier"] == 4 and o["c"][0] in ("FEED", "CARE")]
             if fc:
                 vfc = sum(o["v"] for o in fc)
