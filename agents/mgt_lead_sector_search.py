@@ -197,7 +197,7 @@ CFG = {
     "sd_books_batch": 0,      # > 0 (DSM's wool glut on 112604454: never more than 8 units a step, never at $1; KC3 dumped surplus wool at h21 down to $1, where a sale earns 1 and adds no market stock, so the rival's price rises): the surplus / capacity sells of sd_books_sell products are at most this many units a step, and none while the quote is <= sd_books_minpx
     "sd_books_minpx": 5,
     "sd_books_walk": 0,       # 1 (KC4 still sold 14 wool at $1: near the floor a unit lowers the wool price by ~6, so a batch of 8 from quote 24 ends at 1; DSM never sold wool at $1): every sd_books_sell sell stops before the engine price of the next unit (market stock + units already sold this step) would be <= sd_books_minpx
-    "sd_books_source": "dsm", # "dsm": the leader's recorded sell plan (dsm_sales); "hazard" (DSM-free, user 2026-09-27: we will not have DSM's plans): DSM's learned selling hazard x our shed stock, by product / season phase / hour / the rival's habit (its units at this hour and in the next 4 on the previous 3 days, inferred from the market: stock change - our sales + shop consumption); tables results/fresh/threads_20260928/dsm_sell_hazard2.json (fallback dsm_sell_hazard.json), 40 recordings
+    "sd_books_source": "dsm", # "pace" (DSM-free, user 2026-09-27: KB99 hazard -1,913 - a share of our shed each hour sells slower than DSM when our goods arrive late, rival windfall +1.4k): DSM's learned PACE (dsm_sell_pace.py: share of the day's goods - dawn stock + arrivals - sold by each hour, by product / phase / hour / rival habit), we sell up to pace x (our shed + our sales today) - our sales today; "dsm": the leader's recorded sell plan (dsm_sales); "hazard" (DSM-free, user 2026-09-27: we will not have DSM's plans): DSM's learned selling hazard x our shed stock, by product / season phase / hour / the rival's habit (its units at this hour and in the next 4 on the previous 3 days, inferred from the market: stock change - our sales + shop consumption); tables results/fresh/threads_20260928/dsm_sell_hazard2.json (fallback dsm_sell_hazard.json), 40 recordings
     "sd_books_cap_free": 0,   # 1 (KB0 on 40 worlds: on overflow nights the shed holds wool 7.0 / milk 4.7 the price floor keeps unsold, and the dump deletes the strawberries / wheat carried in; leaving glut goods on the animals cost -0.9k: less supply lets the rival sell dearer): the capacity sells of the plan (sd_books_cap, from hour 21 when tonight would overflow) ignore the batch cap and the price floor - room for carried goods worth more beats the price of a glut unit, and a sale above $1 still lowers the rival's price
     "sd_books_h0_slots": 0,   # N > 0 (KB4 on 112604454: every hour-0 list is 10 HIREs, so the 10-order cap drops the plan's hour-0 sells - DSM sells strawberry 11 at hour 0 on days 17/19/20 ahead of the rival's hour-0 dump, we sell an hour later behind it; DSM itself hires 8 at hour 0 and the rest at hour 1 and keeps its sells first): up to N of the plan's hour-0 sells keep their slots, the day plan moves as many hour-0 hires to hour 1 (they act from hour 2) and the hour-0 market trims the hires to the plan's count
     "sd_books_h0_lot": 0,   # 1 (KB7 on 112604454: the hour-0 slot flushed the whole backlog - strawberry 31 / 35 on days 22 / 23 where DSM sells 6-11, milk 17 on day 21 where DSM sells none - into the price before the hour-0 town tick): at hour 0 the plan sells at most DSM's own hour-0 lot of that step; the backlog waits for hour 1, after the tick
@@ -2910,6 +2910,22 @@ _SHOPS_E = {   # kaggle_environments kaggriculture.py SHOPS (each unlocked insta
 _HAZ = {}
 
 
+_PACE = {}
+
+
+def _pace_tables():
+    if not _PACE:
+        try:
+            import json as _j
+            from pathlib import Path as _P
+            f_ = CFG.get("sd_books_pace_file") or "results/fresh/threads_20260928/dsm_sell_pace.json"
+            d_ = _j.loads((_P(__file__).resolve().parents[1] / f_).read_text())
+            _PACE["p2"], _PACE["p1"] = d_["p2"], d_["p1"]
+        except Exception:
+            _PACE["p2"], _PACE["p1"] = {}, {}
+    return _PACE
+
+
 def _haz_tables():
     if not _HAZ:
         try:
@@ -3336,12 +3352,17 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                 res_[p_] = max(0, res_[p_] - k_)
             orders = new_[:10]
     hz_ = CFG["sd_books_source"] == "hazard"
-    inv_riv_ = _rival_infer(S, obs, int(_g(obs, "step", 0)), bk_) if (bk_ and hz_) else None
+    pc_ = CFG["sd_books_source"] == "pace"
+    dfree_ = hz_ or pc_                            # DSM-free sellers: no recorded plan, the rival read from the market
+    inv_riv_ = _rival_infer(S, obs, int(_g(obs, "step", 0)), bk_) if (bk_ and dfree_) else None
     if bk_ and not endgame:                        # sd_books_sell: the leader's sell plan, capped by our shed
-        DS_ = None if hz_ else _dsm_data("sales")
-        if DS_ is not None or hz_:
-            if hz_:
+        DS_ = None if dfree_ else _dsm_data("sales")
+        if DS_ is not None or dfree_:
+            if dfree_:
                 S["_books_cum"] = {}
+            if S.get("_sold_d0_day") != day:       # sd_books_source pace: our sales count at the start of the day
+                S["_sold_d0"] = {q_: int(S["sold"][q_]) for q_ in PRODUCTS}
+                S["_sold_d0_day"] = day
             elif S.get("_books_cum") is None:
                 cum_, run_ = {}, Counter()
                 for t_ in range(0, 720):          # from step 0: the harness starts S["sold"] with the leader's days 0-10
@@ -3366,6 +3387,22 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                         soon_ = int(sum(rh_.get((d_ * 24 + hh_, p_), 0) for d_ in dd_ for hh_ in range(hour + 1, min(24, hour + 5))) / len(dd_) >= 2)
                     hzv_ = H_["h2"].get("%s|%s|%d|%d|%d" % (p_, ph_, hour, now_, soon_), H_["h1"].get("%s|%s|%d" % (p_, ph_, hour), 0.0))
                     q_ = int(round(float(hzv_) * have_))
+                    if q_ > 0:
+                        front_.append((0, ["SELL", p_, min(have_, q_)]))
+                    continue
+                if pc_:                            # DSM-free: DSM's learned pace x our day's goods
+                    P_ = _pace_tables()
+                    ph_ = "early" if day <= 17 else ("mid" if day <= 23 else "late")
+                    rh_ = S.get("_riv_hist") or {}
+                    dd_ = [day - k for k in (1, 2, 3) if day - k >= 11]
+                    now_ = soon_ = 0
+                    if dd_:
+                        now_ = int(sum(rh_.get((d_ * 24 + hour, p_), 0) for d_ in dd_) / len(dd_) >= 1)
+                        soon_ = int(sum(rh_.get((d_ * 24 + hh_, p_), 0) for d_ in dd_ for hh_ in range(hour + 1, min(24, hour + 5))) / len(dd_) >= 2)
+                    k1_ = "%s|%s|%d" % (p_, ph_, hour)
+                    pv_ = float(P_["p2"].get("%s|%d|%d" % (k1_, now_, soon_), P_["p1"].get(k1_, 0.0)))
+                    st_ = int(S["sold"][p_]) - int((S.get("_sold_d0") or {}).get(p_, 0))
+                    q_ = int(round(pv_ * (have_ + st_))) - st_
                     if q_ > 0:
                         front_.append((0, ["SELL", p_, min(have_, q_)]))
                     continue
@@ -3470,7 +3507,7 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             TPn_ = S.get("tier") or {}
             if TPn_.get("day") == day and TPn_.get("dsell_now"):   # sd_tier_sclu: the trip's delivery sold on arrival
                 for p_, n_ in TPn_["dsell_now"].items():
-                    if p_ in bk_ and n_ > 0 and int(CFG["sd_tier_sclu_sell_cap"]) and not hz_:
+                    if p_ in bk_ and n_ > 0 and int(CFG["sd_tier_sclu_sell_cap"]) and not dfree_:
                         cum_c_ = S.get("_books_cum") or {}
                         in_ = sum(int(o_[2]) for o_ in orders if o_[0] == "SELL" and o_[1] == p_)
                         n_ = max(0, min(int(n_), int((cum_c_.get(day * 24 + 23) or {}).get(p_, 0)) - int(S["sold"][p_]) - in_))
@@ -8976,7 +9013,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
         if front:
             k0 = min(k0, 10 - len(front) - (1 if wbuy else 0))
     nb0 = 0
-    if int(CFG["sd_books_h0_slots"]) and CFG["sd_books_sell"] and CFG["sd_books_source"] != "hazard":
+    if int(CFG["sd_books_h0_slots"]) and CFG["sd_books_sell"] and CFG["sd_books_source"] not in ("hazard", "pace"):
         cum_b_ = _books_cum(S)                     # the plan's hour-0 sells (the market block's own count, before its walk cap)
         if cum_b_ is not None:
             inv_b_ = dict(_g(_g(obs, "market", {}), "inventory", {}) or {})
@@ -8990,6 +9027,18 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
             nb0 = min(nb0, int(CFG["sd_books_h0_slots"]))
             if nb0:
                 k0 = max(0, min(k0, 10 - nb0 - len(front) - (1 if wbuy else 0)))
+    if int(CFG["sd_books_h0_slots"]) and CFG["sd_books_sell"] and CFG["sd_books_source"] == "pace":
+        P_ = _pace_tables()                        # DSM-free: the learned pace's hour-0 sells get their slots too
+        ph_ = "early" if day <= 17 else ("mid" if day <= 23 else "late")
+        inv_b_ = dict(_g(_g(obs, "market", {}), "inventory", {}) or {})
+        for p_ in sorted(set(CFG["sd_books_sell"])):
+            n_ = min(int(shed.get(p_, 0) or 0), int(round(float(P_["p1"].get("%s|%s|0" % (p_, ph_), 0.0)) * int(shed.get(p_, 0) or 0))))
+            if n_ > 0 and CFG["sd_books_walk"] and p_ in inv_b_:
+                n_ = _walk_cap(p_, int(inv_b_[p_]), float(CFG["sd_books_minpx"]), n_)
+            nb0 += 1 if n_ > 0 else 0
+        nb0 = min(nb0, int(CFG["sd_books_h0_slots"]))
+        if nb0:
+            k0 = max(0, min(k0, 10 - nb0 - len(front) - (1 if wbuy else 0)))
     # ---- units: farmer (hour 0) + the day's hires (hour 1; beyond 10 hour 2). The hires spawn after the farmer's hour-0
     # command (least occupied shed tile), the late ones after everyone's hour-1 command: plan, derive the spawn tiles the
     # plan's own first moves imply, re-plan until they agree (at most 3 passes)
