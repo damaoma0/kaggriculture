@@ -199,6 +199,8 @@ CFG = {
     "sd_books_walk": 0,       # 1 (KC4 still sold 14 wool at $1: near the floor a unit lowers the wool price by ~6, so a batch of 8 from quote 24 ends at 1; DSM never sold wool at $1): every sd_books_sell sell stops before the engine price of the next unit (market stock + units already sold this step) would be <= sd_books_minpx
     "sd_books_source": "dsm", # "dsm": the leader's recorded sell plan (dsm_sales); "hazard" (DSM-free, user 2026-09-27: we will not have DSM's plans): DSM's learned selling hazard x our shed stock, by product / season phase / hour / the rival's habit (its units at this hour and in the next 4 on the previous 3 days, inferred from the market: stock change - our sales + shop consumption); tables results/fresh/threads_20260928/dsm_sell_hazard2.json (fallback dsm_sell_hazard.json), 40 recordings
     "sd_books_cap_free": 0,   # 1 (KB0 on 40 worlds: on overflow nights the shed holds wool 7.0 / milk 4.7 the price floor keeps unsold, and the dump deletes the strawberries / wheat carried in; leaving glut goods on the animals cost -0.9k: less supply lets the rival sell dearer): the capacity sells of the plan (sd_books_cap, from hour 21 when tonight would overflow) ignore the batch cap and the price floor - room for carried goods worth more beats the price of a glut unit, and a sale above $1 still lowers the rival's price
+    "sd_books_h0_slots": 0,   # N > 0 (KB4 on 112604454: every hour-0 list is 10 HIREs, so the 10-order cap drops the plan's hour-0 sells - DSM sells strawberry 11 at hour 0 on days 17/19/20 ahead of the rival's hour-0 dump, we sell an hour later behind it; DSM itself hires 8 at hour 0 and the rest at hour 1 and keeps its sells first): up to N of the plan's hour-0 sells keep their slots, the day plan moves as many hour-0 hires to hour 1 (they act from hour 2) and the hour-0 market trims the hires to the plan's count
+    "sd_books_h0_lot": 0,   # 1 (KB7 on 112604454: the hour-0 slot flushed the whole backlog - strawberry 31 / 35 on days 22 / 23 where DSM sells 6-11, milk 17 on day 21 where DSM sells none - into the price before the hour-0 town tick): at hour 0 the plan sells at most DSM's own hour-0 lot of that step; the backlog waits for hour 1, after the tick
     "sd_pattern_tick": [],    # products (user 2026-09-26: imitate DSM's selling; engine-isolated test +2.7k on world 112604454): sold only at hours 1 / 5 / 9 / 13 / 17 / 21 (the first market after a town consumption tick; the engine clears the market BEFORE the town consumes at hours 0 / 4 / 8 / 12 / 16 / 20) on the sd_hourly_profile quota; their deliveries are no longer sold on arrival and the overflow guards leave them alone at the tick hours themselves (hour 20). Needs sd_hourly_profile for these products
     "sd_wheat_pick_now": 0,   # 1 (2026-09-26, KQ plant deaths): the market's wheat reserve for the tiered plan's pickups also counts the WHEAT the executor picks up in this same step. Those pick items are marked done when the command is issued, but the wheat is still in the observed shed and the engine runs unit actions before the market, so without this the sale takes the wheat the later pickups (the hour-1 hires, acting from hour 2) need: they wait for a buy-back and their routes end an hour late (last WATER unfinished, plants die; FEED skipped)
     "sd_h0_front": [],        # (user 2026-09-26) products whose shed stock may be sold at hour 0 FIRST in the order list (the engine processes both players' orders position by position, so a sell behind the hires comes after the rival's hour-0 sales); the largest-value pile >= sd_h0_front_min, at most sd_h0_front_n orders; one hour-0 hire moves to hour 1 only when the 10 slots are full
@@ -647,6 +649,21 @@ def _dsm_data(kind):
         except Exception:
             _DSM_DATA[kind] = None
     return _DSM_DATA[kind]
+
+
+def _books_cum(S):
+    """sd_books_sell (leader source): the leader's cumulative sold units by step, from step 0 (S["_books_cum"])"""
+    if S.get("_books_cum") is None:
+        DS_ = _dsm_data("sales")
+        if DS_ is None:
+            return None
+        cum_, run_ = {}, Counter()
+        for t_ in range(0, 720):
+            for p_, v_ in (DS_["steps"].get(str(t_)) or {}).items():
+                run_[p_] += int(v_["n"])
+            cum_[t_] = dict(run_)
+        S["_books_cum"] = cum_
+    return S["_books_cum"]
 
 
 def _new_state():
@@ -3278,6 +3295,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                         front_.append((0, ["SELL", p_, min(have_, q_)]))
                     continue
                 q_ = int((cum_.get(step_) or {}).get(p_, 0)) - int(S["sold"][p_])
+                if int(CFG["sd_books_h0_lot"]) and hour == 0:   # hour 0: DSM's own lot only, the backlog waits for the tick
+                    q_ = min(q_, int((cum_.get(step_) or {}).get(p_, 0)) - int((cum_.get(step_ - 1) or {}).get(p_, 0)))
                 if hour == 21:                     # our surplus over the leader's next 12 steps goes now
                     nxt_ = int((cum_.get(min(719, step_ + 12)) or {}).get(p_, 0)) - int((cum_.get(step_) or {}).get(p_, 0))
                     sur_ = have_ - nxt_
@@ -3331,6 +3350,17 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                 front_ = kept_
             for pos_, o_ in sorted(front_, key=lambda x: x[0]):
                 orders.insert(min(pos_, len(orders)), o_)
+            TPk_ = S.get("tier") or {}
+            if int(CFG["sd_books_h0_slots"]) and hour == 0 and TPk_.get("day") == day and TPk_.get("h0_books"):
+                nh_, new_ = 0, []                  # sd_books_h0_slots: the hires past the plan's hour-0 count go at hour 1
+                for o_ in orders:
+                    if o_[0] == "HIRE":
+                        nh_ += 1
+                        if nh_ > int(TPk_.get("k0", 10)):
+                            S["log"]["books_h0_hire_moved"] += 1
+                            continue
+                    new_.append(o_)
+                orders = new_
             while len(orders) > 10:                # 10-order cap: never drop a hire or a buy (the hour-0 feed wheat buy:
                 # dropping it left the hour-1 hires short of wheat, feeds skipped, KC1 day 19); ordinary sells go first,
                 # then the plan's own sells
@@ -7990,6 +8020,21 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
             S["h0q"] = {"day": day, "q": {p_: float(prices.get(p_, 0) or 0) for p_ in CFG["sd_h0_front"]}, "sold": list(front)}
         if front:
             k0 = min(k0, 10 - len(front) - (1 if wbuy else 0))
+    nb0 = 0
+    if int(CFG["sd_books_h0_slots"]) and CFG["sd_books_sell"] and CFG["sd_books_source"] != "hazard":
+        cum_b_ = _books_cum(S)                     # the plan's hour-0 sells (the market block's own count, before its walk cap)
+        if cum_b_ is not None:
+            inv_b_ = dict(_g(_g(obs, "market", {}), "inventory", {}) or {})
+            for p_ in sorted(set(CFG["sd_books_sell"])):
+                n_ = min(int(shed.get(p_, 0) or 0), int((cum_b_.get(day * 24) or {}).get(p_, 0)) - int(S["sold"][p_]))
+                if int(CFG["sd_books_h0_lot"]):
+                    n_ = min(n_, int((cum_b_.get(day * 24) or {}).get(p_, 0)) - int((cum_b_.get(day * 24 - 1) or {}).get(p_, 0)))
+                if n_ > 0 and CFG["sd_books_walk"] and p_ in inv_b_:
+                    n_ = _walk_cap(p_, int(inv_b_[p_]), float(CFG["sd_books_minpx"]), n_)
+                nb0 += 1 if n_ > 0 else 0
+            nb0 = min(nb0, int(CFG["sd_books_h0_slots"]))
+            if nb0:
+                k0 = max(0, min(k0, 10 - nb0 - len(front) - (1 if wbuy else 0)))
     # ---- units: farmer (hour 0) + the day's hires (hour 1; beyond 10 hour 2). The hires spawn after the farmer's hour-0
     # command (least occupied shed tile), the late ones after everyone's hour-1 command: plan, derive the spawn tiles the
     # plan's own first moves imply, re-plan until they agree (at most 3 passes)
@@ -8075,6 +8120,8 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["summary"]["dayret"] = st.pop("_dayret_day", None)
     TP["summary"]["refill"] = st.pop("_refill_day", None)
     TP["k0"] = k0
+    TP["h0_books"] = nb0
+    TP["summary"]["h0_books"] = nb0
     TP["h0_front"] = front
     TP["summary"]["k0"] = k0
     TP["summary"]["h0_front"] = front
