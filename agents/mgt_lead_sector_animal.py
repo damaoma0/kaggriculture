@@ -191,6 +191,8 @@ CFG = {
     "sd_books_sell": [],      # products (user 2026-09-26: "switch to DSM sell plans"): sold on the leader's own sell plan for this world (results/fresh/threads_20260928/dsm_sales/<ep>.json): at every step up to the leader's cumulative units through that step, capped by our shed, first in the order list (the leader's position); no sale on delivery; at hour 21 anything above the leader's sales of the next 12 steps is sold (our surplus does not fill the shed overnight)
     "sd_books_cap": 0,        # 1 (KBK2 overflow days: the plan's held goods took shed room, the midnight dump deleted wheat): from hour 21 on, when shed + everything carried + what the routes still harvest today would not fit the shed (100 - sd_tier_dump_buffer), the held sd_books_sell goods are sold, cheapest first, down to what fits
     "sd_maint_floor_trail": 0,  # KWE (2026-09-26, world 112604454: the wool floor 100 kept 10 sheep fully fed / cared on days 21-26 while our wool sold at 1-33 and every hourly quote was <= 98; sheep feeds 158 vs DSM 104 = 54 wheat, care 137 vs 100): H >= 1 = each floor is capped by the trailing statistic (sd_maint_floor_stat) of that product's hourly quotes over the last H hours, so one thin dawn quote after a high evening stays protected (R2) but a glut that lasts all day is priced as one
+    "sd_glut_stop": {},       # {product: price} (DSM on 112604454: full sheep service days 11-17, then from the wool collapse on day 18 a trickle of 1-5 feeds / cares a day for the rest of the season; KC5's trailing floor followed the quotes back up and served all 10 sheep again on days 24-25): once the product's trailing sd_glut_hours mean quote falls below the price, it is glutted for the rest of the season and its animals get no optional CARE and no optional FEED on non-production days (keep-alive and production-day feeds stay)
+    "sd_glut_hours": 48,
     "sd_maint_floor_stat": "mean",  # "mean" | "max" of the trailing quotes
     "sd_books_batch": 0,      # > 0 (DSM's wool glut on 112604454: never more than 8 units a step, never at $1; KC3 dumped surplus wool at h21 down to $1, where a sale earns 1 and adds no market stock, so the rival's price rises): the surplus / capacity sells of sd_books_sell products are at most this many units a step, and none while the quote is <= sd_books_minpx
     "sd_books_minpx": 5,
@@ -288,6 +290,7 @@ CFG = {
     "sd_tier_dump_defer": 0,  # 1 (KC2a on 112604454: hands carried 105-127 units into the midnight dump on days 20/24/26/28 while the planner projected 109-128 and found no delivery that fits; the excess was deleted): when the projected dump still exceeds 100 - sd_tier_dump_buffer after the deliveries, harvests whose tile can hold the units until tomorrow without losing production (animal: tonight's production fits max_held; ongoing crop: yield + tonight's production <= max_yield and not in its last day of life; one-time crop: not decaying by tomorrow; no melons, no replant on the tile) are left for tomorrow, cheapest units first
     "sd_tier_dump_defer_cap": 0,   # > 0: the deferral works down to this projected midnight load (default 100 - sd_tier_dump_buffer); lower leaves room for goods the seller holds in the shed
     "sd_tier_dump_refill": 0, # 1 (KC5 on 112604454: idle 200 unit-hours vs DSM 7, 167 of them at h20-23, freed when sd_tier_dump_defer took tail harvests out after the extras fill): after the deliveries / deferral, one more fill pass with the extras left over, without harvests (they would refill the dump)
+    "sd_tier_dump_refill_rate": None,   # value per added hour the refill pass needs (None: sd_tier_rate); the hours it fills are idle otherwise (goose CARE ~73 with 2 h of walking scored 24 < 70 and was left out; DSM cares its geese 80 of 90 goose-days)
     "sd_tier_dump_fix": 0,    # 1 (2026-09-26, case world 112604454: hands carried 124-159 units into the midnight dump while the shed was empty): the executor skips a planned end-of-day DROP only when the PROJECTED midnight load (shed + carried + the units the routes still harvest today) fits, not the load at that hour
     "sd_tier_copy_returns": 0,  # 1 (user 2026-09-26: copy how many hands go back to the shed to drop): the plan holds at least as many daytime shed deliveries as the leader made that day at hour >= 5 (results/fresh/threads_20260928/dsm_returns/<ep>.json), best load value per added hour, extras at a route end trimmed if needed
     "sd_tier_copy_returns_from": 11,   # first day it applies
@@ -1295,6 +1298,17 @@ def agent(obs, config=None):
     while len(invs) < len(pos):
         invs.append(Counter())
     prices = dict(_g(_g(obs, "market", {}), "prices", {}))
+    if CFG["sd_glut_stop"]:                         # sticky glut: trailing mean quote below the price once = glutted
+        gh_ = S.setdefault("glut_hist", {})
+        gl_ = S.setdefault("glut", {})
+        for k_, px_ in CFG["sd_glut_stop"].items():
+            h_ = gh_.setdefault(k_, [])
+            if not h_ or h_[-1][0] != step:
+                h_.append((step, float(prices.get(k_, 0) or 0)))
+            while h_ and step - h_[0][0] > int(CFG["sd_glut_hours"]):
+                h_.pop(0)
+            if len(h_) >= int(CFG["sd_glut_hours"]) and k_ not in gl_ and sum(x[1] for x in h_) / len(h_) < float(px_):
+                gl_[k_] = day
     if CFG["sd_maint_floor_trail"] and CFG["sd_maint_floor"]:   # KWE: hourly quote history of the floor products
         ph_ = S.setdefault("price_hist", {})
         for k_ in CFG["sd_maint_floor"]:
@@ -7546,6 +7560,15 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                 v_ = (float(t_.get("yield_units", 0) or 0) * float(prices.get(ANIMALS[t_["animal"]]["product"], 0) or 0)
                       * float(CFG["sd_tier_anim_harv_frac"]))
                 st["tier_anim_harv_deferred"] = st.get("tier_anim_harv_deferred", 0) + 1
+            if CFG["sd_glut_stop"] and not m and c in ("CARE", "FEED") and _animal(_tile(tiles, b)):
+                t_g = _tile(tiles, b)
+                if ANIMALS[t_g["animal"]]["product"] in (S.get("glut") or {}):
+                    a_g = ANIMALS[t_g["animal"]]
+                    dsf_g = day + 1 - int(t_g.get("placed_day", day)) - a_g["first"]
+                    prod_g = dsf_g >= 0 and dsf_g % a_g["interval"] == 0
+                    if c == "CARE" or not prod_g:
+                        st["tier_glut_skipped_" + c] = st.get("tier_glut_skipped_" + c, 0) + 1
+                        continue                       # DSM: a trickle of service once the product is glutted
             r_["ops"].append(_tier_op(o, m, v_, tier, after_plant=plant_seen and c == "WATER"))
     st["tier_pred_skipped"] = st.get("tier_pred_skipped", 0) + skipped
     if CFG["sd_tier_anim_mand_minv"] is not None:  # animal thread: valuable FEED / CARE are mandatory (tier B)
@@ -7803,6 +7826,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["wheat_buy"] = wbuy
     TP["summary"]["wheat_buy"] = wbuy
     TP["summary"]["dump"] = st.pop("_dump_day", None)
+    TP["summary"]["refill"] = st.pop("_refill_day", None)
     TP["k0"] = k0
     TP["h0_front"] = front
     TP["summary"]["k0"] = k0
@@ -8094,7 +8118,13 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
                     bd2["ops"] = ops2
                     bd2["v"] = sum(o["v"] for o in ops2)
                     rest2.append(bd2)
-            _tier_fill(segs, list(range(len(segs))), rest2, collects, owner, rate, st, "r")
+            rr_ = CFG["sd_tier_dump_refill_rate"]
+            kinds_ = Counter(o["c"][0] + "|" + str(_animal(_tile(tiles, bd["tile"])) or (_tile(tiles, bd["tile"]) or {}).get("crop") if isinstance(_tile(tiles, bd["tile"]), dict) else "-")
+                             for bd in rest2 for o in bd["ops"])
+            n0_ = len(rest2)
+            _tier_fill(segs, list(range(len(segs))), rest2, collects, owner, rate if rr_ is None else float(rr_), st, "r")
+            st["_refill_day"] = {"cands": n0_, "left": len(rest2), "kinds": dict(kinds_),
+                                 "ends": sorted(_tier_eval(sg)[0] for sg in segs if sg["stops"])}
     # ---- routes per unit
     routes_u = {}
     summ = []
