@@ -378,7 +378,7 @@ CFG = {
     "sd_tier_feed_harvest": 0,  # 1 (DSM, 40 worlds: 31.1 feeding hand-days a world feed from wheat the hand harvested earlier on its route, no morning pickup; we 0 - every feeding hand loads wheat first, 41.9 hand-days a world load wheat for a single feed, DSM 6.4): a route's FEEDs are supplied first by the wheat of its earlier MANDATORY wheat harvests (today's yield on the tile), only the rest is picked up at the shed; the search, the fills and the executor's pickup all use this count. KB91 (mode 1) vs KB78 -460 (t -1.82): wheat loads 131 -> 120 a world but the search routes hands through the wheat field first: shed hours -11, moves +13, work -3 (no labor gained). 2: the supply is applied only after the mandatory search (the fills and the executor use it, the routes' order is the search's)
     "sd_tier_collect_c": 0,  # 1 (user: why is fertilizer lost? KB78 loses 97.5 pen-days of fertilizer a world, DSM 7.2; 82.5 of them on pens a hand WORKED that day without collecting, 18.3 by a hand that ended its day idle; in the plans 76 a world are listed extras worth 80 at a pen the route already visits, never placed: stand-alone collects are offered only in phases D / E, after phase C has filled the outbound routes with waterings ~10 and feed / care): the stand-alone collects join the phase C pool, merged only into a stop the route already has on that pen (no extra walking; 2 = any insertion); collects paired with a fertilize are unchanged. Case world: planned collects 363 -> 362 (1) / 353 (2), fertilizes 205 -> 190 / 160: the hands at those pens are full (84 of 89 such routes end at 24, mostly MANDATORY work), so a phase C collect only takes a fertilize pairing's collect. Parked with mechanism
     "sd_tier_collect_c_max": 0,  # > 0: at most this many phase C collects a day (the midnight shed room)
-    "sd_tier_spawn_exact": 0,  # 1 (user 2026-09-27, spawn investigation panel_spawn.py: the hour-1 hires spawn by the engine rule on our units' positions after their hour-1 commands, which the plan predicts 100%, but the plan is self-consistent on only 49% of days - it assumes spawn tiles, re-routes the hour-0 hires around them, and their hour-1 positions then imply other tiles; the buffer plans those hires from hour 3 and they run ahead / idle): two-stage plan - inside each planning pass, after all routes are built, the farmer's and the hour-0 hires' routes stay fixed, their hour-1 positions give the exact spawn tiles, and the hour-1 hires' routes are reassigned to those tiles (best permutation by full route evaluation, from hour 2), optional tail ops trimmed while that makes a route late, freed time filled with the leftover extras (no harvests); the outer re-plan / buffer then sees a consistent plan; the executor remap is skipped when the hires stand where planned
+    "sd_tier_spawn_exact": 0,  # 1 (user 2026-09-27, spawn investigation panel_spawn.py: the hour-1 hires spawn by the engine rule on our units' positions after their hour-1 commands, which the plan predicts 100%, but the plan is self-consistent on only 49% of days - it assumes spawn tiles, re-routes the hour-0 hires around them, and their hour-1 positions then imply other tiles; the buffer plans those hires from hour 3 and they run ahead / idle): two-stage plan - inside each planning pass, after all routes are built, the farmer's and the hour-0 hires' routes stay fixed, their hour-1 positions give the exact spawn tiles, and the hour-1 hires' routes are reassigned to those tiles (best permutation by full route evaluation, from hour 2), optional tail ops trimmed while that makes a route late, freed time filled with the leftover extras (no harvests); the outer re-plan / buffer then sees a consistent plan; the executor remap is skipped when the hires stand where planned. KB96 (mode 1) vs KB78 -1,052: spawns 100% right but the first pass plans the hour-1 hires from an empty-shed guess (33 of 43 wrong), the reassignment leaves 1.0 late route and trims 15 optional ops a world (strawberry plant-days -2.0, weeds +2.5), and the fill's collects add midnight load (deleted +5 units a world). 2: re-plan up to twice with the exact tiles fed back into the search (keep the pass with the fewest mismatches), no collects in the fill
     "sd_tier_fert_merge_collect": 0,  # 1: a merged fertilize may use fertilizer the route already collects and does not spend (look-back pen collects) before asking for a shed pickup (one spare hour instead of two)
     "sd_tier_prio_ani": 0,    # 1 (user 2026-09-26: "melon mode" for important animal harvests): the farmer (no melon duty that day) first harvests the cow / sheep pens holding >= sd_tier_prio_ani_min units (or due), feed / care in the same visit, best units x price per added hour while his drop at the shed stays by sd_tier_prio_ani_by; then he is a normal hand (post segment in the sector search), as after a melon delivery
     "sd_tier_prio_ani_min": {"COW": 3, "SHEEP": 4},   # DSM's mean units per harvest at pens near the shed (cow 3.4-3.8, sheep 4.2-4.4); eggs left out (DSM delivers only 18% of eggs the same day)
@@ -9019,6 +9019,24 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
         st["tier_respawn"] = st.get("tier_respawn", 0) + 1
     after1 = [_tier_walk(TP["routes"].get(0), f0, 2 - ft0)] + [
         _tier_walk(TP["routes"].get(u + 1), q, 1) for u, q in enumerate(sp0)]
+    if int(CFG["sd_tier_spawn_exact"]) >= 2 and TP.get("_sp1_true") is not None:
+        for pass3_ in range(2):                    # feed the exact tiles back into the search; keep the fewest mismatches
+            if not TP.get("_spx_wrong"):
+                break
+            sp1_try = [tuple(q) for q in TP["_sp1_true"]]
+            units = [(0, f0, ft0)] + [(u + 1, q, 1) for u, q in enumerate(sp0)] + [
+                (u + 1 + k0, q, 2) for u, q in enumerate(sp1_try)]
+            TP2 = _tier_core(S, L, st, day, tiles, _tier_copy.deepcopy(rec), units, want, t_start)
+            if 0 in TP2["routes"]:
+                TP2["routes"][0]["t0"] = ft0
+            st["tier_spawn_exact_replan"] = st.get("tier_spawn_exact_replan", 0) + 1
+            if TP2.get("_sp1_true") is not None and (TP2.get("_spx_wrong") or 0) <= (TP.get("_spx_wrong") or 0):
+                TP = TP2
+            else:
+                break
+        after1 = [_tier_walk(TP["routes"].get(0), f0, 2 - ft0)] + [
+            _tier_walk(TP["routes"].get(u + 1), q, 1) for u, q in enumerate(sp0)]
+        TP["summary"]["spx_wrong_final"] = TP.get("_spx_wrong")
     if int(CFG["sd_tier_spawn_exact"]) and TP.get("_sp1_true") is not None:
         sp1 = [tuple(q) for q in TP["_sp1_true"]]  # the core planned the hour-1 hires from these (consistent by construction)
         if _sd_spawn(after1, want - k0) != sp1:
@@ -9121,11 +9139,14 @@ def _tier_spawn_exact(segs, units, rest, collects, owner, rate, st, build_route)
     rec_["hires"] += len(h1u)
     movable = [sg for sg in segs if sg["u"] in tgt and sg["kind"] == "out" and not sg.get("dawn")]
     rec_["fixed_kind"] += sum(1 for sg in segs if sg["u"] in tgt and sg not in movable)
+    st["_spx_wrong_last"] = 0
     if not movable:
         return true_
     units_m = [sg["u"] for sg in movable]
     before = {id(sg): sg["p0"] for sg in movable}
-    rec_["wrong_before"] += sum(1 for sg in movable if sg["p0"] != tgt[sg["u"]][1] * 10 + tgt[sg["u"]][0])
+    wrong_ = sum(1 for sg in movable if sg["p0"] != tgt[sg["u"]][1] * 10 + tgt[sg["u"]][0])
+    rec_["wrong_before"] += wrong_
+    st["_spx_wrong_last"] = wrong_
 
     def cost(sg, u):
         tq = tgt[u]
@@ -9163,7 +9184,7 @@ def _tier_spawn_exact(segs, units, rest, collects, owner, rate, st, build_route)
     pool = []                                      # leftover extras for the freed time (no harvests: the midnight load)
     for bd in rest:
         ops2 = [o for o in bd["ops"] if o["c"][0] not in ("HARVEST", "PLACE_HARVEST") and (bd["tile"], o["c"][0]) not in planned
-                and (o["c"][0] != "COLLECT_FERTILIZER" or bd["tile"] in collects)]
+                and (o["c"][0] != "COLLECT_FERTILIZER" or (bd["tile"] in collects and int(CFG["sd_tier_spawn_exact"]) < 2))]
         if ops2:
             pool.append(dict(bd, ops=ops2, v=sum(o["v"] for o in ops2)))
     rec_["filled"] += _tier_fill(segs, [segs.index(sg) for sg in movable], pool, collects, owner, rate, st, "spx")
@@ -9671,8 +9692,11 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         return r_out, sm
 
     sp1_true = None
+    spx_wrong = None
     if int(CFG["sd_tier_spawn_exact"]):            # two-stage plan: the hour-1 hires from their exact spawn tiles (see the flag)
+        st.pop("_spx_wrong_last", None)
         sp1_true = _tier_spawn_exact(segs, units, rest, collects, owner, rate, st, build_route)
+        spx_wrong = st.pop("_spx_wrong_last", None)
     routes_u = {}
     summ = []
     for s in segs:
@@ -9680,7 +9704,7 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         routes_u[s["u"]] = r_out
         summ.append(sm)
     unplanned = [[bd["tile"], [o["c"][0] for o in bd["ops"]], round(bd["v"], 1)] for bd in rest]
-    return {"day": day, "routes": routes_u, "log": [], "cnt": Counter(), "owner": owner, "_sp1_true": sp1_true,
+    return {"day": day, "routes": routes_u, "log": [], "cnt": Counter(), "owner": owner, "_sp1_true": sp1_true, "_spx_wrong": spx_wrong,
                  "summary": {"units": summ, "left_out_melons": left, "mand_late": late_m, "unplanned": unplanned,
                              "plan_ms": round(1000 * (time.perf_counter() - t_start), 1), "search_cost": round(cost, 2),
                              "want": want, "n_mand_stops": len(stops_all)}}
