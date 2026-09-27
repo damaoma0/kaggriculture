@@ -385,6 +385,10 @@ CFG = {
                               # feeds / cares / collects the animals on its outbound leg (spawn -> first patch stop)
     "sd_tier_anim_out_detour": 0,    # ... animals at most this many tiles off a shortest path (0 = on it; 1 tile = 2 extra steps)
     "sd_tier_anim_out_spare": 1,     # ... a hand qualifies while its planned day ends by 24 - this (hours)
+    "sd_tier_anim_out_collect_only": 0,  # 1 (user: "for outbound hands to collect more fertilizers"; KB43 on 8 worlds: collects +15, fertilizer margin +985, eggs +499, but its outbound FEED / CARE delayed the crop work: strawberry -1,042, wheat -395, wool -307): the outbound pass takes only the COLLECTs
+    "sd_tier_out_collect_late": 0,  # 1 (user: collect "if they have free steps at the end"; KB47 collect-only in phase C -1,320 on 8 worlds - the pass reorders phase C and its collects take the hours of waterings worth more than their value): after all fills, a hand whose plan still has free hours collects fertilizer at animals on its shortest path out (detour sd_tier_anim_out_detour) when the route still ends by hour 24 and the midnight dump has room for the fertilizer
+    "sd_tier_path_collect": 0,  # 1 (user 2026-09-27: "if after planning we have a hand with unspent hour, we can retroactively inspect animal pens along the path"): after all fills, a hand whose planned day ends before 24 collects the free fertilizer of pens it already stops at (merged, no walking) and of pens inside any leg's shortest-path box (no detour), cheapest first, while the route still ends by 24 with no added lateness and the midnight dump has room
+    "sd_tier_path_collect_detour": 0,  # pens up to this many tiles off a leg's shortest path also qualify (1 tile = 2 extra steps)
     # ---- dawn thread (2026-09-28, KDW): DSM's dawn deliveries of wool / milk, all default OFF (= KS1fl)
     "sd_tier_dawn": 0,        # 1 (user: "we want them early just like DSM did"; DSM makes short round trips at the start of the day):
                               # at hour 0, before the mandatory sector search, a unit that starts its day at the shed by hour
@@ -8011,7 +8015,49 @@ def _tier_goose_care(rec, tiles, day, last_day, prices, st):
     st["tier_goose_feed"] = st.get("tier_goose_feed", 0) + n_f
 
 
-def _tier_anim_out(segs, idx, pool_a, pool_b, collects, anim, rate, st):
+def _tier_path_collect(segs, collects, st, budget):
+    """sd_tier_path_collect: collects on the pens a planned route already passes (see the flag); returns the count."""
+    D = _TIER_D
+    n_ins = 0
+    for sg in segs:
+        if sg["kind"] not in ("out", "post", "ani") or not sg["stops"]:
+            continue
+        while budget[0] > 0 and collects:
+            ev0 = _tier_eval(sg)
+            if ev0[0] >= 24:
+                break
+            tiles_ = [sg["p0"]] + [x["tile"] for x in sg["stops"]]
+            best = None
+            for a, op in collects.items():
+                if any(x["tile"] == a and any(o["c"][0] == "COLLECT_FERTILIZER" for o in x["ops"]) for x in sg["stops"]):
+                    continue
+                opts = []
+                if any(x["tile"] == a for x in sg["stops"]):
+                    opts.append(_tier_merge(sg["stops"], a, [op])[0])          # a pen the hand already stops at
+                else:
+                    for k in range(len(sg["stops"])):                           # a pen inside a leg's box: no detour
+                        pa, pb = tiles_[k], tiles_[k + 1]
+                        if D[pa][a] + D[a][pb] <= D[pa][pb] + 2 * int(CFG["sd_tier_path_collect_detour"]) and not sg["stops"][k].get("dawn"):
+                            opts.append(_tier_merge(sg["stops"], a, [op], 0, k)[0])
+                for st_ in opts:
+                    ev = _tier_eval(sg, st_)
+                    if ev[0] > 24 or ev[1] > ev0[1] or ev[3] > ev0[3]:
+                        continue
+                    key = (ev[0] - ev0[0], -float(op["v"]))
+                    if best is None or key < best[0]:
+                        best = (key, a, st_)
+            if best is None:
+                break
+            _, a, st_ = best
+            sg["stops"] = st_
+            sg["ver"] += 1
+            collects.pop(a, None)
+            budget[0] -= 1
+            n_ins += 1
+    return n_ins
+
+
+def _tier_anim_out(segs, idx, pool_a, pool_b, collects, anim, rate, st, spare=None, budget=None):
     """user idea (sd_tier_anim_out): an outbound hand whose planned day ends by 24 - spare feeds / cares / collects the
     animals lying on (or within sd_tier_anim_out_detour tiles of) a shortest path from its start to its first patch stop
     (the first stop off the animal tiles), inserted before that stop by value per added hour (detour 0 first); FEED /
@@ -8019,7 +8065,7 @@ def _tier_anim_out(segs, idx, pool_a, pool_b, collects, anim, rate, st):
     cap (one more only at detour 0). The wheat pickup is the route's implicit one (+1 hour for its first FEED)."""
     D = _TIER_D
     dmax = 2 * int(CFG["sd_tier_anim_out_detour"])
-    spare = int(CFG["sd_tier_anim_out_spare"])
+    spare = int(CFG["sd_tier_anim_out_spare"]) if spare is None else int(spare)
     cap = int(CFG["sd_tier_coll_cap"])
     n_ins = 0
     for k in idx:
@@ -8033,7 +8079,7 @@ def _tier_anim_out(segs, idx, pool_a, pool_b, collects, anim, rate, st):
             continue
         b1 = sg["stops"][kb]["tile"]
         fcb = {}
-        for pl in (pool_a, pool_b):
+        for pl in (() if CFG["sd_tier_anim_out_collect_only"] else (pool_a, pool_b)):
             for bd in pl:
                 if bd["tile"] in anim and any(o["c"][0] in ("FEED", "CARE") for o in bd["ops"]):
                     fcb[bd["tile"]] = (pl, bd)
@@ -8044,6 +8090,8 @@ def _tier_anim_out(segs, idx, pool_a, pool_b, collects, anim, rate, st):
             if det > dmax:
                 break
             if ev0[0] > 24 - spare:
+                break
+            if budget is not None and budget[0] <= 0 and a in collects:
                 break
             ops = []
             pb = fcb.get(a)
@@ -8087,6 +8135,8 @@ def _tier_anim_out(segs, idx, pool_a, pool_b, collects, anim, rate, st):
                 fcb.pop(a, None)
             if use_c:
                 collects.pop(a, None)
+                if budget is not None:
+                    budget[0] -= 1
                 for pl in (pool_a, pool_b):            # the tile's collect bundle is taken
                     for bd in list(pl):
                         if bd["tile"] == a and any(o["c"][0] == "COLLECT_FERTILIZER" for o in bd["ops"]):
@@ -8526,6 +8576,8 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["summary"]["srun"] = st.pop("_srun_day", None)
     TP["summary"]["sclu"] = st.pop("_sclu_day", None)
     TP["summary"]["fcarry"] = st.pop("_fcarry_day", None)
+    TP["summary"]["ocl"] = st.pop("_ocl_day", None)
+    TP["summary"]["pcl"] = st.pop("_pcl_day", None)
     TP["summary"]["mfollow"] = dict(st.pop("_mfollow_day", None) or {}) or None
     TP["k0"] = k0
     TP["h0_books"] = nb0
@@ -8852,6 +8904,26 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
                        steal=bool(CFG["sd_tier_rebalance"]))
             st["_refill_day"] = {"cands": n0_, "left": len(rest2), "kinds": dict(kinds_),
                                  "ends": sorted(_tier_eval(sg)[0] for sg in segs if sg["stops"])}
+    if CFG["sd_tier_path_collect"]:                # user: unspent hours -> inspect the pens along the planned path
+        dd_ = st.get("_dump_day") or {}
+        bud_ = [max(0, 100 - int(CFG["sd_tier_dump_buffer"]) - int(dd_.get("left", 0) or 0))]
+        b0_ = bud_[0]
+        free0_ = sum(max(0, 24 - _tier_eval(sg)[0]) for sg in segs if sg["kind"] in ("out", "post", "ani") and sg["stops"])
+        n_pc_ = _tier_path_collect(segs, collects, st, bud_)
+        free1_ = sum(max(0, 24 - _tier_eval(sg)[0]) for sg in segs if sg["kind"] in ("out", "post", "ani") and sg["stops"])
+        st["_pcl_day"] = {"collects": n_pc_, "room": b0_, "free_h_before": free0_, "free_h_after": free1_, "left_collects": len(collects)}
+    if CFG["sd_tier_out_collect_late"]:            # user: hands with free steps at the end collect fertilizer on the way out
+        dd_ = st.get("_dump_day") or {}
+        bud_ = [max(0, 100 - int(CFG["sd_tier_dump_buffer"]) - int(dd_.get("left", 0) or 0))]
+        b0_ = bud_[0]
+        co_ = CFG["sd_tier_anim_out_collect_only"]
+        CFG["sd_tier_anim_out_collect_only"] = 1
+        try:
+            n_oc_ = _tier_anim_out(segs, [k for k, sg in enumerate(segs) if sg["kind"] in ("out", "post")], [], [], collects,
+                                   set(anim), rate, st, spare=0, budget=bud_)
+        finally:
+            CFG["sd_tier_anim_out_collect_only"] = co_
+        st["_ocl_day"] = {"collects": n_oc_, "room": b0_}
     if CFG["sd_tier_fert_carry"]:                  # user: hands with free hours carry shed fertilizer and fertilize more
         fav_ = max(0, int((S.get("_shed_h0") or {}).get("FERTILIZER", 0) or 0) - int(CFG["sd_tier_sclu_fert_keep"])
                    - sum(int(M_.get("fpick", 0) or 0) for M_ in mel_of.values()))
