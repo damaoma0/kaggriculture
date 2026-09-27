@@ -378,6 +378,7 @@ CFG = {
     "sd_tier_feed_harvest": 0,  # 1 (DSM, 40 worlds: 31.1 feeding hand-days a world feed from wheat the hand harvested earlier on its route, no morning pickup; we 0 - every feeding hand loads wheat first, 41.9 hand-days a world load wheat for a single feed, DSM 6.4): a route's FEEDs are supplied first by the wheat of its earlier MANDATORY wheat harvests (today's yield on the tile), only the rest is picked up at the shed; the search, the fills and the executor's pickup all use this count. KB91 (mode 1) vs KB78 -460 (t -1.82): wheat loads 131 -> 120 a world but the search routes hands through the wheat field first: shed hours -11, moves +13, work -3 (no labor gained). 2: the supply is applied only after the mandatory search (the fills and the executor use it, the routes' order is the search's)
     "sd_tier_collect_c": 0,  # 1 (user: why is fertilizer lost? KB78 loses 97.5 pen-days of fertilizer a world, DSM 7.2; 82.5 of them on pens a hand WORKED that day without collecting, 18.3 by a hand that ended its day idle; in the plans 76 a world are listed extras worth 80 at a pen the route already visits, never placed: stand-alone collects are offered only in phases D / E, after phase C has filled the outbound routes with waterings ~10 and feed / care): the stand-alone collects join the phase C pool, merged only into a stop the route already has on that pen (no extra walking; 2 = any insertion); collects paired with a fertilize are unchanged. Case world: planned collects 363 -> 362 (1) / 353 (2), fertilizes 205 -> 190 / 160: the hands at those pens are full (84 of 89 such routes end at 24, mostly MANDATORY work), so a phase C collect only takes a fertilize pairing's collect. Parked with mechanism
     "sd_tier_collect_c_max": 0,  # > 0: at most this many phase C collects a day (the midnight shed room)
+    "sd_tier_spawn_exact": 0,  # 1 (user 2026-09-27, spawn investigation panel_spawn.py: the hour-1 hires spawn by the engine rule on our units' positions after their hour-1 commands, which the plan predicts 100%, but the plan is self-consistent on only 49% of days - it assumes spawn tiles, re-routes the hour-0 hires around them, and their hour-1 positions then imply other tiles; the buffer plans those hires from hour 3 and they run ahead / idle): two-stage plan - inside each planning pass, after all routes are built, the farmer's and the hour-0 hires' routes stay fixed, their hour-1 positions give the exact spawn tiles, and the hour-1 hires' routes are reassigned to those tiles (best permutation by full route evaluation, from hour 2), optional tail ops trimmed while that makes a route late, freed time filled with the leftover extras (no harvests); the outer re-plan / buffer then sees a consistent plan; the executor remap is skipped when the hires stand where planned
     "sd_tier_fert_merge_collect": 0,  # 1: a merged fertilize may use fertilizer the route already collects and does not spend (look-back pen collects) before asking for a shed pickup (one spare hour instead of two)
     "sd_tier_prio_ani": 0,    # 1 (user 2026-09-26: "melon mode" for important animal harvests): the farmer (no melon duty that day) first harvests the cow / sheep pens holding >= sd_tier_prio_ani_min units (or due), feed / care in the same visit, best units x price per added hour while his drop at the shed stays by sd_tier_prio_ani_by; then he is a normal hand (post segment in the sector search), as after a melon delivery
     "sd_tier_prio_ani_min": {"COW": 3, "SHEEP": 4},   # DSM's mean units per harvest at pens near the shed (cow 3.4-3.8, sheep 4.2-4.4); eggs left out (DSM delivers only 18% of eggs the same day)
@@ -9018,6 +9019,10 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
         st["tier_respawn"] = st.get("tier_respawn", 0) + 1
     after1 = [_tier_walk(TP["routes"].get(0), f0, 2 - ft0)] + [
         _tier_walk(TP["routes"].get(u + 1), q, 1) for u, q in enumerate(sp0)]
+    if int(CFG["sd_tier_spawn_exact"]) and TP.get("_sp1_true") is not None:
+        sp1 = [tuple(q) for q in TP["_sp1_true"]]  # the core planned the hour-1 hires from these (consistent by construction)
+        if _sd_spawn(after1, want - k0) != sp1:
+            st["tier_spawn_exact_off"] = st.get("tier_spawn_exact_off", 0) + 1
     if want > k0 and _sd_spawn(after1, want - k0) != sp1:
         st["tier_spawn_h2_off"] = st.get("tier_spawn_h2_off", 0) + 1
         if CFG["sd_tier_spawn_h2"]:                # re-plan the hour-1 hires from the tiles they will really spawn on
@@ -9084,6 +9089,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["summary"]["edel"] = st.pop("_edel_day", None)
     TP["summary"]["pdrop"] = st.pop("_pdrop_day", None)
     TP["summary"]["feedh"] = st.pop("_feedh_day", None)
+    TP["summary"]["spx"] = dict(st.pop("_spx_day", None) or {}) or None
     TP["summary"]["mfollow"] = dict(st.pop("_mfollow_day", None) or {}) or None
     TP["k0"] = k0
     TP["h0_books"] = nb0
@@ -9093,6 +9099,75 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["summary"]["h0_front"] = front
     S["tier"] = TP
     L.setdefault("tier_days", {})[str(day)] = TP["summary"]
+
+
+def _tier_spawn_exact(segs, units, rest, collects, owner, rate, st, build_route):
+    """sd_tier_spawn_exact: returns the hour-1 hires' exact spawn tiles (hire order) after reassigning their routes to them."""
+    import itertools as _it
+    h1u = sorted(u for u, p0, t0 in units if u > 0 and t0 >= 2)
+    if not h1u:
+        return None
+    seg_of = {sg["u"]: sg for sg in segs}
+    after1 = []
+    for u, p0, t0 in units:
+        if t0 > 1:
+            continue
+        sg = seg_of.get(u)
+        R_ = build_route(sg, count=False)[0] if sg is not None else None
+        after1.append(_tier_walk(R_, p0, 2 - t0))
+    true_ = _sd_spawn(after1, len(h1u))
+    tgt = dict(zip(h1u, true_))
+    rec_ = st.setdefault("_spx_day", Counter())
+    rec_["hires"] += len(h1u)
+    movable = [sg for sg in segs if sg["u"] in tgt and sg["kind"] == "out" and not sg.get("dawn")]
+    rec_["fixed_kind"] += sum(1 for sg in segs if sg["u"] in tgt and sg not in movable)
+    if not movable:
+        return true_
+    units_m = [sg["u"] for sg in movable]
+    before = {id(sg): sg["p0"] for sg in movable}
+    rec_["wrong_before"] += sum(1 for sg in movable if sg["p0"] != tgt[sg["u"]][1] * 10 + tgt[sg["u"]][0])
+
+    def cost(sg, u):
+        tq = tgt[u]
+        e = _tier_eval(dict(sg, p0=tq[1] * 10 + tq[0], t0=2)) if sg["stops"] else (2, 0, 0, 0)
+        return (e[1] + e[3]) * 1000 + e[0]
+    if len(movable) <= 6:
+        best = min(_it.permutations(units_m), key=lambda pm: sum(cost(sg, u) for sg, u in zip(movable, pm)))
+    else:                                          # greedy for many hires
+        left_, best = list(units_m), []
+        for sg in movable:
+            u = min(left_, key=lambda u: cost(sg, u))
+            best.append(u)
+            left_.remove(u)
+    for sg, u in zip(movable, best):
+        late0 = _tier_eval(sg)[1] if sg["stops"] else 0
+        tq = tgt[u]
+        sg["u"], sg["p0"], sg["t0"] = u, tq[1] * 10 + tq[0], 2
+        sg["ver"] += 1
+        rec_["moved"] += before[id(sg)] != sg["p0"]
+        while sg["stops"]:                         # a route that now runs late sheds optional tail ops
+            e = _tier_eval(sg)
+            if e[1] <= late0 and e[0] <= 24:
+                break
+            k = next(((i, j) for i in range(len(sg["stops"]) - 1, -1, -1) for j in range(len(sg["stops"][i]["ops"]) - 1, -1, -1)
+                      if not sg["stops"][i]["ops"][j]["m"] and not sg["stops"][i].get("turn")), None)
+            if k is None:
+                rec_["late_left"] += 1
+                break
+            i, j = k
+            x = sg["stops"][i]
+            ops2 = [o for jj, o in enumerate(x["ops"]) if jj != j]
+            sg["stops"] = sg["stops"][:i] + ([dict(x, ops=ops2)] if ops2 else []) + sg["stops"][i + 1:]
+            rec_["trimmed"] += 1
+    planned = {(x["tile"], o["c"][0]) for sg in segs for x in sg["stops"] for o in x["ops"]}
+    pool = []                                      # leftover extras for the freed time (no harvests: the midnight load)
+    for bd in rest:
+        ops2 = [o for o in bd["ops"] if o["c"][0] not in ("HARVEST", "PLACE_HARVEST") and (bd["tile"], o["c"][0]) not in planned
+                and (o["c"][0] != "COLLECT_FERTILIZER" or bd["tile"] in collects)]
+        if ops2:
+            pool.append(dict(bd, ops=ops2, v=sum(o["v"] for o in ops2)))
+    rec_["filled"] += _tier_fill(segs, [segs.index(sg) for sg in movable], pool, collects, owner, rate, st, "spx")
+    return true_
 
 
 def _tier_walk(R, p, n):
@@ -9532,9 +9607,7 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             fc_["fert"] += sum(1 for x in sg["stops"] for o in x["ops"] if o["c"][0] == "FERTILIZE") - nf0_
         st["_fcarry_day"] = fc_
     # ---- routes per unit
-    routes_u = {}
-    summ = []
-    for s in segs:
+    def build_route(s, count=True):
         u = s["u"]
         items = []
         if s["kind"] == "post":
@@ -9554,7 +9627,7 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
                 items.append({"kind": "stop", "tile": x["tile"], "ops": [o["c"] for o in x["ops"]],
                               "mand": [o["m"] for o in x["ops"]], "rel": x.get("rel", 0)})
         nf, na = _tier_picks(s["stops"])
-        if _TIER_WY:
+        if _TIER_WY and count:
             st["_feedh_day"] = st.get("_feedh_day", 0) + sum(1 for x in s["stops"] for o in x["ops"] if o["c"][0] == "FEED") - nf
         kd_ = 0
         while kd_ < len(s["stops"]) and s["stops"][kd_].get("dawn"):   # sd_tier_dawn 2: the dawn leg before the pickups
@@ -9576,27 +9649,38 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             if x.get("sell_all"):                  # sd_tier_deliver_skip: a go-home drop sells everything, wheat included
                 items[-1]["sell_all"] = True
         ev = _tier_eval(s, want_hours=True) if s["stops"] else (s["t0"], 0, 0, 0, [])
-        routes_u[u] = {"items": items, "k": 0, "sub": 0, "kind": s["kind"], "waited": 0, "wait": {}, "t0plan": s["t0"],
-                       "plan_hours": (list(dawn_of[u]["hours"]) if u in dawn_of else []) + [(b_, c_[0], h) for b_, c_, h in ev[4]]}
-        summ.append({"u": u, "kind": s["kind"], "t0": s["t0"], "end": ev[0], "late": ev[1], "hop": ev[2], "bad": ev[3],
-                     "drop": mel_of[u]["drop"] if u in mel_of else None,
-                     "melons": [x["tile"] for x in mel_of[u]["stops"] if not x.get("place")] if u in mel_of else [],
-                     "stops": [[x["tile"], [o["c"][0] for o in x["ops"]]] for x in s["stops"]]})
+        r_out = {"items": items, "k": 0, "sub": 0, "kind": s["kind"], "waited": 0, "wait": {}, "t0plan": s["t0"], "p0plan": s["p0"],
+                 "plan_hours": (list(dawn_of[u]["hours"]) if u in dawn_of else []) + [(b_, c_[0], h) for b_, c_, h in ev[4]]}
+        sm = {"u": u, "kind": s["kind"], "t0": s["t0"], "end": ev[0], "late": ev[1], "hop": ev[2], "bad": ev[3],
+              "drop": mel_of[u]["drop"] if u in mel_of else None,
+              "melons": [x["tile"] for x in mel_of[u]["stops"] if not x.get("place")] if u in mel_of else [],
+              "stops": [[x["tile"], [o["c"][0] for o in x["ops"]]] for x in s["stops"]]}
         if u in dawn_of:
-            summ[-1]["dawn"] = [dawn_of[u]["pen"], dawn_of[u]["units"], dawn_of[u]["drop"]]
+            sm["dawn"] = [dawn_of[u]["pen"], dawn_of[u]["units"], dawn_of[u]["drop"]]
             if "dsm" in dawn_of[u]:
-                summ[-1]["dawn_dsm"] = dawn_of[u]["dsm"]
-                summ[-1]["dawn_pens"] = dawn_of[u]["pens"]
+                sm["dawn_dsm"] = dawn_of[u]["dsm"]
+                sm["dawn_pens"] = dawn_of[u]["pens"]
         elif s["stops"] and s["stops"][0].get("dawn"):
             nd_ = sum(len(x["ops"]) for x in s["stops"] if x.get("dawn"))
             t_p = _tile(tiles, s["stops"][0]["tile"])
-            summ[-1]["dawn"] = [s["stops"][0]["tile"], int(t_p.get("yield_units", 0) or 0) if isinstance(t_p, dict) else 0,
-                                ev[4][nd_ - 1][2] if len(ev[4]) >= nd_ else None]
+            sm["dawn"] = [s["stops"][0]["tile"], int(t_p.get("yield_units", 0) or 0) if isinstance(t_p, dict) else 0,
+                          ev[4][nd_ - 1][2] if len(ev[4]) >= nd_ else None]
         if CFG["sd_tier_log_v"]:                   # animal thread: [op, mandatory, tier, value] per planned op
-            summ[-1]["stops_v"] = [[x["tile"], [[o["c"][0], int(o["m"]), o["tier"], round(o["v"], 1)] for o in x["ops"]]]
-                                   for x in s["stops"]]
+            sm["stops_v"] = [[x["tile"], [[o["c"][0], int(o["m"]), o["tier"], round(o["v"], 1)] for o in x["ops"]]]
+                             for x in s["stops"]]
+        return r_out, sm
+
+    sp1_true = None
+    if int(CFG["sd_tier_spawn_exact"]):            # two-stage plan: the hour-1 hires from their exact spawn tiles (see the flag)
+        sp1_true = _tier_spawn_exact(segs, units, rest, collects, owner, rate, st, build_route)
+    routes_u = {}
+    summ = []
+    for s in segs:
+        r_out, sm = build_route(s)
+        routes_u[s["u"]] = r_out
+        summ.append(sm)
     unplanned = [[bd["tile"], [o["c"][0] for o in bd["ops"]], round(bd["v"], 1)] for bd in rest]
-    return {"day": day, "routes": routes_u, "log": [], "cnt": Counter(), "owner": owner,
+    return {"day": day, "routes": routes_u, "log": [], "cnt": Counter(), "owner": owner, "_sp1_true": sp1_true,
                  "summary": {"units": summ, "left_out_melons": left, "mand_late": late_m, "unplanned": unplanned,
                              "plan_ms": round(1000 * (time.perf_counter() - t_start), 1), "search_cost": round(cost, 2),
                              "want": want, "n_mand_stops": len(stops_all)}}
@@ -9953,6 +10037,11 @@ def _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, sh
         TP["_harv_left"] = hl_
     if CFG["sd_tier_spawn_remap"] and not TP.get("_remapped"):
         late_ = sorted(u for u, R_ in TP["routes"].items() if R_.get("t0plan") == 2 and u > 0 and R_.get("k", 0) == 0)
+        if (late_ and int(CFG["sd_tier_spawn_exact"]) and all(u < len(pos) for u in late_)
+                and all(TP["routes"][u].get("p0plan") == pos[u][1] * 10 + pos[u][0] for u in late_)):
+            TP["_remapped"] = True                 # sd_tier_spawn_exact: everyone stands where planned
+            TP["cnt"]["spawn_exact_ok"] += 1
+            late_ = []
         if late_ and all(u < len(pos) for u in late_):
             TP["_remapped"] = True                 # the hour-1 hires exist now: match routes to their real spawn tiles
             import itertools as _it
