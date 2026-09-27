@@ -197,6 +197,7 @@ CFG = {
     "sd_books_batch": 0,      # > 0 (DSM's wool glut on 112604454: never more than 8 units a step, never at $1; KC3 dumped surplus wool at h21 down to $1, where a sale earns 1 and adds no market stock, so the rival's price rises): the surplus / capacity sells of sd_books_sell products are at most this many units a step, and none while the quote is <= sd_books_minpx
     "sd_books_minpx": 5,
     "sd_books_walk": 0,       # 1 (KC4 still sold 14 wool at $1: near the floor a unit lowers the wool price by ~6, so a batch of 8 from quote 24 ends at 1; DSM never sold wool at $1): every sd_books_sell sell stops before the engine price of the next unit (market stock + units already sold this step) would be <= sd_books_minpx
+    "sd_books_source": "dsm", # "dsm": the leader's recorded sell plan (dsm_sales); "hazard" (DSM-free, user 2026-09-27: we will not have DSM's plans): DSM's learned selling hazard x our shed stock, by product / season phase / hour / the rival's habit (its units at this hour and in the next 4 on the previous 3 days, inferred from the market: stock change - our sales + shop consumption); tables results/fresh/threads_20260928/dsm_sell_hazard2.json (fallback dsm_sell_hazard.json), 40 recordings
     "sd_pattern_tick": [],    # products (user 2026-09-26: imitate DSM's selling; engine-isolated test +2.7k on world 112604454): sold only at hours 1 / 5 / 9 / 13 / 17 / 21 (the first market after a town consumption tick; the engine clears the market BEFORE the town consumes at hours 0 / 4 / 8 / 12 / 16 / 20) on the sd_hourly_profile quota; their deliveries are no longer sold on arrival and the overflow guards leave them alone at the tick hours themselves (hour 20). Needs sd_hourly_profile for these products
     "sd_wheat_pick_now": 0,   # 1 (2026-09-26, KQ plant deaths): the market's wheat reserve for the tiered plan's pickups also counts the WHEAT the executor picks up in this same step. Those pick items are marked done when the command is issued, but the wheat is still in the observed shed and the engine runs unit actions before the market, so without this the sale takes the wheat the later pickups (the hour-1 hires, acting from hour 2) need: they wait for a buy-back and their routes end an hour late (last WATER unfinished, plants die; FEED skipped)
     "sd_h0_front": [],        # (user 2026-09-26) products whose shed stock may be sold at hour 0 FIRST in the order list (the engine processes both players' orders position by position, so a sell behind the hires comes after the rival's hour-0 sales); the largest-value pile >= sd_h0_front_min, at most sd_h0_front_n orders; one hour-0 hire moves to hour 1 only when the 10 slots are full
@@ -2810,6 +2811,46 @@ def _walk_cap(item, inventory, minpx, cap=10000):
     return k
 
 
+_SHOPS_E = {   # kaggle_environments kaggriculture.py SHOPS (each unlocked instance consumes every 4th step after the market)
+    "BAKERY": ["EGG", "WHEAT"], "PIZZA_SHOP": ["MILK", "TOMATO", "WHEAT"], "BRUNCH_SPOT": ["EGG", "WHEAT", "STRAWBERRY"],
+    "YARN_STORE": ["WOOL"], "ICE_CREAM_SHOP": ["STRAWBERRY", "MILK", "WHEAT"], "PET_CAFE": ["CARROT"],
+    "SMOOTHIE_SHOP": ["STRAWBERRY", "MILK"], "FARMERS_MARKET": ["WHEAT", "CARROT", "TOMATO", "STRAWBERRY"]}
+_HAZ = {}
+
+
+def _haz_tables():
+    if not _HAZ:
+        try:
+            import json as _j
+            from pathlib import Path as _P
+            base = _P(__file__).resolve().parents[1] / "results/fresh/threads_20260928"
+            _HAZ["h2"] = _j.loads((base / "dsm_sell_hazard2.json").read_text())["hazard2"]
+            _HAZ["h1"] = _j.loads((base / "dsm_sell_hazard.json").read_text())["hazard"]
+        except Exception:
+            _HAZ["h2"], _HAZ["h1"] = {}, {}
+    return _HAZ
+
+
+def _rival_infer(S, obs, step, products):
+    """rival units sold per (step, product) from the market: stock(t) - stock(t-1) - our sells(t-1) + consumption(t-1)"""
+    inv = dict(_g(_g(obs, "market", {}), "inventory", {}) or {})
+    prev = S.get("_riv_prev")
+    hist = S.setdefault("_riv_hist", {})
+    if prev and prev[0] == step - 1 and inv:
+        t1 = step - 1
+        shops = list(((obs.get("town") or {}).get("unlocked_shops")) or []) if isinstance(obs, dict) else []
+        for p in products:
+            cons = 0
+            if t1 % 4 == 0:
+                cons += sum((2 if len(_SHOPS_E.get(sh, ())) == 1 else 1) for sh in shops if p in _SHOPS_E.get(sh, ()))
+            if t1 % 24 == 0 and p != "FERTILIZER":
+                cons += 1
+            r = int(inv.get(p, 0)) - int(prev[1].get(p, 0)) - int(prev[2].get(p, 0)) + cons
+            if r > 0:
+                hist[(t1, p)] = r
+    return inv
+
+
 def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, demand, prices,
             unlocked, farm, pos, last_day):
     T = _T
@@ -3196,10 +3237,14 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             for p_, k_ in rel_.items():
                 res_[p_] = max(0, res_[p_] - k_)
             orders = new_[:10]
+    hz_ = CFG["sd_books_source"] == "hazard"
+    inv_riv_ = _rival_infer(S, obs, int(_g(obs, "step", 0)), bk_) if (bk_ and hz_) else None
     if bk_ and not endgame:                        # sd_books_sell: the leader's sell plan, capped by our shed
-        DS_ = _dsm_data("sales")
-        if DS_ is not None:
-            if S.get("_books_cum") is None:
+        DS_ = None if hz_ else _dsm_data("sales")
+        if DS_ is not None or hz_:
+            if hz_:
+                S["_books_cum"] = {}
+            elif S.get("_books_cum") is None:
                 cum_, run_ = {}, Counter()
                 for t_ in range(0, 720):          # from step 0: the harness starts S["sold"] with the leader's days 0-10
                     for p_, v_ in (DS_["steps"].get(str(t_)) or {}).items():
@@ -3212,6 +3257,20 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             front_ = []
             for p_ in sorted(bk_):
                 have_ = int(shed.get(p_, 0) or 0)
+                if hz_:                            # DSM-free: DSM's learned hazard x our shed stock
+                    H_ = _haz_tables()
+                    ph_ = "early" if day <= 17 else ("mid" if day <= 23 else "late")
+                    rh_ = S.get("_riv_hist") or {}
+                    dd_ = [day - k for k in (1, 2, 3) if day - k >= 11]
+                    now_ = soon_ = 0
+                    if dd_:
+                        now_ = int(sum(rh_.get((d_ * 24 + hour, p_), 0) for d_ in dd_) / len(dd_) >= 1)
+                        soon_ = int(sum(rh_.get((d_ * 24 + hh_, p_), 0) for d_ in dd_ for hh_ in range(hour + 1, min(24, hour + 5))) / len(dd_) >= 2)
+                    hzv_ = H_["h2"].get("%s|%s|%d|%d|%d" % (p_, ph_, hour, now_, soon_), H_["h1"].get("%s|%s|%d" % (p_, ph_, hour), 0.0))
+                    q_ = int(round(float(hzv_) * have_))
+                    if q_ > 0:
+                        front_.append((0, ["SELL", p_, min(have_, q_)]))
+                    continue
                 q_ = int((cum_.get(step_) or {}).get(p_, 0)) - int(S["sold"][p_])
                 if hour == 21:                     # our surplus over the leader's next 12 steps goes now
                     nxt_ = int((cum_.get(min(719, step_ + 12)) or {}).get(p_, 0)) - int((cum_.get(step_) or {}).get(p_, 0))
@@ -3279,6 +3338,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     for o in orders:
         if o[0] == "SELL":
             S["sold"][o[1]] += o[2]
+    if inv_riv_ is not None:                       # sd_books_source hazard: this step's stock and our sells, for the inference
+        S["_riv_prev"] = (int(_g(obs, "step", 0)), inv_riv_, {o[1]: int(o[2]) for o in orders if o[0] == "SELL"})
     S["short"] = short
     return orders
 
