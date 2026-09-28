@@ -1,5 +1,29 @@
 # V13 optional harvest exchange: development record
 
+## Distinct panels, same frozen V13
+
+These win counts refer to different opponents or worlds; they are not revisions
+of the same result. Always retain the panel label when quoting them.
+
+| Panel | Opponent | V13 wins | Mean margin |
+|---|---|---:|---:|
+| Original eight development worlds | Live canonical V9-lite | 7/8 | +2,838.25 |
+| Eight recorded development worlds | Scripted actions from rated 2750–3000 opponents | 4/8 | −13.50 |
+| Four fresh smoke worlds | Live canonical V9-lite | 0/4 | −3,685.00 |
+
+The fresh result does not support generalizing the original 7/8 development
+score into an adaptability or shipping claim. All four fresh games are
+technically valid; their losses are retained. See
+`semantic_strategy_fresh_v9lite_smoke_20260928.md` and
+`semantic_v13_v9fresh4_diagnosis_20260928.md` for verified opponent identity,
+results, production, and cost accounting. No qualification panel has run.
+
+The recorded score uses the prospective technical-outcome score. The original
+strict script-fragility screen remains separate: five eligible games and three
+wins for both V12 and V13, without replacement of the three excluded cases.
+
+## Original live development comparison
+
 V13 completed all eight native live development worlds: **7 wins, mean margin +2,838.25**. Against the same cases under V12, the mean margin change is **+845.375**, with four improvements and four regressions. Own cash changes +3,025.375 on average and rival cash +2,180. All eight natural shop sequences diverge, so this is a development comparison, not a fixed-world estimate of the exchange's isolated economic benefit.
 
 The live opponent is the actual packaged **mgt_v9lite**, from
@@ -8,9 +32,11 @@ loader as `v9lite_agent`. Its frozen `main.py` SHA256 is
 `b4c273bdb5421cbce700d2e5a028a7754679eef8868ec6e914ee960626f94829`;
 the full package is bound by the original protocol. The warm-up thread is off.
 All eight opponent diagnostics report three searches and zero errors, for 24
-searches total. None selected a tape switch. This validates play against the
-live V9-lite policy in these worlds; it does not exercise an executed V9 switch.
-The user's subsequent request adds a separate fresh-seed V9-lite smoke panel.
+searches total. None selected an additional search-driven route override. The
+native tape router and market responses remained active; this counter does not
+measure their routing changes. This validates play against live V9-lite in
+these worlds but does not exercise an executed extra V9 search override.
+The user's subsequent fresh-seed V9-lite smoke is now complete, as listed above.
 
 The user waived the proposed absolute 6/8 intermediate threshold before V13 froze. The complete eight-world paired regression screen replaces that threshold. Previous V12 failure records remain unchanged as history; five wins alone no longer bar an incremental stack. This does not release the separate forty-world qualification panels.
 
@@ -51,6 +77,7 @@ Artifacts are append-only in the main checkout's `results/fresh/semantic_strateg
 - `reports/v13_complete_live_independent_audit.json` preserves the finished live audit before later panels.
 - `reports/v13_native_incremental_comparison.json` binds result/action hashes and provides both sides' daily collections, sales, revenues, spending, dawn quotes, phase cash, and exchange diagnostics.
 - `runs/strategy_v13_kb115lt2_harvest_exchange/development/live/` contains all eight results, complete actions, and logs.
-- `recorded_dispatches/v12_v13_recorded_development_pair/` prepares sixteen fresh V12/V13 games on the same eight recorded worlds and hash-verified original controls. Original strict script-fragility eligibility and the prospective technical-outcome score are both retained. No case replacement or absolute win cutoff is allowed.
+- `recorded_dispatches/v12_v13_recorded_development_pair/` contains sixteen completed V12/V13 games on the same eight recorded worlds and hash-verified original controls. All sixteen are technically valid with reconciled ledgers. V13 gains 133.75 mean paired margin over V12; wins remain 4/8, own cash changes −62.75 and rival cash −196.50. All eight shop sequences match. Original strict script-fragility eligibility and the prospective technical-outcome score are both retained. No cases were replaced.
+- `reports/v13_recorded_incremental_comparison.json` binds the complete recorded comparison; `fresh_smokes/v13_canonical_v9lite_fresh4_v1/independent-audit.json` binds the separate fresh live result.
 
 The ledger's historical `produced:PRODUCT` field measures inventory gained by successful HARVEST or COLLECT_FERTILIZER commands. The comparison calls it **collected units**, not additional biological production. Full-game mechanisms and qualification strength remain separate questions.
