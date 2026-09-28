@@ -60,7 +60,8 @@ DEFAULT_CONFIG = dict(neighbors=7, state_weight=.20, age_weight=.10,
     land_limit=4, max_land_add_per_day=1,
     minimum_wage_reserve=1., observed_supply_weight=.30, same_day_income_credit=1.,
     wheat_reserve_days=0, wheat_reserve_max_add=4, wheat_reserve_buffer=3, wheat_reserve_start_day=6,
-    wheat_reserve_daily_sales=0., retirement_active_target_guard=False)
+    wheat_reserve_daily_sales=0., retirement_active_target_guard=False,
+    forecast_fertilizer_net=False)
 DEFAULT_CONFIG["release_age"]={"WHEAT":3,"CARROT":3,"MELON":10,"TOMATO":12,"STRAWBERRY":17}
 
 
@@ -117,7 +118,7 @@ def _cohorts(farm,day=None):
             dict(structures),animal_details)
 
 
-def public_state(obs):
+def public_state(obs, fertilizer_details=False):
     """Allowlist observation projection; no reward, seed or episode field read."""
     day=int(obs["day"]); me=int(obs["player"]); own=obs["farms"][me]
     crops,animals,structures,details=_cohorts(own,day)
@@ -136,7 +137,7 @@ def public_state(obs):
             elif sp in CROPS and day-int(tile["planted_day"])>=CROPS[sp]["first"]:
                 available[sp]+=int(tile.get("yield_units",0))
     market=obs.get("market",{})
-    return dict(day=day,shops_prefix=_shops(obs),own_crop_cohorts=crops,
+    state=dict(day=day,shops_prefix=_shops(obs),own_crop_cohorts=crops,
         own_animal_cohorts=animals,own_structures=structures,animal_details=details,
         cash=float(own.get("money",0)),owned_quadrants=len(own.get("unlocked_quadrants",["NW"])),
         prices={p:float(market.get("prices",{}).get(p,_MARKET[p][0])) for p in PRODUCTS},
@@ -144,6 +145,11 @@ def public_state(obs):
         market_params=deepcopy(market.get("params",{})),stock=dict(stock),seeds=dict(private.get("seeds",{})),
         available_output=dict(available),
         rival_crop_cohorts=rc,rival_animal_cohorts=ra,rival_structures=rs,rival_animal_details=rd)
+    if fertilizer_details:
+        from semantic_strategy_fertilizer_net_20260928 import public_crop_details
+        state.update(own_fertilizer_crop_details=public_crop_details(own,day),
+                     rival_fertilizer_crop_details=public_crop_details(obs['farms'][1-me],day))
+    return state
 
 
 def crop_survivors(cohorts,day,release_age=None):
@@ -295,11 +301,18 @@ def forecast_market(state,config,history=None):
         for d in rival:
             for p in PRODUCTS:
                 if p in flow:
-                    rival[d][p]=(1-w)*rival[d][p]+w*max(0,float(flow[p]))
+                    observed=float(flow[p])
+                    if not (config.get('forecast_fertilizer_net',False) and p=='FERTILIZER'
+                            and (history or {}).get('rival_flow_kind')=='market_net'):
+                        observed=max(0,observed)
+                    rival[d][p]=(1-w)*rival[d][p]+w*observed
     visible=demand(state["shops_prefix"]);prior=Counter()
     for values in SHOPS.values():
         for p,n in values.items(): prior[p]+=n/len(SHOPS)
     inv=dict(state["inventory"]);paths={}
+    if config.get('forecast_fertilizer_net',False):
+        from semantic_strategy_fertilizer_net_20260928 import apply_net_outputs
+        apply_net_outputs(state,config,CROPS,own,rival,history)
     own_wheat_stock=max(0,float(state.get('stock',{}).get('WHEAT',0)))
     for d in range(state["day"],30):
         unknown=max(0,min(8,d//3)-len(state["shops_prefix"])) if config["prior_future_shops"] else 0
@@ -323,6 +336,13 @@ def cohort_value(state,species,paths,rival,config):
     animals=[dict(species=species,birth=day,count=1)] if animal else []
     extra=output_calendar(crops,animals,day,release_age=config["release_age"])
     own=output_calendar(state["own_crop_cohorts"],state["own_animal_cohorts"],day,release_age=config["release_age"])
+    if config.get('forecast_fertilizer_net',False):
+        from semantic_strategy_fertilizer_net_20260928 import apply_net_outputs
+        apply_net_outputs(state,config,CROPS,own)
+    fertilizer_inputs=None
+    if not animal and config.get('forecast_fertilizer_net',False):
+        from semantic_strategy_fertilizer_net_20260928 import crop_input_calendar
+        fertilizer_inputs,_=crop_input_calendar(crops,day,config['release_age'],CROPS)
     accum=Counter();value=-r.get("cost",r.get("seed",0));work=0.
     final=min(29,day+(29 if animal else r["last"]))
     for d in range(day,30):
@@ -338,7 +358,9 @@ def cohort_value(state,species,paths,rival,config):
             work+=3.0
         elif not animal and d<=final:
             work+=.65
-            if r["interval"] and d+1-day>=r["first"] and (d+1-day-r["first"])%r["interval"]==0:
+            if fertilizer_inputs is not None:
+                value-=fertilizer_inputs[d]*market_price("FERTILIZER",paths[d]["FERTILIZER"],state["market_params"])
+            elif r["interval"] and d+1-day>=r["first"] and (d+1-day-r["first"])%r["interval"]==0:
                 value-=.40*market_price("FERTILIZER",paths[d]["FERTILIZER"],state["market_params"])
     work+=5 if animal else 3
     return value-config["incremental_work_price"]*work
@@ -355,6 +377,9 @@ def bundle_value(state,choice,paths,rival,config,unit_values):
     day=state["day"];crops=[dict(crop=s,birth=day,count=n) for s,n in choice['plant_counts'].items()]
     animals=[dict(species=s,birth=day,count=n) for s,n in choice['animal_add_counts'].items()]
     own=output_calendar(state["own_crop_cohorts"],state["own_animal_cohorts"],day,release_age=config["release_age"])
+    if config.get('forecast_fertilizer_net',False):
+        from semantic_strategy_fertilizer_net_20260928 import apply_net_outputs
+        apply_net_outputs(state,config,CROPS,own)
     extra=output_calendar(crops,animals,day,release_age=config["release_age"])
     independent=0.;joint=0.;accum=Counter()
     for d in range(day,30):
@@ -605,7 +630,8 @@ class SemanticStrategyPolicy:
         return s
 
     def propose(self,observation,memory=None):
-        state=public_state(observation);d=state["day"];memory=deepcopy(memory or {})
+        state=public_state(observation,fertilizer_details=self.config.get('forecast_fertilizer_net',False))
+        d=state["day"];memory=deepcopy(memory or {})
         if not 0<=d<=29: raise ValueError("outside_season")
         animals=cohort_counts(state["own_animal_cohorts"],"species")
         state["committed_retirement_counts"]={sp:min(animals[sp],max(0,int(n)))
@@ -629,12 +655,14 @@ class SemanticStrategyPolicy:
         recent=[v for key,v in memory.get("public_history",{}).items() if d-3<=int(key)<d]
         if recent:
             history["rival_net_daily"]={p:sum(x.get("rival_harvest",{}).get(p,0) for x in recent)/len(recent) for p in PRODUCTS}
+            if self.config.get('forecast_fertilizer_net',False):history['rival_flow_kind']='harvest'
         previous=memory.get("public_snapshot")
         own_net=memory.get("own_net_market_since_snapshot")
         if previous and own_net is not None and previous["day"]<d:
             elapsed=d-previous["day"];dem=demand(previous["shops_prefix"])
             history["rival_net_daily"]={p:(state["inventory"][p]-previous["inventory"][p]
                 +elapsed*(6*dem.get(p,0)+(p!="FERTILIZER"))-float(own_net.get(p,0)))/elapsed for p in PRODUCTS}
+            if self.config.get('forecast_fertilizer_net',False):history['rival_flow_kind']='market_net'
         today,diag=self._choose(state,history,True)
         forecast=[today];future=self._advance(state,today)
         if self.config["forecast"]:

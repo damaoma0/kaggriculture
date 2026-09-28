@@ -148,7 +148,8 @@ class SemanticBlockPolicy(P.SemanticStrategyPolicy):
         return choice,diag
 
     def propose(self,observation,memory=None):
-        state=P.public_state(observation);day=state['day'];memory=deepcopy(memory or {})
+        state=P.public_state(observation,fertilizer_details=self.config.get('forecast_fertilizer_net',False))
+        day=state['day'];memory=deepcopy(memory or {})
         if not 6<=day<=29:raise ValueError('block policy begins at day6')
         physical=P.cohort_counts(state['own_animal_cohorts'],'species')
         state['committed_retirement_counts']={s:min(physical[s],max(0,int(n)))
@@ -164,6 +165,7 @@ class SemanticBlockPolicy(P.SemanticStrategyPolicy):
                 c['retire_day']=day
         history={};recent=[v for key,v in memory.get('public_history',{}).items() if day-3<=int(key)<day]
         if recent:history['rival_net_daily']={p:sum(v.get('rival_harvest',{}).get(p,0) for v in recent)/len(recent) for p in P.PRODUCTS}
+        if recent and self.config.get('forecast_fertilizer_net',False):history['rival_flow_kind']='harvest'
         block=memory.get('block_strategy')
         if not block or block['start']!=3*(day//3):block=self._make_block(state)
         today,detail=self._choice(state,block,history)
