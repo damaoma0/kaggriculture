@@ -31,6 +31,25 @@ def physical(action):
     return {key:action.get(key) for key in ("farmer", "hands")}
 
 
+def fertilizer_record(ledger):
+    physical = ledger["physical"]
+    consumed = physical.get("op:FERTILIZE", 0)-physical.get("no_effect:FERTILIZE", 0)
+    # The frozen engine consumes exactly one item for each effective FERTILIZE.
+    # Invalid or missing-worker commands never enter op:FERTILIZE.
+    return dict(collected_units=physical.get("produced:FERTILIZER", 0),
+        internally_consumed_units=consumed, sold_units=ledger["sold_units"].get("FERTILIZER", 0),
+        sales_revenue=ledger["revenue"].get("FERTILIZER", 0),
+        purchase_spending=ledger["spend"].get("BUY_PRODUCT:FERTILIZER", 0))
+
+
+def runtime_record(result, seat):
+    times = result["timings"][seat]
+    return dict(calls=len(times),total_seconds=sum(times),maximum_call_seconds=max(times,default=0),
+        calls_over_one_second=sum(t>1 for t in times),
+        measured_overage=result["measured_overage_used"][seat],
+        remaining_engine_overage=result["engine_audit"]["remaining_overage"][seat])
+
+
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--study", type=Path, required=True)
@@ -68,6 +87,8 @@ def main():
                     start, end = result["daily"][who][day:day+2]
                     current = {key:difference(end[key],start[key]) for key in ("physical","sold_units","revenue","spend")}
                     current["money_change"] = end["money"]-start["money"]
+                    current["fertilizer_internally_consumed_units"] = (
+                        current["physical"].get("op:FERTILIZE",0)-current["physical"].get("no_effect:FERTILIZE",0))
                     values.append(current)
                 by_seat[str(who)] = dict(baseline=values[0],candidate=values[1],
                     deltas={key:difference(values[1][key],values[0][key]) for key in ("physical","sold_units","revenue","spend")})
@@ -96,6 +117,12 @@ def main():
             baseline_shops=old["shops"],candidate_shops=new["shops"],shops_equal=old["shops"]==new["shops"],
             action_audit=first,planned_exchanges=planned,exchange_rejection_counts=dict(rejections),
             products=products,daily=daily,phase_cash=dict(baseline=old["phase_cash"],candidate=new["phase_cash"]),
+            fertilizer={str(who):dict(baseline=fertilizer_record(old["daily"][who][-1]),
+                candidate=fertilizer_record(new["daily"][who][-1])) for who in (seat,1-seat)},
+            spending={str(who):dict(baseline=old["daily"][who][-1]["spend"],candidate=new["daily"][who][-1]["spend"])
+                for who in (seat,1-seat)},
+            runtime_by_seat={str(who):dict(baseline=runtime_record(old,who),candidate=runtime_record(new,who))
+                for who in (seat,1-seat)},
             own_runtime=dict(baseline=old["measured_overage_used"][seat],candidate=new["measured_overage_used"][seat]),
             original_strict_eligibility=dict(baseline=old["eligible"],candidate=new["eligible"])))
     result = dict(scope="EIGHT_WORLD_PAIRED_INCREMENTAL_DEVELOPMENT_SCREEN", baseline=args.baseline,candidate=args.candidate,

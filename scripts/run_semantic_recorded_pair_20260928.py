@@ -28,6 +28,8 @@ def verify():
     assert sha(Path(MANIFEST["addendum_document"])) == MANIFEST["addendum_document_sha256"]
     for name, value in MANIFEST["control_files"].items():
         assert sha(STUDY / name) == value
+    for name, value in MANIFEST.get("reference_result_files", {}).items():
+        assert sha(STUDY / name) == value
     for name, value in MANIFEST["candidate_manifests"].items():
         assert sha(STUDY / "candidates" / name / "manifest.json") == value
 
@@ -112,7 +114,7 @@ def main():
         rows.append(row)
         if not row["technical_valid"]:
             stopped = "Technical invalidity; remaining games not dispatched"
-        value = dict(scope=MANIFEST["scope"], rows=rows, planned=16, completed=len(rows), stop_reason=stopped,
+        value = dict(scope=MANIFEST["scope"], rows=rows, planned=len(MANIFEST["dispatch_order"]), completed=len(rows), stop_reason=stopped,
             absolute_win_threshold=None, qualification_dispatched=False)
         (HERE / "checkpoint.json").write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
         print(json.dumps(row), flush=True)
