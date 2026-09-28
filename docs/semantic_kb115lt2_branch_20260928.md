@@ -1,5 +1,11 @@
 # Semantic stack: isolated KB115LT2 development
 
+**Latest user update:** incremental upgrades need not clear six wins out of
+eight. That assistant-imposed rule below is historical and superseded by
+`semantic_incremental_stack_addendum_20260928.md`. Keep runtime and causal-input
+checks, assess paired benefit/regression, and stack useful improvements toward
+the overall thirty-of-forty targets.
+
 User authorization on 2026-09-28 expands the work to the semantic policy,
 spatial compiler, and an experimental copy of KB115LT2. All execution remains
 local. The original executor and prior frozen candidate artifacts are preserved.
