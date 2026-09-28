@@ -62,3 +62,20 @@ Append-only evidence in the original workspace study:
 
 No 40-world panel or shipping qualification is authorized by these component
 results. A failed eight-world development screen stops that candidate.
+
+## V12 normal-budget smoke
+
+Frozen candidate `strategy_v12_kb115lt2_runtime_fast`, manifest SHA256
+`aafa32c48bc4b32627855bd0f0bf18bf93f4f982c496f5ec5f7411dc43a938a1`,
+changes only the V8 runtime executor and enables the reviewed route-local wheat
+retry. Semantic policy, tile compiler, models, recipe and harness stay identical.
+
+Its one live06 smoke completes 720 steps with both players DONE, both ledgers
+reconciled, and zero executor or opponent-search errors. Cash 118,555 versus
+121,946 and margin -3,391 reproduce V8. All physical commands and market
+quantities reproduce; the same two SELL-order permutations remain. Measured
+candidate overage is 48.4595 seconds, leaving 11.5379 seconds of the normal bank;
+maximum call is 6.0984 seconds. This is a technical pass on one known case, not a
+strength or all-world runtime pass. The seven remaining live development cases
+are screened sequentially, retaining this exact frozen result without rerunning
+it. Any technical invalidity or inability to reach six wins stops dispatch.

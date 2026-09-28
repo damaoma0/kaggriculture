@@ -21,6 +21,8 @@ including V11. Five pure tests pass: current-bank identity choice with unchanged
 semantic counts, continued retirement without alternatives, unchanged future
 ranking, equal-bank fallback, and preservation of prior retirement intent.
 Gameplay profit and the eight-world screen have not been measured for it.
+Independent review also confirms default-OFF parity, preservation of retirement
+cardinality and existing identities, and exclusion of stale future care banks.
 
 Native retirement and low-price disposal remain legitimate. In particular,
 late sheep departures in live06 cannot all be labeled harmful merely because

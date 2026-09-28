@@ -51,3 +51,26 @@ win. Do not pool this incomplete panel's valid-only margin with complete panels.
    exits, so the feeding repair cannot explain all semantic deficits.
 3. Keep executor and semantic-policy interventions separate until their
    mechanisms and eight-world effects are measured.
+
+## V12 screen result
+
+`strategy_v12_kb115lt2_runtime_fast` completed all eight live development games
+with valid normal runtime, 720 DONE states, reconciled ledgers and zero internal
+executor/opponent-search errors. It scores **5/8 wins**, mean margin **+1,992.875**,
+and fails the declared six-win screen. Maximum candidate overage is 48.4595
+seconds. No scripted-eight or forty-world qualification panel follows this
+failed candidate.
+
+Six cases reproduce V8 cash margins. Live01 improves from +3,165 to +6,591 and
+live07 from -6,720 to -2,159; neither flips a win. These are natural-world
+outcomes. In live01 the observed retry begins at D8H3, but subsequent shop draws
+also differ: own cash falls 1,093 and rival cash falls 4,519. Do not label the
+3,426 margin change an isolated feeding-repair profit.
+
+Next is a separately frozen, bounded optional-harvest exchange. Pure fixtures
+show one extra four-unit wool collection replacing one fertilizer collection,
+with all later mandatory work at the same hours and adequate modeled midnight
+capacity. A recorded-world continuation must verify receipt, sales and discarded
+stock before that option enters another eight-world candidate. Current-bank
+retirement and fertilizer-net-flow forecasting remain separate, default-OFF
+research changes; they are not in V12.
