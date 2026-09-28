@@ -2,6 +2,16 @@
 
 V13 completed all eight native live development worlds: **7 wins, mean margin +2,838.25**. Against the same cases under V12, the mean margin change is **+845.375**, with four improvements and four regressions. Own cash changes +3,025.375 on average and rival cash +2,180. All eight natural shop sequences diverge, so this is a development comparison, not a fixed-world estimate of the exchange's isolated economic benefit.
 
+The live opponent is the actual packaged **mgt_v9lite**, from
+`submissions/2026-09-24-mgt_v9lite/pkg`, loaded through Kaggle's last-callable
+loader as `v9lite_agent`. Its frozen `main.py` SHA256 is
+`b4c273bdb5421cbce700d2e5a028a7754679eef8868ec6e914ee960626f94829`;
+the full package is bound by the original protocol. The warm-up thread is off.
+All eight opponent diagnostics report three searches and zero errors, for 24
+searches total. None selected a tape switch. This validates play against the
+live V9-lite policy in these worlds; it does not exercise an executed V9 switch.
+The user's subsequent request adds a separate fresh-seed V9-lite smoke panel.
+
 The user waived the proposed absolute 6/8 intermediate threshold before V13 froze. The complete eight-world paired regression screen replaces that threshold. Previous V12 failure records remain unchanged as history; five wins alone no longer bar an incremental stack. This does not release the separate forty-world qualification panels.
 
 | Case | V12 margin | V13 margin | Change |
@@ -32,7 +42,7 @@ The first reviewed harvest source preserved fixed operation positions but could 
 
 The separate hash-bound dispatch adapter only copies small existing `polish.harvest_exchange` summaries into diagnostic rows. Dawn collection remains inside the measured callback. It does not alter candidate state, random state, inputs, or the frozen base harness. It records 67 accepted route exchanges across the full panel; this count is planned work, not an assertion that every receipt executed as forecast.
 
-The inherited projected midnight-load bound can exceed 100. Five accepted plans do so: live-02 day18, live-03 day19, live-05 day14, and live-06 days21/27. Their observed next-dawn shed totals are 91/90/95/91/98. These observations alone do not establish actual discard balances; a separate receipt/overflow reconciliation remains requested. The original day-18 component directly verified zero overflow only in that component.
+The inherited projected midnight-load bound can exceed 100. Five accepted plans do so: live-02 day18, live-03 day19, live-05 day14, and live-06 days21/27. Their observed next-dawn shed totals are 91/90/95/91/98. A separate item-by-item stock reconciliation now proves **zero actual discard on all five days**; this does not rely only on the next-dawn totals. Four days have no product purchases. On live06 day21, conservation and the three-unit buy-request upper bound jointly establish three actual wheat purchases and zero loss. See `kb115lt2_v13_capacity_audit_20260928.md`. The modeled bound remains inherited from the original planner and is not an absolute 100-unit receipt guarantee in arbitrary worlds.
 
 ## Artifacts and next comparison
 
