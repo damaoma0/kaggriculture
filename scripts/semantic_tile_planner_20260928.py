@@ -184,6 +184,12 @@ def compile_plan(semantic, *, variant="reuse", config=None, lifetimes=None,
                 first, interval = {"COW":(8,2), "SHEEP":(6,3), "GOOSE":(4,1)}[sp]
                 pd=state[t].get("placed_day",0)
                 remaining=sum(night+1-pd>=first and (night+1-pd-first)%interval==0 for night in range(day,n-1))
+                if cfg.get("retire_policy") == "current_bank" and day == handoff:
+                    # With equal remaining production dates, preserve the
+                    # larger currently banked yield. The bank is observed now;
+                    # never reuse it to rank a forecasted retirement tomorrow.
+                    bonus = max(0, int(state[t].get("pending_care_bonus", 0))) if remaining else 0
+                    return (remaining, bonus, -shed_distance(t), -pd, t)
                 return (remaining, -shed_distance(t), -pd, t)
             # A placed animal can also miss its first feed today. Preserve the
             # existing-cohort preference, but defer a count deficit until the

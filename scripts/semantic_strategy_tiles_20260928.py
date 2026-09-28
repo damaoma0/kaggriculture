@@ -114,6 +114,13 @@ def build_plan(obs, proposal, memory=None, config=None):
     farm = obs["farms"][int(obs["player"])]
     cells = cells_from_farm(farm)
     prefix_all = memory.get("observed_prefix", empty_plan())
+    if config.get("retire_policy") == "current_bank":
+        # Public present-day bank only. It is not propagated into the policy's
+        # anonymous future cohorts or treated as a future realized yield.
+        for tile, cell in cells.items():
+            if cell.get("animal"):
+                raw = farm["tiles"][int(tile)//10][int(tile)%10]
+                cell["pending_care_bonus"] = int(raw.get("pending_care_bonus", 0))
     prefix = deepcopy(prefix_all)
     for field in ("plant", "struct_by_day", "animals_by_day", "harv_tiles", "removals", "hands", "cum_sold"):
         prefix[field] = prefix[field][:day]
@@ -270,7 +277,8 @@ def build_plan(obs, proposal, memory=None, config=None):
     by_crop = {crop: [p for p in plant_paths if p["crop"] == crop] for crop in CROPS}
     paths = dict(by_crop=by_crop, use_first_harvest_counts=False, diagnostics=[],
                  source="Policy forecast and observed crop birthdays; no recorded future")
-    plan = compile_plan(semantic, variant="reuse", lifetimes=paths)
+    compiler_config = {"retire_policy": config["retire_policy"]} if "retire_policy" in config else None
+    plan = compile_plan(semantic, variant="reuse", lifetimes=paths, config=compiler_config)
     today = plan["planner_metadata"]["daily"][0]
     # A forecasted exit is not an observed exit. Keep the intention until the
     # next actual board confirms disappearance, including an unexpected feed.

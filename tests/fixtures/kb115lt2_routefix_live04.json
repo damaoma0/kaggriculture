@@ -1,0 +1,1922 @@
+{
+  "provenance": {
+    "result_sha256": "bc09ff37d78763f69fcd8b039ccc7f0dd15ac8afc8d41251cb9c77137542dcc2",
+    "source_sha256": "1af7b98b1696b65b0c4a6746e1fa13557c06c5675610b938f63d7069fea70d39",
+    "original_executor_sha256": "527d4c48b5d6bbef7854d430797e8691858724242d50eeec1e1636665ee124e7",
+    "exact_action_prefix_calls": 192
+  },
+  "step": 170,
+  "day": 7,
+  "hour": 2,
+  "unit": 0,
+  "routes": {
+    "0": {
+      "items": [
+        {
+          "kind": "pick",
+          "item": "WHEAT",
+          "n": 3
+        },
+        {
+          "kind": "stop",
+          "tile": 44,
+          "ops": [
+            [
+              "FEED"
+            ],
+            [
+              "CARE"
+            ]
+          ],
+          "mand": [
+            true,
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 43,
+          "ops": [
+            [
+              "FEED"
+            ],
+            [
+              "CARE"
+            ]
+          ],
+          "mand": [
+            false,
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 42,
+          "ops": [
+            [
+              "COLLECT_FERTILIZER"
+            ],
+            [
+              "FEED"
+            ],
+            [
+              "CARE"
+            ]
+          ],
+          "mand": [
+            false,
+            false,
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 41,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 21,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 11,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 1,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 0,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 10,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        }
+      ],
+      "k": 1,
+      "sub": 0,
+      "kind": "out",
+      "waited": 0,
+      "wait": {},
+      "t0plan": 1,
+      "p0plan": 44,
+      "hold0": false,
+      "plan_hours": [
+        [
+          44,
+          "FEED",
+          2
+        ],
+        [
+          44,
+          "CARE",
+          3
+        ],
+        [
+          43,
+          "FEED",
+          5
+        ],
+        [
+          43,
+          "CARE",
+          6
+        ],
+        [
+          42,
+          "COLLECT_FERTILIZER",
+          8
+        ],
+        [
+          42,
+          "FEED",
+          9
+        ],
+        [
+          42,
+          "CARE",
+          10
+        ],
+        [
+          41,
+          "WATER",
+          12
+        ],
+        [
+          21,
+          "WATER",
+          15
+        ],
+        [
+          11,
+          "WATER",
+          17
+        ],
+        [
+          1,
+          "WATER",
+          19
+        ],
+        [
+          0,
+          "WATER",
+          21
+        ],
+        [
+          10,
+          "WATER",
+          23
+        ]
+      ],
+      "t0": 1,
+      "done": [
+        [
+          1,
+          44,
+          "PICKUP"
+        ]
+      ],
+      "_wheat_retry_pending": {
+        "step": 169,
+        "day": 7,
+        "unit": 0,
+        "route_id": 2166396900608,
+        "items_id": 2166397382720,
+        "cursor": 1,
+        "sub": 0,
+        "position": [
+          4,
+          4
+        ],
+        "inventory": 0,
+        "issued": 1,
+        "residual": 2,
+        "targets": {
+          "44": [
+            "COW",
+            0
+          ],
+          "43": [
+            "SHEEP",
+            0
+          ],
+          "42": [
+            "SHEEP",
+            0
+          ]
+        }
+      }
+    },
+    "1": {
+      "items": [
+        {
+          "kind": "pick",
+          "item": "WHEAT",
+          "n": 3
+        },
+        {
+          "kind": "stop",
+          "tile": 45,
+          "ops": [
+            [
+              "COLLECT_FERTILIZER"
+            ],
+            [
+              "CARE"
+            ]
+          ],
+          "mand": [
+            false,
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 46,
+          "ops": [
+            [
+              "COLLECT_FERTILIZER"
+            ],
+            [
+              "FEED"
+            ],
+            [
+              "CARE"
+            ]
+          ],
+          "mand": [
+            false,
+            true,
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 47,
+          "ops": [
+            [
+              "FEED"
+            ],
+            [
+              "CARE"
+            ]
+          ],
+          "mand": [
+            true,
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 37,
+          "ops": [
+            [
+              "COLLECT_FERTILIZER"
+            ],
+            [
+              "FEED"
+            ],
+            [
+              "CARE"
+            ]
+          ],
+          "mand": [
+            false,
+            true,
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 38,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 28,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        }
+      ],
+      "k": 0,
+      "sub": 0,
+      "kind": "out",
+      "waited": 1,
+      "wait": {},
+      "t0plan": 1,
+      "p0plan": 45,
+      "hold0": false,
+      "plan_hours": [
+        [
+          45,
+          "COLLECT_FERTILIZER",
+          2
+        ],
+        [
+          45,
+          "CARE",
+          3
+        ],
+        [
+          46,
+          "COLLECT_FERTILIZER",
+          5
+        ],
+        [
+          46,
+          "FEED",
+          6
+        ],
+        [
+          46,
+          "CARE",
+          7
+        ],
+        [
+          47,
+          "FEED",
+          9
+        ],
+        [
+          47,
+          "CARE",
+          10
+        ],
+        [
+          37,
+          "COLLECT_FERTILIZER",
+          12
+        ],
+        [
+          37,
+          "FEED",
+          13
+        ],
+        [
+          37,
+          "CARE",
+          14
+        ],
+        [
+          38,
+          "WATER",
+          16
+        ],
+        [
+          28,
+          "WATER",
+          18
+        ]
+      ]
+    },
+    "2": {
+      "items": [
+        {
+          "kind": "stop",
+          "tile": 44,
+          "ops": [
+            [
+              "COLLECT_FERTILIZER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 43,
+          "ops": [
+            [
+              "COLLECT_FERTILIZER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 40,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 30,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 20,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 22,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 12,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 2,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        }
+      ],
+      "k": 0,
+      "sub": 0,
+      "kind": "out",
+      "waited": 0,
+      "wait": {},
+      "t0plan": 1,
+      "p0plan": 54,
+      "hold0": false,
+      "plan_hours": [
+        [
+          44,
+          "COLLECT_FERTILIZER",
+          2
+        ],
+        [
+          43,
+          "COLLECT_FERTILIZER",
+          4
+        ],
+        [
+          40,
+          "WATER",
+          8
+        ],
+        [
+          30,
+          "WATER",
+          10
+        ],
+        [
+          20,
+          "WATER",
+          12
+        ],
+        [
+          22,
+          "WATER",
+          15
+        ],
+        [
+          12,
+          "WATER",
+          17
+        ],
+        [
+          2,
+          "WATER",
+          19
+        ]
+      ]
+    },
+    "3": {
+      "items": [],
+      "k": 0,
+      "sub": 0,
+      "kind": "out",
+      "waited": 0,
+      "wait": {},
+      "t0plan": 1,
+      "p0plan": 55,
+      "hold0": false,
+      "plan_hours": []
+    },
+    "4": {
+      "items": [
+        {
+          "kind": "stop",
+          "tile": 35,
+          "ops": [
+            [
+              "COLLECT_FERTILIZER"
+            ],
+            [
+              "CARE"
+            ]
+          ],
+          "mand": [
+            false,
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 36,
+          "ops": [
+            [
+              "COLLECT_FERTILIZER"
+            ],
+            [
+              "CARE"
+            ]
+          ],
+          "mand": [
+            false,
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 47,
+          "ops": [
+            [
+              "COLLECT_FERTILIZER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 49,
+          "ops": [
+            [
+              "PLANT",
+              "STRAWBERRY"
+            ],
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            true,
+            true
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 39,
+          "ops": [
+            [
+              "PLANT",
+              "STRAWBERRY"
+            ],
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            true,
+            true
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 29,
+          "ops": [
+            [
+              "PLANT",
+              "STRAWBERRY"
+            ],
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            true,
+            true
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 19,
+          "ops": [
+            [
+              "PLANT",
+              "STRAWBERRY"
+            ],
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            true,
+            true
+          ],
+          "rel": 0
+        }
+      ],
+      "k": 0,
+      "sub": 0,
+      "kind": "out",
+      "waited": 0,
+      "wait": {},
+      "t0plan": 1,
+      "p0plan": 44,
+      "hold0": false,
+      "plan_hours": [
+        [
+          35,
+          "COLLECT_FERTILIZER",
+          3
+        ],
+        [
+          35,
+          "CARE",
+          4
+        ],
+        [
+          36,
+          "COLLECT_FERTILIZER",
+          6
+        ],
+        [
+          36,
+          "CARE",
+          7
+        ],
+        [
+          47,
+          "COLLECT_FERTILIZER",
+          10
+        ],
+        [
+          49,
+          "PLANT",
+          13
+        ],
+        [
+          49,
+          "WATER",
+          14
+        ],
+        [
+          39,
+          "PLANT",
+          16
+        ],
+        [
+          39,
+          "WATER",
+          17
+        ],
+        [
+          29,
+          "PLANT",
+          19
+        ],
+        [
+          29,
+          "WATER",
+          20
+        ],
+        [
+          19,
+          "PLANT",
+          22
+        ],
+        [
+          19,
+          "WATER",
+          23
+        ]
+      ]
+    },
+    "5": {
+      "items": [
+        {
+          "kind": "pick",
+          "item": "WHEAT",
+          "n": 3
+        },
+        {
+          "kind": "pick",
+          "item": "COW",
+          "n": 1
+        },
+        {
+          "kind": "stop",
+          "tile": 45,
+          "ops": [
+            [
+              "FEED"
+            ]
+          ],
+          "mand": [
+            true
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 35,
+          "ops": [
+            [
+              "FEED"
+            ]
+          ],
+          "mand": [
+            true
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 36,
+          "ops": [
+            [
+              "FEED"
+            ]
+          ],
+          "mand": [
+            true
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 26,
+          "ops": [
+            [
+              "BUILD_PASTURE"
+            ],
+            [
+              "PLACE",
+              "COW"
+            ]
+          ],
+          "mand": [
+            true,
+            true
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 27,
+          "ops": [
+            [
+              "PLANT",
+              "STRAWBERRY"
+            ],
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            true,
+            true
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 17,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 18,
+          "ops": [
+            [
+              "PLANT",
+              "STRAWBERRY"
+            ],
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            true,
+            true
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 8,
+          "ops": [
+            [
+              "PLANT",
+              "STRAWBERRY"
+            ],
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            true,
+            true
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 7,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        }
+      ],
+      "k": 0,
+      "sub": 0,
+      "kind": "out",
+      "waited": 1,
+      "wait": {},
+      "t0plan": 1,
+      "p0plan": 45,
+      "hold0": false,
+      "plan_hours": [
+        [
+          45,
+          "FEED",
+          3
+        ],
+        [
+          35,
+          "FEED",
+          5
+        ],
+        [
+          36,
+          "FEED",
+          7
+        ],
+        [
+          26,
+          "BUILD_PASTURE",
+          9
+        ],
+        [
+          26,
+          "PLACE",
+          10
+        ],
+        [
+          27,
+          "PLANT",
+          12
+        ],
+        [
+          27,
+          "WATER",
+          13
+        ],
+        [
+          17,
+          "WATER",
+          15
+        ],
+        [
+          18,
+          "PLANT",
+          17
+        ],
+        [
+          18,
+          "WATER",
+          18
+        ],
+        [
+          8,
+          "PLANT",
+          20
+        ],
+        [
+          8,
+          "WATER",
+          21
+        ],
+        [
+          7,
+          "WATER",
+          23
+        ]
+      ]
+    },
+    "6": {
+      "items": [],
+      "k": 0,
+      "sub": 0,
+      "kind": "out",
+      "waited": 0,
+      "wait": {},
+      "t0plan": 1,
+      "p0plan": 54,
+      "hold0": false,
+      "plan_hours": []
+    },
+    "7": {
+      "items": [],
+      "k": 0,
+      "sub": 0,
+      "kind": "out",
+      "waited": 0,
+      "wait": {},
+      "t0plan": 1,
+      "p0plan": 55,
+      "hold0": false,
+      "plan_hours": []
+    },
+    "8": {
+      "items": [
+        {
+          "kind": "pick",
+          "item": "WHEAT",
+          "n": 2
+        },
+        {
+          "kind": "stop",
+          "tile": 34,
+          "ops": [
+            [
+              "FEED"
+            ],
+            [
+              "CARE"
+            ]
+          ],
+          "mand": [
+            false,
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 24,
+          "ops": [
+            [
+              "FEED"
+            ],
+            [
+              "CARE"
+            ]
+          ],
+          "mand": [
+            true,
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 14,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 4,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 3,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 13,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 23,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 33,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 32,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 31,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        }
+      ],
+      "k": 0,
+      "sub": 0,
+      "kind": "out",
+      "waited": 1,
+      "wait": {},
+      "t0plan": 1,
+      "p0plan": 44,
+      "hold0": false,
+      "plan_hours": [
+        [
+          34,
+          "FEED",
+          3
+        ],
+        [
+          34,
+          "CARE",
+          4
+        ],
+        [
+          24,
+          "FEED",
+          6
+        ],
+        [
+          24,
+          "CARE",
+          7
+        ],
+        [
+          14,
+          "WATER",
+          9
+        ],
+        [
+          4,
+          "WATER",
+          11
+        ],
+        [
+          3,
+          "WATER",
+          13
+        ],
+        [
+          13,
+          "WATER",
+          15
+        ],
+        [
+          23,
+          "WATER",
+          17
+        ],
+        [
+          33,
+          "WATER",
+          19
+        ],
+        [
+          32,
+          "WATER",
+          21
+        ],
+        [
+          31,
+          "WATER",
+          23
+        ]
+      ]
+    },
+    "9": {
+      "items": [
+        {
+          "kind": "stop",
+          "tile": 16,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 5,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 15,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 25,
+          "ops": [
+            [
+              "WATER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 24,
+          "ops": [
+            [
+              "COLLECT_FERTILIZER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        },
+        {
+          "kind": "stop",
+          "tile": 34,
+          "ops": [
+            [
+              "COLLECT_FERTILIZER"
+            ]
+          ],
+          "mand": [
+            false
+          ],
+          "rel": 0
+        }
+      ],
+      "k": 0,
+      "sub": 0,
+      "kind": "out",
+      "waited": 0,
+      "wait": {},
+      "t0plan": 1,
+      "p0plan": 45,
+      "hold0": false,
+      "plan_hours": [
+        [
+          16,
+          "WATER",
+          5
+        ],
+        [
+          5,
+          "WATER",
+          8
+        ],
+        [
+          15,
+          "WATER",
+          10
+        ],
+        [
+          25,
+          "WATER",
+          12
+        ],
+        [
+          24,
+          "COLLECT_FERTILIZER",
+          14
+        ],
+        [
+          34,
+          "COLLECT_FERTILIZER",
+          16
+        ]
+      ]
+    }
+  },
+  "retirements": [],
+  "inventory": {
+    "WHEAT": 1
+  },
+  "shed": {
+    "WHEAT": 10
+  },
+  "tiles": [
+    [
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 2,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 3,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 3,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "MELON",
+        "planted_day": 1,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 1,
+        "max_lifespan_step": 336,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "MELON",
+        "planted_day": 1,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 1,
+        "max_lifespan_step": 336,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 6,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      null,
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 6,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      null,
+      null
+    ],
+    [
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 2,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 2,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 3,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "MELON",
+        "planted_day": 0,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 2,
+        "max_lifespan_step": 312,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "MELON",
+        "planted_day": 0,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 2,
+        "max_lifespan_step": 312,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 6,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 6,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 6,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      null,
+      null
+    ],
+    [
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 3,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "MELON",
+        "planted_day": 0,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 2,
+        "max_lifespan_step": 312,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 4,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "MELON",
+        "planted_day": 0,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 2,
+        "max_lifespan_step": 312,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PASTURE",
+        "animal": "COW",
+        "placed_day": 0,
+        "yield_units": 0,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 5
+      },
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 6,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      null,
+      null,
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 6,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      null
+    ],
+    [
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 3,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "MELON",
+        "planted_day": 0,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 2,
+        "max_lifespan_step": 312,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "MELON",
+        "planted_day": 1,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 1,
+        "max_lifespan_step": 336,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "MELON",
+        "planted_day": 1,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 1,
+        "max_lifespan_step": 336,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 0,
+        "yield_units": 0,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 2
+      },
+      {
+        "kind": "PASTURE",
+        "animal": "COW",
+        "placed_day": 6,
+        "yield_units": 0,
+        "consecutive_unfed": 1,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 0
+      },
+      {
+        "kind": "PASTURE",
+        "animal": "COW",
+        "placed_day": 6,
+        "yield_units": 0,
+        "consecutive_unfed": 1,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 0
+      },
+      {
+        "kind": "PASTURE",
+        "animal": "COW",
+        "placed_day": 6,
+        "yield_units": 0,
+        "consecutive_unfed": 1,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 0
+      },
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 6,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      null
+    ],
+    [
+      {
+        "kind": "PLANT",
+        "crop": "STRAWBERRY",
+        "planted_day": 2,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 0,
+        "max_lifespan_step": -1,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PLANT",
+        "crop": "MELON",
+        "planted_day": 0,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 2,
+        "max_lifespan_step": 312,
+        "fertilized_until_day": -1
+      },
+      {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 0,
+        "yield_units": 0,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 2
+      },
+      {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 0,
+        "yield_units": 0,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 2
+      },
+      {
+        "kind": "PASTURE",
+        "animal": "COW",
+        "placed_day": 0,
+        "yield_units": 0,
+        "consecutive_unfed": 1,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 5
+      },
+      {
+        "kind": "PASTURE",
+        "animal": "COW",
+        "placed_day": 6,
+        "yield_units": 0,
+        "consecutive_unfed": 1,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 0
+      },
+      {
+        "kind": "PASTURE",
+        "animal": "COW",
+        "placed_day": 6,
+        "yield_units": 0,
+        "consecutive_unfed": 1,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 0
+      },
+      {
+        "kind": "PASTURE",
+        "animal": "COW",
+        "placed_day": 6,
+        "yield_units": 0,
+        "consecutive_unfed": 1,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 0
+      },
+      {
+        "kind": "PLANT",
+        "crop": "WHEAT",
+        "planted_day": 6,
+        "watered_today": false,
+        "consecutive_unwatered": 0,
+        "yield_units": 1,
+        "max_lifespan_step": 264,
+        "fertilized_until_day": -1
+      },
+      null
+    ],
+    [
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED"
+    ],
+    [
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED"
+    ],
+    [
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED"
+    ],
+    [
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED"
+    ],
+    [
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED",
+      "LOCKED"
+    ]
+  ],
+  "position": [
+    4,
+    4
+  ],
+  "expected": {
+    "step": 170,
+    "unit": 0,
+    "residual": 2,
+    "deficit": 2,
+    "stock": 10,
+    "other_normal_claims": 8,
+    "quantity": 2,
+    "finish_hour_exclusive": 25,
+    "reason": "no_time"
+  }
+}
