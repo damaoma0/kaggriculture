@@ -1,0 +1,15 @@
+# Runtime heap audit (read-only, 2026-09-28)
+
+The current frozen live benchmark runs both agents in one CPython process per game. Its fresh child per game prevents state carrying across games, but does not isolate the two agents within a game.
+
+Evidence from frozen V12 (the same harness as V8): `harness/semantic_strategy_gate_20260928.py:319` and `:325` load both entry points into the same `entries` dictionary. `:372` passes their callable wrappers into `TV._play`. Installed kaggle-environments1.32.7 `agent.py:125` treats callable agents as nonparallelizable; `core.py:741` consequently uses ordinary `map`, not a process per player. Both agents and engine allocations therefore share the process GC heap.
+
+There is a further interaction: the frozen opponent package's `main.py:205–217` calls `gc.freeze()` immediately before each V9 search and `gc.unfreeze()` in `finally`. These are process-global operations. In this benchmark they include the candidate's and engine's preexisting objects. This is unchanged opponent source; no experiment changed GC settings. Its effect on the timing of later collections has not yet been measured in a live game.
+
+The saved-action profile captured D18 and D24 with GC enabled: each spent less than0.005seconds collecting, with no generation2 collection. These calls used about0.5GiB RSS and did not contain the live opponent's persistent search heap. They cannot disprove a shared-heap GC problem in live matchups. The diagnostic itself exceeded the normal time bank at D25H0 because profiling was charged normally; its whole-game verification is false and the raw failure is retained.
+
+V12's live06 technical smoke completed normally with48.4595seconds of candidate overage and11.5379seconds remaining. Its full cash and both ledgers equal V8, with all physical commands equal and two distinct-product SELL order permutations. The snapshot-only frozen-V8 replay also reproduced full cash/ledgers and all30 dawn states, using about19.69seconds of overage. These runs differ in executor, wrapper, opponent presence and timing context; the difference is evidence to investigate, not an isolated GC estimate.
+
+The official [Kaggle environments repository](https://github.com/Kaggle/kaggle-environments#running-agents-on-separate-servers) documents separate agent servers and multicontainer testing. That supports an available isolation architecture, not a verified statement about this competition's deployed topology. The competition's public evaluation page returned no readable infrastructure details. Prior project notes calling the package file loader an “official runner” demonstrate loader/time-accounting compatibility, not per-agent process isolation.
+
+No frozen harness, timeout, GC behavior or outcome eligibility was changed by this audit. A future diagnostic should measure passive GC callbacks inside a live candidate's existing callback clock. Any separate-process benchmark would need explicit source-bound validation of observations, actions, ledgers, time accounting and opponent behavior before becoming a replacement protocol.
