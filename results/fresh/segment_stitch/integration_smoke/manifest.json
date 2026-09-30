@@ -1,0 +1,31 @@
+{
+  "created_utc": "2026-09-22T11:03:23Z",
+  "agents": [
+    "mgt_segment_stitch",
+    "mgt_segment_state"
+  ],
+  "opponents": [
+    "v56"
+  ],
+  "seeds": [
+    94022000,
+    94022001
+  ],
+  "seats": [
+    0,
+    1
+  ],
+  "episode_steps": 720,
+  "expected_games": 8,
+  "source_paths": {
+    "mgt_segment_state": "results\\fresh\\segment_stitch\\integration_smoke\\frozen\\mgt_segment_state.py",
+    "v56": "results\\fresh\\segment_stitch\\integration_smoke\\frozen\\v56.py",
+    "mgt_segment_stitch": "results\\fresh\\segment_stitch\\integration_smoke\\frozen\\mgt_segment_stitch.py"
+  },
+  "source_hashes": {
+    "mgt_segment_state": "68275ffeb45eb4850748878e1c2b7f4c6af32a29dd77fcde6ff13db2305ae4d8",
+    "v56": "a1ad0fd1d174477ee2cbdd561a812bcb7029647ce34599e79d6b79e9057eff6c",
+    "mgt_segment_stitch": "6b701b9691a45f4f1d97cdaf7397b2c4410fae903d16ca1e9efccb678f50e903"
+  },
+  "design": "Natural RNG Kaggriculture games; fresh process per game; no forced shops or early stopping."
+}

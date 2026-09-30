@@ -1,0 +1,19 @@
+{
+  "id": "109740300-milk-care-to-wool-d17-diagnostic",
+  "base_tape_episode": 109740300,
+  "parent_variant": "109740300-milk-care-to-wool-v1",
+  "status": "diagnostic_only",
+  "enabled_days": [
+    17
+  ],
+  "source": "results\\fresh\\store_mismatch_shift_20260923\\care_grid\\agent-17.py",
+  "source_sha256": "e94d5dde44d62a979e2683851ab6f1688c2d32c874a93d0ce886621eca27399a",
+  "discovery_episode": 111678108,
+  "discovery_seed": 1464643264,
+  "full_game_margin_delta": 237.0,
+  "full_game_harvest_delta": {
+    "MILK": -1,
+    "WOOL": 1
+  },
+  "meaning": "Best of eight eligible-day subsets in one discovery world under fixed recorded opponent commands; no independent or responsive-opponent confirmation."
+}

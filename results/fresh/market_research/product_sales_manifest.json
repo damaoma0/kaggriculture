@@ -1,0 +1,32 @@
+{
+  "engine": "1.32.7",
+  "seeds": [
+    100000,
+    100001,
+    100002,
+    100003
+  ],
+  "modes": [
+    "baseline",
+    "current",
+    "visible"
+  ],
+  "opponents": [
+    "sixday",
+    "pasture"
+  ],
+  "selection": {
+    "method": "visible",
+    "criterion": "Lowest normalized 24-turn MAE, training seeds and sixday opponent only",
+    "dp_horizon": 24,
+    "lot_size": 10
+  },
+  "change": "Adds EGG, MILK, WOOL to eligible goods. These account for substantial router production. Uses same forecast and DP; no parameter tuning. Fresh seeds reserved before running.",
+  "sources": {
+    "agents\\market_sales_dp_products.py": "cd8ad906116babc9183bb3530eb0f8d83206a5f7055c50591d14f13d8a3e551f",
+    "agents\\market_forecast.py": "3afc6b2b7b48ee3a3be57cb01f4105a2e4cb476c2babf09846053ce212afa74f",
+    "agents\\public\\tschinkel_router_v31.py": "e50d3c7b54c051b880fd7b68ed2aa8f954331d6f892b8fb5dca788223b27c24c",
+    "data\\public_candidates\\thomastschinkel\\extracted\\main.py": "91772fda544e2d5768afff819e2de75ecb7a12db8acb40a48ee9edcf76aca434",
+    "data\\public_candidates\\indarkarhana\\extracted\\agents\\e776a_engine_exact_latent_pasture.py": "2c603fd6f9bf978d7e8eef78a34647bd379d0e89963ada0cbb1c52c39b0f4b3f"
+  }
+}

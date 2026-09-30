@@ -1,0 +1,54 @@
+{
+  "games": 8,
+  "mean_gap": 26560.5,
+  "revenue_gap": {
+    "FERTILIZER": 4196.5,
+    "WOOL": 6697.5,
+    "MELON": 0.0,
+    "WHEAT": 6834.75,
+    "CARROT": -2231.5,
+    "STRAWBERRY": 2273.25,
+    "MILK": 16505.0,
+    "EGG": 166.5
+  },
+  "volume_component": {
+    "FERTILIZER": 3700.515922540093,
+    "WOOL": 7700.365956001306,
+    "MELON": 0.0,
+    "WHEAT": 8733.482532143404,
+    "CARROT": -2314.4642973856207,
+    "STRAWBERRY": 2911.946806451598,
+    "MILK": 17236.87144757567,
+    "EGG": 142.7502109704641
+  },
+  "price_component": {
+    "FERTILIZER": 495.9840774599067,
+    "WOOL": -1002.865956001305,
+    "MELON": 0.0,
+    "WHEAT": -1898.7325321434034,
+    "CARROT": 82.96429738562097,
+    "STRAWBERRY": -638.6968064515992,
+    "MILK": -731.8714475756726,
+    "EGG": 23.74978902953574
+  },
+  "spend_gap": {
+    "BUY_ANIMAL:SHEEP": 875.0,
+    "BUY_SEED:CARROT": -310.0,
+    "BUY_SEED:STRAWBERRY": 100.0,
+    "BUY_SEED:MELON": 0.0,
+    "BUY_ANIMAL:GOOSE": 150.0,
+    "BUY_ANIMAL:COW": 500.0,
+    "BUY_LAND": 0.0,
+    "BUY_PRODUCT:FERTILIZER": -28.5,
+    "HIRE": -217.5,
+    "BUY_SEED:WHEAT": 137.5,
+    "BUY_PRODUCT:WHEAT": 6675.0
+  },
+  "cash_gap_at_turn": {
+    "0": 0.0,
+    "144": 65.75,
+    "288": 2514.25,
+    "432": 9139.5,
+    "576": 17450.75
+  }
+}

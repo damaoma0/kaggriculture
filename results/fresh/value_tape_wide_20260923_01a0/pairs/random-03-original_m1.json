@@ -1,0 +1,41 @@
+{
+  "spec": {
+    "world": 3,
+    "seed": 1676803960,
+    "seat": 1,
+    "shops": [
+      "SMOOTHIE_SHOP",
+      "BAKERY",
+      "FARMERS_MARKET",
+      "FARMERS_MARKET",
+      "FARMERS_MARKET",
+      "SMOOTHIE_SHOP",
+      "PET_CAFE",
+      "BAKERY"
+    ],
+    "id": "random-03-original_m1",
+    "kind": "live",
+    "opponent": "original_m1"
+  },
+  "completed": true,
+  "baseline_margin": 0.0,
+  "candidate_margin": 5590.0,
+  "baseline_cash": 111897.0,
+  "candidate_cash": 116846.0,
+  "baseline_rival_cash": 111897.0,
+  "candidate_rival_cash": 111256.0,
+  "margin_delta": 5590.0,
+  "cash_delta": 4949.0,
+  "rival_delta": -641.0,
+  "selected": [
+    432,
+    null,
+    null
+  ],
+  "intervened": true,
+  "actions_changed": true,
+  "baseline_bank": 59.35817570000654,
+  "candidate_bank": 52.41299530008109,
+  "baseline_divergence": null,
+  "candidate_divergence": null
+}

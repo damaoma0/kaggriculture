@@ -1,0 +1,70 @@
+{
+  "name": "public-router",
+  "config": {
+    "opening": "public-router"
+  },
+  "seed": 86301,
+  "future_seed": 96301,
+  "seat": 0,
+  "tail_losses": {
+    "premature_crop": 1
+  },
+  "continuation": "router",
+  "day9": {
+    "cash": 936.0,
+    "shed_sale_value_no_other_trades": 1187,
+    "crops": {
+      "WHEAT": 5,
+      "STRAWBERRY": 20,
+      "MELON": 12
+    },
+    "animals": {
+      "COW": 9,
+      "SHEEP": 4
+    },
+    "land_tiles": 50
+  },
+  "opening_losses": {
+    "crop": 0,
+    "animal": 0
+  },
+  "our_final": 103801.0,
+  "router_final": 103801.0,
+  "margin": 0.0,
+  "max_opening_ms": 0.702000004821457,
+  "checkpoints": {
+    "3": {
+      "ours": 144.0,
+      "router": 144.0
+    },
+    "6": {
+      "ours": 215.0,
+      "router": 215.0
+    },
+    "9": {
+      "ours": 936.0,
+      "router": 936.0
+    },
+    "12": {
+      "ours": 14566.0,
+      "router": 14566.0
+    },
+    "15": {
+      "ours": 25541.0,
+      "router": 25541.0
+    },
+    "20": {
+      "ours": 55723.0,
+      "router": 55723.0
+    },
+    "25": {
+      "ours": 83767.0,
+      "router": 83767.0
+    },
+    "29": {
+      "ours": 97620.0,
+      "router": 97620.0
+    }
+  },
+  "seconds": 6.144282499997644
+}

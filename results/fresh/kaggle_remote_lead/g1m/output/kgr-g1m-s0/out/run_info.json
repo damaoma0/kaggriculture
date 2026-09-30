@@ -1,0 +1,28 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/lead_ablation.py",
+   "run",
+   "E2cg1,E2cg2,Gcg1",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/lead_agent_20260924/abl_*/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 36,
+ "pip_seconds": 56.75439739227295,
+ "run_seconds": 260.70895171165466,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "clean9 = the fixed 9 games of the ablation (no cell A-X collapses the opponent there); games where no listed cell has the opponent below 0.8x: 11"
+ ],
+ "stderr_tail": []
+}

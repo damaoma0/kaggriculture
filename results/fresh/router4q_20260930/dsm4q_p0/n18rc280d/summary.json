@@ -1,0 +1,66 @@
+[
+ {
+  "case": {
+   "id": "dsm4q-115547341",
+   "episode": "115547341",
+   "seed": 1085390633,
+   "seat": 1,
+   "file": "recordings_dsm4q/115547341.json.gz",
+   "sha256": "f82e4851a66d06ae2cbb11c070a418837593ea370c63d8409b55fd9e9ecb2bd0",
+   "opponent": "WarRusher",
+   "replaced": "DSM new 56692773 (exact prefix, our seat)",
+   "recorded_margin": 7609.0
+  },
+  "completed": true,
+  "eligible": true,
+  "cash": 114488.0,
+  "opponent_cash": 124517.0,
+  "margin": -10029.0,
+  "measured_overage_used": [
+   0.0,
+   10.294067599694245
+  ],
+  "wall_seconds": 38.90047340001911,
+  "error": null,
+  "opponent_health_failure": null,
+  "recorded_rival_audit": {
+   "additional_failed_commands": 0,
+   "material_command_break": false,
+   "control_sha256": "08089d25125d68fe7f730db8a41077979ea6e35960f7761465bdf6b5313101bb",
+   "additional_missing_worker_commands": 0,
+   "failures_by_day": [
+    2,
+    2,
+    0,
+    0,
+    2,
+    0,
+    0,
+    2,
+    1,
+    8,
+    3,
+    1,
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ],
+   "note": "Frozen commands cannot react to counterfactual prices. Passing this necessary screen is not proof of live policy equivalence."
+  }
+ }
+]

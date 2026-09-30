@@ -1,0 +1,14 @@
+{
+  "candidate": "smoke_v1",
+  "split": "development",
+  "mode": "recorded",
+  "expected": 8,
+  "recorded": 8,
+  "valid": 8,
+  "gate_complete": true,
+  "eligible_wins": 1,
+  "invalid_cases": [],
+  "missing_cases": [],
+  "mean_valid_margin": -7240.0,
+  "warning": "No success claim from an incomplete gate; invalid cases are not removed from its planned denominator."
+}

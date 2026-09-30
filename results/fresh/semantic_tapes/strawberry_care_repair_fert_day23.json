@@ -1,0 +1,942 @@
+{
+  "episode": 111287532,
+  "fertilizer_day_for_1_9": 23,
+  "jobs": [
+    {
+      "unit": 3,
+      "insert_index": 1,
+      "old_finish": 23,
+      "new_finish": 24,
+      "extra_work": [
+        "(3, (2, 3), ('WATER',), ())"
+      ],
+      "day": 23,
+      "pos": [
+        2,
+        3
+      ],
+      "operation": "WATER"
+    },
+    {
+      "day": 23,
+      "pos": [
+        1,
+        9
+      ],
+      "operation": "FERTILIZE",
+      "failed": true
+    },
+    {
+      "unit": 6,
+      "insert_index": 1,
+      "old_finish": 19,
+      "new_finish": 19,
+      "extra_work": [
+        "(6, (1, 6), ('FERTILIZE',), (('FERTILIZER', -1),))"
+      ],
+      "day": 24,
+      "pos": [
+        1,
+        6
+      ],
+      "operation": "FERTILIZE"
+    },
+    {
+      "unit": 6,
+      "insert_index": 1,
+      "old_finish": 19,
+      "new_finish": 20,
+      "extra_work": [
+        "(6, (1, 6), ('WATER',), ())"
+      ],
+      "day": 24,
+      "pos": [
+        1,
+        6
+      ],
+      "operation": "WATER"
+    },
+    {
+      "unit": 7,
+      "insert_index": 4,
+      "old_finish": 16,
+      "new_finish": 18,
+      "extra_work": [
+        "(7, (1, 9), ('WATER',), ())"
+      ],
+      "day": 25,
+      "pos": [
+        1,
+        9
+      ],
+      "operation": "WATER"
+    },
+    {
+      "unit": 7,
+      "insert_index": 5,
+      "old_finish": 23,
+      "new_finish": 24,
+      "extra_work": [
+        "(7, (1, 9), ('HARVEST',), (('STRAWBERRY', 3),))"
+      ],
+      "day": 27,
+      "pos": [
+        1,
+        9
+      ],
+      "operation": "HARVEST"
+    },
+    {
+      "unit": 6,
+      "insert_index": 0,
+      "old_finish": 16,
+      "new_finish": 17,
+      "extra_work": [
+        "(6, (4, 6), ('WATER',), ())"
+      ],
+      "day": 28,
+      "pos": [
+        4,
+        6
+      ],
+      "operation": "WATER"
+    }
+  ],
+  "cash": [
+    117515.0,
+    112012.0
+  ],
+  "margin": -5503.0,
+  "economic": [
+    {
+      "revenue": {
+        "FERTILIZER": 11603,
+        "WHEAT": 17325,
+        "WOOL": 50795,
+        "MILK": 4932,
+        "MELON": 15228,
+        "STRAWBERRY": 22163,
+        "EGG": 1687,
+        "TOMATO": 8257,
+        "CARROT": 6465
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 5043,
+        "HIRE": 5900.0,
+        "BUY_ANIMAL:COW": 2000,
+        "BUY_ANIMAL:SHEEP": 5500,
+        "BUY_SEED:MELON": 1120,
+        "BUY_SEED:WHEAT": 1640,
+        "BUY_SEED:CARROT": 1080,
+        "BUY_SEED:STRAWBERRY": 2200,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 860,
+        "BUY_ANIMAL:GOOSE": 300,
+        "BUY_SEED:TOMATO": 800
+      },
+      "units": {
+        "FERTILIZER": 201,
+        "WHEAT": 468,
+        "WOOL": 262,
+        "MILK": 119,
+        "MELON": 83,
+        "STRAWBERRY": 127,
+        "EGG": 28,
+        "TOMATO": 119,
+        "CARROT": 156
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 13311,
+        "FERTILIZER": 15262,
+        "WOOL": 52889,
+        "MILK": 5340,
+        "MELON": 14231,
+        "STRAWBERRY": 40174,
+        "CARROT": 3071
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 6333,
+        "HIRE": 5083.0,
+        "BUY_ANIMAL:COW": 2400,
+        "BUY_ANIMAL:SHEEP": 5500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:WHEAT": 1650,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 977,
+        "BUY_SEED:CARROT": 560
+      },
+      "units": {
+        "WHEAT": 378,
+        "FERTILIZER": 330,
+        "WOOL": 278,
+        "MILK": 151,
+        "MELON": 72,
+        "STRAWBERRY": 238,
+        "CARROT": 79
+      }
+    }
+  ],
+  "our_strawberry_harvest": 133,
+  "target_plants": [
+    {
+      "seat": 1,
+      "pos": [
+        2,
+        3
+      ],
+      "plant_hour": 302,
+      "plant_day": 12,
+      "harvests": [
+        {
+          "hour": 535,
+          "day": 22,
+          "hour_of_day": 7,
+          "units": 2
+        },
+        {
+          "hour": 612,
+          "day": 25,
+          "hour_of_day": 12,
+          "units": 2
+        },
+        {
+          "hour": 681,
+          "day": 28,
+          "hour_of_day": 9,
+          "units": 4
+        }
+      ],
+      "ticks": [
+        {
+          "seat": 1,
+          "pos": [
+            2,
+            3
+          ],
+          "planted_day": 12,
+          "production_day": 22,
+          "production_number": 1,
+          "possible_units": 2,
+          "gained_units": 2,
+          "cap_loss": 0,
+          "held_before": 0,
+          "held_after": 2,
+          "watered": true,
+          "survived": true
+        },
+        {
+          "seat": 1,
+          "pos": [
+            2,
+            3
+          ],
+          "planted_day": 12,
+          "production_day": 24,
+          "production_number": 2,
+          "possible_units": 2,
+          "gained_units": 2,
+          "cap_loss": 0,
+          "held_before": 0,
+          "held_after": 2,
+          "watered": true,
+          "survived": true
+        },
+        {
+          "seat": 1,
+          "pos": [
+            2,
+            3
+          ],
+          "planted_day": 12,
+          "production_day": 26,
+          "production_number": 3,
+          "possible_units": 2,
+          "gained_units": 2,
+          "cap_loss": 0,
+          "held_before": 0,
+          "held_after": 2,
+          "watered": true,
+          "survived": true
+        },
+        {
+          "seat": 1,
+          "pos": [
+            2,
+            3
+          ],
+          "planted_day": 12,
+          "production_day": 28,
+          "production_number": 4,
+          "possible_units": 2,
+          "gained_units": 2,
+          "cap_loss": 0,
+          "held_before": 2,
+          "held_after": 4,
+          "watered": true,
+          "survived": true
+        }
+      ],
+      "production_ticks": 4,
+      "yield_generated": 8,
+      "yield_lost_to_tile_cap": 0,
+      "harvested_units": 8
+    },
+    {
+      "seat": 1,
+      "pos": [
+        1,
+        9
+      ],
+      "plant_hour": 306,
+      "plant_day": 12,
+      "harvests": [
+        {
+          "hour": 574,
+          "day": 23,
+          "hour_of_day": 22,
+          "units": 2
+        },
+        {
+          "hour": 669,
+          "day": 27,
+          "hour_of_day": 21,
+          "units": 3
+        },
+        {
+          "hour": 689,
+          "day": 28,
+          "hour_of_day": 17,
+          "units": 2
+        }
+      ],
+      "ticks": [
+        {
+          "seat": 1,
+          "pos": [
+            1,
+            9
+          ],
+          "planted_day": 12,
+          "production_day": 22,
+          "production_number": 1,
+          "possible_units": 2,
+          "gained_units": 2,
+          "cap_loss": 0,
+          "held_before": 0,
+          "held_after": 2,
+          "watered": true,
+          "survived": true
+        },
+        {
+          "seat": 1,
+          "pos": [
+            1,
+            9
+          ],
+          "planted_day": 12,
+          "production_day": 24,
+          "production_number": 2,
+          "possible_units": 2,
+          "gained_units": 2,
+          "cap_loss": 0,
+          "held_before": 0,
+          "held_after": 2,
+          "watered": true,
+          "survived": true
+        },
+        {
+          "seat": 1,
+          "pos": [
+            1,
+            9
+          ],
+          "planted_day": 12,
+          "production_day": 26,
+          "production_number": 3,
+          "possible_units": 1,
+          "gained_units": 1,
+          "cap_loss": 0,
+          "held_before": 2,
+          "held_after": 3,
+          "watered": true,
+          "survived": true
+        },
+        {
+          "seat": 1,
+          "pos": [
+            1,
+            9
+          ],
+          "planted_day": 12,
+          "production_day": 28,
+          "production_number": 4,
+          "possible_units": 2,
+          "gained_units": 2,
+          "cap_loss": 0,
+          "held_before": 0,
+          "held_after": 2,
+          "watered": true,
+          "survived": true
+        }
+      ],
+      "production_ticks": 4,
+      "yield_generated": 7,
+      "yield_lost_to_tile_cap": 0,
+      "harvested_units": 7
+    },
+    {
+      "seat": 1,
+      "pos": [
+        4,
+        6
+      ],
+      "plant_hour": 365,
+      "plant_day": 15,
+      "harvests": [
+        {
+          "hour": 652,
+          "day": 27,
+          "hour_of_day": 4,
+          "units": 4
+        },
+        {
+          "hour": 699,
+          "day": 29,
+          "hour_of_day": 3,
+          "units": 2
+        }
+      ],
+      "ticks": [
+        {
+          "seat": 1,
+          "pos": [
+            4,
+            6
+          ],
+          "planted_day": 15,
+          "production_day": 25,
+          "production_number": 1,
+          "possible_units": 2,
+          "gained_units": 2,
+          "cap_loss": 0,
+          "held_before": 0,
+          "held_after": 2,
+          "watered": true,
+          "survived": true
+        },
+        {
+          "seat": 1,
+          "pos": [
+            4,
+            6
+          ],
+          "planted_day": 15,
+          "production_day": 27,
+          "production_number": 2,
+          "possible_units": 2,
+          "gained_units": 2,
+          "cap_loss": 0,
+          "held_before": 2,
+          "held_after": 4,
+          "watered": true,
+          "survived": true
+        },
+        {
+          "seat": 1,
+          "pos": [
+            4,
+            6
+          ],
+          "planted_day": 15,
+          "production_day": 29,
+          "production_number": 3,
+          "possible_units": 2,
+          "gained_units": 2,
+          "cap_loss": 0,
+          "held_before": 0,
+          "held_after": 2,
+          "watered": true,
+          "survived": true
+        }
+      ],
+      "production_ticks": 3,
+      "yield_generated": 6,
+      "yield_lost_to_tile_cap": 0,
+      "harvested_units": 6
+    },
+    {
+      "seat": 1,
+      "pos": [
+        1,
+        6
+      ],
+      "plant_hour": 374,
+      "plant_day": 15,
+      "harvests": [
+        {
+          "hour": 635,
+          "day": 26,
+          "hour_of_day": 11,
+          "units": 2
+        },
+        {
+          "hour": 702,
+          "day": 29,
+          "hour_of_day": 6,
+          "units": 4
+        }
+      ],
+      "ticks": [
+        {
+          "seat": 1,
+          "pos": [
+            1,
+            6
+          ],
+          "planted_day": 15,
+          "production_day": 25,
+          "production_number": 1,
+          "possible_units": 2,
+          "gained_units": 2,
+          "cap_loss": 0,
+          "held_before": 0,
+          "held_after": 2,
+          "watered": true,
+          "survived": true
+        },
+        {
+          "seat": 1,
+          "pos": [
+            1,
+            6
+          ],
+          "planted_day": 15,
+          "production_day": 27,
+          "production_number": 2,
+          "possible_units": 2,
+          "gained_units": 2,
+          "cap_loss": 0,
+          "held_before": 0,
+          "held_after": 2,
+          "watered": true,
+          "survived": true
+        },
+        {
+          "seat": 1,
+          "pos": [
+            1,
+            6
+          ],
+          "planted_day": 15,
+          "production_day": 29,
+          "production_number": 3,
+          "possible_units": 2,
+          "gained_units": 2,
+          "cap_loss": 0,
+          "held_before": 2,
+          "held_after": 4,
+          "watered": true,
+          "survived": true
+        }
+      ],
+      "production_ticks": 3,
+      "yield_generated": 6,
+      "yield_lost_to_tile_cap": 0,
+      "harvested_units": 6
+    }
+  ],
+  "strawberry_discarded_at_day_end": [
+    {
+      "day": 21,
+      "seat": 0,
+      "units": 4
+    },
+    {
+      "day": 23,
+      "seat": 0,
+      "units": 7
+    },
+    {
+      "day": 26,
+      "seat": 1,
+      "units": 2
+    },
+    {
+      "day": 27,
+      "seat": 1,
+      "units": 4
+    }
+  ],
+  "daily_strawberry_sales": [
+    {
+      "day": 16,
+      "seats": [
+        {
+          "seat": 0,
+          "units": 22,
+          "revenue": 4268,
+          "first_hour": 1,
+          "last_hour": 21,
+          "hour_counts": {
+            "1": 8,
+            "11": 4,
+            "21": 10
+          }
+        },
+        {
+          "seat": 1,
+          "units": 18,
+          "revenue": 3515,
+          "first_hour": 0,
+          "last_hour": 17,
+          "hour_counts": {
+            "0": 6,
+            "5": 2,
+            "15": 8,
+            "17": 2
+          }
+        }
+      ]
+    },
+    {
+      "day": 17,
+      "seats": [
+        {
+          "seat": 0,
+          "units": 18,
+          "revenue": 3441,
+          "first_hour": 13,
+          "last_hour": 21,
+          "hour_counts": {
+            "13": 2,
+            "19": 6,
+            "21": 10
+          }
+        },
+        {
+          "seat": 1,
+          "units": 4,
+          "revenue": 766,
+          "first_hour": 5,
+          "last_hour": 5,
+          "hour_counts": {
+            "5": 4
+          }
+        }
+      ]
+    },
+    {
+      "day": 18,
+      "seats": [
+        {
+          "seat": 0,
+          "units": 24,
+          "revenue": 4303,
+          "first_hour": 20,
+          "last_hour": 21,
+          "hour_counts": {
+            "20": 12,
+            "21": 12
+          }
+        },
+        {
+          "seat": 1,
+          "units": 24,
+          "revenue": 4429,
+          "first_hour": 0,
+          "last_hour": 22,
+          "hour_counts": {
+            "0": 6,
+            "5": 2,
+            "14": 6,
+            "19": 6,
+            "22": 4
+          }
+        }
+      ]
+    },
+    {
+      "day": 19,
+      "seats": [
+        {
+          "seat": 0,
+          "units": 13,
+          "revenue": 2316,
+          "first_hour": 21,
+          "last_hour": 23,
+          "hour_counts": {
+            "21": 8,
+            "22": 2,
+            "23": 3
+          }
+        },
+        {
+          "seat": 1,
+          "units": 0,
+          "revenue": 0,
+          "first_hour": null,
+          "last_hour": null,
+          "hour_counts": {}
+        }
+      ]
+    },
+    {
+      "day": 20,
+      "seats": [
+        {
+          "seat": 0,
+          "units": 27,
+          "revenue": 4529,
+          "first_hour": 11,
+          "last_hour": 22,
+          "hour_counts": {
+            "11": 3,
+            "18": 10,
+            "22": 14
+          }
+        },
+        {
+          "seat": 1,
+          "units": 14,
+          "revenue": 2413,
+          "first_hour": 0,
+          "last_hour": 21,
+          "hour_counts": {
+            "0": 6,
+            "9": 4,
+            "21": 4
+          }
+        }
+      ]
+    },
+    {
+      "day": 21,
+      "seats": [
+        {
+          "seat": 0,
+          "units": 24,
+          "revenue": 3853,
+          "first_hour": 13,
+          "last_hour": 19,
+          "hour_counts": {
+            "13": 8,
+            "19": 16
+          }
+        },
+        {
+          "seat": 1,
+          "units": 5,
+          "revenue": 830,
+          "first_hour": 17,
+          "last_hour": 17,
+          "hour_counts": {
+            "17": 5
+          }
+        }
+      ]
+    },
+    {
+      "day": 22,
+      "seats": [
+        {
+          "seat": 0,
+          "units": 30,
+          "revenue": 4521,
+          "first_hour": 1,
+          "last_hour": 22,
+          "hour_counts": {
+            "1": 9,
+            "15": 8,
+            "22": 13
+          }
+        },
+        {
+          "seat": 1,
+          "units": 12,
+          "revenue": 1723,
+          "first_hour": 17,
+          "last_hour": 23,
+          "hour_counts": {
+            "17": 8,
+            "23": 4
+          }
+        }
+      ]
+    },
+    {
+      "day": 23,
+      "seats": [
+        {
+          "seat": 0,
+          "units": 8,
+          "revenue": 1098,
+          "first_hour": 14,
+          "last_hour": 14,
+          "hour_counts": {
+            "14": 8
+          }
+        },
+        {
+          "seat": 1,
+          "units": 7,
+          "revenue": 1006,
+          "first_hour": 9,
+          "last_hour": 9,
+          "hour_counts": {
+            "9": 7
+          }
+        }
+      ]
+    },
+    {
+      "day": 24,
+      "seats": [
+        {
+          "seat": 0,
+          "units": 14,
+          "revenue": 1788,
+          "first_hour": 0,
+          "last_hour": 0,
+          "hour_counts": {
+            "0": 14
+          }
+        },
+        {
+          "seat": 1,
+          "units": 0,
+          "revenue": 0,
+          "first_hour": null,
+          "last_hour": null,
+          "hour_counts": {}
+        }
+      ]
+    },
+    {
+      "day": 25,
+      "seats": [
+        {
+          "seat": 0,
+          "units": 14,
+          "revenue": 2340,
+          "first_hour": 13,
+          "last_hour": 19,
+          "hour_counts": {
+            "13": 7,
+            "19": 7
+          }
+        },
+        {
+          "seat": 1,
+          "units": 0,
+          "revenue": 0,
+          "first_hour": null,
+          "last_hour": null,
+          "hour_counts": {}
+        }
+      ]
+    },
+    {
+      "day": 26,
+      "seats": [
+        {
+          "seat": 0,
+          "units": 18,
+          "revenue": 3143,
+          "first_hour": 19,
+          "last_hour": 19,
+          "hour_counts": {
+            "19": 18
+          }
+        },
+        {
+          "seat": 1,
+          "units": 8,
+          "revenue": 1349,
+          "first_hour": 21,
+          "last_hour": 21,
+          "hour_counts": {
+            "21": 8
+          }
+        }
+      ]
+    },
+    {
+      "day": 27,
+      "seats": [
+        {
+          "seat": 0,
+          "units": 6,
+          "revenue": 1067,
+          "first_hour": 20,
+          "last_hour": 20,
+          "hour_counts": {
+            "20": 6
+          }
+        },
+        {
+          "seat": 1,
+          "units": 0,
+          "revenue": 0,
+          "first_hour": null,
+          "last_hour": null,
+          "hour_counts": {}
+        }
+      ]
+    },
+    {
+      "day": 28,
+      "seats": [
+        {
+          "seat": 0,
+          "units": 20,
+          "revenue": 3507,
+          "first_hour": 0,
+          "last_hour": 21,
+          "hour_counts": {
+            "0": 3,
+            "21": 17
+          }
+        },
+        {
+          "seat": 1,
+          "units": 19,
+          "revenue": 3364,
+          "first_hour": 5,
+          "last_hour": 13,
+          "hour_counts": {
+            "5": 16,
+            "13": 3
+          }
+        }
+      ]
+    },
+    {
+      "day": 29,
+      "seats": [
+        {
+          "seat": 0,
+          "units": 0,
+          "revenue": 0,
+          "first_hour": null,
+          "last_hour": null,
+          "hour_counts": {}
+        },
+        {
+          "seat": 1,
+          "units": 16,
+          "revenue": 2768,
+          "first_hour": 1,
+          "last_hour": 22,
+          "hour_counts": {
+            "1": 6,
+            "5": 4,
+            "22": 6
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,280 @@
+{
+  "selection": {
+    "chosen": "baseline",
+    "gates": {
+      "positive_margin": true,
+      "nonnegative_each_rival": false,
+      "six_positive_seeds": false,
+      "no_fewer_wins": false,
+      "cash_floor": true,
+      "no_errors": true,
+      "time_limit": true,
+      "positive_vs_public": true
+    },
+    "sha256": "88cb37b9a35434f4edb89a6dfa7c51a2681d21c12ebaa94c3a2dd5ad18650059"
+  },
+  "comparisons": {
+    "development/public/all": {
+      "games": 12,
+      "margin_gain": -299.6666666666667,
+      "cash_gain": -18.416666666666668,
+      "seed_gains": {
+        "142000": -647.0,
+        "142001": 47.666666666666664
+      },
+      "candidate_wins": 9,
+      "control_wins": 9
+    },
+    "development/public/v44": {
+      "games": 4,
+      "margin_gain": -392.5,
+      "cash_gain": -76.75,
+      "seed_gains": {
+        "142000": -674.0,
+        "142001": -111.0
+      },
+      "candidate_wins": 4,
+      "control_wins": 4
+    },
+    "development/public/v45": {
+      "games": 4,
+      "margin_gain": -392.5,
+      "cash_gain": -76.75,
+      "seed_gains": {
+        "142000": -674.0,
+        "142001": -111.0
+      },
+      "candidate_wins": 1,
+      "control_wins": 1
+    },
+    "development/public/twocoins": {
+      "games": 4,
+      "margin_gain": -114.0,
+      "cash_gain": 98.25,
+      "seed_gains": {
+        "142000": -593.0,
+        "142001": 365.0
+      },
+      "candidate_wins": 4,
+      "control_wins": 4
+    },
+    "development/baseline/all": {
+      "games": 12,
+      "margin_gain": -332.3333333333333,
+      "cash_gain": -95.41666666666667,
+      "seed_gains": {
+        "142000": -670.0,
+        "142001": 5.333333333333333
+      },
+      "candidate_wins": 9,
+      "control_wins": 11
+    },
+    "development/baseline/v44": {
+      "games": 4,
+      "margin_gain": -425.5,
+      "cash_gain": -182.5,
+      "seed_gains": {
+        "142000": -693.0,
+        "142001": -158.0
+      },
+      "candidate_wins": 4,
+      "control_wins": 4
+    },
+    "development/baseline/v45": {
+      "games": 4,
+      "margin_gain": -425.5,
+      "cash_gain": -182.5,
+      "seed_gains": {
+        "142000": -693.0,
+        "142001": -158.0
+      },
+      "candidate_wins": 1,
+      "control_wins": 3
+    },
+    "development/baseline/twocoins": {
+      "games": 4,
+      "margin_gain": -146.0,
+      "cash_gain": 78.75,
+      "seed_gains": {
+        "142000": -624.0,
+        "142001": 332.0
+      },
+      "candidate_wins": 4,
+      "control_wins": 4
+    },
+    "confirmation/public/all": {
+      "games": 48,
+      "margin_gain": 91.79166666666667,
+      "cash_gain": 69.16666666666667,
+      "seed_gains": {
+        "143000": 3.3333333333333335,
+        "143001": 247.66666666666666,
+        "143002": -55.666666666666664,
+        "143003": 50.666666666666664,
+        "143004": 167.33333333333334,
+        "143005": 26.333333333333332,
+        "143006": 451.3333333333333,
+        "143007": -156.66666666666666
+      },
+      "candidate_wins": 44,
+      "control_wins": 32
+    },
+    "confirmation/public/v44": {
+      "games": 16,
+      "margin_gain": 89.25,
+      "cash_gain": 49.75,
+      "seed_gains": {
+        "143000": 64.0,
+        "143001": 68.0,
+        "143002": -114.0,
+        "143003": 111.0,
+        "143004": 205.0,
+        "143005": 244.0,
+        "143006": 291.0,
+        "143007": -155.0
+      },
+      "candidate_wins": 16,
+      "control_wins": 16
+    },
+    "confirmation/public/v45": {
+      "games": 16,
+      "margin_gain": 90.375,
+      "cash_gain": 50.25,
+      "seed_gains": {
+        "143000": 64.0,
+        "143001": 68.0,
+        "143002": -105.0,
+        "143003": 111.0,
+        "143004": 205.0,
+        "143005": 244.0,
+        "143006": 291.0,
+        "143007": -155.0
+      },
+      "candidate_wins": 12,
+      "control_wins": 0
+    },
+    "confirmation/public/twocoins": {
+      "games": 16,
+      "margin_gain": 95.75,
+      "cash_gain": 107.5,
+      "seed_gains": {
+        "143000": -118.0,
+        "143001": 607.0,
+        "143002": 52.0,
+        "143003": -70.0,
+        "143004": 92.0,
+        "143005": -409.0,
+        "143006": 772.0,
+        "143007": -160.0
+      },
+      "candidate_wins": 16,
+      "control_wins": 16
+    },
+    "confirmation/baseline/all": {
+      "games": 48,
+      "margin_gain": 0.875,
+      "cash_gain": 19.375,
+      "seed_gains": {
+        "143000": -62.666666666666664,
+        "143001": 163.33333333333334,
+        "143002": -103.33333333333333,
+        "143003": -26.0,
+        "143004": 21.0,
+        "143005": -61.666666666666664,
+        "143006": 278.0,
+        "143007": -201.66666666666666
+      },
+      "candidate_wins": 44,
+      "control_wins": 48
+    },
+    "confirmation/baseline/v44": {
+      "games": 16,
+      "margin_gain": -14.125,
+      "cash_gain": -7.875,
+      "seed_gains": {
+        "143000": 0.0,
+        "143001": -23.0,
+        "143002": -164.0,
+        "143003": 0.0,
+        "143004": 31.0,
+        "143005": 144.0,
+        "143006": 119.0,
+        "143007": -220.0
+      },
+      "candidate_wins": 16,
+      "control_wins": 16
+    },
+    "confirmation/baseline/v45": {
+      "games": 16,
+      "margin_gain": -11.875,
+      "cash_gain": -6.5,
+      "seed_gains": {
+        "143000": 0.0,
+        "143001": -23.0,
+        "143002": -146.0,
+        "143003": 0.0,
+        "143004": 31.0,
+        "143005": 144.0,
+        "143006": 119.0,
+        "143007": -220.0
+      },
+      "candidate_wins": 12,
+      "control_wins": 16
+    },
+    "confirmation/baseline/twocoins": {
+      "games": 16,
+      "margin_gain": 28.625,
+      "cash_gain": 72.5,
+      "seed_gains": {
+        "143000": -188.0,
+        "143001": 536.0,
+        "143002": 0.0,
+        "143003": -78.0,
+        "143004": 1.0,
+        "143005": -473.0,
+        "143006": 596.0,
+        "143007": -165.0
+      },
+      "candidate_wins": 16,
+      "control_wins": 16
+    }
+  },
+  "diagnostics": {
+    "max_seconds": 0.27353620000212686,
+    "mean_changed": 2.2916666666666665,
+    "mean_declined": 1.125,
+    "quotes_checked": 970,
+    "forecast_mae": 1.4662371134020618,
+    "current_mae": 1.136082474226804
+  },
+  "errors": [],
+  "accounting": {
+    "revenue:WHEAT": 220.375,
+    "revenue:FERTILIZER": 58.583333333333336,
+    "revenue:WOOL": 18.125,
+    "revenue:MILK": 32.583333333333336,
+    "revenue:MELON": 0.0,
+    "revenue:EGG": -18.333333333333332,
+    "revenue:STRAWBERRY": -23.208333333333332,
+    "revenue:TOMATO": 0.0,
+    "revenue:CARROT": -114.375,
+    "cost:BUY_PRODUCT:WHEAT": -0.25,
+    "cost:HIRE": 39.708333333333336,
+    "cost:BUY_ANIMAL:COW": 0.0,
+    "cost:BUY_ANIMAL:SHEEP": 0.0,
+    "cost:BUY_SEED:MELON": 0.0,
+    "cost:BUY_SEED:WHEAT": 0.0,
+    "cost:BUY_SEED:STRAWBERRY": 0.0,
+    "cost:BUY_LAND": 0.0,
+    "cost:BUY_PRODUCT:FERTILIZER": 114.91666666666667,
+    "cost:BUY_ANIMAL:GOOSE": 0.0,
+    "cost:BUY_SEED:TOMATO": 0.0,
+    "cost:BUY_SEED:CARROT": 0.0
+  },
+  "ablation": {
+    "games": 48,
+    "forecast_minus_current_margin": 49.041666666666664,
+    "forecast_minus_current_cash": 40.791666666666664,
+    "current_minus_baseline_margin": -48.166666666666664
+  }
+}

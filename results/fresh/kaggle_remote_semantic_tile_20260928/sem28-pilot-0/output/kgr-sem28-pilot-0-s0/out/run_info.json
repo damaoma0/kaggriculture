@@ -1,0 +1,52 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/semantic_tile_20260928_run.py",
+   "--spec",
+   "results/fresh/semantic_tile_20260928/spec.json",
+   "--arms",
+   "ST28COHORT,ST28REUSE",
+   "--games",
+   "16732748:112570602,16732748:112575429,16732748:112581436,16732748:112587591,16732748:112592389,16732748:112598450,16732748:112604454,16732748:112610623",
+   "--out",
+   "results/fresh/semantic_tile_20260928/runs/pilot/shard0",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/semantic_tile_20260928/runs/pilot/shard0/**/*",
+   "results/fresh/day12_viz/st28cohort_streams/*.json",
+   "results/fresh/day12_viz/st28reuse_streams/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 50,
+ "pip_seconds": 52.121490240097046,
+ "run_seconds": 436.46757459640503,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "completed ST28COHORT 16732748:112570602 79852.0 OK",
+  "completed ST28COHORT 16732748:112587591 74305.0 OK",
+  "completed ST28COHORT 16732748:112581436 71338.0 OK",
+  "completed ST28COHORT 16732748:112575429 84900.0 OK",
+  "completed ST28COHORT 16732748:112592389 54333.0 OK",
+  "completed ST28COHORT 16732748:112598450 94198.0 OK",
+  "completed ST28COHORT 16732748:112604454 94774.0 OK",
+  "completed ST28COHORT 16732748:112610623 70106.0 OK",
+  "completed ST28REUSE 16732748:112570602 96475.0 OK",
+  "completed ST28REUSE 16732748:112575429 99032.0 OK",
+  "completed ST28REUSE 16732748:112587591 74423.0 OK",
+  "completed ST28REUSE 16732748:112581436 68769.0 OK",
+  "completed ST28REUSE 16732748:112592389 56335.0 OK",
+  "completed ST28REUSE 16732748:112598450 96307.0 OK",
+  "completed ST28REUSE 16732748:112604454 91465.0 OK",
+  "completed ST28REUSE 16732748:112610623 68166.0 OK",
+  "16 games completed in 436.2s"
+ ],
+ "stderr_tail": []
+}

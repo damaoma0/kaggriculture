@@ -1,0 +1,28 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/q4_g1.py",
+   "tievalff,ff1",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/lead_agent_20260924/abl_E2_*/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 24,
+ "pip_seconds": 62.82261371612549,
+ "run_seconds": 191.03328323364258,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "   G1 mean12 0.902, mean11 0.892 (12 games)",
+  "   G1 mean12 0.881, mean11 0.873 (12 games)"
+ ],
+ "stderr_tail": []
+}

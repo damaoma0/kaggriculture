@@ -1,0 +1,551 @@
+{
+ "groups": {
+  "Mother-Goose": 30,
+  "Majkel1337": 30,
+  "Ours, self-play": 16,
+  "Ours vs twocoins": 32,
+  "Mother-Goose's opponents": 30,
+  "Majkel's opponents": 30
+ },
+ "labour": {
+  "Mother-Goose": {
+   "hire_spend": 4736.366666666667,
+   "hand_commands": 6336.6,
+   "effective": 3333.5,
+   "moves": 2839.8,
+   "passes": 882.2333333333333,
+   "no_effect": 0.06666666666666667,
+   "effective_per_100_hire": 70.38095305121365,
+   "hire_per_effective": 1.4208389580520975,
+   "moves_per_effective": 0.8518974051297435,
+   "idle_share": 0.12504960598673395
+  },
+  "Majkel1337": {
+   "hire_spend": 4928.166666666667,
+   "hand_commands": 6501.033333333334,
+   "effective": 3593.4333333333334,
+   "moves": 3428.133333333333,
+   "passes": 56.06666666666667,
+   "no_effect": 142.4,
+   "effective_per_100_hire": 72.91622983530047,
+   "hire_per_effective": 1.371436787473447,
+   "moves_per_effective": 0.9539994248768586,
+   "idle_share": 0.02748833107880388
+  },
+  "Ours, self-play": {
+   "hire_spend": 6517.8125,
+   "hand_commands": 6378.5,
+   "effective": 3456.9375,
+   "moves": 3005.0625,
+   "passes": 578.1875,
+   "no_effect": 57.3125,
+   "effective_per_100_hire": 53.03830848156494,
+   "hire_per_effective": 1.885429661369348,
+   "moves_per_effective": 0.8692845907685632,
+   "idle_share": 0.08953856991898555
+  },
+  "Ours vs twocoins": {
+   "hire_spend": 5593.3125,
+   "hand_commands": 6276.875,
+   "effective": 3427.59375,
+   "moves": 2967.875,
+   "passes": 540.6875,
+   "no_effect": 59.71875,
+   "effective_per_100_hire": 61.280211860145485,
+   "hire_per_effective": 1.6318481441973687,
+   "moves_per_effective": 0.8658771186054357,
+   "idle_share": 0.08582289563492773
+  },
+  "Mother-Goose's opponents": {
+   "hire_spend": 5328.066666666667,
+   "hand_commands": 6448.533333333334,
+   "effective": 3571.7,
+   "moves": 3236.7,
+   "passes": 265.3666666666667,
+   "no_effect": 93.76666666666667,
+   "effective_per_100_hire": 67.03557262797013,
+   "hire_per_effective": 1.4917452940243208,
+   "moves_per_effective": 0.9062071282582523,
+   "idle_share": 0.05010556862890999
+  },
+  "Majkel's opponents": {
+   "hire_spend": 5048.166666666667,
+   "hand_commands": 6231.433333333333,
+   "effective": 3503.766666666667,
+   "moves": 2885.866666666667,
+   "passes": 539.6666666666666,
+   "no_effect": 21.133333333333333,
+   "effective_per_100_hire": 69.40671530918816,
+   "hire_per_effective": 1.4407827766308638,
+   "moves_per_effective": 0.8236469323489958,
+   "idle_share": 0.0806856167241371
+  }
+ },
+ "land": {
+  "Mother-Goose": {
+   "unlocked": 1812.5,
+   "productive": 1652.5013888888889,
+   "utilisation": 0.9117249042145594,
+   "fallow": 143.3875,
+   "weed": 16.61111111111111,
+   "tile_days": {
+    "empty": 123.4125,
+    "structure_empty": 19.975,
+    "animal:COW": 184.54305555555555,
+    "crop:MELON": 134.72083333333333,
+    "animal:SHEEP": 134.51388888888889,
+    "crop:WHEAT": 420.4763888888889,
+    "crop:STRAWBERRY": 513.6208333333333,
+    "animal:GOOSE": 79.75,
+    "weed": 16.61111111111111,
+    "crop:TOMATO": 103.36944444444445,
+    "crop:CARROT": 81.50694444444444
+   }
+  },
+  "Majkel1337": {
+   "unlocked": 1862.5347222222222,
+   "productive": 1656.0555555555557,
+   "utilisation": 0.8891407691877482,
+   "fallow": 173.71805555555554,
+   "weed": 32.76111111111111,
+   "tile_days": {
+    "empty": 159.4361111111111,
+    "structure_empty": 14.281944444444443,
+    "animal:COW": 193.95972222222224,
+    "animal:SHEEP": 131.98194444444445,
+    "crop:MELON": 117.19722222222222,
+    "crop:WHEAT": 440.7527777777778,
+    "crop:STRAWBERRY": 512.8930555555555,
+    "crop:TOMATO": 80.83888888888889,
+    "crop:CARROT": 136.55277777777778,
+    "weed": 32.76111111111111,
+    "animal:GOOSE": 41.87916666666667
+   }
+  },
+  "Ours, self-play": {
+   "unlocked": 1933.3333333333333,
+   "productive": 1675.8411458333333,
+   "utilisation": 0.8668143857758621,
+   "fallow": 245.9609375,
+   "weed": 11.53125,
+   "tile_days": {
+    "empty": 221.5859375,
+    "structure_empty": 24.375,
+    "animal:COW": 176.6796875,
+    "crop:MELON": 118.17447916666667,
+    "animal:SHEEP": 197.625,
+    "crop:WHEAT": 513.8307291666666,
+    "crop:STRAWBERRY": 531.15625,
+    "animal:GOOSE": 44.205729166666664,
+    "weed": 11.53125,
+    "crop:CARROT": 79.8203125,
+    "crop:TOMATO": 14.348958333333334
+   }
+  },
+  "Ours vs twocoins": {
+   "unlocked": 1868.359375,
+   "productive": 1647.28125,
+   "utilisation": 0.8816725904244198,
+   "fallow": 210.98828125,
+   "weed": 10.08984375,
+   "tile_days": {
+    "empty": 188.95442708333334,
+    "structure_empty": 22.033854166666668,
+    "animal:COW": 186.234375,
+    "crop:MELON": 108.67447916666667,
+    "animal:SHEEP": 183.25,
+    "crop:WHEAT": 513.7317708333334,
+    "crop:STRAWBERRY": 530.9765625,
+    "animal:GOOSE": 44.817708333333336,
+    "weed": 10.08984375,
+    "crop:CARROT": 79.59635416666667
+   }
+  },
+  "Mother-Goose's opponents": {
+   "unlocked": 1871.6666666666665,
+   "productive": 1671.7944444444443,
+   "utilisation": 0.8932116355001484,
+   "fallow": 175.67222222222222,
+   "weed": 24.2,
+   "tile_days": {
+    "empty": 164.7875,
+    "crop:WHEAT": 446.44166666666666,
+    "structure_empty": 10.884722222222223,
+    "animal:COW": 202.73194444444442,
+    "animal:GOOSE": 50.63194444444444,
+    "crop:MELON": 121.92638888888888,
+    "crop:CARROT": 118.08055555555555,
+    "animal:SHEEP": 135.39444444444445,
+    "crop:STRAWBERRY": 515.5583333333333,
+    "crop:TOMATO": 81.02916666666667,
+    "weed": 24.2
+   }
+  },
+  "Majkel's opponents": {
+   "unlocked": 1942.1527777777778,
+   "productive": 1735.1152777777777,
+   "utilisation": 0.8933979332785067,
+   "fallow": 174.38888888888889,
+   "weed": 32.648611111111116,
+   "tile_days": {
+    "empty": 158.4625,
+    "structure_empty": 15.926388888888889,
+    "animal:COW": 175.3388888888889,
+    "crop:MELON": 139.45833333333334,
+    "animal:SHEEP": 141.8111111111111,
+    "crop:WHEAT": 452.8541666666667,
+    "crop:STRAWBERRY": 495.7083333333333,
+    "animal:GOOSE": 101.04722222222222,
+    "weed": 32.648611111111116,
+    "crop:CARROT": 116.65694444444445,
+    "crop:TOMATO": 112.24027777777778
+   }
+  }
+ },
+ "decomposition": {
+  "Mother-Goose - Ours, self-play": {
+   "cash_gap": 24714.1875,
+   "components_total": 24714.18749999998,
+   "revenue_by_factor": {
+    "land": -8882.446258469974,
+    "utilisation": 6944.635927109034,
+    "portfolio": 4577.742022577594,
+    "yield_": -6260.654796366567,
+    "price": 19229.539771816562
+   },
+   "spend": {
+    "labour (hire spend)": 1781.4458333333332,
+    "land": 1250.0,
+    "seeds": -203.66666666666674,
+    "animals": 437.5,
+    "wheat/fertilizer purchases": 5840.091666666666
+   },
+   "by_product": {
+    "WHEAT": {
+     "land": -1113.5371443002612,
+     "utilisation": 873.210664011807,
+     "portfolio": -3211.013211981567,
+     "yield_": -148.48827134612972,
+     "price": 173.1071302828188
+    },
+    "CARROT": {
+     "land": -344.0118409666686,
+     "utilisation": 269.46647711956297,
+     "portfolio": 186.34415930543645,
+     "yield_": 403.13944300274824,
+     "price": -954.6840717944128
+    },
+    "TOMATO": {
+     "land": -375.38855202950555,
+     "utilisation": 291.099299243419,
+     "portfolio": 9548.56306379742,
+     "yield_": -361.31578249755404,
+     "price": -3457.8288618471256
+    },
+    "STRAWBERRY": {
+     "land": -2180.7561574595193,
+     "utilisation": 1702.398546686324,
+     "portfolio": -659.7804262262329,
+     "yield_": 288.7846708689109,
+     "price": 10035.82836613051
+    },
+    "MELON": {
+     "land": -1009.6279138533924,
+     "utilisation": 788.9019552287484,
+     "portfolio": 2262.503157488965,
+     "yield_": -79.13247431548486,
+     "price": 762.5886087844982
+    },
+    "EGG": {
+     "land": -309.6527062315437,
+     "utilisation": 240.80640138591946,
+     "portfolio": 2791.038198129095,
+     "yield_": 816.0539141363054,
+     "price": -332.9083074197795
+    },
+    "MILK": {
+     "land": -1391.7928119152969,
+     "utilisation": 1084.7149250720051,
+     "portfolio": 1235.9115807289795,
+     "yield_": 443.9436667997419,
+     "price": 8169.218472647915
+    },
+    "WOOL": {
+     "land": -1249.6427511776312,
+     "utilisation": 982.3427873025802,
+     "portfolio": -7094.474821130632,
+     "yield_": -1419.4242810058165,
+     "price": -22.43010065517295
+    },
+    "FERTILIZER": {
+     "land": -908.0363805361566,
+     "utilisation": 711.6948710586681,
+     "portfolio": -481.3496775338726,
+     "yield_": -6204.215682009289,
+     "price": 4856.648535687311
+    }
+   },
+   "user_hypothesis": -6417.019294394175,
+   "portfolio": 4577.742022577594,
+   "price": 19229.539771816562
+  },
+  "Mother-Goose - Ours vs twocoins": {
+   "cash_gap": 12645.1875,
+   "components_total": 12645.187499999996,
+   "revenue_by_factor": {
+    "land": -4380.5404745308115,
+    "utilisation": 4837.379212099342,
+    "portfolio": 416.89449170775504,
+    "yield_": -13823.258976431833,
+    "price": 11633.404913822209
+   },
+   "spend": {
+    "labour (hire spend)": 856.9458333333332,
+    "land": 500.0,
+    "seeds": -346.16666666666674,
+    "animals": 256.25,
+    "wheat/fertilizer purchases": 12694.279166666667
+   },
+   "by_product": {
+    "WHEAT": {
+     "land": -629.0104710977662,
+     "utilisation": 696.5243307111992,
+     "portfolio": -4184.642053167413,
+     "yield_": -5773.472509357412,
+     "price": -1035.2451304219435
+    },
+    "CARROT": {
+     "land": -145.2328330397455,
+     "utilisation": 160.26075824493836,
+     "portfolio": 98.30025306145487,
+     "yield_": 406.76615264645454,
+     "price": 99.47233575356385
+    },
+    "TOMATO": {
+     "land": -116.54262218338935,
+     "utilisation": 127.32618275823496,
+     "portfolio": 7636.283106091819,
+     "yield_": 0.0,
+     "price": 0.0
+    },
+    "STRAWBERRY": {
+     "land": -1034.1602003976948,
+     "utilisation": 1140.4325630718563,
+     "portfolio": -1240.2009714322096,
+     "yield_": 297.1665549825867,
+     "price": 9379.04955377546
+    },
+    "MELON": {
+     "land": -460.8209213096526,
+     "utilisation": 508.2100060700725,
+     "portfolio": 3198.3101038952427,
+     "yield_": -28.170083147073335,
+     "price": 397.39172782474765
+    },
+    "EGG": {
+     "land": -149.27370403884987,
+     "utilisation": 164.29881274825354,
+     "portfolio": 2732.670749733678,
+     "yield_": 862.222456271122,
+     "price": -619.8308147142031
+    },
+    "MILK": {
+     "land": -735.0942775607655,
+     "utilisation": 810.9413025579987,
+     "portfolio": -297.4846367936065,
+     "yield_": -286.4728857461457,
+     "price": 4858.168830875857
+    },
+    "WOOL": {
+     "land": -687.0448288797452,
+     "utilisation": 761.579054403611,
+     "portfolio": -6950.625211094447,
+     "yield_": -3166.9084120753023,
+     "price": -6346.379769020791
+    },
+    "FERTILIZER": {
+     "land": -423.36061602320336,
+     "utilisation": 467.8062015331771,
+     "portfolio": -575.7168485867634,
+     "yield_": -6134.390250006062,
+     "price": 4900.778179749518
+    }
+   },
+   "user_hypothesis": -12509.474405529969,
+   "portfolio": 416.89449170775504,
+   "price": 11633.404913822209
+  },
+  "Majkel1337 - Ours, self-play": {
+   "cash_gap": 17617.287500000006,
+   "components_total": 17617.287499999966,
+   "revenue_by_factor": {
+    "land": -5050.682460147439,
+    "utilisation": 3441.557255802031,
+    "portfolio": -2304.6457868854927,
+    "yield_": -7594.133854192598,
+    "price": 21115.254845423464
+   },
+   "spend": {
+    "labour (hire spend)": 1589.645833333333,
+    "land": 1250.0,
+    "seeds": -720.3333333333334,
+    "animals": 997.5,
+    "wheat/fertilizer purchases": 4893.125
+   },
+   "by_product": {
+    "WHEAT": {
+     "land": -661.4216938720128,
+     "utilisation": 451.19337137810544,
+     "portfolio": -2506.1716998008446,
+     "yield_": 1.0909207453942145,
+     "price": 216.68826821602585
+    },
+    "CARROT": {
+     "land": -233.431347413727,
+     "utilisation": 158.97639387177153,
+     "portfolio": 3404.1974386135857,
+     "yield_": -797.0730786920128,
+     "price": -1444.1152397129538
+    },
+    "TOMATO": {
+     "land": -147.8525753161201,
+     "utilisation": 100.5245597768956,
+     "portfolio": 6264.937544705631,
+     "yield_": -382.4603159821755,
+     "price": -3817.6867131842328
+    },
+    "STRAWBERRY": {
+     "land": -1297.178203985422,
+     "utilisation": 882.7630115757366,
+     "portfolio": -803.3142364870254,
+     "yield_": -1028.8787607681136,
+     "price": 13262.783189664808
+    },
+    "MELON": {
+     "land": -531.299593891984,
+     "utilisation": 362.17031568207835,
+     "portfolio": 50.8789369894583,
+     "yield_": -80.92267639979885,
+     "price": 142.7063509535783
+    },
+    "EGG": {
+     "land": -123.99944645483441,
+     "utilisation": 84.49639006148985,
+     "portfolio": -140.22950793777375,
+     "yield_": 601.8038443462574,
+     "price": -208.2004466818057
+    },
+    "MILK": {
+     "land": -697.8445932321209,
+     "utilisation": 475.185957822683,
+     "portfolio": 1962.8622529351671,
+     "yield_": -387.8659892511663,
+     "price": 2429.8582050587743
+    },
+    "WOOL": {
+     "land": -856.6847109072831,
+     "utilisation": 584.3150113117914,
+     "portfolio": -8966.24773029326,
+     "yield_": 906.0253499041137,
+     "price": 5681.629579984626
+    },
+    "FERTILIZER": {
+     "land": -500.9702950739349,
+     "utilisation": 341.93224432147935,
+     "portfolio": -1571.5587856104307,
+     "yield_": -6425.853148095096,
+     "price": 4851.591651124644
+    }
+   },
+   "user_hypothesis": -7613.613225204673,
+   "portfolio": -2304.6457868854927,
+   "price": 21115.254845423464
+  },
+  "Mother-Goose - Mother-Goose's opponents": {
+   "cash_gap": 3547.5666666666657,
+   "components_total": 3547.5666666666657,
+   "revenue_by_factor": {
+    "land": -4619.534685845674,
+    "utilisation": 2950.197762553268,
+    "portfolio": 1337.9377643390255,
+    "yield_": 906.1383874735055,
+    "price": 54.12743814654069
+   },
+   "spend": {
+    "labour (hire spend)": 591.6999999999998,
+    "land": 133.33333333333348,
+    "seeds": 338.3333333333332,
+    "animals": -266.6666666666665,
+    "wheat/fertilizer purchases": 2122.0
+   },
+   "by_product": {
+    "WHEAT": {
+     "land": -517.6382511439874,
+     "utilisation": 330.6897198024214,
+     "portfolio": -778.4739922152131,
+     "yield_": -10.879398995059425,
+     "price": -149.83141078149313
+    },
+    "CARROT": {
+     "land": -189.17860529172484,
+     "utilisation": 120.95547988165222,
+     "portfolio": -2099.776966458737,
+     "yield_": 683.5391595492093,
+     "price": -37.705734347069374
+    },
+    "TOMATO": {
+     "land": -205.55934859948533,
+     "utilisation": 131.06087302818838,
+     "portfolio": 1617.6771336199445,
+     "yield_": 316.6630533598011,
+     "price": 575.0249552582192
+    },
+    "STRAWBERRY": {
+     "land": -1257.7050328559626,
+     "utilisation": 803.387090631724,
+     "portfolio": 307.10091013563664,
+     "yield_": 875.9834732363732,
+     "price": -2472.2331078144352
+    },
+    "MELON": {
+     "land": -479.2578821692004,
+     "utilisation": 305.70898323107104,
+     "portfolio": 1656.5468853994355,
+     "yield_": 42.575223603598445,
+     "price": 2561.826789935096
+    },
+    "EGG": {
+     "land": -166.0092025598753,
+     "utilisation": 105.79794913241838,
+     "portfolio": 2360.087642993442,
+     "yield_": 104.2060318189335,
+     "price": 78.48424528174658
+    },
+    "MILK": {
+     "land": -887.8192618541768,
+     "utilisation": 567.2349623295142,
+     "portfolio": -2276.3960210345313,
+     "yield_": -59.454029649308055,
+     "price": 85.03435020850071
+    },
+    "WOOL": {
+     "land": -509.20514115449623,
+     "utilisation": 325.3384780181076,
+     "portfolio": 80.59322255930283,
+     "yield_": -785.5149270676776,
+     "price": -621.2116323552383
+    },
+    "FERTILIZER": {
+     "land": -407.1619602167653,
+     "utilisation": 260.0242264981707,
+     "portfolio": 470.5789493397458,
+     "yield_": -260.9801983823651,
+     "price": 34.73898276121448
+    }
+   },
+   "user_hypothesis": -171.49853581890068,
+   "portfolio": 1337.9377643390255,
+   "price": 54.12743814654069
+  }
+ }
+}

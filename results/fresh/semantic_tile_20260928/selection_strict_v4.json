@@ -1,0 +1,16 @@
+{
+  "arm": "ST28REUSESTRICT",
+  "frozen_at_utc": "2026-09-28T02:44:41.719420+00:00",
+  "contract": "tile changes only; ongoing first-harvest markers derived from engine maturity",
+  "variant": "reuse",
+  "polish_rounds": 0,
+  "reason": "Same simpler allocator chosen on development8; strict scope correction only. No strict candidate outcomes exist yet.",
+  "stage": "frozen before strict40 evaluation",
+  "source_sha256": {
+    "scripts/semantic_tile_planner_20260928.py": "fc2b4160f6ef04aa3c64b8e064146f92fd7f34c9aaf3a2739d3d46b5769d220a",
+    "scripts/semantic_tile_lifetimes_20260928.py": "6680137963d55427706ec85fadad8a0d487e5fcd72152ecb034db3e9dd31a467",
+    "scripts/semantic_tile_allocator_20260928.py": "cabc9bcf818aa00ffa3e5ffbd3f9798643f60b7a59deb4a384dd8ebce889d0ae",
+    "results/fresh/semantic_tile_20260928/plans/reuse_strict.json": "5d372d0718722512ea3a780252f067f5ab3bbfdd78343ce373565d3c2b51f727",
+    "results/fresh/semantic_tile_20260928/semantic_inputs_strict.json": "0ae10b7938ee84e0192a59ec62e46abb99864340b2cd8f8ba51d45d2e8f701c6"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "scope": "oracle component, source DSM comparison on old worlds",
+  "games": 8,
+  "source_mean_margin": 17738.625,
+  "exact_mean_margin": -3238.625,
+  "phase_own_cash_delta": {
+    "6": 0.0,
+    "11": 57.125,
+    "12": -153.5,
+    "18": -9779.125,
+    "24": -7807.5,
+    "30": -3549.0
+  },
+  "phase_rival_cash_delta": {
+    "6": 0.0,
+    "11": 273.0,
+    "12": 371.5,
+    "18": 3274.5,
+    "24": 10089.875,
+    "30": 17428.25
+  },
+  "max_overage": 7.27480009989813,
+  "mean_own_collected_units_delta": {
+    "11": {
+      "WHEAT": -1.25,
+      "MELON": -0.25,
+      "STRAWBERRY": 0,
+      "TOMATO": 0,
+      "CARROT": 0,
+      "MILK": -2,
+      "WOOL": -0.25,
+      "EGG": -3,
+      "FERTILIZER": -13.625
+    },
+    "18": {
+      "WHEAT": -20.125,
+      "MELON": -1,
+      "STRAWBERRY": -7.875,
+      "TOMATO": -2.375,
+      "CARROT": 0.125,
+      "MILK": -14.5,
+      "WOOL": -12.125,
+      "EGG": -15.125,
+      "FERTILIZER": -40.25
+    },
+    "30": {
+      "WHEAT": -72.125,
+      "MELON": -1,
+      "STRAWBERRY": -12.75,
+      "TOMATO": -10,
+      "CARROT": -10.375,
+      "MILK": -6.375,
+      "WOOL": -2.375,
+      "EGG": -30.375,
+      "FERTILIZER": -69.625
+    }
+  }
+}

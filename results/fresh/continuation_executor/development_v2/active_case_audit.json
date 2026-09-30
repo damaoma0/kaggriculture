@@ -1,0 +1,263 @@
+[
+  {
+    "seed": 1577629862,
+    "margin_delta": -23817.0,
+    "cash_delta": -20448.0,
+    "rival_cash_delta": 3369.0,
+    "spend_delta": 2026.0,
+    "products": {
+      "CARROT": {
+        "revenue_delta": -12725,
+        "production_delta": -233
+      },
+      "EGG": {
+        "revenue_delta": 247,
+        "production_delta": 6
+      },
+      "FERTILIZER": {
+        "revenue_delta": 2489,
+        "production_delta": 18
+      },
+      "MELON": {
+        "revenue_delta": 61,
+        "production_delta": 0
+      },
+      "MILK": {
+        "revenue_delta": -1728,
+        "production_delta": 50
+      },
+      "STRAWBERRY": {
+        "revenue_delta": -312,
+        "production_delta": -56
+      },
+      "TOMATO": {
+        "revenue_delta": -1227,
+        "production_delta": -25
+      },
+      "WHEAT": {
+        "revenue_delta": -5001,
+        "production_delta": -219
+      },
+      "WOOL": {
+        "revenue_delta": -226,
+        "production_delta": 46
+      }
+    },
+    "decisions": [
+      {
+        "day": 12,
+        "donor": "110309978:1:d12",
+        "output": {
+          "EGG": 24,
+          "MILK": 21,
+          "FERTILIZER": 51,
+          "WOOL": 19,
+          "WHEAT": 76
+        },
+        "calendar_slack": [
+          {
+            "day": 13,
+            "crop": "WHEAT",
+            "unplaced": 6,
+            "reason": "occupied_land"
+          }
+        ]
+      },
+      {
+        "day": 24,
+        "donor": "109741342:1:d24",
+        "output": {
+          "STRAWBERRY": 13,
+          "EGG": 36,
+          "MILK": 33,
+          "FERTILIZER": 51,
+          "WOOL": 16
+        },
+        "calendar_slack": []
+      }
+    ],
+    "maintenance_days": 12,
+    "rejections": [
+      {
+        "step": 360,
+        "donor": "110309978:1:d15",
+        "failure": {
+          "reason": "day_capacity_exceeded",
+          "overload": 3,
+          "available": 21
+        }
+      },
+      {
+        "step": 432,
+        "donor": "110309978:1:d18",
+        "failure": {
+          "reason": "planning_budget"
+        }
+      },
+      {
+        "step": 504,
+        "donor": "109741342:1:d21",
+        "failure": {
+          "reason": "planning_budget"
+        }
+      },
+      {
+        "step": 648,
+        "donor": "109741342:1:d27",
+        "failure": {
+          "reason": "planning_budget"
+        }
+      }
+    ],
+    "shops_candidate": [
+      "PET_CAFE",
+      "ICE_CREAM_SHOP",
+      "PET_CAFE",
+      "BAKERY",
+      "ICE_CREAM_SHOP",
+      "YARN_STORE",
+      "SMOOTHIE_SHOP",
+      "FARMERS_MARKET"
+    ],
+    "shops_control": [
+      "PET_CAFE",
+      "ICE_CREAM_SHOP",
+      "PET_CAFE",
+      "BAKERY",
+      "YARN_STORE",
+      "SMOOTHIE_SHOP",
+      "ICE_CREAM_SHOP",
+      "PIZZA_SHOP"
+    ]
+  },
+  {
+    "seed": 572795381,
+    "margin_delta": -33439.0,
+    "cash_delta": -15949.0,
+    "rival_cash_delta": 17490.0,
+    "spend_delta": 6024.0,
+    "products": {
+      "CARROT": {
+        "revenue_delta": -670,
+        "production_delta": -3
+      },
+      "EGG": {
+        "revenue_delta": 59,
+        "production_delta": 0
+      },
+      "FERTILIZER": {
+        "revenue_delta": 1985,
+        "production_delta": 12
+      },
+      "MELON": {
+        "revenue_delta": 29,
+        "production_delta": 0
+      },
+      "MILK": {
+        "revenue_delta": 475,
+        "production_delta": 55
+      },
+      "STRAWBERRY": {
+        "revenue_delta": -133,
+        "production_delta": -76
+      },
+      "TOMATO": {
+        "revenue_delta": -2144,
+        "production_delta": -25
+      },
+      "WHEAT": {
+        "revenue_delta": -10113,
+        "production_delta": -422
+      },
+      "WOOL": {
+        "revenue_delta": 587,
+        "production_delta": 55
+      }
+    },
+    "decisions": [
+      {
+        "day": 12,
+        "donor": "110159381:1:d12",
+        "output": {
+          "MILK": 21,
+          "EGG": 18,
+          "FERTILIZER": 53,
+          "WOOL": 24,
+          "WHEAT": 66
+        },
+        "calendar_slack": []
+      },
+      {
+        "day": 24,
+        "donor": "109538668:0:d24",
+        "output": {
+          "WOOL": 36,
+          "MILK": 24,
+          "EGG": 24,
+          "STRAWBERRY": 29,
+          "TOMATO": 6,
+          "FERTILIZER": 54
+        },
+        "calendar_slack": []
+      }
+    ],
+    "maintenance_days": 12,
+    "rejections": [
+      {
+        "step": 360,
+        "donor": "110159381:1:d15",
+        "failure": {
+          "reason": "planning_budget"
+        }
+      },
+      {
+        "step": 432,
+        "donor": "110159381:1:d18",
+        "failure": {
+          "reason": "terminal_upkeep_infeasible",
+          "detail": {
+            "reason": "planning_budget"
+          }
+        }
+      },
+      {
+        "step": 504,
+        "donor": "110159381:1:d21",
+        "failure": {
+          "reason": "day_capacity_exceeded",
+          "overload": 3,
+          "available": 21
+        }
+      },
+      {
+        "step": 648,
+        "donor": "109538668:0:d27",
+        "failure": {
+          "reason": "day_capacity_exceeded",
+          "overload": 3,
+          "available": 21
+        }
+      }
+    ],
+    "shops_candidate": [
+      "BRUNCH_SPOT",
+      "FARMERS_MARKET",
+      "YARN_STORE",
+      "PET_CAFE",
+      "PET_CAFE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "PIZZA_SHOP"
+    ],
+    "shops_control": [
+      "BRUNCH_SPOT",
+      "FARMERS_MARKET",
+      "YARN_STORE",
+      "PET_CAFE",
+      "PET_CAFE",
+      "FARMERS_MARKET",
+      "BAKERY",
+      "PIZZA_SHOP"
+    ]
+  }
+]

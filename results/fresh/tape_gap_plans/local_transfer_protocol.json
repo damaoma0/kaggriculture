@@ -1,0 +1,29 @@
+{
+  "created": "2026-09-22",
+  "primary_submission": 56395605,
+  "secondary_submission": 56368334,
+  "days": [
+    12,
+    15,
+    18,
+    21,
+    24
+  ],
+  "donor_policy": 56266758,
+  "donors": "105 exact-state UMG episodes in previous train+test corpora; no new fitting",
+  "rank": [
+    "shop-count replacements",
+    "crop/animal count L1",
+    "committed next3 output L1",
+    "tile-label mismatch",
+    "reveal order mismatch"
+  ],
+  "transfer": "max(0, mechanical_own + historical_donor_next3 - mechanical_donor)",
+  "mechanical": "Existing assets only; maintained and cared; no added fertilizer/replants; simulate six days then sum first3 to avoid a false three-day end-of-season effect.",
+  "cohort": "All verified m1 checkpoint states at listed days; separately label missing ordered prefixes in all584 compact tapes.",
+  "pilot": "Two cases per day with missing full ordered prefix, sorted by matching key then episode; at most one day per own episode.",
+  "future": "Never use later donor production. Later next6/end targets are the previously frozen forecaster on actual own checkpoint, coherently raised if below new next3 target.",
+  "evaluation": "Own observed output agreement is diagnostic, not an improvement or optimality measure. UMG leave-first4-composition-out transfer uses old75 train donors and30 already-seen test queries; not a new blind test.",
+  "no_gameplay_claim": true,
+  "no_submission": true
+}

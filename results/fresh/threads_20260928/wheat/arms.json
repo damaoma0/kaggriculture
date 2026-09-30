@@ -1,0 +1,62 @@
+{
+  "KW1a": {
+    "agent": "agents/mgt_lead_sector_wheat.py",
+    "base": "K5b",
+    "label": "KW1a: reserve drops the tomorrow-feed buffer entirely (sd_wheat_tmrw_frac=0)",
+    "cfg": {"sd_wheat_tmrw_frac": 0.0}
+  },
+  "KW1b": {
+    "agent": "agents/mgt_lead_sector_wheat.py",
+    "base": "K5b",
+    "label": "KW1b: reserve halves the tomorrow-feed buffer (sd_wheat_tmrw_frac=0.5)",
+    "cfg": {"sd_wheat_tmrw_frac": 0.5}
+  },
+  "KW2": {
+    "agent": "agents/mgt_lead_sector_wheat.py",
+    "base": "K5b",
+    "label": "KW2: KW1a + also drops today's demand-carried term (reserve relies only on the tier's pending-pickup floor)",
+    "cfg": {"sd_wheat_tmrw_frac": 0.0, "sd_wheat_today_off": 1}
+  },
+  "KW3": {
+    "agent": "agents/mgt_lead_sector_wheat.py",
+    "base": "K5b",
+    "label": "KW3: KW1a + proactive daily buy-back toward n_anim wheat each morning (mirrors the leader's habitual buy)",
+    "cfg": {"sd_wheat_tmrw_frac": 0.0, "sd_wheat_daily_buy": 1}
+  },
+  "KWd1": {
+    "agent": "agents/mgt_lead_sector_wheat.py",
+    "base": "K5b",
+    "label": "KWd1: h23 sells all shed WHEAT (ignores every reserve/quota); daytime reserve formula UNCHANGED from K5b",
+    "cfg": {"sd_wheat_h23_sell": 1}
+  },
+  "KWd2": {
+    "agent": "agents/mgt_lead_sector_wheat.py",
+    "base": "K5b",
+    "label": "KWd2: KWd1 + sd_wheat_tmrw_frac=0 (also unblocks daytime selling, not just the h23 dump)",
+    "cfg": {"sd_wheat_h23_sell": 1, "sd_wheat_tmrw_frac": 0.0}
+  },
+  "KWd1r": {
+    "agent": "agents/mgt_lead_sector_wheat.py",
+    "base": "K5b",
+    "label": "KWd1r: KWd1 + sd_wheat_h23_buy_room=1 (sell other goods to make room before the wheat buy, retry at hour1)",
+    "cfg": {"sd_wheat_h23_sell": 1, "sd_wheat_h23_buy_room": 1}
+  },
+  "KWd2r": {
+    "agent": "agents/mgt_lead_sector_wheat.py",
+    "base": "K5b",
+    "label": "KWd2r: KWd2 + sd_wheat_h23_buy_room=1 (sell other goods to make room before the wheat buy, retry at hour1)",
+    "cfg": {"sd_wheat_h23_sell": 1, "sd_wheat_tmrw_frac": 0.0, "sd_wheat_h23_buy_room": 1}
+  },
+  "KWd1p": {
+    "agent": "agents/mgt_lead_sector_wheat.py",
+    "base": "K5b",
+    "label": "KWd1p: KWd1 + sd_wheat_h23_pickup_room=1 (hour-0 farmer PICKUP frees room instead of selling first)",
+    "cfg": {"sd_wheat_h23_sell": 1, "sd_wheat_h23_pickup_room": 1}
+  },
+  "KWd2p": {
+    "agent": "agents/mgt_lead_sector_wheat.py",
+    "base": "K5b",
+    "label": "KWd2p: KWd2 + sd_wheat_h23_pickup_room=1 (hour-0 farmer PICKUP frees room instead of selling first)",
+    "cfg": {"sd_wheat_h23_sell": 1, "sd_wheat_tmrw_frac": 0.0, "sd_wheat_h23_pickup_room": 1}
+  }
+}

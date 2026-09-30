@@ -1,0 +1,33 @@
+{
+ "layout_value_json": {
+  "games": 109,
+  "mean_dist_actual": 3.635,
+  "mean_dist_greedy": 3.713,
+  "greedy_farther_games": 100,
+  "greedy_more_wages_games": 109,
+  "greedy_more_unit_hours_games": 109
+ },
+ "ALL_TILES_len_original": 96,
+ "shed_tiles_in_original_pool": 0,
+ "dsm_56444344_boards": {
+  "games": 109,
+  "animal_tile_days_on_shed_share_sh_go_plus_resolved_cows": 0.0613,
+  "co_tile_days": 21185,
+  "co_unresolved_tile_days": 20942,
+  "days12_23_per_gameday": {
+   "shed_tiles_unlocked": 3.0,
+   "shed_tiles_with_animal_low": 0.84,
+   "shed_tiles_with_animal_high": 3.0
+  }
+ },
+ "greedy_recompute": {
+  "games": 109,
+  "actual": 3.635,
+  "greedy_no_shed": 3.713,
+  "greedy_with_shed": 3.451,
+  "games_greedy_no_shed_farther": 100,
+  "games_greedy_with_shed_farther": 0,
+  "actual_visit_share_on_shed_tiles": 0.0622,
+  "mean_distinct_tiles_used": 75.0
+ }
+}

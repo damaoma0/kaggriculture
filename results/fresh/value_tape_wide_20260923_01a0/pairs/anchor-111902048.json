@@ -1,0 +1,71 @@
+{
+  "spec": {
+    "id": "anchor-111902048",
+    "world": 111902048,
+    "kind": "replay",
+    "anchored": true,
+    "episode": 111902048,
+    "seat": 1,
+    "opponent": "Evil Mango",
+    "submission": 56451263,
+    "rating": 2804.4
+  },
+  "completed": true,
+  "baseline_margin": 6763.0,
+  "candidate_margin": 6763.0,
+  "baseline_cash": 87966.0,
+  "candidate_cash": 87966.0,
+  "baseline_rival_cash": 81203.0,
+  "candidate_rival_cash": 81203.0,
+  "margin_delta": 0.0,
+  "cash_delta": 0.0,
+  "rival_delta": 0.0,
+  "selected": [
+    null,
+    null,
+    null
+  ],
+  "intervened": false,
+  "actions_changed": false,
+  "baseline_bank": 59.473791599972174,
+  "candidate_bank": 55.31720800005132,
+  "baseline_divergence": {
+    "first_board_difference": null,
+    "first_private_difference": null,
+    "extra_failed_commands": 0,
+    "recorded_cash": 81203.0,
+    "counterfactual_cash": 81203.0,
+    "sold_units_delta": {
+      "WHEAT": 0,
+      "CARROT": 0,
+      "TOMATO": 0,
+      "STRAWBERRY": 0,
+      "MELON": 0,
+      "EGG": 0,
+      "MILK": 0,
+      "WOOL": 0,
+      "FERTILIZER": 0
+    },
+    "material_command_break": false
+  },
+  "candidate_divergence": {
+    "first_board_difference": null,
+    "first_private_difference": null,
+    "extra_failed_commands": 0,
+    "recorded_cash": 81203.0,
+    "counterfactual_cash": 81203.0,
+    "sold_units_delta": {
+      "WHEAT": 0,
+      "CARROT": 0,
+      "TOMATO": 0,
+      "STRAWBERRY": 0,
+      "MELON": 0,
+      "EGG": 0,
+      "MILK": 0,
+      "WOOL": 0,
+      "FERTILIZER": 0
+    },
+    "material_command_break": false
+  },
+  "control_exact": true
+}

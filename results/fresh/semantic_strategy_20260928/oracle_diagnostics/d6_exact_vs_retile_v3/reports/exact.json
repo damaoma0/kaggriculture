@@ -1,0 +1,334 @@
+{
+  "scope": "COMPONENT_DIAGNOSTIC_NOT_POLICY",
+  "experiment": "d6_exact_vs_retile_v3",
+  "arm": "exact",
+  "expected": 8,
+  "recorded": 8,
+  "valid": 8,
+  "gate_complete": true,
+  "wins": 4,
+  "mean_valid_margin": -3238.625,
+  "cases": [
+    {
+      "id": "oracle6-112575429",
+      "valid": true,
+      "recorded": true,
+      "prefix_and_handoff_equal": true,
+      "margin": -6547.0,
+      "cash": 110875.0,
+      "phase_cash": {
+        "0": [
+          3000.0,
+          3000.0
+        ],
+        "6": [
+          775.0,
+          428.0
+        ],
+        "11": [
+          1242.0,
+          12937.0
+        ],
+        "12": [
+          3405.0,
+          16984.0
+        ],
+        "18": [
+          26806.0,
+          40218.0
+        ],
+        "24": [
+          71166.0,
+          80907.0
+        ],
+        "30": [
+          110875.0,
+          117422.0
+        ]
+      },
+      "result_sha256": "2ee25a61949fb6a7be5b43b59a974a3158cf90fdbb456dfd93040fa5dfc1948e",
+      "source_sha256": "c9b87826248f550a88b2aac2b2c7d651ce4b999be25f766c902e46c64a2d084d"
+    },
+    {
+      "id": "oracle6-112588791",
+      "valid": true,
+      "recorded": true,
+      "prefix_and_handoff_equal": true,
+      "margin": 1355.0,
+      "cash": 128880.0,
+      "phase_cash": {
+        "0": [
+          3000.0,
+          3000.0
+        ],
+        "6": [
+          800.0,
+          791.0
+        ],
+        "11": [
+          2051.0,
+          17875.0
+        ],
+        "12": [
+          4037.0,
+          17142.0
+        ],
+        "18": [
+          41732.0,
+          47764.0
+        ],
+        "24": [
+          84491.0,
+          92265.0
+        ],
+        "30": [
+          128880.0,
+          127525.0
+        ]
+      },
+      "result_sha256": "ee744caba1f3a4becd4e3931c47889db6a5bb464bd2618b6cc40397da438e49c",
+      "source_sha256": "40786e402d83b933aff0c370a877be51585d11e715efac0180f90b32863f837e"
+    },
+    {
+      "id": "oracle6-112626851",
+      "valid": true,
+      "recorded": true,
+      "prefix_and_handoff_equal": true,
+      "margin": 1126.0,
+      "cash": 106908.0,
+      "phase_cash": {
+        "0": [
+          3000.0,
+          3000.0
+        ],
+        "6": [
+          1016.0,
+          901.0
+        ],
+        "11": [
+          4753.0,
+          3009.0
+        ],
+        "12": [
+          2477.0,
+          6278.0
+        ],
+        "18": [
+          40986.0,
+          41734.0
+        ],
+        "24": [
+          71715.0,
+          79355.0
+        ],
+        "30": [
+          105782.0,
+          106908.0
+        ]
+      },
+      "result_sha256": "948984876900e5dd4d540b3c2b0666c2fcd83186026b845b176c6833675ac93d",
+      "source_sha256": "b0de7531c8c70bd0023c8d17ba42573f86b20cf5eb3eb68060ae3672b9086bbf"
+    },
+    {
+      "id": "oracle6-112616236",
+      "valid": true,
+      "recorded": true,
+      "prefix_and_handoff_equal": true,
+      "margin": -12328.0,
+      "cash": 91683.0,
+      "phase_cash": {
+        "0": [
+          3000.0,
+          3000.0
+        ],
+        "6": [
+          740.0,
+          840.0
+        ],
+        "11": [
+          827.0,
+          2679.0
+        ],
+        "12": [
+          4745.0,
+          7887.0
+        ],
+        "18": [
+          27213.0,
+          36817.0
+        ],
+        "24": [
+          57512.0,
+          64296.0
+        ],
+        "30": [
+          91683.0,
+          104011.0
+        ]
+      },
+      "result_sha256": "6b975a445cac8d66a3e0d78d306e5b466173ef797f44cf0d6250a23d51e21a8f",
+      "source_sha256": "d6714d20a03032887a3dbe4ae04c680f8d4aeb3345782ec44a9949f48de45bdc"
+    },
+    {
+      "id": "oracle6-112587591",
+      "valid": true,
+      "recorded": true,
+      "prefix_and_handoff_equal": true,
+      "margin": 901.0,
+      "cash": 125217.0,
+      "phase_cash": {
+        "0": [
+          3000.0,
+          3000.0
+        ],
+        "6": [
+          758.0,
+          707.0
+        ],
+        "11": [
+          2417.0,
+          14682.0
+        ],
+        "12": [
+          6290.0,
+          18357.0
+        ],
+        "18": [
+          35153.0,
+          41482.0
+        ],
+        "24": [
+          74827.0,
+          80207.0
+        ],
+        "30": [
+          125217.0,
+          124316.0
+        ]
+      },
+      "result_sha256": "e950ba0edfc671be73665b0b261a62f7d00d477ea958c8fad2bf80fae47c177b",
+      "source_sha256": "0788082851059b612dec3749f274d20f7df394f68c71e361b7040b5ed76f626f"
+    },
+    {
+      "id": "oracle6-112593664",
+      "valid": true,
+      "recorded": true,
+      "prefix_and_handoff_equal": true,
+      "margin": 1333.0,
+      "cash": 165063.0,
+      "phase_cash": {
+        "0": [
+          3000.0,
+          3000.0
+        ],
+        "6": [
+          1066.0,
+          844.0
+        ],
+        "11": [
+          9379.0,
+          941.0
+        ],
+        "12": [
+          13244.0,
+          5537.0
+        ],
+        "18": [
+          48949.0,
+          39621.0
+        ],
+        "24": [
+          106360.0,
+          98785.0
+        ],
+        "30": [
+          163730.0,
+          165063.0
+        ]
+      },
+      "result_sha256": "a7edf23ecb62690ef1c27e0bac306bb3aec147375591e2690a96cb980709fd4d",
+      "source_sha256": "d9d811b4f447954a06a01364faa53297b792451d2c1b4eda3ac205d1c56b2337"
+    },
+    {
+      "id": "oracle6-112596061",
+      "valid": true,
+      "recorded": true,
+      "prefix_and_handoff_equal": true,
+      "margin": -8587.0,
+      "cash": 108898.0,
+      "phase_cash": {
+        "0": [
+          3000.0,
+          3000.0
+        ],
+        "6": [
+          844.0,
+          1066.0
+        ],
+        "11": [
+          2566.0,
+          9576.0
+        ],
+        "12": [
+          5687.0,
+          13328.0
+        ],
+        "18": [
+          39293.0,
+          43340.0
+        ],
+        "24": [
+          67889.0,
+          69736.0
+        ],
+        "30": [
+          108898.0,
+          117485.0
+        ]
+      },
+      "result_sha256": "3b24a279e10d65bcd76f7aaaef243c2e9caea5d84d3792658712ac0dc035d7e6",
+      "source_sha256": "14243c9e10defd219c41a953db6ff34204305e3caf13ed68208573cba9297d72"
+    },
+    {
+      "id": "oracle6-112573049",
+      "valid": true,
+      "recorded": true,
+      "prefix_and_handoff_equal": true,
+      "margin": -3162.0,
+      "cash": 103570.0,
+      "phase_cash": {
+        "0": [
+          3000.0,
+          3000.0
+        ],
+        "6": [
+          774.0,
+          778.0
+        ],
+        "11": [
+          17051.0,
+          2180.0
+        ],
+        "12": [
+          16083.0,
+          5390.0
+        ],
+        "18": [
+          50349.0,
+          40610.0
+        ],
+        "24": [
+          81857.0,
+          73249.0
+        ],
+        "30": [
+          106732.0,
+          103570.0
+        ]
+      },
+      "result_sha256": "6565dfcf439f8df4d54f22c31ab2f3cb06f535f722339910edca2c7e8fedfe7a",
+      "source_sha256": "a8160455d1c90085f6d1899cb80779c7299b27391a21b400521c6b6a4e5001d0"
+    }
+  ],
+  "warning": "Component oracle on old training/development worlds; no competition or causal policy claim."
+}

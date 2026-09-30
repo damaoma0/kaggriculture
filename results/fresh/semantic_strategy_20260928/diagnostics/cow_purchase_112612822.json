@@ -1,0 +1,216 @@
+{
+  "scope": "READ_ONLY_SAVED_ACTION_PREFIX_DIAGNOSTIC",
+  "through_executed_step": 234,
+  "runs": {
+    "native": {
+      "source_result_sha256": "2e65bfbec1d921757886b489256365576fbb21419f8d4f1a58711bb7b9b65e43",
+      "source_actions_sha256": "131aa74a118bfc270f2c5727170bc966e0bd8db02055817c74a1379377486380",
+      "dawns_both_farms_markets_towns_equal": 10,
+      "partial_ledgers_verified": true,
+      "policy_calls": 0,
+      "original_order": [
+        [
+          "SELL",
+          "FERTILIZER",
+          1
+        ],
+        [
+          "BUY_ANIMAL",
+          "COW",
+          2
+        ],
+        [
+          "BUY_SEED",
+          "WHEAT",
+          4
+        ]
+      ],
+      "purchase_units": [
+        {
+          "before": {
+            "step": 234,
+            "money": 859.0,
+            "shed": {
+              "WHEAT": 11,
+              "CARROT": 0,
+              "TOMATO": 0,
+              "STRAWBERRY": 0,
+              "MELON": 0,
+              "EGG": 0,
+              "MILK": 0,
+              "WOOL": 0,
+              "FERTILIZER": 0,
+              "GOOSE": 0,
+              "COW": 0,
+              "SHEEP": 0
+            },
+            "shed_units": 11,
+            "shed_capacity": 100,
+            "unit_cost": 400
+          },
+          "success": true,
+          "after_money": 459.0,
+          "after_shed": {
+            "WHEAT": 11,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": 0,
+            "MILK": 0,
+            "WOOL": 0,
+            "FERTILIZER": 0,
+            "GOOSE": 0,
+            "COW": 1,
+            "SHEEP": 0
+          }
+        },
+        {
+          "before": {
+            "step": 234,
+            "money": 459.0,
+            "shed": {
+              "WHEAT": 11,
+              "CARROT": 0,
+              "TOMATO": 0,
+              "STRAWBERRY": 0,
+              "MELON": 0,
+              "EGG": 0,
+              "MILK": 0,
+              "WOOL": 0,
+              "FERTILIZER": 0,
+              "GOOSE": 0,
+              "COW": 1,
+              "SHEEP": 0
+            },
+            "shed_units": 12,
+            "shed_capacity": 100,
+            "unit_cost": 400
+          },
+          "success": true,
+          "after_money": 59.0,
+          "after_shed": {
+            "WHEAT": 11,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": 0,
+            "MILK": 0,
+            "WOOL": 0,
+            "FERTILIZER": 0,
+            "GOOSE": 0,
+            "COW": 2,
+            "SHEEP": 0
+          }
+        }
+      ],
+      "seconds": 0.47982150001917034
+    },
+    "candidate": {
+      "source_result_sha256": "7169c13f3729bc5a1905e600323c4d14a1a5553f9d1a102df017ccc972993f58",
+      "source_actions_sha256": "f4d40f867ba8acc00c9685b3e3eea4d65e8917b09be63b74afd903b9cadda218",
+      "dawns_both_farms_markets_towns_equal": 10,
+      "partial_ledgers_verified": true,
+      "policy_calls": 0,
+      "original_order": [
+        [
+          "SELL",
+          "FERTILIZER",
+          1
+        ],
+        [
+          "BUY_ANIMAL",
+          "COW",
+          2
+        ],
+        [
+          "BUY_SEED",
+          "WHEAT",
+          4
+        ]
+      ],
+      "purchase_units": [
+        {
+          "before": {
+            "step": 234,
+            "money": 720.0,
+            "shed": {
+              "WHEAT": 11,
+              "CARROT": 0,
+              "TOMATO": 0,
+              "STRAWBERRY": 0,
+              "MELON": 0,
+              "EGG": 0,
+              "MILK": 0,
+              "WOOL": 0,
+              "FERTILIZER": 0,
+              "GOOSE": 0,
+              "COW": 0,
+              "SHEEP": 0
+            },
+            "shed_units": 11,
+            "shed_capacity": 100,
+            "unit_cost": 400
+          },
+          "success": true,
+          "after_money": 320.0,
+          "after_shed": {
+            "WHEAT": 11,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": 0,
+            "MILK": 0,
+            "WOOL": 0,
+            "FERTILIZER": 0,
+            "GOOSE": 0,
+            "COW": 1,
+            "SHEEP": 0
+          }
+        },
+        {
+          "before": {
+            "step": 234,
+            "money": 320.0,
+            "shed": {
+              "WHEAT": 11,
+              "CARROT": 0,
+              "TOMATO": 0,
+              "STRAWBERRY": 0,
+              "MELON": 0,
+              "EGG": 0,
+              "MILK": 0,
+              "WOOL": 0,
+              "FERTILIZER": 0,
+              "GOOSE": 0,
+              "COW": 1,
+              "SHEEP": 0
+            },
+            "shed_units": 12,
+            "shed_capacity": 100,
+            "unit_cost": 400
+          },
+          "success": false,
+          "after_money": 320.0,
+          "after_shed": {
+            "WHEAT": 11,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": 0,
+            "MILK": 0,
+            "WOOL": 0,
+            "FERTILIZER": 0,
+            "GOOSE": 0,
+            "COW": 1,
+            "SHEEP": 0
+          }
+        }
+      ],
+      "seconds": 0.4700324999867007
+    }
+  }
+}

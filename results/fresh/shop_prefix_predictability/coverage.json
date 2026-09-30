@@ -1,0 +1,428 @@
+{
+  "schema_version": 1,
+  "source": "86 verified m1 replay seats versus 584 compact UMG tapes",
+  "tape_counts": {
+    "56266758": 310,
+    "56266899": 274,
+    "total": 584
+  },
+  "own_games": 86,
+  "observed_rates": {
+    "ordered_by_x": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 0.6627906976744186,
+      "4": 0.08139534883720931,
+      "5": 0.011627906976744186,
+      "6": 0.0,
+      "7": 0.0,
+      "8": 0.0
+    },
+    "unordered_by_x": {
+      "1": 1.0,
+      "2": 1.0,
+      "3": 0.9883720930232558,
+      "4": 0.8488372093023255,
+      "5": 0.6162790697674418,
+      "6": 0.4069767441860465,
+      "7": 0.3023255813953488,
+      "8": 0.13953488372093023
+    }
+  },
+  "counts_by_x": {
+    "1": {
+      "ordered_available": 86,
+      "unordered_available": 86,
+      "n": 86
+    },
+    "2": {
+      "ordered_available": 86,
+      "unordered_available": 86,
+      "n": 86
+    },
+    "3": {
+      "ordered_available": 57,
+      "unordered_available": 85,
+      "n": 86
+    },
+    "4": {
+      "ordered_available": 7,
+      "unordered_available": 73,
+      "n": 86
+    },
+    "5": {
+      "ordered_available": 1,
+      "unordered_available": 53,
+      "n": 86
+    },
+    "6": {
+      "ordered_available": 0,
+      "unordered_available": 35,
+      "n": 86
+    },
+    "7": {
+      "ordered_available": 0,
+      "unordered_available": 26,
+      "n": 86
+    },
+    "8": {
+      "ordered_available": 0,
+      "unordered_available": 12,
+      "n": 86
+    }
+  },
+  "first_break": {
+    "counts": {
+      "12": 50,
+      "9": 29,
+      "15": 6,
+      "18": 1
+    },
+    "longest_prefix_counts": {
+      "3": 50,
+      "2": 29,
+      "4": 6,
+      "5": 1
+    },
+    "outcome_groups": {
+      "<=D9": {
+        "9": {
+          "n": 29,
+          "wins": 21,
+          "ties": 0,
+          "losses": 8,
+          "mean_margin": 6249.0
+        },
+        "overall": {
+          "n": 29,
+          "wins": 21,
+          "ties": 0,
+          "losses": 8,
+          "mean_margin": 6249.0
+        }
+      },
+      "D12": {
+        "12": {
+          "n": 50,
+          "wins": 39,
+          "ties": 0,
+          "losses": 11,
+          "mean_margin": 9262.68
+        },
+        "overall": {
+          "n": 50,
+          "wins": 39,
+          "ties": 0,
+          "losses": 11,
+          "mean_margin": 9262.68
+        }
+      },
+      "D15+": {
+        "15": {
+          "n": 6,
+          "wins": 4,
+          "ties": 0,
+          "losses": 2,
+          "mean_margin": 4658.666666666667
+        },
+        "18": {
+          "n": 1,
+          "wins": 0,
+          "ties": 0,
+          "losses": 1,
+          "mean_margin": -9571.0
+        },
+        "overall": {
+          "n": 7,
+          "wins": 4,
+          "ties": 0,
+          "losses": 3,
+          "mean_margin": 2625.8571428571427
+        }
+      },
+      "never_missing": {
+        "overall": {
+          "n": 0,
+          "wins": 0,
+          "ties": 0,
+          "losses": 0,
+          "mean_margin": null
+        }
+      }
+    }
+  },
+  "nearest_rank1": {
+    "n": 430,
+    "by_state_bucket": {
+      "shop_1": {
+        "n": 228,
+        "wins": 176,
+        "ties": 0,
+        "losses": 52,
+        "mean_margin": 8598.38596491228
+      },
+      "shop_2plus": {
+        "n": 3,
+        "wins": 2,
+        "ties": 0,
+        "losses": 1,
+        "mean_margin": 4566.0
+      },
+      "shop_exact": {
+        "n": 199,
+        "wins": 142,
+        "ties": 0,
+        "losses": 57,
+        "mean_margin": 6731.407035175879
+      }
+    },
+    "by_cohort_bucket": {
+      "asset_0": {
+        "n": 26,
+        "wins": 22,
+        "ties": 0,
+        "losses": 4,
+        "mean_margin": 7292.961538461538
+      },
+      "asset_0to2": {
+        "n": 47,
+        "wins": 36,
+        "ties": 0,
+        "losses": 11,
+        "mean_margin": 8828.659574468085
+      },
+      "asset_gt2": {
+        "n": 357,
+        "wins": 262,
+        "ties": 0,
+        "losses": 95,
+        "mean_margin": 7588.560224089636
+      }
+    },
+    "note": "Outcome joined after frozen rank-1 selection; descriptive association only."
+  },
+  "v56_smoke": {
+    "games": 8,
+    "rows": [
+      {
+        "seed": 93021000,
+        "seat": 0,
+        "ordered": {
+          "1": true,
+          "2": true,
+          "3": false,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": false,
+          "8": false
+        },
+        "unordered": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": false,
+          "7": false,
+          "8": false
+        },
+        "longest_ordered_prefix": 2,
+        "first_missing_day": 9
+      },
+      {
+        "seed": 93021000,
+        "seat": 1,
+        "ordered": {
+          "1": true,
+          "2": true,
+          "3": false,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": false,
+          "8": false
+        },
+        "unordered": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": false,
+          "7": false,
+          "8": false
+        },
+        "longest_ordered_prefix": 2,
+        "first_missing_day": 9
+      },
+      {
+        "seed": 93021001,
+        "seat": 0,
+        "ordered": {
+          "1": true,
+          "2": true,
+          "3": false,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": false,
+          "8": false
+        },
+        "unordered": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": false,
+          "5": false,
+          "6": true,
+          "7": false,
+          "8": true
+        },
+        "longest_ordered_prefix": 2,
+        "first_missing_day": 9
+      },
+      {
+        "seed": 93021001,
+        "seat": 1,
+        "ordered": {
+          "1": true,
+          "2": true,
+          "3": false,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": false,
+          "8": false
+        },
+        "unordered": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": false,
+          "5": false,
+          "6": true,
+          "7": false,
+          "8": true
+        },
+        "longest_ordered_prefix": 2,
+        "first_missing_day": 9
+      },
+      {
+        "seed": 93021002,
+        "seat": 0,
+        "ordered": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": false,
+          "8": false
+        },
+        "unordered": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": false,
+          "8": false
+        },
+        "longest_ordered_prefix": 3,
+        "first_missing_day": 12
+      },
+      {
+        "seed": 93021002,
+        "seat": 1,
+        "ordered": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": false,
+          "8": false
+        },
+        "unordered": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": true,
+          "7": false,
+          "8": false
+        },
+        "longest_ordered_prefix": 3,
+        "first_missing_day": 12
+      },
+      {
+        "seed": 93021003,
+        "seat": 0,
+        "ordered": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": false,
+          "8": false
+        },
+        "unordered": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": false,
+          "7": false,
+          "8": false
+        },
+        "longest_ordered_prefix": 3,
+        "first_missing_day": 12
+      },
+      {
+        "seed": 93021003,
+        "seat": 1,
+        "ordered": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": false,
+          "5": false,
+          "6": false,
+          "7": false,
+          "8": false
+        },
+        "unordered": {
+          "1": true,
+          "2": true,
+          "3": true,
+          "4": true,
+          "5": true,
+          "6": false,
+          "7": false,
+          "8": false
+        },
+        "longest_ordered_prefix": 3,
+        "first_missing_day": 12
+      }
+    ],
+    "missing_by_x": {
+      "1": 0,
+      "2": 0,
+      "3": 4,
+      "4": 8,
+      "5": 8,
+      "6": 8,
+      "7": 8,
+      "8": 8
+    }
+  },
+  "qualification_note": "This is not the qualification 128-world protocol. The original 64 UMG-tape worlds are known-path controls, not gap stress. New untaped quota should require first break by D12, exclude exact-prefix worlds beyond D12, stratify shop compositions, and log actual candidate activation."
+}

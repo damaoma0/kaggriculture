@@ -1,0 +1,2 @@
+[{"kind": "pushcmd", "run": "wtr9", "cmd": "scripts/lead_world_trace.py run mgt_lpv_mdm0,mgt_lpv_mdm1,mgt_lpv_cf1 110937191,111374151,111376633,111416249,111554912,111577649,111681195,111688786,111871547,111902048,111916514,111941962", "collect": "results/fresh/lead_world_trace/*.json,results/fresh/lead_idle/mdm0/*.jsonl,results/fresh/lead_idle/mdm1/*.jsonl"},
+ {"kind": "pushcmd", "run": "g1s", "cmd": "scripts/lead_ablation.py run E2mdm0,E2mdm1,E2cf1 --workers 4", "collect": "results/fresh/lead_agent_20260924/abl_*/*.json"}]

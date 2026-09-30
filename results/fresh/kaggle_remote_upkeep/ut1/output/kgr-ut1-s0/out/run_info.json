@@ -1,0 +1,39 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/upkeep_ttape.py",
+   "run",
+   "g1",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/upkeep_20260925/ttape/*.json.gz"
+  ],
+  "workers": 4
+ },
+ "games": 12,
+ "pip_seconds": 51.966896057128906,
+ "run_seconds": 116.16540431976318,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "completed 16732748:112667461 final=127251.0 wall=41.07387018203735 ",
+  "completed 16732748:112673479 final=79932.0 wall=42.659388303756714 ",
+  "completed 16732748:112661570 final=99626.0 wall=44.313939809799194 ",
+  "completed 16732748:112655730 final=78934.0 wall=45.074360847473145 ",
+  "completed 16770421:112715010 final=83963.0 wall=33.246609687805176 ",
+  "completed 16770421:112708229 final=84446.0 wall=37.79541206359863 ",
+  "completed 16770421:112714050 final=63968.0 wall=37.87163305282593 ",
+  "completed 16770421:112721923 final=88763.0 wall=38.137866497039795 ",
+  "completed 16730612:112444381 final=141444.0 wall=31.786956071853638 ",
+  "completed 16730612:112445586 final=66301.0 wall=32.109360456466675 ",
+  "completed 16730612:112447950 final=87735.0 wall=31.386920928955078 ",
+  "completed 16730612:112449129 final=82486.0 wall=32.54961323738098 "
+ ],
+ "stderr_tail": []
+}

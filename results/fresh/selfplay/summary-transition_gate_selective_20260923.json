@@ -1,0 +1,150 @@
+{
+ "manifest": {
+  "tag": "transition_gate_selective_20260923",
+  "started": "2026-09-23 09:12:07",
+  "benchmark_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+  "rival": "v56_probe_20260923",
+  "rival_sha256": "a1ad0fd1d174477ee2cbdd561a812bcb7029647ce34599e79d6b79e9057eff6c",
+  "seeds": [
+   2026092320,
+   2026092321,
+   2026092322,
+   2026092323,
+   2026092324,
+   2026092325,
+   2026092326,
+   2026092327
+  ],
+  "candidates": [
+   "mgt_m1",
+   "mgt_transition_candidate"
+  ],
+  "seed_base": 2026092320,
+  "design": "Paired seeds and both seats against the frozen uploaded agent. Natural engine RNG for shops and weeds. Seed-clustered bootstrap intervals. No tuning on these seeds.",
+  "sources": {
+   "agents/mgt_m1.py": "1152ef2e12c4535dbc381b9c54ac7d7a0b1a9ad3d0a8018a7567dcf5c4a52470",
+   "agents/mgt_transition_candidate.py": "f834904e96ea60baaca66fa1aea7f87b46ebad0b68051bf6cfaaffbfffd283f6"
+  }
+ },
+ "failures": [],
+ "candidates": {
+  "mgt_m1": {
+   "label": "mgt_m1",
+   "build_sha256": "1152ef2e12c4535dbc381b9c54ac7d7a0b1a9ad3d0a8018a7567dcf5c4a52470",
+   "games": 16,
+   "seeds": 8,
+   "wins": 12,
+   "ties": 0,
+   "losses": 4,
+   "win_rate": 75.0,
+   "win_rate_ci95": [
+    37.5,
+    100.0
+   ],
+   "mean_margin": 3377.6,
+   "margin_ci95": [
+    -105.6,
+    6565.5
+   ],
+   "median_margin": 4818.0,
+   "mean_cash": 111350,
+   "mean_bench_cash": 107972,
+   "seeds_positive": 6,
+   "per_seed_margin": {
+    "2026092320": 4068,
+    "2026092321": -4214,
+    "2026092322": -5081,
+    "2026092323": 10272,
+    "2026092324": 5129,
+    "2026092325": 6558,
+    "2026092326": 5782,
+    "2026092327": 4507
+   },
+   "telemetry": {
+    "hire_guard_fired": 10,
+    "dist_d6": -0.32,
+    "hand_days": 60,
+    "sold_wool": 8,
+    "ops_harvest": 8,
+    "topup_tasks": 216,
+    "hire_guard_unfunded": 4,
+    "router_errors": 0,
+    "hamming_max": 30,
+    "declined_cash": 4,
+    "ops_care": 192,
+    "dist_d12": 49.76,
+    "hire_guard_sold": 14,
+    "declined_hire_cash": 6,
+    "guard_wheat": 20,
+    "orphan_days": 16,
+    "declined_profit": 28,
+    "ops_feed": 176,
+    "switches": 42,
+    "sold_milk": 12,
+    "dist_d18": 324.76,
+    "dist_d24": 527.76
+   },
+   "parent_diagnostics": {},
+   "max_seconds": 0.028
+  },
+  "mgt_transition_candidate": {
+   "label": "mgt_transition_candidate",
+   "build_sha256": "f834904e96ea60baaca66fa1aea7f87b46ebad0b68051bf6cfaaffbfffd283f6",
+   "games": 16,
+   "seeds": 8,
+   "wins": 12,
+   "ties": 0,
+   "losses": 4,
+   "win_rate": 75.0,
+   "win_rate_ci95": [
+    37.5,
+    100.0
+   ],
+   "mean_margin": 3377.6,
+   "margin_ci95": [
+    -104.8,
+    6565.5
+   ],
+   "median_margin": 4818.0,
+   "mean_cash": 111350,
+   "mean_bench_cash": 107972,
+   "seeds_positive": 6,
+   "per_seed_margin": {
+    "2026092320": 4068,
+    "2026092321": -4214,
+    "2026092322": -5081,
+    "2026092323": 10272,
+    "2026092324": 5129,
+    "2026092325": 6558,
+    "2026092326": 5782,
+    "2026092327": 4507
+   },
+   "telemetry": {
+    "hire_guard_fired": 10,
+    "dist_d6": -0.32,
+    "hand_days": 60,
+    "sold_wool": 8,
+    "ops_harvest": 8,
+    "topup_tasks": 216,
+    "hire_guard_unfunded": 4,
+    "router_errors": 0,
+    "hamming_max": 30,
+    "declined_cash": 4,
+    "ops_care": 192,
+    "dist_d12": 49.76,
+    "hire_guard_sold": 14,
+    "declined_hire_cash": 6,
+    "guard_wheat": 20,
+    "orphan_days": 16,
+    "declined_profit": 28,
+    "ops_feed": 176,
+    "switches": 42,
+    "sold_milk": 12,
+    "dist_d18": 324.76,
+    "dist_d24": 527.76
+   },
+   "parent_diagnostics": {},
+   "max_seconds": 0.029
+  }
+ }
+}

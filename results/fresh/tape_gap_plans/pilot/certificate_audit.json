@@ -1,0 +1,428 @@
+{
+  "plans_checked": 20,
+  "passed": true,
+  "all_solver_optimal": true,
+  "certificates": [
+    {
+      "file": "111240681_s0_d18.json",
+      "episode": 111240681,
+      "day": 18,
+      "mode": "forecast",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 1640,
+        "animal_cost": 0,
+        "hire_cost": 2784,
+        "procurement_cost": 0,
+        "total_cost": 4424,
+        "cash": 43452.0
+      },
+      "max_land": 75,
+      "max_workload_ratio": 0.8497409326424871,
+      "optimal": true,
+      "target_mae": 2.5555555555555554,
+      "next3_mae": 1.6666666666666667
+    },
+    {
+      "file": "111240681_s0_d18.json",
+      "episode": 111240681,
+      "day": 18,
+      "mode": "residual_transfer",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 1600,
+        "animal_cost": 0,
+        "hire_cost": 2784,
+        "procurement_cost": 0,
+        "total_cost": 4384,
+        "cash": 43452.0
+      },
+      "max_land": 75,
+      "max_workload_ratio": 0.8695652173913043,
+      "optimal": true,
+      "target_mae": 2.5555555555555554,
+      "next3_mae": 1.3333333333333333
+    },
+    {
+      "file": "111253835_s1_d15.json",
+      "episode": 111253835,
+      "day": 15,
+      "mode": "forecast",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 1150,
+        "animal_cost": 0,
+        "hire_cost": 3480,
+        "procurement_cost": 0,
+        "total_cost": 4630,
+        "cash": 23727.0
+      },
+      "max_land": 74,
+      "max_workload_ratio": 0.7927461139896373,
+      "optimal": true,
+      "target_mae": 1.8888888888888888,
+      "next3_mae": 0.7777777777777778
+    },
+    {
+      "file": "111253835_s1_d15.json",
+      "episode": 111253835,
+      "day": 15,
+      "mode": "residual_transfer",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 1160,
+        "animal_cost": 0,
+        "hire_cost": 3480,
+        "procurement_cost": 0,
+        "total_cost": 4640,
+        "cash": 23727.0
+      },
+      "max_land": 74,
+      "max_workload_ratio": 0.7927461139896373,
+      "optimal": true,
+      "target_mae": 1.7407407407407407,
+      "next3_mae": 0.4444444444444444
+    },
+    {
+      "file": "111259496_s1_d18.json",
+      "episode": 111259496,
+      "day": 18,
+      "mode": "forecast",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 1680,
+        "animal_cost": 0,
+        "hire_cost": 2784,
+        "procurement_cost": 0,
+        "total_cost": 4464,
+        "cash": 35462.0
+      },
+      "max_land": 75,
+      "max_workload_ratio": 0.8031088082901554,
+      "optimal": true,
+      "target_mae": 2.4444444444444446,
+      "next3_mae": 1.6666666666666667
+    },
+    {
+      "file": "111259496_s1_d18.json",
+      "episode": 111259496,
+      "day": 18,
+      "mode": "residual_transfer",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 1680,
+        "animal_cost": 0,
+        "hire_cost": 2784,
+        "procurement_cost": 0,
+        "total_cost": 4464,
+        "cash": 35462.0
+      },
+      "max_land": 75,
+      "max_workload_ratio": 0.8134715025906736,
+      "optimal": true,
+      "target_mae": 1.962962962962963,
+      "next3_mae": 0.5555555555555556
+    },
+    {
+      "file": "111263986_s0_d24.json",
+      "episode": 111263986,
+      "day": 24,
+      "mode": "forecast",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 710,
+        "animal_cost": 0,
+        "hire_cost": 1392,
+        "procurement_cost": 0,
+        "total_cost": 2102,
+        "cash": 69933.0
+      },
+      "max_land": 74,
+      "max_workload_ratio": 0.8549222797927462,
+      "optimal": true,
+      "target_mae": 1.6111111111111112,
+      "next3_mae": 2.3333333333333335
+    },
+    {
+      "file": "111263986_s0_d24.json",
+      "episode": 111263986,
+      "day": 24,
+      "mode": "residual_transfer",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 720,
+        "animal_cost": 0,
+        "hire_cost": 1392,
+        "procurement_cost": 0,
+        "total_cost": 2112,
+        "cash": 69933.0
+      },
+      "max_land": 74,
+      "max_workload_ratio": 0.8186528497409327,
+      "optimal": true,
+      "target_mae": 0.8333333333333334,
+      "next3_mae": 0.7777777777777778
+    },
+    {
+      "file": "111271925_s0_d12.json",
+      "episode": 111271925,
+      "day": 12,
+      "mode": "forecast",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 2710,
+        "animal_cost": 300,
+        "hire_cost": 4176,
+        "procurement_cost": 0,
+        "total_cost": 7186,
+        "cash": 13625.0
+      },
+      "max_land": 73,
+      "max_workload_ratio": 0.927461139896373,
+      "optimal": true,
+      "target_mae": 2.7777777777777777,
+      "next3_mae": 0.5555555555555556
+    },
+    {
+      "file": "111271925_s0_d12.json",
+      "episode": 111271925,
+      "day": 12,
+      "mode": "residual_transfer",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 2710,
+        "animal_cost": 300,
+        "hire_cost": 4176,
+        "procurement_cost": 0,
+        "total_cost": 7186,
+        "cash": 13625.0
+      },
+      "max_land": 73,
+      "max_workload_ratio": 0.9222797927461139,
+      "optimal": true,
+      "target_mae": 2.888888888888889,
+      "next3_mae": 0.8888888888888888
+    },
+    {
+      "file": "111294229_s1_d21.json",
+      "episode": 111294229,
+      "day": 21,
+      "mode": "forecast",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 630,
+        "animal_cost": 0,
+        "hire_cost": 2088,
+        "procurement_cost": 0,
+        "total_cost": 2718,
+        "cash": 62108.0
+      },
+      "max_land": 75,
+      "max_workload_ratio": 0.8652849740932642,
+      "optimal": true,
+      "target_mae": 2.2222222222222223,
+      "next3_mae": 1.5555555555555556
+    },
+    {
+      "file": "111294229_s1_d21.json",
+      "episode": 111294229,
+      "day": 21,
+      "mode": "residual_transfer",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 710,
+        "animal_cost": 0,
+        "hire_cost": 2088,
+        "procurement_cost": 0,
+        "total_cost": 2798,
+        "cash": 62108.0
+      },
+      "max_land": 75,
+      "max_workload_ratio": 0.8549222797927462,
+      "optimal": true,
+      "target_mae": 2.259259259259259,
+      "next3_mae": 1.1111111111111112
+    },
+    {
+      "file": "111296485_s1_d15.json",
+      "episode": 111296485,
+      "day": 15,
+      "mode": "forecast",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 2080,
+        "animal_cost": 300,
+        "hire_cost": 3480,
+        "procurement_cost": 0,
+        "total_cost": 5860,
+        "cash": 22029.0
+      },
+      "max_land": 75,
+      "max_workload_ratio": 0.8031088082901554,
+      "optimal": true,
+      "target_mae": 1.1481481481481481,
+      "next3_mae": 0.6666666666666666
+    },
+    {
+      "file": "111296485_s1_d15.json",
+      "episode": 111296485,
+      "day": 15,
+      "mode": "residual_transfer",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 2080,
+        "animal_cost": 300,
+        "hire_cost": 3480,
+        "procurement_cost": 0,
+        "total_cost": 5860,
+        "cash": 22029.0
+      },
+      "max_land": 75,
+      "max_workload_ratio": 0.8238341968911918,
+      "optimal": true,
+      "target_mae": 1.0,
+      "next3_mae": 0.2222222222222222
+    },
+    {
+      "file": "111317319_s0_d12.json",
+      "episode": 111317319,
+      "day": 12,
+      "mode": "forecast",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 2580,
+        "animal_cost": 1000,
+        "hire_cost": 4176,
+        "procurement_cost": 0,
+        "total_cost": 7756,
+        "cash": 15404.0
+      },
+      "max_land": 73,
+      "max_workload_ratio": 0.8082901554404145,
+      "optimal": true,
+      "target_mae": 1.8148148148148149,
+      "next3_mae": 0.3333333333333333
+    },
+    {
+      "file": "111317319_s0_d12.json",
+      "episode": 111317319,
+      "day": 12,
+      "mode": "residual_transfer",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 2580,
+        "animal_cost": 1000,
+        "hire_cost": 4176,
+        "procurement_cost": 0,
+        "total_cost": 7756,
+        "cash": 15404.0
+      },
+      "max_land": 73,
+      "max_workload_ratio": 0.7409326424870466,
+      "optimal": true,
+      "target_mae": 1.8148148148148149,
+      "next3_mae": 0.3333333333333333
+    },
+    {
+      "file": "111324137_s1_d21.json",
+      "episode": 111324137,
+      "day": 21,
+      "mode": "forecast",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 1110,
+        "animal_cost": 0,
+        "hire_cost": 2088,
+        "procurement_cost": 0,
+        "total_cost": 3198,
+        "cash": 48562.0
+      },
+      "max_land": 75,
+      "max_workload_ratio": 0.8808290155440415,
+      "optimal": true,
+      "target_mae": 1.4444444444444444,
+      "next3_mae": 1.5555555555555556
+    },
+    {
+      "file": "111324137_s1_d21.json",
+      "episode": 111324137,
+      "day": 21,
+      "mode": "residual_transfer",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 1120,
+        "animal_cost": 0,
+        "hire_cost": 2088,
+        "procurement_cost": 0,
+        "total_cost": 3208,
+        "cash": 48562.0
+      },
+      "max_land": 75,
+      "max_workload_ratio": 0.8808290155440415,
+      "optimal": true,
+      "target_mae": 1.5555555555555556,
+      "next3_mae": 1.4444444444444444
+    },
+    {
+      "file": "111324547_s0_d24.json",
+      "episode": 111324547,
+      "day": 24,
+      "mode": "forecast",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 500,
+        "animal_cost": 300,
+        "hire_cost": 1392,
+        "procurement_cost": 0,
+        "total_cost": 2192,
+        "cash": 67549.0
+      },
+      "max_land": 75,
+      "max_workload_ratio": 0.8808290155440415,
+      "optimal": true,
+      "target_mae": 1.7222222222222223,
+      "next3_mae": 2.3333333333333335
+    },
+    {
+      "file": "111324547_s0_d24.json",
+      "episode": 111324547,
+      "day": 24,
+      "mode": "residual_transfer",
+      "passed": true,
+      "failures": [],
+      "cost": {
+        "seed_cost": 500,
+        "animal_cost": 300,
+        "hire_cost": 1392,
+        "procurement_cost": 0,
+        "total_cost": 2192,
+        "cash": 67549.0
+      },
+      "max_land": 75,
+      "max_workload_ratio": 0.844559585492228,
+      "optimal": true,
+      "target_mae": 0.8888888888888888,
+      "next3_mae": 0.7777777777777778
+    }
+  ],
+  "scope": "Arithmetic aggregate audit. Target slack is target projection error, not a resource infeasibility or routing result."
+}

@@ -1,0 +1,32 @@
+[
+ {
+  "kind": "pushcmd",
+  "run": "litecpu1",
+  "cmd": "scripts/test_package_isolated.py submissions/2026-09-24-mgt_v9lite/pkg data/router_refresh_20260922/v56/main.py results/fresh/newphase_20260923/v9litepkg3_time_cpu1.json 4 --cpus=1",
+  "collect": "results/fresh/newphase_20260923/v9litepkg3_time_cpu1.json"
+ },
+ {
+  "kind": "pushcmd",
+  "run": "litecpuhalf",
+  "cmd": "scripts/test_package_isolated.py submissions/2026-09-24-mgt_v9lite/pkg data/router_refresh_20260922/v56/main.py results/fresh/newphase_20260923/v9litepkg3_time_cpuhalf.json 4 --cpus=1 --stress=1",
+  "collect": "results/fresh/newphase_20260923/v9litepkg3_time_cpuhalf.json"
+ },
+ {
+  "kind": "pushcmd",
+  "run": "opppasture2700",
+  "cmd": "scripts/benchmark_random_opp_paired.py --opponent pasture2700 --agents mgt_y3,mgt_v9litepkg3 --n-seeds 20 --workers 4",
+  "collect": "results/fresh/newphase_20260923/y3/opp_pasture2700/games/*,results/fresh/newphase_20260923/y3/opp_pasture2700/manifest.json,results/fresh/newphase_20260923/y3/opp_pasture2700/frozen/*"
+ },
+ {
+  "kind": "pushcmd",
+  "run": "oppsixdaylatest",
+  "cmd": "scripts/benchmark_random_opp_paired.py --opponent sixday_latest --agents mgt_y3,mgt_v9litepkg3 --n-seeds 20 --workers 4",
+  "collect": "results/fresh/newphase_20260923/y3/opp_sixday_latest/games/*,results/fresh/newphase_20260923/y3/opp_sixday_latest/manifest.json,results/fresh/newphase_20260923/y3/opp_sixday_latest/frozen/*"
+ },
+ {
+  "kind": "pushcmd",
+  "run": "oppv45",
+  "cmd": "scripts/benchmark_random_opp_paired.py --opponent v45 --agents mgt_y3,mgt_v9litepkg3 --n-seeds 20 --workers 4",
+  "collect": "results/fresh/newphase_20260923/y3/opp_v45/games/*,results/fresh/newphase_20260923/y3/opp_v45/manifest.json,results/fresh/newphase_20260923/y3/opp_v45/frozen/*"
+ }
+]

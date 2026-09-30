@@ -1,0 +1,16 @@
+SUBMITTED 2026-09-29 13:11 UTC as Kaggle ref 56676484 (standing permission: validated on MGT / leaders / ladder / DSM panels; retires n18s 56651013, n18rc8s 56655029 stays).
+n18rc99s = n18rc8s (live 56655029) + planned window water before every one-time crop harvest (executor v18o,
+sd_tier_water_first 2; scripts/patch_exec_exact_fixes_20260929.py). Only candidate_config.json (the flag) and the executor
+file differ from n18rc8s. Build: scripts/sem_arms_20260929.py (n18rc8 -> n18rc99 -> n18rc99s with n18rc8s's 3-step
+time-bank guard), scripts/package_semantic_ship_20260929.py n18rc99s results/fresh/ship_20260929/n18rc99s.
+Archive sha256 e73bfae3869e75452a31d459d250a393b7c15db47a2c241a936a5b6838387309 (MANIFEST.json lists every file).
+Why: tile-exact replay of world 114523301 (DSM's commands to day 11, DSM's tile plan after) showed replant stops
+executed HARVEST -> PLANT -> WATER on fertilized wheat (3 units instead of 5): the replant seed is bought after the
+hour-0 plan, a late pass appended the harvest+plant job and the route search dropped the optional window water.
+Evidence vs n18rc8 (same strain without the fix; fixed shops, panels on Kaggle):
+  MGT (packaged mgt_v9lite), 40 worlds: 39/40 +9,824 vs 39/40 +8,091: +1,734 (+1,082..+2,369), 34 better / 6 worse
+  leaders (exact credit), 32 games: -17,557 vs -19,315: +1,758 (27 better / 5 worse; DSM +1,637, MMPQ +1,879)
+  ladder validation, 83 games (opponents' recorded commands): 67/83 +15,021 vs 66/83 +13,490: +1,532 (74 / 9)
+  9 current-DSM worlds, full game, own tape left out: gap vs DSM -16,451 vs -18,265: +1,814 (8/9 better)
+  local official runner (empty dirs, kaggle_environments loader and bank): 2/2 DONE, +8,151 / +15,368, 57.2 / 56.3 s
+  of bank left.

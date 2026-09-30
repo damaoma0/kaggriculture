@@ -1,0 +1,30 @@
+{
+  "complete": true,
+  "expected": 16,
+  "received": 16,
+  "missing": [],
+  "errors": [],
+  "matchups": {
+    "mgt_m1 vs v56": {
+      "n": 16,
+      "wins": 9,
+      "ties": 0,
+      "losses": 7,
+      "mean_margin": 1760.3125,
+      "median_margin": 2388.5,
+      "mean_score": 0.5625,
+      "mean_margin_ci": [
+        -1398.94375,
+        5199.820312499988
+      ],
+      "world_cluster_score_ci": [
+        0.25,
+        0.875
+      ],
+      "world_clusters": 8,
+      "max_action_seconds": 0.02652950002811849,
+      "actions_over_1s": 0,
+      "segment_reports": []
+    }
+  }
+}

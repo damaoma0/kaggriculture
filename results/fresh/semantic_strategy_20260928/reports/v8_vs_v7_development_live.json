@@ -1,0 +1,106 @@
+{
+  "reference": "strategy_v7_blocks100_readiness",
+  "candidate": "strategy_v8_kb115lt2_readiness",
+  "scope": "DEVELOPMENT_NATURAL_LIVE",
+  "expected": 8,
+  "valid": 8,
+  "paired_mean": 1828.75,
+  "bootstrap95": [
+    761.625,
+    2980.625
+  ],
+  "better": 6,
+  "worse": 2,
+  "same_shops": 1,
+  "cases": [
+    {
+      "case": "live-00",
+      "reference_margin": 6155.0,
+      "candidate_margin": 11163.0,
+      "margin_delta": 5008.0,
+      "own_cash_delta": 4800.0,
+      "rival_cash_delta": -208.0,
+      "same_final_shops": false,
+      "reference_sha256": "316f7d4ee0b25bc98b1e6bf9750543a165b3bf2bdd93213c3aff1a121ce95432",
+      "candidate_sha256": "8cd9b3fbf9a6a160734bd3c7a2e7dff61c5a6d147f4bcccc0e0131e0417b1295"
+    },
+    {
+      "case": "live-01",
+      "reference_margin": 592.0,
+      "candidate_margin": 3165.0,
+      "margin_delta": 2573.0,
+      "own_cash_delta": 1376.0,
+      "rival_cash_delta": -1197.0,
+      "same_final_shops": false,
+      "reference_sha256": "6311334005d465ef84f4322455e57a13eec53d7b9049363ea545709eda9da95d",
+      "candidate_sha256": "9f6ba5bfc5ee89011b4fb144045b02df7dd156cbc4384e18d518b3852c86059e"
+    },
+    {
+      "case": "live-02",
+      "reference_margin": -986.0,
+      "candidate_margin": 1247.0,
+      "margin_delta": 2233.0,
+      "own_cash_delta": 4785.0,
+      "rival_cash_delta": 2552.0,
+      "same_final_shops": false,
+      "reference_sha256": "7a552a63558d54499374ad95c65b87c878c28660019ae17883fd1098d6d102a8",
+      "candidate_sha256": "0a1c83cf053ed2d16fde4e8211e2f7b6541126c9987bc61d2c317626de3428ed"
+    },
+    {
+      "case": "live-03",
+      "reference_margin": -2124.0,
+      "candidate_margin": -1004.0,
+      "margin_delta": 1120.0,
+      "own_cash_delta": -3321.0,
+      "rival_cash_delta": -4441.0,
+      "same_final_shops": false,
+      "reference_sha256": "5e47d89df6761e5936d34bf1c4747753b86614669e87d56dd77022566965bed6",
+      "candidate_sha256": "0d35e60c82d778b81b72985a31e7983948fdcb0fc7bb97866b8072d807d733f2"
+    },
+    {
+      "case": "live-04",
+      "reference_margin": 2166.0,
+      "candidate_margin": 1855.0,
+      "margin_delta": -311.0,
+      "own_cash_delta": -698.0,
+      "rival_cash_delta": -387.0,
+      "same_final_shops": true,
+      "reference_sha256": "d4c31911ff9d61fac552eb778b052867e863f9b53267558f4bec571e5877e149",
+      "candidate_sha256": "1af7b98b1696b65b0c4a6746e1fa13557c06c5675610b938f63d7069fea70d39"
+    },
+    {
+      "case": "live-05",
+      "reference_margin": -375.0,
+      "candidate_margin": 1641.0,
+      "margin_delta": 2016.0,
+      "own_cash_delta": -13941.0,
+      "rival_cash_delta": -15957.0,
+      "same_final_shops": false,
+      "reference_sha256": "978f1b1ce55535c4c730d0c7ec67f6ad5bf4bba569d0c2c78844077a5529a5a9",
+      "candidate_sha256": "15b7cf954e98661adee453c8c1b09847b7d2b1f36252c6cb34b222b508905148"
+    },
+    {
+      "case": "live-06",
+      "reference_margin": -5593.0,
+      "candidate_margin": -3391.0,
+      "margin_delta": 2202.0,
+      "own_cash_delta": 7004.0,
+      "rival_cash_delta": 4802.0,
+      "same_final_shops": false,
+      "reference_sha256": "8bf8e9fe167f8e534f32214ee24de10f632f23cb8b6af573844e44976a72ab18",
+      "candidate_sha256": "53328e1a554c7d65052f13ce9321af0e08b43e95bd65f930a3b82e34e5361095"
+    },
+    {
+      "case": "live-07",
+      "reference_margin": -6509.0,
+      "candidate_margin": -6720.0,
+      "margin_delta": -211.0,
+      "own_cash_delta": 5750.0,
+      "rival_cash_delta": 5961.0,
+      "same_final_shops": false,
+      "reference_sha256": "24f70d07db9f28d51d4d984a3e96603ac699344a6d31c69b669bd522f50fc80e",
+      "candidate_sha256": "0a9e2017ff4bc56d3e947a7b7fca97cabced8505d6c7ac94cddc35c99f414715"
+    }
+  ],
+  "warning": "Natural shops can change with policy actions; this is not an isolated same-shop mechanism effect or qualification."
+}

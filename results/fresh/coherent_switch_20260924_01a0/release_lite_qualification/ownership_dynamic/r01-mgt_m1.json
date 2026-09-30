@@ -1,0 +1,123 @@
+{
+  "case": "r01-mgt_m1",
+  "opponent": "mgt_m1",
+  "seed": 3252930110,
+  "seat": 1,
+  "first_shop": "SMOOTHIE_SHOP",
+  "shops": [
+    "SMOOTHIE_SHOP",
+    "FARMERS_MARKET",
+    "FARMERS_MARKET",
+    "YARN_STORE",
+    "ICE_CREAM_SHOP",
+    "FARMERS_MARKET",
+    "YARN_STORE",
+    "ICE_CREAM_SHOP"
+  ],
+  "checkpoints": {
+    "288": {
+      "day": 12,
+      "seat": 1,
+      "shop_prefix": [
+        "SMOOTHIE_SHOP",
+        "FARMERS_MARKET",
+        "FARMERS_MARKET",
+        "YARN_STORE"
+      ],
+      "native_route": 388,
+      "alternate_route": 452,
+      "shortlist_count": 7,
+      "runs": [
+        {
+          "route": "native",
+          "route_id": null,
+          "world_index": 0,
+          "rollout_returned": true
+        },
+        {
+          "route": "native",
+          "route_id": null,
+          "world_index": 1,
+          "rollout_returned": true
+        },
+        {
+          "route": "alternate",
+          "route_id": 452,
+          "world_index": 0,
+          "rollout_returned": true
+        },
+        {
+          "route": "alternate",
+          "route_id": 452,
+          "world_index": 1,
+          "rollout_returned": true
+        }
+      ],
+      "audited_turns": 1725
+    },
+    "432": {
+      "day": 18,
+      "seat": 1,
+      "shop_prefix": [
+        "SMOOTHIE_SHOP",
+        "FARMERS_MARKET",
+        "FARMERS_MARKET",
+        "YARN_STORE",
+        "ICE_CREAM_SHOP",
+        "FARMERS_MARKET"
+      ],
+      "native_route": 388,
+      "alternate_route": 337,
+      "shortlist_count": 7,
+      "runs": [
+        {
+          "route": "native",
+          "route_id": null,
+          "world_index": 0,
+          "rollout_returned": true
+        },
+        {
+          "route": "native",
+          "route_id": null,
+          "world_index": 1,
+          "rollout_returned": true
+        },
+        {
+          "route": "alternate",
+          "route_id": 337,
+          "world_index": 0,
+          "rollout_returned": true
+        },
+        {
+          "route": "alternate",
+          "route_id": 337,
+          "world_index": 1,
+          "rollout_returned": true
+        }
+      ],
+      "audited_turns": 1149
+    }
+  },
+  "audited_turns": 2874,
+  "y3_sha256": "416ab6977af12644c39ba26b269cecc261c47daffe35997fb51e4cf5fbbb7073",
+  "supported_agent_sha256": "416ab6977af12644c39ba26b269cecc261c47daffe35997fb51e4cf5fbbb7073",
+  "source_entry": "agents/mgt_y3.py via get_last_callable",
+  "helper_modules": {
+    "rival_trajectory_model": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\coherent_switch_20260924_01a0\\release_lite_qualification\\package\\scripts\\rival_trajectory_model.py",
+    "rival_trajectory_model_v3": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\coherent_switch_20260924_01a0\\release_lite_qualification\\package\\scripts\\rival_trajectory_model_v3.py",
+    "value_tape_search": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\coherent_switch_20260924_01a0\\release_lite_qualification\\package\\scripts\\value_tape_search.py",
+    "value_tape_search_v2": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\coherent_switch_20260924_01a0\\release_lite_qualification\\package\\scripts\\value_tape_search_v2.py",
+    "value_tape_search_v3": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\coherent_switch_20260924_01a0\\release_lite_qualification\\package\\scripts\\value_tape_search_v3.py",
+    "value_tape_search_v5": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\coherent_switch_20260924_01a0\\release_lite_qualification\\package\\scripts\\value_tape_search_v5.py",
+    "value_tape_search_v6": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\coherent_switch_20260924_01a0\\release_lite_qualification\\package\\scripts\\value_tape_search_v6.py",
+    "value_tape_search_v7": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\coherent_switch_20260924_01a0\\release_lite_qualification\\package\\scripts\\value_tape_search_v7.py",
+    "value_tape_search_v8": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\coherent_switch_20260924_01a0\\release_lite_qualification\\package\\scripts\\value_tape_search_v8.py",
+    "value_tape_search_v9": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\coherent_switch_20260924_01a0\\release_lite_qualification\\package\\scripts\\value_tape_search_v9.py"
+  },
+  "worktree_research_labour_profit_sha256": "06b457c9efeceefe58eb235aaacf69e812aecc64c4351896614c65988be949bc",
+  "package_research_labour_profit_sha256": "06b457c9efeceefe58eb235aaacf69e812aecc64c4351896614c65988be949bc",
+  "research_helper_byte_equal": true,
+  "audit_driver_sha256": "98ae01dd9c9fbf84ef35294a67eb2b493b32c37cf5874f9792bf0c86e914c253",
+  "passed": true,
+  "scope": "Y3 ownership audit only; no v9lite entrypoint, no qualification cash/outcome fields retained"
+}

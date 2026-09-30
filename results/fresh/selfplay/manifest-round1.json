@@ -1,0 +1,40 @@
+{
+ "tag": "round1",
+ "started": "2026-09-17 22:56:55",
+ "benchmark_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+ "seeds": [
+  171000,
+  171001,
+  171002,
+  171003,
+  171004,
+  171005,
+  171006,
+  171007,
+  171008,
+  171009,
+  171010,
+  171011,
+  171012,
+  171013,
+  171014,
+  171015
+ ],
+ "candidates": [
+  "sp_null",
+  "sp_hirecap11",
+  "sp_hirecap12",
+  "sp_hirecap13",
+  "sp_noquad4",
+  "sp_fertretain"
+ ],
+ "design": "Paired seeds and both seats against the frozen uploaded agent. Natural engine RNG for shops and weeds. Seed-clustered bootstrap intervals. No tuning on these seeds.",
+ "sources": {
+  "agents/sp_null.py": "bb63423139f8090e6dbb08f678fe6d1660ad261f33a7a401730d6c5606de981b",
+  "agents/sp_hirecap11.py": "699486692d6ecdbe435048129cf0f6a8892a0bf8125e057d865f3767c215389c",
+  "agents/sp_hirecap12.py": "017c2a3a1faecd4a64a68e30b9c1f3f739469d72c4ee66196de93e3bf0310959",
+  "agents/sp_hirecap13.py": "584fbc1cdeff414853103733c2757a511fc3474e7193559f219a72e313a46d51",
+  "agents/sp_noquad4.py": "f721a4bb7de8dc62ced2e52a25e5a2cfca3b2e76d51becd433ecf48291ba20cf",
+  "agents/sp_fertretain.py": "de65aa4531e1e5a732dadef46447c7ed627c5fd9edd7500a024809c220e35c60"
+ }
+}

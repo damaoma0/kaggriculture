@@ -1,0 +1,86 @@
+{
+ "manifest": {
+  "tag": "round2null",
+  "started": "2026-09-17 23:27:51",
+  "benchmark_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+  "seeds": [
+   172000,
+   172001,
+   172002,
+   172003,
+   172004,
+   172005,
+   172006,
+   172007,
+   172008,
+   172009,
+   172010,
+   172011,
+   172012,
+   172013,
+   172014,
+   172015
+  ],
+  "candidates": [
+   "sp_null"
+  ],
+  "seed_base": 172000,
+  "design": "Paired seeds and both seats against the frozen uploaded agent. Natural engine RNG for shops and weeds. Seed-clustered bootstrap intervals. No tuning on these seeds.",
+  "sources": {
+   "agents/sp_null.py": "bb63423139f8090e6dbb08f678fe6d1660ad261f33a7a401730d6c5606de981b"
+  }
+ },
+ "failures": [],
+ "candidates": {
+  "sp_null": {
+   "label": "sp_null",
+   "build_sha256": "bb63423139f8090e6dbb08f678fe6d1660ad261f33a7a401730d6c5606de981b",
+   "games": 32,
+   "seeds": 16,
+   "wins": 0,
+   "ties": 32,
+   "losses": 0,
+   "win_rate": 0.0,
+   "win_rate_ci95": [
+    0.0,
+    0.0
+   ],
+   "mean_margin": 0.0,
+   "margin_ci95": [
+    0.0,
+    0.0
+   ],
+   "median_margin": 0.0,
+   "mean_cash": 94665,
+   "mean_bench_cash": 94665,
+   "seeds_positive": 0,
+   "per_seed_margin": {
+    "172000": 0,
+    "172001": 0,
+    "172002": 0,
+    "172003": 0,
+    "172004": 0,
+    "172005": 0,
+    "172006": 0,
+    "172007": 0,
+    "172008": 0,
+    "172009": 0,
+    "172010": 0,
+    "172011": 0,
+    "172012": 0,
+    "172013": 0,
+    "172014": 0,
+    "172015": 0
+   },
+   "telemetry": {
+    "calls": 23008
+   },
+   "parent_diagnostics": {
+    "supply_budget_declines": 46,
+    "sheep_capacity_declines": 2,
+    "parent_input_capacity_declines": 4
+   },
+   "max_seconds": 0.137
+  }
+ }
+}

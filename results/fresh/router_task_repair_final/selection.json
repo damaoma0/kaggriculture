@@ -1,0 +1,207 @@
+{
+  "status": "completed",
+  "selected": "agents/midgame_selected.py",
+  "policy": "full conditional public router",
+  "reason": "No demonstrated normal-game advantage from the scheduling interventions.",
+  "final_games": 264,
+  "smoke_games": 30,
+  "paired_production_matches": 88,
+  "repair_stats": {
+    "tasks_attempted": 166054,
+    "late_tasks": 810,
+    "lateness_turns": 1576,
+    "calls": 29256,
+    "chain_swaps": 42,
+    "predicted_missed_reduction": 82,
+    "predicted_tardiness_reduction": 1672
+  },
+  "scenarios": [
+    {
+      "checkpoint": 224,
+      "condition": "normal",
+      "mean_cash": {
+        "router": 78087.0,
+        "allocator": 78087.0,
+        "repair": 78087.0
+      },
+      "mean_delta": 0.0,
+      "range": [
+        0.0,
+        0.0
+      ],
+      "higher": 0,
+      "equal": 8,
+      "lower": 0
+    },
+    {
+      "checkpoint": 224,
+      "condition": "permuted",
+      "mean_cash": {
+        "router": 75921.0,
+        "allocator": 78087.0,
+        "repair": 78087.0
+      },
+      "mean_delta": 0.0,
+      "range": [
+        0.0,
+        0.0
+      ],
+      "higher": 0,
+      "equal": 8,
+      "lower": 0
+    },
+    {
+      "checkpoint": 224,
+      "condition": "displaced",
+      "mean_cash": {
+        "router": 77179.5,
+        "allocator": 77986.5,
+        "repair": 77986.5
+      },
+      "mean_delta": 0.0,
+      "range": [
+        0.0,
+        0.0
+      ],
+      "higher": 0,
+      "equal": 8,
+      "lower": 0
+    },
+    {
+      "checkpoint": 232,
+      "condition": "displaced",
+      "mean_cash": {
+        "router": 80807.0,
+        "allocator": 80871.75,
+        "repair": 80871.75
+      },
+      "mean_delta": 0.0,
+      "range": [
+        0.0,
+        0.0
+      ],
+      "higher": 0,
+      "equal": 8,
+      "lower": 0
+    },
+    {
+      "checkpoint": 236,
+      "condition": "displaced",
+      "mean_cash": {
+        "router": 80872.75,
+        "allocator": 80848.5,
+        "repair": 80848.5
+      },
+      "mean_delta": 0.0,
+      "range": [
+        0.0,
+        0.0
+      ],
+      "higher": 0,
+      "equal": 8,
+      "lower": 0
+    },
+    {
+      "checkpoint": 392,
+      "condition": "displaced",
+      "mean_cash": {
+        "router": 78472.25,
+        "allocator": 77566.0,
+        "repair": 77566.0
+      },
+      "mean_delta": 0.0,
+      "range": [
+        0.0,
+        0.0
+      ],
+      "higher": 0,
+      "equal": 8,
+      "lower": 0
+    },
+    {
+      "checkpoint": 400,
+      "condition": "displaced",
+      "mean_cash": {
+        "router": 80125.75,
+        "allocator": 78238.0,
+        "repair": 78238.0
+      },
+      "mean_delta": 0.0,
+      "range": [
+        0.0,
+        0.0
+      ],
+      "higher": 0,
+      "equal": 8,
+      "lower": 0
+    },
+    {
+      "checkpoint": 404,
+      "condition": "displaced",
+      "mean_cash": {
+        "router": 80689.0,
+        "allocator": 78622.75,
+        "repair": 78622.75
+      },
+      "mean_delta": 0.0,
+      "range": [
+        0.0,
+        0.0
+      ],
+      "higher": 0,
+      "equal": 8,
+      "lower": 0
+    },
+    {
+      "checkpoint": 632,
+      "condition": "displaced",
+      "mean_cash": {
+        "router": 77049.25,
+        "allocator": 78045.75,
+        "repair": 78045.75
+      },
+      "mean_delta": 0.0,
+      "range": [
+        0.0,
+        0.0
+      ],
+      "higher": 0,
+      "equal": 8,
+      "lower": 0
+    },
+    {
+      "checkpoint": 640,
+      "condition": "displaced",
+      "mean_cash": {
+        "router": 77525.25,
+        "allocator": 78045.75,
+        "repair": 78045.75
+      },
+      "mean_delta": 0.0,
+      "range": [
+        0.0,
+        0.0
+      ],
+      "higher": 0,
+      "equal": 8,
+      "lower": 0
+    },
+    {
+      "checkpoint": 644,
+      "condition": "displaced",
+      "mean_cash": {
+        "router": 77885.0,
+        "allocator": 78016.75,
+        "repair": 78016.75
+      },
+      "mean_delta": 0.0,
+      "range": [
+        0.0,
+        0.0
+      ],
+      "higher": 0,
+      "equal": 8,
+      "lower": 0
+    }
+  ]
+}

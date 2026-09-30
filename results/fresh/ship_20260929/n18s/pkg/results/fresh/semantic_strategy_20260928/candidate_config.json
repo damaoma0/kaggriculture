@@ -1,0 +1,59 @@
+{
+  "model_file": "block_model_modern100.json",
+  "reactive_land_unlock": true,
+  "policy": {
+    "land_limit": 4,
+    "economics_weight": 0,
+    "release_age": {
+      "WHEAT": 3,
+      "CARROT": 3,
+      "MELON": 10,
+      "TOMATO": 12,
+      "STRAWBERRY": 17
+    }
+  },
+  "tiles": {
+    "release_age": {
+      "WHEAT": 3,
+      "CARROT": 3,
+      "MELON": 10,
+      "TOMATO": 12,
+      "STRAWBERRY": 17
+    }
+  },
+  "early_financing": {
+    "enabled": true
+  },
+  "policy_kind": "three_day_budget",
+  "executor": {
+    "sd_tier_wheat_retry": 1,
+    "sd_polish_harvest_exchange": 1,
+    "sd_tier_unfunded_build_guard": 1,
+    "sd_tier_wheat_priority": 1,
+    "sd_market_carried_actual": 2,
+    "sd_tier_wheat_buy_live": 1,
+    "sd_melon_rush": 1,
+    "sd_place_feed": 1,
+    "sd_mel_greedy": 1,
+    "sd_mel_last": 13,
+    "sd_books_reserve": 1
+  },
+  "opening": "mgt_file",
+  "opening_source": "agents/mgt_dsm_c.py",
+  "bank_guard": {
+    "lean_at": 32.0,
+    "lean2_at": 46.0,
+    "greedy_at": 57.0,
+    "lean": {
+      "sd_tier_iters": 1000,
+      "sd_polish": 1000,
+      "sd_tier_spawn_buffer": 0,
+      "sd_tier_spawn_h2": 0
+    },
+    "lean2": {
+      "sd_tier_iters": 300,
+      "sd_polish": 0,
+      "sd_tier_spawn_passes": 1
+    }
+  }
+}

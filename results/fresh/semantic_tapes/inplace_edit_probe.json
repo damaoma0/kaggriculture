@@ -1,0 +1,247 @@
+{
+  "episode": 111291994,
+  "day": 21,
+  "seat": 1,
+  "change": "Buy one tomato seed at hour 1; replace one successful day-21 WHEAT planting with TOMATO on the same tile.",
+  "scheduler": {
+    "name": "baseline",
+    "gain": 0.0,
+    "wage": 0.0,
+    "fallback": null,
+    "seconds": 1.286008800030686,
+    "candidates": 3
+  },
+  "first_48_action_changes": 0,
+  "day24": {
+    "baseline": {
+      "cash": 79721.0,
+      "rival_cash": 85944.0,
+      "margin": -6223.0,
+      "assets": {
+        "WHEAT": 28,
+        "STRAWBERRY": 23,
+        "COW": 8,
+        "SHEEP": 6,
+        "GOOSE": 5,
+        "TOMATO": 2
+      },
+      "revenue": {
+        "FERTILIZER": 12040,
+        "WHEAT": 5620,
+        "WOOL": 15426,
+        "MILK": 15354,
+        "MELON": 14852,
+        "EGG": 4245,
+        "STRAWBERRY": 34766
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4311,
+        "HIRE": 3466.0,
+        "BUY_ANIMAL:COW": 3200,
+        "BUY_ANIMAL:SHEEP": 3000,
+        "BUY_SEED:MELON": 1040,
+        "BUY_SEED:WHEAT": 1330,
+        "BUY_SEED:CARROT": 80,
+        "BUY_SEED:STRAWBERRY": 3700,
+        "BUY_LAND": 3000.0,
+        "BUY_ANIMAL:GOOSE": 1500,
+        "BUY_PRODUCT:FERTILIZER": 855,
+        "BUY_SEED:TOMATO": 100
+      },
+      "buy_tomato_seed": 0
+    },
+    "raw_edit": {
+      "cash": 79671.0,
+      "rival_cash": 85944.0,
+      "margin": -6273.0,
+      "assets": {
+        "WHEAT": 27,
+        "STRAWBERRY": 23,
+        "COW": 8,
+        "SHEEP": 6,
+        "GOOSE": 5,
+        "TOMATO": 3
+      },
+      "revenue": {
+        "FERTILIZER": 12040,
+        "WHEAT": 5620,
+        "WOOL": 15426,
+        "MILK": 15354,
+        "MELON": 14852,
+        "EGG": 4245,
+        "STRAWBERRY": 34766
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4311,
+        "HIRE": 3466.0,
+        "BUY_ANIMAL:COW": 3200,
+        "BUY_ANIMAL:SHEEP": 3000,
+        "BUY_SEED:MELON": 1040,
+        "BUY_SEED:WHEAT": 1330,
+        "BUY_SEED:CARROT": 80,
+        "BUY_SEED:STRAWBERRY": 3700,
+        "BUY_LAND": 3000.0,
+        "BUY_ANIMAL:GOOSE": 1500,
+        "BUY_PRODUCT:FERTILIZER": 855,
+        "BUY_SEED:TOMATO": 150
+      },
+      "buy_tomato_seed": 1
+    },
+    "scheduled_edit": {
+      "cash": 79671.0,
+      "rival_cash": 85944.0,
+      "margin": -6273.0,
+      "assets": {
+        "WHEAT": 27,
+        "STRAWBERRY": 23,
+        "COW": 8,
+        "SHEEP": 6,
+        "GOOSE": 5,
+        "TOMATO": 3
+      },
+      "revenue": {
+        "FERTILIZER": 12040,
+        "WHEAT": 5620,
+        "WOOL": 15426,
+        "MILK": 15354,
+        "MELON": 14852,
+        "EGG": 4245,
+        "STRAWBERRY": 34766
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4311,
+        "HIRE": 3466.0,
+        "BUY_ANIMAL:COW": 3200,
+        "BUY_ANIMAL:SHEEP": 3000,
+        "BUY_SEED:MELON": 1040,
+        "BUY_SEED:WHEAT": 1330,
+        "BUY_SEED:CARROT": 80,
+        "BUY_SEED:STRAWBERRY": 3700,
+        "BUY_LAND": 3000.0,
+        "BUY_ANIMAL:GOOSE": 1500,
+        "BUY_PRODUCT:FERTILIZER": 855,
+        "BUY_SEED:TOMATO": 150
+      },
+      "buy_tomato_seed": 1
+    }
+  },
+  "final": {
+    "baseline": {
+      "cash": 119775.0,
+      "rival_cash": 120247.0,
+      "margin": -472.0,
+      "assets": {
+        "WHEAT": 1,
+        "COW": 8,
+        "SHEEP": 4,
+        "GOOSE": 5,
+        "STRAWBERRY": 2
+      },
+      "revenue": {
+        "FERTILIZER": 12733,
+        "WHEAT": 14094,
+        "WOOL": 18387,
+        "MILK": 20196,
+        "MELON": 14852,
+        "EGG": 7896,
+        "STRAWBERRY": 53886,
+        "TOMATO": 1051,
+        "CARROT": 1263
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4475,
+        "HIRE": 4858.0,
+        "BUY_ANIMAL:COW": 3200,
+        "BUY_ANIMAL:SHEEP": 3000,
+        "BUY_SEED:MELON": 1040,
+        "BUY_SEED:WHEAT": 1580,
+        "BUY_SEED:CARROT": 260,
+        "BUY_SEED:STRAWBERRY": 3700,
+        "BUY_LAND": 3000.0,
+        "BUY_ANIMAL:GOOSE": 1500,
+        "BUY_PRODUCT:FERTILIZER": 870,
+        "BUY_SEED:TOMATO": 100
+      },
+      "buy_tomato_seed": 0
+    },
+    "raw_edit": {
+      "cash": 119369.0,
+      "rival_cash": 120786.0,
+      "margin": -1417.0,
+      "assets": {
+        "WHEAT": 1,
+        "COW": 8,
+        "SHEEP": 4,
+        "GOOSE": 5,
+        "STRAWBERRY": 2,
+        "TOMATO": 1
+      },
+      "revenue": {
+        "FERTILIZER": 12733,
+        "WHEAT": 13916,
+        "WOOL": 18409,
+        "MILK": 20187,
+        "MELON": 14852,
+        "EGG": 7793,
+        "STRAWBERRY": 53886,
+        "TOMATO": 1051,
+        "CARROT": 1175
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4475,
+        "HIRE": 4858.0,
+        "BUY_ANIMAL:COW": 3200,
+        "BUY_ANIMAL:SHEEP": 3000,
+        "BUY_SEED:MELON": 1040,
+        "BUY_SEED:WHEAT": 1580,
+        "BUY_SEED:CARROT": 260,
+        "BUY_SEED:STRAWBERRY": 3700,
+        "BUY_LAND": 3000.0,
+        "BUY_ANIMAL:GOOSE": 1500,
+        "BUY_PRODUCT:FERTILIZER": 870,
+        "BUY_SEED:TOMATO": 150
+      },
+      "buy_tomato_seed": 1
+    },
+    "scheduled_edit": {
+      "cash": 119369.0,
+      "rival_cash": 120786.0,
+      "margin": -1417.0,
+      "assets": {
+        "WHEAT": 1,
+        "COW": 8,
+        "SHEEP": 4,
+        "GOOSE": 5,
+        "STRAWBERRY": 2,
+        "TOMATO": 1
+      },
+      "revenue": {
+        "FERTILIZER": 12733,
+        "WHEAT": 13916,
+        "WOOL": 18409,
+        "MILK": 20187,
+        "MELON": 14852,
+        "EGG": 7793,
+        "STRAWBERRY": 53886,
+        "TOMATO": 1051,
+        "CARROT": 1175
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4475,
+        "HIRE": 4858.0,
+        "BUY_ANIMAL:COW": 3200,
+        "BUY_ANIMAL:SHEEP": 3000,
+        "BUY_SEED:MELON": 1040,
+        "BUY_SEED:WHEAT": 1580,
+        "BUY_SEED:CARROT": 260,
+        "BUY_SEED:STRAWBERRY": 3700,
+        "BUY_LAND": 3000.0,
+        "BUY_ANIMAL:GOOSE": 1500,
+        "BUY_PRODUCT:FERTILIZER": 870,
+        "BUY_SEED:TOMATO": 150
+      },
+      "buy_tomato_seed": 1
+    }
+  },
+  "limitation": "Fixed recorded future actions and shops; this is not an adaptive agent or causal market forecast."
+}

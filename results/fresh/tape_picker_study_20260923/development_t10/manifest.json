@@ -1,0 +1,34 @@
+{
+  "created_utc": "2026-09-23T13:25:56Z",
+  "agents": [
+    "mgt_t10_recent"
+  ],
+  "opponents": [
+    "v56"
+  ],
+  "seeds": [
+    1814298892,
+    1574612379,
+    1113539491,
+    1063535875,
+    1197903523,
+    1869525632,
+    1247696705,
+    1329066668
+  ],
+  "seats": [
+    0,
+    1
+  ],
+  "episode_steps": 720,
+  "expected_games": 16,
+  "source_paths": {
+    "mgt_t10_recent": "results\\fresh\\tape_picker_study_20260923\\development_t10\\frozen\\mgt_t10_recent.py",
+    "v56": "results\\fresh\\tape_picker_study_20260923\\development_t10\\frozen\\v56.py"
+  },
+  "source_hashes": {
+    "mgt_t10_recent": "56196ff2e07b95c35ba6a8c2916e0e2f0ae00c739baf14ec48188467f4d0062b",
+    "v56": "a1ad0fd1d174477ee2cbdd561a812bcb7029647ce34599e79d6b79e9057eff6c"
+  },
+  "design": "Natural RNG Kaggriculture games; fresh process per game; no forced shops or early stopping."
+}

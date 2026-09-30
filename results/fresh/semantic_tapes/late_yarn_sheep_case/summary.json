@@ -1,0 +1,80 @@
+{
+  "episode": 111287532,
+  "baseline_margin": -6063.0,
+  "forced_margin": -7471.0,
+  "margin_delta": -1408.0,
+  "cash_delta": -741.0,
+  "opponent_cash_delta": 667.0,
+  "first_change": 434,
+  "action_changes": 178,
+  "overlay": {
+    "hand_days": 11,
+    "topup_tasks": 22,
+    "ops_feed": 30,
+    "ops_care": 27,
+    "guard_wheat": 6,
+    "evals": [
+      [
+        18,
+        16,
+        11,
+        11,
+        5,
+        1,
+        -2563,
+        601,
+        181
+      ]
+    ],
+    "commitments": 1,
+    "sheep_bought": 1,
+    "decisions": [
+      {
+        "day": 18,
+        "hour": 2,
+        "target": 16,
+        "owned": 11,
+        "planned": 11,
+        "n": 1,
+        "hands": 1,
+        "tiles": [
+          [
+            4,
+            6
+          ]
+        ],
+        "wool": 181.0,
+        "profit": -2563
+      }
+    ],
+    "ops_dig": 1,
+    "ops_build_pasture": 1,
+    "ops_place": 1,
+    "ops_collect_fertilizer": 7,
+    "sold_fertilizer": 5
+  },
+  "our_revenue_delta": {
+    "CARROT": -262,
+    "EGG": 130,
+    "FERTILIZER": 138,
+    "TOMATO": -70,
+    "WHEAT": 9,
+    "WOOL": 535
+  },
+  "our_spend_delta": {
+    "BUY_ANIMAL:SHEEP": 500,
+    "BUY_PRODUCT:WHEAT": 289,
+    "HIRE": 432.0
+  },
+  "rival_revenue_delta": {
+    "CARROT": 63,
+    "FERTILIZER": -146,
+    "WHEAT": 126,
+    "WOOL": 610
+  },
+  "rival_spend_delta": {
+    "BUY_PRODUCT:FERTILIZER": -32,
+    "BUY_PRODUCT:WHEAT": 18
+  },
+  "limitation": "Forced permissive one-sheep overlay in one recorded world, fixed rival actions and shop sequence. It may alter other agent actions after day 18."
+}

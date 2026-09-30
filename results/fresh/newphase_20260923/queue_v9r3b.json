@@ -1,0 +1,6 @@
+[
+ {"kind": "push", "run": "v9pb", "agents": "mgt_v9,mgt_v9y3", "submission": "p2750", "episodes": "@results/fresh/newphase_20260923/p2750_worlds.json", "shards": 3},
+ {"kind": "push", "run": "r3pb", "agents": "mgt_r3,mgt_r3y3", "submission": "p2750", "episodes": "@results/fresh/newphase_20260923/p2750_worlds.json", "shards": 3},
+ {"kind": "pushcmd", "run": "v56v9b", "cmd": "scripts/benchmark_random_v56_paired.py --agents mgt_v9,mgt_v9y3 --n-seeds 20 --workers 2", "collect": "results/fresh/newphase_20260923/y3/v56_paired/games/mgt_v9*"},
+ {"kind": "pushcmd", "run": "v56r3b", "cmd": "scripts/benchmark_random_v56_paired.py --agents mgt_r3,mgt_r3y3 --n-seeds 20 --workers 2", "collect": "results/fresh/newphase_20260923/y3/v56_paired/games/mgt_r3*"}
+]

@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "check": "official_framework_parity",
+      "episode": 110587082,
+      "seat": 1,
+      "transitions": 719,
+      "final": [
+        14425.0,
+        77377.0
+      ]
+    },
+    {
+      "check": "reject_changed_production_or_inventory",
+      "episode": 110587082
+    },
+    {
+      "check": "forecast_ignores_future_opponent_trades",
+      "episode": 110587082
+    },
+    {
+      "check": "official_framework_parity",
+      "episode": 110592456,
+      "seat": 0,
+      "transitions": 719,
+      "final": [
+        123405.0,
+        100985.0
+      ]
+    },
+    {
+      "check": "reject_changed_production_or_inventory",
+      "episode": 110592456
+    },
+    {
+      "check": "forecast_ignores_future_opponent_trades",
+      "episode": 110592456
+    },
+    {
+      "check": "harvest_to_feed_resource_precedence",
+      "finish": 6,
+      "reverse_finish": 8
+    }
+  ]
+}

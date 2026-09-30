@@ -1,0 +1,7 @@
+{
+ "kernels": [
+  "kgr-path2-s0"
+ ],
+ "cmd": "scripts/path_trial.py --spec results/fresh/path_trial_20260927/spec.json --arms PP0,PP1,PP2,PP3,PP4,PP5 --games 16732748:112602061,16732748:112604454 --out results/fresh/path_trial_20260927 --workers 4",
+ "pushed": 1790546431.7776523
+}

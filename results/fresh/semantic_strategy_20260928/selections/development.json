@@ -1,0 +1,155 @@
+{
+  "protocol_sha256": "43ed18af7564e376ba6651881f8c7ca3937f1204ce60c8b3cca939b731606a42",
+  "cases": [
+    {
+      "id": "recorded-112615422",
+      "episode": "112615422",
+      "seed": 1260702715,
+      "seat": 1,
+      "file": "recordings/112615422.json.gz",
+      "sha256": "0f7141983067c12786b290ba5f00c2343468e1d84bb5239262e91173526d815f",
+      "opponent": "Justin Yang",
+      "opponent_team_id": 16857676,
+      "historical_rating": 2761.3
+    },
+    {
+      "id": "recorded-112181121",
+      "episode": "112181121",
+      "seed": 1290651145,
+      "seat": 1,
+      "file": "recordings/112181121.json.gz",
+      "sha256": "880e7f7871047d31ac1dda39fee7fb98ba46c726240b46a2d93bac0923142086",
+      "opponent": "Arman Tuganbaev",
+      "opponent_team_id": 16711376,
+      "historical_rating": 2766.9
+    },
+    {
+      "id": "recorded-111871547",
+      "episode": "111871547",
+      "seed": 1477013077,
+      "seat": 1,
+      "file": "recordings/111871547.json.gz",
+      "sha256": "b2bb9650170bedcee67f58013d249b47bbaaf9cbb7380a94510433bf699ddea4",
+      "opponent": "\u5403\u767d\u996d\u7684\u5927\u80a5\u9c7c",
+      "opponent_team_id": 16854176,
+      "historical_rating": 2979.7
+    },
+    {
+      "id": "recorded-112612822",
+      "episode": "112612822",
+      "seed": 1867075363,
+      "seat": 0,
+      "file": "recordings/112612822.json.gz",
+      "sha256": "ec1652c7f7f098d8e1549463cd598cb491731cfec0e9d6e9a201dd39009e5cdd",
+      "opponent": "chungkuangwen",
+      "opponent_team_id": 16690763,
+      "historical_rating": 2814.4
+    },
+    {
+      "id": "recorded-111902048",
+      "episode": "111902048",
+      "seed": 1278068799,
+      "seat": 1,
+      "file": "recordings/111902048.json.gz",
+      "sha256": "60e3352a0029d9b0bedd5f4b3e6d7991060c598a151a3695ea9aca452083fdd1",
+      "opponent": "Evil Mango",
+      "opponent_team_id": 16889691,
+      "historical_rating": 2812.9
+    },
+    {
+      "id": "recorded-111681195",
+      "episode": "111681195",
+      "seed": 533762324,
+      "seat": 1,
+      "file": "recordings/111681195.json.gz",
+      "sha256": "b5752225101d2315ef84ba715973c83f853cabb1ce312d5d885aa3792ea1063b",
+      "opponent": "\u6446\u70c2\u5c0f\u5206\u961f \ud83c\udfc6",
+      "opponent_team_id": 16695046,
+      "historical_rating": 2832.7
+    },
+    {
+      "id": "recorded-112610631",
+      "episode": "112610631",
+      "seed": 275782180,
+      "seat": 0,
+      "file": "recordings/112610631.json.gz",
+      "sha256": "89d38860acd1e8c15d9c73e9a31041526baa2ae876fe88b7466ca8055a29684e",
+      "opponent": "RS Turley",
+      "opponent_team_id": 16672709,
+      "historical_rating": 2866.1
+    },
+    {
+      "id": "recorded-112476470",
+      "episode": "112476470",
+      "seed": 1002810954,
+      "seat": 1,
+      "file": "recordings/112476470.json.gz",
+      "sha256": "f8158c7f46ba01ca515de1f36927b23d5dec32de8aca9f93d8862a05f9eae95e",
+      "opponent": "Otter Vibe",
+      "opponent_team_id": 16760569,
+      "historical_rating": 2889.6
+    }
+  ],
+  "attempts": [
+    {
+      "slot": 0,
+      "episode": "112615422",
+      "accepted": true,
+      "source_control_sha256": "e309c8da5bae51ce2233fc446a7b595417a0bb73ad03694a4da9d83f3defa1d5"
+    },
+    {
+      "slot": 1,
+      "episode": "112181121",
+      "accepted": true,
+      "source_control_sha256": "f6063a64be2214f2093f9eb3ba4c31a1e4db9a83dd14e61f415e35eb642f388f"
+    },
+    {
+      "slot": 2,
+      "episode": "111871547",
+      "accepted": true,
+      "source_control_sha256": "349ce369fcf983b0d3e96fe853a8a27b65b7edb9afcefa599c7aa8dc6683c304"
+    },
+    {
+      "slot": 3,
+      "episode": "112612822",
+      "accepted": true,
+      "source_control_sha256": "2e65bfbec1d921757886b489256365576fbb21419f8d4f1a58711bb7b9b65e43"
+    },
+    {
+      "slot": 4,
+      "episode": "111902048",
+      "accepted": true,
+      "source_control_sha256": "f79ca9a32c4a471e93e437e70f3e8734ec7e8bc3ddacd8a281c41d281a56ff76"
+    },
+    {
+      "slot": 5,
+      "episode": "111681195",
+      "accepted": true,
+      "source_control_sha256": "174f612a0b364a0bc9775e9c84623a75fcf4e8f3f38ea4811d7e4b477afe38c6"
+    },
+    {
+      "slot": 6,
+      "episode": "112610631",
+      "accepted": true,
+      "source_control_sha256": "7d72f4f1715f3b0a298caf9a2a8ece149c10df504b8bb48c660e8efcf15732da"
+    },
+    {
+      "slot": 7,
+      "episode": "112476470",
+      "accepted": true,
+      "source_control_sha256": "ae188106ddb961139ab5879868072d7f9cd92bf0f7f95d6d1654421fc2071252"
+    }
+  ],
+  "control_sha256": {
+    "recorded-112615422": "e309c8da5bae51ce2233fc446a7b595417a0bb73ad03694a4da9d83f3defa1d5",
+    "recorded-112181121": "f6063a64be2214f2093f9eb3ba4c31a1e4db9a83dd14e61f415e35eb642f388f",
+    "recorded-111871547": "349ce369fcf983b0d3e96fe853a8a27b65b7edb9afcefa599c7aa8dc6683c304",
+    "recorded-112612822": "2e65bfbec1d921757886b489256365576fbb21419f8d4f1a58711bb7b9b65e43",
+    "recorded-111902048": "f79ca9a32c4a471e93e437e70f3e8734ec7e8bc3ddacd8a281c41d281a56ff76",
+    "recorded-111681195": "174f612a0b364a0bc9775e9c84623a75fcf4e8f3f38ea4811d7e4b477afe38c6",
+    "recorded-112610631": "7d72f4f1715f3b0a298caf9a2a8ece149c10df504b8bb48c660e8efcf15732da",
+    "recorded-112476470": "ae188106ddb961139ab5879868072d7f9cd92bf0f7f95d6d1654421fc2071252"
+  },
+  "selection_blind_to_candidate": true,
+  "created_utc": "2026-09-28T03:28:07Z"
+}

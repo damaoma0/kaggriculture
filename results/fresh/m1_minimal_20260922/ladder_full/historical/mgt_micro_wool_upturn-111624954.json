@@ -1,0 +1,220 @@
+{
+  "arm": "mgt_micro_wool_upturn",
+  "episode": 111624954,
+  "completed": true,
+  "source_sha256": "12f91b4bdd3970a397f16a1b39d1bbcaad99a74e794c14c640f9b476bbaf7c1e",
+  "seed": 1131357071,
+  "seat": 0,
+  "cash": 85760.0,
+  "opponent_cash": 92800.0,
+  "margin": -7040.0,
+  "recorded": [
+    85102.0,
+    92793.0
+  ],
+  "action_changes": 25,
+  "first_change": 434,
+  "economics": [
+    {
+      "revenue": {
+        "FERTILIZER": 11639,
+        "WHEAT": 11367,
+        "WOOL": 18067,
+        "MILK": 4492,
+        "MELON": 14852,
+        "EGG": 12644,
+        "STRAWBERRY": 23696,
+        "TOMATO": 1893,
+        "CARROT": 11658
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4558,
+        "HIRE": 5112.0,
+        "BUY_ANIMAL:COW": 2000,
+        "BUY_ANIMAL:SHEEP": 2500,
+        "BUY_SEED:MELON": 1040,
+        "BUY_SEED:WHEAT": 1240,
+        "BUY_SEED:CARROT": 1120,
+        "BUY_SEED:STRAWBERRY": 3800,
+        "BUY_LAND": 3000.0,
+        "BUY_ANIMAL:GOOSE": 2100,
+        "BUY_PRODUCT:FERTILIZER": 878,
+        "BUY_SEED:TOMATO": 200
+      },
+      "units": {
+        "FERTILIZER": 189,
+        "WHEAT": 303,
+        "WOOL": 101,
+        "MILK": 101,
+        "MELON": 78,
+        "EGG": 253,
+        "STRAWBERRY": 282,
+        "TOMATO": 29,
+        "CARROT": 191
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 146691,
+        "FERTILIZER": 16437,
+        "WOOL": 26908,
+        "MILK": 4385,
+        "MELON": 14267,
+        "EGG": 8008,
+        "STRAWBERRY": 26358,
+        "CARROT": 9515
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 139383,
+        "HIRE": 4075.0,
+        "BUY_ANIMAL:COW": 2400,
+        "BUY_ANIMAL:SHEEP": 3000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:WHEAT": 1440,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_ANIMAL:GOOSE": 1500,
+        "BUY_PRODUCT:FERTILIZER": 2491,
+        "BUY_SEED:CARROT": 1220
+      },
+      "units": {
+        "WHEAT": 3611,
+        "FERTILIZER": 329,
+        "WOOL": 155,
+        "MILK": 147,
+        "MELON": 72,
+        "EGG": 160,
+        "STRAWBERRY": 247,
+        "CARROT": 159
+      }
+    }
+  ],
+  "overlay": {
+    "evals": [
+      [
+        6,
+        4,
+        2,
+        5,
+        -1
+      ],
+      [
+        7,
+        4,
+        2,
+        5,
+        -1
+      ],
+      [
+        8,
+        4,
+        5,
+        8,
+        -4
+      ],
+      [
+        9,
+        4,
+        5,
+        5,
+        -1
+      ],
+      [
+        10,
+        4,
+        5,
+        5,
+        -1
+      ],
+      [
+        11,
+        4,
+        5,
+        5,
+        -1
+      ],
+      [
+        12,
+        4,
+        5,
+        5,
+        -1
+      ],
+      [
+        13,
+        4,
+        5,
+        5,
+        -1
+      ],
+      [
+        14,
+        4,
+        5,
+        5,
+        -1
+      ],
+      [
+        15,
+        6,
+        5,
+        5,
+        1
+      ],
+      [
+        16,
+        6,
+        5,
+        5,
+        1
+      ],
+      [
+        17,
+        6,
+        5,
+        5,
+        1
+      ],
+      [
+        18,
+        6,
+        4,
+        4,
+        2,
+        2,
+        -648,
+        4659,
+        102
+      ],
+      [
+        19,
+        6,
+        4,
+        4,
+        2,
+        2,
+        -236,
+        4710,
+        148
+      ]
+    ],
+    "wool_upturn_quotes": 16,
+    "declined_profit": 2,
+    "hand_days": 3,
+    "topup_tasks": 12,
+    "ops_feed": 8,
+    "ops_care": 12
+  },
+  "router": {
+    "switches": 4,
+    "router_errors": 0,
+    "hamming_max": 1,
+    "dist_d6": -0.02,
+    "dist_d12": 6.98,
+    "dist_d18": 35.98,
+    "dist_d24": 47.48
+  },
+  "max_action_seconds": 0.008834199979901314,
+  "actions_over_1s": 0,
+  "ledger_verified": true
+}

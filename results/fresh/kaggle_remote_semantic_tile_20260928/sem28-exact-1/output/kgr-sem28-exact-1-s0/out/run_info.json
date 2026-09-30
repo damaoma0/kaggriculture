@@ -1,0 +1,55 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/semantic_tile_20260928_run.py",
+   "--spec",
+   "results/fresh/semantic_tile_20260928/spec.json",
+   "--arms",
+   "ST28EXACT",
+   "--games",
+   "16732748:112570782,16732748:112573049,16732748:112575429,16732748:112577829,16732748:112580238,16732748:112582639,16732748:112585076,16732748:112587591,16732748:112588791,16732748:112591190,16732748:112593664,16732748:112596061,16732748:112598450,16732748:112600855,16732748:112603263,16732748:112605661,16732748:112606801,16732748:112610623,16732748:112621294,16732748:112626851",
+   "--out",
+   "results/fresh/semantic_tile_20260928/runs/exact/shard1",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/semantic_tile_20260928/runs/exact/shard1/**/*",
+   "results/fresh/day12_viz/st28exact_streams/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 62,
+ "pip_seconds": 49.62160563468933,
+ "run_seconds": 550.3478927612305,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "completed ST28EXACT 16732748:112575429 92186.0 OK",
+  "completed ST28EXACT 16732748:112570782 94113.0 OK",
+  "completed ST28EXACT 16732748:112573049 81394.0 OK",
+  "completed ST28EXACT 16732748:112577829 96817.0 OK",
+  "completed ST28EXACT 16732748:112587591 81752.0 OK",
+  "completed ST28EXACT 16732748:112580238 78163.0 OK",
+  "completed ST28EXACT 16732748:112582639 58680.0 OK",
+  "completed ST28EXACT 16732748:112585076 49504.0 OK",
+  "completed ST28EXACT 16732748:112593664 104069.0 OK",
+  "completed ST28EXACT 16732748:112588791 91132.0 OK",
+  "completed ST28EXACT 16732748:112591190 98835.0 OK",
+  "completed ST28EXACT 16732748:112596061 82809.0 OK",
+  "completed ST28EXACT 16732748:112603263 67575.0 OK",
+  "completed ST28EXACT 16732748:112600855 106532.0 OK",
+  "completed ST28EXACT 16732748:112598450 99316.0 OK",
+  "completed ST28EXACT 16732748:112605661 95583.0 OK",
+  "completed ST28EXACT 16732748:112610623 61767.0 OK",
+  "completed ST28EXACT 16732748:112606801 129754.0 OK",
+  "completed ST28EXACT 16732748:112621294 88753.0 OK",
+  "completed ST28EXACT 16732748:112626851 102592.0 OK",
+  "20 games completed in 550.2s"
+ ],
+ "stderr_tail": []
+}

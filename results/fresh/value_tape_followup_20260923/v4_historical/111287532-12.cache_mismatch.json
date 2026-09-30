@@ -1,0 +1,7 @@
+{
+  "episode": 111287532,
+  "day": 12,
+  "completed": false,
+  "error": "Traceback (most recent call last):\n  File \"C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\probe_value_tape_v4_historical.py\", line 24, in worker\n    selected,decision=V4.choose(deepcopy(state[game['seat']].observation),memory,forecast_cache=cache)\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\value_tape_search_v4.py\", line 29, in choose\n    assert forecast_cache['input_sha256']==input_hash\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+  "seconds": 11.546208299987484
+}

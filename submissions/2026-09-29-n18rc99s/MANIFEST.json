@@ -1,0 +1,33 @@
+{
+ "candidate": "n18rc99s",
+ "candidate_manifest_sha256": "f28be1e83c0965f4dc8eb7dfb500c873660ca1cda036cdac2f18859552c8c83b",
+ "files": {
+  "agents/mgt_dsm_c.py": "fee8204481da07911d8c59b837d5d95ffa01d9efac5532d328ddb63bd639aa07",
+  "agents/semantic_strategy_20260928.py": "65fdf58655624ec3240f7b24bc0d42166c3cbffe70cedef93b8f6728326a2ddb",
+  "data/semantic_strategy/opening_v5_contracts_20260928.json.gz": "f213b2b91be941e05b0f06307a61230af5e4ad502d144407ebefc6df648b16ab",
+  "main.py": "c556b8227a808de2c15ee2be11a8f060eb7a1ed1cef6105c6177105290f8cf83",
+  "results/fresh/semantic_strategy_20260928/block_model_dsmc.json": "c13c5647d33843a14b704986a835538ec2412a4e60e3968f75b6453f5f8e8c1a",
+  "results/fresh/semantic_strategy_20260928/block_model_modern100.json": "6ff0140191eb8d451bfe178d758fe6eee53abd432786c7f0bf67bdacaefd5426",
+  "results/fresh/semantic_strategy_20260928/block_model_modern100_training_manifest.json": "a18861ad9f347e919c2601bb8013357cf1939f2e4be4e955e5e32762ce109f7b",
+  "results/fresh/semantic_strategy_20260928/candidate_config.json": "34a443a6187212ce7bb6956663daa6a061fd39148d20bf8f3385c4d3bbbddb9e",
+  "results/fresh/semantic_strategy_20260928/causal_daily_rows.json": "f548f1fa3d68668fb837538f1741df4b6317a0f82dc16cb54a44052c41b1f382",
+  "results/fresh/semantic_strategy_20260928/causal_daily_rows_modern60.json": "92b1cdb7dd60249002e671ac2097d5c3c2c4faf07dce445f570e5314a91e31a1",
+  "results/fresh/semantic_strategy_20260928/dsm_cassette.json": "1d3df0f824105922401a28d603b4520ebc883aac59d8ce0195b2173d49919c09",
+  "results/fresh/semantic_strategy_20260928/executor_recipe_online.json": "5af4adb91963b040dab6ce0b521fad21fd979669e5015d4cedec167b8ce3a4cc",
+  "results/fresh/semantic_strategy_20260928/runtime/agents/mgt_lead_kb115lt.py": "52742a4a9eb497eda8ce80eee2bcc23d37f914607762d200ba71d3d5875ba56e",
+  "results/fresh/semantic_strategy_20260928/runtime/results/fresh/threads_20260928/dsm_sell_pace.json": "6d46c142b09e8b0b2a34ef011e1020e37005a0a6c35b40ad2ca7cbabf42d8294",
+  "results/fresh/semantic_strategy_20260928/runtime/scripts/fragments/sem_maintenance.py": "6fa0844ccea002b556d2dd86428b2ef2fd07ef8107c37aafbf880906143d5ab1",
+  "scripts/semantic_opening_umg_20260929.py": "2b5c7e7316b2e99bae9c153342d098673b7bc5740c4a4209f351de6445d5258b",
+  "scripts/semantic_strategy_blocks_20260928.py": "d568c8064e555a377e813412606c7a1f56f98f94fa9a5307682bf1849f2a12a5",
+  "scripts/semantic_strategy_financing_20260928.py": "57fbcddf52cd5065c3449d5f599b42de3f22e89e54e5330e829aa22847e04302",
+  "scripts/semantic_strategy_opening_20260928.py": "6e9e9363c7633ffbb49d71f171c976a1b9b167826ed8d3a250f1492bf414c68c",
+  "scripts/semantic_strategy_policy_20260928.py": "8e414b8cc82cc67598d71a24a254bbb1f2d56fb009a08e2a42bcc90e0c566a00",
+  "scripts/semantic_strategy_tiles_20260928.py": "18f7042d78ae3fc268aaf1bdb77809ae30a96e548748e9de63a5ebd8385af34e",
+  "scripts/semantic_tile_allocator_20260928.py": "cabc9bcf818aa00ffa3e5ffbd3f9798643f60b7a59deb4a384dd8ebce889d0ae",
+  "scripts/semantic_tile_lifetimes_20260928.py": "8fc6df1c01016b85614933247346011b18e16923dc35635e20386fc7c1be6959",
+  "scripts/semantic_tile_planner_20260928.py": "e53474e53ec8f3335fb2711245e00700295b1b52b1a8ae2106bace083ae44dac"
+ },
+ "archive_sha256": "e73bfae3869e75452a31d459d250a393b7c15db47a2c241a936a5b6838387309",
+ "archive_mb": 2.9,
+ "status": "research package; NOT submitted"
+}

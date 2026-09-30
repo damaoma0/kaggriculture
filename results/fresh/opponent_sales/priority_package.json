@@ -1,0 +1,16 @@
+{
+  "candidate": "agents\\market_priority_candidate.py",
+  "sha256": "6e8d5c672bb325fae8e2c425232ace9fbfa4b9ca9faa3e0bd37f0484cfa73ba2",
+  "status": "packaged control; promotion requires evaluation",
+  "parity_turns": 1438,
+  "parity_games": 2,
+  "stdlib_imports": [
+    "base64",
+    "copy",
+    "json",
+    "sys",
+    "zlib"
+  ],
+  "cli": "passed",
+  "agent_last_callable": true
+}

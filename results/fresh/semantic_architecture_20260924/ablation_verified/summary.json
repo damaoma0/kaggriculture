@@ -1,0 +1,209 @@
+{
+  "arms": {
+    "semantic": {
+      "requested": 2,
+      "completed": 2,
+      "errors": [],
+      "score": 0.0,
+      "mean_margin": -81199.0,
+      "mean_cash": 68604.0,
+      "mean_revenue_by_product": {
+        "SELL:FERTILIZER": 7360.0,
+        "SELL:WHEAT": 4075.5,
+        "SELL:WOOL": 9887.0,
+        "SELL:MILK": 17306.0,
+        "SELL:STRAWBERRY": 19887.5,
+        "SELL:MELON": 11882.0,
+        "SELL:CARROT": 5356.0,
+        "SELL:EGG": 1153.0,
+        "SELL:TOMATO": 3662.5
+      },
+      "mean_spend_by_category": {
+        "HIRE": 813.5,
+        "BUY_SEED:MELON": 1040.0,
+        "BUY_SEED:WHEAT": 410.0,
+        "BUY_ANIMAL:COW": 1200.0,
+        "BUY_ANIMAL:SHEEP": 1500.0,
+        "BUY_PRODUCT:WHEAT": 5749.0,
+        "BUY_SEED:STRAWBERRY": 1250.0,
+        "BUY_PRODUCT:FERTILIZER": 1048.0,
+        "BUY_LAND": 1000.0,
+        "BUY_SEED:CARROT": 480.0,
+        "BUY_ANIMAL:GOOSE": 150.0,
+        "BUY_SEED:TOMATO": 325.0
+      },
+      "worst_margin": -111365.0,
+      "max_call": 2.0638899999903515,
+      "max_total_agent_seconds": 43.736379399197176,
+      "all_cash_ledgers_verified": true,
+      "recovery_days": 1,
+      "animal_count_decreases": [],
+      "failed_orders": 0,
+      "unplanned_hours": 0,
+      "state_repairs": 0,
+      "physical_no_effect": 0
+    },
+    "semantic_fullcare": {
+      "requested": 2,
+      "completed": 2,
+      "errors": [],
+      "score": 0.0,
+      "mean_margin": -113149.5,
+      "mean_cash": 54406.0,
+      "mean_revenue_by_product": {
+        "SELL:FERTILIZER": 2582.5,
+        "SELL:WHEAT": 3858.5,
+        "SELL:WOOL": 8873.5,
+        "SELL:MILK": 7646.5,
+        "SELL:STRAWBERRY": 18367.0,
+        "SELL:MELON": 11055.5,
+        "SELL:CARROT": 4710.0,
+        "SELL:TOMATO": 5877.0
+      },
+      "mean_spend_by_category": {
+        "HIRE": 778.0,
+        "BUY_SEED:MELON": 880.0,
+        "BUY_SEED:WHEAT": 300.0,
+        "BUY_ANIMAL:COW": 400.0,
+        "BUY_ANIMAL:SHEEP": 1000.0,
+        "BUY_PRODUCT:WHEAT": 2460.0,
+        "BUY_SEED:STRAWBERRY": 1200.0,
+        "BUY_PRODUCT:FERTILIZER": 2611.5,
+        "BUY_LAND": 1000.0,
+        "BUY_SEED:CARROT": 410.0,
+        "BUY_SEED:TOMATO": 525.0
+      },
+      "worst_margin": -134681.0,
+      "max_call": 2.212144499993883,
+      "max_total_agent_seconds": 48.07604239881039,
+      "all_cash_ledgers_verified": true,
+      "recovery_days": 1,
+      "animal_count_decreases": [],
+      "failed_orders": 0,
+      "unplanned_hours": 0,
+      "state_repairs": 0,
+      "physical_no_effect": 0
+    },
+    "semantic_uniform": {
+      "requested": 2,
+      "completed": 2,
+      "errors": [],
+      "score": 0.0,
+      "mean_margin": -154181.5,
+      "mean_cash": 34641.0,
+      "mean_revenue_by_product": {
+        "SELL:FERTILIZER": 495.0,
+        "SELL:WHEAT": 6425.5,
+        "SELL:MELON": 12358.0,
+        "SELL:STRAWBERRY": 18866.0,
+        "SELL:TOMATO": 3153.5,
+        "SELL:CARROT": 1814.0
+      },
+      "mean_spend_by_category": {
+        "HIRE": 270.0,
+        "BUY_SEED:MELON": 1280.0,
+        "BUY_SEED:WHEAT": 380.0,
+        "BUY_ANIMAL:COW": 800.0,
+        "BUY_ANIMAL:SHEEP": 1500.0,
+        "BUY_PRODUCT:WHEAT": 145.0,
+        "BUY_PRODUCT:FERTILIZER": 4401.0,
+        "BUY_SEED:STRAWBERRY": 1200.0,
+        "BUY_SEED:TOMATO": 275.0,
+        "BUY_LAND": 1000.0,
+        "BUY_SEED:CARROT": 220.0
+      },
+      "worst_margin": -157088.0,
+      "max_call": 2.169128500041552,
+      "max_total_agent_seconds": 132.90753190114629,
+      "all_cash_ledgers_verified": true,
+      "recovery_days": 98,
+      "animal_count_decreases": [
+        {
+          "world": 924729,
+          "seat": 0,
+          "day": 3,
+          "species": "COW",
+          "lost": 2
+        },
+        {
+          "world": 924729,
+          "seat": 0,
+          "day": 3,
+          "species": "SHEEP",
+          "lost": 3
+        },
+        {
+          "world": 924731,
+          "seat": 0,
+          "day": 3,
+          "species": "COW",
+          "lost": 2
+        },
+        {
+          "world": 924731,
+          "seat": 0,
+          "day": 3,
+          "species": "SHEEP",
+          "lost": 3
+        }
+      ],
+      "failed_orders": 0,
+      "unplanned_hours": 96,
+      "state_repairs": 0,
+      "physical_no_effect": 0
+    }
+  },
+  "paired": {
+    "semantic_fullcare": {
+      "worlds": 2,
+      "games": 2,
+      "mean_margin_delta": 31950.5,
+      "margin_ci95": [
+        23316.0,
+        40585.0
+      ],
+      "mean_score_delta": 0,
+      "score_ci95": [
+        0,
+        0
+      ],
+      "rival_tape_noop_sensitivity_flags": [],
+      "unflagged_sensitivity": {
+        "worlds": 2,
+        "mean_margin_delta": 31950.5,
+        "margin_ci95": [
+          23316.0,
+          40585.0
+        ]
+      }
+    },
+    "semantic_uniform": {
+      "worlds": 2,
+      "games": 2,
+      "mean_margin_delta": 72982.5,
+      "margin_ci95": [
+        39910.0,
+        106055.0
+      ],
+      "mean_score_delta": 0,
+      "score_ci95": [
+        0,
+        0
+      ],
+      "rival_tape_noop_sensitivity_flags": [],
+      "unflagged_sensitivity": {
+        "worlds": 2,
+        "mean_margin_delta": 72982.5,
+        "margin_ci95": [
+          39910.0,
+          106055.0
+        ]
+      }
+    }
+  },
+  "limitations": [
+    "Recorded-opponent results are counterfactual diagnostics, not wins against responsive policies.",
+    "Development cases are not independent qualification.",
+    "Bootstrap clusters by world; small panels are not Elo estimates."
+  ]
+}

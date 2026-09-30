@@ -1,0 +1,111 @@
+{
+  "compact_tapes": 584,
+  "verified_segments": 630,
+  "verified_plant_events": 15995,
+  "verified_animal_placements": 99,
+  "verified_crop_transitions": 5328,
+  "compact_request_bounds_verified": {
+    "plants": 15995,
+    "placements": 99
+  },
+  "wheat_to_strawberry_examples": [
+    {
+      "id": "109887724:1:d12",
+      "transition": {
+        "day": 13,
+        "tile": [
+          0,
+          4
+        ],
+        "from_crop": "WHEAT",
+        "to_crop": "STRAWBERRY"
+      }
+    },
+    {
+      "id": "109887724:1:d12",
+      "transition": {
+        "day": 13,
+        "tile": [
+          9,
+          1
+        ],
+        "from_crop": "WHEAT",
+        "to_crop": "STRAWBERRY"
+      }
+    },
+    {
+      "id": "109887724:1:d12",
+      "transition": {
+        "day": 13,
+        "tile": [
+          2,
+          1
+        ],
+        "from_crop": "WHEAT",
+        "to_crop": "STRAWBERRY"
+      }
+    },
+    {
+      "id": "109887724:1:d12",
+      "transition": {
+        "day": 13,
+        "tile": [
+          0,
+          1
+        ],
+        "from_crop": "WHEAT",
+        "to_crop": "STRAWBERRY"
+      }
+    },
+    {
+      "id": "109887724:1:d12",
+      "transition": {
+        "day": 13,
+        "tile": [
+          3,
+          1
+        ],
+        "from_crop": "WHEAT",
+        "to_crop": "STRAWBERRY"
+      }
+    },
+    {
+      "id": "109887724:1:d12",
+      "transition": {
+        "day": 14,
+        "tile": [
+          1,
+          3
+        ],
+        "from_crop": "WHEAT",
+        "to_crop": "STRAWBERRY"
+      }
+    },
+    {
+      "id": "109887724:1:d15",
+      "transition": {
+        "day": 15,
+        "tile": [
+          4,
+          6
+        ],
+        "from_crop": "WHEAT",
+        "to_crop": "STRAWBERRY"
+      }
+    },
+    {
+      "id": "109898626:0:d12",
+      "transition": {
+        "day": 13,
+        "tile": [
+          9,
+          2
+        ],
+        "from_crop": "WHEAT",
+        "to_crop": "STRAWBERRY"
+      }
+    }
+  ],
+  "animal_retirement_identifiable": false,
+  "evidence": "Compact commands are requests; rich successes are before/after tile changes. Missing future service is observational, not inferred intent."
+}

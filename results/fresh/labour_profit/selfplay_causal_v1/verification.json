@@ -1,0 +1,80 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "check": "visible_initial_state_and_future_information_isolation",
+      "passed": true,
+      "decision": "flex_original_jobs:early",
+      "decision_output_sha256": "6ba2f1e9bd6001d9032de7959cc605ed91b5260e66c8208cd8aeed0b7f0a7451"
+    },
+    {
+      "check": "independent_official_framework_replay",
+      "episode": 109712554,
+      "mode": "wage",
+      "seat": 0,
+      "transitions": 719,
+      "passed": true
+    },
+    {
+      "check": "independent_official_framework_replay",
+      "episode": 109712554,
+      "mode": "wage",
+      "seat": 1,
+      "transitions": 719,
+      "passed": true
+    },
+    {
+      "check": "independent_official_framework_replay",
+      "episode": 109712554,
+      "mode": "forecast",
+      "seat": 0,
+      "transitions": 719,
+      "passed": true
+    },
+    {
+      "check": "independent_official_framework_replay",
+      "episode": 109712554,
+      "mode": "forecast",
+      "seat": 1,
+      "transitions": 719,
+      "passed": true
+    },
+    {
+      "check": "independent_official_framework_replay",
+      "episode": 110615310,
+      "mode": "wage",
+      "seat": 0,
+      "transitions": 719,
+      "passed": true
+    },
+    {
+      "check": "independent_official_framework_replay",
+      "episode": 110615310,
+      "mode": "wage",
+      "seat": 1,
+      "transitions": 719,
+      "passed": true
+    },
+    {
+      "check": "independent_official_framework_replay",
+      "episode": 110615310,
+      "mode": "forecast",
+      "seat": 0,
+      "transitions": 719,
+      "passed": true
+    },
+    {
+      "check": "independent_official_framework_replay",
+      "episode": 110615310,
+      "mode": "forecast",
+      "seat": 1,
+      "transitions": 719,
+      "passed": true
+    },
+    {
+      "check": "all_source_and_executed_schedule_hashes",
+      "passed": true,
+      "worlds": 20
+    }
+  ]
+}

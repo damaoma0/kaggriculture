@@ -1,0 +1,637 @@
+{
+  "discovery": {
+    "v45_cohort_carrot_batch": {
+      "pairs": 16,
+      "cash": -558.25,
+      "margin": -726.875,
+      "opponents": {
+        "twocoins": {
+          "cash": -604.25,
+          "margin": -672.0
+        },
+        "v45": {
+          "cash": -512.25,
+          "margin": -781.75
+        }
+      },
+      "seeds": [
+        {
+          "seed": 157010,
+          "cash": -40.0,
+          "margin": -40.0
+        },
+        {
+          "seed": 157011,
+          "cash": -144.0,
+          "margin": -306.0
+        },
+        {
+          "seed": 157012,
+          "cash": -1886.5,
+          "margin": -2351.5
+        },
+        {
+          "seed": 157013,
+          "cash": -162.5,
+          "margin": -210.0
+        }
+      ],
+      "better": 0,
+      "equal": 0,
+      "worse": 16,
+      "actual_wins": 10,
+      "baseline_wins": 14,
+      "same_shop_pairs": 16,
+      "active_games": 12,
+      "max_seconds": 0.223364,
+      "worst": {
+        "seed": 157012,
+        "seat": 0,
+        "opponent": "v45",
+        "cash": -1697.0,
+        "margin": -2539.0,
+        "actual_margin": -2589.0,
+        "baseline_margin": -50.0,
+        "same_shops": true,
+        "commitments": [
+          {
+            "crop": "CARROT",
+            "day": 20,
+            "xy": [
+              5,
+              1
+            ]
+          },
+          {
+            "crop": "CARROT",
+            "day": 20,
+            "xy": [
+              1,
+              0
+            ]
+          }
+        ],
+        "seed_purchases": 7,
+        "max_seconds": 0.06311
+      }
+    },
+    "v45_cohort_carrot_stagger": {
+      "pairs": 16,
+      "cash": -495.5,
+      "margin": -618.125,
+      "opponents": {
+        "twocoins": {
+          "cash": -574.0,
+          "margin": -625.0
+        },
+        "v45": {
+          "cash": -417.0,
+          "margin": -611.25
+        }
+      },
+      "seeds": [
+        {
+          "seed": 157010,
+          "cash": -40.0,
+          "margin": -40.0
+        },
+        {
+          "seed": 157011,
+          "cash": -144.0,
+          "margin": -306.0
+        },
+        {
+          "seed": 157012,
+          "cash": -1740.5,
+          "margin": -2057.0
+        },
+        {
+          "seed": 157013,
+          "cash": -57.5,
+          "margin": -69.5
+        }
+      ],
+      "better": 0,
+      "equal": 0,
+      "worse": 16,
+      "actual_wins": 12,
+      "baseline_wins": 14,
+      "same_shop_pairs": 16,
+      "active_games": 12,
+      "max_seconds": 0.304896,
+      "worst": {
+        "seed": 157012,
+        "seat": 0,
+        "opponent": "twocoins",
+        "cash": -2055.0,
+        "margin": -2096.0,
+        "actual_margin": 4194.0,
+        "baseline_margin": 6290.0,
+        "same_shops": true,
+        "commitments": [
+          {
+            "crop": "CARROT",
+            "day": 20,
+            "xy": [
+              5,
+              1
+            ]
+          }
+        ],
+        "seed_purchases": 5,
+        "max_seconds": 0.114608
+      }
+    },
+    "v45_cohort_tomato_batch": {
+      "pairs": 16,
+      "cash": -493.625,
+      "margin": -607.75,
+      "opponents": {
+        "twocoins": {
+          "cash": -490.5,
+          "margin": -605.25
+        },
+        "v45": {
+          "cash": -496.75,
+          "margin": -610.25
+        }
+      },
+      "seeds": [
+        {
+          "seed": 157010,
+          "cash": -726.0,
+          "margin": -921.5
+        },
+        {
+          "seed": 157011,
+          "cash": -539.0,
+          "margin": -702.5
+        },
+        {
+          "seed": 157012,
+          "cash": -191.0,
+          "margin": -258.5
+        },
+        {
+          "seed": 157013,
+          "cash": -518.5,
+          "margin": -548.5
+        }
+      ],
+      "better": 0,
+      "equal": 0,
+      "worse": 16,
+      "actual_wins": 8,
+      "baseline_wins": 14,
+      "same_shop_pairs": 16,
+      "active_games": 16,
+      "max_seconds": 0.348827,
+      "worst": {
+        "seed": 157010,
+        "seat": 0,
+        "opponent": "v45",
+        "cash": -747.0,
+        "margin": -990.0,
+        "actual_margin": -806.0,
+        "baseline_margin": 184.0,
+        "same_shops": true,
+        "commitments": [
+          {
+            "crop": "TOMATO",
+            "day": 19,
+            "xy": [
+              2,
+              0
+            ]
+          }
+        ],
+        "seed_purchases": 3,
+        "max_seconds": 0.189358
+      }
+    },
+    "v45_cohort_tomato_stagger": {
+      "pairs": 16,
+      "cash": -696.875,
+      "margin": -799.125,
+      "opponents": {
+        "twocoins": {
+          "cash": -668.5,
+          "margin": -770.25
+        },
+        "v45": {
+          "cash": -725.25,
+          "margin": -828.0
+        }
+      },
+      "seeds": [
+        {
+          "seed": 157010,
+          "cash": -726.0,
+          "margin": -921.5
+        },
+        {
+          "seed": 157011,
+          "cash": -1352.0,
+          "margin": -1468.0
+        },
+        {
+          "seed": 157012,
+          "cash": -191.0,
+          "margin": -258.5
+        },
+        {
+          "seed": 157013,
+          "cash": -518.5,
+          "margin": -548.5
+        }
+      ],
+      "better": 0,
+      "equal": 0,
+      "worse": 16,
+      "actual_wins": 8,
+      "baseline_wins": 14,
+      "same_shop_pairs": 16,
+      "active_games": 16,
+      "max_seconds": 0.342666,
+      "worst": {
+        "seed": 157011,
+        "seat": 0,
+        "opponent": "v45",
+        "cash": -1408.0,
+        "margin": -1474.0,
+        "actual_margin": -1450.0,
+        "baseline_margin": 24.0,
+        "same_shops": true,
+        "commitments": [
+          {
+            "crop": "TOMATO",
+            "day": 19,
+            "xy": [
+              1,
+              0
+            ]
+          },
+          {
+            "crop": "TOMATO",
+            "day": 20,
+            "xy": [
+              9,
+              3
+            ]
+          }
+        ],
+        "seed_purchases": 4,
+        "max_seconds": 0.122518
+      }
+    }
+  },
+  "native_panel": {
+    "v45_native_carrot_2": {
+      "pairs": 32,
+      "cash": -338.15625,
+      "margin": -250.46875,
+      "opponents": {
+        "twocoins": {
+          "cash": -382.5625,
+          "margin": -318.6875
+        },
+        "v45": {
+          "cash": -293.75,
+          "margin": -182.25
+        }
+      },
+      "seeds": [
+        {
+          "seed": 158000,
+          "cash": -206.75,
+          "margin": -202.75
+        },
+        {
+          "seed": 158003,
+          "cash": -637.5,
+          "margin": 586.0
+        },
+        {
+          "seed": 158005,
+          "cash": -462.0,
+          "margin": -378.5
+        },
+        {
+          "seed": 158006,
+          "cash": -367.5,
+          "margin": -619.0
+        },
+        {
+          "seed": 158008,
+          "cash": -594.5,
+          "margin": -606.0
+        },
+        {
+          "seed": 158011,
+          "cash": 217.0,
+          "margin": 146.5
+        },
+        {
+          "seed": 158015,
+          "cash": -443.0,
+          "margin": -597.5
+        },
+        {
+          "seed": 158024,
+          "cash": -211.0,
+          "margin": -332.5
+        }
+      ],
+      "better": 8,
+      "equal": 0,
+      "worse": 24,
+      "actual_wins": 20,
+      "baseline_wins": 30,
+      "same_shop_pairs": 32,
+      "active_games": 32,
+      "max_seconds": 0.510052,
+      "worst": {
+        "seed": 158015,
+        "seat": 1,
+        "opponent": "twocoins",
+        "cash": -446.0,
+        "margin": -692.0,
+        "actual_margin": 8727.0,
+        "baseline_margin": 9419.0,
+        "same_shops": true,
+        "commitments": 7,
+        "seed_purchases": 9,
+        "max_seconds": 0.38412
+      }
+    },
+    "v45_native_carrot_4": {
+      "pairs": 32,
+      "cash": -789.90625,
+      "margin": -688.53125,
+      "opponents": {
+        "twocoins": {
+          "cash": -1034.3125,
+          "margin": -812.3125
+        },
+        "v45": {
+          "cash": -545.5,
+          "margin": -564.75
+        }
+      },
+      "seeds": [
+        {
+          "seed": 158000,
+          "cash": -286.0,
+          "margin": -487.5
+        },
+        {
+          "seed": 158003,
+          "cash": -1433.0,
+          "margin": 617.0
+        },
+        {
+          "seed": 158005,
+          "cash": -1316.0,
+          "margin": -1296.0
+        },
+        {
+          "seed": 158006,
+          "cash": -852.5,
+          "margin": -919.0
+        },
+        {
+          "seed": 158008,
+          "cash": -1090.0,
+          "margin": -1225.5
+        },
+        {
+          "seed": 158011,
+          "cash": -94.5,
+          "margin": -250.5
+        },
+        {
+          "seed": 158015,
+          "cash": -712.75,
+          "margin": -1097.75
+        },
+        {
+          "seed": 158024,
+          "cash": -534.5,
+          "margin": -849.0
+        }
+      ],
+      "better": 4,
+      "equal": 0,
+      "worse": 28,
+      "actual_wins": 18,
+      "baseline_wins": 30,
+      "same_shop_pairs": 32,
+      "active_games": 32,
+      "max_seconds": 0.455465,
+      "worst": {
+        "seed": 158005,
+        "seat": 0,
+        "opponent": "v45",
+        "cash": -1194.0,
+        "margin": -1335.0,
+        "actual_margin": -1355.0,
+        "baseline_margin": -20.0,
+        "same_shops": true,
+        "commitments": 13,
+        "seed_purchases": 17,
+        "max_seconds": 0.094942
+      }
+    }
+  },
+  "value_panel": {
+    "v45_native_carrot_value": {
+      "pairs": 32,
+      "cash": -4.625,
+      "margin": 127.75,
+      "opponents": {
+        "twocoins": {
+          "cash": -36.5,
+          "margin": 83.5
+        },
+        "v45": {
+          "cash": 27.25,
+          "margin": 172.0
+        }
+      },
+      "seeds": [
+        {
+          "seed": 158000,
+          "cash": 0.0,
+          "margin": 0.0
+        },
+        {
+          "seed": 158003,
+          "cash": -37.0,
+          "margin": 1022.0
+        },
+        {
+          "seed": 158005,
+          "cash": 0.0,
+          "margin": 0.0
+        },
+        {
+          "seed": 158006,
+          "cash": 0.0,
+          "margin": 0.0
+        },
+        {
+          "seed": 158008,
+          "cash": 0.0,
+          "margin": 0.0
+        },
+        {
+          "seed": 158011,
+          "cash": 0.0,
+          "margin": 0.0
+        },
+        {
+          "seed": 158015,
+          "cash": 0.0,
+          "margin": 0.0
+        },
+        {
+          "seed": 158024,
+          "cash": 0.0,
+          "margin": 0.0
+        }
+      ],
+      "better": 4,
+      "equal": 28,
+      "worse": 0,
+      "actual_wins": 30,
+      "baseline_wins": 30,
+      "same_shop_pairs": 32,
+      "active_games": 4,
+      "max_seconds": 0.465061,
+      "worst": {
+        "seed": 158000,
+        "seat": 0,
+        "opponent": "twocoins",
+        "cash": 0.0,
+        "margin": 0.0,
+        "actual_margin": 7845.0,
+        "baseline_margin": 7845.0,
+        "same_shops": true,
+        "commitments": 0,
+        "seed_purchases": 0,
+        "max_seconds": 0.32547
+      }
+    }
+  },
+  "natural_holdout": {
+    "v45_native_carrot_value": {
+      "pairs": 60,
+      "cash": -14.133333333333333,
+      "margin": 60.2,
+      "opponents": {
+        "farmingv5": {
+          "cash": 35.833333333333336,
+          "margin": 116.5
+        },
+        "pasture2700": {
+          "cash": -109.66666666666667,
+          "margin": -58.166666666666664
+        },
+        "twocoins": {
+          "cash": -93.83333333333333,
+          "margin": -19.0
+        },
+        "v44": {
+          "cash": 48.5,
+          "margin": 130.83333333333334
+        },
+        "v45": {
+          "cash": 48.5,
+          "margin": 130.83333333333334
+        }
+      },
+      "seeds": [
+        {
+          "seed": 159000,
+          "cash": 18.2,
+          "margin": 313.4
+        },
+        {
+          "seed": 159001,
+          "cash": 0.0,
+          "margin": 0.0
+        },
+        {
+          "seed": 159002,
+          "cash": 0.0,
+          "margin": 0.0
+        },
+        {
+          "seed": 159003,
+          "cash": 0.0,
+          "margin": 0.0
+        },
+        {
+          "seed": 159004,
+          "cash": 13.8,
+          "margin": 17.0
+        },
+        {
+          "seed": 159005,
+          "cash": -116.8,
+          "margin": 30.8
+        }
+      ],
+      "better": 20,
+      "equal": 30,
+      "worse": 10,
+      "actual_wins": 57,
+      "baseline_wins": 53,
+      "same_shop_pairs": 60,
+      "active_games": 30,
+      "max_seconds": 0.382424,
+      "worst": {
+        "seed": 159000,
+        "seat": 0,
+        "opponent": "pasture2700",
+        "cash": -337.0,
+        "margin": -160.0,
+        "actual_margin": 11292.0,
+        "baseline_margin": 11452.0,
+        "same_shops": true,
+        "commitments": 4,
+        "seed_purchases": 7,
+        "max_seconds": 0.125151
+      },
+      "seed_cluster_bootstrap_95_percentile": [
+        2.8333333333333335,
+        162.36666666666665
+      ],
+      "bootstrap_note": "Exact resampling of six seed clusters, pooling all opponents and seats inside each seed; exploratory and small-sample."
+    }
+  },
+  "distinct_benchmark_games": 328,
+  "export_check": {
+    "sha256": "a08d4b396b4a190bf142a2e161f38c808e7f92d622911b3df6fc5103575c4f49",
+    "actions_equal": 719,
+    "seed": 159000,
+    "entrypoint_line": 3972,
+    "max_seconds": 0.16164900000148918,
+    "stats": {
+      "commitments": 4,
+      "harvest_units": 9,
+      "expired_unharvested_yield": 0,
+      "seedpurchases": 7,
+      "changedcommands": 8,
+      "overnight_auto_drop_harvests": 0,
+      "overnight_auto_drop_units": 0,
+      "carrotsellrequests": 33,
+      "contract_errors": 0
+    },
+    "cash": [
+      71083.0,
+      70554.0
+    ]
+  },
+  "decision": "Retain corrected baseline. Reject unconditional replacements; value gate remains inconclusive because of small active-seed coverage and regressions against Two Coins and Pasture 2700. No upload."
+}

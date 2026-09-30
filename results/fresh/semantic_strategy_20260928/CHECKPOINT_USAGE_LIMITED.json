@@ -1,0 +1,91 @@
+{
+  "created_utc": "2026-09-28T07:42:02.712737+00:00",
+  "reason": "Root goal usageLimited; no new dispatches authorized.",
+  "running_candidate": "strategy_v9_kb115lt2_reveal",
+  "exec_session_id": 95789,
+  "launch_log": "strategy_v9_kb115lt2_reveal_launch.log",
+  "manifest_sha256": "5173eebe47de522663241be99595f7c64b05e980081109ffc9477de2b967acb1",
+  "existing_run_disposition": "Leave existing immutable8game pool in place; it may finish. Do not launch any additional panels or replay jobs.",
+  "completed_cases": [
+    {
+      "case": "live-00",
+      "completed": true,
+      "eligible": true,
+      "margin": -1927.0,
+      "overage": [
+        41.65827440016437,
+        3.7113094999222085
+      ]
+    },
+    {
+      "case": "live-01",
+      "completed": true,
+      "eligible": true,
+      "margin": 3165.0,
+      "overage": [
+        2.077810800052248,
+        33.271213900181465
+      ]
+    },
+    {
+      "case": "live-02",
+      "completed": true,
+      "eligible": true,
+      "margin": 4043.0,
+      "overage": [
+        27.542246599914506,
+        5.729241600143723
+      ]
+    },
+    {
+      "case": "live-03",
+      "completed": true,
+      "eligible": true,
+      "margin": -152.0,
+      "overage": [
+        4.674031700124033,
+        32.640582099789754
+      ]
+    },
+    {
+      "case": "live-04",
+      "completed": true,
+      "eligible": true,
+      "margin": -484.0,
+      "overage": [
+        37.644814700004645,
+        6.300495199975558
+      ]
+    },
+    {
+      "case": "live-05",
+      "completed": true,
+      "eligible": true,
+      "margin": 1641.0,
+      "overage": [
+        2.8658994000870734,
+        33.07206959987525
+      ]
+    }
+  ],
+  "remaining_case_ids": [
+    "live-06",
+    "live-07"
+  ],
+  "v8_complete": {
+    "live_wins": 5,
+    "live_mean_margin": 994.5,
+    "recorded_engine_wins": 4,
+    "recorded_mean_margin": -495.5,
+    "recorded_original_strict_wins": 3,
+    "recorded_original_strict_eligible": 5,
+    "all16_technically_valid": true
+  },
+  "resume_steps": [
+    "Check session95789 and launch log; inspect existing results before any action.",
+    "After V9 has8results and pool exits, run independent audit and separate shipping-score reporter; preserve all existing outputs.",
+    "Compute V9 vsV8 paired development summary and update docs; do not interpret natural-shop pairs as isolated mechanism gains.",
+    "No qualification release, V9recorded panel, or enrichment source replay is authorized under current usage limit. Ask root for resumed scope."
+  ],
+  "enrichment_status": "Frozen enriched_modern100_v1; no source worker launched; extractor notified to hold."
+}

@@ -1,0 +1,267 @@
+{
+  "games": [
+    {
+      "episode": 112111968,
+      "split": "train"
+    },
+    {
+      "episode": 111281915,
+      "split": "train"
+    },
+    {
+      "episode": 112068067,
+      "split": "train"
+    },
+    {
+      "episode": 111797918,
+      "split": "train"
+    },
+    {
+      "episode": 112048711,
+      "split": "train"
+    },
+    {
+      "episode": 111442930,
+      "split": "train"
+    },
+    {
+      "episode": 112387832,
+      "split": "train"
+    },
+    {
+      "episode": 111901369,
+      "split": "train"
+    },
+    {
+      "episode": 112415430,
+      "split": "train"
+    },
+    {
+      "episode": 111243951,
+      "split": "train"
+    },
+    {
+      "episode": 111276303,
+      "split": "train"
+    },
+    {
+      "episode": 111296871,
+      "split": "train"
+    },
+    {
+      "episode": 111641726,
+      "split": "train"
+    },
+    {
+      "episode": 111649718,
+      "split": "train"
+    },
+    {
+      "episode": 111448436,
+      "split": "train"
+    },
+    {
+      "episode": 112154275,
+      "split": "train"
+    },
+    {
+      "episode": 111321984,
+      "split": "train"
+    },
+    {
+      "episode": 111949778,
+      "split": "train"
+    },
+    {
+      "episode": 111751548,
+      "split": "train"
+    },
+    {
+      "episode": 112445954,
+      "split": "train"
+    },
+    {
+      "episode": 111669540,
+      "split": "train"
+    },
+    {
+      "episode": 111263597,
+      "split": "train"
+    },
+    {
+      "episode": 112362754,
+      "split": "train"
+    },
+    {
+      "episode": 112232326,
+      "split": "train"
+    },
+    {
+      "episode": 112149584,
+      "split": "train"
+    },
+    {
+      "episode": 111254929,
+      "split": "train"
+    },
+    {
+      "episode": 111500547,
+      "split": "train"
+    },
+    {
+      "episode": 111409590,
+      "split": "train"
+    },
+    {
+      "episode": 112327589,
+      "split": "train"
+    },
+    {
+      "episode": 111780110,
+      "split": "train"
+    },
+    {
+      "episode": 111469243,
+      "split": "train"
+    },
+    {
+      "episode": 112397130,
+      "split": "train"
+    },
+    {
+      "episode": 111293117,
+      "split": "train"
+    },
+    {
+      "episode": 111808806,
+      "split": "train"
+    },
+    {
+      "episode": 111955074,
+      "split": "train"
+    },
+    {
+      "episode": 111252737,
+      "split": "train"
+    },
+    {
+      "episode": 111381937,
+      "split": "train"
+    },
+    {
+      "episode": 112204835,
+      "split": "train"
+    },
+    {
+      "episode": 111342608,
+      "split": "train"
+    },
+    {
+      "episode": 111726881,
+      "split": "train"
+    },
+    {
+      "episode": 112086793,
+      "split": "test"
+    },
+    {
+      "episode": 112054374,
+      "split": "test"
+    },
+    {
+      "episode": 111969514,
+      "split": "test"
+    },
+    {
+      "episode": 111283180,
+      "split": "test"
+    },
+    {
+      "episode": 111479294,
+      "split": "test"
+    },
+    {
+      "episode": 111971159,
+      "split": "test"
+    },
+    {
+      "episode": 111936007,
+      "split": "test"
+    },
+    {
+      "episode": 111680800,
+      "split": "test"
+    },
+    {
+      "episode": 112378037,
+      "split": "test"
+    },
+    {
+      "episode": 111331242,
+      "split": "test"
+    },
+    {
+      "episode": 111677758,
+      "split": "test"
+    },
+    {
+      "episode": 111308811,
+      "split": "test"
+    },
+    {
+      "episode": 112158883,
+      "split": "test"
+    },
+    {
+      "episode": 111720250,
+      "split": "test"
+    },
+    {
+      "episode": 111800563,
+      "split": "test"
+    },
+    {
+      "episode": 111773745,
+      "split": "test"
+    },
+    {
+      "episode": 112039734,
+      "split": "test"
+    },
+    {
+      "episode": 111642811,
+      "split": "test"
+    },
+    {
+      "episode": 112300671,
+      "split": "test"
+    },
+    {
+      "episode": 111661035,
+      "split": "test"
+    }
+  ],
+  "excluded": [
+    111245064,
+    111250531,
+    111261836,
+    111262874,
+    111269605,
+    111284610,
+    111286417,
+    111287532,
+    111290865,
+    111297593,
+    111305442,
+    111324547,
+    111337545,
+    111403839,
+    111668844,
+    112087027,
+    112284146,
+    112430567,
+    112473458
+  ],
+  "seed": 93703125,
+  "protocol": "Random sample of complete modern historical population, without score filtering. Forty train / twenty test. All nineteen previous target cases excluded. Retrospective development; future live tests are independent."
+}

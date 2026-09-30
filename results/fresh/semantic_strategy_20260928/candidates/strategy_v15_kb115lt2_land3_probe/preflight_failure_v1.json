@@ -1,0 +1,8 @@
+{
+  "stage": "STATIC_SYNTHETIC_FIXTURE",
+  "exception": "KeyError: 'today'",
+  "cause": "Original validator supplied forecast but omitted required proposal.today in its synthetic tiler fixture.",
+  "original_validator_sha256": "15f6857fdfcd2b1bb56ff890866178b1bb2394d4789903fb4e0a9afc4804ca40",
+  "corrected_fixture": "Supply both today and forecast; runtime and frozen manifest unchanged.",
+  "engines_invoked": 0
+}

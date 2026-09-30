@@ -1,0 +1,162 @@
+{
+  "caution": "Component diagnostic on fixed boards, not full-search timing or policy evidence.",
+  "pairs": 10512,
+  "rows": [
+    {
+      "cache": {
+        "currsize": 0,
+        "hits": 0,
+        "maxsize": 8192,
+        "misses": 0
+      },
+      "cpu_seconds": 0.03125,
+      "matcher": "original",
+      "repeat": 0,
+      "size": 8192,
+      "wall_seconds": 0.031718999962322414
+    },
+    {
+      "cache": {
+        "currsize": 8192,
+        "hits": 11512,
+        "maxsize": 8192,
+        "misses": 9512
+      },
+      "cpu_seconds": 0.09375,
+      "matcher": "packed",
+      "repeat": 0,
+      "size": 8192,
+      "wall_seconds": 0.10343030001968145
+    },
+    {
+      "cache": {
+        "currsize": 8192,
+        "hits": 11512,
+        "maxsize": 8192,
+        "misses": 9512
+      },
+      "cpu_seconds": 0.046875,
+      "matcher": "original",
+      "repeat": 1,
+      "size": 8192,
+      "wall_seconds": 0.03169739997247234
+    },
+    {
+      "cache": {
+        "currsize": 8192,
+        "hits": 23035,
+        "maxsize": 8192,
+        "misses": 19013
+      },
+      "cpu_seconds": 0.078125,
+      "matcher": "packed",
+      "repeat": 1,
+      "size": 8192,
+      "wall_seconds": 0.08387390000279993
+    },
+    {
+      "cache": {
+        "currsize": 8192,
+        "hits": 23035,
+        "maxsize": 8192,
+        "misses": 19013
+      },
+      "cpu_seconds": 0.140625,
+      "matcher": "original",
+      "repeat": 2,
+      "size": 8192,
+      "wall_seconds": 0.14517029997659847
+    },
+    {
+      "cache": {
+        "currsize": 8192,
+        "hits": 34558,
+        "maxsize": 8192,
+        "misses": 28514
+      },
+      "cpu_seconds": 0.53125,
+      "matcher": "packed",
+      "repeat": 2,
+      "size": 8192,
+      "wall_seconds": 0.5361435999511741
+    },
+    {
+      "cache": {
+        "currsize": 0,
+        "hits": 0,
+        "maxsize": 32768,
+        "misses": 0
+      },
+      "cpu_seconds": 0.1875,
+      "matcher": "original",
+      "repeat": 0,
+      "size": 32768,
+      "wall_seconds": 0.18527600000379607
+    },
+    {
+      "cache": {
+        "currsize": 9512,
+        "hits": 11512,
+        "maxsize": 32768,
+        "misses": 9512
+      },
+      "cpu_seconds": 0.53125,
+      "matcher": "packed",
+      "repeat": 0,
+      "size": 32768,
+      "wall_seconds": 0.5397432000027038
+    },
+    {
+      "cache": {
+        "currsize": 9512,
+        "hits": 11512,
+        "maxsize": 32768,
+        "misses": 9512
+      },
+      "cpu_seconds": 0.1875,
+      "matcher": "original",
+      "repeat": 1,
+      "size": 32768,
+      "wall_seconds": 0.18490460002794862
+    },
+    {
+      "cache": {
+        "currsize": 9512,
+        "hits": 32536,
+        "maxsize": 32768,
+        "misses": 9512
+      },
+      "cpu_seconds": 0.09375,
+      "matcher": "packed",
+      "repeat": 1,
+      "size": 32768,
+      "wall_seconds": 0.10041199997067451
+    },
+    {
+      "cache": {
+        "currsize": 9512,
+        "hits": 32536,
+        "maxsize": 32768,
+        "misses": 9512
+      },
+      "cpu_seconds": 0.1875,
+      "matcher": "original",
+      "repeat": 2,
+      "size": 32768,
+      "wall_seconds": 0.1888730000355281
+    },
+    {
+      "cache": {
+        "currsize": 9512,
+        "hits": 53560,
+        "maxsize": 32768,
+        "misses": 9512
+      },
+      "cpu_seconds": 0.109375,
+      "matcher": "packed",
+      "repeat": 2,
+      "size": 32768,
+      "wall_seconds": 0.0991611999925226
+    }
+  ]
+}

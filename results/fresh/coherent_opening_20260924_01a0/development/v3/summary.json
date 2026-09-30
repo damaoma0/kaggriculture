@@ -1,0 +1,754 @@
+{
+  "completed": 80,
+  "failures": [],
+  "comparisons": {
+    "dsm_vs_baseline": {
+      "n": 16,
+      "worlds": 8,
+      "mean_cash_delta": -14623.75,
+      "median_cash_delta": -12061.5,
+      "mean_margin_delta": -14136.3125,
+      "cash_ci95_world_bootstrap": [
+        -22419.25,
+        -6670.8125
+      ],
+      "margin_ci95_world_bootstrap": [
+        -22232.5,
+        -5031.4375
+      ],
+      "better": 4,
+      "same": 0,
+      "worse": 12,
+      "wins": 6,
+      "reference_wins": 7,
+      "worst": {
+        "id": "w07-v56",
+        "world": "w07",
+        "opponent": "v56",
+        "first_shop": "YARN_STORE",
+        "reference": "baseline",
+        "arm": "dsm",
+        "cash_delta": -35438,
+        "margin_delta": -44894,
+        "cash": 98916,
+        "margin": -24489,
+        "baseline_cash": 134354,
+        "baseline_margin": 20405
+      },
+      "best": {
+        "id": "w04-v56",
+        "world": "w04",
+        "opponent": "v56",
+        "first_shop": "PET_CAFE",
+        "reference": "baseline",
+        "arm": "dsm",
+        "cash_delta": 2511,
+        "margin_delta": 1375,
+        "cash": 74644,
+        "margin": 19079,
+        "baseline_cash": 72133,
+        "baseline_margin": 17704
+      },
+      "opponents": {
+        "v56": {
+          "n": 8,
+          "cash_delta": -15128.125,
+          "margin_delta": -16241.5
+        },
+        "mgt_m1": {
+          "n": 8,
+          "cash_delta": -14119.375,
+          "margin_delta": -12031.125
+        }
+      }
+    },
+    "latest_vs_baseline": {
+      "n": 16,
+      "worlds": 8,
+      "mean_cash_delta": -25921.4375,
+      "median_cash_delta": -15059.0,
+      "mean_margin_delta": -40898.3125,
+      "cash_ci95_world_bootstrap": [
+        -37837.0,
+        -15584.0625
+      ],
+      "margin_ci95_world_bootstrap": [
+        -54880.75,
+        -28826.875
+      ],
+      "better": 0,
+      "same": 0,
+      "worse": 16,
+      "wins": 4,
+      "reference_wins": 7,
+      "worst": {
+        "id": "w06-mgt_m1",
+        "world": "w06",
+        "opponent": "mgt_m1",
+        "first_shop": "SMOOTHIE_SHOP",
+        "reference": "baseline",
+        "arm": "latest",
+        "cash_delta": -69654,
+        "margin_delta": -96296,
+        "cash": 88437,
+        "margin": -96296,
+        "baseline_cash": 158091,
+        "baseline_margin": 0
+      },
+      "best": {
+        "id": "w00-v56",
+        "world": "w00",
+        "opponent": "v56",
+        "first_shop": "BAKERY",
+        "reference": "baseline",
+        "arm": "latest",
+        "cash_delta": -904,
+        "margin_delta": 4348,
+        "cash": 79914,
+        "margin": 2595,
+        "baseline_cash": 80818,
+        "baseline_margin": -1753
+      },
+      "opponents": {
+        "v56": {
+          "n": 8,
+          "cash_delta": -14682.5,
+          "margin_delta": -18976.625
+        },
+        "mgt_m1": {
+          "n": 8,
+          "cash_delta": -37160.375,
+          "margin_delta": -62820
+        }
+      }
+    },
+    "latest_jit_vs_baseline": {
+      "n": 16,
+      "worlds": 8,
+      "mean_cash_delta": -12115,
+      "median_cash_delta": -12439.5,
+      "mean_margin_delta": -17051.375,
+      "cash_ci95_world_bootstrap": [
+        -18844.875,
+        -6132.375
+      ],
+      "margin_ci95_world_bootstrap": [
+        -24952.75,
+        -8594.0625
+      ],
+      "better": 1,
+      "same": 0,
+      "worse": 15,
+      "wins": 5,
+      "reference_wins": 7,
+      "worst": {
+        "id": "w06-v56",
+        "world": "w06",
+        "opponent": "v56",
+        "first_shop": "SMOOTHIE_SHOP",
+        "reference": "baseline",
+        "arm": "latest_jit",
+        "cash_delta": -47123,
+        "margin_delta": -57839,
+        "cash": 111584,
+        "margin": -38263,
+        "baseline_cash": 158707,
+        "baseline_margin": 19576
+      },
+      "best": {
+        "id": "w07-mgt_m1",
+        "world": "w07",
+        "opponent": "mgt_m1",
+        "first_shop": "YARN_STORE",
+        "reference": "baseline",
+        "arm": "latest_jit",
+        "cash_delta": 1078,
+        "margin_delta": -16731,
+        "cash": 120046,
+        "margin": -16731,
+        "baseline_cash": 118968,
+        "baseline_margin": 0
+      },
+      "opponents": {
+        "v56": {
+          "n": 8,
+          "cash_delta": -14681.375,
+          "margin_delta": -18974.125
+        },
+        "mgt_m1": {
+          "n": 8,
+          "cash_delta": -9548.625,
+          "margin_delta": -15128.625
+        }
+      }
+    },
+    "normalized_vs_baseline": {
+      "n": 16,
+      "worlds": 8,
+      "mean_cash_delta": -10844.5625,
+      "median_cash_delta": -6715.0,
+      "mean_margin_delta": -7127.625,
+      "cash_ci95_world_bootstrap": [
+        -20381.0625,
+        -2429.625
+      ],
+      "margin_ci95_world_bootstrap": [
+        -18001.25,
+        3483.1875
+      ],
+      "better": 5,
+      "same": 0,
+      "worse": 11,
+      "wins": 9,
+      "reference_wins": 7,
+      "worst": {
+        "id": "w06-v56",
+        "world": "w06",
+        "opponent": "v56",
+        "first_shop": "SMOOTHIE_SHOP",
+        "reference": "baseline",
+        "arm": "normalized",
+        "cash_delta": -37717,
+        "margin_delta": -19228,
+        "cash": 120990,
+        "margin": 348,
+        "baseline_cash": 158707,
+        "baseline_margin": 19576
+      },
+      "best": {
+        "id": "w07-v56",
+        "world": "w07",
+        "opponent": "v56",
+        "first_shop": "YARN_STORE",
+        "reference": "baseline",
+        "arm": "normalized",
+        "cash_delta": 5276,
+        "margin_delta": 12865,
+        "cash": 139630,
+        "margin": 33270,
+        "baseline_cash": 134354,
+        "baseline_margin": 20405
+      },
+      "opponents": {
+        "v56": {
+          "n": 8,
+          "cash_delta": -9445.875,
+          "margin_delta": -5073.625
+        },
+        "mgt_m1": {
+          "n": 8,
+          "cash_delta": -12243.25,
+          "margin_delta": -9181.625
+        }
+      }
+    },
+    "baseline_vs_dsm": {
+      "n": 16,
+      "worlds": 8,
+      "mean_cash_delta": 14623.75,
+      "median_cash_delta": 12061.5,
+      "mean_margin_delta": 14136.3125,
+      "cash_ci95_world_bootstrap": [
+        6670.8125,
+        22419.25
+      ],
+      "margin_ci95_world_bootstrap": [
+        5031.4375,
+        22232.5
+      ],
+      "better": 12,
+      "same": 0,
+      "worse": 4,
+      "wins": 7,
+      "reference_wins": 6,
+      "worst": {
+        "id": "w04-v56",
+        "world": "w04",
+        "opponent": "v56",
+        "first_shop": "PET_CAFE",
+        "reference": "dsm",
+        "arm": "baseline",
+        "cash_delta": -2511,
+        "margin_delta": -1375,
+        "cash": 72133,
+        "margin": 17704,
+        "baseline_cash": 74644,
+        "baseline_margin": 19079
+      },
+      "best": {
+        "id": "w07-v56",
+        "world": "w07",
+        "opponent": "v56",
+        "first_shop": "YARN_STORE",
+        "reference": "dsm",
+        "arm": "baseline",
+        "cash_delta": 35438,
+        "margin_delta": 44894,
+        "cash": 134354,
+        "margin": 20405,
+        "baseline_cash": 98916,
+        "baseline_margin": -24489
+      },
+      "opponents": {
+        "v56": {
+          "n": 8,
+          "cash_delta": 15128.125,
+          "margin_delta": 16241.5
+        },
+        "mgt_m1": {
+          "n": 8,
+          "cash_delta": 14119.375,
+          "margin_delta": 12031.125
+        }
+      }
+    },
+    "latest_vs_dsm": {
+      "n": 16,
+      "worlds": 8,
+      "mean_cash_delta": -11297.6875,
+      "median_cash_delta": -9331.0,
+      "mean_margin_delta": -26762,
+      "cash_ci95_world_bootstrap": [
+        -16809.1875,
+        -6887.8125
+      ],
+      "margin_ci95_world_bootstrap": [
+        -38560.375,
+        -17642.6875
+      ],
+      "better": 2,
+      "same": 0,
+      "worse": 14,
+      "wins": 4,
+      "reference_wins": 6,
+      "worst": {
+        "id": "w06-mgt_m1",
+        "world": "w06",
+        "opponent": "mgt_m1",
+        "first_shop": "SMOOTHIE_SHOP",
+        "reference": "dsm",
+        "arm": "latest",
+        "cash_delta": -39133,
+        "margin_delta": -85307,
+        "cash": 88437,
+        "margin": -96296,
+        "baseline_cash": 127570,
+        "baseline_margin": -10989
+      },
+      "best": {
+        "id": "w07-v56",
+        "world": "w07",
+        "opponent": "v56",
+        "first_shop": "YARN_STORE",
+        "reference": "dsm",
+        "arm": "latest",
+        "cash_delta": 23505,
+        "margin_delta": 30053,
+        "cash": 122421,
+        "margin": 5564,
+        "baseline_cash": 98916,
+        "baseline_margin": -24489
+      },
+      "opponents": {
+        "v56": {
+          "n": 8,
+          "cash_delta": 445.625,
+          "margin_delta": -2735.125
+        },
+        "mgt_m1": {
+          "n": 8,
+          "cash_delta": -23041,
+          "margin_delta": -50788.875
+        }
+      }
+    },
+    "latest_jit_vs_dsm": {
+      "n": 16,
+      "worlds": 8,
+      "mean_cash_delta": 2508.75,
+      "median_cash_delta": -2097.5,
+      "mean_margin_delta": -2915.0625,
+      "cash_ci95_world_bootstrap": [
+        -2747.125,
+        8000.9375
+      ],
+      "margin_ci95_world_bootstrap": [
+        -9205.1875,
+        3028.8125
+      ],
+      "better": 7,
+      "same": 0,
+      "worse": 9,
+      "wins": 5,
+      "reference_wins": 6,
+      "worst": {
+        "id": "w01-mgt_m1",
+        "world": "w01",
+        "opponent": "mgt_m1",
+        "first_shop": "BRUNCH_SPOT",
+        "reference": "dsm",
+        "arm": "latest_jit",
+        "cash_delta": -16859,
+        "margin_delta": -23372,
+        "cash": 83031,
+        "margin": -25975,
+        "baseline_cash": 99890,
+        "baseline_margin": -2603
+      },
+      "best": {
+        "id": "w07-v56",
+        "world": "w07",
+        "opponent": "v56",
+        "first_shop": "YARN_STORE",
+        "reference": "dsm",
+        "arm": "latest_jit",
+        "cash_delta": 23472,
+        "margin_delta": 29989,
+        "cash": 122388,
+        "margin": 5500,
+        "baseline_cash": 98916,
+        "baseline_margin": -24489
+      },
+      "opponents": {
+        "v56": {
+          "n": 8,
+          "cash_delta": 446.75,
+          "margin_delta": -2732.625
+        },
+        "mgt_m1": {
+          "n": 8,
+          "cash_delta": 4570.75,
+          "margin_delta": -3097.5
+        }
+      }
+    },
+    "normalized_vs_dsm": {
+      "n": 16,
+      "worlds": 8,
+      "mean_cash_delta": 3779.1875,
+      "median_cash_delta": 408.5,
+      "mean_margin_delta": 7008.6875,
+      "cash_ci95_world_bootstrap": [
+        -120.75,
+        9070.0625
+      ],
+      "margin_ci95_world_bootstrap": [
+        940.8125,
+        14948.5625
+      ],
+      "better": 10,
+      "same": 1,
+      "worse": 5,
+      "wins": 9,
+      "reference_wins": 6,
+      "worst": {
+        "id": "w06-v56",
+        "world": "w06",
+        "opponent": "v56",
+        "first_shop": "SMOOTHIE_SHOP",
+        "reference": "dsm",
+        "arm": "normalized",
+        "cash_delta": -3570,
+        "margin_delta": -862,
+        "cash": 120990,
+        "margin": 348,
+        "baseline_cash": 124560,
+        "baseline_margin": 1210
+      },
+      "best": {
+        "id": "w07-v56",
+        "world": "w07",
+        "opponent": "v56",
+        "first_shop": "YARN_STORE",
+        "reference": "dsm",
+        "arm": "normalized",
+        "cash_delta": 40714,
+        "margin_delta": 57759,
+        "cash": 139630,
+        "margin": 33270,
+        "baseline_cash": 98916,
+        "baseline_margin": -24489
+      },
+      "opponents": {
+        "v56": {
+          "n": 8,
+          "cash_delta": 5682.25,
+          "margin_delta": 11167.875
+        },
+        "mgt_m1": {
+          "n": 8,
+          "cash_delta": 1876.125,
+          "margin_delta": 2849.5
+        }
+      }
+    },
+    "baseline_vs_normalized": {
+      "n": 16,
+      "worlds": 8,
+      "mean_cash_delta": 10844.5625,
+      "median_cash_delta": 6715.0,
+      "mean_margin_delta": 7127.625,
+      "cash_ci95_world_bootstrap": [
+        2429.625,
+        20381.0625
+      ],
+      "margin_ci95_world_bootstrap": [
+        -3483.1875,
+        18001.25
+      ],
+      "better": 11,
+      "same": 0,
+      "worse": 5,
+      "wins": 7,
+      "reference_wins": 9,
+      "worst": {
+        "id": "w07-v56",
+        "world": "w07",
+        "opponent": "v56",
+        "first_shop": "YARN_STORE",
+        "reference": "normalized",
+        "arm": "baseline",
+        "cash_delta": -5276,
+        "margin_delta": -12865,
+        "cash": 134354,
+        "margin": 20405,
+        "baseline_cash": 139630,
+        "baseline_margin": 33270
+      },
+      "best": {
+        "id": "w06-v56",
+        "world": "w06",
+        "opponent": "v56",
+        "first_shop": "SMOOTHIE_SHOP",
+        "reference": "normalized",
+        "arm": "baseline",
+        "cash_delta": 37717,
+        "margin_delta": 19228,
+        "cash": 158707,
+        "margin": 19576,
+        "baseline_cash": 120990,
+        "baseline_margin": 348
+      },
+      "opponents": {
+        "v56": {
+          "n": 8,
+          "cash_delta": 9445.875,
+          "margin_delta": 5073.625
+        },
+        "mgt_m1": {
+          "n": 8,
+          "cash_delta": 12243.25,
+          "margin_delta": 9181.625
+        }
+      }
+    },
+    "dsm_vs_normalized": {
+      "n": 16,
+      "worlds": 8,
+      "mean_cash_delta": -3779.1875,
+      "median_cash_delta": -408.5,
+      "mean_margin_delta": -7008.6875,
+      "cash_ci95_world_bootstrap": [
+        -9070.0625,
+        120.75
+      ],
+      "margin_ci95_world_bootstrap": [
+        -14948.5625,
+        -940.8125
+      ],
+      "better": 5,
+      "same": 1,
+      "worse": 10,
+      "wins": 6,
+      "reference_wins": 9,
+      "worst": {
+        "id": "w07-v56",
+        "world": "w07",
+        "opponent": "v56",
+        "first_shop": "YARN_STORE",
+        "reference": "normalized",
+        "arm": "dsm",
+        "cash_delta": -40714,
+        "margin_delta": -57759,
+        "cash": 98916,
+        "margin": -24489,
+        "baseline_cash": 139630,
+        "baseline_margin": 33270
+      },
+      "best": {
+        "id": "w06-v56",
+        "world": "w06",
+        "opponent": "v56",
+        "first_shop": "SMOOTHIE_SHOP",
+        "reference": "normalized",
+        "arm": "dsm",
+        "cash_delta": 3570,
+        "margin_delta": 862,
+        "cash": 124560,
+        "margin": 1210,
+        "baseline_cash": 120990,
+        "baseline_margin": 348
+      },
+      "opponents": {
+        "v56": {
+          "n": 8,
+          "cash_delta": -5682.25,
+          "margin_delta": -11167.875
+        },
+        "mgt_m1": {
+          "n": 8,
+          "cash_delta": -1876.125,
+          "margin_delta": -2849.5
+        }
+      }
+    },
+    "latest_vs_normalized": {
+      "n": 16,
+      "worlds": 8,
+      "mean_cash_delta": -15076.875,
+      "median_cash_delta": -11244.5,
+      "mean_margin_delta": -33770.6875,
+      "cash_ci95_world_bootstrap": [
+        -21343.5625,
+        -9630.1875
+      ],
+      "margin_ci95_world_bootstrap": [
+        -46225.3125,
+        -21853.125
+      ],
+      "better": 1,
+      "same": 0,
+      "worse": 15,
+      "wins": 4,
+      "reference_wins": 9,
+      "worst": {
+        "id": "w03-mgt_m1",
+        "world": "w03",
+        "opponent": "mgt_m1",
+        "first_shop": "ICE_CREAM_SHOP",
+        "reference": "normalized",
+        "arm": "latest",
+        "cash_delta": -50016,
+        "margin_delta": -70999,
+        "cash": 75451,
+        "margin": -88831,
+        "baseline_cash": 125467,
+        "baseline_margin": -17832
+      },
+      "best": {
+        "id": "w05-v56",
+        "world": "w05",
+        "opponent": "v56",
+        "first_shop": "PIZZA_SHOP",
+        "reference": "normalized",
+        "arm": "latest",
+        "cash_delta": 11252,
+        "margin_delta": 11322,
+        "cash": 120581,
+        "margin": 387,
+        "baseline_cash": 109329,
+        "baseline_margin": -10935
+      },
+      "opponents": {
+        "v56": {
+          "n": 8,
+          "cash_delta": -5236.625,
+          "margin_delta": -13903
+        },
+        "mgt_m1": {
+          "n": 8,
+          "cash_delta": -24917.125,
+          "margin_delta": -53638.375
+        }
+      }
+    },
+    "latest_jit_vs_normalized": {
+      "n": 16,
+      "worlds": 8,
+      "mean_cash_delta": -1270.4375,
+      "median_cash_delta": -3594.0,
+      "mean_margin_delta": -9923.75,
+      "cash_ci95_world_bootstrap": [
+        -6811.6875,
+        4543.0625
+      ],
+      "margin_ci95_world_bootstrap": [
+        -19434.625,
+        -895.875
+      ],
+      "better": 5,
+      "same": 0,
+      "worse": 11,
+      "wins": 5,
+      "reference_wins": 9,
+      "worst": {
+        "id": "w01-mgt_m1",
+        "world": "w01",
+        "opponent": "mgt_m1",
+        "first_shop": "BRUNCH_SPOT",
+        "reference": "normalized",
+        "arm": "latest_jit",
+        "cash_delta": -18097,
+        "margin_delta": -26074,
+        "cash": 83031,
+        "margin": -25975,
+        "baseline_cash": 101128,
+        "baseline_margin": 99
+      },
+      "best": {
+        "id": "w02-mgt_m1",
+        "world": "w02",
+        "opponent": "mgt_m1",
+        "first_shop": "FARMERS_MARKET",
+        "reference": "normalized",
+        "arm": "latest_jit",
+        "cash_delta": 20704,
+        "margin_delta": 16877,
+        "cash": 120284,
+        "margin": -32341,
+        "baseline_cash": 99580,
+        "baseline_margin": -49218
+      },
+      "opponents": {
+        "v56": {
+          "n": 8,
+          "cash_delta": -5235.5,
+          "margin_delta": -13900.5
+        },
+        "mgt_m1": {
+          "n": 8,
+          "cash_delta": 2694.625,
+          "margin_delta": -5947
+        }
+      }
+    }
+  },
+  "runtime": {
+    "baseline": {
+      "games": 16,
+      "mean_game_seconds": 5.300290381266677,
+      "max_action_seconds": 1.1703035000246018
+    },
+    "dsm": {
+      "games": 16,
+      "mean_game_seconds": 4.519341162500496,
+      "max_action_seconds": 2.7823600999545306
+    },
+    "latest": {
+      "games": 16,
+      "mean_game_seconds": 13.366498937524739,
+      "max_action_seconds": 1.4160498999990523
+    },
+    "latest_jit": {
+      "games": 16,
+      "mean_game_seconds": 6.201896106249478,
+      "max_action_seconds": 0.011815199977718294
+    },
+    "normalized": {
+      "games": 16,
+      "mean_game_seconds": 8.571728537506715,
+      "max_action_seconds": 1.2043903999729082
+    }
+  },
+  "caution": "Development is used for tuning. World bootstrap groups both opponents; small-panel intervals are exploratory."
+}

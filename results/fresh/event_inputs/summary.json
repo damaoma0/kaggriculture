@@ -1,0 +1,89 @@
+{
+  "chosen": "baseline",
+  "sha256": "88cb37b9a35434f4edb89a6dfa7c51a2681d21c12ebaa94c3a2dd5ad18650059",
+  "comparisons": {
+    "all": {
+      "games": 48,
+      "margin_gain": 11.666666666666666,
+      "cash_gain": 16.583333333333332,
+      "candidate_wins": 48,
+      "baseline_wins": 48,
+      "candidate_ties": 0,
+      "baseline_ties": 0
+    },
+    "v45": {
+      "games": 16,
+      "margin_gain": 21.125,
+      "cash_gain": 24.5,
+      "candidate_wins": 16,
+      "baseline_wins": 16,
+      "candidate_ties": 0,
+      "baseline_ties": 0
+    },
+    "twocoins": {
+      "games": 16,
+      "margin_gain": 0.0,
+      "cash_gain": 0.0,
+      "candidate_wins": 16,
+      "baseline_wins": 16,
+      "candidate_ties": 0,
+      "baseline_ties": 0
+    },
+    "farmingv5": {
+      "games": 16,
+      "margin_gain": 13.875,
+      "cash_gain": 25.25,
+      "candidate_wins": 16,
+      "baseline_wins": 16,
+      "candidate_ties": 0,
+      "baseline_ties": 0
+    }
+  },
+  "seeds": {
+    "147000": 0.0,
+    "147001": 0.0,
+    "147002": 0.0,
+    "147003": 22.666666666666668,
+    "147004": 0.0,
+    "147005": 0.0,
+    "147006": 28.666666666666668,
+    "147007": 42.0
+  },
+  "gates": {
+    "positive_margin": true,
+    "nonnegative_each_rival": true,
+    "six_positive_seeds": false,
+    "no_fewer_wins": true,
+    "cash_floor": true,
+    "no_errors": true,
+    "call_below_one_second": true
+  },
+  "diagnostics": {
+    "max_seconds": 0.2993815000008908,
+    "mean_changed_calls": 0.25,
+    "mean_valued_lots": 107.25,
+    "mean_unchanged_lots": 193.79166666666666
+  },
+  "errors": [],
+  "accounting": {
+    "revenue:WHEAT": -55.125,
+    "revenue:FERTILIZER": -13.416666666666666,
+    "revenue:WOOL": 1.75,
+    "revenue:MILK": -0.8333333333333334,
+    "revenue:MELON": 0.0,
+    "revenue:STRAWBERRY": 5.583333333333333,
+    "revenue:CARROT": -14.916666666666666,
+    "cost:BUY_PRODUCT:WHEAT": 7.541666666666667,
+    "cost:HIRE": -33.708333333333336,
+    "cost:BUY_ANIMAL:COW": 0.0,
+    "cost:BUY_ANIMAL:SHEEP": 0.0,
+    "cost:BUY_SEED:MELON": 0.0,
+    "cost:BUY_SEED:WHEAT": 0.0,
+    "cost:BUY_SEED:STRAWBERRY": 0.0,
+    "cost:BUY_LAND": 0.0,
+    "cost:BUY_PRODUCT:FERTILIZER": -32.083333333333336,
+    "cost:BUY_SEED:CARROT": 0.0,
+    "revenue:EGG": 35.291666666666664,
+    "cost:BUY_ANIMAL:GOOSE": 0.0
+  }
+}

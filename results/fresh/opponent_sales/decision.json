@@ -1,0 +1,13 @@
+{
+  "selected": "agents/market_priority_selected.py",
+  "sha256": "6e8d5c672bb325fae8e2c425232ace9fbfa4b9ca9faa3e0bd37f0484cfa73ba2",
+  "previous": "agents/production_selected.py",
+  "summary": "Keep agents/market_priority_selected.py as the new locally preferred candidate: the six-day router plus the existing milk/wool sales adapter and milk/wool-first market ordering. Independent confirmation on eight fresh seeds produced 64 wins in 64 games versus 45 wins, 12 ties and 7 losses for the previous baseline across the same opponent panel; mean cash improved by 459.5 and mean match margin by 1001.6. Keep forecast-driven holding experimental: its margin advantage over priority alone was only +16.4 in natural discovery and -25.1 under controlled shops. The previous selected file is preserved.",
+  "limitations": [
+    "Local evaluation against two public policy families and two derived behaviors; no leaderboard claim.",
+    "Priority reduced margin against the synthetic stockpiler by 195.6 on confirmation, though all 16 matches were still won.",
+    "The selected candidate uses fixed market ordering, not the opponent forecast."
+  ],
+  "formal_games": 400,
+  "additional_smoke_parity_games": 4
+}

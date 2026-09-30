@@ -1,0 +1,45 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/path_trial.py",
+   "--spec",
+   "results/fresh/threads_20260928/animal/spec.json",
+   "--arms",
+   "KB115LTk,KB115LTC",
+   "--games",
+   "16732748:112570602,16732748:112575429,16732748:112581436,16732748:112587591,16732748:112592389,16732748:112598450,16732748:112604454,16732748:112610623,16732748:112577829,16732748:112591190",
+   "--out",
+   "results/fresh/kaggle_lt/ltc1",
+   "--workers",
+   "4",
+   "--no_vitals"
+  ],
+  "collect": [
+   "results/fresh/kaggle_lt/ltc1/**/*",
+   "results/fresh/sector_20260925/multi/KB115LTk/*.json",
+   "results/fresh/sector_20260925/multi/KB115LTC/*.json",
+   "results/fresh/day12_viz/kb115ltk_streams/*.json",
+   "results/fresh/day12_viz/kb115ltc_streams/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 0,
+ "pip_seconds": 45.90817475318909,
+ "run_seconds": 2.9294097423553467,
+ "returncode": 1,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "AMD EPYC 7B12",
+ "mem_gb": 33.7,
+ "stdout_tail": [],
+ "stderr_tail": [
+  "Traceback (most recent call last):",
+  "  File \"/tmp/repo/scripts/path_trial.py\", line 153, in <module>",
+  "    main()",
+  "  File \"/tmp/repo/scripts/path_trial.py\", line 92, in main",
+  "    fert = {arm: bool(SR.ARMS[arm][1].get('sd_sim_fert_free')) for arm in arms}",
+  "                      ~~~~~~~^^^^^",
+  "KeyError: 'KB115LTk'"
+ ]
+}

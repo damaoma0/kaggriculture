@@ -1,0 +1,49 @@
+{
+ "tag": "mgt_v0b_v50",
+ "started": "2026-09-19 16:54:18",
+ "benchmark_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+ "rival": "v50_public",
+ "rival_sha256": "044a26601be23816d397c51c22c4d86b938f8bac4b914f9bea1fbe38bac1e8a5",
+ "seeds": [
+  174000,
+  174001,
+  174002,
+  174003,
+  174004,
+  174005,
+  174006,
+  174007,
+  174008,
+  174009,
+  174010,
+  174011,
+  174012,
+  174013,
+  174014,
+  174015,
+  174016,
+  174017,
+  174018,
+  174019,
+  174020,
+  174021,
+  174022,
+  174023,
+  174024,
+  174025,
+  174026,
+  174027,
+  174028,
+  174029,
+  174030,
+  174031
+ ],
+ "candidates": [
+  "mgt_v0b"
+ ],
+ "seed_base": 174000,
+ "design": "Paired seeds and both seats against the frozen uploaded agent. Natural engine RNG for shops and weeds. Seed-clustered bootstrap intervals. No tuning on these seeds.",
+ "sources": {
+  "agents/mgt_v0b.py": "4e7dac7aa4ca9e58c0829614ee5b476bab75ac6ac6ace1df0e7693bc2e80bc49"
+ }
+}

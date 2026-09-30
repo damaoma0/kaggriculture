@@ -1,0 +1,247 @@
+{
+  "root": "sheep6-seed20261201-seat0",
+  "root_step": 216,
+  "future_seed": 84001,
+  "modes": [
+    "native",
+    "native"
+  ],
+  "crew_cap": 10,
+  "seconds": 3.77,
+  "root_features": [
+    {
+      "cash": 9307.0,
+      "shed_sale_value_no_other_trades": 1757,
+      "crops": {
+        "WHEAT": 17
+      },
+      "animals": {
+        "SHEEP": 6
+      },
+      "land_tiles": 25
+    },
+    {
+      "cash": 902.0,
+      "shed_sale_value_no_other_trades": 1203,
+      "crops": {
+        "WHEAT": 5,
+        "STRAWBERRY": 20,
+        "MELON": 12
+      },
+      "animals": {
+        "COW": 9,
+        "SHEEP": 4
+      },
+      "land_tiles": 50
+    }
+  ],
+  "final_cash": [
+    56516.0,
+    178276.0
+  ],
+  "margin": -121760.0,
+  "ledger": [
+    {
+      "revenue": {
+        "WHEAT": 13382,
+        "FERTILIZER": 6061,
+        "WOOL": 33297
+      },
+      "sold_units": {
+        "WHEAT": 390,
+        "FERTILIZER": 126,
+        "WOOL": 166
+      },
+      "spend": {
+        "HIRE": 420.0,
+        "BUY_PRODUCT:WHEAT": 4121,
+        "BUY_SEED:WHEAT": 990
+      }
+    },
+    {
+      "revenue": {
+        "FERTILIZER": 13784,
+        "WOOL": 36399,
+        "WHEAT": 11289,
+        "MELON": 17440,
+        "MILK": 67066,
+        "STRAWBERRY": 48988,
+        "CARROT": 333
+      },
+      "sold_units": {
+        "FERTILIZER": 301,
+        "WOOL": 184,
+        "WHEAT": 351,
+        "MELON": 72,
+        "MILK": 249,
+        "STRAWBERRY": 262,
+        "CARROT": 9
+      },
+      "spend": {
+        "BUY_SEED:WHEAT": 1530,
+        "BUY_SEED:STRAWBERRY": 1300,
+        "HIRE": 5524.0,
+        "BUY_PRODUCT:FERTILIZER": 2784,
+        "BUY_PRODUCT:WHEAT": 2767,
+        "BUY_ANIMAL:SHEEP": 2000,
+        "BUY_SEED:CARROT": 20,
+        "BUY_LAND": 2000.0
+      }
+    }
+  ],
+  "diagnostics": [
+    {
+      "PICKUP": 126,
+      "zero_cash_states": 0,
+      "FEED": 126,
+      "HARVEST": 141,
+      "WEST": 566,
+      "DROP": 62,
+      "NORTH": 512,
+      "CARE": 126,
+      "COLLECT_FERTILIZER": 126,
+      "WATER": 392,
+      "PLANT": 100,
+      "EAST": 438,
+      "SOUTH": 280,
+      "PASS": 85
+    },
+    {
+      "WEST": 753,
+      "zero_cash_states": 0,
+      "NORTH": 769,
+      "PICKUP": 123,
+      "EAST": 557,
+      "FEED": 311,
+      "CARE": 311,
+      "COLLECT_FERTILIZER": 330,
+      "PLACE": 70,
+      "WATER": 901,
+      "HARVEST": 442,
+      "SOUTH": 471,
+      "PLANT": 180,
+      "PASS": 388,
+      "BUILD_PASTURE": 4,
+      "BUILD_COOP": 1,
+      "FERTILIZE": 96,
+      "DIG": 36,
+      "crop_transitions_to_weed": 25,
+      "premature_crop_losses": 1,
+      "DROP": 9
+    }
+  ],
+  "terminal_inventory": [
+    {
+      "shed": {
+        "WHEAT": 7,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 0,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "carried": [
+        {
+          "WHEAT": 5,
+          "FERTILIZER": 1
+        },
+        {
+          "WHEAT": 5,
+          "FERTILIZER": 1
+        },
+        {
+          "WHEAT": 5,
+          "FERTILIZER": 1
+        },
+        {
+          "WHEAT": 8
+        },
+        {
+          "WHEAT": 5,
+          "FERTILIZER": 1
+        },
+        {
+          "WHEAT": 5,
+          "WOOL": 4,
+          "FERTILIZER": 1
+        },
+        {
+          "WHEAT": 4
+        }
+      ],
+      "seeds": {
+        "WHEAT": 1,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0
+      }
+    },
+    {
+      "shed": {
+        "WHEAT": 0,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 0,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "carried": [
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {},
+        {}
+      ],
+      "seeds": {
+        "WHEAT": 0,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0
+      }
+    }
+  ],
+  "cash_path": {
+    "9": [
+      9307.0,
+      902.0
+    ],
+    "12": [
+      17705.0,
+      17716.0
+    ],
+    "15": [
+      25327.0,
+      31001.0
+    ],
+    "20": [
+      36761.0,
+      74944.0
+    ],
+    "25": [
+      44970.0,
+      127315.0
+    ],
+    "29": [
+      56047.0,
+      172098.0
+    ]
+  }
+}

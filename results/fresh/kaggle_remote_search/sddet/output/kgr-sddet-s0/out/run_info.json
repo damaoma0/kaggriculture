@@ -1,0 +1,27 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/search_dispatch_trace.py",
+   "run",
+   "mgt_lpv_sd_v1a12d,mgt_lpv_sd_v1a12d2",
+   "110937191,111374151,111376633,111416249,111554912,111577649,111681195,111688786,111871547,111902048,111916514,111941962",
+   "p2750"
+  ],
+  "collect": [
+   "results/fresh/lead_world_trace/mgt_lpv_sd_v1a12d*.json",
+   "results/fresh/search_dispatch_20260925/smoke/mgt_lpv_sd_v1a12d*.json"
+  ],
+  "workers": 4
+ },
+ "games": 48,
+ "pip_seconds": 43.90676498413086,
+ "run_seconds": 534.3290414810181,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [],
+ "stderr_tail": []
+}

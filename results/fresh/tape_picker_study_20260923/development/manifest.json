@@ -1,0 +1,37 @@
+{
+  "created_utc": "2026-09-23T13:23:51Z",
+  "agents": [
+    "mgt_pick_recent",
+    "mgt_pick_cohort"
+  ],
+  "opponents": [
+    "v56"
+  ],
+  "seeds": [
+    1814298892,
+    1574612379,
+    1113539491,
+    1063535875,
+    1197903523,
+    1869525632,
+    1247696705,
+    1329066668
+  ],
+  "seats": [
+    0,
+    1
+  ],
+  "episode_steps": 720,
+  "expected_games": 32,
+  "source_paths": {
+    "mgt_pick_cohort": "results\\fresh\\tape_picker_study_20260923\\development\\frozen\\mgt_pick_cohort.py",
+    "mgt_pick_recent": "results\\fresh\\tape_picker_study_20260923\\development\\frozen\\mgt_pick_recent.py",
+    "v56": "results\\fresh\\tape_picker_study_20260923\\development\\frozen\\v56.py"
+  },
+  "source_hashes": {
+    "mgt_pick_cohort": "b5f680296a4f532bc34034343cfac4afbb04c4bbc383e84debdaeedb258a12c7",
+    "mgt_pick_recent": "1fda3c394c898725c6a17983390539dd26b3c85bbcad1933b94524906c1ddf97",
+    "v56": "a1ad0fd1d174477ee2cbdd561a812bcb7029647ce34599e79d6b79e9057eff6c"
+  },
+  "design": "Natural RNG Kaggriculture games; fresh process per game; no forced shops or early stopping."
+}

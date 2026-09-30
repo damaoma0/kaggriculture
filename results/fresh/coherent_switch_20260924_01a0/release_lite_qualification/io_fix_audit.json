@@ -1,0 +1,61 @@
+{
+  "passed": true,
+  "scope": "non-game constructor equivalence and source/AST audit; no policy calls or full game runs",
+  "old_archive_sha256": "6f5e2c2781325a91525b56343dd6fb73f6aeba2fabde63e55cfeae9fdb390f3b",
+  "derived_archive_sha256": "372237589610a204abd156db65f865a41f9c0535744ff2cfe251e94438961c9e",
+  "changed_members": [
+    "scripts/research_labour_profit.py"
+  ],
+  "old_research_helper_sha256": "06b457c9efeceefe58eb235aaacf69e812aecc64c4351896614c65988be949bc",
+  "new_research_helper_sha256": "03299312d7483bdc44e3a96d94eb0e8765b7085d7bd3a07948a1f9f2d65de3dd",
+  "ast_engine_body_equal_after_redirect_wrapper_removal": true,
+  "ast_Simulator_init_equal_after_redirect_wrapper_removal": true,
+  "other_module_AST_equal": true,
+  "derived_helper_redirect_sites": 0,
+  "constructor_cases": [
+    {
+      "seed": 3312902925,
+      "shops": [
+        "BRUNCH_SPOT",
+        "PET_CAFE",
+        "ICE_CREAM_SHOP",
+        "PIZZA_SHOP",
+        "ICE_CREAM_SHOP",
+        "BRUNCH_SPOT",
+        "PET_CAFE",
+        "FARMERS_MARKET"
+      ],
+      "initial_equal": true,
+      "configuration_equal": true,
+      "info_equal": true,
+      "game_equal": true
+    },
+    {
+      "seed": 3872679769,
+      "shops": [
+        "BRUNCH_SPOT",
+        "BRUNCH_SPOT",
+        "SMOOTHIE_SHOP",
+        "YARN_STORE",
+        "PIZZA_SHOP",
+        "SMOOTHIE_SHOP",
+        "ICE_CREAM_SHOP",
+        "PIZZA_SHOP"
+      ],
+      "initial_equal": true,
+      "configuration_equal": true,
+      "info_equal": true,
+      "game_equal": true
+    }
+  ],
+  "qualification_inheritance": {
+    "games": 384,
+    "arm": "old immutable archive",
+    "paired_stats_remain_valid_for_old_archive": true,
+    "derived_archive_has_no_full_game_qualification": true,
+    "evidence": "The changed RLP import/reset wrapper preserves AST bodies and exact simulator/projection state for tested cases; official loader check must validate thread/stdio behavior."
+  },
+  "limitations": [
+    "Two constructor seeds only; no full-season rollout or official threaded loader test executed here."
+  ]
+}

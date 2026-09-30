@@ -1,0 +1,426 @@
+<title>Mother-Goose Sell Points</title>
+<style>
+  :root {
+    --plane: #f9f9f7; --surface: #fcfcfb; --ink: #0b0b0b; --ink2: #52514e; --muted: #898781;
+    --grid: #e1e0d9; --axis: #c3c2b7; --ring: rgba(11,11,11,.10); --wash: rgba(11,11,11,.04);
+    --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #4a3aa7; --s8: #e34948;
+    --t1: #fff; --t2: #0b0b0b; --t3: #0b0b0b; --t4: #0b0b0b; --t5: #0b0b0b; --t6: #fff; --t7: #fff; --t8: #fff;
+    --good: #006300; --bad: #d03b3b;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --plane: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink2: #c3c2b7; --muted: #898781;
+      --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,.10); --wash: rgba(255,255,255,.05);
+      --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+      --t1: #fff; --t2: #fff; --t3: #fff; --t4: #0b0b0b; --t5: #fff; --t6: #fff; --t7: #0b0b0b; --t8: #0b0b0b;
+      --good: #0ca30c; --bad: #e66767;
+    }
+  }
+  :root[data-theme="dark"] {
+    --plane: #0d0d0d; --surface: #1a1a19; --ink: #ffffff; --ink2: #c3c2b7; --muted: #898781;
+    --grid: #2c2c2a; --axis: #383835; --ring: rgba(255,255,255,.10); --wash: rgba(255,255,255,.05);
+    --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+    --t1: #fff; --t2: #fff; --t3: #fff; --t4: #0b0b0b; --t5: #fff; --t6: #fff; --t7: #0b0b0b; --t8: #0b0b0b;
+    --good: #0ca30c; --bad: #e66767;
+  }
+  * { box-sizing: border-box; }
+  body { background: var(--plane); color: var(--ink); font: 14px/1.45 system-ui, -apple-system, "Segoe UI", sans-serif; }
+  .wrap { max-width: 1240px; margin: 0 auto; padding-inline: 20px; padding-block: 22px 60px; display: flex; flex-direction: column; gap: 18px; }
+  header h1 { font-size: 22px; font-weight: 650; letter-spacing: -.01em; margin: 0 0 4px; text-wrap: balance; }
+  header p { margin: 0; color: var(--ink2); max-width: 78ch; }
+  .bar { display: flex; flex-wrap: wrap; gap: 10px 14px; align-items: center; }
+  .tabs { display: inline-flex; border: 1px solid var(--ring); border-radius: 8px; overflow: hidden; background: var(--surface); }
+  .tabs button { border: 0; background: transparent; color: var(--ink2); padding: 7px 14px; font: inherit; cursor: pointer; }
+  .tabs button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+  button, select, input { font: inherit; color: inherit; }
+  button:focus-visible, select:focus-visible, input:focus-visible, .chip:focus-visible { outline: 2px solid var(--s1); outline-offset: 2px; }
+  .chip { border: 1px solid var(--ring); background: var(--surface); border-radius: 999px; padding: 5px 11px; cursor: pointer; color: var(--ink2); display: inline-flex; gap: 6px; align-items: center; }
+  .chip[aria-pressed="true"] { border-color: var(--ink); color: var(--ink); font-weight: 600; }
+  .chip .sw, .key .sw { width: 10px; height: 10px; border-radius: 50%; display: inline-block; flex: none; }
+  select { background: var(--surface); border: 1px solid var(--ring); border-radius: 8px; padding: 7px 10px; max-width: 100%; }
+  .btn { border: 1px solid var(--ring); background: var(--surface); border-radius: 8px; padding: 6px 11px; cursor: pointer; }
+  .card { background: var(--surface); border: 1px solid var(--ring); border-radius: 10px; padding: 14px 16px; min-width: 0; }
+  .card h2 { font-size: 13px; font-weight: 650; margin: 0 0 2px; }
+  .card .sub { color: var(--muted); font-size: 12px; margin: 0 0 8px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 22px; align-items: baseline; }
+  .meta .big { font-size: 20px; font-weight: 650; }
+  .meta .lab { color: var(--muted); font-size: 12px; display: block; }
+  .shops { display: flex; flex-wrap: wrap; gap: 6px; }
+  .shop { font-size: 12px; border: 1px solid var(--ring); border-radius: 6px; padding: 3px 7px; color: var(--ink2); background: var(--wash); white-space: nowrap; }
+  .shop b { color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .two { display: grid; grid-template-columns: minmax(280px, 380px) minmax(0, 1fr); gap: 18px; align-items: start; }
+  @media (max-width: 860px) { .two { grid-template-columns: minmax(0, 1fr); } }
+  .stack { display: flex; flex-direction: column; gap: 18px; min-width: 0; }
+  .board { display: grid; grid-template-columns: repeat(10, 1fr); gap: 2px; aspect-ratio: 1; max-width: 100%; }
+  .tile { border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 650; background: var(--wash); color: var(--muted); min-width: 0; }
+  .tile.L { background: repeating-linear-gradient(45deg, var(--grid) 0 3px, transparent 3px 6px); }
+  .tile.p, .tile.o { border: 1px dashed var(--axis); background: transparent; }
+  .daybar { display: flex; gap: 10px; align-items: center; margin-top: 10px; }
+  .daybar input[type=range] { flex: 1; min-width: 0; accent-color: var(--ink); }
+  .daybar output { font-variant-numeric: tabular-nums; min-width: 52px; font-weight: 600; }
+  .notes { color: var(--ink2); font-size: 12px; min-height: 18px; margin-top: 6px; }
+  .key { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 12px; color: var(--ink2); margin: 0 0 6px; }
+  .key span { display: inline-flex; gap: 5px; align-items: center; }
+  .key .sw.sq { border-radius: 2px; }
+  .key .ln { width: 14px; height: 2px; background: var(--muted); display: inline-block; }
+  .panels { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 330px), 1fr)); gap: 14px; }
+  .panel h3 { font-size: 13px; margin: 0; font-weight: 650; display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .panel h3 small { color: var(--muted); font-weight: 400; font-variant-numeric: tabular-nums; }
+  svg { display: block; width: 100%; height: auto; overflow: visible; }
+  svg text { fill: var(--muted); font-size: 10px; font-variant-numeric: tabular-nums; }
+  svg .lbl { fill: var(--ink2); }
+  .tip { position: fixed; z-index: 10; pointer-events: none; background: var(--ink); color: var(--surface); border-radius: 6px; padding: 6px 9px; font-size: 12px; line-height: 1.35; max-width: 260px; box-shadow: 0 4px 14px rgba(0,0,0,.25); }
+  .tip b { font-weight: 650; }
+  table { border-collapse: collapse; width: 100%; font-size: 12.5px; font-variant-numeric: tabular-nums; }
+  th, td { text-align: right; padding: 5px 8px; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+  th:first-child, td:first-child, th:nth-child(2), td:nth-child(2) { text-align: left; }
+  th { color: var(--muted); font-weight: 500; }
+  .scroll { overflow-x: auto; }
+  .pos { color: var(--good); } .neg { color: var(--bad); }
+  .dot { cursor: pointer; }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Mother-Goose Sell Points</h1>
+    <p>Every sale Unknown Mother-Goose filled in 72 public Kaggriculture replays, drawn on the price she sold into, next to her farm day by day. 30 games are her old deterministic policy (submission 56266758), 42 are her two newer closed-loop submissions.</p>
+  </header>
+
+  <div class="bar">
+    <div class="tabs" role="group" aria-label="View">
+      <button id="tab-game" aria-pressed="true">One game</button>
+      <button id="tab-all" aria-pressed="false">All games</button>
+    </div>
+    <button class="chip" id="era-old" aria-pressed="true"><span class="sw" style="background:var(--s1)"></span>Old policy</button>
+    <button class="chip" id="era-new" aria-pressed="true"><span class="sw" style="background:var(--s3)"></span>New submissions</button>
+  </div>
+
+  <section id="view-game" class="stack">
+    <div class="bar">
+      <button class="btn" id="prev" aria-label="Previous game">&larr;</button>
+      <select id="game" aria-label="Game"></select>
+      <button class="btn" id="next" aria-label="Next game">&rarr;</button>
+      <label class="chip" style="cursor:pointer"><input type="checkbox" id="showopp" checked style="margin:0"> opponent's sales</label>
+    </div>
+    <div class="card">
+      <div class="meta" id="meta"></div>
+      <div class="sub" style="margin:10px 0 6px">Shops in reveal order (a shop opens every third day)</div>
+      <div class="shops" id="shops"></div>
+    </div>
+    <div class="two">
+      <div class="card">
+        <h2>Her farm at the start of the day</h2>
+        <p class="sub">Letters name the tile; dashed tiles are empty pastures or coops, hatched tiles are land she has not bought.</p>
+        <div class="board" id="board"></div>
+        <div class="daybar">
+          <button class="btn" id="play" aria-label="Play the season">&#9654;</button>
+          <input type="range" id="day" min="0" max="29" value="14" aria-label="Day">
+          <output id="daylab">Day 14</output>
+        </div>
+        <div class="notes" id="notes"></div>
+      </div>
+      <div class="stack">
+        <div class="card">
+          <h2>What is on the farm</h2>
+          <p class="sub">Tiles by crop or animal, day by day. The vertical line follows the day slider.</p>
+          <div class="key" id="key-mix"></div>
+          <div id="mix"></div>
+        </div>
+        <div class="card">
+          <h2>Cash</h2>
+          <p class="sub">Both farms at the start of each day; the last point is the final score.</p>
+          <div class="key" id="key-cash"></div>
+          <div id="cash"></div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Sell points by product</h2>
+      <p class="sub">Grey line: market price. Each dot is a lot she sold, placed at the price before the sale; bigger dot, more units. Vertical marks are shops that buy the product. Hover a dot for the detail.</p>
+      <div class="key" id="key-sell"></div>
+      <div class="panels" id="panels"></div>
+    </div>
+  </section>
+
+  <section id="view-all" class="stack" hidden>
+    <div class="bar" id="prodchips" role="group" aria-label="Product"></div>
+    <div class="card">
+      <h2 id="sc-title">Sell points across games</h2>
+      <p class="sub">One dot per lot, all selected games on one season axis. Faint lines are the price paths of those games. Click a dot to open that game.</p>
+      <div class="key" id="key-all"></div>
+      <div id="scatter"></div>
+    </div>
+    <div class="two" style="grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));">
+      <div class="card"><h2>When in the day she sells</h2><p class="sub">Units per game by hour of day.</p><div id="byhour"></div></div>
+      <div class="card"><h2>When in the season she sells</h2><p class="sub">Units per game by day.</p><div id="byday"></div></div>
+    </div>
+    <div class="card">
+      <h2>All products</h2>
+      <p class="sub">Per game averages over the selected games. Price is revenue over units; the lot average uses the engine price curve over each lot.</p>
+      <div class="scroll"><table id="table"></table></div>
+    </div>
+  </section>
+</div>
+<div class="tip" id="tip" hidden></div>
+
+<script type="application/json" id="d">__DATA__</script>
+<script>
+(function () {
+  var DATA = JSON.parse(document.getElementById('d').textContent);
+  var P = DATA.products, G = DATA.games;
+  var NAME = {WOOL:'Wool', MILK:'Milk', EGG:'Eggs', STRAWBERRY:'Strawberries', TOMATO:'Tomatoes', CARROT:'Carrots', WHEAT:'Wheat', MELON:'Melons', FERTILIZER:'Fertilizer'};
+  var SHOPS = {BAKERY:['EGG','WHEAT'], PIZZA_SHOP:['MILK','TOMATO','WHEAT'], BRUNCH_SPOT:['EGG','WHEAT','STRAWBERRY'], YARN_STORE:['WOOL'],
+               ICE_CREAM_SHOP:['STRAWBERRY','MILK','WHEAT'], PET_CAFE:['CARROT'], SMOOTHIE_SHOP:['STRAWBERRY','MILK'], FARMERS_MARKET:['WHEAT','CARROT','TOMATO','STRAWBERRY']};
+  var SHOPNAME = {BAKERY:'Bakery', PIZZA_SHOP:'Pizza', BRUNCH_SPOT:'Brunch', YARN_STORE:'Yarn', ICE_CREAM_SHOP:'Ice cream', PET_CAFE:'Pet cafe', SMOOTHIE_SHOP:'Smoothie', FARMERS_MARKET:'Farmers mkt'};
+  // fixed slot per entity (stack order = slot order, the validated adjacency)
+  var CAT = [['s','Sheep',1], ['C','Carrot',2], ['g','Goose',3], ['W','Wheat',4], ['S','Strawberry',5], ['M','Melon',6], ['c','Cow',7], ['T','Tomato',8]];
+  var CATSLOT = {}; CAT.forEach(function (c) { CATSLOT[c[0]] = c; });
+  var LETTER = {s:'sh', C:'Ca', g:'go', W:'W', S:'St', M:'Me', c:'co', T:'To', x:'x', '.':'', L:'', p:'', o:''};
+  var st = {view:'game', gi:0, day:14, prod:0, old:true, nu:true, opp:true, timer:null};
+  var $ = function (id) { return document.getElementById(id); };
+  var fmt = function (n) { return Math.round(n).toLocaleString('en-US'); };
+  var h = function (x) { return String(x).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); };
+  var T = function (html) { return ' data-tip="' + h(html) + '"'; };   // tooltip HTML made attribute-safe
+  var eraColor = function (g) { return g.era === 'old' ? 'var(--s1)' : 'var(--s3)'; };
+  var eraName = function (g) { return g.era === 'old' ? 'old policy' : 'new submission'; };
+  function pool() { return G.filter(function (g) { return (g.era === 'old' && st.old) || (g.era === 'new' && st.nu); }); }
+  function nice(max) { var p = Math.pow(10, Math.floor(Math.log10(Math.max(1, max)))); var m = max / p; return (m <= 1 ? 1 : m <= 2 ? 2 : m <= 2.5 ? 2.5 : m <= 5 ? 5 : 10) * p; }
+  function when(step) { var d = Math.floor(step / 24), h = step % 24; return 'Day ' + d + ', ' + (h < 10 ? '0' : '') + h + ':00'; }
+  function rDot(units) { return Math.max(4, Math.min(10, 3 + Math.sqrt(units) * 1.15)); }
+
+  // ---------- tooltip
+  var tip = $('tip');
+  function showTip(html, ev) {
+    tip.innerHTML = html; tip.hidden = false;
+    var w = tip.offsetWidth, h = tip.offsetHeight, x = ev.clientX + 14, y = ev.clientY + 14;
+    if (x + w > window.innerWidth - 8) x = ev.clientX - w - 14;
+    if (y + h > window.innerHeight - 8) y = ev.clientY - h - 14;
+    tip.style.left = Math.max(8, x) + 'px'; tip.style.top = Math.max(8, y) + 'px';
+  }
+  function hideTip() { tip.hidden = true; }
+  document.addEventListener('mousemove', function (ev) {
+    var t = ev.target;
+    if (t && t.getAttribute && t.getAttribute('data-tip')) showTip(t.getAttribute('data-tip'), ev);
+    else if (!(t && t.closest && t.closest('[data-cross]'))) hideTip();
+  });
+  document.addEventListener('click', function (ev) {
+    var t = ev.target; var go = t && t.getAttribute && t.getAttribute('data-go');
+    if (go != null) { var list = pool(); var idx = list.findIndex(function (g) { return String(g.id) === go; }); if (idx >= 0) { st.gi = idx; setView('game'); } }
+  });
+
+  // ---------- generic frame
+  function frame(W, H, m, xmax, ymax, xticks, yfmt, xlab) {
+    var iw = W - m.l - m.r, ih = H - m.t - m.b;
+    var X = function (v) { return m.l + v / xmax * iw; }, Y = function (v) { return m.t + ih - v / ymax * ih; };
+    var s = '';
+    for (var i = 0; i <= 3; i++) { var v = ymax * i / 3; s += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(v) + '" y2="' + Y(v) + '" stroke="var(--grid)" stroke-width="1"/><text x="' + (m.l - 6) + '" y="' + (Y(v) + 3) + '" text-anchor="end">' + (yfmt ? yfmt(v) : fmt(v)) + '</text>'; }
+    xticks.forEach(function (d) { s += '<text x="' + X(d) + '" y="' + (H - m.b + 13) + '" text-anchor="middle">' + d + '</text>'; });
+    s += '<line x1="' + m.l + '" x2="' + (W - m.r) + '" y1="' + Y(0) + '" y2="' + Y(0) + '" stroke="var(--axis)" stroke-width="1"/>';
+    if (xlab) s += '<text x="' + (W - m.r) + '" y="' + (H - 2) + '" text-anchor="end">' + xlab + '</text>';
+    return {X: X, Y: Y, s: s, iw: iw, ih: ih};
+  }
+
+  // ---------- one game
+  function fillPicker() {
+    var list = pool(); var sel = $('game');
+    if (st.gi >= list.length) st.gi = 0;
+    sel.innerHTML = list.map(function (g, i) {
+      var m = g.reward[0] - g.reward[1];
+      return '<option value="' + i + '">' + (g.era === 'old' ? 'OLD' : 'NEW') + ' \u00b7 ' + g.id + ' \u00b7 vs ' + h(g.opp) + ' \u00b7 ' + (m >= 0 ? 'won +' : 'lost \u2212') + fmt(Math.abs(m)) + '</option>';
+    }).join('');
+    sel.value = String(st.gi);
+  }
+  function renderMeta(g) {
+    var m = g.reward[0] - g.reward[1];
+    $('meta').innerHTML =
+      '<div><span class="lab">Mother-Goose, ' + eraName(g) + '</span><span class="big">' + fmt(g.reward[0]) + '</span></div>' +
+      '<div><span class="lab">' + h(g.opp) + '</span><span class="big">' + fmt(g.reward[1]) + '</span></div>' +
+      '<div><span class="lab">Margin</span><span class="big ' + (m >= 0 ? 'pos' : 'neg') + '">' + (m >= 0 ? '+' : '\u2212') + fmt(Math.abs(m)) + '</span></div>' +
+      '<div><span class="lab">Lots she sold</span><span class="big">' + g.sells.length + '</span></div>';
+    $('shops').innerHTML = g.shops.map(function (s, i) {
+      return '<span class="shop"><b>D' + (3 * (i + 1)) + '</b> ' + SHOPNAME[s] + ' <span style="color:var(--muted)">\u00b7 ' + SHOPS[s].map(function (p) { return NAME[p].toLowerCase(); }).join(', ') + '</span></span>';
+    }).join('');
+  }
+  function renderBoard(g) {
+    var b = g.boards[st.day], html = '';
+    for (var i = 0; i < 100; i++) {
+      var ch = b[i], c = CATSLOT[ch];
+      if (c) html += '<div class="tile" style="background:var(--s' + c[2] + ');color:var(--t' + c[2] + ')" data-tip="' + c[1] + ' \u00b7 tile ' + (i % 10) + ',' + Math.floor(i / 10) + '">' + LETTER[ch] + '</div>';
+      else html += '<div class="tile ' + (ch === '.' ? '' : ch) + '"' + (ch === 'x' ? ' data-tip="Weed"' : ch === 'p' ? ' data-tip="Empty pasture"' : ch === 'o' ? ' data-tip="Empty coop"' : '') + '>' + (LETTER[ch] || '') + '</div>';
+    }
+    $('board').innerHTML = html;
+    $('daylab').textContent = 'Day ' + st.day;
+    var ev = g.events.filter(function (e) { return Math.floor(e[0] / 24) === st.day; }).map(function (e) {
+      return e[1] === 'LAND' ? 'buys land' : '+' + e[2] + ' ' + e[1].toLowerCase();
+    });
+    var sold = {}; g.sells.forEach(function (s) { if (Math.floor(s[0] / 24) === st.day) sold[s[1]] = (sold[s[1]] || 0) + s[2]; });
+    var sl = Object.keys(sold).map(function (k) { return sold[k] + ' ' + NAME[P[k]].toLowerCase(); });
+    $('notes').textContent = g.hands[st.day] + ' hands' + (ev.length ? ' \u00b7 ' + ev.join(', ') : '') + (sl.length ? ' \u00b7 sells ' + sl.join(', ') : '');
+  }
+  function renderMix(g) {
+    var W = 640, H = 210, m = {l: 30, r: 10, t: 8, b: 24};
+    var counts = g.boards.map(function (b) { var o = {}; for (var i = 0; i < 100; i++) o[b[i]] = (o[b[i]] || 0) + 1; return o; });
+    var ymax = nice(Math.max.apply(null, counts.map(function (o) { return CAT.reduce(function (a, c) { return a + (o[c[0]] || 0); }, 0); })));
+    var f = frame(W, H, m, 29, ymax, [0, 5, 10, 15, 20, 25, 29], null, 'day');
+    var base = counts.map(function () { return 0; }), s = f.s;
+    CAT.forEach(function (c) {
+      var top = counts.map(function (o, d) { return base[d] + (o[c[0]] || 0); });
+      var pts = top.map(function (v, d) { return f.X(d) + ',' + f.Y(v); }).join(' ') + ' ' + base.map(function (v, d) { return f.X(d) + ',' + f.Y(v); }).reverse().join(' ');
+      s += '<polygon points="' + pts + '" fill="var(--s' + c[2] + ')" stroke="var(--surface)" stroke-width="1.5" stroke-linejoin="round"/>';
+      base = top;
+    });
+    s += '<line x1="' + f.X(st.day) + '" x2="' + f.X(st.day) + '" y1="' + m.t + '" y2="' + (H - m.b) + '" stroke="var(--ink)" stroke-width="1.5"/>';
+    for (var d = 0; d < 30; d++) {
+      var o = counts[d], rows = CAT.filter(function (c) { return o[c[0]]; }).map(function (c) { return c[1] + ' ' + o[c[0]]; }).join(' \u00b7 ');
+      s += '<rect x="' + (f.X(d) - f.iw / 58) + '" y="' + m.t + '" width="' + (f.iw / 29) + '" height="' + f.ih + '" fill="transparent"' + T('<b>Day ' + d + '</b><br>' + rows) + ' data-day="' + d + '"/>';
+    }
+    $('mix').innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Tiles by crop and animal per day">' + s + '</svg>';
+    $('key-mix').innerHTML = CAT.map(function (c) { return '<span><i class="sw sq" style="background:var(--s' + c[2] + ')"></i>' + c[1] + '</span>'; }).join('');
+  }
+  function renderCash(g) {
+    var W = 640, H = 170, m = {l: 44, r: 70, t: 8, b: 24};
+    var ymax = nice(Math.max.apply(null, g.cash.concat(g.rcash)));
+    var f = frame(W, H, m, 30, ymax, [0, 5, 10, 15, 20, 25, 30], function (v) { return v >= 1000 ? Math.round(v / 1000) + 'k' : fmt(v); }, 'day');
+    var line = function (arr, col) { return '<polyline fill="none" stroke="' + col + '" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" points="' + arr.map(function (v, d) { return f.X(d) + ',' + f.Y(v); }).join(' ') + '"/>'; };
+    var s = f.s + line(g.rcash, 'var(--s2)') + line(g.cash, eraColor(g));
+    var yh = f.Y(g.cash[30]), yo = f.Y(g.rcash[30]); if (Math.abs(yh - yo) < 11) { if (yh < yo) { yo = yh + 11; } else { yh = yo + 11; } }
+    s += '<circle cx="' + f.X(30) + '" cy="' + f.Y(g.cash[30]) + '" r="4" fill="' + eraColor(g) + '" stroke="var(--surface)" stroke-width="2"/><circle cx="' + f.X(30) + '" cy="' + f.Y(g.rcash[30]) + '" r="4" fill="var(--s2)" stroke="var(--surface)" stroke-width="2"/>';
+    s += '<text class="lbl" x="' + (f.X(30) + 8) + '" y="' + (yh + 3) + '">her ' + Math.round(g.cash[30] / 1000) + 'k</text><text class="lbl" x="' + (f.X(30) + 8) + '" y="' + (yo + 3) + '">opp ' + Math.round(g.rcash[30] / 1000) + 'k</text>';
+    for (var d = 0; d <= 30; d++) s += '<rect x="' + (f.X(d) - f.iw / 60) + '" y="' + m.t + '" width="' + (f.iw / 30) + '" height="' + f.ih + '" fill="transparent"' + T('<b>Day ' + d + '</b><br>Mother-Goose ' + fmt(g.cash[d]) + '<br>' + h(g.opp) + ' ' + fmt(g.rcash[d])) + '/>';
+    $('cash').innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Cash of both farms per day">' + s + '</svg>';
+    $('key-cash').innerHTML = '<span><i class="sw" style="background:' + eraColor(g) + '"></i>Mother-Goose</span><span><i class="sw" style="background:var(--s2)"></i>' + h(g.opp) + '</span>';
+  }
+  function renderPanels(g) {
+    var html = '';
+    P.forEach(function (p, pi) {
+      var mine = g.sells.filter(function (s) { return s[1] === pi; }), theirs = g.rsells.filter(function (s) { return s[1] === pi; });
+      var units = mine.reduce(function (a, s) { return a + s[2]; }, 0), rev = mine.reduce(function (a, s) { return a + s[2] * s[4]; }, 0);
+      var W = 360, H = 176, m = {l: 30, r: 8, t: 20, b: 22};
+      var ymax = nice(Math.max.apply(null, g.prices[p]) * 1.04);
+      var f = frame(W, H, m, 30, ymax, [0, 6, 12, 18, 24, 30], null, 'day');
+      var s = f.s, row = 0;
+      g.shops.forEach(function (sh, i) {
+        if (SHOPS[sh].indexOf(p) < 0) return;
+        var x = f.X(3 * (i + 1));
+        s += '<line x1="' + x + '" x2="' + x + '" y1="' + (m.t - 6) + '" y2="' + (H - m.b) + '" stroke="var(--axis)" stroke-width="1"/><text class="lbl" x="' + (x + 3) + '" y="' + (m.t - 10 + (row % 2) * 9) + '">' + SHOPNAME[sh] + '</text>';
+        row++;
+      });
+      s += '<polyline fill="none" stroke="var(--muted)" stroke-width="1.75" stroke-linejoin="round" points="' + g.prices[p].map(function (v, i) { return f.X(i / 12) + ',' + f.Y(v); }).join(' ') + '"/>';
+      var dot = function (q, col, who) {
+        return '<circle class="dot" cx="' + f.X(q[0] / 24) + '" cy="' + f.Y(Math.min(q[3], ymax)) + '" r="' + rDot(q[2]) + '" fill="' + col + '" stroke="var(--surface)" stroke-width="2"' + T('<b>' + h(who) + '</b> \u00b7 ' + when(q[0]) + '<br>sold ' + q[2] + ' ' + NAME[p].toLowerCase() + ' at ' + q[3] + (q[2] > 1 ? ' (lot average ' + q[4] + ')' : '')) + '/>';
+      };
+      if (st.opp) theirs.forEach(function (q) { s += dot(q, 'var(--s2)', g.opp); });
+      mine.forEach(function (q) { s += dot(q, eraColor(g), 'Mother-Goose'); });
+      html += '<div class="panel"><h3>' + NAME[p] + '<small>' + (units ? units + ' sold \u00b7 average ' + Math.round(rev / units) : 'none sold') + '</small></h3><svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + NAME[p] + ' price and sell points">' + s + '</svg></div>';
+    });
+    $('panels').innerHTML = html;
+    $('key-sell').innerHTML = '<span><i class="ln"></i>market price</span><span><i class="sw" style="background:' + eraColor(g) + '"></i>Mother-Goose sold</span>' + (st.opp ? '<span><i class="sw" style="background:var(--s2)"></i>' + h(g.opp) + ' sold</span>' : '');
+  }
+  function renderGame() {
+    var list = pool(); if (!list.length) { $('panels').innerHTML = '<p class="sub">Select at least one era.</p>'; return; }
+    var g = list[st.gi];
+    renderMeta(g); renderBoard(g); renderMix(g); renderCash(g); renderPanels(g);
+  }
+
+  // ---------- all games
+  function renderChips() {
+    $('prodchips').innerHTML = P.map(function (p, i) { return '<button class="chip" data-prod="' + i + '" aria-pressed="' + (i === st.prod) + '">' + NAME[p] + '</button>'; }).join('');
+  }
+  function columns(id, nbins, binOf, label, ticks) {
+    var list = pool(), pi = st.prod, eras = [['old', 'Old policy', 'var(--s1)'], ['new', 'New submissions', 'var(--s3)']].filter(function (e) { return list.some(function (g) { return g.era === e[0]; }); });
+    var series = eras.map(function (e) {
+      var gs = list.filter(function (g) { return g.era === e[0]; }), bins = []; for (var i = 0; i < nbins; i++) bins.push(0);
+      gs.forEach(function (g) { g.sells.forEach(function (s) { if (s[1] === pi) bins[binOf(s[0])] += s[2]; }); });
+      return {e: e, bins: bins.map(function (v) { return v / gs.length; }), n: gs.length};
+    });
+    var ymax = nice(Math.max.apply(null, [0.5].concat(series.map(function (s) { return Math.max.apply(null, s.bins); }))));
+    var html = '';
+    series.forEach(function (sr) {
+      var W = 520, H = 150, m = {l: 30, r: 8, t: 16, b: 22};
+      var f = frame(W, H, m, nbins, ymax, [], function (v) { return v >= 10 ? Math.round(v) : v.toFixed(1); }, label);
+      var s = f.s, bw = Math.min(24, f.iw / nbins - 2);
+      ticks.forEach(function (t) { s += '<text x="' + (f.X(t + 0.5)) + '" y="' + (H - m.b + 13) + '" text-anchor="middle">' + t + '</text>'; });
+      sr.bins.forEach(function (v, i) {
+        var x = f.X(i + 0.5) - bw / 2, y = f.Y(v), h = f.Y(0) - y;
+        if (h > 0.4) s += '<path d="M' + x + ',' + f.Y(0) + ' V' + (y + Math.min(3, h)) + ' Q' + x + ',' + y + ' ' + (x + Math.min(3, bw / 2)) + ',' + y + ' H' + (x + bw - Math.min(3, bw / 2)) + ' Q' + (x + bw) + ',' + y + ' ' + (x + bw) + ',' + (y + Math.min(3, h)) + ' V' + f.Y(0) + ' Z" fill="' + sr.e[2] + '"/>';
+        s += '<rect x="' + (f.X(i)) + '" y="' + m.t + '" width="' + (f.iw / nbins) + '" height="' + f.ih + '" fill="transparent"' + T('<b>' + sr.e[1] + '</b> \u00b7 ' + label + ' ' + i + '<br>' + v.toFixed(1) + ' ' + NAME[P[pi]].toLowerCase() + ' per game') + '/>';
+      });
+      s += '<text class="lbl" x="' + m.l + '" y="10">' + sr.e[1] + ' \u00b7 ' + sr.n + ' games</text>';
+      html += '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + sr.e[1] + ' units by ' + label + '">' + s + '</svg>';
+    });
+    $(id).innerHTML = html || '<p class="sub">No games selected.</p>';
+  }
+  function renderScatter() {
+    var list = pool(), pi = st.prod, p = P[pi];
+    var W = 1100, H = 380, m = {l: 38, r: 12, t: 12, b: 26};
+    var ymax = 1; list.forEach(function (g) { ymax = Math.max(ymax, Math.max.apply(null, g.prices[p])); }); ymax = nice(ymax * 1.02);
+    var f = frame(W, H, m, 30, ymax, [0, 3, 6, 9, 12, 15, 18, 21, 24, 27, 30], null, 'day of the season');
+    var s = f.s;
+    list.forEach(function (g) { s += '<polyline fill="none" stroke="var(--muted)" stroke-opacity=".16" stroke-width="1" points="' + g.prices[p].map(function (v, i) { return f.X(i / 12) + ',' + f.Y(v); }).join(' ') + '"/>'; });
+    var n = 0, units = 0, rev = 0;
+    list.forEach(function (g) {
+      var m2 = g.reward[0] - g.reward[1];
+      g.sells.forEach(function (q) {
+        if (q[1] !== pi) return; n++; units += q[2]; rev += q[2] * q[4];
+        s += '<circle class="dot" cx="' + f.X(q[0] / 24) + '" cy="' + f.Y(Math.min(q[3], ymax)) + '" r="' + rDot(q[2]) * 0.8 + '" fill="' + eraColor(g) + '" fill-opacity=".8" stroke="var(--surface)" stroke-width="1.5" data-go="' + g.id + '"' + T('<b>' + when(q[0]) + '</b> \u00b7 sold ' + q[2] + ' at ' + q[3] + '<br>game ' + g.id + ' (' + eraName(g) + ') vs ' + h(g.opp) + ', ' + (m2 >= 0 ? 'won +' : 'lost \u2212') + fmt(Math.abs(m2))) + '/>';
+      });
+    });
+    $('scatter').innerHTML = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="' + NAME[p] + ' sell points across games">' + s + '</svg>';
+    $('sc-title').textContent = NAME[p] + ': ' + fmt(n) + ' lots in ' + list.length + ' games' + (units ? ', ' + (units / Math.max(1, list.length)).toFixed(0) + ' units a game at ' + Math.round(rev / units) + ' on average' : '');
+    $('key-all').innerHTML = (st.old ? '<span><i class="sw" style="background:var(--s1)"></i>old policy</span>' : '') + (st.nu ? '<span><i class="sw" style="background:var(--s3)"></i>new submissions</span>' : '') + '<span><i class="ln" style="opacity:.5"></i>price paths</span>';
+  }
+  function median(a) { if (!a.length) return null; a = a.slice().sort(function (x, y) { return x - y; }); return a[Math.floor(a.length / 2)]; }
+  function renderTable() {
+    var list = pool(), rows = '';
+    P.forEach(function (p, pi) {
+      [['old', 'old policy'], ['new', 'new submissions']].forEach(function (e) {
+        var gs = list.filter(function (g) { return g.era === e[0]; }); if (!gs.length) return;
+        var units = 0, rev = 0, days = [], hours = {}, lots = 0;
+        gs.forEach(function (g) { g.sells.forEach(function (q) { if (q[1] !== pi) return; lots++; units += q[2]; rev += q[2] * q[4]; for (var k = 0; k < q[2]; k++) days.push(q[0] / 24); hours[q[0] % 24] = (hours[q[0] % 24] || 0) + q[2]; }); });
+        var top = Object.keys(hours).sort(function (a, b) { return hours[b] - hours[a]; }).slice(0, 3).map(function (h) { return (h < 10 ? '0' : '') + h + ':00 (' + Math.round(100 * hours[h] / Math.max(1, units)) + '%)'; }).join(', ');
+        var md = median(days);
+        rows += '<tr><td>' + NAME[p] + '</td><td>' + e[1] + '</td><td>' + gs.length + '</td><td>' + (lots / gs.length).toFixed(1) + '</td><td>' + (units / gs.length).toFixed(1) + '</td><td>' + (units ? Math.round(rev / units) : '\u2013') + '</td><td>' + fmt(rev / gs.length) + '</td><td>' + (md == null ? '\u2013' : md.toFixed(1)) + '</td><td style="text-align:left">' + (top || '\u2013') + '</td></tr>';
+      });
+    });
+    $('table').innerHTML = '<thead><tr><th>Product</th><th>Games from</th><th>Games</th><th>Lots / game</th><th>Units / game</th><th>Average price</th><th>Revenue / game</th><th>Median unit sold on day</th><th style="text-align:left">Busiest sale hours</th></tr></thead><tbody>' + rows + '</tbody>';
+  }
+  function renderAll() {
+    renderChips(); renderScatter();
+    columns('byhour', 24, function (s) { return s % 24; }, 'hour', [0, 3, 6, 9, 12, 15, 18, 21]);
+    columns('byday', 30, function (s) { return Math.min(29, Math.floor(s / 24)); }, 'day', [0, 3, 6, 9, 12, 15, 18, 21, 24, 27]);
+    renderTable();
+  }
+
+  // ---------- wiring
+  function setView(v) {
+    st.view = v; $('view-game').hidden = v !== 'game'; $('view-all').hidden = v !== 'all';
+    $('tab-game').setAttribute('aria-pressed', v === 'game'); $('tab-all').setAttribute('aria-pressed', v === 'all');
+    render();
+  }
+  function render() { if (st.view === 'game') { fillPicker(); renderGame(); } else renderAll(); }
+  function stop() { if (st.timer) { clearInterval(st.timer); st.timer = null; $('play').innerHTML = '&#9654;'; } }
+  $('tab-game').onclick = function () { setView('game'); };
+  $('tab-all').onclick = function () { stop(); setView('all'); };
+  $('era-old').onclick = function () { st.old = !st.old; this.setAttribute('aria-pressed', st.old); st.gi = 0; render(); };
+  $('era-new').onclick = function () { st.nu = !st.nu; this.setAttribute('aria-pressed', st.nu); st.gi = 0; render(); };
+  $('game').onchange = function () { st.gi = +this.value; renderGame(); };
+  $('prev').onclick = function () { var n = pool().length; if (n) { st.gi = (st.gi + n - 1) % n; render(); } };
+  $('next').onclick = function () { var n = pool().length; if (n) { st.gi = (st.gi + 1) % n; render(); } };
+  $('showopp').onchange = function () { st.opp = this.checked; renderGame(); };
+  $('day').oninput = function () { st.day = +this.value; var g = pool()[st.gi]; if (g) { renderBoard(g); renderMix(g); } };
+  $('mix').addEventListener('click', function (ev) { var d = ev.target.getAttribute && ev.target.getAttribute('data-day'); if (d != null) { st.day = +d; $('day').value = d; var g = pool()[st.gi]; renderBoard(g); renderMix(g); } });
+  $('play').onclick = function () {
+    if (st.timer) { stop(); return; }
+    this.innerHTML = '&#10073;&#10073;'; if (st.day >= 29) st.day = 0;
+    st.timer = setInterval(function () { var g = pool()[st.gi]; if (!g || st.day >= 29) { stop(); return; } st.day++; $('day').value = st.day; renderBoard(g); renderMix(g); }, 450);
+  };
+  $('prodchips').addEventListener('click', function (ev) { var b = ev.target.closest('[data-prod]'); if (b) { st.prod = +b.getAttribute('data-prod'); renderAll(); } });
+  document.addEventListener('keydown', function (ev) {
+    if (st.view !== 'game' || /INPUT|SELECT/.test(ev.target.tagName)) return;
+    if (ev.key === 'ArrowRight' && st.day < 29) { st.day++; } else if (ev.key === 'ArrowLeft' && st.day > 0) { st.day--; } else return;
+    $('day').value = st.day; var g = pool()[st.gi]; if (g) { renderBoard(g); renderMix(g); }
+  });
+  render();
+})();
+</script>

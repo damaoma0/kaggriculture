@@ -1,0 +1,112 @@
+=== panel_path_metrics
+
+PP1:
+   radial   : 181.5 hand-days a world | worked visits 6.2 (6.2 tiles, revisits 0.00), ops 12.1, steps 8.9, tiles walked without work 3.3 | path steps between visits 75%, gap tiles a day 1.84
+      shape: path 20%, near path 48%, gap 2-3 29%, jump 4+ 2% | largest gap: 0: 20%, 1: 48%, 2: 20%, 3: 9%, 4: 2%, 5: 1%, 6+: 0%
+   returning:  31.0 hand-days a world | worked visits 5.0 (5.0 tiles, revisits 0.00), ops 10.4, steps 10.0, tiles walked without work 4.2 | path steps between visits 56%, gap tiles a day 3.40
+      shape: path 8%, near path 35%, gap 2-3 39%, jump 4+ 18% | largest gap: 0: 8%, 1: 35%, 2: 15%, 3: 24%, 4: 5%, 5: 13%, 6+: 0%
+
+PP2:
+   radial   : 182.5 hand-days a world | worked visits 6.1 (6.1 tiles, revisits 0.00), ops 12.1, steps 8.7, tiles walked without work 3.3 | path steps between visits 75%, gap tiles a day 1.79
+      shape: path 25%, near path 42%, gap 2-3 31%, jump 4+ 3% | largest gap: 0: 25%, 1: 42%, 2: 24%, 3: 7%, 4: 2%, 5: 1%, 6+: 0%
+   returning:  29.0 hand-days a world | worked visits 5.4 (5.4 tiles, revisits 0.02), ops 10.6, steps 9.5, tiles walked without work 3.8 | path steps between visits 67%, gap tiles a day 2.43
+      shape: path 16%, near path 40%, gap 2-3 33%, jump 4+ 12% | largest gap: 0: 16%, 1: 40%, 2: 24%, 3: 9%, 4: 10%, 5: 2%, 6+: 0%
+
+PP3:
+   radial   : 181.5 hand-days a world | worked visits 6.2 (6.2 tiles, revisits 0.00), ops 12.3, steps 8.6, tiles walked without work 3.1 | path steps between visits 75%, gap tiles a day 1.77
+      shape: path 19%, near path 50%, gap 2-3 28%, jump 4+ 3% | largest gap: 0: 19%, 1: 50%, 2: 20%, 3: 8%, 4: 2%, 5: 1%, 6+: 0%
+   returning:  31.0 hand-days a world | worked visits 5.3 (5.3 tiles, revisits 0.02), ops 10.6, steps 9.7, tiles walked without work 3.9 | path steps between visits 66%, gap tiles a day 2.53
+      shape: path 16%, near path 39%, gap 2-3 34%, jump 4+ 11% | largest gap: 0: 16%, 1: 39%, 2: 23%, 3: 11%, 4: 3%, 5: 5%, 6+: 3%
+
+PP4:
+   radial   : 185.0 hand-days a world | worked visits 6.2 (6.2 tiles, revisits 0.00), ops 12.2, steps 8.6, tiles walked without work 3.1 | path steps between visits 77%, gap tiles a day 1.66
+      shape: path 26%, near path 44%, gap 2-3 27%, jump 4+ 3% | largest gap: 0: 26%, 1: 44%, 2: 20%, 3: 7%, 4: 2%, 5: 1%, 6+: 1%
+   returning:  27.0 hand-days a world | worked visits 5.5 (5.5 tiles, revisits 0.00), ops 11.2, steps 9.7, tiles walked without work 3.6 | path steps between visits 68%, gap tiles a day 2.22
+      shape: path 20%, near path 37%, gap 2-3 37%, jump 4+ 6% | largest gap: 0: 20%, 1: 37%, 2: 26%, 3: 11%, 4: 6%, 5: 0%, 6+: 0%
+=== panel_hour_budget
+PP1: 11 hand-days a world | hours present 22.8 (first hour 1.21; h1 0.79, h2 0.21)
+   all day: work 11.86, moves 9.06 (distinct tiles walked 8.6), shed 1.19, idle 0.69
+   before first work: work 0.00, move 1.64, shed 0.85, pass 0.00
+   first..last work: work 11.86, move 7.20, shed 0.30, pass 0.00
+   after last work : work 0.00, move 0.22, shed 0.04, pass 0.69
+PP2: 11 hand-days a world | hours present 22.8 (first hour 1.21; h1 0.79, h2 0.21)
+   all day: work 11.84, moves 8.80 (distinct tiles walked 8.4), shed 1.21, idle 0.93
+   before first work: work 0.00, move 1.66, shed 0.88, pass 0.00
+   first..last work: work 11.84, move 6.95, shed 0.29, pass 0.00
+   after last work : work 0.00, move 0.19, shed 0.04, pass 0.92
+PP3: 11 hand-days a world | hours present 22.8 (first hour 1.21; h1 0.79, h2 0.21)
+   all day: work 12.04, moves 8.76 (distinct tiles walked 8.3), shed 1.20, idle 0.79
+   before first work: work 0.00, move 1.55, shed 0.88, pass 0.00
+   first..last work: work 12.04, move 7.04, shed 0.29, pass 0.00
+   after last work : work 0.00, move 0.16, shed 0.03, pass 0.79
+PP4: 11 hand-days a world | hours present 22.8 (first hour 1.21; h1 0.79, h2 0.21)
+   all day: work 12.04, moves 8.74 (distinct tiles walked 8.3), shed 1.22, idle 0.79
+   before first work: work 0.00, move 1.63, shed 0.88, pass 0.00
+   first..last work: work 12.04, move 6.93, shed 0.30, pass 0.00
+   after last work : work 0.00, move 0.18, shed 0.04, pass 0.79
+=== panel_tile_coverage
+PP1 hands: 212 working unit-days a world | steps walked 9.1 (quartiles 8/9/10), tiles walked over (not worked) 3.5 | tiles worked 6.0 (quartiles 5/6/7), ops 11.9, ops per worked tile 1.97, steps per worked tile 1.51
+PP1 farmer: 18 working unit-days a world | steps walked 9.2 (quartiles 8/9/11), tiles walked over (not worked) 3.6 | tiles worked 5.8 (quartiles 5/6/6), ops 12.1, ops per worked tile 2.10, steps per worked tile 1.61
+PP1 farm-day: 75.2 distinct tiles worked; by 1 hand 73.7, by 2 1.5, by 3+ 0.0 (shared tiles take 3.1 visits, 5.7 ops a day)
+   shared tiles by kind (a day): COW 0.81, SHEEP 0.56, WHEAT 0.08, COOP 0.03, STRAWBERRY 0.03, GOOSE 0.03
+   hand-visits a day / ops per hand-visit: WHEAT 19.7 / 2.25, STRAWBERRY 17.8 / 1.25, SHEEP 12.7 / 2.37, COW 9.8 / 2.18, TOMATO 8.4 / 1.56, GOOSE 4.8 / 2.55, CARROT 3.2 / 2.39, other 0.4 / 2.67
+      WHEAT      top combos (a day): FERTILIZE+WATER 5.3, WATER 3.8, HARVEST+PLANT+WATER+WATER 3.6, HARVEST+WATER 3.2, PLANT+WATER 2.4, DIG+PLANT+WATER 1.1, HARVEST+PLANT+WATER 0.2
+      STRAWBERRY top combos (a day): WATER 8.4, HARVEST 5.6, FERTILIZE+WATER 2.8, PLANT+WATER 0.4, HARVEST+WATER 0.3, HARVEST+PLANT+WATER+WATER 0.2, FERTILIZE+HARVEST+WATER 0.1
+      SHEEP      top combos (a day): CARE+COLLECT_FERTILIZER+FEED 5.9, FEED 1.7, HARVEST 1.6, CARE+COLLECT_FERTILIZER+FEED+HARVEST 1.4, COLLECT_FERTILIZER 0.9, CARE+FEED 0.5, COLLECT_FERTILIZER+FEED 0.3, FEED+HARVEST 0.2, CARE+FEED+HARVEST 0.1, COLLECT_FERTILIZER+FEED+HARVEST 0.1, COLLECT_FERTILI
+      COW        top combos (a day): CARE+COLLECT_FERTILIZER+FEED 4.0, FEED 1.7, HARVEST 1.5, CARE+COLLECT_FERTILIZER+FEED+HARVEST 0.9, COLLECT_FERTILIZER 0.8, FEED+HARVEST 0.3, COLLECT_FERTILIZER+FEED 0.2, COLLECT_FERTILIZER+HARVEST 0.2, CARE+FEED 0.1, CARE+FEED+HARVEST 0.0
+      TOMATO     top combos (a day): WATER 3.9, HARVEST+WATER 1.8, FERTILIZE+WATER 0.9, HARVEST 0.8, FERTILIZE+HARVEST+WATER 0.4, PLANT+WATER 0.4, HARVEST+PLANT+WATER+WATER 0.2, DIG+PLANT+WATER 0.1
+      GOOSE      top combos (a day): CARE+COLLECT_FERTILIZER+FEED+HARVEST 1.4, CARE+COLLECT_FERTILIZER+FEED 1.1, FEED+HARVEST 0.8, FEED 0.7, HARVEST 0.6, CARE+FEED 0.1, CARE+FEED+HARVEST 0.1, COLLECT_FERTILIZER+FEED 0.0
+      CARROT     top combos (a day): HARVEST+PLANT+WATER+WATER 0.8, WATER 0.7, DIG+PLANT+WATER 0.5, FERTILIZE+WATER 0.5, HARVEST+WATER 0.5, PLANT+WATER 0.3
+   most common splits (a day): pen: CARE+COLLECT_FERTILIZER+FEED / HARVEST 1.17; pen: COLLECT_FERTILIZER / HARVEST 0.14; crop: HARVEST+WATER / PLANT+WATER 0.11; crop: BUILD_COOP+PLACE / HARVEST+WATER 0.03; pen: COLLECT_FERTILIZER+FEED / HARVEST 0.03; pen: FEED / HARVEST 0.03; pen: CARE+FEED / HARVEST 0.03
+
+PP2 hands: 212 working unit-days a world | steps walked 8.8 (quartiles 8/9/10), tiles walked over (not worked) 3.4 | tiles worked 6.0 (quartiles 5/6/7), ops 11.8, ops per worked tile 1.98, steps per worked tile 1.47
+PP2 farmer: 18 working unit-days a world | steps walked 9.6 (quartiles 8/10/12), tiles walked over (not worked) 3.8 | tiles worked 5.9 (quartiles 5/6/7), ops 11.4, ops per worked tile 1.94, steps per worked tile 1.64
+PP2 farm-day: 74.8 distinct tiles worked; by 1 hand 73.2, by 2 1.6, by 3+ 0.0 (shared tiles take 3.3 visits, 6.1 ops a day)
+   shared tiles by kind (a day): COW 0.81, SHEEP 0.67, WHEAT 0.08, COOP 0.06, STRAWBERRY 0.03
+   hand-visits a day / ops per hand-visit: WHEAT 19.7 / 2.25, STRAWBERRY 17.2 / 1.30, SHEEP 12.9 / 2.30, COW 9.8 / 2.12, TOMATO 8.4 / 1.52, GOOSE 4.8 / 2.53, CARROT 3.2 / 2.37, other 0.4 / 2.62
+      WHEAT      top combos (a day): FERTILIZE+WATER 5.7, HARVEST+PLANT+WATER+WATER 3.4, HARVEST+WATER 3.4, WATER 3.2, PLANT+WATER 2.7, DIG+PLANT+WATER 1.1, HARVEST+PLANT+WATER 0.2
+      STRAWBERRY top combos (a day): WATER 8.0, HARVEST 4.9, FERTILIZE+WATER 2.5, HARVEST+WATER 0.9, PLANT+WATER 0.3, FERTILIZE+HARVEST+WATER 0.3, HARVEST+PLANT+WATER+WATER 0.3
+      SHEEP      top combos (a day): CARE+COLLECT_FERTILIZER+FEED 5.6, FEED 2.0, HARVEST 1.6, CARE+COLLECT_FERTILIZER+FEED+HARVEST 1.2, CARE+FEED 0.9, COLLECT_FERTILIZER 0.7, COLLECT_FERTILIZER+HARVEST 0.3, FEED+HARVEST 0.2, CARE+FEED+HARVEST 0.2, COLLECT_FERTILIZER+FEED 0.1, COLLECT_FERTILIZER+F
+      COW        top combos (a day): CARE+COLLECT_FERTILIZER+FEED 3.8, FEED 2.0, HARVEST 1.7, CARE+COLLECT_FERTILIZER+FEED+HARVEST 0.9, COLLECT_FERTILIZER 0.8, COLLECT_FERTILIZER+FEED 0.3, FEED+HARVEST 0.2, COLLECT_FERTILIZER+HARVEST 0.1
+      TOMATO     top combos (a day): WATER 4.1, HARVEST+WATER 1.6, FERTILIZE+WATER 0.8, HARVEST 0.8, PLANT+WATER 0.4, FERTILIZE+HARVEST+WATER 0.4, HARVEST+PLANT+WATER+WATER 0.2, DIG+PLANT+WATER 0.1
+      GOOSE      top combos (a day): CARE+COLLECT_FERTILIZER+FEED+HARVEST 1.4, CARE+COLLECT_FERTILIZER+FEED 1.0, FEED+HARVEST 0.8, FEED 0.8, HARVEST 0.5, CARE+FEED 0.1, CARE+FEED+HARVEST 0.1, COLLECT_FERTILIZER 0.1, COLLECT_FERTILIZER+FEED+HARVEST 0.0, COLLECT_FERTILIZER+HARVEST 0.0
+      CARROT     top combos (a day): WATER 0.8, HARVEST+PLANT+WATER+WATER 0.8, FERTILIZE+WATER 0.5, DIG+PLANT+WATER 0.5, HARVEST+WATER 0.4, PLANT+WATER 0.3
+   most common splits (a day): pen: CARE+COLLECT_FERTILIZER+FEED / HARVEST 1.11; pen: CARE+FEED / HARVEST 0.17; pen: COLLECT_FERTILIZER / HARVEST 0.14; crop: HARVEST+WATER / PLANT+WATER 0.11; crop: BUILD_COOP+PLACE / HARVEST+WATER 0.06; pen: COLLECT_FERTILIZER+FEED / HARVEST 0.06
+
+PP3 hands: 212 working unit-days a world | steps walked 8.8 (quartiles 7/9/10), tiles walked over (not worked) 3.2 | tiles worked 6.0 (quartiles 5/6/7), ops 12.0, ops per worked tile 1.99, steps per worked tile 1.45
+PP3 farmer: 18 working unit-days a world | steps walked 9.1 (quartiles 8/9/11), tiles walked over (not worked) 3.5 | tiles worked 5.9 (quartiles 5/6/7), ops 12.0, ops per worked tile 2.05, steps per worked tile 1.55
+PP3 farm-day: 75.7 distinct tiles worked; by 1 hand 74.1, by 2 1.6, by 3+ 0.0 (shared tiles take 3.2 visits, 5.9 ops a day)
+   shared tiles by kind (a day): COW 0.81, SHEEP 0.58, WHEAT 0.08, COOP 0.06, STRAWBERRY 0.03, GOOSE 0.03
+   hand-visits a day / ops per hand-visit: WHEAT 19.8 / 2.25, STRAWBERRY 17.2 / 1.30, SHEEP 12.8 / 2.34, COW 10.0 / 2.21, TOMATO 8.7 / 1.51, GOOSE 4.9 / 2.68, CARROT 3.3 / 2.32, other 0.5 / 2.33
+      WHEAT      top combos (a day): FERTILIZE+WATER 5.8, HARVEST+WATER 3.7, HARVEST+PLANT+WATER+WATER 3.4, WATER 3.0, PLANT+WATER 2.8, DIG+PLANT+WATER 1.1, HARVEST+PLANT+WATER 0.0
+      STRAWBERRY top combos (a day): WATER 8.1, HARVEST 4.8, FERTILIZE+WATER 2.4, HARVEST+WATER 0.8, FERTILIZE+HARVEST+WATER 0.5, PLANT+WATER 0.3, HARVEST+PLANT+WATER+WATER 0.2
+      SHEEP      top combos (a day): CARE+COLLECT_FERTILIZER+FEED 5.9, FEED 2.0, HARVEST 1.6, CARE+COLLECT_FERTILIZER+FEED+HARVEST 1.4, COLLECT_FERTILIZER 0.8, CARE+FEED 0.4, COLLECT_FERTILIZER+HARVEST 0.2, FEED+HARVEST 0.2, COLLECT_FERTILIZER+FEED 0.1, CARE+FEED+HARVEST 0.1, CARE 0.1, CARE+HARVE
+      COW        top combos (a day): CARE+COLLECT_FERTILIZER+FEED 4.1, FEED 1.7, HARVEST 1.4, CARE+COLLECT_FERTILIZER+FEED+HARVEST 0.9, COLLECT_FERTILIZER 0.8, COLLECT_FERTILIZER+FEED 0.4, COLLECT_FERTILIZER+HARVEST 0.2, FEED+HARVEST 0.2, CARE+FEED 0.1, COLLECT_FERTILIZER+FEED+HARVEST 0.1, CARE+F
+      TOMATO     top combos (a day): WATER 4.3, HARVEST+WATER 1.6, FERTILIZE+WATER 0.9, HARVEST 0.8, PLANT+WATER 0.4, FERTILIZE+HARVEST+WATER 0.4, HARVEST+PLANT+WATER+WATER 0.2, DIG+PLANT+WATER 0.1
+      GOOSE      top combos (a day): CARE+COLLECT_FERTILIZER+FEED+HARVEST 1.4, CARE+COLLECT_FERTILIZER+FEED 1.2, FEED+HARVEST 0.9, FEED 0.5, HARVEST 0.4, CARE+FEED 0.2, CARE+FEED+HARVEST 0.1, COLLECT_FERTILIZER+FEED 0.1, COLLECT_FERTILIZER+FEED+HARVEST 0.1
+      CARROT     top combos (a day): WATER 0.8, HARVEST+PLANT+WATER+WATER 0.7, FERTILIZE+WATER 0.6, HARVEST+WATER 0.5, DIG+PLANT+WATER 0.5, PLANT+WATER 0.4
+   most common splits (a day): pen: CARE+COLLECT_FERTILIZER+FEED / HARVEST 1.17; crop: HARVEST+WATER / PLANT+WATER 0.11; pen: FEED / HARVEST 0.11; pen: COLLECT_FERTILIZER / HARVEST 0.11; crop: BUILD_COOP+PLACE / HARVEST+WATER 0.06; pen: CARE+FEED / HARVEST 0.03
+
+PP4 hands: 212 working unit-days a world | steps walked 8.7 (quartiles 8/9/10), tiles walked over (not worked) 3.2 | tiles worked 6.1 (quartiles 5/6/7), ops 12.0, ops per worked tile 1.98, steps per worked tile 1.43
+PP4 farmer: 18 working unit-days a world | steps walked 8.5 (quartiles 7/8/10), tiles walked over (not worked) 2.9 | tiles worked 5.8 (quartiles 5/6/7), ops 12.2, ops per worked tile 2.12, steps per worked tile 1.48
+PP4 farm-day: 75.9 distinct tiles worked; by 1 hand 74.3, by 2 1.6, by 3+ 0.0 (shared tiles take 3.2 visits, 6.1 ops a day)
+   shared tiles by kind (a day): COW 0.72, SHEEP 0.69, WHEAT 0.08, COOP 0.06, STRAWBERRY 0.03, GOOSE 0.03
+   hand-visits a day / ops per hand-visit: WHEAT 19.9 / 2.24, STRAWBERRY 17.8 / 1.28, SHEEP 12.9 / 2.36, COW 9.8 / 2.13, TOMATO 8.6 / 1.58, GOOSE 4.8 / 2.71, CARROT 3.4 / 2.31, other 0.4 / 2.50
+      WHEAT      top combos (a day): FERTILIZE+WATER 5.4, WATER 3.9, HARVEST+PLANT+WATER+WATER 3.8, HARVEST+WATER 3.2, PLANT+WATER 2.4, DIG+PLANT+WATER 1.1, HARVEST+PLANT+WATER 0.1
+      STRAWBERRY top combos (a day): WATER 8.1, HARVEST 5.3, FERTILIZE+WATER 2.6, HARVEST+WATER 1.0, PLANT+WATER 0.4, HARVEST+PLANT+WATER+WATER 0.2, FERTILIZE+HARVEST+WATER 0.1
+      SHEEP      top combos (a day): CARE+COLLECT_FERTILIZER+FEED 5.9, FEED 1.8, HARVEST 1.6, CARE+COLLECT_FERTILIZER+FEED+HARVEST 1.4, COLLECT_FERTILIZER 0.8, CARE+FEED 0.6, COLLECT_FERTILIZER+FEED 0.3, FEED+HARVEST 0.2, COLLECT_FERTILIZER+HARVEST 0.1, COLLECT_FERTILIZER+FEED+HARVEST 0.1, CARE+F
+      COW        top combos (a day): CARE+COLLECT_FERTILIZER+FEED 3.9, FEED 1.8, HARVEST 1.5, COLLECT_FERTILIZER 0.9, CARE+COLLECT_FERTILIZER+FEED+HARVEST 0.9, FEED+HARVEST 0.3, COLLECT_FERTILIZER+FEED 0.2, COLLECT_FERTILIZER+HARVEST 0.2, CARE+FEED 0.1
+      TOMATO     top combos (a day): WATER 3.9, HARVEST+WATER 2.0, FERTILIZE+WATER 0.8, HARVEST 0.8, FERTILIZE+HARVEST+WATER 0.5, PLANT+WATER 0.4, HARVEST+PLANT+WATER+WATER 0.2, DIG+PLANT+WATER 0.1
+      GOOSE      top combos (a day): CARE+COLLECT_FERTILIZER+FEED+HARVEST 1.4, CARE+COLLECT_FERTILIZER+FEED 1.2, FEED+HARVEST 0.8, FEED 0.5, HARVEST 0.4, CARE+FEED 0.2, CARE+FEED+HARVEST 0.2, COLLECT_FERTILIZER+FEED+HARVEST 0.1, COLLECT_FERTILIZER 0.1
+      CARROT     top combos (a day): WATER 0.9, HARVEST+PLANT+WATER+WATER 0.7, DIG+PLANT+WATER 0.5, HARVEST+WATER 0.5, FERTILIZE+WATER 0.5, PLANT+WATER 0.3, HARVEST+PLANT+WATER 0.0
+   most common splits (a day): pen: CARE+COLLECT_FERTILIZER+FEED / HARVEST 1.25; crop: HARVEST+WATER / PLANT+WATER 0.11; pen: COLLECT_FERTILIZER / HARVEST 0.11; pen: FEED / HARVEST 0.08; crop: BUILD_COOP+PLACE / HARVEST+WATER 0.06
+
+=== panel_hand_time
+PP1: unit-hours a world: move 2091, work 2736, shed 278, pass 168 | moves per work op 0.76 | per working hand-day (230 a world): 6.0 tiles, spread 1.84, first work 1.4 steps from the shed
+     ops: WATER 859, HARVEST 489, FEED 388, COLLECT_FERTILIZER 312, CARE 281, PLANT 184, FERTILIZE 180, DIG 31, PLACE 7, BUILD_PASTURE 6, BUILD_COOP 1
+PP2: unit-hours a world: move 2040, work 2716, shed 282, pass 238 | moves per work op 0.75 | per working hand-day (230 a world): 6.0 tiles, spread 1.79, first work 1.4 steps from the shed
+     ops: WATER 859, HARVEST 488, FEED 388, COLLECT_FERTILIZER 296, CARE 274, FERTILIZE 184, PLANT 184, DIG 29, PLACE 7, BUILD_PASTURE 6, BUILD_COOP 1
+PP3: unit-hours a world: move 2024, work 2775, shed 280, pass 196 | moves per work op 0.73 | per working hand-day (230 a world): 6.0 tiles, spread 1.82, first work 1.3 steps from the shed
+     ops: WATER 867, HARVEST 486, FEED 396, COLLECT_FERTILIZER 319, CARE 288, FERTILIZE 190, PLANT 183, DIG 30, PLACE 8, BUILD_PASTURE 6, BUILD_COOP 1
+PP4: unit-hours a world: move 2006, work 2774, shed 284, pass 212 | moves per work op 0.72 | per working hand-day (230 a world): 6.1 tiles, spread 1.82, first work 1.3 steps from the shed
+     ops: WATER 874, HARVEST 500, FEED 394, COLLECT_FERTILIZER 315, CARE 284, PLANT 182, FERTILIZE 180, DIG 30, PLACE 7, BUILD_PASTURE 6, BUILD_COOP 1

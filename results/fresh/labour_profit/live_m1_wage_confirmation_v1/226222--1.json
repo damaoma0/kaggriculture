@@ -1,0 +1,440 @@
+{
+  "seed": 226222,
+  "treatment": -1,
+  "cash": [
+    114736.0,
+    114816.0
+  ],
+  "economics": [
+    {
+      "revenue": {
+        "FERTILIZER": 12981,
+        "WHEAT": 14176,
+        "WOOL": 58713,
+        "MILK": 7233,
+        "MELON": 15124,
+        "EGG": 3659,
+        "STRAWBERRY": 23238,
+        "TOMATO": 2603,
+        "CARROT": 2698
+      },
+      "sold_units": {
+        "FERTILIZER": 205,
+        "WHEAT": 405,
+        "WOOL": 261,
+        "MILK": 96,
+        "MELON": 84,
+        "EGG": 66,
+        "STRAWBERRY": 302,
+        "TOMATO": 30,
+        "CARROT": 50
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4454,
+        "HIRE": 5578.0,
+        "BUY_ANIMAL:COW": 1600,
+        "BUY_ANIMAL:SHEEP": 5000,
+        "BUY_SEED:MELON": 1120,
+        "BUY_SEED:WHEAT": 1470,
+        "BUY_SEED:CARROT": 380,
+        "BUY_SEED:STRAWBERRY": 3900,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 1337,
+        "BUY_ANIMAL:GOOSE": 600,
+        "BUY_SEED:TOMATO": 250
+      }
+    },
+    {
+      "revenue": {
+        "FERTILIZER": 12981,
+        "WHEAT": 14256,
+        "WOOL": 58713,
+        "MILK": 7233,
+        "MELON": 15124,
+        "EGG": 3659,
+        "STRAWBERRY": 23238,
+        "TOMATO": 2603,
+        "CARROT": 2698
+      },
+      "sold_units": {
+        "FERTILIZER": 205,
+        "WHEAT": 407,
+        "WOOL": 261,
+        "MILK": 96,
+        "MELON": 84,
+        "EGG": 66,
+        "STRAWBERRY": 302,
+        "TOMATO": 30,
+        "CARROT": 50
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4454,
+        "HIRE": 5578.0,
+        "BUY_ANIMAL:COW": 1600,
+        "BUY_ANIMAL:SHEEP": 5000,
+        "BUY_SEED:MELON": 1120,
+        "BUY_SEED:WHEAT": 1470,
+        "BUY_SEED:CARROT": 380,
+        "BUY_SEED:STRAWBERRY": 3900,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 1337,
+        "BUY_ANIMAL:GOOSE": 600,
+        "BUY_SEED:TOMATO": 250
+      }
+    }
+  ],
+  "decisions": [
+    [],
+    []
+  ],
+  "max_seconds": [
+    0.00613229995360598,
+    0.011539899976924062
+  ],
+  "calls_over_one_second": [
+    0,
+    0
+  ],
+  "shops": [
+    "BRUNCH_SPOT",
+    "YARN_STORE",
+    "FARMERS_MARKET",
+    "PIZZA_SHOP",
+    "YARN_STORE",
+    "PET_CAFE",
+    "YARN_STORE",
+    "BAKERY"
+  ],
+  "diagnostics": [
+    {
+      "_MGT_REPORT": {
+        "switches": 2,
+        "router_errors": 0,
+        "hamming_max": 1,
+        "dist_d6": -0.02,
+        "dist_d12": 5.97,
+        "dist_d18": 35.97,
+        "dist_d24": 51.47
+      },
+      "_SHP_REPORT": {
+        "evals": [
+          [
+            6,
+            13,
+            2,
+            10,
+            3,
+            "cash",
+            -1994
+          ],
+          [
+            7,
+            13,
+            4,
+            11,
+            2,
+            "cash",
+            -1697
+          ],
+          [
+            8,
+            13,
+            8,
+            13,
+            0
+          ],
+          [
+            9,
+            13,
+            8,
+            10,
+            3,
+            "cash",
+            -1997
+          ],
+          [
+            10,
+            13,
+            10,
+            12,
+            1
+          ],
+          [
+            11,
+            13,
+            10,
+            10,
+            3,
+            1,
+            -5499,
+            -1013,
+            230
+          ],
+          [
+            12,
+            13,
+            10,
+            10,
+            3,
+            1,
+            -5199,
+            -873,
+            233
+          ],
+          [
+            13,
+            13,
+            10,
+            10,
+            3,
+            1,
+            -4753,
+            -625,
+            231
+          ],
+          [
+            14,
+            13,
+            10,
+            10,
+            3,
+            1,
+            -4495,
+            -565,
+            229
+          ],
+          [
+            15,
+            15,
+            10,
+            10,
+            5,
+            3,
+            -268,
+            8466,
+            221
+          ],
+          [
+            16,
+            15,
+            10,
+            10,
+            5,
+            4,
+            850,
+            11458,
+            223
+          ],
+          [
+            17,
+            15,
+            10,
+            10,
+            5,
+            1,
+            -1606,
+            2030,
+            198
+          ],
+          [
+            18,
+            15,
+            10,
+            10,
+            5,
+            1,
+            -1454,
+            1906,
+            199
+          ],
+          [
+            19,
+            15,
+            10,
+            10,
+            5,
+            2,
+            -947,
+            3874,
+            199
+          ]
+        ],
+        "declined_cash": 3,
+        "declined_hire_cash": 1,
+        "hire_guard_fired": 1,
+        "hire_guard_trimmed": 2,
+        "declined_profit": 9,
+        "hand_days": 5,
+        "topup_tasks": 16,
+        "ops_feed": 16,
+        "ops_care": 16
+      }
+    },
+    {
+      "_MGT_REPORT": {
+        "switches": 2,
+        "router_errors": 0,
+        "hamming_max": 0,
+        "dist_d6": -0.02,
+        "dist_d12": 5.97,
+        "dist_d18": 35.97,
+        "dist_d24": 51.47
+      },
+      "_SHP_REPORT": {
+        "evals": [
+          [
+            6,
+            13,
+            2,
+            10,
+            3,
+            "cash",
+            -1994
+          ],
+          [
+            7,
+            13,
+            4,
+            11,
+            2,
+            "cash",
+            -1697
+          ],
+          [
+            8,
+            13,
+            8,
+            13,
+            0
+          ],
+          [
+            9,
+            13,
+            8,
+            10,
+            3,
+            "cash",
+            -1997
+          ],
+          [
+            10,
+            13,
+            10,
+            12,
+            1
+          ],
+          [
+            11,
+            13,
+            10,
+            10,
+            3,
+            1,
+            -5499,
+            -1013,
+            230
+          ],
+          [
+            12,
+            13,
+            10,
+            10,
+            3,
+            1,
+            -5199,
+            -873,
+            233
+          ],
+          [
+            13,
+            13,
+            10,
+            10,
+            3,
+            1,
+            -4753,
+            -625,
+            231
+          ],
+          [
+            14,
+            13,
+            10,
+            10,
+            3,
+            1,
+            -4495,
+            -565,
+            229
+          ],
+          [
+            15,
+            15,
+            10,
+            10,
+            5,
+            3,
+            -268,
+            8466,
+            221
+          ],
+          [
+            16,
+            15,
+            10,
+            10,
+            5,
+            4,
+            850,
+            11458,
+            223
+          ],
+          [
+            17,
+            15,
+            10,
+            10,
+            5,
+            1,
+            -1606,
+            2030,
+            198
+          ],
+          [
+            18,
+            15,
+            10,
+            10,
+            5,
+            1,
+            -1454,
+            1906,
+            199
+          ],
+          [
+            19,
+            15,
+            10,
+            10,
+            5,
+            2,
+            -947,
+            3874,
+            199
+          ]
+        ],
+        "declined_cash": 3,
+        "declined_hire_cash": 1,
+        "hire_guard_fired": 1,
+        "hire_guard_trimmed": 2,
+        "declined_profit": 9,
+        "hand_days": 5,
+        "topup_tasks": 16,
+        "ops_feed": 16,
+        "ops_care": 16
+      }
+    }
+  ],
+  "agent_sha256": "1152ef2e12c4535dbc381b9c54ac7d7a0b1a9ad3d0a8018a7567dcf5c4a52470",
+  "actions_sha256": "31338d11d0c92dea07ca812935c3a93c117a7ff91c12df02ff1a2a0897587bbc"
+}

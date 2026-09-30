@@ -1,0 +1,185 @@
+{
+  "scope": {
+    "team": "Majkel1337",
+    "team_id": 16718819,
+    "leaderboard_rank": 1,
+    "leaderboard_score": 3163.8,
+    "active_submission": 56156662,
+    "selection": "latest 10 completed episodes from the supplied list, which was sorted latest first",
+    "source": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\rank1_episodes_20260917.json",
+    "generated_at": "2026-09-17T00:56:07.272028+01:00"
+  },
+  "overall": {
+    "games": 10,
+    "wins": 3,
+    "ties": 0,
+    "losses": 7,
+    "mean_cash": 99475.6,
+    "mean_opponent_cash": 102681.4,
+    "mean_margin": -3205.8,
+    "mean_margin_over_opponent_cash_percent": -3.144572855147905,
+    "margin_range": [
+      -12347.0,
+      5952.0
+    ],
+    "mean_all_game_margin": -3205.8,
+    "mean_winning_margin": 3769.3333333333335,
+    "median_winning_margin": 2982.0,
+    "winning_margin_range": [
+      2374.0,
+      5952.0
+    ]
+  },
+  "by_opponent": {
+    "DSM": {
+      "games": 1,
+      "wins": 1,
+      "ties": 0,
+      "losses": 0,
+      "mean_cash": 114061.0,
+      "mean_opponent_cash": 111079.0,
+      "mean_margin": 2982.0,
+      "mean_margin_over_opponent_cash_percent": 2.684575842418459,
+      "margin_range": [
+        2982.0,
+        2982.0
+      ]
+    },
+    "M & M & P & Q": {
+      "games": 9,
+      "wins": 2,
+      "ties": 0,
+      "losses": 7,
+      "mean_cash": 97855.0,
+      "mean_opponent_cash": 101748.33333333333,
+      "mean_margin": -3893.3333333333335,
+      "mean_margin_over_opponent_cash_percent": -3.7922560437663897,
+      "margin_range": [
+        -12347.0,
+        5952.0
+      ]
+    }
+  },
+  "games": [
+    {
+      "episode_id": 109844194,
+      "create_time": "2026-09-16T23:46:16.099000",
+      "end_time": "2026-09-16T23:50:53.337000",
+      "seat": 1,
+      "opponent": "M & M & P & Q",
+      "cash": 117453.0,
+      "opponent_cash": 129800.0,
+      "margin": -12347.0,
+      "margin_over_opponent_cash_percent": -9.512326656394453,
+      "result": "loss"
+    },
+    {
+      "episode_id": 109839920,
+      "create_time": "2026-09-16T23:30:17.980000",
+      "end_time": "2026-09-16T23:34:50.346000",
+      "seat": 0,
+      "opponent": "M & M & P & Q",
+      "cash": 94065.0,
+      "opponent_cash": 104380.0,
+      "margin": -10315.0,
+      "margin_over_opponent_cash_percent": -9.88216133358881,
+      "result": "loss"
+    },
+    {
+      "episode_id": 109835631,
+      "create_time": "2026-09-16T23:14:14.974000",
+      "end_time": "2026-09-16T23:21:06.630000",
+      "seat": 0,
+      "opponent": "M & M & P & Q",
+      "cash": 89261.0,
+      "opponent_cash": 91563.0,
+      "margin": -2302.0,
+      "margin_over_opponent_cash_percent": -2.5141159638718698,
+      "result": "loss"
+    },
+    {
+      "episode_id": 109831265,
+      "create_time": "2026-09-16T22:58:15.170000",
+      "end_time": "2026-09-16T23:05:12.642000",
+      "seat": 0,
+      "opponent": "M & M & P & Q",
+      "cash": 80986.0,
+      "opponent_cash": 83287.0,
+      "margin": -2301.0,
+      "margin_over_opponent_cash_percent": -2.762736081261181,
+      "result": "loss"
+    },
+    {
+      "episode_id": 109831245,
+      "create_time": "2026-09-16T22:58:15.103000",
+      "end_time": "2026-09-16T23:04:26.505000",
+      "seat": 0,
+      "opponent": "M & M & P & Q",
+      "cash": 80069.0,
+      "opponent_cash": 88448.0,
+      "margin": -8379.0,
+      "margin_over_opponent_cash_percent": -9.473362879884226,
+      "result": "loss"
+    },
+    {
+      "episode_id": 109826299,
+      "create_time": "2026-09-16T22:38:16.403000",
+      "end_time": "2026-09-16T22:46:09.431000",
+      "seat": 0,
+      "opponent": "M & M & P & Q",
+      "cash": 96773.0,
+      "opponent_cash": 103573.0,
+      "margin": -6800.0,
+      "margin_over_opponent_cash_percent": -6.5654176281463315,
+      "result": "loss"
+    },
+    {
+      "episode_id": 109821869,
+      "create_time": "2026-09-16T22:22:15.395000",
+      "end_time": "2026-09-16T22:29:00.377000",
+      "seat": 1,
+      "opponent": "M & M & P & Q",
+      "cash": 117540.0,
+      "opponent_cash": 115166.0,
+      "margin": 2374.0,
+      "margin_over_opponent_cash_percent": 2.0613722800131984,
+      "result": "win"
+    },
+    {
+      "episode_id": 109821959,
+      "create_time": "2026-09-16T22:22:15.587000",
+      "end_time": "2026-09-16T22:27:13.316000",
+      "seat": 0,
+      "opponent": "M & M & P & Q",
+      "cash": 90834.0,
+      "opponent_cash": 91756.0,
+      "margin": -922.0,
+      "margin_over_opponent_cash_percent": -1.0048389206155455,
+      "result": "loss"
+    },
+    {
+      "episode_id": 109817458,
+      "create_time": "2026-09-16T22:06:15.092000",
+      "end_time": "2026-09-16T22:15:10.484000",
+      "seat": 1,
+      "opponent": "M & M & P & Q",
+      "cash": 113714.0,
+      "opponent_cash": 107762.0,
+      "margin": 5952.0,
+      "margin_over_opponent_cash_percent": 5.52328278985171,
+      "result": "win"
+    },
+    {
+      "episode_id": 109817599,
+      "create_time": "2026-09-16T22:06:15.400000",
+      "end_time": "2026-09-16T22:12:01.222000",
+      "seat": 0,
+      "opponent": "DSM",
+      "cash": 114061.0,
+      "opponent_cash": 111079.0,
+      "margin": 2982.0,
+      "margin_over_opponent_cash_percent": 2.684575842418459,
+      "result": "win"
+    }
+  ]
+}

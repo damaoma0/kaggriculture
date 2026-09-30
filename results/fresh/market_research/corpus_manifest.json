@@ -1,0 +1,34 @@
+{
+  "engine": "installed kaggriculture; default configuration",
+  "splits": {
+    "train": [
+      97000,
+      97001,
+      97002,
+      97003
+    ],
+    "test": [
+      97004,
+      97005,
+      97006,
+      97007
+    ]
+  },
+  "training_opponent": "sixday",
+  "held_out_family": "pasture",
+  "sources": {
+    "old": {
+      "path": "C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\public\\tschinkel_router_v31.py",
+      "sha256": "e50d3c7b54c051b880fd7b68ed2aa8f954331d6f892b8fb5dca788223b27c24c"
+    },
+    "sixday": {
+      "path": "C:\\Users\\xyygl\\Documents\\kaggriculture\\data\\public_candidates\\thomastschinkel\\extracted\\main.py",
+      "sha256": "91772fda544e2d5768afff819e2de75ecb7a12db8acb40a48ee9edcf76aca434"
+    },
+    "pasture": {
+      "path": "C:\\Users\\xyygl\\Documents\\kaggriculture\\data\\public_candidates\\indarkarhana\\extracted\\agents\\e776a_engine_exact_latent_pasture.py",
+      "sha256": "2c603fd6f9bf978d7e8eef78a34647bd379d0e89963ada0cbb1c52c39b0f4b3f"
+    }
+  },
+  "excluded": "Adaptive Route V2 contains a Linux .so without accompanying implementation source in its archive; not executed on Windows."
+}

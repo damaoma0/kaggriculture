@@ -1,0 +1,354 @@
+{
+  "reference": "strategy_v5_blocks100_finance",
+  "candidate": "strategy_v6_blocks100_recovery",
+  "scope": "DEVELOPMENT_NATURAL_LIVE",
+  "expected": 8,
+  "valid": 8,
+  "paired_mean": 1387.25,
+  "bootstrap95": [
+    -3646.375,
+    5984.625
+  ],
+  "better": 5,
+  "worse": 3,
+  "same_shops": 2,
+  "cases": [
+    {
+      "case": "live-00",
+      "reference_margin": 5053.0,
+      "candidate_margin": -1795.0,
+      "margin_delta": -6848.0,
+      "own_cash_delta": -13188.0,
+      "rival_cash_delta": -6340.0,
+      "same_final_shops": false,
+      "first_own_action_difference": 196,
+      "stock_recovery_events": [
+        {
+          "day": 8,
+          "hour": 4,
+          "reason": "incomplete_wheat_pickup",
+          "evidence": {
+            "events": [
+              [
+                195,
+                9,
+                "pick_short",
+                55,
+                "WHEAT 2/3"
+              ]
+            ]
+          }
+        }
+      ],
+      "reference_sha256": "77a2283a3f345a2ade614dbaf9649c1158d69087eb4891a7f363ef68d6352336",
+      "candidate_sha256": "d7951a2a42b573dd272832c4c886539666a1deee4c724824cdecadc01c634ace"
+    },
+    {
+      "case": "live-01",
+      "reference_margin": 1602.0,
+      "candidate_margin": 3895.0,
+      "margin_delta": 2293.0,
+      "own_cash_delta": 24794.0,
+      "rival_cash_delta": 22501.0,
+      "same_final_shops": false,
+      "first_own_action_difference": 195,
+      "stock_recovery_events": [
+        {
+          "day": 8,
+          "hour": 3,
+          "reason": "incomplete_wheat_pickup",
+          "evidence": {
+            "events": [
+              [
+                194,
+                0,
+                "pick_short",
+                44,
+                "WHEAT 6/7"
+              ]
+            ]
+          }
+        }
+      ],
+      "reference_sha256": "4c5f7c3a687bc4f10eb0f591bdf2474c80c655684f061540765a5ebb32348415",
+      "candidate_sha256": "ffed427ada37aebe95a6104efbe3f75de9ea075458ce4b196d22b558f371c06e"
+    },
+    {
+      "case": "live-02",
+      "reference_margin": -2495.0,
+      "candidate_margin": -3289.0,
+      "margin_delta": -794.0,
+      "own_cash_delta": -1265.0,
+      "rival_cash_delta": -471.0,
+      "same_final_shops": true,
+      "first_own_action_difference": 218,
+      "stock_recovery_events": [
+        {
+          "day": 9,
+          "hour": 2,
+          "reason": "incomplete_wheat_pickup",
+          "evidence": {
+            "events": [
+              [
+                217,
+                2,
+                "pick_short",
+                45,
+                "WHEAT 2/4"
+              ]
+            ]
+          }
+        },
+        {
+          "day": 10,
+          "hour": 2,
+          "reason": "incomplete_wheat_pickup",
+          "evidence": {
+            "events": [
+              [
+                241,
+                6,
+                "pick_short",
+                45,
+                "WHEAT 4/5"
+              ]
+            ]
+          }
+        }
+      ],
+      "reference_sha256": "9a8ab2f36e124b53524ddf04792d4ad841d78597f17156ee5bd4f117aae088f5",
+      "candidate_sha256": "1897bd0afafe67fa71b89a44e3807987f5e3c3653eac7fc73fa26a864b6c3182"
+    },
+    {
+      "case": "live-03",
+      "reference_margin": -999.0,
+      "candidate_margin": 5834.0,
+      "margin_delta": 6833.0,
+      "own_cash_delta": 24523.0,
+      "rival_cash_delta": 17690.0,
+      "same_final_shops": false,
+      "first_own_action_difference": 172,
+      "stock_recovery_events": [
+        {
+          "day": 7,
+          "hour": 4,
+          "reason": "incomplete_wheat_pickup",
+          "evidence": {
+            "events": [
+              [
+                171,
+                8,
+                "pick_short",
+                54,
+                "WHEAT 2/3"
+              ]
+            ]
+          }
+        },
+        {
+          "day": 9,
+          "hour": 2,
+          "reason": "incomplete_wheat_pickup",
+          "evidence": {
+            "events": [
+              [
+                217,
+                5,
+                "pick_short",
+                44,
+                "WHEAT 2/3"
+              ]
+            ]
+          }
+        }
+      ],
+      "reference_sha256": "ebe532f0323c8f76949a616f18dee9c76abaae6c793edb94568b470f82a25281",
+      "candidate_sha256": "826f2c64db4e52092c6bf9e0758991945a6205c31a550fc86c5d8eb3ad779bd6"
+    },
+    {
+      "case": "live-04",
+      "reference_margin": 9084.0,
+      "candidate_margin": 11715.0,
+      "margin_delta": 2631.0,
+      "own_cash_delta": 2374.0,
+      "rival_cash_delta": -257.0,
+      "same_final_shops": true,
+      "first_own_action_difference": 170,
+      "stock_recovery_events": [
+        {
+          "day": 7,
+          "hour": 2,
+          "reason": "incomplete_wheat_pickup",
+          "evidence": {
+            "events": [
+              [
+                169,
+                0,
+                "pick_short",
+                44,
+                "WHEAT 1/3"
+              ]
+            ]
+          }
+        },
+        {
+          "day": 9,
+          "hour": 2,
+          "reason": "incomplete_wheat_pickup",
+          "evidence": {
+            "events": [
+              [
+                217,
+                6,
+                "pick_short",
+                45,
+                "WHEAT 2/4"
+              ]
+            ]
+          }
+        }
+      ],
+      "reference_sha256": "66806145a740ac5bb4baa0d0bb15511cf7f2debb906006d28663d25a718204b1",
+      "candidate_sha256": "e3af56dab34c322008e07b6619a17726fe9d9a45971915b3b3eb917b25b5dc1b"
+    },
+    {
+      "case": "live-05",
+      "reference_margin": 6630.0,
+      "candidate_margin": -4488.0,
+      "margin_delta": -11118.0,
+      "own_cash_delta": -7808.0,
+      "rival_cash_delta": 3310.0,
+      "same_final_shops": false,
+      "first_own_action_difference": 171,
+      "stock_recovery_events": [
+        {
+          "day": 7,
+          "hour": 3,
+          "reason": "incomplete_wheat_pickup",
+          "evidence": {
+            "events": [
+              [
+                170,
+                9,
+                "pick_short",
+                55,
+                "WHEAT 1/3"
+              ]
+            ]
+          }
+        },
+        {
+          "day": 8,
+          "hour": 2,
+          "reason": "incomplete_wheat_pickup",
+          "evidence": {
+            "events": [
+              [
+                193,
+                0,
+                "pick_short",
+                44,
+                "WHEAT 1/2"
+              ]
+            ]
+          }
+        }
+      ],
+      "reference_sha256": "5f1243a16e677396dbf4f5f216d7c23f1cc985abfd11d630144b7f02733789f9",
+      "candidate_sha256": "43cad1f158fff14dfc4f983345fd5a2aaeae4ddb944116a7a8630e99a807565b"
+    },
+    {
+      "case": "live-06",
+      "reference_margin": -8893.0,
+      "candidate_margin": -2517.0,
+      "margin_delta": 6376.0,
+      "own_cash_delta": -3298.0,
+      "rival_cash_delta": -9674.0,
+      "same_final_shops": false,
+      "first_own_action_difference": 195,
+      "stock_recovery_events": [
+        {
+          "day": 8,
+          "hour": 3,
+          "reason": "incomplete_wheat_pickup",
+          "evidence": {
+            "events": [
+              [
+                194,
+                9,
+                "pick_short",
+                45,
+                "WHEAT 1/2"
+              ]
+            ]
+          }
+        },
+        {
+          "day": 10,
+          "hour": 3,
+          "reason": "incomplete_wheat_pickup",
+          "evidence": {
+            "events": [
+              [
+                242,
+                11,
+                "pick_short",
+                45,
+                "WHEAT 1/2"
+              ]
+            ]
+          }
+        }
+      ],
+      "reference_sha256": "c7265b3b643af74cdee8ddc56329b4e4c488b9c98ed17e6103871990c1ad5ab0",
+      "candidate_sha256": "6e985526176b57e429e553193b45b6b58af34052450bd6effc298b5f529f5be0"
+    },
+    {
+      "case": "live-07",
+      "reference_margin": -8043.0,
+      "candidate_margin": 3682.0,
+      "margin_delta": 11725.0,
+      "own_cash_delta": 19749.0,
+      "rival_cash_delta": 8024.0,
+      "same_final_shops": false,
+      "first_own_action_difference": 171,
+      "stock_recovery_events": [
+        {
+          "day": 7,
+          "hour": 3,
+          "reason": "incomplete_wheat_pickup",
+          "evidence": {
+            "events": [
+              [
+                170,
+                9,
+                "pick_short",
+                55,
+                "WHEAT 2/4"
+              ]
+            ]
+          }
+        },
+        {
+          "day": 9,
+          "hour": 2,
+          "reason": "incomplete_wheat_pickup",
+          "evidence": {
+            "events": [
+              [
+                217,
+                5,
+                "pick_short",
+                44,
+                "WHEAT 4/6"
+              ]
+            ]
+          }
+        }
+      ],
+      "reference_sha256": "46ccdf5b40d5f749dc01f9dae30242fad73fd7a882e68e432198d9235ab8f0df",
+      "candidate_sha256": "df91ab5f2d87491ea5796b1f599e9c746e3a4124f18912cffb5a52a732ff6620"
+    }
+  ],
+  "warning": "Natural shops depend on behavior; this is a whole-policy development comparison, not isolated recovery gains or qualification."
+}

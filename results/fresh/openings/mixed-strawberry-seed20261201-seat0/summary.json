@@ -1,0 +1,338 @@
+{
+  "name": "mixed-strawberry",
+  "config": {
+    "cash_crop": "WHEAT",
+    "harvest_age": 4,
+    "hands": 6,
+    "animals": [
+      "COW",
+      "COW",
+      "SHEEP",
+      "SHEEP"
+    ],
+    "melons": 8,
+    "strawberries": 8,
+    "strawberry_day": 4,
+    "land_day": 99,
+    "land_buffer": 700
+  },
+  "seed": 20261201,
+  "seat": 0,
+  "opponent": "C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\public\\tschinkel_router_v31.py",
+  "seconds": 1.22,
+  "actions": {
+    "PASS": 362,
+    "PICKUP": 40,
+    "BUILD_PASTURE": 4,
+    "WEST": 212,
+    "PLACE": 4,
+    "NORTH": 201,
+    "FEED": 36,
+    "CARE": 36,
+    "SOUTH": 85,
+    "EAST": 94,
+    "PLANT": 34,
+    "WATER": 136,
+    "COLLECT_FERTILIZER": 32,
+    "DROP": 30,
+    "HARVEST": 17
+  },
+  "max_decision_ms": 0.8520999981556088,
+  "checkpoints": {
+    "3": {
+      "step": 72,
+      "cash": 370.0,
+      "opponent_cash": 151.0,
+      "crops": {
+        "WHEAT": 13,
+        "MELON": 8
+      },
+      "cohorts": {
+        "WHEAT planted day 1": 1,
+        "WHEAT planted day 0": 12,
+        "MELON planted day 0": 8
+      },
+      "animals": {
+        "SHEEP": 2,
+        "COW": 2
+      },
+      "quadrants": [
+        "NW"
+      ],
+      "shed": {
+        "WHEAT": 8,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 2,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "seeds": {
+        "WHEAT": 0,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0
+      },
+      "shops": [
+        "FARMERS_MARKET"
+      ],
+      "cash_plus_installed_cost": 2940.0
+    },
+    "6": {
+      "step": 144,
+      "cash": 1802.0,
+      "opponent_cash": 218.0,
+      "crops": {
+        "WHEAT": 5,
+        "STRAWBERRY": 8,
+        "MELON": 8
+      },
+      "cohorts": {
+        "WHEAT planted day 5": 5,
+        "STRAWBERRY planted day 5": 3,
+        "STRAWBERRY planted day 4": 5,
+        "MELON planted day 0": 8
+      },
+      "animals": {
+        "SHEEP": 2,
+        "COW": 2
+      },
+      "quadrants": [
+        "NW"
+      ],
+      "shed": {
+        "WHEAT": 12,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 1,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "seeds": {
+        "WHEAT": 0,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0
+      },
+      "shops": [
+        "FARMERS_MARKET",
+        "PET_CAFE"
+      ],
+      "cash_plus_installed_cost": 5092.0
+    },
+    "9": {
+      "step": 216,
+      "cash": 5699.0,
+      "opponent_cash": 679.0,
+      "crops": {
+        "WHEAT": 5,
+        "STRAWBERRY": 8,
+        "MELON": 8
+      },
+      "cohorts": {
+        "WHEAT planted day 5": 5,
+        "STRAWBERRY planted day 5": 3,
+        "STRAWBERRY planted day 4": 5,
+        "MELON planted day 0": 8
+      },
+      "animals": {
+        "SHEEP": 2,
+        "COW": 2
+      },
+      "quadrants": [
+        "NW"
+      ],
+      "shed": {
+        "WHEAT": 8,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 6,
+        "WOOL": 0,
+        "FERTILIZER": 2,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "seeds": {
+        "WHEAT": 0,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0
+      },
+      "shops": [
+        "FARMERS_MARKET",
+        "PET_CAFE",
+        "BAKERY"
+      ],
+      "cash_plus_installed_cost": 8989.0
+    }
+  },
+  "opponent_checkpoints": {
+    "3": {
+      "step": 72,
+      "cash": 151.0,
+      "opponent_cash": 370.0,
+      "crops": {
+        "WHEAT": 7,
+        "MELON": 12
+      },
+      "cohorts": {
+        "WHEAT planted day 2": 3,
+        "WHEAT planted day 0": 4,
+        "MELON planted day 0": 12
+      },
+      "animals": {
+        "COW": 3,
+        "SHEEP": 2
+      },
+      "quadrants": [
+        "NW"
+      ],
+      "shed": {
+        "WHEAT": 8,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 0,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "seeds": {
+        "WHEAT": 2,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0
+      },
+      "shops": [
+        "FARMERS_MARKET"
+      ],
+      "cash_plus_installed_cost": 3381.0
+    },
+    "6": {
+      "step": 144,
+      "cash": 218.0,
+      "opponent_cash": 1802.0,
+      "crops": {
+        "WHEAT": 3,
+        "STRAWBERRY": 4,
+        "MELON": 12
+      },
+      "cohorts": {
+        "WHEAT planted day 4": 3,
+        "STRAWBERRY planted day 5": 4,
+        "MELON planted day 0": 12
+      },
+      "animals": {
+        "COW": 4,
+        "SHEEP": 2
+      },
+      "quadrants": [
+        "NW"
+      ],
+      "shed": {
+        "WHEAT": 20,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 1,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "seeds": {
+        "WHEAT": 9,
+        "CARROT": 3,
+        "TOMATO": 0,
+        "STRAWBERRY": 4,
+        "MELON": 0
+      },
+      "shops": [
+        "FARMERS_MARKET",
+        "PET_CAFE"
+      ],
+      "cash_plus_installed_cost": 4208.0
+    },
+    "9": {
+      "step": 216,
+      "cash": 679.0,
+      "opponent_cash": 5699.0,
+      "crops": {
+        "WHEAT": 5,
+        "STRAWBERRY": 20,
+        "MELON": 12
+      },
+      "cohorts": {
+        "WHEAT planted day 7": 4,
+        "STRAWBERRY planted day 7": 4,
+        "STRAWBERRY planted day 5": 4,
+        "MELON planted day 0": 12,
+        "STRAWBERRY planted day 8": 4,
+        "WHEAT planted day 8": 1,
+        "STRAWBERRY planted day 6": 8
+      },
+      "animals": {
+        "COW": 9,
+        "SHEEP": 4
+      },
+      "quadrants": [
+        "NW",
+        "NE"
+      ],
+      "shed": {
+        "WHEAT": 24,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 3,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "seeds": {
+        "WHEAT": 9,
+        "CARROT": 4,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0
+      },
+      "shops": [
+        "FARMERS_MARKET",
+        "PET_CAFE",
+        "BAKERY"
+      ],
+      "cash_plus_installed_cost": 10289.0
+    }
+  }
+}

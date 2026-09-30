@@ -1,0 +1,216 @@
+{
+  "world_count": 40,
+  "all_cash_verified": true,
+  "full_games_executed": 0,
+  "future_coordinates_in_planner_input": false,
+  "opening_coordinates": "Observed day-11 state and replayed days 0-10 only",
+  "engine_source": ".venv/Lib/site-packages/kaggle_environments/envs/kaggriculture/kaggriculture.py",
+  "engine_retirement_rule": "Animal escapes after two consecutive unfed end-of-day refreshes; structure remains.",
+  "source_sha256": {
+    "112570602": "fab07ccf05650d8edfdd806c3a1f2836f0f5f183142a8403953cf747e348a64f",
+    "112570782": "b845932b2b4f07bbf1cb526a1b8d5410eb5278c05176960d718e700cae7044da",
+    "112571815": "f1e0b95a7db88de9a6e17c7e31a900c0924478f58e54ee6f4d2dd7855da9aa21",
+    "112573049": "a0e9fd0cc26fabb8edf8ac604d03ed4232d52751ea021db268da4985f41292ed",
+    "112574236": "a7ade061f3e081df220d0a495c3f0be3e2ea4e1906b397daee19b53d97b098b5",
+    "112575429": "e64a8a24764ce66164f05af417d9f8b5f988fb7dd77068c3fccbf9658cb2dd4d",
+    "112576658": "83a1c2823532fcdde84de81517b801b2074bf15445735e4feaf8eeb9de86bf1d",
+    "112577829": "71cb79274fefcfcb0304facc0538ed28d716414654fa621d580cd2b10a7801a1",
+    "112579036": "bb2c27d443412262455839f7634434c72d3aa4ad32bada502e2a1aec6b3881c1",
+    "112580238": "27e19e31d46da1ceabd29f4b729079ffcad0e5cbd80602d924877e2f2cb7e176",
+    "112581436": "250ca95e5ddcac7cc90fd39555990d477b17a57aa8a4d2de94dc6a9a72e417c9",
+    "112582639": "2c476b9dcdb27f8064936d043c01adf6c7972a0f52f9455751473f616d34b522",
+    "112583842": "9b5562a77d6974ee3fae07caaf7bb7e406fad3e5a68c29f6277219923877ed12",
+    "112585076": "61dbd00f94697cee12c30a7ed9753f89ae82274d946cd39c5ab74fe04890c813",
+    "112586293": "d8ca3fbbe56cdcf3c02fb28ac3196ec1266d21c864f12c00727ce7eaeda8c016",
+    "112587591": "80bc0990a515bb776c2e62c9e2f0800e4e5c204a60bbcad022557999d9ea897e",
+    "112588103": "75bad2fd7e40b00c94b2beb9a342eb26eaa0aff54726856afc6d2d3ef762aae4",
+    "112588791": "29f5011623512de7c77e64967c0f88070a5ad5ac361b813b4f11350cf2c29740",
+    "112589990": "8b72d3cf7c7632608e52109135f2c7bef6934123d268f6e60cf84b67e5e2b8d4",
+    "112591190": "cc0b4b9b25260e69b47c9d3042eec4d8890755608f18e10766ae85db6db74ae9",
+    "112592389": "fa76e9e7a28830db263c396ac6cc650203500baa86989ab6333b6291f1a91c29",
+    "112593664": "a56e9be9d31035803284a9fa600b2766f4e14d1112f55b3b67ec6fd4fb133d0c",
+    "112594857": "efcfe77d0a28b148db8a1e4534169d78af663eaa34d6a087f7a2511d887817bf",
+    "112596061": "3734230e9df72dee4d7fd19d2f659747040580c5eb4b60ffd40f0711a03ce139",
+    "112597248": "80f8a2fdf3a8243c32272a8ce780baa25872997213bbf57b4e9dba96533e4ddf",
+    "112598450": "982fe1752c63c4de8e032206d6ad1577759019a0e77dc7bec14f74e210519c0b",
+    "112599653": "f5ef6cdc31cd37ec78416895f88f5dd8aa3a7d697732c8b6a3c1b94af37d21b8",
+    "112600855": "2eaeb35457fcfa549ab1904d8bd07d5e3f16e1ca66f863304bf7ddf3b6c2a143",
+    "112602061": "fe4b4b26b5d82aa6cf2b883dc9d3d1188a2e705a0bfad60306d3d67536726822",
+    "112603263": "4a4fad3ca7b9434718e06cd67a96e7b22ffbfdfef334f7cba66df72536797df9",
+    "112604454": "f7121f8dc962b8f9f910a39b1694fe3ec88ef44dc2d86f31347cfdc943f39006",
+    "112605661": "a78f4db6b5ad403245773869ed7eec92592790cea959fb2da780b7dfaf767095",
+    "112605939": "e52caae447c15ca0d937250166febf8697773e02c5310585e6c1eeaa76e9ad4b",
+    "112606801": "cd04f2fa242d7b297bb85d342e159d6d2a3c308ab6cefd14d3fa51d40f48cc96",
+    "112608021": "2f83d4941e6d664659edfeab0e8c152fbf719a73575756d99f961b2ef2825c53",
+    "112610623": "07065085b23293c1d2564a4b825abb621449ca0c815c73695748070ead2f20ad",
+    "112616236": "ab7695adaa358756b9a95466988b750ddfa670a1e278152d5c9faaabc313fb09",
+    "112621294": "02b08177670b371152e33532d555add76f947bc9d28f48c86d1e3028e03c1572",
+    "112621356": "14f81f38b8c19e3dc4b4019c4a77f024080fe362209aa37bd0397caad0a22eb5",
+    "112626851": "5d8945d998441263d7979b1384602723741c54dca977aff0804d014bf3bbc52e"
+  },
+  "semantic_sha256": "46fca4961e2ac9f0c9e72142b0c6f21e20a09803ab8ba6dbe73a716b70917d44",
+  "strict_semantic_sha256": "0ae10b7938ee84e0192a59ec62e46abb99864340b2cd8f8ba51d45d2e8f701c6",
+  "day29_hires_corrections": {
+    "112570602": {
+      "old": 0,
+      "actual": 10
+    },
+    "112570782": {
+      "old": 0,
+      "actual": 10
+    },
+    "112571815": {
+      "old": 0,
+      "actual": 10
+    },
+    "112573049": {
+      "old": 0,
+      "actual": 10
+    },
+    "112574236": {
+      "old": 0,
+      "actual": 10
+    },
+    "112575429": {
+      "old": 0,
+      "actual": 10
+    },
+    "112576658": {
+      "old": 0,
+      "actual": 10
+    },
+    "112577829": {
+      "old": 0,
+      "actual": 10
+    },
+    "112579036": {
+      "old": 0,
+      "actual": 10
+    },
+    "112580238": {
+      "old": 0,
+      "actual": 10
+    },
+    "112581436": {
+      "old": 0,
+      "actual": 10
+    },
+    "112582639": {
+      "old": 0,
+      "actual": 10
+    },
+    "112583842": {
+      "old": 0,
+      "actual": 10
+    },
+    "112585076": {
+      "old": 0,
+      "actual": 10
+    },
+    "112586293": {
+      "old": 0,
+      "actual": 10
+    },
+    "112587591": {
+      "old": 0,
+      "actual": 10
+    },
+    "112588103": {
+      "old": 0,
+      "actual": 10
+    },
+    "112588791": {
+      "old": 0,
+      "actual": 10
+    },
+    "112589990": {
+      "old": 0,
+      "actual": 10
+    },
+    "112591190": {
+      "old": 0,
+      "actual": 10
+    },
+    "112592389": {
+      "old": 0,
+      "actual": 10
+    },
+    "112593664": {
+      "old": 0,
+      "actual": 10
+    },
+    "112594857": {
+      "old": 0,
+      "actual": 10
+    },
+    "112596061": {
+      "old": 0,
+      "actual": 10
+    },
+    "112597248": {
+      "old": 0,
+      "actual": 10
+    },
+    "112598450": {
+      "old": 0,
+      "actual": 10
+    },
+    "112599653": {
+      "old": 0,
+      "actual": 10
+    },
+    "112600855": {
+      "old": 0,
+      "actual": 10
+    },
+    "112602061": {
+      "old": 0,
+      "actual": 10
+    },
+    "112603263": {
+      "old": 0,
+      "actual": 10
+    },
+    "112604454": {
+      "old": 0,
+      "actual": 10
+    },
+    "112605661": {
+      "old": 0,
+      "actual": 10
+    },
+    "112605939": {
+      "old": 0,
+      "actual": 10
+    },
+    "112606801": {
+      "old": 0,
+      "actual": 10
+    },
+    "112608021": {
+      "old": 0,
+      "actual": 10
+    },
+    "112610623": {
+      "old": 0,
+      "actual": 10
+    },
+    "112616236": {
+      "old": 0,
+      "actual": 10
+    },
+    "112621294": {
+      "old": 0,
+      "actual": 10
+    },
+    "112621356": {
+      "old": 0,
+      "actual": 10
+    },
+    "112626851": {
+      "old": 0,
+      "actual": 10
+    }
+  },
+  "confirmed_retirements_from_handoff": 454
+}

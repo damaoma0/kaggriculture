@@ -1,0 +1,24 @@
+{
+  "candidate": "agents\\production_candidate.py",
+  "sha256": "4e5ef404f1d4065a523fbc0d7c46597599350adfd7b66532f65e9fe961efc74d",
+  "reference": "data\\public_candidates\\thomastschinkel\\extracted\\main.py",
+  "reference_sha256": "91772fda544e2d5768afff819e2de75ecb7a12db8acb40a48ee9edcf76aca434",
+  "engine_projection_functions": [
+    "_apply_unit_action",
+    "_farmer_inventory",
+    "_farmer_position",
+    "_inv_add",
+    "_inv_take",
+    "_is_shed_adjacent",
+    "_new_animal",
+    "_new_plant",
+    "_set_farmer_position",
+    "_shed_access_tiles"
+  ],
+  "constants": [
+    "ANIMALS",
+    "CROPS",
+    "FARMER_MOVES"
+  ],
+  "status": "Confirmed and frozen as agents/production_selected.py; not submitted."
+}

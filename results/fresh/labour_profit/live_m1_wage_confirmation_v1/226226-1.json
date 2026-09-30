@@ -1,0 +1,698 @@
+{
+  "seed": 226226,
+  "treatment": 1,
+  "cash": [
+    115840.0,
+    115345.0
+  ],
+  "economics": [
+    {
+      "revenue": {
+        "FERTILIZER": 13540,
+        "WHEAT": 12813,
+        "WOOL": 23731,
+        "MILK": 37009,
+        "MELON": 15124,
+        "STRAWBERRY": 41095,
+        "EGG": 1894,
+        "TOMATO": 929,
+        "CARROT": 2850
+      },
+      "sold_units": {
+        "FERTILIZER": 314,
+        "WHEAT": 296,
+        "WOOL": 355,
+        "MILK": 180,
+        "MELON": 84,
+        "STRAWBERRY": 226,
+        "EGG": 32,
+        "TOMATO": 14,
+        "CARROT": 110
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 8085,
+        "HIRE": 6709.0,
+        "BUY_ANIMAL:COW": 2400,
+        "BUY_ANIMAL:SHEEP": 8500,
+        "BUY_SEED:MELON": 1120,
+        "BUY_SEED:WHEAT": 1350,
+        "BUY_SEED:CARROT": 720,
+        "BUY_SEED:STRAWBERRY": 2900,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 961,
+        "BUY_ANIMAL:GOOSE": 300,
+        "BUY_SEED:TOMATO": 100
+      }
+    },
+    {
+      "revenue": {
+        "FERTILIZER": 13595,
+        "WHEAT": 11962,
+        "WOOL": 23731,
+        "MILK": 37041,
+        "MELON": 15124,
+        "STRAWBERRY": 41095,
+        "EGG": 1894,
+        "TOMATO": 929,
+        "CARROT": 2850
+      },
+      "sold_units": {
+        "FERTILIZER": 318,
+        "WHEAT": 277,
+        "WOOL": 355,
+        "MILK": 180,
+        "MELON": 84,
+        "STRAWBERRY": 226,
+        "EGG": 32,
+        "TOMATO": 14,
+        "CARROT": 110
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 8118,
+        "HIRE": 6437.0,
+        "BUY_ANIMAL:COW": 2400,
+        "BUY_ANIMAL:SHEEP": 8500,
+        "BUY_SEED:MELON": 1120,
+        "BUY_SEED:WHEAT": 1320,
+        "BUY_SEED:CARROT": 720,
+        "BUY_SEED:STRAWBERRY": 2900,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 961,
+        "BUY_ANIMAL:GOOSE": 300,
+        "BUY_SEED:TOMATO": 100
+      }
+    }
+  ],
+  "decisions": [
+    [],
+    [
+      {
+        "day": 3,
+        "name": "baseline",
+        "gain": 0.0,
+        "wage": 0.0,
+        "revenue": 0,
+        "input_saving": 0.0,
+        "forecast": 0.0,
+        "robust": 0.0,
+        "advance": false,
+        "sold": {
+          "WHEAT": 4,
+          "FERTILIZER": 11
+        },
+        "opponent_gain": 0.0,
+        "same_sale_schedule": true,
+        "candidates": 2,
+        "rejected": {
+          "route_over_24": 2,
+          "farm": 22
+        },
+        "decision_input_sha256": "ac6ef5d079af2b9dfe30c9379a4bbc1828da40cb3de3251cbd838b556381d82c",
+        "decision_output_sha256": "f9957302b46e8ba5f448e2276d1348397cc504061cbac126366212f7e5f8ba05",
+        "seconds": 0.8467093000072055,
+        "executed_first_day_change": false
+      },
+      {
+        "day": 5,
+        "name": "minus1:recorded",
+        "gain": 5.0,
+        "wage": 5.0,
+        "revenue": 0,
+        "input_saving": 0.0,
+        "forecast": 5.0,
+        "robust": 5.0,
+        "advance": false,
+        "sold": {
+          "WHEAT": 11,
+          "FERTILIZER": 13,
+          "WOOL": 10
+        },
+        "opponent_gain": 0.0,
+        "same_sale_schedule": true,
+        "candidates": 13,
+        "rejected": {
+          "route_over_24": 6,
+          "farm": 25
+        },
+        "decision_input_sha256": "1f71016ea9b20efd0e2f8c2c7d40166502eaa01989e72dd2eeb0d9baee38ea17",
+        "decision_output_sha256": "73b8461cf03a339722b2eb62332f250a8a1520bca9b5a752b2ba7e07b6154520",
+        "seconds": 1.2110499999835156,
+        "executed_first_day_change": true
+      },
+      {
+        "day": 7,
+        "name": "baseline",
+        "gain": 0,
+        "wage": 0,
+        "revenue": 0,
+        "advance": false,
+        "candidates": 1,
+        "fallback": "projected_input_shortfall",
+        "rejected": {},
+        "decision_input_sha256": "dad6ca5bd65389a16d44eea614a0308e92329d5c090f671a49c697e39ca006b5",
+        "decision_output_sha256": "410ecf6fb3a4f0616615cdcde5ef6532cb93f3948619c2755b77b99ef1df6358",
+        "seconds": 0.04830620001303032,
+        "executed_first_day_change": false
+      },
+      {
+        "day": 9,
+        "name": "baseline",
+        "gain": 0,
+        "wage": 0,
+        "revenue": 0,
+        "advance": false,
+        "candidates": 1,
+        "fallback": "projected_input_shortfall",
+        "rejected": {},
+        "decision_input_sha256": "5fbf9e510821a868c12cc7a656751748d26a6a1682960f1bb879e784f325418a",
+        "decision_output_sha256": "2633e32c092bbe1d5d46bc9d24fb20b89cb58fabcdf0f8b1c29e56f9b6c00c48",
+        "seconds": 0.050559200055431575,
+        "executed_first_day_change": false
+      },
+      {
+        "day": 11,
+        "name": "flex_minus2:recorded",
+        "gain": 89.0,
+        "wage": 89.0,
+        "revenue": 0,
+        "input_saving": 0.0,
+        "forecast": 89.0,
+        "robust": 89.0,
+        "advance": false,
+        "sold": {
+          "MELON": 12,
+          "FERTILIZER": 33,
+          "MILK": 15,
+          "WOOL": 13
+        },
+        "opponent_gain": 0.0,
+        "same_sale_schedule": true,
+        "candidates": 60,
+        "rejected": {
+          "private": 2
+        },
+        "decision_input_sha256": "dcb785c60e4308554e1ea66432ef0c79d904b30077ac5dc5e4929b26afaaa7bd",
+        "decision_output_sha256": "5c8a614f8aa403dd28e84352f234e1dc36e42e3a2943f02fc2a35efd2eec9469",
+        "seconds": 4.5870472000096925,
+        "executed_first_day_change": true
+      },
+      {
+        "day": 13,
+        "name": "flex_minus1:recorded",
+        "gain": 89.0,
+        "wage": 89.0,
+        "revenue": 0,
+        "input_saving": 0.0,
+        "forecast": 89.0,
+        "robust": 89.0,
+        "advance": false,
+        "sold": {
+          "FERTILIZER": 23,
+          "WOOL": 16,
+          "MILK": 8,
+          "WHEAT": 21
+        },
+        "opponent_gain": 0.0,
+        "same_sale_schedule": true,
+        "candidates": 9,
+        "rejected": {
+          "route_over_24": 14,
+          "private": 4,
+          "farm": 2
+        },
+        "decision_input_sha256": "9a938c347e9dac8896294c5a30daaaa3e6e776c839163b1e81da87407e0c51c5",
+        "decision_output_sha256": "ad99a919dc2dc6aa042a11cce7dfe08757bc92df7a78202ca4ffff93c920e96c",
+        "seconds": 1.707426899985876,
+        "executed_first_day_change": true
+      },
+      {
+        "day": 15,
+        "name": "flex_distance_minus1:recorded",
+        "gain": 89.0,
+        "wage": 89.0,
+        "revenue": 0,
+        "input_saving": 0.0,
+        "forecast": 89.0,
+        "robust": 89.0,
+        "advance": false,
+        "sold": {
+          "MILK": 18,
+          "WOOL": 28,
+          "FERTILIZER": 18,
+          "WHEAT": 14,
+          "STRAWBERRY": 17,
+          "EGG": 4
+        },
+        "opponent_gain": 0.0,
+        "same_sale_schedule": true,
+        "candidates": 4,
+        "rejected": {
+          "route_over_24": 18,
+          "private": 5,
+          "farm": 4
+        },
+        "decision_input_sha256": "4c9e678b2ca80abc58d31fd6c2178ec9331f1a1081347c7a709a5b70fc2a5475",
+        "decision_output_sha256": "bf2a308900415f2c9fc2aab2cd063d344f259abd30065621362e9745c3734ef4",
+        "seconds": 2.14624279999407,
+        "executed_first_day_change": true
+      },
+      {
+        "day": 17,
+        "name": "baseline",
+        "gain": 0.0,
+        "wage": 0.0,
+        "revenue": 0,
+        "input_saving": 0.0,
+        "forecast": 0.0,
+        "robust": 0.0,
+        "advance": false,
+        "sold": {
+          "WOOL": 38,
+          "MILK": 13,
+          "STRAWBERRY": 32,
+          "FERTILIZER": 25,
+          "WHEAT": 14,
+          "EGG": 4
+        },
+        "opponent_gain": 0.0,
+        "same_sale_schedule": true,
+        "candidates": 2,
+        "rejected": {
+          "route_over_24": 18,
+          "private": 2
+        },
+        "decision_input_sha256": "63f3bb37149cc412778cbd1ea7a0504e6d84630c0b9329680a41a72ec01859be",
+        "decision_output_sha256": "8d8532bd76ec3f8c80dcec7b66c62e0251eeba0c298dca9c2f939ff32e9a8720",
+        "seconds": 1.7009558000136167,
+        "executed_first_day_change": false
+      },
+      {
+        "day": 19,
+        "name": "baseline",
+        "gain": 0.0,
+        "wage": 0.0,
+        "revenue": 0,
+        "input_saving": 0.0,
+        "forecast": 0.0,
+        "robust": 0.0,
+        "advance": false,
+        "sold": {
+          "STRAWBERRY": 28,
+          "MELON": 6,
+          "WOOL": 32,
+          "MILK": 19,
+          "FERTILIZER": 26,
+          "WHEAT": 28,
+          "EGG": 4
+        },
+        "opponent_gain": 0.0,
+        "same_sale_schedule": true,
+        "candidates": 1,
+        "rejected": {
+          "market": 1
+        },
+        "decision_input_sha256": "e200f9a6439686ac9c1444109867ecbe0795273c80414100c12bcfb513febce2",
+        "decision_output_sha256": "13d3b7e79c2139c82f486d22b09e3856807a2b26f84a9446346ab346bab615a2",
+        "seconds": 0.23379580001346767,
+        "executed_first_day_change": false
+      },
+      {
+        "day": 21,
+        "name": "baseline",
+        "gain": 0.0,
+        "wage": 0.0,
+        "revenue": 0,
+        "input_saving": 0.0,
+        "forecast": 0.0,
+        "robust": 0.0,
+        "advance": false,
+        "sold": {
+          "STRAWBERRY": 41,
+          "WOOL": 49,
+          "MILK": 17,
+          "FERTILIZER": 23,
+          "WHEAT": 21,
+          "MELON": 6
+        },
+        "opponent_gain": 0.0,
+        "same_sale_schedule": true,
+        "candidates": 2,
+        "rejected": {},
+        "decision_input_sha256": "4ce5ca303aa65e25c1c8c734bd2767b94a9eb8a84ae59e3939ff7a43413dc256",
+        "decision_output_sha256": "53e35e9f18885e7fc24d2e8027389f63c88464c60576693fac925105a2795a54",
+        "seconds": 0.22061409999150783,
+        "executed_first_day_change": false
+      },
+      {
+        "day": 23,
+        "name": "baseline",
+        "gain": 0.0,
+        "wage": 0.0,
+        "revenue": 0,
+        "input_saving": 0.0,
+        "forecast": 0.0,
+        "robust": 0.0,
+        "advance": false,
+        "sold": {
+          "STRAWBERRY": 37,
+          "WOOL": 44,
+          "MILK": 12,
+          "FERTILIZER": 31,
+          "EGG": 10,
+          "WHEAT": 18,
+          "TOMATO": 8
+        },
+        "opponent_gain": 0.0,
+        "same_sale_schedule": true,
+        "candidates": 1,
+        "rejected": {
+          "market": 1
+        },
+        "decision_input_sha256": "16b7325f0a802ffe63598e3cb38163fbed7271a81833793b6778c34bb86f8111",
+        "decision_output_sha256": "b64c9c01355e0ce1dd10615c155860c0e2fc8e18906d16c3a35f5ed78f155ee1",
+        "seconds": 0.23691850004252046,
+        "executed_first_day_change": false
+      },
+      {
+        "day": 25,
+        "name": "baseline",
+        "gain": 0.0,
+        "wage": 0.0,
+        "revenue": 0,
+        "input_saving": 0.0,
+        "forecast": 0.0,
+        "robust": 0.0,
+        "advance": false,
+        "sold": {
+          "STRAWBERRY": 39,
+          "WOOL": 43,
+          "TOMATO": 6,
+          "MILK": 10,
+          "FERTILIZER": 24,
+          "WHEAT": 29,
+          "CARROT": 16,
+          "EGG": 4
+        },
+        "opponent_gain": 0.0,
+        "same_sale_schedule": true,
+        "candidates": 2,
+        "rejected": {},
+        "decision_input_sha256": "1eff838c3f34810cba69adc2f13b4a7ac3d88a0b0dd92f95428afe2239b93806",
+        "decision_output_sha256": "f1047c0c810044818c40d677c44013f468fb9ad8cb188ef33c7e41442c7e49ba",
+        "seconds": 0.22148399997968227,
+        "executed_first_day_change": false
+      },
+      {
+        "day": 27,
+        "name": "baseline",
+        "gain": 0.0,
+        "wage": 0.0,
+        "revenue": 0,
+        "input_saving": 0.0,
+        "forecast": 0.0,
+        "robust": 0.0,
+        "advance": false,
+        "sold": {
+          "CARROT": 45,
+          "WOOL": 45,
+          "STRAWBERRY": 20,
+          "FERTILIZER": 19,
+          "MILK": 25,
+          "WHEAT": 53
+        },
+        "opponent_gain": 0.0,
+        "same_sale_schedule": true,
+        "candidates": 2,
+        "rejected": {},
+        "decision_input_sha256": "647e0ae2cbd94a223c0fec979164445d38c7e2909aa21df4173c9924bace9ac1",
+        "decision_output_sha256": "376f57bb0f1ae6779dfdbaa7f18a34436eac06d426bc0960582855003073eaa0",
+        "seconds": 0.21522799995727837,
+        "executed_first_day_change": false
+      }
+    ]
+  ],
+  "max_seconds": [
+    0.005395200045313686,
+    4.769586100010201
+  ],
+  "calls_over_one_second": [
+    0,
+    5
+  ],
+  "shops": [
+    "SMOOTHIE_SHOP",
+    "YARN_STORE",
+    "BRUNCH_SPOT",
+    "ICE_CREAM_SHOP",
+    "BAKERY",
+    "PIZZA_SHOP",
+    "BAKERY",
+    "ICE_CREAM_SHOP"
+  ],
+  "diagnostics": [
+    {
+      "_MGT_REPORT": {
+        "switches": 3,
+        "router_errors": 0,
+        "hamming_max": 2,
+        "dist_d6": -0.02,
+        "dist_d12": 9.0,
+        "dist_d18": 37.5,
+        "dist_d24": 68.0
+      },
+      "_SHP_REPORT": {
+        "evals": [
+          [
+            6,
+            13,
+            2,
+            16,
+            -3
+          ],
+          [
+            7,
+            13,
+            3,
+            16,
+            -3
+          ],
+          [
+            8,
+            13,
+            8,
+            20,
+            -7
+          ],
+          [
+            9,
+            13,
+            8,
+            18,
+            -5
+          ],
+          [
+            10,
+            13,
+            10,
+            20,
+            -7
+          ],
+          [
+            11,
+            13,
+            10,
+            17,
+            -4
+          ],
+          [
+            12,
+            13,
+            11,
+            18,
+            -5
+          ],
+          [
+            13,
+            13,
+            13,
+            18,
+            -5
+          ],
+          [
+            14,
+            13,
+            14,
+            18,
+            -5
+          ],
+          [
+            15,
+            13,
+            15,
+            18,
+            -5
+          ],
+          [
+            16,
+            13,
+            16,
+            19,
+            -6
+          ],
+          [
+            17,
+            13,
+            17,
+            19,
+            -6
+          ],
+          [
+            18,
+            13,
+            17,
+            18,
+            -5
+          ],
+          [
+            19,
+            13,
+            17,
+            18,
+            -5
+          ]
+        ],
+        "hand_days": 15,
+        "topup_tasks": 51,
+        "ops_feed": 47,
+        "ops_care": 50,
+        "orphan_days": 1,
+        "ops_harvest": 1,
+        "sold_milk": 3
+      }
+    },
+    {
+      "_MGT_REPORT": {
+        "switches": 3,
+        "router_errors": 0,
+        "hamming_max": 4,
+        "dist_d6": -0.02,
+        "dist_d12": 9.0,
+        "dist_d18": 37.5,
+        "dist_d24": 68.0
+      },
+      "_SHP_REPORT": {
+        "evals": [
+          [
+            6,
+            13,
+            2,
+            16,
+            -3
+          ],
+          [
+            7,
+            13,
+            3,
+            16,
+            -3
+          ],
+          [
+            8,
+            13,
+            8,
+            20,
+            -7
+          ],
+          [
+            9,
+            13,
+            8,
+            18,
+            -5
+          ],
+          [
+            10,
+            13,
+            10,
+            20,
+            -7
+          ],
+          [
+            11,
+            13,
+            10,
+            17,
+            -4
+          ],
+          [
+            12,
+            13,
+            11,
+            18,
+            -5
+          ],
+          [
+            13,
+            13,
+            13,
+            18,
+            -5
+          ],
+          [
+            14,
+            13,
+            14,
+            18,
+            -5
+          ],
+          [
+            15,
+            13,
+            15,
+            18,
+            -5
+          ],
+          [
+            16,
+            13,
+            16,
+            19,
+            -6
+          ],
+          [
+            17,
+            13,
+            17,
+            19,
+            -6
+          ],
+          [
+            18,
+            13,
+            17,
+            18,
+            -5
+          ],
+          [
+            19,
+            13,
+            17,
+            18,
+            -5
+          ]
+        ],
+        "hand_days": 15,
+        "topup_tasks": 51,
+        "ops_feed": 47,
+        "ops_care": 50,
+        "hire_guard_fired": 1,
+        "hire_guard_trimmed": 3,
+        "orphan_days": 1,
+        "ops_harvest": 1,
+        "sold_milk": 3
+      }
+    }
+  ],
+  "agent_sha256": "1152ef2e12c4535dbc381b9c54ac7d7a0b1a9ad3d0a8018a7567dcf5c4a52470",
+  "actions_sha256": "b8bc7ada5adacc8175d9246f71829e7826726c8469d488aada8b760187cd0af2"
+}

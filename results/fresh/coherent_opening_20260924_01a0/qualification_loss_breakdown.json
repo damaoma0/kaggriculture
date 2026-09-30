@@ -1,0 +1,447 @@
+{
+  "panel": "qualification v5",
+  "comparisons": [
+    {
+      "pair": "semantic_inputs minus baseline",
+      "n_pairs": 64,
+      "mean_own_cash_delta": -4626.438,
+      "mean_revenue_delta": 43.234,
+      "mean_spending_delta": 4669.672,
+      "mean_net_contribution_delta": -4626.438,
+      "reconciliation_residual_min": 0,
+      "reconciliation_residual_max": 0,
+      "revenue_delta_by_item": {
+        "SELL:CARROT": 917,
+        "SELL:EGG": 2109.156,
+        "SELL:FERTILIZER": -95.594,
+        "SELL:MELON": -3705.938,
+        "SELL:MILK": -311.984,
+        "SELL:STRAWBERRY": -2439.125,
+        "SELL:TOMATO": 102.109,
+        "SELL:WHEAT": 2857.359,
+        "SELL:WOOL": 610.25
+      },
+      "spending_delta_by_item": {
+        "BUY_ANIMAL:COW": 825,
+        "BUY_ANIMAL:GOOSE": 581.25,
+        "BUY_ANIMAL:SHEEP": -179.688,
+        "BUY_LAND": 125,
+        "BUY_PRODUCT:FERTILIZER": -964.281,
+        "BUY_PRODUCT:WHEAT": 3368.281,
+        "BUY_SEED:CARROT": 206.875,
+        "BUY_SEED:MELON": -297.5,
+        "BUY_SEED:STRAWBERRY": 26.562,
+        "BUY_SEED:TOMATO": 36.719,
+        "BUY_SEED:WHEAT": 33.594,
+        "HIRE": 907.859
+      },
+      "net_contribution_by_item": {
+        "BUY_ANIMAL:COW": -825,
+        "BUY_ANIMAL:GOOSE": -581.25,
+        "BUY_ANIMAL:SHEEP": 179.688,
+        "BUY_LAND": -125,
+        "BUY_PRODUCT:FERTILIZER": 964.281,
+        "BUY_PRODUCT:WHEAT": -3368.281,
+        "BUY_SEED:CARROT": -206.875,
+        "BUY_SEED:MELON": 297.5,
+        "BUY_SEED:STRAWBERRY": -26.562,
+        "BUY_SEED:TOMATO": -36.719,
+        "BUY_SEED:WHEAT": -33.594,
+        "HIRE": -907.859,
+        "SELL:CARROT": 917,
+        "SELL:EGG": 2109.156,
+        "SELL:FERTILIZER": -95.594,
+        "SELL:MELON": -3705.938,
+        "SELL:MILK": -311.984,
+        "SELL:STRAWBERRY": -2439.125,
+        "SELL:TOMATO": 102.109,
+        "SELL:WHEAT": 2857.359,
+        "SELL:WOOL": 610.25
+      }
+    },
+    {
+      "pair": "semantic_bank minus baseline",
+      "n_pairs": 64,
+      "mean_own_cash_delta": -5235.188,
+      "mean_revenue_delta": 566,
+      "mean_spending_delta": 5801.188,
+      "mean_net_contribution_delta": -5235.188,
+      "reconciliation_residual_min": 0,
+      "reconciliation_residual_max": 0,
+      "revenue_delta_by_item": {
+        "SELL:CARROT": 1541.219,
+        "SELL:EGG": 2244.484,
+        "SELL:FERTILIZER": -101.938,
+        "SELL:MELON": -3758.25,
+        "SELL:MILK": -119.797,
+        "SELL:STRAWBERRY": -2342.484,
+        "SELL:TOMATO": 319.266,
+        "SELL:WHEAT": 3103.516,
+        "SELL:WOOL": -320.016
+      },
+      "spending_delta_by_item": {
+        "BUY_ANIMAL:COW": 787.5,
+        "BUY_ANIMAL:GOOSE": 609.375,
+        "BUY_ANIMAL:SHEEP": -93.75,
+        "BUY_LAND": 656.25,
+        "BUY_PRODUCT:FERTILIZER": -964.281,
+        "BUY_PRODUCT:WHEAT": 3256.453,
+        "BUY_SEED:CARROT": 322.5,
+        "BUY_SEED:MELON": -297.5,
+        "BUY_SEED:STRAWBERRY": 115.625,
+        "BUY_SEED:TOMATO": 55.469,
+        "BUY_SEED:WHEAT": 67.188,
+        "HIRE": 1286.359
+      },
+      "net_contribution_by_item": {
+        "BUY_ANIMAL:COW": -787.5,
+        "BUY_ANIMAL:GOOSE": -609.375,
+        "BUY_ANIMAL:SHEEP": 93.75,
+        "BUY_LAND": -656.25,
+        "BUY_PRODUCT:FERTILIZER": 964.281,
+        "BUY_PRODUCT:WHEAT": -3256.453,
+        "BUY_SEED:CARROT": -322.5,
+        "BUY_SEED:MELON": 297.5,
+        "BUY_SEED:STRAWBERRY": -115.625,
+        "BUY_SEED:TOMATO": -55.469,
+        "BUY_SEED:WHEAT": -67.188,
+        "HIRE": -1286.359,
+        "SELL:CARROT": 1541.219,
+        "SELL:EGG": 2244.484,
+        "SELL:FERTILIZER": -101.938,
+        "SELL:MELON": -3758.25,
+        "SELL:MILK": -119.797,
+        "SELL:STRAWBERRY": -2342.484,
+        "SELL:TOMATO": 319.266,
+        "SELL:WHEAT": 3103.516,
+        "SELL:WOOL": -320.016
+      }
+    },
+    {
+      "pair": "semantic_bank minus semantic_inputs",
+      "n_pairs": 64,
+      "mean_own_cash_delta": -608.75,
+      "mean_revenue_delta": 522.766,
+      "mean_spending_delta": 1131.516,
+      "mean_net_contribution_delta": -608.75,
+      "reconciliation_residual_min": 0,
+      "reconciliation_residual_max": 0,
+      "revenue_delta_by_item": {
+        "SELL:CARROT": 624.219,
+        "SELL:EGG": 135.328,
+        "SELL:FERTILIZER": -6.344,
+        "SELL:MELON": -52.312,
+        "SELL:MILK": 192.188,
+        "SELL:STRAWBERRY": 96.641,
+        "SELL:TOMATO": 217.156,
+        "SELL:WHEAT": 246.156,
+        "SELL:WOOL": -930.266
+      },
+      "spending_delta_by_item": {
+        "BUY_ANIMAL:COW": -37.5,
+        "BUY_ANIMAL:GOOSE": 28.125,
+        "BUY_ANIMAL:SHEEP": 85.938,
+        "BUY_LAND": 531.25,
+        "BUY_PRODUCT:WHEAT": -111.828,
+        "BUY_SEED:CARROT": 115.625,
+        "BUY_SEED:MELON": 0,
+        "BUY_SEED:STRAWBERRY": 89.062,
+        "BUY_SEED:TOMATO": 18.75,
+        "BUY_SEED:WHEAT": 33.594,
+        "HIRE": 378.5
+      },
+      "net_contribution_by_item": {
+        "BUY_ANIMAL:COW": 37.5,
+        "BUY_ANIMAL:GOOSE": -28.125,
+        "BUY_ANIMAL:SHEEP": -85.938,
+        "BUY_LAND": -531.25,
+        "BUY_PRODUCT:WHEAT": 111.828,
+        "BUY_SEED:CARROT": -115.625,
+        "BUY_SEED:MELON": 0,
+        "BUY_SEED:STRAWBERRY": -89.062,
+        "BUY_SEED:TOMATO": -18.75,
+        "BUY_SEED:WHEAT": -33.594,
+        "HIRE": -378.5,
+        "SELL:CARROT": 624.219,
+        "SELL:EGG": 135.328,
+        "SELL:FERTILIZER": -6.344,
+        "SELL:MELON": -52.312,
+        "SELL:MILK": 192.188,
+        "SELL:STRAWBERRY": 96.641,
+        "SELL:TOMATO": 217.156,
+        "SELL:WHEAT": 246.156,
+        "SELL:WOOL": -930.266
+      }
+    }
+  ],
+  "specific_net_contribution_cases": [
+    {
+      "key": {
+        "spec_id": "w08-mgt_m1",
+        "opponent": "mgt_m1"
+      },
+      "pair": "semantic_inputs minus baseline",
+      "own_cash_delta": -49901,
+      "total_revenue_delta": -41627,
+      "total_spending_delta": 8274,
+      "reconciliation_residual": 0,
+      "item_breakdown": [
+        {
+          "item": "BUY_ANIMAL:COW",
+          "revenue_delta": 0,
+          "spending_delta": 400,
+          "net_contribution_delta": -400
+        },
+        {
+          "item": "BUY_ANIMAL:GOOSE",
+          "revenue_delta": 0,
+          "spending_delta": 1200,
+          "net_contribution_delta": -1200
+        },
+        {
+          "item": "BUY_ANIMAL:SHEEP",
+          "revenue_delta": 0,
+          "spending_delta": 3500,
+          "net_contribution_delta": -3500
+        },
+        {
+          "item": "BUY_LAND",
+          "revenue_delta": 0,
+          "spending_delta": -2000,
+          "net_contribution_delta": 2000
+        },
+        {
+          "item": "BUY_PRODUCT:FERTILIZER",
+          "revenue_delta": 0,
+          "spending_delta": -1146,
+          "net_contribution_delta": 1146
+        },
+        {
+          "item": "BUY_PRODUCT:WHEAT",
+          "revenue_delta": 0,
+          "spending_delta": 6167,
+          "net_contribution_delta": -6167
+        },
+        {
+          "item": "BUY_SEED:CARROT",
+          "revenue_delta": 0,
+          "spending_delta": 360,
+          "net_contribution_delta": -360
+        },
+        {
+          "item": "BUY_SEED:MELON",
+          "revenue_delta": 0,
+          "spending_delta": -320,
+          "net_contribution_delta": 320
+        },
+        {
+          "item": "BUY_SEED:STRAWBERRY",
+          "revenue_delta": 0,
+          "spending_delta": -1000,
+          "net_contribution_delta": 1000
+        },
+        {
+          "item": "BUY_SEED:TOMATO",
+          "revenue_delta": 0,
+          "spending_delta": -50,
+          "net_contribution_delta": 50
+        },
+        {
+          "item": "BUY_SEED:WHEAT",
+          "revenue_delta": 0,
+          "spending_delta": -60,
+          "net_contribution_delta": 60
+        },
+        {
+          "item": "HIRE",
+          "revenue_delta": 0,
+          "spending_delta": 1223,
+          "net_contribution_delta": -1223
+        },
+        {
+          "item": "SELL:CARROT",
+          "revenue_delta": 13,
+          "spending_delta": 0,
+          "net_contribution_delta": 13
+        },
+        {
+          "item": "SELL:EGG",
+          "revenue_delta": 1167,
+          "spending_delta": 0,
+          "net_contribution_delta": 1167
+        },
+        {
+          "item": "SELL:FERTILIZER",
+          "revenue_delta": 911,
+          "spending_delta": 0,
+          "net_contribution_delta": 911
+        },
+        {
+          "item": "SELL:MELON",
+          "revenue_delta": -3729,
+          "spending_delta": 0,
+          "net_contribution_delta": -3729
+        },
+        {
+          "item": "SELL:MILK",
+          "revenue_delta": -5972,
+          "spending_delta": 0,
+          "net_contribution_delta": -5972
+        },
+        {
+          "item": "SELL:STRAWBERRY",
+          "revenue_delta": -27068,
+          "spending_delta": 0,
+          "net_contribution_delta": -27068
+        },
+        {
+          "item": "SELL:TOMATO",
+          "revenue_delta": -5155,
+          "spending_delta": 0,
+          "net_contribution_delta": -5155
+        },
+        {
+          "item": "SELL:WHEAT",
+          "revenue_delta": -1044,
+          "spending_delta": 0,
+          "net_contribution_delta": -1044
+        },
+        {
+          "item": "SELL:WOOL",
+          "revenue_delta": -750,
+          "spending_delta": 0,
+          "net_contribution_delta": -750
+        }
+      ]
+    },
+    {
+      "key": {
+        "spec_id": "w26-v56",
+        "opponent": "v56"
+      },
+      "pair": "semantic_bank minus semantic_inputs",
+      "own_cash_delta": -29536,
+      "total_revenue_delta": -22339,
+      "total_spending_delta": 7197,
+      "reconciliation_residual": 0,
+      "item_breakdown": [
+        {
+          "item": "BUY_ANIMAL:COW",
+          "revenue_delta": 0,
+          "spending_delta": 800,
+          "net_contribution_delta": -800
+        },
+        {
+          "item": "BUY_ANIMAL:GOOSE",
+          "revenue_delta": 0,
+          "spending_delta": 1200,
+          "net_contribution_delta": -1200
+        },
+        {
+          "item": "BUY_ANIMAL:SHEEP",
+          "revenue_delta": 0,
+          "spending_delta": -2500,
+          "net_contribution_delta": 2500
+        },
+        {
+          "item": "BUY_LAND",
+          "revenue_delta": 0,
+          "spending_delta": 4000,
+          "net_contribution_delta": -4000
+        },
+        {
+          "item": "BUY_PRODUCT:WHEAT",
+          "revenue_delta": 0,
+          "spending_delta": -349,
+          "net_contribution_delta": 349
+        },
+        {
+          "item": "BUY_SEED:CARROT",
+          "revenue_delta": 0,
+          "spending_delta": 720,
+          "net_contribution_delta": -720
+        },
+        {
+          "item": "BUY_SEED:STRAWBERRY",
+          "revenue_delta": 0,
+          "spending_delta": 1000,
+          "net_contribution_delta": -1000
+        },
+        {
+          "item": "BUY_SEED:TOMATO",
+          "revenue_delta": 0,
+          "spending_delta": 500,
+          "net_contribution_delta": -500
+        },
+        {
+          "item": "BUY_SEED:WHEAT",
+          "revenue_delta": 0,
+          "spending_delta": 140,
+          "net_contribution_delta": -140
+        },
+        {
+          "item": "HIRE",
+          "revenue_delta": 0,
+          "spending_delta": 1686,
+          "net_contribution_delta": -1686
+        },
+        {
+          "item": "SELL:CARROT",
+          "revenue_delta": 3460,
+          "spending_delta": 0,
+          "net_contribution_delta": 3460
+        },
+        {
+          "item": "SELL:EGG",
+          "revenue_delta": 5339,
+          "spending_delta": 0,
+          "net_contribution_delta": 5339
+        },
+        {
+          "item": "SELL:FERTILIZER",
+          "revenue_delta": -637,
+          "spending_delta": 0,
+          "net_contribution_delta": -637
+        },
+        {
+          "item": "SELL:MELON",
+          "revenue_delta": -3794,
+          "spending_delta": 0,
+          "net_contribution_delta": -3794
+        },
+        {
+          "item": "SELL:MILK",
+          "revenue_delta": 310,
+          "spending_delta": 0,
+          "net_contribution_delta": 310
+        },
+        {
+          "item": "SELL:STRAWBERRY",
+          "revenue_delta": 587,
+          "spending_delta": 0,
+          "net_contribution_delta": 587
+        },
+        {
+          "item": "SELL:TOMATO",
+          "revenue_delta": 2359,
+          "spending_delta": 0,
+          "net_contribution_delta": 2359
+        },
+        {
+          "item": "SELL:WHEAT",
+          "revenue_delta": 2063,
+          "spending_delta": 0,
+          "net_contribution_delta": 2063
+        },
+        {
+          "item": "SELL:WOOL",
+          "revenue_delta": -32026,
+          "spending_delta": 0,
+          "net_contribution_delta": -32026
+        }
+      ]
+    }
+  ],
+  "reconciliation": "Per seat final cash delta equals revenue delta minus spending delta exactly for every matched game. Deltas are always first named arm minus second named arm; positive net contribution favors first arm.",
+  "scope": "64 matched world/opponent pairs per comparison; items are keys in saved final per-seat ledgers."
+}

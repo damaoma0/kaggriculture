@@ -1,0 +1,92 @@
+{
+  "seed": 114002,
+  "seat": 0,
+  "opponent": "sixday",
+  "mode": "adapter",
+  "cash": 91277.0,
+  "opponent_cash": 91002.0,
+  "ledger": [
+    {
+      "revenue": {
+        "WHEAT": 21053,
+        "FERTILIZER": 14603,
+        "WOOL": 31863,
+        "MILK": 16839,
+        "MELON": 14267,
+        "EGG": 4313,
+        "STRAWBERRY": 19962,
+        "CARROT": 734
+      },
+      "sold_units": {
+        "WHEAT": 564,
+        "FERTILIZER": 332,
+        "WOOL": 138,
+        "MILK": 261,
+        "MELON": 72,
+        "EGG": 79,
+        "STRAWBERRY": 257,
+        "CARROT": 18
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 11535,
+        "BUY_SEED:WHEAT": 1970,
+        "HIRE": 5400.0,
+        "BUY_ANIMAL:COW": 3600,
+        "BUY_ANIMAL:SHEEP": 2500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:CARROT": 180,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2012,
+        "BUY_ANIMAL:GOOSE": 900
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 21053,
+        "FERTILIZER": 14603,
+        "WOOL": 31863,
+        "MILK": 16564,
+        "MELON": 14267,
+        "EGG": 4313,
+        "STRAWBERRY": 19962,
+        "CARROT": 734
+      },
+      "sold_units": {
+        "WHEAT": 564,
+        "FERTILIZER": 332,
+        "WOOL": 138,
+        "MILK": 261,
+        "MELON": 72,
+        "EGG": 79,
+        "STRAWBERRY": 257,
+        "CARROT": 18
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 11535,
+        "BUY_SEED:WHEAT": 1970,
+        "HIRE": 5400.0,
+        "BUY_ANIMAL:COW": 3600,
+        "BUY_ANIMAL:SHEEP": 2500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:CARROT": 180,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2012,
+        "BUY_ANIMAL:GOOSE": 900
+      }
+    }
+  ],
+  "max_action_seconds": 0.00676690000545932,
+  "parity_actions": 0,
+  "shops": [
+    "PIZZA_SHOP",
+    "BRUNCH_SPOT",
+    "YARN_STORE",
+    "ICE_CREAM_SHOP",
+    "YARN_STORE",
+    "BRUNCH_SPOT",
+    "YARN_STORE",
+    "PET_CAFE"
+  ]
+}

@@ -1363,3 +1363,16 @@ full yield) and replants the same day; T at 3.71 (37%); carrots 2.87 vs 3.03. Wh
 (d26-29 12 / 7). Holding is a little longer for T (wheat 3.0 vs 1.9 days between supply and sale). Tests in flight
 (G1, on the current mgt_lead defaults = Gnew 0.888): plant_cutoff off (Gpc0), cutoff only for plantings the leader
 never harvests (Gpc1, `cut_mode` "leader_harvest"), early_onetime (Geo), cap_fix (Gcf).
+**T tests on the 12 G1 worlds (Kaggle g1y; paired vs the current mgt_lead defaults, Gnew 0.888, gap +12.6k):**
+| cell | final cash vs Gnew (95% CI), better/worse | G1 ratio | gap to leader |
+|---|---|---|---|
+| Gpc0: plant_cutoff off (follow the leader's late plantings) | -67 (-1,230 .. +923), 7/5 | 0.889 | +12,607 |
+| Gpc1: cutoff only for plantings the leader never harvests | +36 (-860 .. +911), 7/5 | 0.890 | +12,504 |
+| Geo: early_onetime (wheat / carrot a day before full yield) | -2,321 (-3,818 .. -1,090), 2/10 | 0.865 | +14,862 |
+| **Gcf: cap_fix** | **+957 (+652 .. +1,276), 12/0** | **0.898** | +11,583 |
+**Finding: following the leader's late plantings gains nothing in T.** With the cutoff off T does execute them (plantings
+on days 26-29 8.2 -> 27.5 a game) but harvests on days 26-29 do not rise (wheat 123 -> 121, carrots 75 -> 65,
+strawberries 25 -> 31): the crew is saturated, so the extra planting / watering displaces harvesting. The split's +4.1k
+values those plantings at the leader's output, which needs the leader's labour efficiency (the crop-care / dispatcher
+part), not a plan change. cap_fix is a clear gain in T's own world (every game better); on the 48 four-quadrant worlds
+next (sem4 harness, arm T0Lr with the sem4 T settings, base vs + cap_fix; Kaggle s4cf).

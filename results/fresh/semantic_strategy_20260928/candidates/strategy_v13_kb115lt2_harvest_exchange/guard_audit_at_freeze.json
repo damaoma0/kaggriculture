@@ -1,0 +1,93 @@
+{
+  "scope": "PURE_FIXED_TIMESTAMP_REVISION_VALIDATION",
+  "no_engine": true,
+  "hashes": {
+    "agents\\mgt_lead_kb115lt2_harvestx_fast.py": "1770e5ab8edf4ae1c7bdd50959349579acba6f1226a0fad8951700e5e4e3119e",
+    "agents\\mgt_lead_kb115lt2_harvestx2_fast.py": "656fc41fdb3c772e9bd8a13ffedea79c7e8c412acdb4c64218344fa63f082da1",
+    "agents\\mgt_lead_kb115lt2_harvestx2.py": "e7ab87c8678a897ac3abfd16a7e2d0d2f8783edc8a0b804906b40401f28ccb03",
+    "agents\\mgt_lead_kb115lt2_harvestx2_eval.py": "87a7762ec439ae3e99672ec650ab535fa2aae3949e315631e2a32a8bb5ef6db2"
+  },
+  "changed_definitions": [
+    "_tier_harvest_exchange"
+  ],
+  "tests_run": 14,
+  "tests_passed": true,
+  "rows": [
+    {
+      "day": 7,
+      "fixture_sha256": "8614a5dc22acba667ce8462c704bd6283dc4708c0a5c1e6766c28102444cc19a",
+      "off_exact": true,
+      "actual_output_equal_v1_except_rejection_diagnostics": true,
+      "fixed_timestamps_preserved": true,
+      "decision": {
+        "accepted": false,
+        "examined": 0,
+        "cap": 96,
+        "rejected": {},
+        "reason": "no_eligible_pool"
+      }
+    },
+    {
+      "day": 12,
+      "fixture_sha256": "cc57ed6730324ba05ebfb33015a27237246b2483fcbd892273756abf1debe5ab",
+      "off_exact": true,
+      "actual_output_equal_v1_except_rejection_diagnostics": true,
+      "fixed_timestamps_preserved": true,
+      "decision": {
+        "accepted": false,
+        "examined": 0,
+        "cap": 96,
+        "rejected": {},
+        "reason": "no_eligible_pool"
+      }
+    },
+    {
+      "day": 18,
+      "fixture_sha256": "9090ed7d4d9f413144c4601d32e4dc9fc6c3cdde747bfbf62b0c0d3d7f5bb6a6",
+      "off_exact": true,
+      "actual_output_equal_v1_except_rejection_diagnostics": true,
+      "fixed_timestamps_preserved": true,
+      "decision": {
+        "accepted": true,
+        "examined": 34,
+        "cap": 96,
+        "rejected": {
+          "no_gain": 13,
+          "daytime_capacity_unverified": 2,
+          "time_or_supply": 1
+        },
+        "reason": "exchanged",
+        "tile": 36,
+        "animal": "SHEEP",
+        "product": "WOOL",
+        "held": 4,
+        "unit": 5,
+        "removed_tile": 36,
+        "removed_command": [
+          "COLLECT_FERTILIZER"
+        ],
+        "source_harvest_value": 184.79999999999998,
+        "score_gain": 136.79999999999998,
+        "finish_hour_exclusive": 24,
+        "midnight_load": 82,
+        "capacity_limit": 95,
+        "planned_receipt": "automatic_midnight"
+      }
+    },
+    {
+      "day": 26,
+      "fixture_sha256": "a4543071e1974eb48d6288b85516791d56d140b86fbeec80afcb1defefd16586",
+      "off_exact": true,
+      "actual_output_equal_v1_except_rejection_diagnostics": true,
+      "fixed_timestamps_preserved": true,
+      "decision": {
+        "accepted": false,
+        "examined": 0,
+        "cap": 96,
+        "rejected": {},
+        "reason": "unknown_delivery_deferrals"
+      }
+    }
+  ],
+  "prior_component_evidence": "V1 fixed-shop recorded-rival component remains valid for its captured D18 route; all four actual fixture outputs match this revision. No new game was run."
+}

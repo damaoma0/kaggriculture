@@ -1,0 +1,189 @@
+{
+  "schema": "cumulative-forecast-freeze-v1",
+  "development_data": "results\\fresh\\cumulative_planning\\dataset_train.json",
+  "development_sha256": "04f97cdb3285824387400aa14a6aa75864f508101630fd56975709140833e745",
+  "submission": "56266758",
+  "choices": {
+    "12/3": {
+      "model": "capacity_interaction_ridge",
+      "alpha": 10.0,
+      "candidate_alphas": {
+        "count_ridge": 10.0,
+        "count_timing_ridge": 10.0,
+        "own_product_demand_ridge": 0.1,
+        "state_ridge": 10.0,
+        "capacity_interaction_ridge": 10.0,
+        "nearest_state": null
+      }
+    },
+    "12/6": {
+      "model": "capacity_interaction_ridge",
+      "alpha": 100.0,
+      "candidate_alphas": {
+        "count_ridge": 10.0,
+        "count_timing_ridge": 10.0,
+        "own_product_demand_ridge": 1.0,
+        "state_ridge": 100.0,
+        "capacity_interaction_ridge": 100.0,
+        "nearest_state": null
+      }
+    },
+    "12/end": {
+      "model": "count_timing_ridge",
+      "alpha": 10.0,
+      "candidate_alphas": {
+        "count_ridge": 1.0,
+        "count_timing_ridge": 10.0,
+        "own_product_demand_ridge": 0.1,
+        "state_ridge": 100.0,
+        "capacity_interaction_ridge": 100.0,
+        "nearest_state": null
+      }
+    },
+    "15/3": {
+      "model": "capacity_interaction_ridge",
+      "alpha": 10.0,
+      "candidate_alphas": {
+        "count_ridge": 10.0,
+        "count_timing_ridge": 10.0,
+        "own_product_demand_ridge": 10.0,
+        "state_ridge": 10.0,
+        "capacity_interaction_ridge": 10.0,
+        "nearest_state": null
+      }
+    },
+    "15/6": {
+      "model": "state_ridge",
+      "alpha": 10.0,
+      "candidate_alphas": {
+        "count_ridge": 10.0,
+        "count_timing_ridge": 10.0,
+        "own_product_demand_ridge": 1.0,
+        "state_ridge": 10.0,
+        "capacity_interaction_ridge": 100.0,
+        "nearest_state": null
+      }
+    },
+    "15/end": {
+      "model": "count_timing_ridge",
+      "alpha": 10.0,
+      "candidate_alphas": {
+        "count_ridge": 1.0,
+        "count_timing_ridge": 10.0,
+        "own_product_demand_ridge": 0.1,
+        "state_ridge": 10.0,
+        "capacity_interaction_ridge": 10.0,
+        "nearest_state": null
+      }
+    },
+    "18/3": {
+      "model": "capacity_interaction_ridge",
+      "alpha": 10.0,
+      "candidate_alphas": {
+        "count_ridge": 10.0,
+        "count_timing_ridge": 10.0,
+        "own_product_demand_ridge": 1.0,
+        "state_ridge": 10.0,
+        "capacity_interaction_ridge": 10.0,
+        "nearest_state": null
+      }
+    },
+    "18/6": {
+      "model": "capacity_interaction_ridge",
+      "alpha": 10.0,
+      "candidate_alphas": {
+        "count_ridge": 10.0,
+        "count_timing_ridge": 10.0,
+        "own_product_demand_ridge": 1.0,
+        "state_ridge": 10.0,
+        "capacity_interaction_ridge": 10.0,
+        "nearest_state": null
+      }
+    },
+    "18/end": {
+      "model": "capacity_interaction_ridge",
+      "alpha": 100.0,
+      "candidate_alphas": {
+        "count_ridge": 10.0,
+        "count_timing_ridge": 10.0,
+        "own_product_demand_ridge": 0.1,
+        "state_ridge": 10.0,
+        "capacity_interaction_ridge": 100.0,
+        "nearest_state": null
+      }
+    },
+    "21/3": {
+      "model": "capacity_interaction_ridge",
+      "alpha": 10.0,
+      "candidate_alphas": {
+        "count_ridge": 10.0,
+        "count_timing_ridge": 10.0,
+        "own_product_demand_ridge": 1.0,
+        "state_ridge": 10.0,
+        "capacity_interaction_ridge": 10.0,
+        "nearest_state": null
+      }
+    },
+    "21/6": {
+      "model": "capacity_interaction_ridge",
+      "alpha": 10.0,
+      "candidate_alphas": {
+        "count_ridge": 10.0,
+        "count_timing_ridge": 10.0,
+        "own_product_demand_ridge": 0.1,
+        "state_ridge": 10.0,
+        "capacity_interaction_ridge": 10.0,
+        "nearest_state": null
+      }
+    },
+    "21/end": {
+      "model": "capacity_interaction_ridge",
+      "alpha": 10.0,
+      "candidate_alphas": {
+        "count_ridge": 1.0,
+        "count_timing_ridge": 10.0,
+        "own_product_demand_ridge": 0.1,
+        "state_ridge": 10.0,
+        "capacity_interaction_ridge": 10.0,
+        "nearest_state": null
+      }
+    },
+    "24/3": {
+      "model": "capacity_interaction_ridge",
+      "alpha": 10.0,
+      "candidate_alphas": {
+        "count_ridge": 10.0,
+        "count_timing_ridge": 1.0,
+        "own_product_demand_ridge": 0.1,
+        "state_ridge": 10.0,
+        "capacity_interaction_ridge": 10.0,
+        "nearest_state": null
+      }
+    },
+    "24/6": {
+      "model": "capacity_interaction_ridge",
+      "alpha": 100.0,
+      "candidate_alphas": {
+        "count_ridge": 1.0,
+        "count_timing_ridge": 1.0,
+        "own_product_demand_ridge": 0.1,
+        "state_ridge": 10.0,
+        "capacity_interaction_ridge": 100.0,
+        "nearest_state": null
+      }
+    },
+    "24/end": {
+      "model": "capacity_interaction_ridge",
+      "alpha": 100.0,
+      "candidate_alphas": {
+        "count_ridge": 1.0,
+        "count_timing_ridge": 1.0,
+        "own_product_demand_ridge": 0.1,
+        "state_ridge": 10.0,
+        "capacity_interaction_ridge": 100.0,
+        "nearest_state": null
+      }
+    }
+  },
+  "rule": "Created from training rows only; use with --frozen and --test-data. Do not replace after reading test metrics."
+}

@@ -1,0 +1,160 @@
+{
+  "rows": [
+    {
+      "board_cache": null,
+      "case": "generalization-0-v56-d18",
+      "cpu_seconds": 12.140625,
+      "forecasts": {
+        "197": [
+          "3182e8f6a8a0ff9ccbff21cfe9381d9b5146d718ab26af79d1c669ef4375a9e5",
+          "2a093ddc42f9e7a34b8d793f36d12913f08d56647f6b8a170d39f2c0c0bda6fc",
+          "8ab0ae7aa71d8d239cca7b787e2f002e46bcedbfca700eae861624cbaf9c059f",
+          "3fc6b2032f6d75f4ef5f1207933c947904c5934b453998b920b404a49b78d22c",
+          "e8385fb7224a88f846ce8b13e946797d3292cc58ab171ed58302d7aff533bb46",
+          "21bc755117fda21f8aea0a8c2defd7df2598625577110104c897a8d0ab32ae9f",
+          "52b7f2ae75b6be03b12bb169b977eef8f945af180c7ab004b2c080e91a74e972",
+          "edd5f2c231e7be14acdd9419dc6ec9e44002182b2b9067c1f47fa387c046e594"
+        ],
+        "203": [],
+        "322": [
+          "34259613faf63752a943dbd398c11f4fc1ed90fe87c377990dedd8c88c34d6cc"
+        ],
+        "341": [],
+        "426": [
+          "14ab9db35a4fa4e17b3a6b4bf1ac219b2e8edacab40e60541627e2cf0358fce3",
+          "f98bc7c31195b67ef649553bc8aa63081ea05796b4763e26f3f65d687565fe73",
+          "69461d591dc260137eb0f6e9bd271186c73b9103f6bf708bf3e6f4d65c93adad",
+          "b6d08dbdd4a17f57f6f412f9b7da5375281c69f90faa0f8bfbed31cb7a7374e1"
+        ],
+        "448": [
+          "0e489a1ec6ac4179c37d19747f1b7a8b0607085afe97140e709c4494e5c240a2"
+        ],
+        "None": [
+          "2abe79ba77478afa2b257c57257f3a28563ade2cc0e3800980f23c432a8322c5",
+          "535863b53c6f7ca3724bd78d3ff511d4840f172250f438f69dc5604eba179435",
+          "7f88616ac4b555fe16ec49e6a35961fe641f8625950fcc6ef65bbb1a7f7e44eb",
+          "4d82f5f540c4abe62ae6fc32c7df651bd7c1579bd8cab4a52e4eb5b3fee738d1",
+          "0a70941d8fcd43afcd1dc37694a03f212fcbcf4ddee352e625791ad7947f833e",
+          "a4d5ef8ef948418221916cf86741f83bb09250bb65cec6048d3e0f822225b995",
+          "74b8fe79cd12a3d6d6b505b4a5920cb6a073aff59bce2e2e41e5980f6aeeb611",
+          "86d824dcb069c47dc5716477fec0ddd691a42c4a11903ff6192727088a08584a"
+        ]
+      },
+      "historical_forecasts_equal": 22,
+      "phase": "cold",
+      "policy": "worlds",
+      "repeat": 0,
+      "rollouts": 24,
+      "selected": 197,
+      "semantic_sha256": "5ac2dfb373a1039e607efb578d36b2953fd5eecc07549a27519c6e61332b5725",
+      "simulated_turns": 6458,
+      "wall_seconds": 12.185319799988065,
+      "world_board_evaluations": 115,
+      "world_profile_evaluations": 1
+    },
+    {
+      "board_cache": null,
+      "case": "generalization-0-v56-d18",
+      "cpu_seconds": 11.578125,
+      "forecasts": {
+        "197": [
+          "3182e8f6a8a0ff9ccbff21cfe9381d9b5146d718ab26af79d1c669ef4375a9e5",
+          "2a093ddc42f9e7a34b8d793f36d12913f08d56647f6b8a170d39f2c0c0bda6fc",
+          "8ab0ae7aa71d8d239cca7b787e2f002e46bcedbfca700eae861624cbaf9c059f",
+          "3fc6b2032f6d75f4ef5f1207933c947904c5934b453998b920b404a49b78d22c",
+          "e8385fb7224a88f846ce8b13e946797d3292cc58ab171ed58302d7aff533bb46",
+          "21bc755117fda21f8aea0a8c2defd7df2598625577110104c897a8d0ab32ae9f",
+          "52b7f2ae75b6be03b12bb169b977eef8f945af180c7ab004b2c080e91a74e972",
+          "edd5f2c231e7be14acdd9419dc6ec9e44002182b2b9067c1f47fa387c046e594"
+        ],
+        "203": [],
+        "322": [
+          "34259613faf63752a943dbd398c11f4fc1ed90fe87c377990dedd8c88c34d6cc"
+        ],
+        "341": [],
+        "426": [
+          "14ab9db35a4fa4e17b3a6b4bf1ac219b2e8edacab40e60541627e2cf0358fce3",
+          "f98bc7c31195b67ef649553bc8aa63081ea05796b4763e26f3f65d687565fe73",
+          "69461d591dc260137eb0f6e9bd271186c73b9103f6bf708bf3e6f4d65c93adad",
+          "b6d08dbdd4a17f57f6f412f9b7da5375281c69f90faa0f8bfbed31cb7a7374e1"
+        ],
+        "448": [
+          "0e489a1ec6ac4179c37d19747f1b7a8b0607085afe97140e709c4494e5c240a2"
+        ],
+        "None": [
+          "2abe79ba77478afa2b257c57257f3a28563ade2cc0e3800980f23c432a8322c5",
+          "535863b53c6f7ca3724bd78d3ff511d4840f172250f438f69dc5604eba179435",
+          "7f88616ac4b555fe16ec49e6a35961fe641f8625950fcc6ef65bbb1a7f7e44eb",
+          "4d82f5f540c4abe62ae6fc32c7df651bd7c1579bd8cab4a52e4eb5b3fee738d1",
+          "0a70941d8fcd43afcd1dc37694a03f212fcbcf4ddee352e625791ad7947f833e",
+          "a4d5ef8ef948418221916cf86741f83bb09250bb65cec6048d3e0f822225b995",
+          "74b8fe79cd12a3d6d6b505b4a5920cb6a073aff59bce2e2e41e5980f6aeeb611",
+          "86d824dcb069c47dc5716477fec0ddd691a42c4a11903ff6192727088a08584a"
+        ]
+      },
+      "historical_forecasts_equal": 22,
+      "phase": "warm",
+      "policy": "worlds",
+      "repeat": 1,
+      "rollouts": 24,
+      "selected": 197,
+      "semantic_sha256": "5ac2dfb373a1039e607efb578d36b2953fd5eecc07549a27519c6e61332b5725",
+      "simulated_turns": 6458,
+      "wall_seconds": 11.624336100008804,
+      "world_board_evaluations": 115,
+      "world_profile_evaluations": 1
+    },
+    {
+      "board_cache": null,
+      "case": "generalization-0-v56-d18",
+      "cpu_seconds": 11.5625,
+      "forecasts": {
+        "197": [
+          "3182e8f6a8a0ff9ccbff21cfe9381d9b5146d718ab26af79d1c669ef4375a9e5",
+          "2a093ddc42f9e7a34b8d793f36d12913f08d56647f6b8a170d39f2c0c0bda6fc",
+          "8ab0ae7aa71d8d239cca7b787e2f002e46bcedbfca700eae861624cbaf9c059f",
+          "3fc6b2032f6d75f4ef5f1207933c947904c5934b453998b920b404a49b78d22c",
+          "e8385fb7224a88f846ce8b13e946797d3292cc58ab171ed58302d7aff533bb46",
+          "21bc755117fda21f8aea0a8c2defd7df2598625577110104c897a8d0ab32ae9f",
+          "52b7f2ae75b6be03b12bb169b977eef8f945af180c7ab004b2c080e91a74e972",
+          "edd5f2c231e7be14acdd9419dc6ec9e44002182b2b9067c1f47fa387c046e594"
+        ],
+        "203": [],
+        "322": [
+          "34259613faf63752a943dbd398c11f4fc1ed90fe87c377990dedd8c88c34d6cc"
+        ],
+        "341": [],
+        "426": [
+          "14ab9db35a4fa4e17b3a6b4bf1ac219b2e8edacab40e60541627e2cf0358fce3",
+          "f98bc7c31195b67ef649553bc8aa63081ea05796b4763e26f3f65d687565fe73",
+          "69461d591dc260137eb0f6e9bd271186c73b9103f6bf708bf3e6f4d65c93adad",
+          "b6d08dbdd4a17f57f6f412f9b7da5375281c69f90faa0f8bfbed31cb7a7374e1"
+        ],
+        "448": [
+          "0e489a1ec6ac4179c37d19747f1b7a8b0607085afe97140e709c4494e5c240a2"
+        ],
+        "None": [
+          "2abe79ba77478afa2b257c57257f3a28563ade2cc0e3800980f23c432a8322c5",
+          "535863b53c6f7ca3724bd78d3ff511d4840f172250f438f69dc5604eba179435",
+          "7f88616ac4b555fe16ec49e6a35961fe641f8625950fcc6ef65bbb1a7f7e44eb",
+          "4d82f5f540c4abe62ae6fc32c7df651bd7c1579bd8cab4a52e4eb5b3fee738d1",
+          "0a70941d8fcd43afcd1dc37694a03f212fcbcf4ddee352e625791ad7947f833e",
+          "a4d5ef8ef948418221916cf86741f83bb09250bb65cec6048d3e0f822225b995",
+          "74b8fe79cd12a3d6d6b505b4a5920cb6a073aff59bce2e2e41e5980f6aeeb611",
+          "86d824dcb069c47dc5716477fec0ddd691a42c4a11903ff6192727088a08584a"
+        ]
+      },
+      "historical_forecasts_equal": 22,
+      "phase": "warm",
+      "policy": "worlds",
+      "repeat": 2,
+      "rollouts": 24,
+      "selected": 197,
+      "semantic_sha256": "5ac2dfb373a1039e607efb578d36b2953fd5eecc07549a27519c6e61332b5725",
+      "simulated_turns": 6458,
+      "wall_seconds": 11.680922700033989,
+      "world_board_evaluations": 115,
+      "world_profile_evaluations": 1
+    }
+  ]
+}

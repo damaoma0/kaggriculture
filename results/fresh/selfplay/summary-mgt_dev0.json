@@ -1,0 +1,109 @@
+{
+ "manifest": {
+  "tag": "mgt_dev0",
+  "started": "2026-09-19 16:50:14",
+  "benchmark_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+  "rival": "v50_public",
+  "rival_sha256": "044a26601be23816d397c51c22c4d86b938f8bac4b914f9bea1fbe38bac1e8a5",
+  "seeds": [
+   177000,
+   177001,
+   177002,
+   177003,
+   177004,
+   177005,
+   177006,
+   177007
+  ],
+  "candidates": [
+   "mgt_v0",
+   "sp_null"
+  ],
+  "seed_base": 177000,
+  "design": "Paired seeds and both seats against the frozen uploaded agent. Natural engine RNG for shops and weeds. Seed-clustered bootstrap intervals. No tuning on these seeds.",
+  "sources": {
+   "agents/mgt_v0.py": "19035de3c71f2835efeecbf380a0d31b3d8bfe1faf39bdd35cd9af07512d0c56",
+   "agents/sp_null.py": "bb63423139f8090e6dbb08f678fe6d1660ad261f33a7a401730d6c5606de981b"
+  }
+ },
+ "failures": [],
+ "candidates": {
+  "mgt_v0": {
+   "label": "mgt_v0",
+   "build_sha256": "19035de3c71f2835efeecbf380a0d31b3d8bfe1faf39bdd35cd9af07512d0c56",
+   "games": 16,
+   "seeds": 8,
+   "wins": 12,
+   "ties": 0,
+   "losses": 4,
+   "win_rate": 75.0,
+   "win_rate_ci95": [
+    37.5,
+    100.0
+   ],
+   "mean_margin": 5325.3,
+   "margin_ci95": [
+    1580.2,
+    9670.2
+   ],
+   "median_margin": 3690.0,
+   "mean_cash": 105918,
+   "mean_bench_cash": 100592,
+   "seeds_positive": 6,
+   "per_seed_margin": {
+    "177000": 2134,
+    "177001": 4426,
+    "177002": 2954,
+    "177003": -2050,
+    "177004": 7181,
+    "177005": 13864,
+    "177006": -660,
+    "177007": 14753
+   },
+   "telemetry": {},
+   "parent_diagnostics": {},
+   "max_seconds": 0.229
+  },
+  "sp_null": {
+   "label": "sp_null",
+   "build_sha256": "bb63423139f8090e6dbb08f678fe6d1660ad261f33a7a401730d6c5606de981b",
+   "games": 16,
+   "seeds": 8,
+   "wins": 0,
+   "ties": 0,
+   "losses": 16,
+   "win_rate": 0.0,
+   "win_rate_ci95": [
+    0.0,
+    0.0
+   ],
+   "mean_margin": -2725.8,
+   "margin_ci95": [
+    -3614.2,
+    -1801.1
+   ],
+   "median_margin": -2689.0,
+   "mean_cash": 97616,
+   "mean_bench_cash": 100342,
+   "seeds_positive": 0,
+   "per_seed_margin": {
+    "177000": -2544,
+    "177001": -4341,
+    "177002": -1307,
+    "177003": -396,
+    "177004": -2827,
+    "177005": -4601,
+    "177006": -3239,
+    "177007": -2551
+   },
+   "telemetry": {
+    "calls": 11504
+   },
+   "parent_diagnostics": {
+    "supply_budget_declines": 28,
+    "parent_input_capacity_declines": 8
+   },
+   "max_seconds": 0.133
+  }
+ }
+}

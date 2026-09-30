@@ -1,0 +1,110 @@
+{
+  "candidate": "strategy_v9_kb115lt2_reveal",
+  "split": "development",
+  "candidate_manifest_sha256": "5173eebe47de522663241be99595f7c64b05e980081109ffc9477de2b967acb1",
+  "shipping_score_addendum_sha256": "95cce9dcf13e13c7834c0786e14fb55ef0408bc9dec09c02335ce8dc107a1958",
+  "original_independent_audit_pass": true,
+  "panels": {
+    "live": {
+      "planned": 8,
+      "recorded": 8,
+      "technically_valid": 6,
+      "wins": 3,
+      "complete": false,
+      "meets_30_of_40": false,
+      "mean_margin": null,
+      "original_strict_wins": 3,
+      "original_strict_valid": 6,
+      "original_strict_complete": false,
+      "material_script_breaks": [],
+      "technical_failures": {
+        "live-06": [
+          "action_count",
+          "action_hash",
+          "engine_overage",
+          "incomplete",
+          "ledger_shape",
+          "ledger_unverified",
+          "live_ineligible",
+          "measured_runtime",
+          "missing_import_audit",
+          "software_error"
+        ],
+        "live-07": [
+          "action_count",
+          "action_hash",
+          "engine_overage",
+          "incomplete",
+          "ledger_shape",
+          "ledger_unverified",
+          "live_ineligible",
+          "measured_runtime",
+          "missing_import_audit",
+          "software_error"
+        ]
+      },
+      "missing_cases": [],
+      "hashes": {
+        "live-00": {
+          "result_sha256": "c8fce683fe64b2728cd3f52181161feefe2d9a4e88d4111ef0d53dbe3ce7b527",
+          "actions_sha256": "83875e905c60818374a07c054430b4ddf3db9227d0d51104eaf16c8d9943fe2a"
+        },
+        "live-01": {
+          "result_sha256": "634e5afd17213b44f3a954b7bf219d501edf2aeaf77afb393fe6d97ac722d00f",
+          "actions_sha256": "61973333923622df2be37edffdda7fc9eb0717a4d6807885fec2bb30dce5adf1"
+        },
+        "live-02": {
+          "result_sha256": "d5323e7c7b94737fe9397767163d127d92a1eb6f6f02ed3028e2e942819c1249",
+          "actions_sha256": "65838c814275e7f1886cdb9a9117d77e5bcff7dfcf54ef73fffb81c292f896f2"
+        },
+        "live-03": {
+          "result_sha256": "59e9c1f1a8ddf3cb7eb1b892f8ce12aa1d51fa386dcbfa52638ea71e82f5985e",
+          "actions_sha256": "fdb2a76bf40c1871c3e91bbdcf13282b337352c7bf11a83eb5345bb9953b4a2c"
+        },
+        "live-04": {
+          "result_sha256": "c471862809f65a00f50e0714b32ac73e1935d7ca60015217c337c37545f7e319",
+          "actions_sha256": "3553d5db0b27540a9f56e99ad8398434601e8bdae3c6cbd542f3a1c2031d2f4d"
+        },
+        "live-05": {
+          "result_sha256": "d9c01622a8022834b2bd77ddb9789241b2b3658ec7f6d6ec24f5491798c1ea4e",
+          "actions_sha256": "cf908091cc0ca9ec5e3f11c89b5e58cf752f758abf773cdb0103278d1d652146"
+        },
+        "live-06": {
+          "result_sha256": "79841044e79bb5b15cf57d0e82f8e5c48f3ee2b2592afcd45eb4f8a00f0ef673",
+          "actions_sha256": "149e3c01e65f13353cd6ad2febece9157db535eba0eab89743cf4734768d54c9"
+        },
+        "live-07": {
+          "result_sha256": "e6d9d7a585cf1ce92ae3f65d849d2c491eb8d5469ab6ac5f15812bd4516d47d3",
+          "actions_sha256": "0dca6d3b6a20694f35aa7bf4cd231a0f9f99cb697c0ec020232dec0cdf3b7272"
+        }
+      }
+    },
+    "recorded": {
+      "planned": 8,
+      "recorded": 0,
+      "technically_valid": 0,
+      "wins": 0,
+      "complete": false,
+      "meets_30_of_40": false,
+      "mean_margin": null,
+      "original_strict_wins": 0,
+      "original_strict_valid": 0,
+      "original_strict_complete": false,
+      "material_script_breaks": [],
+      "technical_failures": {},
+      "missing_cases": [
+        "recorded-111681195",
+        "recorded-111871547",
+        "recorded-111902048",
+        "recorded-112181121",
+        "recorded-112476470",
+        "recorded-112610631",
+        "recorded-112612822",
+        "recorded-112615422"
+      ],
+      "hashes": {}
+    }
+  },
+  "shipping_gate_pass": false,
+  "note": "Scripted and responsive scores remain separate. All planned slots retained; original strict artifacts unchanged."
+}

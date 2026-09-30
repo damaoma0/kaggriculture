@@ -1,0 +1,346 @@
+{
+ "manifest": {
+  "tag": "round1",
+  "started": "2026-09-17 22:56:55",
+  "benchmark_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+  "seeds": [
+   171000,
+   171001,
+   171002,
+   171003,
+   171004,
+   171005,
+   171006,
+   171007,
+   171008,
+   171009,
+   171010,
+   171011,
+   171012,
+   171013,
+   171014,
+   171015
+  ],
+  "candidates": [
+   "sp_null",
+   "sp_hirecap11",
+   "sp_hirecap12",
+   "sp_hirecap13",
+   "sp_noquad4",
+   "sp_fertretain"
+  ],
+  "design": "Paired seeds and both seats against the frozen uploaded agent. Natural engine RNG for shops and weeds. Seed-clustered bootstrap intervals. No tuning on these seeds.",
+  "sources": {
+   "agents/sp_null.py": "bb63423139f8090e6dbb08f678fe6d1660ad261f33a7a401730d6c5606de981b",
+   "agents/sp_hirecap11.py": "699486692d6ecdbe435048129cf0f6a8892a0bf8125e057d865f3767c215389c",
+   "agents/sp_hirecap12.py": "017c2a3a1faecd4a64a68e30b9c1f3f739469d72c4ee66196de93e3bf0310959",
+   "agents/sp_hirecap13.py": "584fbc1cdeff414853103733c2757a511fc3474e7193559f219a72e313a46d51",
+   "agents/sp_noquad4.py": "f721a4bb7de8dc62ced2e52a25e5a2cfca3b2e76d51becd433ecf48291ba20cf",
+   "agents/sp_fertretain.py": "de65aa4531e1e5a732dadef46447c7ed627c5fd9edd7500a024809c220e35c60"
+  }
+ },
+ "failures": [],
+ "candidates": {
+  "sp_null": {
+   "label": "sp_null",
+   "games": 32,
+   "seeds": 16,
+   "wins": 0,
+   "ties": 32,
+   "losses": 0,
+   "win_rate": 0.0,
+   "win_rate_ci95": [
+    0.0,
+    0.0
+   ],
+   "mean_margin": 0.0,
+   "margin_ci95": [
+    0.0,
+    0.0
+   ],
+   "median_margin": 0.0,
+   "mean_cash": 96551,
+   "mean_bench_cash": 96551,
+   "seeds_positive": 0,
+   "per_seed_margin": {
+    "171000": 0,
+    "171001": 0,
+    "171002": 0,
+    "171003": 0,
+    "171004": 0,
+    "171005": 0,
+    "171006": 0,
+    "171007": 0,
+    "171008": 0,
+    "171009": 0,
+    "171010": 0,
+    "171011": 0,
+    "171012": 0,
+    "171013": 0,
+    "171014": 0,
+    "171015": 0
+   },
+   "telemetry": {
+    "calls": 23008
+   },
+   "parent_diagnostics": {
+    "supply_budget_declines": 50,
+    "parent_input_capacity_declines": 2
+   },
+   "max_seconds": 0.2
+  },
+  "sp_hirecap11": {
+   "label": "sp_hirecap11",
+   "games": 32,
+   "seeds": 16,
+   "wins": 14,
+   "ties": 2,
+   "losses": 16,
+   "win_rate": 43.8,
+   "win_rate_ci95": [
+    18.8,
+    68.8
+   ],
+   "mean_margin": -3856.6,
+   "margin_ci95": [
+    -7001.1,
+    -1048.6
+   ],
+   "median_margin": -15.0,
+   "mean_cash": 94344,
+   "mean_bench_cash": 98201,
+   "seeds_positive": 7,
+   "per_seed_margin": {
+    "171000": -11802,
+    "171001": -377,
+    "171002": 31,
+    "171003": -14377,
+    "171004": 42,
+    "171005": -14520,
+    "171006": -5617,
+    "171007": 142,
+    "171008": -15147,
+    "171009": 498,
+    "171010": 79,
+    "171011": 0,
+    "171012": 93,
+    "171013": 83,
+    "171014": -803,
+    "171015": -30
+   },
+   "telemetry": {
+    "hires_dropped": 262
+   },
+   "parent_diagnostics": {
+    "supply_budget_declines": 50,
+    "hire_shortfalls": 44,
+    "input_hire_errors": 122,
+    "sheep_capacity_declines": 2,
+    "sheep_hire_shortfalls": 34
+   },
+   "max_seconds": 0.152
+  },
+  "sp_hirecap12": {
+   "label": "sp_hirecap12",
+   "games": 32,
+   "seeds": 16,
+   "wins": 0,
+   "ties": 26,
+   "losses": 6,
+   "win_rate": 0.0,
+   "win_rate_ci95": [
+    0.0,
+    0.0
+   ],
+   "mean_margin": -2529.9,
+   "margin_ci95": [
+    -5608.4,
+    0.0
+   ],
+   "median_margin": 0.0,
+   "mean_cash": 96054,
+   "mean_bench_cash": 98583,
+   "seeds_positive": 0,
+   "per_seed_margin": {
+    "171000": -17947,
+    "171001": 0,
+    "171002": 0,
+    "171003": -16105,
+    "171004": 0,
+    "171005": 0,
+    "171006": 0,
+    "171007": 0,
+    "171008": -6426,
+    "171009": 0,
+    "171010": 0,
+    "171011": 0,
+    "171012": 0,
+    "171013": 0,
+    "171014": 0,
+    "171015": 0
+   },
+   "telemetry": {
+    "hires_dropped": 70
+   },
+   "parent_diagnostics": {
+    "supply_budget_declines": 50,
+    "hire_shortfalls": 64,
+    "input_hire_errors": 2,
+    "parent_input_capacity_declines": 2,
+    "sheep_capacity_declines": 2,
+    "sheep_hire_shortfalls": 28
+   },
+   "max_seconds": 0.223
+  },
+  "sp_hirecap13": {
+   "label": "sp_hirecap13",
+   "games": 32,
+   "seeds": 16,
+   "wins": 0,
+   "ties": 26,
+   "losses": 6,
+   "win_rate": 0.0,
+   "win_rate_ci95": [
+    0.0,
+    0.0
+   ],
+   "mean_margin": -894.6,
+   "margin_ci95": [
+    -2081.8,
+    0.0
+   ],
+   "median_margin": 0.0,
+   "mean_cash": 96303,
+   "mean_bench_cash": 97197,
+   "seeds_positive": 0,
+   "per_seed_margin": {
+    "171000": -4987,
+    "171001": 0,
+    "171002": 0,
+    "171003": -1548,
+    "171004": 0,
+    "171005": 0,
+    "171006": 0,
+    "171007": 0,
+    "171008": -7778,
+    "171009": 0,
+    "171010": 0,
+    "171011": 0,
+    "171012": 0,
+    "171013": 0,
+    "171014": 0,
+    "171015": 0
+   },
+   "telemetry": {
+    "hires_dropped": 10
+   },
+   "parent_diagnostics": {
+    "supply_budget_declines": 50,
+    "hire_shortfalls": 10,
+    "parent_input_capacity_declines": 2,
+    "sheep_hire_shortfalls": 6
+   },
+   "max_seconds": 0.17
+  },
+  "sp_noquad4": {
+   "label": "sp_noquad4",
+   "games": 32,
+   "seeds": 16,
+   "wins": 4,
+   "ties": 26,
+   "losses": 2,
+   "win_rate": 12.5,
+   "win_rate_ci95": [
+    0.0,
+    31.2
+   ],
+   "mean_margin": -348.8,
+   "margin_ci95": [
+    -1375.5,
+    300.8
+   ],
+   "median_margin": 0.0,
+   "mean_cash": 96300,
+   "mean_bench_cash": 96649,
+   "seeds_positive": 2,
+   "per_seed_margin": {
+    "171000": 1604,
+    "171001": 0,
+    "171002": 0,
+    "171003": -7336,
+    "171004": 0,
+    "171005": 0,
+    "171006": 0,
+    "171007": 0,
+    "171008": 151,
+    "171009": 0,
+    "171010": 0,
+    "171011": 0,
+    "171012": 0,
+    "171013": 0,
+    "171014": 0,
+    "171015": 0
+   },
+   "telemetry": {
+    "v233_gate_suppressed": 64,
+    "v219_gate_suppressed": 32
+   },
+   "parent_diagnostics": {
+    "supply_budget_declines": 50
+   },
+   "max_seconds": 0.151
+  },
+  "sp_fertretain": {
+   "label": "sp_fertretain",
+   "games": 32,
+   "seeds": 16,
+   "wins": 0,
+   "ties": 0,
+   "losses": 32,
+   "win_rate": 0.0,
+   "win_rate_ci95": [
+    0.0,
+    0.0
+   ],
+   "mean_margin": -111072.0,
+   "margin_ci95": [
+    -121547.5,
+    -100940.1
+   ],
+   "median_margin": -108285.5,
+   "mean_cash": 43820,
+   "mean_bench_cash": 154892,
+   "seeds_positive": 0,
+   "per_seed_margin": {
+    "171000": -110885,
+    "171001": -98267,
+    "171002": -141905,
+    "171003": -96986,
+    "171004": -131917,
+    "171005": -104883,
+    "171006": -94071,
+    "171007": -123862,
+    "171008": -80952,
+    "171009": -147380,
+    "171010": -106367,
+    "171011": -144145,
+    "171012": -116946,
+    "171013": -88364,
+    "171014": -110204,
+    "171015": -80018
+   },
+   "telemetry": {
+    "fertilizer_buys_dropped": 632,
+    "fertilizer_sale_units_withheld": 24318,
+    "fertilizer_sales_withheld": 355154
+   },
+   "parent_diagnostics": {
+    "supply_budget_declines": 342,
+    "overflow_contract_errors": 38,
+    "input_stock_shortfalls": 40,
+    "sheep_budget_declines": 2
+   },
+   "max_seconds": 0.182
+  }
+ }
+}

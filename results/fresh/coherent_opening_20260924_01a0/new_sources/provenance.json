@@ -1,0 +1,24 @@
+{
+  "source": "Kaggle public competition replay endpoint via installed KaggleApi; replay retrieval method competition_episode_replay",
+  "competition": "kaggriculture",
+  "submission_id": 56495569,
+  "team_id": 16732748,
+  "listing_file": "listing.json",
+  "listing_sha256": "2b34f3d037d30e3a88f02f09d136c8370b49f6bad2ddd35116a327a1d6f93c55",
+  "selection_file": "replay_selection.json",
+  "selected_count": 32,
+  "total_bytes": 1198018812,
+  "coverage_types": 8,
+  "first_shop_coverage": {
+    "ICE_CREAM_SHOP": 5,
+    "PIZZA_SHOP": 6,
+    "BAKERY": 5,
+    "SMOOTHIE_SHOP": 6,
+    "FARMERS_MARKET": 4,
+    "PET_CAFE": 2,
+    "BRUNCH_SPOT": 3,
+    "YARN_STORE": 1
+  },
+  "captured_utc": "2026-09-24T10:30:35.826846+00:00",
+  "selection_rule": "Recent completed episodes sorted by create_time descending; retain the first 32 valid full recordings after excluding the three existing fresh episodes. Selection did not read or rank by score/reward. First-shop coverage is reported as observed, not used to filter."
+}

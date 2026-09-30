@@ -1,0 +1,2 @@
+[{"kind": "push", "run": "pvs9", "agents": "mgt_lpv_fx1,mgt_lpv_pv30,mgt_lpv_pv60,mgt_lpv_nd", "submission": "p2750", "episodes": "110937191,111374151,111376633,111416249,111554912,111577649,111681195,111688786,111871547,111902048,111916514,111941962", "shards": 1, "workers": 4},
+ {"kind": "pushcmd", "run": "g1h", "cmd": "scripts/lead_ablation.py run E2fx1,E2pv30,E2pv60,E2nd --workers 4", "collect": "results/fresh/lead_agent_20260924/abl_*/*.json"}]

@@ -1,0 +1,69 @@
+{
+  "spec": {
+    "id": "replay-112604806",
+    "world": 112604806,
+    "kind": "replay",
+    "episode": 112604806,
+    "seat": 1,
+    "opponent": "\u5403\u767d\u996d\u7684\u5927\u80a5\u9c7c",
+    "submission": 56483899,
+    "rating": 2984.3
+  },
+  "completed": true,
+  "baseline_margin": 60384.0,
+  "candidate_margin": 65505.0,
+  "baseline_cash": 132938.0,
+  "candidate_cash": 138382.0,
+  "baseline_rival_cash": 72554.0,
+  "candidate_rival_cash": 72877.0,
+  "margin_delta": 5121.0,
+  "cash_delta": 5444.0,
+  "rival_delta": 323.0,
+  "selected": [
+    null,
+    454,
+    null
+  ],
+  "intervened": true,
+  "actions_changed": true,
+  "baseline_bank": 59.60570639994694,
+  "candidate_bank": 54.49009890004527,
+  "baseline_divergence": {
+    "first_board_difference": 25,
+    "first_private_difference": 25,
+    "extra_failed_commands": 1385,
+    "recorded_cash": 108739.0,
+    "counterfactual_cash": 72554.0,
+    "sold_units_delta": {
+      "WHEAT": -144,
+      "CARROT": 0,
+      "TOMATO": -23,
+      "STRAWBERRY": -48,
+      "MELON": -18,
+      "EGG": -134,
+      "MILK": -93,
+      "WOOL": -120,
+      "FERTILIZER": -122
+    },
+    "material_command_break": true
+  },
+  "candidate_divergence": {
+    "first_board_difference": 25,
+    "first_private_difference": 25,
+    "extra_failed_commands": 1385,
+    "recorded_cash": 108739.0,
+    "counterfactual_cash": 72877.0,
+    "sold_units_delta": {
+      "WHEAT": -144,
+      "CARROT": 0,
+      "TOMATO": -23,
+      "STRAWBERRY": -48,
+      "MELON": -18,
+      "EGG": -134,
+      "MILK": -93,
+      "WOOL": -120,
+      "FERTILIZER": -122
+    },
+    "material_command_break": true
+  }
+}

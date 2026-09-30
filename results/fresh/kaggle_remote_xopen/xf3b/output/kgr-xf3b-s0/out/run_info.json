@@ -1,0 +1,28 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/xfix_run.py",
+   "full",
+   "Ffs,FA,FB",
+   "--worlds",
+   "all"
+  ],
+  "collect": [
+   "results/fresh/xfix_20260925/full/**/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 156,
+ "pip_seconds": 58.37861180305481,
+ "run_seconds": 1295.2482318878174,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "completed 156 jobs in 1295s"
+ ],
+ "stderr_tail": []
+}

@@ -1,0 +1,38 @@
+{
+  "created_utc": "2026-09-24T15:55:59Z",
+  "design": "Natural engine RNG; several of our agents (paired on the same seeds), each vs active frozen V56. Fresh seeds, excluded from the 128-seed mgt_m1 panel and the reserved block. No forced shops or early stopping.",
+  "opponent": "v56",
+  "hashes": {
+    "v56": "2536d41ed5a00c75204b6350f1c76c54259c774cb065ba2a3a0072eedf210d94",
+    "mgt_y3": "416ab6977af12644c39ba26b269cecc261c47daffe35997fb51e4cf5fbbb7073",
+    "mgt_v9litepkg3": "b4c273bdb5421cbce700d2e5a028a7754679eef8868ec6e914ee960626f94829"
+  },
+  "master_seed": 149868134670068261857804040987325038144,
+  "seeds": [
+    1791752809,
+    1215137610,
+    563193985,
+    1801655729,
+    258194067,
+    1392139741,
+    1733619786,
+    859642076,
+    1115232318,
+    881636770,
+    1267905794,
+    1337924774,
+    2137316823,
+    1148750983,
+    159224935,
+    1391143470,
+    467589441,
+    811736971,
+    807329327,
+    645430672
+  ],
+  "seats": [
+    0,
+    1
+  ],
+  "excluded_old_seeds": 188
+}

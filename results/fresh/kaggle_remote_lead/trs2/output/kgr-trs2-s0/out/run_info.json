@@ -1,0 +1,41 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/ladder_panel.py",
+   "run",
+   "mgt_lpv_trs",
+   "p2750",
+   "110937191,111374151,111376633,111416249,111554912,111577649,111681195,111688786,111871547,111902048,111916514,111941962"
+  ],
+  "collect": [
+   "results/fresh/lead_idle/smoke/*.jsonl",
+   "results/fresh/ladder_panel/mgt_lpv_trs/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 24,
+ "pip_seconds": 37.84242057800293,
+ "run_seconds": 73.78577756881714,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "AMD EPYC 7B12",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "12 games, 4 workers (32.7 GB free)",
+  "mgt_lpv_trs 110937191 margin    +8,067 (recorded    +6,275)",
+  "mgt_lpv_trs 111416249 margin   -12,451 (recorded    -9,726)",
+  "mgt_lpv_trs 111376633 margin   -16,813 (recorded    +4,158)",
+  "mgt_lpv_trs 111374151 margin    -3,563 (recorded    +9,311)",
+  "mgt_lpv_trs 111577649 margin   -21,744 (recorded    +4,794)",
+  "mgt_lpv_trs 111554912 margin   -16,177 (recorded    -1,356)",
+  "mgt_lpv_trs 111681195 margin   -22,322 (recorded    +6,142)",
+  "mgt_lpv_trs 111688786 margin   -14,837 (recorded    +4,007)",
+  "mgt_lpv_trs 111871547 margin   -19,756 (recorded      -372)",
+  "mgt_lpv_trs 111902048 margin    -6,865 (recorded    +6,763)",
+  "mgt_lpv_trs 111941962 margin    +1,324 (recorded   +22,041)",
+  "mgt_lpv_trs 111916514 margin   -18,254 (recorded    -7,004)"
+ ],
+ "stderr_tail": []
+}

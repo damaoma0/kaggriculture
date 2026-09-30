@@ -1,0 +1,95 @@
+{
+  "per_day_mode": [
+    {
+      "day": 12,
+      "mode": "forecast",
+      "n": 2,
+      "requested_target_mae": 2.2962962962962963,
+      "next3_requested_target_mae": 0.4444444444444444,
+      "optimal": 2,
+      "arithmetic_passed": 2
+    },
+    {
+      "day": 12,
+      "mode": "residual_transfer",
+      "n": 2,
+      "requested_target_mae": 2.351851851851852,
+      "next3_requested_target_mae": 0.611111111111111,
+      "optimal": 2,
+      "arithmetic_passed": 2
+    },
+    {
+      "day": 15,
+      "mode": "forecast",
+      "n": 2,
+      "requested_target_mae": 1.5185185185185186,
+      "next3_requested_target_mae": 0.7222222222222222,
+      "optimal": 2,
+      "arithmetic_passed": 2
+    },
+    {
+      "day": 15,
+      "mode": "residual_transfer",
+      "n": 2,
+      "requested_target_mae": 1.3703703703703702,
+      "next3_requested_target_mae": 0.3333333333333333,
+      "optimal": 2,
+      "arithmetic_passed": 2
+    },
+    {
+      "day": 18,
+      "mode": "forecast",
+      "n": 2,
+      "requested_target_mae": 2.5,
+      "next3_requested_target_mae": 1.6666666666666667,
+      "optimal": 2,
+      "arithmetic_passed": 2
+    },
+    {
+      "day": 18,
+      "mode": "residual_transfer",
+      "n": 2,
+      "requested_target_mae": 2.259259259259259,
+      "next3_requested_target_mae": 0.9444444444444444,
+      "optimal": 2,
+      "arithmetic_passed": 2
+    },
+    {
+      "day": 21,
+      "mode": "forecast",
+      "n": 2,
+      "requested_target_mae": 1.8333333333333335,
+      "next3_requested_target_mae": 1.5555555555555556,
+      "optimal": 2,
+      "arithmetic_passed": 2
+    },
+    {
+      "day": 21,
+      "mode": "residual_transfer",
+      "n": 2,
+      "requested_target_mae": 1.9074074074074074,
+      "next3_requested_target_mae": 1.2777777777777777,
+      "optimal": 2,
+      "arithmetic_passed": 2
+    },
+    {
+      "day": 24,
+      "mode": "forecast",
+      "n": 2,
+      "requested_target_mae": 1.6666666666666667,
+      "next3_requested_target_mae": 2.3333333333333335,
+      "optimal": 2,
+      "arithmetic_passed": 2
+    },
+    {
+      "day": 24,
+      "mode": "residual_transfer",
+      "n": 2,
+      "requested_target_mae": 0.8611111111111112,
+      "next3_requested_target_mae": 0.7777777777777778,
+      "optimal": 2,
+      "arithmetic_passed": 2
+    }
+  ],
+  "note": "Arithmetic aggregate audit. Target slack is target projection error, not a resource infeasibility or routing result."
+}

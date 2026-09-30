@@ -1,0 +1,29 @@
+{
+  "fixed_name": "public-router",
+  "fixed": {
+    "default": "router"
+  },
+  "adaptive": {
+    "default": "router",
+    "by_shop": {
+      "BAKERY": {
+        "COW": 4,
+        "SHEEP": 8,
+        "crop": "STRAWBERRY",
+        "hands": 8
+      },
+      "BRUNCH_SPOT": "router",
+      "FARMERS_MARKET": "router",
+      "ICE_CREAM_SHOP": "router",
+      "PET_CAFE": "router",
+      "PIZZA_SHOP": "router",
+      "SMOOTHIE_SHOP": "router",
+      "YARN_STORE": {
+        "COW": 4,
+        "SHEEP": 8,
+        "crop": "STRAWBERRY",
+        "hands": 8
+      }
+    }
+  }
+}

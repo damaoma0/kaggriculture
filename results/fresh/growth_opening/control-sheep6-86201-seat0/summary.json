@@ -1,0 +1,79 @@
+{
+  "name": "control-sheep6",
+  "config": {
+    "cash_crop": "WHEAT",
+    "harvest_age": 4,
+    "hands": 6,
+    "animals": [
+      "SHEEP",
+      "SHEEP",
+      "SHEEP",
+      "SHEEP",
+      "SHEEP",
+      "SHEEP"
+    ],
+    "melons": 0,
+    "strawberries": 0,
+    "strawberry_day": 4,
+    "land_day": 99,
+    "land_buffer": 700
+  },
+  "seed": 86201,
+  "future_seed": 96201,
+  "seat": 0,
+  "continuation": "replant",
+  "day9": {
+    "cash": 8729.0,
+    "shed_sale_value_no_other_trades": 1722,
+    "crops": {
+      "WHEAT": 17
+    },
+    "animals": {
+      "SHEEP": 6
+    },
+    "land_tiles": 25
+  },
+  "opening_losses": {
+    "crop": 0,
+    "animal": 0
+  },
+  "our_final": 31162.0,
+  "router_final": 97554.0,
+  "margin": -66392.0,
+  "max_opening_ms": 0.5650000020978041,
+  "checkpoints": {
+    "3": {
+      "ours": 224.0,
+      "router": 154.0
+    },
+    "6": {
+      "ours": 1418.0,
+      "router": 214.0
+    },
+    "9": {
+      "ours": 8729.0,
+      "router": 653.0
+    },
+    "12": {
+      "ours": 12841.0,
+      "router": 15955.0
+    },
+    "15": {
+      "ours": 15016.0,
+      "router": 22116.0
+    },
+    "20": {
+      "ours": 20006.0,
+      "router": 43277.0
+    },
+    "25": {
+      "ours": 25584.0,
+      "router": 71532.0
+    },
+    "29": {
+      "ours": 29419.0,
+      "router": 90224.0
+    }
+  },
+  "seconds": 5.685250499998801
+}

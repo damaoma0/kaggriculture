@@ -1,0 +1,85 @@
+{
+  "file": "agents\\v45_event_opening_fixed.py",
+  "sha256": "e512d755d45fb3cee6602493a9af799131fb3b2dd3707f927e744e4b7a6cd7a3",
+  "parity_actions": 719,
+  "rewards": [
+    129570.0,
+    123161.0
+  ],
+  "event_stats": {
+    "calls": 29,
+    "changed": 0,
+    "valued_lots": 135,
+    "unchanged_lots": 228,
+    "errors": 0
+  },
+  "ledger": [
+    {
+      "revenue": {
+        "WHEAT": 11095,
+        "FERTILIZER": 13066,
+        "WOOL": 81818,
+        "MILK": 8923,
+        "MELON": 14267,
+        "EGG": 4392,
+        "STRAWBERRY": 23772,
+        "CARROT": 2424
+      },
+      "sold_units": {
+        "WHEAT": 304,
+        "FERTILIZER": 338,
+        "WOOL": 341,
+        "MILK": 118,
+        "MELON": 72,
+        "EGG": 78,
+        "STRAWBERRY": 206,
+        "CARROT": 87
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 6637,
+        "HIRE": 6180.0,
+        "BUY_ANIMAL:COW": 1600,
+        "BUY_ANIMAL:SHEEP": 7500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:WHEAT": 1630,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 860,
+        "BUY_ANIMAL:GOOSE": 900,
+        "BUY_SEED:CARROT": 620
+      }
+    },
+    {
+      "revenue": {
+        "FERTILIZER": 13965,
+        "WHEAT": 10903,
+        "WOOL": 86139,
+        "MILK": 11863,
+        "MELON": 14267,
+        "STRAWBERRY": 25254,
+        "CARROT": 2317
+      },
+      "sold_units": {
+        "FERTILIZER": 427,
+        "WHEAT": 296,
+        "WOOL": 359,
+        "MILK": 174,
+        "MELON": 72,
+        "STRAWBERRY": 249,
+        "CARROT": 84
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 7954,
+        "HIRE": 11793.0,
+        "BUY_ANIMAL:COW": 2400,
+        "BUY_ANIMAL:SHEEP": 8000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:WHEAT": 1630,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 7000.0,
+        "BUY_PRODUCT:FERTILIZER": 890,
+        "BUY_SEED:CARROT": 620
+      }
+    }
+  ]
+}

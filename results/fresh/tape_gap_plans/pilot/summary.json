@@ -1,0 +1,653 @@
+{
+  "input": "results\\fresh\\tape_gap_plans\\local_transfer.json",
+  "case_count": 10,
+  "cases": [
+    {
+      "file": "111317319_s0_d12.json",
+      "episode": 111317319,
+      "seat": 0,
+      "day": 12,
+      "forecast_feasible": false,
+      "transfer_feasible": false,
+      "comparison": {
+        "plant_counts": {
+          "forecast": {
+            "WHEAT": 79,
+            "STRAWBERRY": 14,
+            "TOMATO": 1,
+            "CARROT": 17
+          },
+          "residual_transfer": {
+            "WHEAT": 79,
+            "STRAWBERRY": 14,
+            "TOMATO": 1,
+            "CARROT": 17
+          }
+        },
+        "herd_counts": {
+          "forecast": {
+            "SHEEP": 2
+          },
+          "residual_transfer": {
+            "SHEEP": 2
+          }
+        },
+        "output": {
+          "forecast": {
+            "WHEAT": 503,
+            "FERTILIZER": 311,
+            "MILK": 181,
+            "WOOL": 123,
+            "EGG": 104,
+            "STRAWBERRY": 292,
+            "MELON": 6,
+            "TOMATO": 8,
+            "CARROT": 54
+          },
+          "residual_transfer": {
+            "WHEAT": 503,
+            "FERTILIZER": 311,
+            "MILK": 181,
+            "WOOL": 123,
+            "EGG": 104,
+            "STRAWBERRY": 292,
+            "MELON": 6,
+            "CARROT": 54,
+            "TOMATO": 8
+          }
+        },
+        "workload": {
+          "forecast": 2196,
+          "residual_transfer": 2197
+        },
+        "procurement": {
+          "forecast": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          },
+          "residual_transfer": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          }
+        }
+      }
+    },
+    {
+      "file": "111271925_s0_d12.json",
+      "episode": 111271925,
+      "seat": 0,
+      "day": 12,
+      "forecast_feasible": false,
+      "transfer_feasible": false,
+      "comparison": {
+        "plant_counts": {
+          "forecast": {
+            "WHEAT": 79,
+            "CARROT": 76,
+            "TOMATO": 8
+          },
+          "residual_transfer": {
+            "WHEAT": 79,
+            "TOMATO": 8,
+            "CARROT": 76
+          }
+        },
+        "herd_counts": {
+          "forecast": {
+            "GOOSE": 1
+          },
+          "residual_transfer": {
+            "GOOSE": 1
+          }
+        },
+        "output": {
+          "forecast": {
+            "WHEAT": 503,
+            "FERTILIZER": 293,
+            "MILK": 90,
+            "EGG": 232,
+            "WOOL": 48,
+            "STRAWBERRY": 156,
+            "CARROT": 246,
+            "MELON": 12,
+            "TOMATO": 64
+          },
+          "residual_transfer": {
+            "WHEAT": 503,
+            "FERTILIZER": 293,
+            "MILK": 90,
+            "EGG": 232,
+            "WOOL": 48,
+            "STRAWBERRY": 156,
+            "CARROT": 246,
+            "MELON": 12,
+            "TOMATO": 64
+          }
+        },
+        "workload": {
+          "forecast": 2283,
+          "residual_transfer": 2283
+        },
+        "procurement": {
+          "forecast": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          },
+          "residual_transfer": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          }
+        }
+      }
+    },
+    {
+      "file": "111296485_s1_d15.json",
+      "episode": 111296485,
+      "seat": 1,
+      "day": 15,
+      "forecast_feasible": false,
+      "transfer_feasible": false,
+      "comparison": {
+        "plant_counts": {
+          "forecast": {
+            "WHEAT": 53,
+            "STRAWBERRY": 2,
+            "CARROT": 60,
+            "TOMATO": 3
+          },
+          "residual_transfer": {
+            "WHEAT": 53,
+            "STRAWBERRY": 2,
+            "CARROT": 60,
+            "TOMATO": 3
+          }
+        },
+        "herd_counts": {
+          "forecast": {
+            "GOOSE": 1
+          },
+          "residual_transfer": {
+            "GOOSE": 1
+          }
+        },
+        "output": {
+          "forecast": {
+            "STRAWBERRY": 147,
+            "WHEAT": 423,
+            "FERTILIZER": 259,
+            "MILK": 131,
+            "WOOL": 123,
+            "EGG": 83,
+            "MELON": 12,
+            "TOMATO": 116,
+            "CARROT": 210
+          },
+          "residual_transfer": {
+            "STRAWBERRY": 147,
+            "WHEAT": 423,
+            "FERTILIZER": 259,
+            "MILK": 131,
+            "WOOL": 123,
+            "EGG": 83,
+            "MELON": 12,
+            "CARROT": 210,
+            "TOMATO": 116
+          }
+        },
+        "workload": {
+          "forecast": 1992,
+          "residual_transfer": 1992
+        },
+        "procurement": {
+          "forecast": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          },
+          "residual_transfer": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          }
+        }
+      }
+    },
+    {
+      "file": "111253835_s1_d15.json",
+      "episode": 111253835,
+      "seat": 1,
+      "day": 15,
+      "forecast_feasible": false,
+      "transfer_feasible": false,
+      "comparison": {
+        "plant_counts": {
+          "forecast": {
+            "WHEAT": 56,
+            "TOMATO": 9,
+            "CARROT": 7
+          },
+          "residual_transfer": {
+            "WHEAT": 55,
+            "TOMATO": 9,
+            "CARROT": 8
+          }
+        },
+        "herd_counts": {
+          "forecast": {},
+          "residual_transfer": {}
+        },
+        "output": {
+          "forecast": {
+            "STRAWBERRY": 296,
+            "WHEAT": 402,
+            "FERTILIZER": 255,
+            "EGG": 77,
+            "MILK": 218,
+            "WOOL": 44,
+            "MELON": 6,
+            "TOMATO": 66,
+            "CARROT": 21
+          },
+          "residual_transfer": {
+            "STRAWBERRY": 296,
+            "WHEAT": 400,
+            "FERTILIZER": 255,
+            "EGG": 77,
+            "MILK": 218,
+            "WOOL": 44,
+            "MELON": 6,
+            "TOMATO": 66,
+            "CARROT": 24
+          }
+        },
+        "workload": {
+          "forecast": 1856,
+          "residual_transfer": 1856
+        },
+        "procurement": {
+          "forecast": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          },
+          "residual_transfer": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          }
+        }
+      }
+    },
+    {
+      "file": "111259496_s1_d18.json",
+      "episode": 111259496,
+      "seat": 1,
+      "day": 18,
+      "forecast_feasible": false,
+      "transfer_feasible": false,
+      "comparison": {
+        "plant_counts": {
+          "forecast": {
+            "WHEAT": 33,
+            "TOMATO": 1,
+            "CARROT": 65
+          },
+          "residual_transfer": {
+            "CARROT": 65,
+            "TOMATO": 1,
+            "WHEAT": 33
+          }
+        },
+        "herd_counts": {
+          "forecast": {},
+          "residual_transfer": {}
+        },
+        "output": {
+          "forecast": {
+            "WHEAT": 257,
+            "STRAWBERRY": 144,
+            "FERTILIZER": 180,
+            "EGG": 134,
+            "MELON": 11,
+            "MILK": 99,
+            "WOOL": 16,
+            "CARROT": 237,
+            "TOMATO": 120
+          },
+          "residual_transfer": {
+            "WHEAT": 257,
+            "STRAWBERRY": 146,
+            "FERTILIZER": 180,
+            "EGG": 134,
+            "MELON": 12,
+            "MILK": 99,
+            "WOOL": 16,
+            "CARROT": 237,
+            "TOMATO": 120
+          }
+        },
+        "workload": {
+          "forecast": 1610,
+          "residual_transfer": 1612
+        },
+        "procurement": {
+          "forecast": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          },
+          "residual_transfer": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          }
+        }
+      }
+    },
+    {
+      "file": "111240681_s0_d18.json",
+      "episode": 111240681,
+      "seat": 0,
+      "day": 18,
+      "forecast_feasible": false,
+      "transfer_feasible": false,
+      "comparison": {
+        "plant_counts": {
+          "forecast": {
+            "WHEAT": 62,
+            "CARROT": 51
+          },
+          "residual_transfer": {
+            "WHEAT": 60,
+            "CARROT": 50
+          }
+        },
+        "herd_counts": {
+          "forecast": {},
+          "residual_transfer": {}
+        },
+        "output": {
+          "forecast": {
+            "WHEAT": 424,
+            "STRAWBERRY": 117,
+            "FERTILIZER": 192,
+            "EGG": 123,
+            "MELON": 11,
+            "MILK": 107,
+            "WOOL": 24,
+            "CARROT": 158,
+            "TOMATO": 96
+          },
+          "residual_transfer": {
+            "WHEAT": 424,
+            "STRAWBERRY": 120,
+            "FERTILIZER": 192,
+            "EGG": 123,
+            "MELON": 11,
+            "MILK": 107,
+            "WOOL": 24,
+            "CARROT": 155,
+            "TOMATO": 96
+          }
+        },
+        "workload": {
+          "forecast": 1635,
+          "residual_transfer": 1629
+        },
+        "procurement": {
+          "forecast": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          },
+          "residual_transfer": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          }
+        }
+      }
+    },
+    {
+      "file": "111324137_s1_d21.json",
+      "episode": 111324137,
+      "seat": 1,
+      "day": 21,
+      "forecast_feasible": false,
+      "transfer_feasible": false,
+      "comparison": {
+        "plant_counts": {
+          "forecast": {
+            "WHEAT": 47,
+            "CARROT": 32
+          },
+          "residual_transfer": {
+            "WHEAT": 48,
+            "CARROT": 32
+          }
+        },
+        "herd_counts": {
+          "forecast": {},
+          "residual_transfer": {}
+        },
+        "output": {
+          "forecast": {
+            "WHEAT": 326,
+            "STRAWBERRY": 58,
+            "FERTILIZER": 162,
+            "TOMATO": 115,
+            "EGG": 83,
+            "MILK": 90,
+            "WOOL": 49,
+            "MELON": 6,
+            "CARROT": 104
+          },
+          "residual_transfer": {
+            "STRAWBERRY": 58,
+            "WHEAT": 326,
+            "FERTILIZER": 171,
+            "TOMATO": 115,
+            "EGG": 83,
+            "MILK": 90,
+            "WOOL": 49,
+            "MELON": 6,
+            "CARROT": 104
+          }
+        },
+        "workload": {
+          "forecast": 1262,
+          "residual_transfer": 1272
+        },
+        "procurement": {
+          "forecast": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          },
+          "residual_transfer": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          }
+        }
+      }
+    },
+    {
+      "file": "111294229_s1_d21.json",
+      "episode": 111294229,
+      "seat": 1,
+      "day": 21,
+      "forecast_feasible": false,
+      "transfer_feasible": false,
+      "comparison": {
+        "plant_counts": {
+          "forecast": {
+            "WHEAT": 55,
+            "CARROT": 4
+          },
+          "residual_transfer": {
+            "WHEAT": 47,
+            "CARROT": 12
+          }
+        },
+        "herd_counts": {
+          "forecast": {},
+          "residual_transfer": {}
+        },
+        "output": {
+          "forecast": {
+            "WHEAT": 359,
+            "STRAWBERRY": 186,
+            "FERTILIZER": 171,
+            "MILK": 101,
+            "WOOL": 72,
+            "EGG": 54,
+            "MELON": 6,
+            "TOMATO": 12,
+            "CARROT": 12
+          },
+          "residual_transfer": {
+            "WHEAT": 332,
+            "STRAWBERRY": 184,
+            "FERTILIZER": 171,
+            "MILK": 101,
+            "WOOL": 72,
+            "EGG": 54,
+            "MELON": 6,
+            "TOMATO": 12,
+            "CARROT": 36
+          }
+        },
+        "workload": {
+          "forecast": 1202,
+          "residual_transfer": 1198
+        },
+        "procurement": {
+          "forecast": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          },
+          "residual_transfer": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          }
+        }
+      }
+    },
+    {
+      "file": "111263986_s0_d24.json",
+      "episode": 111263986,
+      "seat": 0,
+      "day": 24,
+      "forecast_feasible": false,
+      "transfer_feasible": false,
+      "comparison": {
+        "plant_counts": {
+          "forecast": {
+            "CARROT": 27,
+            "WHEAT": 17
+          },
+          "residual_transfer": {
+            "CARROT": 29,
+            "WHEAT": 14
+          }
+        },
+        "herd_counts": {
+          "forecast": {},
+          "residual_transfer": {}
+        },
+        "output": {
+          "forecast": {
+            "STRAWBERRY": 34,
+            "WHEAT": 227,
+            "EGG": 20,
+            "CARROT": 152,
+            "TOMATO": 33,
+            "FERTILIZER": 102,
+            "MILK": 21,
+            "WOOL": 82
+          },
+          "residual_transfer": {
+            "STRAWBERRY": 34,
+            "WHEAT": 227,
+            "FERTILIZER": 102,
+            "EGG": 24,
+            "TOMATO": 30,
+            "MILK": 21,
+            "CARROT": 153,
+            "WOOL": 82
+          }
+        },
+        "workload": {
+          "forecast": 774,
+          "residual_transfer": 771
+        },
+        "procurement": {
+          "forecast": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          },
+          "residual_transfer": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          }
+        }
+      }
+    },
+    {
+      "file": "111324547_s0_d24.json",
+      "episode": 111324547,
+      "seat": 0,
+      "day": 24,
+      "forecast_feasible": false,
+      "transfer_feasible": false,
+      "comparison": {
+        "plant_counts": {
+          "forecast": {
+            "WHEAT": 26,
+            "CARROT": 12
+          },
+          "residual_transfer": {
+            "WHEAT": 24,
+            "CARROT": 13
+          }
+        },
+        "herd_counts": {
+          "forecast": {
+            "GOOSE": 1
+          },
+          "residual_transfer": {
+            "GOOSE": 1
+          }
+        },
+        "output": {
+          "forecast": {
+            "WHEAT": 291,
+            "STRAWBERRY": 76,
+            "FERTILIZER": 100,
+            "MILK": 59,
+            "TOMATO": 20,
+            "EGG": 35,
+            "WOOL": 32,
+            "CARROT": 67
+          },
+          "residual_transfer": {
+            "WHEAT": 291,
+            "STRAWBERRY": 76,
+            "FERTILIZER": 100,
+            "MILK": 59,
+            "TOMATO": 21,
+            "EGG": 35,
+            "WOOL": 32,
+            "CARROT": 67
+          }
+        },
+        "workload": {
+          "forecast": 765,
+          "residual_transfer": 762
+        },
+        "procurement": {
+          "forecast": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          },
+          "residual_transfer": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          }
+        }
+      }
+    }
+  ],
+  "note": "Aggregate planning only; no live executor or routing validation."
+}

@@ -1,0 +1,7 @@
+{
+ "kernels": [
+  "kgr-ltx1-s0"
+ ],
+ "cmd": "scripts/kgr_check_run.py b0928041242 scripts/path_trial.py --spec results/fresh/threads_20260928/animal/spec.json --arms KB115LTC2,KB115LTX,KB115LTX2 --games 16732748:112570602,16732748:112575429,16732748:112581436,16732748:112587591,16732748:112592389,16732748:112598450,16732748:112604454,16732748:112610623,16732748:112577829,16732748:112591190 --out results/fresh/kaggle_lt/ltx1 --workers 4 --no_vitals --no_gap",
+ "pushed": 1790565342.6442888
+}

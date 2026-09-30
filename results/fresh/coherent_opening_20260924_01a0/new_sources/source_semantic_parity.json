@@ -1,0 +1,837 @@
+{
+  "episode": 112802103,
+  "dsm_seat": 1,
+  "source_sha256": "6d42877371b38730d300d62d74d7fb55db081f3b9a1adceebd604a136446ffd1",
+  "transition_checks": 719,
+  "fields": [
+    "farms",
+    "market",
+    "town",
+    "private"
+  ],
+  "full_parity": true,
+  "normalizations": [
+    {
+      "step": 17,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "WHEAT",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 18,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "WHEAT",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 19,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "WHEAT",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 20,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "WHEAT",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 21,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "WHEAT",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 24,
+      "kind": "market",
+      "slot": 3,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 24,
+      "kind": "market",
+      "slot": 4,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 24,
+      "kind": "market",
+      "slot": 5,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 24,
+      "kind": "market",
+      "slot": 6,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 24,
+      "kind": "market",
+      "slot": 7,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 31,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "MELON",
+        2
+      ],
+      "to": [
+        "BUY_SEED",
+        "MELON",
+        1
+      ]
+    },
+    {
+      "step": 32,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "MELON",
+        2
+      ],
+      "to": []
+    },
+    {
+      "step": 33,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "MELON",
+        2
+      ],
+      "to": []
+    },
+    {
+      "step": 34,
+      "kind": "pickup",
+      "worker": 2,
+      "from": [
+        "PICKUP",
+        "WHEAT",
+        2
+      ],
+      "to": [
+        "PASS"
+      ],
+      "filled": 0
+    },
+    {
+      "step": 35,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "MELON",
+        2
+      ],
+      "to": [
+        "BUY_SEED",
+        "MELON",
+        1
+      ]
+    },
+    {
+      "step": 36,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "MELON",
+        2
+      ],
+      "to": []
+    },
+    {
+      "step": 48,
+      "kind": "market",
+      "slot": 7,
+      "from": [
+        "BUY_PRODUCT",
+        "WHEAT",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 54,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_PRODUCT",
+        "WHEAT",
+        2
+      ],
+      "to": [
+        "BUY_PRODUCT",
+        "WHEAT",
+        1
+      ]
+    },
+    {
+      "step": 55,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "MELON",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 56,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "MELON",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 57,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "MELON",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 62,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 64,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 65,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 66,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 67,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 68,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 85,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 86,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 87,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 88,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 89,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 96,
+      "kind": "market",
+      "slot": 4,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 96,
+      "kind": "market",
+      "slot": 5,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 151,
+      "kind": "pickup",
+      "worker": 4,
+      "from": [
+        "PICKUP",
+        "SHEEP",
+        1
+      ],
+      "to": [
+        "PASS"
+      ],
+      "filled": 0
+    },
+    {
+      "step": 151,
+      "kind": "pickup",
+      "worker": 8,
+      "from": [
+        "PICKUP",
+        "COW",
+        1
+      ],
+      "to": [
+        "PASS"
+      ],
+      "filled": 0
+    },
+    {
+      "step": 155,
+      "kind": "pickup",
+      "worker": 3,
+      "from": [
+        "PICKUP",
+        "SHEEP",
+        1
+      ],
+      "to": [
+        "PASS"
+      ],
+      "filled": 0
+    },
+    {
+      "step": 156,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_ANIMAL",
+        "COW",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 156,
+      "kind": "market",
+      "slot": 1,
+      "from": [
+        "BUY_ANIMAL",
+        "SHEEP",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 158,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_ANIMAL",
+        "COW",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 158,
+      "kind": "market",
+      "slot": 1,
+      "from": [
+        "BUY_ANIMAL",
+        "SHEEP",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 160,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_ANIMAL",
+        "COW",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 160,
+      "kind": "market",
+      "slot": 1,
+      "from": [
+        "BUY_ANIMAL",
+        "SHEEP",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 160,
+      "kind": "market",
+      "slot": 2,
+      "from": [
+        "BUY_ANIMAL",
+        "COW",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 160,
+      "kind": "market",
+      "slot": 3,
+      "from": [
+        "BUY_ANIMAL",
+        "SHEEP",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 163,
+      "kind": "market",
+      "slot": 1,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 165,
+      "kind": "market",
+      "slot": 1,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 168,
+      "kind": "market",
+      "slot": 8,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 169,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 169,
+      "kind": "market",
+      "slot": 1,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 169,
+      "kind": "market",
+      "slot": 2,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 169,
+      "kind": "market",
+      "slot": 3,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 169,
+      "kind": "market",
+      "slot": 4,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 169,
+      "kind": "market",
+      "slot": 5,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 169,
+      "kind": "market",
+      "slot": 6,
+      "from": [
+        "BUY_PRODUCT",
+        "WHEAT",
+        7
+      ],
+      "to": []
+    },
+    {
+      "step": 170,
+      "kind": "market",
+      "slot": 3,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 170,
+      "kind": "market",
+      "slot": 4,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 170,
+      "kind": "market",
+      "slot": 5,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 170,
+      "kind": "market",
+      "slot": 6,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 170,
+      "kind": "market",
+      "slot": 7,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 170,
+      "kind": "market",
+      "slot": 8,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 179,
+      "kind": "pickup",
+      "worker": 7,
+      "from": [
+        "PICKUP",
+        "WHEAT",
+        3
+      ],
+      "to": [
+        "PASS"
+      ],
+      "filled": 0
+    },
+    {
+      "step": 180,
+      "kind": "market",
+      "slot": 1,
+      "from": [
+        "BUY_ANIMAL",
+        "SHEEP",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 181,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 182,
+      "kind": "market",
+      "slot": 1,
+      "from": [
+        "BUY_ANIMAL",
+        "COW",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 192,
+      "kind": "market",
+      "slot": 8,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 219,
+      "kind": "market",
+      "slot": 1,
+      "from": [
+        "BUY_LAND"
+      ],
+      "to": []
+    },
+    {
+      "step": 233,
+      "kind": "market",
+      "slot": 2,
+      "from": [
+        "BUY_SEED",
+        "STRAWBERRY",
+        1
+      ],
+      "to": []
+    },
+    {
+      "step": 241,
+      "kind": "market",
+      "slot": 4,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 241,
+      "kind": "market",
+      "slot": 5,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 241,
+      "kind": "market",
+      "slot": 6,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 241,
+      "kind": "market",
+      "slot": 7,
+      "from": [
+        "HIRE"
+      ],
+      "to": []
+    },
+    {
+      "step": 242,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_PRODUCT",
+        "WHEAT",
+        16
+      ],
+      "to": [
+        "BUY_PRODUCT",
+        "WHEAT",
+        4
+      ]
+    },
+    {
+      "step": 242,
+      "kind": "pickup",
+      "worker": 12,
+      "from": [
+        "PICKUP",
+        "WHEAT",
+        1
+      ],
+      "to": [
+        "PASS"
+      ],
+      "filled": 0
+    },
+    {
+      "step": 243,
+      "kind": "market",
+      "slot": 0,
+      "from": [
+        "BUY_PRODUCT",
+        "WHEAT",
+        16
+      ],
+      "to": []
+    },
+    {
+      "step": 363,
+      "kind": "pickup",
+      "worker": 2,
+      "from": [
+        "PICKUP",
+        "WHEAT",
+        2
+      ],
+      "to": [
+        "PASS"
+      ],
+      "filled": 0
+    }
+  ],
+  "pickup_end_of_day_commands": []
+}

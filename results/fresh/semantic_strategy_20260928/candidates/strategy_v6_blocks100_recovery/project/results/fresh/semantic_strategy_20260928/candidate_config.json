@@ -1,0 +1,29 @@
+{
+  "model_file": "block_model_modern100.json",
+  "reactive_land_unlock": true,
+  "policy": {
+    "land_limit": 4,
+    "economics_weight": 0,
+    "release_age": {
+      "WHEAT": 3,
+      "CARROT": 3,
+      "MELON": 10,
+      "TOMATO": 12,
+      "STRAWBERRY": 17
+    }
+  },
+  "tiles": {
+    "release_age": {
+      "WHEAT": 3,
+      "CARROT": 3,
+      "MELON": 10,
+      "TOMATO": 12,
+      "STRAWBERRY": 17
+    }
+  },
+  "early_financing": {
+    "enabled": true
+  },
+  "policy_kind": "three_day_budget",
+  "reactive_stock_shortfall": true
+}

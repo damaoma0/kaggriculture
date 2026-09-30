@@ -1,0 +1,101 @@
+{
+ "files_used": 540,
+ "games": 540,
+ "seat_team_check": {
+  "DSM|seat0|meta.team=DSM": 53,
+  "DSM|seat1|meta.team=DSM": 47,
+  "DECEM|seat0|meta.team=DECEM": 46,
+  "DECEM|seat1|meta.team=DECEM": 54,
+  "Vadim|seat1|meta.team=Vadim Vasilenko": 57,
+  "Vadim|seat0|meta.team=Vadim Vasilenko": 43,
+  "MG|seat0|meta.team=Unknown Mother-Goose": 50,
+  "MG|seat1|meta.team=Unknown Mother-Goose": 50,
+  "MMPQ|seat1|meta.team=M & M & P & Q": 49,
+  "MMPQ|seat0|meta.team=M & M & P & Q": 51,
+  "Boey|seat0|meta.team=Boey": 23,
+  "Boey|seat1|meta.team=Boey": 17
+ },
+ "animal": {
+  "tile_days": 245383,
+  "mean_dist": 1.657,
+  "share_d0": 0.1686,
+  "share_le1": 0.4718,
+  "share_le2": 0.7869
+ },
+ "crop": {
+  "tile_days": 792121,
+  "mean_dist": 4.546,
+  "share_d0": 0.0046,
+  "share_le1": 0.0223,
+  "share_le2": 0.0916
+ },
+ "games_animals_closer_all_days": 540,
+ "games_animals_closer_days6_29": 540,
+ "games_animals_closer_if_all_co_are_cows": 540,
+ "games_animals_closer_if_no_co_is_a_cow": 540,
+ "per_game_anim_minus_crop_days6_29": {
+  "mean": -2.881,
+  "p10": -3.124,
+  "p90": -2.653,
+  "n": 540
+ },
+ "co_label": {
+  "tile_days": 109154,
+  "unresolved": 0,
+  "build_vs_label_conflicts": 0
+ },
+ "per_team_anim_vs_crop": {
+  "DSM": [
+   1.63,
+   4.5
+  ],
+  "DECEM": [
+   1.59,
+   4.49
+  ],
+  "Vadim": [
+   1.63,
+   4.51
+  ],
+  "MG": [
+   1.62,
+   4.59
+  ],
+  "MMPQ": [
+   1.65,
+   4.59
+  ],
+  "Boey": [
+   2.06,
+   4.69
+  ]
+ },
+ "unlock_day_median": {
+  "NW": 0,
+  "NE": 7,
+  "SW": 10,
+  "SE": 11
+ },
+ "unlock_games": {
+  "NW": 540,
+  "NE": 540,
+  "SW": 540,
+  "SE": 355
+ },
+ "NE_unlocks_before_or_with_SW": [
+  540,
+  0
+ ],
+ "ring_days12_23_per_gameday": {
+  "d0_animal": 3.3,
+  "d0_crop": 0.35,
+  "d0_empty": 0.0,
+  "d0_structure_empty": 0.0,
+  "d0_unlocked": 3.66,
+  "d12_animal": 12.31,
+  "d12_crop": 5.83,
+  "d12_empty": 0.08,
+  "d12_structure_empty": 0.07,
+  "d12_unlocked": 18.29
+ }
+}

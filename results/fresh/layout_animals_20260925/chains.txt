@@ -1,0 +1,99 @@
+Fertilizer chains of DSM (3000+ leader) hands, stored Kaggle replays only (no engine runs)
+====================================================================================================
+Source: data/dsm_replays/episode-*-replay.json, 108 episodes, 109 DSM seat-games (episode 111777242 is DSM vs DSM, both seats counted).
+Method: results/fresh/layout_animals_20260925/fert_chains.py re-applies the engine rules for PICKUP/DROP/PLACE/
+FERTILIZE/COLLECT_FERTILIZER (data/kaggriculture.py::_apply_unit_action) to each recorded pre-step observation +
+recorded action, per unit, and tracks each fertilizer unit (token) from its source to its fate. Replays DO contain
+each seat's private inventories, so the simulation is checked against the recorded post-step inventory:
+  unit-steps verified (non-day-boundary): 761374; fertilizer-count mismatches: 0; position mismatches: 0.
+  At the 30 day-boundary steps (hour 23) inventories are auto-dumped, so those steps are simulated, not checked.
+Attribution: fertilizer is fungible; each FERTILIZE consumes the most recently acquired token (LIFO). FIFO and
+"holdings homogeneous" shares are reported to show how much that choice matters.
+Distances: Manhattan; dshed = distance to the nearest shed-access tile (4,4),(5,4),(4,5),(5,5); "shed visit" =
+the unit stands on a shed-access tile (spawn counts).
+
+1) FERTILIZER FLOW PER GAME (mean over 109 seat-games)
+----------------------------------------------------------------------------------------------------
+  collected in field (effective COLLECT_FERTILIZER):   469.0
+  picked up at the shed (units):                        20.4   (7.4 PICKUP ops)
+  applied (effective FERTILIZE):                       231.9
+  deposited at shed by DROP/PLACE (units):              82.0   (of which field-collected 81.2)
+  auto-dumped into the shed at day end (carried):      175.1
+  market orders requested: SELL FERTILIZER 246.4, BUY_PRODUCT FERTILIZER 0.8; shed net market residual -236.1/game
+  (context: effective moves 3304/game, unit-steps 7294/game)
+
+2) WHERE DOES EACH FERTILIZE GET ITS FERTILIZER?  (n = 25275 FERTILIZE ops, 109 seat-games)
+----------------------------------------------------------------------------------------------------
+  from an in-field COLLECT by the same unit, same day:   23843   94.3%  (FIFO attribution: 92.9%)
+     ... carried directly, no shed visit in between:    21068   83.4%
+     ... unit passed a shed tile after collecting:        2775   11.0%
+  from a shed PICKUP:                                      1432    5.7%  (FIFO: 7.1%)
+  holdings homogeneous at the FERTILIZE (attribution unambiguous): 98.5%
+  per seat-game field share: min 85%, median 95%, max 100%; direct-chain share: min 73%, median 84%, max 90%
+  steps from COLLECT to FERTILIZE (field-sourced): mean 8.0, median 7; direct chains: mean 7.4, median 6
+  direct-chain lag distribution (steps; 12 = 12+): 2:18%, 3:13%, 4:8%, 5:6%, 6:5%, 7:6%, 8:6%, 9:6%, 10:5%, 11:4%, 12:22%
+  FERTILIZE by crop: WHEAT 111.0/game (48%), STRAWBERRY 69.0/game (30%), CARROT 30.3/game (13%), TOMATO 21.5/game (9%)
+  source by season part: d0-11: field 100% of 1559; d12-19: field 99% of 9663; d20-29: field 91% of 14053
+
+3) DIRECT CHAINS (collected in field, carried to the crop with no shed visit between; n = 21068)
+----------------------------------------------------------------------------------------------------
+   Every direct chain is by construction "after the last shed visit and before the crop" (outbound in that sense).
+  mean dshed: animal 2.12, crop 4.77
+  animal nearer the shed than the crop: 98.1%; same distance 1.3%; animal farther 0.5%
+  animal on a shortest shed->crop path (dshed(A)+|A-C| == dshed(C)): 91.4%
+  geometric detour of routing shed->animal->crop vs shed->crop: mean 0.13 steps (median 0; 0 = on the way)
+  walked animal->crop: mean 3.11 moves vs Manhattan |A-C| mean 2.79 (extra = other work done in between)
+  walked from last shed visit to the crop (via the animal and any other work): mean 5.34 vs direct dshed(crop) 4.77
+  animal dshed distribution: 1:29%, 2:40%, 3:21%, 4:10%, 5:0%
+  crop dshed distribution:   1:0%, 2:4%, 3:16%, 4:26%, 5:22%, 6:16%, 7:10%, 8:5%
+  animal and crop in the same quadrant: 93.8%
+  direct chains by source animal: SHEEP 35%, COW 35%, GOOSE 30%
+
+4) PER UNIT-DAY  (n = 34868 unit-days with at least one step)
+----------------------------------------------------------------------------------------------------
+  unit-days with >=1 FERTILIZE: 16783 (48.1%); with >=1 direct chain: 15726 (45.1%)
+  direct-chained FERTILIZE per unit-day: all unit-days 0.60; unit-days that fertilize 1.26; unit-days with a chain 1.34
+  distribution over fertilizing unit-days (8 = 8+): 0:6%, 1:64%, 2:28%, 3:2%, 4:0%
+
+5) WALKING SAVED BY DIRECT CHAINS vs FETCHING THE FERTILIZER AT THE SHED
+----------------------------------------------------------------------------------------------------
+  (a) task formula, per chained FERTILIZE: counterfactual = dist(prev position, shed) + dist(shed, crop), where
+      prev = where the unit did its previous effective (non-move) op; actual = |prev - crop|.
+      n = 21068 (prev op was the COLLECT itself in 26%)
+      saving per chained FERTILIZE: mean 7.42 steps (median 8); actual walked prev->crop 1.22
+      per game: 1434 steps = 43.4% of all effective moves (3304/game)
+      This is an UPPER bound: it charges a separate shed round trip for every single fertilizer.
+  (b) one shed detour per trip (a PICKUP of n covers the whole trip; detour inserted before the trip's first
+      chained FERTILIZE): trips with chains 15729 (144.3/game, 1.34 chained FERTILIZE per trip)
+      saving per trip mean 6.66; per game 961 steps = 29.1% of effective moves
+  (c) pick the fertilizer up at the shed visit that STARTED the trip (every direct chain starts from one):
+      walking saved = 0 by construction; the chain instead saves 1 PICKUP action per trip (~144 unit-steps/game) and spends 1 COLLECT per fertilizer.
+      shed fertilizer stock at that trip-start step: >=1 in 26% of trips, >= the trip's chained count in 24% (n = 15729).
+
+6) FATE OF FERTILIZER UNITS (per game)
+----------------------------------------------------------------------------------------------------
+  field-sourced: 468.6/game -> applied_direct 193.3 (41%), autodump 168.7 (36%), place 55.3 (12%), drop 25.9 (6%), applied_aftershed 25.5 (5%)
+  shed-sourced: 20.4/game -> applied_aftershed 13.1 (64%), autodump 6.5 (32%), drop 0.7 (4%), place 0.1 (1%)
+  COLLECT locations: mean dshed 1.71; by animal COW 191.6/game, SHEEP 166.3/game, GOOSE 111.1/game
+  COLLECT reached by walking straight from the shed (moves since last shed visit == dshed(animal)): 90%
+
+7) DSM LAYOUT: tile-days by distance to shed (day-start boards, all 30 days)
+----------------------------------------------------------------------------------------------------
+  dshed:               0      1      2      3      4      5      6      7      8   mean
+  board tiles %:       4      8     12     16     20     16     12      8      4   4.00
+  animal  %:        15.0   29.2   32.5   16.1    7.0    0.2    0.0    0.0    0.0   1.72   (n = 51464 tile-days)
+  crop    %:         0.0    0.2    4.4   16.1   25.0   21.9   16.4   10.6    5.3   4.82   (n = 135771 tile-days)
+  animal tile-days by quadrant: first(NW) 38%, second(NE) 40%, third(SW) 22%, fourth(SE) 0%
+  crop tile-days by quadrant: first(NW) 42%, second(NE) 29%, third(SW) 30%, fourth(SE) 0%
+
+8) COMPARISON WITH THE OTHER THREAD'S LEDGER (stored results/fresh/lead_ledger/{leader,ours}_*.json, 12 games:
+   4 each of UMG 16730612, DSM 16732748, Vadim 16770421; engine-hook counts from that thread, not re-run here)
+----------------------------------------------------------------------------------------------------
+  leader all (n=12): picked at shed  24.2  collected 466.5  applied 206.9  deposited  85.8  day-end dump 197.5  sold 260.5  moves  3116
+  leader DSM (n= 4): picked at shed  16.8  collected 470.8  applied 233.0  deposited  79.0  day-end dump 175.0  sold 236.8  moves  3036
+  ours   all (n=12): picked at shed 196.3  collected 393.8  applied 127.0  deposited 124.2  day-end dump 338.3  sold 261.2  moves  3500
+  ours   DSM (n= 4): picked at shed 214.8  collected 384.5  applied 131.5  deposited 127.0  day-end dump 340.5  sold 249.2  moves  3539
+  DSM replays here (n=109): picked at shed  20.4  collected 469.0  applied 231.9  deposited  82.0  day-end dump 175.1  sell orders 246.4  moves  3304
+  Our executor's positions/chains are not stored in that ledger (only counts), so the chain share and walking
+  of OUR hands cannot be measured from stored data; only the flow counts above compare.
+

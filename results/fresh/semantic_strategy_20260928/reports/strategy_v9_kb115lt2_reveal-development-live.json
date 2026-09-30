@@ -1,0 +1,17 @@
+{
+  "candidate": "strategy_v9_kb115lt2_reveal",
+  "split": "development",
+  "mode": "live",
+  "expected": 8,
+  "recorded": 8,
+  "valid": 6,
+  "gate_complete": false,
+  "eligible_wins": 3,
+  "invalid_cases": [
+    "live-06",
+    "live-07"
+  ],
+  "missing_cases": [],
+  "mean_valid_margin": 1047.6666666666667,
+  "warning": "No success claim from an incomplete gate; invalid cases are not removed from its planned denominator."
+}

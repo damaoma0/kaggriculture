@@ -1,0 +1,14 @@
+<div id="dsm-tile-changes">
+  <style>
+    #dsm-tile-changes {color:var(--foreground);max-width:650px;margin:auto;}
+    #dsm-tile-changes .map {display:grid;grid-template-columns:24px repeat(10,minmax(0,1fr));gap:3px;margin:12px 0;}
+    #dsm-tile-changes .mark {aspect-ratio:1;display:flex;align-items:center;justify-content:center;color:var(--foreground);font-variant-numeric:tabular-nums;}
+    #dsm-tile-changes .axis {display:flex;align-items:center;justify-content:center;color:var(--muted-foreground);}
+    #dsm-tile-changes .legend {display:flex;align-items:center;gap:10px;flex-wrap:wrap;}
+    #dsm-tile-changes .scale {width:130px;height:12px;background:linear-gradient(to right,color-mix(in srgb,var(--viz-series-1) 8%,transparent),color-mix(in srgb,var(--viz-series-1) 62%,transparent));}
+  </style>
+  <h2>DSM · production changes per tile</h2>
+  <div class="text-small text-muted">Mean switches per game · 12 tapes · x across, y down · full season</div>
+  <div class="map text-small" role="img" aria-label="10 by 10 farm heatmap. Each value is the mean number of production type changes per game. Upper-left tiles change most; bottom-right quadrant was never productive.">__CELLS__</div>
+  <div class="legend text-small"><span>0</span><span class="scale" aria-hidden="true"></span><span>3.1 changes/game</span><span>— Never productive</span></div>
+</div>

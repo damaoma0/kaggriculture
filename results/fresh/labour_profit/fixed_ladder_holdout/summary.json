@@ -1,0 +1,134 @@
+{
+  "episodes": 12,
+  "blocks": 156,
+  "selectors": {
+    "wage": {
+      "mean_opportunity": 133.16666666666666,
+      "median": 116.5,
+      "minimum": 0.0,
+      "maximum": 361.0,
+      "episode_bootstrap_95": [
+        65.58333333333333,
+        204.0
+      ],
+      "wage": 133.16666666666666,
+      "revenue": 0,
+      "positive_blocks": 26,
+      "negative_blocks": 0,
+      "chained": {
+        "n": 12,
+        "mean_gain": 133.16666666666666,
+        "min_gain": 0.0,
+        "max_gain": 361.0,
+        "final_contract_failures": 0
+      }
+    },
+    "early": {
+      "mean_opportunity": -1538.0833333333333,
+      "median": -1117.5,
+      "minimum": -5458.0,
+      "maximum": -325.0,
+      "episode_bootstrap_95": [
+        -2360.0833333333335,
+        -937.6666666666666
+      ],
+      "wage": 0.0,
+      "revenue": -1555.0833333333333,
+      "positive_blocks": 6,
+      "negative_blocks": 81
+    },
+    "distance": {
+      "mean_opportunity": 29.5,
+      "median": 32.5,
+      "minimum": 0.0,
+      "maximum": 89.0,
+      "episode_bootstrap_95": [
+        14.5,
+        46.416666666666664
+      ],
+      "wage": 30.333333333333332,
+      "revenue": -0.8333333333333334,
+      "positive_blocks": 7,
+      "negative_blocks": 0
+    },
+    "tile_value": {
+      "mean_opportunity": 20.833333333333332,
+      "median": 0.0,
+      "minimum": 0.0,
+      "maximum": 55.0,
+      "episode_bootstrap_95": [
+        7.083333333333333,
+        36.666666666666664
+      ],
+      "wage": 18.333333333333332,
+      "revenue": 2.5,
+      "positive_blocks": 5,
+      "negative_blocks": 0
+    },
+    "forecast": {
+      "mean_opportunity": 139.25,
+      "median": 122.5,
+      "minimum": 2.0,
+      "maximum": 361.0,
+      "episode_bootstrap_95": [
+        76.16666666666667,
+        205.0
+      ],
+      "wage": 136.0,
+      "revenue": 3.25,
+      "positive_blocks": 33,
+      "negative_blocks": 0,
+      "chained": {
+        "n": 12,
+        "mean_gain": 139.25,
+        "min_gain": 2.0,
+        "max_gain": 361.0,
+        "final_contract_failures": 0
+      }
+    },
+    "robust": {
+      "mean_opportunity": 138.66666666666666,
+      "median": 116.5,
+      "minimum": 0.0,
+      "maximum": 361.0,
+      "episode_bootstrap_95": [
+        73.33333333333333,
+        206.25
+      ],
+      "wage": 136.0,
+      "revenue": 2.6666666666666665,
+      "positive_blocks": 28,
+      "negative_blocks": 0
+    },
+    "oracle": {
+      "mean_opportunity": 144.5,
+      "median": 122.5,
+      "minimum": 6.0,
+      "maximum": 361.0,
+      "episode_bootstrap_95": [
+        83.66666666666667,
+        209.25
+      ],
+      "wage": 136.0,
+      "revenue": 8.5,
+      "positive_blocks": 34,
+      "negative_blocks": 0,
+      "chained": {
+        "n": 12,
+        "mean_gain": 144.5,
+        "min_gain": 6.0,
+        "max_gain": 361.0,
+        "final_contract_failures": 0
+      }
+    }
+  },
+  "rejections": {
+    "route_over_24": 1093,
+    "farm": 981,
+    "private": 494,
+    "market": 32,
+    "trades": 1
+  },
+  "valid_candidates": 867,
+  "total_seconds": 1017.6001017999952
+}

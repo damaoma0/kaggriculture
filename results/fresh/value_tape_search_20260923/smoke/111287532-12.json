@@ -1,0 +1,7 @@
+{
+  "episode": 111287532,
+  "day": 12,
+  "completed": false,
+  "error": "Traceback (most recent call last):\n  File \"C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\probe_value_tape_search.py\", line 97, in case\n    selected,decision=V.choose(obs,memory,count=count,scenarios=V.SCENARIOS[:scenarios])\n                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\value_tape_search.py\", line 255, in choose\n    predictions = [rollout(obs, memory, candidate['route'], scenario) for scenario in scenarios]\n                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"C:\\Users\\xyygl\\Documents\\kaggriculture\\scripts\\value_tape_search.py\", line 235, in rollout\n    E.interpreter(state, env)\n  File \"C:\\Users\\xyygl\\Documents\\kaggriculture\\.venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py\", line 941, in interpreter\n    _process_market(state, env)\n  File \"C:\\Users\\xyygl\\Documents\\kaggriculture\\.venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py\", line 577, in _process_market\n    _do_hire(farms[player_id], privates[player_id], board_size, hire_mult)\nTypeError: rollout.<locals>.hire() takes 3 positional arguments but 4 were given\n",
+  "seconds": 6.477707900048699
+}

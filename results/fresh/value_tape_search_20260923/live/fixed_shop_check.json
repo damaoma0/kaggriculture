@@ -1,0 +1,44 @@
+{
+  "seed": 1329978515,
+  "seat": 0,
+  "selected_route": 196,
+  "natural_diagonals_reproduced": true,
+  "rows": [
+    {
+      "world": "baseline",
+      "shops": [
+        "SMOOTHIE_SHOP",
+        "PIZZA_SHOP",
+        "PET_CAFE",
+        "YARN_STORE",
+        "ICE_CREAM_SHOP",
+        "FARMERS_MARKET",
+        "ICE_CREAM_SHOP",
+        "PIZZA_SHOP"
+      ],
+      "baseline_margin": -3626.0,
+      "candidate_margin": -6082.0,
+      "margin_delta": -2456.0,
+      "cash_delta": 3783.0,
+      "rival_delta": 6239.0
+    },
+    {
+      "world": "cohort",
+      "shops": [
+        "SMOOTHIE_SHOP",
+        "PIZZA_SHOP",
+        "PET_CAFE",
+        "YARN_STORE",
+        "ICE_CREAM_SHOP",
+        "ICE_CREAM_SHOP",
+        "PET_CAFE",
+        "PIZZA_SHOP"
+      ],
+      "baseline_margin": -1214.0,
+      "candidate_margin": -1453.0,
+      "margin_delta": -239.0,
+      "cash_delta": 2401.0,
+      "rival_delta": 2640.0
+    }
+  ]
+}

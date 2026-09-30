@@ -1,0 +1,48 @@
+         3692923 function calls (3101491 primitive calls) in 0.631 seconds
+
+   Ordered by: cumulative time
+   List reduced from 192 to 40 due to restriction <40>
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.631    0.631 C:\Users\xyygl\Documents\kaggriculture\scripts\value_tape_search_v5.py:126(rollout)
+        1    0.004    0.004    0.631    0.631 C:\Users\xyygl\Documents\kaggriculture\scripts\value_tape_search_v2.py:23(rollout)
+555012/389    0.248    0.000    0.361    0.001 C:\Users\xyygl\Documents\kaggriculture\scripts\value_tape_search_v5.py:25(observation_copy)
+      359    0.000    0.000    0.157    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:2666(mgt_kaggle_entry)
+      359    0.006    0.000    0.157    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:2562(agent)
+      359    0.000    0.000    0.132    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:1120(agent)
+      359    0.001    0.000    0.132    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:916(agent)
+      359    0.003    0.000    0.132    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:460(act)
+  2165304    0.117    0.000    0.118    0.000 {built-in method builtins.isinstance}
+      359    0.008    0.000    0.103    0.000 C:\Users\xyygl\Documents\kaggriculture\.venv\Lib\site-packages\kaggle_environments\envs\kaggriculture\kaggriculture.py:894(interpreter)
+28646/726    0.018    0.000    0.043    0.000 C:\Users\xyygl\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\copy.py:118(deepcopy)
+  913/726    0.002    0.000    0.042    0.000 C:\Users\xyygl\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\copy.py:217(_deepcopy_dict)
+      359    0.000    0.000    0.041    0.000 C:\Users\xyygl\Documents\kaggriculture\scripts\value_tape_search_v5.py:104(committed)
+      287    0.003    0.000    0.041    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:1049(_mgt_router)
+     8475    0.012    0.000    0.039    0.000 {built-in method builtins.sum}
+     6424    0.002    0.000    0.036    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:1018(_mgt_hamming)
+10637/2175    0.007    0.000    0.035    0.000 C:\Users\xyygl\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\copy.py:191(_deepcopy_list)
+      359    0.008    0.000    0.034    0.000 C:\Users\xyygl\Documents\kaggriculture\.venv\Lib\site-packages\kaggle_environments\envs\kaggriculture\kaggriculture.py:544(_process_market)
+   194636    0.024    0.000    0.024    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:1019(<genexpr>)
+      718    0.015    0.000    0.023    0.000 C:\Users\xyygl\Documents\kaggriculture\.venv\Lib\site-packages\kaggle_environments\envs\kaggriculture\kaggriculture.py:752(_decay_plants)
+     4472    0.007    0.000    0.021    0.000 C:\Users\xyygl\Documents\kaggriculture\scripts\value_tape_search_v2.py:43(unit)
+    10636    0.009    0.000    0.021    0.000 C:\Users\xyygl\Documents\kaggriculture\.venv\Lib\site-packages\kaggle_environments\envs\kaggriculture\kaggriculture.py:192(market_price)
+      359    0.008    0.000    0.021    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:517(_weed_repair)
+      359    0.000    0.000    0.021    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:436(_route_action)
+   214952    0.021    0.000    0.021    0.000 {method 'get' of 'dict' objects}
+      909    0.003    0.000    0.019    0.000 C:\Users\xyygl\Documents\kaggriculture\.venv\Lib\site-packages\kaggle_environments\envs\kaggriculture\kaggriculture.py:209(_refresh_prices)
+     4472    0.006    0.000    0.010    0.000 C:\Users\xyygl\Documents\kaggriculture\.venv\Lib\site-packages\kaggle_environments\envs\kaggriculture\kaggriculture.py:312(_apply_unit_action)
+    21272    0.006    0.000    0.010    0.000 C:\Users\xyygl\Documents\kaggriculture\.venv\Lib\site-packages\kaggle_environments\envs\kaggriculture\kaggriculture.py:61(_shape)
+      359    0.000    0.000    0.010    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:2081(_shp_daily_hire)
+      359    0.001    0.000    0.009    0.000 C:\Users\xyygl\Documents\kaggriculture\.venv\Lib\site-packages\kaggle_environments\envs\kaggriculture\kaggriculture.py:728(_town_consume)
+       15    0.001    0.000    0.009    0.001 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:1567(_shp_topups)
+      359    0.005    0.000    0.009    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:381(__init__)
+     4113    0.003    0.000    0.007    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:330(_is_noop)
+    51265    0.007    0.000    0.007    0.000 {built-in method builtins.max}
+    67008    0.007    0.000    0.007    0.000 {method 'items' of 'dict' objects}
+    15681    0.004    0.000    0.006    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:284(_get)
+      359    0.003    0.000    0.006    0.000 C:\Users\xyygl\Documents\kaggriculture\agents\mgt_m1.py:565(_projected_shed)
+    11591    0.003    0.000    0.005    0.000 C:\Users\xyygl\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\copy.py:231(_keep_alive)
+    69417    0.005    0.000    0.005    0.000 {built-in method builtins.len}
+    37/19    0.000    0.000    0.004    0.000 C:\Users\xyygl\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\Lib\copy.py:247(_reconstruct)
+
+

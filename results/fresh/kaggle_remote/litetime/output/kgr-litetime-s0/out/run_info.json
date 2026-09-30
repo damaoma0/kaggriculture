@@ -1,0 +1,33 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/test_package_isolated.py",
+   "submissions/2026-09-24-mgt_v9lite/pkg",
+   "data/router_refresh_20260922/v56/main.py",
+   "results/fresh/newphase_20260923/v9litepkg_time_kaggle.json",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/newphase_20260923/v9litepkg_time_kaggle.json"
+  ],
+  "workers": 4
+ },
+ "games": 0,
+ "pip_seconds": 57.38958477973938,
+ "run_seconds": 100.46757483482361,
+ "returncode": 1,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [],
+ "stderr_tail": [
+  "object address  : 0x7939ebf8a920",
+  "object refcount : 3",
+  "object type     : 0xa0e7c0",
+  "object type name: ValueError",
+  "object repr     : ValueError('I/O operation on closed file')",
+  "lost sys.stderr"
+ ]
+}

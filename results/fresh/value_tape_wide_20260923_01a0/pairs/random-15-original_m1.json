@@ -1,0 +1,41 @@
+{
+  "spec": {
+    "world": 15,
+    "seed": 3263588060,
+    "seat": 1,
+    "shops": [
+      "SMOOTHIE_SHOP",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "YARN_STORE",
+      "YARN_STORE",
+      "ICE_CREAM_SHOP",
+      "SMOOTHIE_SHOP",
+      "FARMERS_MARKET"
+    ],
+    "id": "random-15-original_m1",
+    "kind": "live",
+    "opponent": "original_m1"
+  },
+  "completed": true,
+  "baseline_margin": 1444.0,
+  "candidate_margin": 5915.0,
+  "baseline_cash": 122549.0,
+  "candidate_cash": 132165.0,
+  "baseline_rival_cash": 121105.0,
+  "candidate_rival_cash": 126250.0,
+  "margin_delta": 4471.0,
+  "cash_delta": 9616.0,
+  "rival_delta": 5145.0,
+  "selected": [
+    410,
+    null,
+    null
+  ],
+  "intervened": true,
+  "actions_changed": true,
+  "baseline_bank": 59.61046529997839,
+  "candidate_bank": 53.28529120009625,
+  "baseline_divergence": null,
+  "candidate_divergence": null
+}

@@ -1,0 +1,25 @@
+{
+  "arguments": {
+    "count": 8,
+    "offset": 0,
+    "rounds": 80,
+    "days": "4,6,8,10,12,14,16,18,20,22,24,26",
+    "chain": true,
+    "tag": "leaders_holdout",
+    "workers": 2,
+    "panel": "results/fresh/labour_profit/leader_panel"
+  },
+  "paths": [
+    "results\\fresh\\labour_profit\\leader_panel\\mother_goose\\110022430.json.gz",
+    "results\\fresh\\labour_profit\\leader_panel\\mother_goose\\109940134.json.gz",
+    "results\\fresh\\labour_profit\\leader_panel\\mother_goose\\109978530.json.gz",
+    "results\\fresh\\labour_profit\\leader_panel\\mother_goose\\110003096.json.gz",
+    "results\\fresh\\labour_profit\\leader_panel\\mother_goose\\109983899.json.gz",
+    "results\\fresh\\labour_profit\\leader_panel\\mother_goose\\110003132.json.gz",
+    "results\\fresh\\labour_profit\\leader_panel\\mother_goose\\109971156.json.gz",
+    "results\\fresh\\labour_profit\\leader_panel\\mother_goose\\109712554.json.gz"
+  ],
+  "script_sha256": "4a40adcfdc92285ea12adee3d8a5037f8c02e0653591b985f404595ed7bfa6fe",
+  "engine_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+  "information": "Fixed hindsight daily production jobs; all selectors use hindsight feasibility validation. Only oracle ranks by future realized profit."
+}

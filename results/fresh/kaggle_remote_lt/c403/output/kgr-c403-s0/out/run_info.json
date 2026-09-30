@@ -1,0 +1,45 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/kgr_check_run.py",
+   "b0928044815",
+   "scripts/path_trial.py",
+   "--spec",
+   "results/fresh/threads_20260928/animal/spec.json",
+   "--arms",
+   "KB115LTk,KB115LTS1,KB115LTS4",
+   "--games",
+   "16732748:112604454,16732748:112605661,16732748:112605939,16732748:112606801,16732748:112608021,16732748:112610623,16732748:112616236,16732748:112621294,16732748:112621356,16732748:112626851",
+   "--out",
+   "results/fresh/kaggle_lt/c403",
+   "--workers",
+   "4",
+   "--no_vitals",
+   "--no_gap"
+  ],
+  "collect": [
+   "results/fresh/kaggle_lt/c403/**/*",
+   "results/fresh/sector_20260925/multi/KB115LTk/*.json",
+   "results/fresh/day12_viz/kb115ltk_streams/*.json",
+   "results/fresh/sector_20260925/multi/KB115LTS1/*.json",
+   "results/fresh/day12_viz/kb115lts1_streams/*.json",
+   "results/fresh/sector_20260925/multi/KB115LTS4/*.json",
+   "results/fresh/day12_viz/kb115lts4_streams/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 61,
+ "pip_seconds": 50.13743185997009,
+ "run_seconds": 1287.458370923996,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "games done in 1283s",
+  "completed"
+ ],
+ "stderr_tail": []
+}

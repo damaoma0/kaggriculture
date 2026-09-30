@@ -1,0 +1,7 @@
+{
+ "kernels": [
+  "kgr-d402-s0"
+ ],
+ "cmd": "scripts/kgr_check_run.py b0928062320 scripts/path_trial.py --spec results/fresh/threads_20260928/animal/spec.json --arms KB115LTD2,KB115LTD2H3 --games 16732748:112592389,16732748:112593664,16732748:112594857,16732748:112596061,16732748:112597248,16732748:112598450,16732748:112599653,16732748:112600855,16732748:112602061,16732748:112603263 --out results/fresh/kaggle_lt/d402 --workers 4 --no_vitals --no_gap",
+ "pushed": 1790573160.8435113
+}

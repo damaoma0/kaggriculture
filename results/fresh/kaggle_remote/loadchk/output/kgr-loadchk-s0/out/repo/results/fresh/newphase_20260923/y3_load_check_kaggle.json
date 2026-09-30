@@ -1,0 +1,162 @@
+[
+ {
+  "agent": "mgt_y3pkg.py",
+  "seed": 0,
+  "seat": 0,
+  "steps": 720,
+  "wall": 11.0,
+  "status": [
+   "DONE",
+   "DONE"
+  ],
+  "reward": [
+   138904.0,
+   133767.0
+  ],
+  "bank_start": 60,
+  "bank_end": 58.450683,
+  "bank_min": 58.450683,
+  "max_bank_drop": 1.55,
+  "config_act_timeout": 1
+ },
+ {
+  "agent": "mgt_y3pkg.py",
+  "seed": 0,
+  "seat": 1,
+  "steps": 720,
+  "wall": 13.0,
+  "status": [
+   "DONE",
+   "DONE"
+  ],
+  "reward": [
+   133767.0,
+   138904.0
+  ],
+  "bank_start": 60,
+  "bank_end": 55.392215,
+  "bank_min": 55.392215,
+  "max_bank_drop": 4.61,
+  "config_act_timeout": 1
+ },
+ {
+  "agent": "mgt_y3pkg.py",
+  "seed": 1,
+  "seat": 0,
+  "steps": 720,
+  "wall": 12.9,
+  "status": [
+   "DONE",
+   "DONE"
+  ],
+  "reward": [
+   139561.0,
+   132645.0
+  ],
+  "bank_start": 60,
+  "bank_end": 55.527013,
+  "bank_min": 55.527013,
+  "max_bank_drop": 4.47,
+  "config_act_timeout": 1
+ },
+ {
+  "agent": "mgt_y3pkg.py",
+  "seed": 1,
+  "seat": 1,
+  "steps": 720,
+  "wall": 13.2,
+  "status": [
+   "DONE",
+   "DONE"
+  ],
+  "reward": [
+   141948.0,
+   135604.0
+  ],
+  "bank_start": 60,
+  "bank_end": 55.237372,
+  "bank_min": 55.237372,
+  "max_bank_drop": 4.76,
+  "config_act_timeout": 1
+ },
+ {
+  "agent": "mgt_m1.py",
+  "seed": 0,
+  "seat": 0,
+  "steps": 720,
+  "wall": 13.0,
+  "status": [
+   "DONE",
+   "DONE"
+  ],
+  "reward": [
+   138846.0,
+   133761.0
+  ],
+  "bank_start": 60,
+  "bank_end": 55.425200000000004,
+  "bank_min": 55.425200000000004,
+  "max_bank_drop": 4.57,
+  "config_act_timeout": 1
+ },
+ {
+  "agent": "mgt_m1.py",
+  "seed": 0,
+  "seat": 1,
+  "steps": 720,
+  "wall": 12.9,
+  "status": [
+   "DONE",
+   "DONE"
+  ],
+  "reward": [
+   133761.0,
+   138846.0
+  ],
+  "bank_start": 60,
+  "bank_end": 55.380573,
+  "bank_min": 55.380573,
+  "max_bank_drop": 4.62,
+  "config_act_timeout": 1
+ },
+ {
+  "agent": "mgt_m1.py",
+  "seed": 1,
+  "seat": 0,
+  "steps": 720,
+  "wall": 12.9,
+  "status": [
+   "DONE",
+   "DONE"
+  ],
+  "reward": [
+   139561.0,
+   132645.0
+  ],
+  "bank_start": 60,
+  "bank_end": 55.397309,
+  "bank_min": 55.397309,
+  "max_bank_drop": 4.6,
+  "config_act_timeout": 1
+ },
+ {
+  "agent": "mgt_m1.py",
+  "seed": 1,
+  "seat": 1,
+  "steps": 720,
+  "wall": 13.2,
+  "status": [
+   "DONE",
+   "DONE"
+  ],
+  "reward": [
+   142585.0,
+   133792.0
+  ],
+  "bank_start": 60,
+  "bank_end": 55.199193,
+  "bank_min": 55.199193,
+  "max_bank_drop": 4.8,
+  "config_act_timeout": 1
+ }
+]

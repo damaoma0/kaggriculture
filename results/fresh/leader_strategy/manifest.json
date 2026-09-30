@@ -1,0 +1,22 @@
+{
+  "retrieved_at": "2026-09-16 16:57:38",
+  "leader": "Majkel1337",
+  "team_id": 16718819,
+  "submission": 56156662,
+  "baseline": "agents\\v45_event_opening_fixed.py",
+  "baseline_sha256": "e512d755d45fb3cee6602493a9af799131fb3b2dd3707f927e744e4b7a6cd7a3",
+  "episodes": [
+    "episode-109655909-replay.json",
+    "episode-109662252-replay.json",
+    "episode-109668602-replay.json",
+    "episode-109675071-replay.json",
+    "episode-109681490-replay.json",
+    "episode-109687905-replay.json",
+    "episode-109694306-replay.json",
+    "episode-109701719-replay.json",
+    "episode-109701761-replay.json",
+    "episode-109709271-replay.json",
+    "episode-109717736-replay.json"
+  ],
+  "design": "Eleven consecutive recent completed episodes available in the downloaded list, five newly downloaded plus six from prior opening audit. All are retained, including losses. Exact replay and two fixed-action controls with original shops. Controls are not live matches."
+}

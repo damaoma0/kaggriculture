@@ -1,0 +1,32 @@
+{
+  "controlled_shops": "Eight uniform draws with replacement from sorted engine shops, seeded independently of farm RNG and installed only after each end-of-day reveal.",
+  "design": "Baseline and each candidate run in both seats against each opponent. Each game uses a fresh worker process. Seed is the independent cluster; seats are paired replicates.",
+  "engine": "1.32.7",
+  "games": 4,
+  "natural_shop_caveat": "Natural shops are not guaranteed to match within seed because weed spawning and shop draws share engine RNG whose consumption can depend on both farms.",
+  "opponents": {
+    "twocoins": {
+      "hash": "495bfa4825c9e58638e804aeeb62a9537826f6d4d869222815e1bbeefd84d3dc",
+      "path": "C:\\Users\\xyygl\\Documents\\kaggriculture\\data\\router_refresh_20260916\\twocoins\\main.py"
+    }
+  },
+  "policies": [
+    {
+      "hash": "e512d755d45fb3cee6602493a9af799131fb3b2dd3707f927e744e4b7a6cd7a3",
+      "id": "baseline-e512d755d4",
+      "kind": "baseline",
+      "path": "C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\v45_event_opening_fixed.py"
+    },
+    {
+      "hash": "6004cf95f82b4667da0a016f8c81e0ae43692526b821cdffd1bcf94a231209af",
+      "id": "candidate-v45_cohort_carrot_batch-6004cf95f8",
+      "kind": "candidate",
+      "path": "C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\v45_cohort_carrot_batch.py"
+    }
+  ],
+  "seeds": [
+    157001
+  ],
+  "shops": "controlled",
+  "workers": 2
+}

@@ -1,0 +1,1267 @@
+{
+  "mode": "live",
+  "arm": "upturn",
+  "number": 97647869,
+  "seat": 1,
+  "completed": true,
+  "states": 720,
+  "statuses": [
+    "DONE",
+    "DONE"
+  ],
+  "cash": 87604.0,
+  "rival_cash": 86385.0,
+  "margin": 1219.0,
+  "min_bank": [
+    60,
+    40.519538000000004
+  ],
+  "shops": [
+    "BAKERY",
+    "ICE_CREAM_SHOP",
+    "FARMERS_MARKET",
+    "PET_CAFE",
+    "BRUNCH_SPOT",
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET"
+  ],
+  "telemetry": {
+    "search": {
+      "decisions": [
+        [
+          12,
+          null,
+          null
+        ],
+        [
+          15,
+          null,
+          null
+        ],
+        [
+          18,
+          null,
+          null
+        ]
+      ],
+      "switches": 0,
+      "seconds": [
+        10.99,
+        8.6,
+        1.43
+      ],
+      "budgets": [
+        30.0,
+        20.0,
+        20.0
+      ],
+      "errors": 0,
+      "warm": []
+    },
+    "sheep": {
+      "evals": [
+        [
+          6,
+          4,
+          2,
+          4,
+          0
+        ],
+        [
+          7,
+          4,
+          2,
+          4,
+          0
+        ],
+        [
+          8,
+          4,
+          4,
+          6,
+          -2
+        ],
+        [
+          9,
+          4,
+          4,
+          6,
+          -2
+        ],
+        [
+          10,
+          4,
+          4,
+          6,
+          -2
+        ],
+        [
+          11,
+          4,
+          4,
+          6,
+          -2
+        ],
+        [
+          12,
+          4,
+          4,
+          5,
+          -1
+        ],
+        [
+          13,
+          4,
+          4,
+          5,
+          -1
+        ],
+        [
+          14,
+          4,
+          4,
+          5,
+          -1
+        ],
+        [
+          15,
+          4,
+          4,
+          5,
+          -1
+        ],
+        [
+          16,
+          4,
+          4,
+          5,
+          -1
+        ],
+        [
+          17,
+          4,
+          4,
+          5,
+          -1
+        ],
+        [
+          18,
+          4,
+          5,
+          6,
+          -2
+        ],
+        [
+          19,
+          4,
+          5,
+          5,
+          -1
+        ]
+      ],
+      "guard_wheat": 3
+    }
+  },
+  "action_sha256": "ddf076f0ecbce4785d89644117d4a16396e7ba1ed64046895cdf267135960c10",
+  "economics": [
+    {
+      "revenue": {
+        "FERTILIZER": 11811,
+        "WHEAT": 15030,
+        "WOOL": 5204,
+        "MILK": 8602,
+        "MELON": 15217,
+        "EGG": 11370,
+        "STRAWBERRY": 31068,
+        "TOMATO": 4023,
+        "CARROT": 9061
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4315,
+        "HIRE": 4591.0,
+        "BUY_ANIMAL:COW": 2800,
+        "BUY_ANIMAL:SHEEP": 2500,
+        "BUY_SEED:MELON": 1120,
+        "BUY_SEED:WHEAT": 1430,
+        "BUY_SEED:CARROT": 1100,
+        "BUY_SEED:STRAWBERRY": 2700,
+        "BUY_LAND": 3000.0,
+        "BUY_ANIMAL:GOOSE": 1800,
+        "BUY_PRODUCT:FERTILIZER": 876,
+        "BUY_SEED:TOMATO": 550
+      },
+      "units": {
+        "FERTILIZER": 199,
+        "WHEAT": 368,
+        "WOOL": 63,
+        "MILK": 158,
+        "MELON": 83,
+        "EGG": 209,
+        "STRAWBERRY": 206,
+        "TOMATO": 57,
+        "CARROT": 167
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 18377,
+        "FERTILIZER": 17039,
+        "WOOL": 5638,
+        "MILK": 9821,
+        "MELON": 14267,
+        "EGG": 4927,
+        "STRAWBERRY": 37077,
+        "CARROT": 5087
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4797,
+        "BUY_SEED:WHEAT": 1640,
+        "HIRE": 4164.0,
+        "BUY_ANIMAL:COW": 3200,
+        "BUY_ANIMAL:SHEEP": 3000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 3267,
+        "BUY_ANIMAL:GOOSE": 900,
+        "BUY_SEED:CARROT": 620
+      },
+      "units": {
+        "WHEAT": 449,
+        "FERTILIZER": 339,
+        "WOOL": 99,
+        "MILK": 190,
+        "MELON": 72,
+        "EGG": 91,
+        "STRAWBERRY": 249,
+        "CARROT": 97
+      }
+    }
+  ],
+  "ledger_verified": true,
+  "successful_plantings": [
+    {
+      "t": 581,
+      "seat": 1,
+      "unit": 6,
+      "pos": [
+        4,
+        6
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "FERTILIZER": 0
+      }
+    },
+    {
+      "t": 586,
+      "seat": 1,
+      "unit": 6,
+      "pos": [
+        3,
+        6
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 587,
+      "seat": 1,
+      "unit": 8,
+      "pos": [
+        2,
+        3
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "WOOL": 0,
+        "FERTILIZER": 0,
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 588,
+      "seat": 1,
+      "unit": 3,
+      "pos": [
+        6,
+        2
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "MILK": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 591,
+      "seat": 1,
+      "unit": 9,
+      "pos": [
+        7,
+        1
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "STRAWBERRY": 0
+      }
+    },
+    {
+      "t": 592,
+      "seat": 1,
+      "unit": 7,
+      "pos": [
+        0,
+        3
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 593,
+      "seat": 1,
+      "unit": 8,
+      "pos": [
+        2,
+        1
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "WOOL": 0,
+        "FERTILIZER": 0,
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 593,
+      "seat": 1,
+      "unit": 10,
+      "pos": [
+        5,
+        0
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "WHEAT": 0,
+        "FERTILIZER": 0,
+        "EGG": 0,
+        "STRAWBERRY": 0
+      }
+    },
+    {
+      "t": 593,
+      "seat": 1,
+      "unit": 11,
+      "pos": [
+        0,
+        9
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "TOMATO": 0,
+        "STRAWBERRY": 0
+      }
+    },
+    {
+      "t": 594,
+      "seat": 1,
+      "unit": 4,
+      "pos": [
+        1,
+        1
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "EGG": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 595,
+      "seat": 1,
+      "unit": 2,
+      "pos": [
+        2,
+        8
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "EGG": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 595,
+      "seat": 1,
+      "unit": 5,
+      "pos": [
+        8,
+        0
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {}
+    },
+    {
+      "t": 596,
+      "seat": 1,
+      "unit": 3,
+      "pos": [
+        6,
+        0
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "MILK": 0,
+        "WHEAT": 0,
+        "FERTILIZER": 0,
+        "STRAWBERRY": 0
+      }
+    },
+    {
+      "t": 596,
+      "seat": 1,
+      "unit": 9,
+      "pos": [
+        7,
+        0
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "WHEAT": 0,
+        "STRAWBERRY": 0
+      }
+    },
+    {
+      "t": 597,
+      "seat": 1,
+      "unit": 0,
+      "pos": [
+        2,
+        0
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "MILK": 0,
+        "WHEAT": 0,
+        "FERTILIZER": 0,
+        "EGG": 0
+      }
+    },
+    {
+      "t": 597,
+      "seat": 1,
+      "unit": 7,
+      "pos": [
+        0,
+        2
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "WHEAT": 0,
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 606,
+      "seat": 1,
+      "unit": 9,
+      "pos": [
+        8,
+        4
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 609,
+      "seat": 1,
+      "unit": 10,
+      "pos": [
+        5,
+        1
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "CARROT": 0,
+        "MILK": 0
+      }
+    },
+    {
+      "t": 610,
+      "seat": 1,
+      "unit": 11,
+      "pos": [
+        0,
+        4
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "CARROT": 0,
+        "STRAWBERRY": 0
+      }
+    },
+    {
+      "t": 611,
+      "seat": 1,
+      "unit": 9,
+      "pos": [
+        9,
+        4
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 614,
+      "seat": 1,
+      "unit": 10,
+      "pos": [
+        6,
+        1
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "CARROT": 0,
+        "MILK": 0
+      }
+    },
+    {
+      "t": 615,
+      "seat": 1,
+      "unit": 3,
+      "pos": [
+        7,
+        2
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "CARROT": 0,
+        "MILK": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 615,
+      "seat": 1,
+      "unit": 4,
+      "pos": [
+        1,
+        3
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "MILK": 0,
+        "WHEAT": 0,
+        "FERTILIZER": 0,
+        "EGG": 0
+      }
+    },
+    {
+      "t": 618,
+      "seat": 1,
+      "unit": 0,
+      "pos": [
+        4,
+        0
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "EGG": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 618,
+      "seat": 1,
+      "unit": 6,
+      "pos": [
+        2,
+        9
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "STRAWBERRY": 0
+      }
+    },
+    {
+      "t": 618,
+      "seat": 1,
+      "unit": 9,
+      "pos": [
+        8,
+        3
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 619,
+      "seat": 1,
+      "unit": 11,
+      "pos": [
+        1,
+        0
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "CARROT": 0,
+        "STRAWBERRY": 0
+      }
+    },
+    {
+      "t": 621,
+      "seat": 1,
+      "unit": 5,
+      "pos": [
+        9,
+        1
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "EGG": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 621,
+      "seat": 1,
+      "unit": 6,
+      "pos": [
+        1,
+        9
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "STRAWBERRY": 0
+      }
+    },
+    {
+      "t": 628,
+      "seat": 1,
+      "unit": 8,
+      "pos": [
+        3,
+        4
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "FERTILIZER": 0
+      }
+    },
+    {
+      "t": 628,
+      "seat": 1,
+      "unit": 9,
+      "pos": [
+        7,
+        4
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {}
+    },
+    {
+      "t": 632,
+      "seat": 1,
+      "unit": 6,
+      "pos": [
+        4,
+        7
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 632,
+      "seat": 1,
+      "unit": 8,
+      "pos": [
+        3,
+        3
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "FERTILIZER": 0
+      }
+    },
+    {
+      "t": 633,
+      "seat": 1,
+      "unit": 9,
+      "pos": [
+        7,
+        3
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 634,
+      "seat": 1,
+      "unit": 5,
+      "pos": [
+        9,
+        3
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 635,
+      "seat": 1,
+      "unit": 2,
+      "pos": [
+        3,
+        7
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 636,
+      "seat": 1,
+      "unit": 11,
+      "pos": [
+        0,
+        6
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {}
+    },
+    {
+      "t": 638,
+      "seat": 1,
+      "unit": 5,
+      "pos": [
+        9,
+        2
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 639,
+      "seat": 1,
+      "unit": 0,
+      "pos": [
+        3,
+        1
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "MILK": 0,
+        "WHEAT": 0,
+        "FERTILIZER": 0,
+        "EGG": 0
+      }
+    },
+    {
+      "t": 639,
+      "seat": 1,
+      "unit": 4,
+      "pos": [
+        1,
+        6
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "EGG": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 640,
+      "seat": 1,
+      "unit": 2,
+      "pos": [
+        3,
+        8
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "WHEAT": 0,
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 640,
+      "seat": 1,
+      "unit": 8,
+      "pos": [
+        2,
+        2
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 641,
+      "seat": 1,
+      "unit": 7,
+      "pos": [
+        1,
+        2
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 641,
+      "seat": 1,
+      "unit": 9,
+      "pos": [
+        8,
+        1
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 643,
+      "seat": 1,
+      "unit": 5,
+      "pos": [
+        8,
+        2
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "CARROT": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 644,
+      "seat": 1,
+      "unit": 4,
+      "pos": [
+        1,
+        7
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "EGG": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 645,
+      "seat": 1,
+      "unit": 10,
+      "pos": [
+        3,
+        0
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "EGG": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 653,
+      "seat": 1,
+      "unit": 6,
+      "pos": [
+        4,
+        6
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "CARROT": 0
+      }
+    },
+    {
+      "t": 654,
+      "seat": 1,
+      "unit": 11,
+      "pos": [
+        2,
+        5
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "STRAWBERRY": 0
+      }
+    },
+    {
+      "t": 657,
+      "seat": 1,
+      "unit": 8,
+      "pos": [
+        2,
+        3
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "CARROT": 0,
+        "MILK": 0
+      }
+    },
+    {
+      "t": 659,
+      "seat": 1,
+      "unit": 2,
+      "pos": [
+        3,
+        6
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "CARROT": 0,
+        "EGG": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 660,
+      "seat": 1,
+      "unit": 3,
+      "pos": [
+        6,
+        2
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "MILK": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 662,
+      "seat": 1,
+      "unit": 5,
+      "pos": [
+        9,
+        0
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 663,
+      "seat": 1,
+      "unit": 4,
+      "pos": [
+        0,
+        3
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "EGG": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 663,
+      "seat": 1,
+      "unit": 9,
+      "pos": [
+        8,
+        0
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 665,
+      "seat": 1,
+      "unit": 7,
+      "pos": [
+        1,
+        8
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "STRAWBERRY": 0
+      }
+    },
+    {
+      "t": 666,
+      "seat": 1,
+      "unit": 1,
+      "pos": [
+        2,
+        1
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "EGG": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 668,
+      "seat": 1,
+      "unit": 0,
+      "pos": [
+        2,
+        0
+      ],
+      "cmd": [
+        "PLANT",
+        "WHEAT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "EGG": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 669,
+      "seat": 1,
+      "unit": 4,
+      "pos": [
+        0,
+        1
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "EGG": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "t": 669,
+      "seat": 1,
+      "unit": 7,
+      "pos": [
+        2,
+        8
+      ],
+      "cmd": [
+        "PLANT",
+        "CARROT"
+      ],
+      "delta": {
+        "FERTILIZER": 0,
+        "STRAWBERRY": 0
+      }
+    }
+  ],
+  "wall_seconds": 56.795713900006376
+}

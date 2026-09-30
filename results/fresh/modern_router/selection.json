@@ -1,0 +1,28 @@
+{
+  "chosen": "baseline",
+  "sha256": "2536d41ed5a00c75204b6350f1c76c54259c774cb065ba2a3a0072eedf210d94",
+  "gates": {
+    "positive_mean_margin": false,
+    "nonnegative_each_rival": false,
+    "six_positive_seeds": false,
+    "no_fewer_wins": true,
+    "own_cash_floor": true,
+    "no_errors_or_fallbacks": true,
+    "action_time_below_one_second": true
+  },
+  "confirmation_margin_gain": -20.6875,
+  "confirmation_cash_gain": 41.59375,
+  "seed_gains": {
+    "138000": -149.75,
+    "138001": -44.0,
+    "138002": -3.25,
+    "138003": 0.0,
+    "138004": -322.5,
+    "138005": 253.0,
+    "138006": 13.5,
+    "138007": 87.5
+  },
+  "max_candidate_seconds": 0.36458649999985937,
+  "mean_changed_calls": 1.21875,
+  "note": "Local working baseline only. Existing Kaggle submission and historical selected agent unchanged."
+}

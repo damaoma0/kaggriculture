@@ -1,0 +1,12 @@
+{
+  "name": "router",
+  "config": {},
+  "validation_mean_margin": {
+    "adaptive": 26982.875,
+    "legacy": -26982.875,
+    "no-branches": 21905.71875,
+    "refine-sell10": -42614.96875,
+    "router": 26982.875
+  },
+  "criterion": "Mean paired final cash margin, equal weighting of full-router and legacy-maintenance opponents; ties retain the router. Frozen before testing."
+}

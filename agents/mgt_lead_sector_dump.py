@@ -264,6 +264,26 @@ CFG = {
     "sd_tier_deliver_check": 0,   # 1: a planned delivery is skipped when shed + everything carried already fits at that hour
     "sd_tier_deliver_keep": None, # products a delivery does not sell at once (e.g. ["MILK"]: dearer the next morning) # units kept free in the shed at midnight beyond tomorrow's feed wheat (one per animal)
     "sd_tier_coll_cap": 0,    # >0: collects per hand; one more only when it is on the hand's way (no extra walking)
+    # ---- KD thread (2026-09-28, midnight dump overflow): all default OFF, base = K5b
+    "sd_tier_deliver_keep_exact": 0,  # 1: fix _tier_deliver's own accounting bug -- a kept product (sd_tier_deliver_keep) is
+                                      # moved from hand to shed by a delivery, NOT removed from the midnight total (still
+                                      # occupies the 100 cap); score / room-reduction no longer count it as sold or resolved
+    "sd_tier_room_shed": 0,   # 1: the room estimate at hour 0 also reserves whatever sd_tier_deliver_keep product is
+                              # already sitting in the shed (kept there by yesterday's delivery, not yet resold)
+    "sd_tier_deliver_keep_room": 0,  # 1: each scheduled delivery today also shrinks the room budget for later candidates
+                                     # by its own kept-product portion (that portion sits in the shed, not sold); the
+                                     # score / per-delivery total stay original (keeps the reorder-priority benefit that
+                                     # sd_tier_deliver_keep_exact lost by scoring kept goods at zero)
+    "sd_tier_room_margin": 0.0,  # extra units subtracted from the hour-0 room estimate (safety margin against under-projection)
+    "sd_tier_room_const": None,  # replaces n_anim * wheat_days in the room estimate with this flat constant when set
+                                 # (season_shed.py: real pre-dump shed averages ~5.5-8.2 units, not ~20-27)
+    "sd_tier_topup": 0,       # 1: local runtime fix -- at sd_tier_topup_hour, a hand already standing at the shed with
+                              # nothing planned (idle) and carrying sellable goods DROPs + sells early if the actual
+                              # (real, not projected) shed + all carried inventory is heading over the cap
+    "sd_tier_topup_hour": 23,
+    "sd_tier_topup_margin": 0.0,  # extra safety margin (beyond sd_tier_dump_buffer) used only to trigger the top-up
+    "sd_tier_deliver_trim_max": 4,  # trims tried from a route's tail before a delivery candidate is given up on (was a
+                                    # hardcoded 4): a busier day may need more low-value extras stripped to find any slack
     "sd_melon_rule": 0,       # 1 (user): hard-coded melon trips (by 8 bonus / 8-12 penalty / never after 12), melon hands kept out of the planner
     "sd_mel_bonus": 10.0,     # coins per melon unit per hour delivered before 8
     "sd_mel_pen": 10.0,       # coins per melon unit per hour delivered after 8 (never after 12)
@@ -6183,38 +6203,75 @@ def _tier_load(seg, stops, tiles, day):
     return Counter({k: v for k, v in load.items() if v > 0})
 
 
-def _tier_deliver(S, segs, tiles, day, st):
+def _tier_deliver(S, segs, tiles, day, st, shed=None):
     """sd_tier_deliver: when the projected midnight dump (every hand's load) will not fit the shed (100 minus tomorrow's
     feed wheat and a buffer), the hands with the most valuable loads per added hour end their day at the nearest shed tile
-    with a DROP (sold at once); low-value extras at a route's end are trimmed when the day is too short for the walk."""
+    with a DROP (sold at once); low-value extras at a route's end are trimmed when the day is too short for the walk.
+
+    sd_tier_deliver_keep_exact (KD thread): a delivery does not remove a sd_tier_deliver_keep product from the midnight
+    total -- it only moves it from the hand to the shed, where it still occupies the 100 cap. The original accounting
+    treated every delivered unit as resolved (sold), so a milk-heavy delivery looked like it fully cleared its load when
+    the kept milk was still sitting there at midnight. Fixed: kept units are neither scored as sold value nor subtracted
+    from the running total, so the loop keeps scheduling deliveries (of non-kept goods, or trims further) until the KEPT
+    goods plus everything else genuinely fits.
+    sd_tier_room_shed: the room estimate also reserves whatever kept product is already in the shed at hour 0 (left over,
+    unsold, from a previous day's delivery) -- it does not vanish on its own before tonight's dump.
+    sd_tier_room_margin: an extra flat safety margin on the room estimate.
+
+    sd_tier_deliver_keep_room (KD thread, corrected): sd_tier_deliver_keep_exact taught the DIFFERENCE between "resolved"
+    and "sold" the hard way -- excluding kept goods from the score made every milk-heavy delivery look worthless (near-zero
+    or negative net cash), so the search stopped choosing them at all. But choosing them was never really about their
+    (fictional) sale value: a DROP moves that hand's whole load into the shed BEFORE the midnight batch dump runs, so it
+    is filled first and protected regardless of what happens to the rest of the board -- the milk was never at extra risk
+    from being delivered, it was the REST of the day's undelivered carry that needed that shed slot to still be free.
+    sd_tier_deliver_keep_room leaves the score and the per-delivery total exactly as the original (a delivery still fully
+    clears its own segment's load, keeping the reorder-priority benefit), and only additionally shrinks the room BUDGET
+    available to later candidates by the kept portion of every delivery already scheduled this day -- so a day with a lot
+    of early milk deliveries correctly runs out of "free" capacity sooner and keeps scheduling non-milk deliveries too."""
     prices = S.get("_tier_prices") or {}
+    nosell_ = set(CFG["sd_tier_deliver_keep"] or ())
+    keep_exact = bool(CFG["sd_tier_deliver_keep_exact"])
     n_anim = sum(1 for r in tiles for t in r if _animal(t))
-    room = 100 - n_anim * int(CFG["wheat_days"]) - int(CFG["sd_tier_dump_buffer"])
+    kept_shed0 = sum(int((shed or {}).get(p, 0) or 0) for p in nosell_) if CFG["sd_tier_room_shed"] else 0
+    # sd_tier_room_const (KD thread): n_anim * wheat_days (~20-27 units on a mid/late-season world) models the wheat
+    # reserved from selling as still sitting in the shed all day; season_shed.py's 234-night measurement shows the real
+    # shed just before the midnight dump averages 5.5 (leader) - 8.2 (K5b) units, wheat included -- most reserved feed
+    # wheat is picked up and consumed the same day, not left in the shed. A flat empirical constant replaces the
+    # per-animal term when set (None: unchanged original formula).
+    rc = CFG["sd_tier_room_const"]
+    reserve = float(rc) if rc is not None else n_anim * int(CFG["wheat_days"])
+    room = 100 - reserve - int(CFG["sd_tier_dump_buffer"]) - kept_shed0 - float(CFG["sd_tier_room_margin"])
     loads = [_tier_load(sg, sg["stops"], tiles, day) for sg in segs]
-    total = sum(sum(l.values()) for l in loads)
+    total0 = sum(sum(l.values()) for l in loads)
+    total = total0
     st["tier_dump_proj"] = st.get("tier_dump_proj", 0) + total
     done = set()
+    deliveries = 0
     while total > room:
         best = None
         for k, sg in enumerate(segs):
             if k in done or not loads[k]:
                 continue
-            val = sum(v * float(prices.get(p, 0) or 0) for p, v in loads[k].items())
             ev0 = _tier_eval(sg)
             stops = list(sg["stops"])
             lost = 0.0
-            for trim in range(4):
+            for trim in range(int(CFG["sd_tier_deliver_trim_max"])):
                 last = stops[-1]["tile"] if stops else sg["p0"]
                 sh = _tier_near_shed(last)
                 trial = stops + [{"tile": sh, "ops": [_tier_op(["DROP"], True, 0.0, 2)], "rel": 0, "deliver": True}]
                 ev = _tier_eval(sg, trial)
                 if ev[1] <= ev0[1] and ev[3] <= ev0[3]:
                     lk = _tier_load(sg, trial[:-1], tiles, day)
-                    v2 = sum(v * float(prices.get(p, 0) or 0) for p, v in lk.items())
+                    if keep_exact:
+                        v2 = sum(v * float(prices.get(p, 0) or 0) for p, v in lk.items() if p not in nosell_)
+                        removed = sum(v for p, v in lk.items() if p not in nosell_)
+                    else:
+                        v2 = sum(v * float(prices.get(p, 0) or 0) for p, v in lk.items())
+                        removed = sum(lk.values())
                     dh = max(1, ev[0] - ev0[0])
                     sc = (v2 - lost) / dh
                     if v2 - lost > 0 and (best is None or sc > best[0]):
-                        best = (sc, k, trial, lk)
+                        best = (sc, k, trial, lk, removed)
                     break
                 if not stops or any(o["m"] for o in stops[-1]["ops"]):
                     break                              # only extras (no mandatory op) may be trimmed
@@ -6222,13 +6279,19 @@ def _tier_deliver(S, segs, tiles, day, st):
                 stops = stops[:-1]
         if best is None:
             break
-        _, k, trial, lk = best
+        _, k, trial, lk, removed = best
         segs[k]["stops"] = trial
         segs[k]["ver"] += 1
         done.add(k)
-        total -= sum(lk.values())
+        total -= removed
+        if CFG["sd_tier_deliver_keep_room"]:
+            room -= sum(v for p, v in lk.items() if p in nosell_)
+        deliveries += 1
         st["tier_deliveries"] = st.get("tier_deliveries", 0) + 1
     st["tier_dump_left_over"] = st.get("tier_dump_left_over", 0) + max(0, total - room)
+    return {"room": room, "total0": round(total0, 1), "total_after": round(total, 1), "deliveries": deliveries,
+            "kept_shed0": kept_shed0, "load0_by_product": {p: round(sum(l.get(p, 0) for l in loads), 1)
+                                                            for p in PRODUCTS if any(l.get(p) for l in loads)}}
 
 
 def _tier_melon(day, tiles, units):
@@ -6393,7 +6456,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     for pass_ in range(int(CFG["sd_tier_spawn_passes"])):
         units = [(0, f0, ft0)] + [(u + 1, q, 1) for u, q in enumerate(sp0)] + [
             (u + 1 + k0, q, 2) for u, q in enumerate(sp1)]
-        TP = _tier_core(S, L, st, day, tiles, _tier_copy.deepcopy(rec), units, want, t_start)
+        TP = _tier_core(S, L, st, day, tiles, _tier_copy.deepcopy(rec), units, want, t_start, shed)
         if 0 in TP["routes"]:
             TP["routes"][0]["t0"] = ft0
         f1 = f0 if ft0 else _tier_walk(TP["routes"].get(0), f0, 1)
@@ -6438,7 +6501,7 @@ def _tier_walk(R, p, n):
     return p
 
 
-def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
+def _tier_core(S, L, st, day, tiles, rec, units, want, t_start, shed=None):
     n_ani = int(CFG["sd_tier_animal_hand"])
     ani_units = set(u for u, _, _ in units[-n_ani:]) if n_ani > 0 else set()
     # ---- A. melon hands
@@ -6569,8 +6632,9 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
     _tier_fill(segs, list(range(len(segs))), rest, collects, owner, rate, st, "e")
     if CFG["sd_tier_relief"] and rest:
         _tier_relief(segs, rest, collects, owner, rate, st)
+    dump_diag = None
     if CFG["sd_tier_deliver"]:
-        _tier_deliver(S, segs, tiles, day, st)
+        dump_diag = _tier_deliver(S, segs, tiles, day, st, shed)
     # ---- routes per unit
     routes_u = {}
     summ = []
@@ -6601,7 +6665,7 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
     return {"day": day, "routes": routes_u, "log": [], "cnt": Counter(), "owner": owner,
                  "summary": {"units": summ, "left_out_melons": left, "mand_late": late_m, "unplanned": unplanned,
                              "plan_ms": round(1000 * (time.perf_counter() - t_start), 1), "search_cost": round(cost, 2),
-                             "want": want, "n_mand_stops": len(stops_all)}}
+                             "want": want, "n_mand_stops": len(stops_all), "dump": dump_diag}}
 
 
 def _tier_check(c, t, inv, day, seeds_left):
@@ -6741,6 +6805,43 @@ def _tier_cmd(TP, R, u, p, inv, tiles, day, hour, step, seeds_left, shed_left):
     return ["PASS"]
 
 
+def _tier_topup(TP, pos, invs, actions):
+    """sd_tier_topup (KD thread): local runtime fix, no re-planning. At sd_tier_topup_hour (default 23, the last turn
+    before the midnight dump), if the REAL current total (TP["_load_now"]: actual shed + everything every unit is
+    actually carrying right now, set earlier this same call) is still heading over the cap, a hand that already has
+    nothing planned this hour (its action is PASS -- genuinely idle or everything left was skipped) AND is already
+    standing at a shed tile (it cannot walk there in one turn) DROPs its sellable goods early; the resulting shed stock
+    is queued in TP["dsell"] the same way a planned delivery is, so _market sells it this same turn. Wheat and
+    sd_tier_deliver_keep products are left alone (moving them to the shed does not reduce the total, only relocates it)."""
+    thresh = 100 - int(CFG["sd_tier_dump_buffer"]) - float(CFG["sd_tier_topup_margin"])
+    load_now = TP.get("_load_now", 0)
+    if load_now <= thresh:
+        return
+    nosell_ = set(CFG["sd_tier_deliver_keep"] or ())
+    cand = []
+    for u in sorted(TP["routes"]):
+        if u >= len(pos) or u >= len(invs) or u >= len(actions):
+            continue
+        a = actions[u]
+        if not a or a[0] != "PASS":
+            continue                                  # only a hand with nothing left to do this turn (no opportunity cost)
+        if not _is_shed_adjacent_t(tuple(pos[u])):
+            continue                                  # local fix only: it must already be at the shed, not walk there
+        inv = invs[u] or {}
+        sellable = sum(int(v or 0) for k_, v in inv.items() if k_ in PRODUCTS and k_ != "WHEAT" and k_ not in nosell_ and int(v or 0) > 0)
+        if sellable > 0:
+            cand.append((sellable, u, inv))
+    cand.sort(key=lambda x: -x[0])
+    for sellable, u, inv in cand:
+        if load_now <= thresh:
+            break
+        actions[u] = ["DROP"]
+        TP.setdefault("dsell", Counter()).update(
+            {k_: int(v) for k_, v in inv.items() if k_ in PRODUCTS and k_ != "WHEAT" and k_ not in nosell_ and int(v or 0) > 0})
+        TP["cnt"]["topup"] += 1
+        load_now -= sellable
+
+
 def _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, shed):
     TP = S.get("tier")
     if not TP or TP.get("day") != day:
@@ -6765,6 +6866,8 @@ def _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, sh
     if CFG["sd_plan_log"] and snap != L.get("plan_last"):
         L.setdefault("plan_log", {})[str(step)] = snap
         L["plan_last"] = snap
+    if CFG["sd_tier_topup"] and hour >= int(CFG["sd_tier_topup_hour"]):
+        _tier_topup(TP, pos, invs, actions)
     if hour == 23:
         TP["summary"]["breakages"] = list(TP["log"])
         TP["summary"]["exec"] = {str(u): {"plan": R.get("plan_hours"), "done": R.get("done", [])} for u, R in TP["routes"].items()}

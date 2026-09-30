@@ -1,0 +1,7 @@
+{
+ "kernels": [
+  "kgr-oppsixdaylatest-s0"
+ ],
+ "cmd": "scripts/benchmark_random_opp_paired.py --opponent sixday_latest --agents mgt_y3,mgt_v9litepkg3 --n-seeds 20 --workers 4",
+ "pushed": 1790265225.939049
+}

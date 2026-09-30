@@ -1,0 +1,108 @@
+{
+  "label": "two_order_flat",
+  "strategies": 101,
+  "terminal_inventory_range": [
+    0,
+    0
+  ],
+  "support": [
+    {
+      "index": 0,
+      "orders": [
+        0,
+        -100
+      ],
+      "probability": 1.0
+    }
+  ],
+  "value": -0.0,
+  "max_unilateral_margin_gain": 0.0,
+  "symmetric_pure_own_cash_equilibria": [
+    {
+      "orders": [
+        0,
+        -100
+      ],
+      "cash": 3000
+    },
+    {
+      "orders": [
+        1,
+        -100
+      ],
+      "cash": 3000
+    }
+  ],
+  "probes": [
+    {
+      "q": 0,
+      "self_cash": 3000,
+      "best_margin_response": [
+        0,
+        -100
+      ],
+      "best_margin": 0,
+      "best_own_cash_response": [
+        0,
+        -100
+      ],
+      "best_own_cash": 3000
+    },
+    {
+      "q": 5,
+      "self_cash": 3000,
+      "best_margin_response": [
+        3,
+        -100
+      ],
+      "best_margin": 4,
+      "best_own_cash_response": [
+        2,
+        -100
+      ],
+      "best_own_cash": 3002
+    },
+    {
+      "q": 14,
+      "self_cash": 3000,
+      "best_margin_response": [
+        6,
+        -100
+      ],
+      "best_margin": 16,
+      "best_own_cash_response": [
+        7,
+        -100
+      ],
+      "best_own_cash": 3009
+    },
+    {
+      "q": 70,
+      "self_cash": 3000,
+      "best_margin_response": [
+        28,
+        -100
+      ],
+      "best_margin": 188,
+      "best_own_cash_response": [
+        29,
+        -100
+      ],
+      "best_own_cash": 3096
+    },
+    {
+      "q": 100,
+      "self_cash": 3000,
+      "best_margin_response": [
+        36,
+        -100
+      ],
+      "best_margin": 272,
+      "best_own_cash_response": [
+        37,
+        -100
+      ],
+      "best_own_cash": 3138
+    }
+  ]
+}

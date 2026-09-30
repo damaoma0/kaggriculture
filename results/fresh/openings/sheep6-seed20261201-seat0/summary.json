@@ -1,0 +1,331 @@
+{
+  "name": "sheep6",
+  "config": {
+    "cash_crop": "WHEAT",
+    "harvest_age": 4,
+    "hands": 6,
+    "animals": [
+      "SHEEP",
+      "SHEEP",
+      "SHEEP",
+      "SHEEP",
+      "SHEEP",
+      "SHEEP"
+    ],
+    "melons": 0,
+    "strawberries": 0,
+    "strawberry_day": 4,
+    "land_day": 99,
+    "land_buffer": 700
+  },
+  "seed": 20261201,
+  "seat": 0,
+  "opponent": "C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\public\\tschinkel_router_v31.py",
+  "seconds": 1.34,
+  "actions": {
+    "PASS": 198,
+    "PICKUP": 54,
+    "BUILD_PASTURE": 6,
+    "WEST": 214,
+    "PLACE": 6,
+    "NORTH": 204,
+    "FEED": 49,
+    "CARE": 49,
+    "SOUTH": 111,
+    "EAST": 134,
+    "PLANT": 44,
+    "WATER": 140,
+    "DROP": 34,
+    "COLLECT_FERTILIZER": 43,
+    "HARVEST": 32
+  },
+  "max_decision_ms": 0.8957000027294271,
+  "checkpoints": {
+    "3": {
+      "step": 72,
+      "cash": 224.0,
+      "opponent_cash": 154.0,
+      "crops": {
+        "WHEAT": 19
+      },
+      "cohorts": {
+        "WHEAT planted day 2": 4,
+        "WHEAT planted day 0": 9,
+        "WHEAT planted day 1": 6
+      },
+      "animals": {
+        "SHEEP": 5
+      },
+      "quadrants": [
+        "NW"
+      ],
+      "shed": {
+        "WHEAT": 12,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 2,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "seeds": {
+        "WHEAT": 0,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0
+      },
+      "shops": [
+        "ICE_CREAM_SHOP"
+      ],
+      "cash_plus_installed_cost": 2914.0
+    },
+    "6": {
+      "step": 144,
+      "cash": 1418.0,
+      "opponent_cash": 214.0,
+      "crops": {
+        "WHEAT": 18
+      },
+      "cohorts": {
+        "WHEAT planted day 2": 4,
+        "WHEAT planted day 4": 8,
+        "WHEAT planted day 5": 6
+      },
+      "animals": {
+        "SHEEP": 6
+      },
+      "quadrants": [
+        "NW"
+      ],
+      "shed": {
+        "WHEAT": 35,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 4,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "seeds": {
+        "WHEAT": 1,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0
+      },
+      "shops": [
+        "ICE_CREAM_SHOP",
+        "YARN_STORE"
+      ],
+      "cash_plus_installed_cost": 4598.0
+    },
+    "9": {
+      "step": 216,
+      "cash": 9307.0,
+      "opponent_cash": 902.0,
+      "crops": {
+        "WHEAT": 17
+      },
+      "cohorts": {
+        "WHEAT planted day 6": 3,
+        "WHEAT planted day 8": 6,
+        "WHEAT planted day 7": 2,
+        "WHEAT planted day 5": 6
+      },
+      "animals": {
+        "SHEEP": 6
+      },
+      "quadrants": [
+        "NW"
+      ],
+      "shed": {
+        "WHEAT": 43,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 5,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "seeds": {
+        "WHEAT": 2,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0
+      },
+      "shops": [
+        "ICE_CREAM_SHOP",
+        "YARN_STORE",
+        "PIZZA_SHOP"
+      ],
+      "cash_plus_installed_cost": 12477.0
+    }
+  },
+  "opponent_checkpoints": {
+    "3": {
+      "step": 72,
+      "cash": 154.0,
+      "opponent_cash": 224.0,
+      "crops": {
+        "WHEAT": 7,
+        "MELON": 12
+      },
+      "cohorts": {
+        "WHEAT planted day 2": 3,
+        "WHEAT planted day 0": 4,
+        "MELON planted day 0": 12
+      },
+      "animals": {
+        "COW": 3,
+        "SHEEP": 2
+      },
+      "quadrants": [
+        "NW"
+      ],
+      "shed": {
+        "WHEAT": 8,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 0,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "seeds": {
+        "WHEAT": 2,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0
+      },
+      "shops": [
+        "ICE_CREAM_SHOP"
+      ],
+      "cash_plus_installed_cost": 3384.0
+    },
+    "6": {
+      "step": 144,
+      "cash": 214.0,
+      "opponent_cash": 1418.0,
+      "crops": {
+        "WHEAT": 3,
+        "STRAWBERRY": 4,
+        "MELON": 12
+      },
+      "cohorts": {
+        "WHEAT planted day 4": 3,
+        "STRAWBERRY planted day 5": 4,
+        "MELON planted day 0": 12
+      },
+      "animals": {
+        "COW": 4,
+        "SHEEP": 2
+      },
+      "quadrants": [
+        "NW"
+      ],
+      "shed": {
+        "WHEAT": 20,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 1,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "seeds": {
+        "WHEAT": 9,
+        "CARROT": 3,
+        "TOMATO": 0,
+        "STRAWBERRY": 4,
+        "MELON": 0
+      },
+      "shops": [
+        "ICE_CREAM_SHOP",
+        "YARN_STORE"
+      ],
+      "cash_plus_installed_cost": 4204.0
+    },
+    "9": {
+      "step": 216,
+      "cash": 902.0,
+      "opponent_cash": 9307.0,
+      "crops": {
+        "WHEAT": 5,
+        "STRAWBERRY": 20,
+        "MELON": 12
+      },
+      "cohorts": {
+        "WHEAT planted day 7": 4,
+        "STRAWBERRY planted day 7": 4,
+        "STRAWBERRY planted day 5": 4,
+        "MELON planted day 0": 12,
+        "STRAWBERRY planted day 8": 4,
+        "WHEAT planted day 8": 1,
+        "STRAWBERRY planted day 6": 8
+      },
+      "animals": {
+        "COW": 9,
+        "SHEEP": 4
+      },
+      "quadrants": [
+        "NW",
+        "NE"
+      ],
+      "shed": {
+        "WHEAT": 30,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 3,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "seeds": {
+        "WHEAT": 9,
+        "CARROT": 4,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0
+      },
+      "shops": [
+        "ICE_CREAM_SHOP",
+        "YARN_STORE",
+        "PIZZA_SHOP"
+      ],
+      "cash_plus_installed_cost": 10512.0
+    }
+  }
+}

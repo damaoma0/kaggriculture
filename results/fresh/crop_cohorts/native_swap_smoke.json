@@ -1,0 +1,97 @@
+{
+  "design": "Exactly two official-engine controlled-shop smoke games; appended source loaded through get_last_callable; corrected baseline seat 0 vs downloaded public V45 seat 1. Physical/contract test, not a strength comparison.",
+  "sources": {
+    "baseline": "C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\v45_event_opening_fixed.py",
+    "baseline_sha256": "e512d755d45fb3cee6602493a9af799131fb3b2dd3707f927e744e4b7a6cd7a3",
+    "overlay": "C:\\Users\\xyygl\\.codex\\worktrees\\dba6\\kaggriculture\\agents\\native_crop_swap_overlay.py",
+    "overlay_sha256": "e589740d9467bde769fbf4ad13df2821a14e97d0eb7a4741366d212a517e4337",
+    "rival": "C:\\Users\\xyygl\\Documents\\kaggriculture\\data\\router_refresh_20260916\\v45\\main.py",
+    "rival_sha256": "2536d41ed5a00c75204b6350f1c76c54259c774cb065ba2a3a0072eedf210d94"
+  },
+  "games": [
+    {
+      "seed": 157900,
+      "max_plots": 2,
+      "shops": [
+        "BAKERY",
+        "PET_CAFE",
+        "PET_CAFE",
+        "BRUNCH_SPOT",
+        "ICE_CREAM_SHOP",
+        "ICE_CREAM_SHOP",
+        "BRUNCH_SPOT",
+        "BAKERY"
+      ],
+      "cash": [
+        55308.0,
+        55632.0
+      ],
+      "margin": -324.0,
+      "action_calls": [
+        719,
+        719
+      ],
+      "entrypoint_first_line": 3972,
+      "telemetry": {
+        "cohort_commitments": 7,
+        "cohort_harvest_units": 15,
+        "cohort_expired_unharvested_yield": 0,
+        "cohort_seedpurchases": 9,
+        "cohort_changedcommands": 14,
+        "cohort_overnight_auto_drop_harvests": 2,
+        "cohort_overnight_auto_drop_units": 4,
+        "cohort_carrotsellrequests": 36,
+        "cohort_contract_errors": 0,
+        "cohort_last_error": ""
+      },
+      "actual": {
+        "carrot_plants": 38,
+        "carrot_harvest_units": 118,
+        "carrot_sold_units": 118,
+        "carrot_sale_revenue": 8132
+      }
+    },
+    {
+      "seed": 157900,
+      "max_plots": 4,
+      "shops": [
+        "BAKERY",
+        "PET_CAFE",
+        "PET_CAFE",
+        "BRUNCH_SPOT",
+        "ICE_CREAM_SHOP",
+        "ICE_CREAM_SHOP",
+        "BRUNCH_SPOT",
+        "BAKERY"
+      ],
+      "cash": [
+        55197.0,
+        55841.0
+      ],
+      "margin": -644.0,
+      "action_calls": [
+        719,
+        719
+      ],
+      "entrypoint_first_line": 3972,
+      "telemetry": {
+        "cohort_commitments": 13,
+        "cohort_harvest_units": 27,
+        "cohort_expired_unharvested_yield": 0,
+        "cohort_seedpurchases": 17,
+        "cohort_changedcommands": 26,
+        "cohort_overnight_auto_drop_harvests": 2,
+        "cohort_overnight_auto_drop_units": 4,
+        "cohort_carrotsellrequests": 47,
+        "cohort_contract_errors": 0,
+        "cohort_last_error": ""
+      },
+      "actual": {
+        "carrot_plants": 44,
+        "carrot_harvest_units": 132,
+        "carrot_sold_units": 132,
+        "carrot_sale_revenue": 8884
+      }
+    }
+  ]
+}

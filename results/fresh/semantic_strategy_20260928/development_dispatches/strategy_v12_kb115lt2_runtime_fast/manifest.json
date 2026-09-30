@@ -1,0 +1,64 @@
+{
+  "scope": "FROZEN_LIVE8_DEVELOPMENT_ONLY_STOP_ON_INVALID_OR_UNREACHABLE6",
+  "created_utc": "2026-09-28T08:46:45.517318+00:00",
+  "study": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928",
+  "candidate": "strategy_v12_kb115lt2_runtime_fast",
+  "candidate_manifest_sha256": "aafa32c48bc4b32627855bd0f0bf18bf93f4f982c496f5ec5f7411dc43a938a1",
+  "protocol_sha256": "43ed18af7564e376ba6651881f8c7ca3937f1204ce60c8b3cca939b731606a42",
+  "cases": [
+    {
+      "id": "live-00",
+      "seed": 3968666082,
+      "seat": 0
+    },
+    {
+      "id": "live-01",
+      "seed": 869148193,
+      "seat": 1
+    },
+    {
+      "id": "live-02",
+      "seed": 4182452395,
+      "seat": 0
+    },
+    {
+      "id": "live-03",
+      "seed": 378183888,
+      "seat": 1
+    },
+    {
+      "id": "live-04",
+      "seed": 552902341,
+      "seat": 0
+    },
+    {
+      "id": "live-05",
+      "seed": 779294796,
+      "seat": 1
+    },
+    {
+      "id": "live-06",
+      "seed": 474976220,
+      "seat": 0
+    },
+    {
+      "id": "live-07",
+      "seed": 2629053427,
+      "seat": 1
+    }
+  ],
+  "files": {
+    "run_semantic_v12_development_20260928.py": "c22ed94c1ab09e9647ae6768432b5d8073575bec10235614d26617362b64e429"
+  },
+  "reuse": {
+    "case": "live-06",
+    "files": {
+      "runs/strategy_v12_kb115lt2_runtime_fast/development/live/live-06.json": "3ce31c119350261d49c42182038e6616914fd623d63af7f8d65d25d62a7ec150",
+      "runs/strategy_v12_kb115lt2_runtime_fast/development/live/live-06.actions.json": "16b17a2ee531877ce7703880d1cbeba5e4e776513c4449e5da617a8ef4dc1600"
+    }
+  },
+  "stop_on_any_technical_invalid": true,
+  "required_wins": 6,
+  "planned_denominator": 8,
+  "normal_timeout": true
+}

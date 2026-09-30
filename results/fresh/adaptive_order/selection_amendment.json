@@ -1,0 +1,7 @@
+{
+  "reason": "Post-hoc attribution control prompted by discovery seed 124000 turn 517: planned MILK sale had no executed units, while STRAWBERRY traded. Earlier automatic liquidation can leave stale tape orders.",
+  "additional_control": "available: move empty SELL orders behind available ones; preserve relative order within each group.",
+  "selection": "Apply the original eligibility and equal-panel scoring rule to available, static, clock, visible, with that simplicity order and the original 50-unit tolerance.",
+  "confirmation": "Use the original eight untouched seeds. If another policy is selected, include availability as a third confirmation policy. Require selection to improve mean confirmation margin over availability as well as passing original gates.",
+  "disclosure": "The control was added after inspecting partial discovery logs; original four policy implementations and frozen manifests remain unchanged."
+}

@@ -1,0 +1,41 @@
+{
+  "spec": {
+    "world": 10,
+    "seed": 2001917946,
+    "seat": 0,
+    "shops": [
+      "BRUNCH_SPOT",
+      "PET_CAFE",
+      "FARMERS_MARKET",
+      "PET_CAFE",
+      "PIZZA_SHOP",
+      "FARMERS_MARKET",
+      "BAKERY",
+      "SMOOTHIE_SHOP"
+    ],
+    "id": "random-10-original_m1",
+    "kind": "live",
+    "opponent": "original_m1"
+  },
+  "completed": true,
+  "baseline_margin": 193.0,
+  "candidate_margin": 193.0,
+  "baseline_cash": 93057.0,
+  "candidate_cash": 93057.0,
+  "baseline_rival_cash": 92864.0,
+  "candidate_rival_cash": 92864.0,
+  "margin_delta": 0.0,
+  "cash_delta": 0.0,
+  "rival_delta": 0.0,
+  "selected": [
+    null,
+    null,
+    null
+  ],
+  "intervened": false,
+  "actions_changed": false,
+  "baseline_bank": 59.602710800012574,
+  "candidate_bank": 55.04032149998238,
+  "baseline_divergence": null,
+  "candidate_divergence": null
+}

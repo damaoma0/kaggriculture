@@ -1,0 +1,41 @@
+{
+  "spec": {
+    "world": 11,
+    "seed": 3518929396,
+    "seat": 1,
+    "shops": [
+      "FARMERS_MARKET",
+      "BAKERY",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "FARMERS_MARKET",
+      "FARMERS_MARKET",
+      "ICE_CREAM_SHOP",
+      "FARMERS_MARKET"
+    ],
+    "id": "random-11-original_m1",
+    "kind": "live",
+    "opponent": "original_m1"
+  },
+  "completed": true,
+  "baseline_margin": 0.0,
+  "candidate_margin": 2500.0,
+  "baseline_cash": 100510.0,
+  "candidate_cash": 102484.0,
+  "baseline_rival_cash": 100510.0,
+  "candidate_rival_cash": 99984.0,
+  "margin_delta": 2500.0,
+  "cash_delta": 1974.0,
+  "rival_delta": -526.0,
+  "selected": [
+    null,
+    null,
+    289
+  ],
+  "intervened": true,
+  "actions_changed": true,
+  "baseline_bank": 59.64604389993474,
+  "candidate_bank": 53.153791600081604,
+  "baseline_divergence": null,
+  "candidate_divergence": null
+}

@@ -1,0 +1,102 @@
+{
+  "expected_games": 64,
+  "recorded_games": 15,
+  "opponents": {
+    "kaito_v13": {
+      "games": 4,
+      "completed": 4,
+      "failures": 0,
+      "mgt_wins": 4,
+      "ties": 0,
+      "mgt_losses": 0,
+      "mean_mgt_margin": 26839.0,
+      "seed_bootstrap_95ci": [
+        21751.0,
+        31927.0
+      ],
+      "complete_seed_pairs": 2,
+      "seat_results": {
+        "0": {
+          "wins": 2,
+          "games": 2
+        },
+        "1": {
+          "wins": 2,
+          "games": 2
+        }
+      }
+    },
+    "rayk_v11": {
+      "games": 4,
+      "completed": 4,
+      "failures": 0,
+      "mgt_wins": 4,
+      "ties": 0,
+      "mgt_losses": 0,
+      "mean_mgt_margin": 39276.25,
+      "seed_bootstrap_95ci": [
+        31509.5,
+        47043.0
+      ],
+      "complete_seed_pairs": 2,
+      "seat_results": {
+        "0": {
+          "wins": 2,
+          "games": 2
+        },
+        "1": {
+          "wins": 2,
+          "games": 2
+        }
+      }
+    },
+    "flex_v59": {
+      "games": 4,
+      "completed": 4,
+      "failures": 0,
+      "mgt_wins": 4,
+      "ties": 0,
+      "mgt_losses": 0,
+      "mean_mgt_margin": 36507.75,
+      "seed_bootstrap_95ci": [
+        29535.0,
+        43480.5
+      ],
+      "complete_seed_pairs": 2,
+      "seat_results": {
+        "0": {
+          "wins": 2,
+          "games": 2
+        },
+        "1": {
+          "wins": 2,
+          "games": 2
+        }
+      }
+    },
+    "ahmed_v55": {
+      "games": 3,
+      "completed": 3,
+      "failures": 0,
+      "mgt_wins": 3,
+      "ties": 0,
+      "mgt_losses": 0,
+      "mean_mgt_margin": 13820.666666666666,
+      "seed_bootstrap_95ci": [
+        19087.0,
+        19087.0
+      ],
+      "complete_seed_pairs": 1,
+      "seat_results": {
+        "0": {
+          "wins": 2,
+          "games": 2
+        },
+        "1": {
+          "wins": 1,
+          "games": 1
+        }
+      }
+    }
+  }
+}

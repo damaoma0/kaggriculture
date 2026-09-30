@@ -1,0 +1,246 @@
+SEARCH CEILING ON OUR OWN DAYS (stored data only; results/fresh/search_ceiling_20260925/search_ceiling.py)
+
+SUMMARY (per game; ours = 12 smoke worlds, current default deploy; leader = 12 G1 worlds; model = labour_search
+time model, order constraint in time order; busy = unit-steps from a unit's first hour to its route end)
+  work commands / game: ours 2877, leader 3659. Busy unit-steps: actual ours 7138 / leader 7298; model of the actual arrangement 6419 / 6696; min-sum search 1 s 5546 / 6406.
+  gap of the actual arrangement to the search (model): ours -13.6% (-873 steps), leader -4.3% (-290); days 12-23: ours -9.0%, leader -1.4%. Walking: ours 3061 -> 2322 (-24.1%), leader 2653 -> 2454 (-7.5%).
+  execution overhead beyond the model (actual - model): ours +719 (+11.2%) = moves +621, shed commands +127, PASS-vs-wait -29; leader +602 (+9.0%) = moves +464, shed +19, PASS-vs-wait +119 (extra moves = walking beyond the model's Manhattan route with one pickup per item type at the start and one delivery).
+  busy steps per work command: ours actual 2.48 / model 2.23 / search 1.93; leader 1.99 / 1.83 / 1.75.
+  hands droppable with all jobs done (1 s): ours 2.16 a day, wages 3,866 of 8,082; leader 0.71 a day, 404 of 6,153.
+  dropped jobs (tracer): 123.1 (11,866 coins); fit after the search at the same crew 115.4 (11,446); into our routes as scored by the model 76.1 (7,940); by only continuing after the actual last command (no re-routing, actual timing): see 2c (append-only).
+  CAVEATS: the model gives each unit ONE pickup per item type at its start and unlimited shed stock, ignores
+  within-day flows (wheat harvested then fed) and carry-over; the jobs are those actually done (plus the tracer's
+  dropped jobs), not what a planner would choose; the leader has 4.5% frozen unit-days (untouched) vs ours 0.8%;
+  the search is not converged at 1 s (5 s adds about 2 points for ours, 1 for the leader), so the gaps are lower
+  bounds of the model ceiling; tracer coin values are the maintenance module's values, not realised cash.
+
+Files used
+  ours   = current default deploy (tie_value) + passive dropped-job tracer, Kaggle run wtr7 agent mgt_lpv_mpt0,
+           12 smoke worlds: results/fresh/kaggle_remote_lead/wtr7/output/kgr-wtr7-s0/out/repo/results/fresh/
+           lead_world_trace/mgt_lpv_mpt0_<ep>.json (actions) + lead_idle/mp0/*.jsonl (tracer, matched to episodes
+           by per-day command counts). These are the newest default traces (dep7 = older ff1-era default).
+  leader = data/leader_tapes/<team>_*/<ep>.json.gz for the 12 scripts/lead_g1.GAMES (DSM x4, Vadim x4, UMG x4).
+    ours   110937191 seat 1  tracer 20_1790327197092_1.jsonl matched 29/29 days, seat 1=1, rebuilt positions vs tracer idle positions 706/706
+    ours   111374151 seat 1  tracer 24_1790327197081_1.jsonl matched 29/29 days, seat 1=1, rebuilt positions vs tracer idle positions 722/722
+    ours   111376633 seat 0  tracer 38_1790327230676_0.jsonl matched 29/29 days, seat 0=0, rebuilt positions vs tracer idle positions 678/678
+    ours   111416249 seat 1  tracer 40_1790327232603_1.jsonl matched 29/29 days, seat 1=1, rebuilt positions vs tracer idle positions 731/731
+    ours   111554912 seat 1  tracer 54_1790327265901_1.jsonl matched 29/29 days, seat 1=1, rebuilt positions vs tracer idle positions 777/777
+    ours   111577649 seat 1  tracer 56_1790327267451_1.jsonl matched 29/29 days, seat 1=1, rebuilt positions vs tracer idle positions 804/804
+    ours   111681195 seat 1  tracer 70_1790327300740_1.jsonl matched 29/29 days, seat 1=1, rebuilt positions vs tracer idle positions 729/729
+    ours   111688786 seat 1  tracer 72_1790327302400_1.jsonl matched 29/29 days, seat 1=1, rebuilt positions vs tracer idle positions 717/717
+    ours   111871547 seat 1  tracer 86_1790327336483_1.jsonl matched 29/29 days, seat 1=1, rebuilt positions vs tracer idle positions 688/688
+    ours   111902048 seat 1  tracer 88_1790327337261_1.jsonl matched 29/29 days, seat 1=1, rebuilt positions vs tracer idle positions 758/758
+    ours   111916514 seat 1  tracer 102_1790327371694_1.jsonl matched 29/29 days, seat 1=1, rebuilt positions vs tracer idle positions 741/741
+    ours   111941962 seat 1  tracer 104_1790327372772_1.jsonl matched 29/29 days, seat 1=1, rebuilt positions vs tracer idle positions 693/693
+    leader 112655730 seat 0  DSM
+    leader 112661570 seat 0  DSM
+    leader 112667461 seat 1  DSM
+    leader 112673479 seat 1  DSM
+    leader 112708229 seat 1  Vadim
+    leader 112714050 seat 0  Vadim
+    leader 112715010 seat 1  Vadim
+    leader 112721923 seat 1  Vadim
+    leader 112444381 seat 1  UMG
+    leader 112445586 seat 1  UMG
+    leader 112447950 seat 0  UMG
+    leader 112449129 seat 1  UMG
+  Hands = the returned hands list (ours: one failed hire on one world-day; the leader over-requests HIRE, so HIRE
+  orders overcount its hands). Days 0-29 (day 29 has 23 steps). n = unit-days / days / games as stated per table.
+
+1. MODEL CHECK: model steps (labour_search.finish of the unit's own jobs in its own order) vs actual busy steps
+   (first hour .. last non-PASS command) per unit-day.
+   | side | instance | unit-days | frozen (route does not fit, > 24) | model / actual busy per game | |model-actual|<=2 | model < actual-2 | model > actual+2 |
+   | ours | labour_search.instance (unit-index order) | 4132 | 576 (13.9%) | 6830 / 7138 | | | |
+   | ours | time-order constraint (used below) | 4132 | 31 (0.8%) | 6419 / 7138 (-10.1%) | 65.2% | 34.6% | 0.2% |
+   | leader | labour_search.instance (unit-index order) | 3875 | 929 (24.0%) | 7241 / 7298 | | | |
+   | leader | time-order constraint (used below) | 3875 | 176 (4.5%) | 6696 / 7298 (-8.2%) | 77.8% | 21.7% | 0.5% |
+   Where the actual steps go vs the model (per game, time-order instance, all unit-days incl. frozen):
+   | side | actual moves / model travel | work cmds (= model cmds) | actual shed cmds / model pickups+drops | actual mid-route PASS / model wait | actual busy / model |
+   | ours | 3682 / 3061 | 2877 / 2877 | 527 / 400 | 52 / 81 | 7138 / 6419 |
+   | leader | 3116 / 2653 | 3659 / 3659 | 325 / 306 | 198 / 78 | 7298 / 6696 |
+   ours: jobs on a tile another unit worked earlier the same day: 4.3 a day (order kept: the later job waits for the earlier job's threshold hour, the earlier job may not start after it); order pairs reversed in the 1 s search solutions: 0 of 1561
+   leader: jobs on a tile another unit worked earlier the same day: 6.9 a day (order kept: the later job waits for the earlier job's threshold hour, the earlier job may not start after it); order pairs reversed in the 1 s search solutions: 0 of 2724
+   Units that do not fit the model (time-order instance): finish = model end hour, actual = busy steps,
+   no_rel = model end hour with all release times dropped.
+   ours: 31 unit-days frozen; fit without releases: 0, still too long: 31
+     ep 110937191 day 21 unit  8: start 1, jobs 4, finish 27, actual 23, no_rel 27
+     ep 110937191 day 22 unit  8: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 111374151 day 23 unit  7: start 1, jobs 4, finish 25, actual 23, no_rel 25
+     ep 111374151 day 24 unit 11: start 2, jobs 3, finish 25, actual 21, no_rel 25
+     ep 111374151 day 28 unit  4: start 1, jobs 4, finish 25, actual 23, no_rel 25
+     ep 111376633 day 19 unit 11: start 2, jobs 4, finish 25, actual 22, no_rel 25
+     ep 111376633 day 26 unit  8: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 111376633 day 27 unit  8: start 1, jobs 4, finish 25, actual 22, no_rel 25
+     ep 111376633 day 27 unit 11: start 2, jobs 3, finish 25, actual 21, no_rel 25
+     ep 111416249 day 13 unit 11: start 2, jobs 5, finish 25, actual 22, no_rel 25
+     ep 111416249 day 15 unit  8: start 1, jobs 5, finish 25, actual 23, no_rel 25
+     ep 111554912 day 10 unit  3: start 1, jobs 5, finish 25, actual 23, no_rel 25
+     ep 111554912 day 14 unit  5: start 1, jobs 4, finish 25, actual 22, no_rel 25
+     ep 111554912 day 18 unit  7: start 1, jobs 5, finish 25, actual 23, no_rel 25
+     ep 111554912 day 28 unit  5: start 1, jobs 5, finish 27, actual 22, no_rel 27
+     ep 111577649 day 14 unit 12: start 2, jobs 7, finish 25, actual 22, no_rel 25
+     ep 111577649 day 28 unit  6: start 1, jobs 5, finish 25, actual 23, no_rel 25
+     ep 111577649 day 29 unit  1: start 1, jobs 5, finish 26, actual 22, no_rel 26
+     ep 111681195 day 10 unit  9: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 111688786 day 20 unit 12: start 2, jobs 5, finish 27, actual 21, no_rel 27
+     ep 111688786 day 21 unit 12: start 2, jobs 6, finish 25, actual 22, no_rel 25
+     ep 111688786 day 27 unit  6: start 1, jobs 4, finish 26, actual 22, no_rel 26
+     ep 111688786 day 28 unit  9: start 1, jobs 4, finish 27, actual 21, no_rel 27
+     ep 111871547 day 29 unit  1: start 1, jobs 4, finish 25, actual 22, no_rel 25
+     ep 111902048 day 26 unit  5: start 1, jobs 6, finish 26, actual 22, no_rel 26
+     ep 111916514 day 22 unit  9: start 1, jobs 4, finish 25, actual 22, no_rel 25
+     ep 111916514 day 26 unit  7: start 1, jobs 4, finish 25, actual 20, no_rel 25
+     ep 111916514 day 28 unit 11: start 2, jobs 4, finish 25, actual 20, no_rel 25
+     ep 111916514 day 29 unit  0: start 0, jobs 4, finish 25, actual 23, no_rel 25
+     ep 111941962 day 19 unit 10: start 1, jobs 5, finish 25, actual 23, no_rel 25
+     ep 111941962 day 29 unit  9: start 1, jobs 4, finish 25, actual 21, no_rel 25
+   leader: 176 unit-days frozen; fit without releases: 2, still too long: 174
+     ep 112655730 day 14 unit  8: start 1, jobs 7, finish 25, actual 23, no_rel 25
+     ep 112655730 day 14 unit  7: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112655730 day 16 unit  8: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112655730 day 17 unit  7: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112655730 day 18 unit  7: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112655730 day 19 unit  8: start 1, jobs 7, finish 25, actual 23, no_rel 25
+     ep 112655730 day 19 unit  7: start 1, jobs 5, finish 25, actual 23, no_rel 25
+     ep 112655730 day 20 unit  3: start 1, jobs 7, finish 25, actual 23, no_rel 25
+     ep 112655730 day 21 unit  8: start 1, jobs 5, finish 25, actual 23, no_rel 25
+     ep 112655730 day 22 unit  7: start 1, jobs 7, finish 25, actual 23, no_rel 25
+     ep 112655730 day 23 unit  8: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112655730 day 24 unit  3: start 1, jobs 7, finish 25, actual 23, no_rel 25
+     ep 112655730 day 24 unit  7: start 1, jobs 6, finish 30, actual 23, no_rel 30
+     ep 112655730 day 27 unit  5: start 1, jobs 5, finish 25, actual 23, no_rel 25
+     ep 112661570 day 12 unit  6: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112661570 day 14 unit  7: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112661570 day 15 unit  8: start 1, jobs 8, finish 25, actual 23, no_rel 25
+     ep 112661570 day 15 unit  7: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112661570 day 16 unit  5: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112661570 day 17 unit  8: start 1, jobs 5, finish 25, actual 23, no_rel 25
+     ep 112661570 day 18 unit 11: start 2, jobs 6, finish 25, actual 22, no_rel 25
+     ep 112661570 day 19 unit  7: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112661570 day 20 unit  9: start 2, jobs 7, finish 25, actual 22, no_rel 25
+     ep 112661570 day 20 unit  7: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112661570 day 22 unit  7: start 1, jobs 5, finish 25, actual 23, no_rel 25
+     ep 112661570 day 23 unit  8: start 1, jobs 4, finish 25, actual 23, no_rel 25
+     ep 112661570 day 23 unit  7: start 1, jobs 5, finish 25, actual 23, no_rel 25
+     ep 112661570 day 24 unit  8: start 1, jobs 7, finish 25, actual 23, no_rel 25
+     ep 112661570 day 24 unit  7: start 1, jobs 5, finish 25, actual 23, no_rel 25
+     ep 112661570 day 25 unit  7: start 1, jobs 5, finish 25, actual 23, no_rel 25
+     ep 112661570 day 26 unit  8: start 1, jobs 5, finish 25, actual 23, no_rel 25
+     ep 112661570 day 28 unit  2: start 1, jobs 7, finish 25, actual 23, no_rel 25
+     ep 112667461 day 13 unit  7: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112667461 day 14 unit  3: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112667461 day 16 unit  8: start 1, jobs 7, finish 25, actual 23, no_rel 25
+     ep 112667461 day 16 unit  7: start 1, jobs 7, finish 25, actual 23, no_rel 25
+     ep 112667461 day 18 unit  3: start 1, jobs 7, finish 25, actual 23, no_rel 25
+     ep 112667461 day 19 unit  7: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112667461 day 20 unit  8: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ep 112667461 day 21 unit  3: start 1, jobs 6, finish 25, actual 23, no_rel 25
+     ... 136 more in rows_both.jsonl (frozen_diag)
+
+2a. SAME JOBS, SAME UNITS: model cost of the actual arrangement vs the min-sum search (busy unit-steps = sum over
+    units of route end - first hour; frozen units kept as they are). Per game (sum over days / games).
+    | side | games | days | unit-days | present unit-steps | work cmds | actual busy | model (our arrangement) | search 0.3 s | search 1 s | model->1 s | actual->1 s |
+    | ours | 12 | 360 | 4132 | 7869 | 2877 | 7138 | 6419 | 5662 | 5546 | -873 (-13.6%) | -1592 (-22.3%) |
+    | leader | 12 | 360 | 3875 | 7366 | 3659 | 7298 | 6696 | 6456 | 6406 | -290 (-4.3%) | -892 (-12.2%) |
+    Walking and steps per work command (per game):
+    | side | actual moves | model travel (ours) | search travel 0.3 s | search travel 1 s | walking saved model->1 s | actual busy/op | model busy/op | search busy/op 1 s |
+    | ours | 3682 | 3061 | 2423 | 2322 | -739 (-24.1%) | 2.48 | 2.23 | 1.93 |
+    | leader | 3116 | 2653 | 2490 | 2454 | -199 (-7.5%) | 1.99 | 1.83 | 1.75 |
+    By day range (per day, mean over games; busy steps; search = 1 s):
+    | side | days | n days | units | work cmds | actual busy | model | search | model->search | model travel | search travel |
+    | ours | 0-2 | 36 | 6.7 | 31 | 92 | 89 | 63 | -29.8% | 50 | 27 |
+    | ours | 3-11 | 108 | 10.6 | 68 | 199 | 180 | 145 | -19.3% | 93 | 66 |
+    | ours | 12-17 | 72 | 13.0 | 128 | 288 | 260 | 236 | -9.2% | 115 | 94 |
+    | ours | 18-23 | 72 | 13.0 | 131 | 293 | 264 | 240 | -8.9% | 116 | 95 |
+    | ours | 24-29 | 72 | 12.2 | 102 | 263 | 232 | 199 | -14.1% | 114 | 85 |
+    | leader | 0-2 | 36 | 5.6 | 39 | 127 | 93 | 77 | -17.0% | 39 | 33 |
+    | leader | 3-11 | 108 | 9.4 | 80 | 211 | 176 | 161 | -8.8% | 79 | 70 |
+    | leader | 12-17 | 72 | 12.4 | 162 | 282 | 271 | 267 | -1.6% | 98 | 94 |
+    | leader | 18-23 | 72 | 12.5 | 165 | 284 | 276 | 272 | -1.3% | 101 | 97 |
+    | leader | 24-29 | 72 | 12.0 | 142 | 271 | 258 | 248 | -3.6% | 105 | 96 |
+    Per game (ours / leader), model -> search 1 s busy steps:
+     ours: 110937191: 6354->5519 (-13.1%), 111374151: 6452->5610 (-13.1%), 111376633: 6373->5503 (-13.7%), 111416249: 6454->5612 (-13.0%), 111554912: 6319->5427 (-14.1%), 111577649: 6447->5479 (-15.0%), 111681195: 6321->5446 (-13.8%), 111688786: 6454->5529 (-14.3%), 111871547: 6531->5611 (-14.1%), 111902048: 6442->5600 (-13.1%), 111916514: 6402->5581 (-12.8%), 111941962: 6476->5634 (-13.0%)
+     leader: 112655730: 6911->6623 (-4.2%), 112661570: 6797->6529 (-3.9%), 112667461: 6904->6613 (-4.2%), 112673479: 6712->6435 (-4.1%), 112708229: 6923->6618 (-4.4%), 112714050: 6728->6468 (-3.9%), 112715010: 6474->6175 (-4.6%), 112721923: 6850->6596 (-3.7%), 112444381: 6509->6155 (-5.4%), 112445586: 6584->6319 (-4.0%), 112447950: 6367->6048 (-5.0%), 112449129: 6595->6293 (-4.6%)
+    Convergence check (long budget on a day subset; same days at 0.3 s / 1 s / long):
+     ours: 72 days (every 5th day, 12 games): model 14893, 0.3 s 13151 (-11.7%), 1.0 s 12944 (-13.1%), 5.0 s 12606 (-15.4%); 5.0 s run: t95 mean 2.00 s, p95 4.38 s
+       days 0-11 (36 days): 0.3 s -18.0%, 1.0 s -19.3%, 5.0 s -21.1%
+       days 12-23 (24 days): 0.3 s -9.4%, 1.0 s -11.3%, 5.0 s -13.9%
+       days 24-29 (12 days): 0.3 s -5.6%, 1.0 s -6.4%, 5.0 s -8.7%
+     leader: 72 days (every 5th day, 12 games): model 15210, 0.3 s 14741 (-3.1%), 1.0 s 14603 (-4.0%), 5.0 s 14461 (-4.9%); 5.0 s run: t95 mean 2.18 s, p95 4.86 s
+       days 0-11 (36 days): 0.3 s -6.4%, 1.0 s -8.5%, 5.0 s -10.1%
+       days 12-23 (24 days): 0.3 s -1.5%, 1.0 s -1.8%, 5.0 s -2.6%
+       days 24-29 (12 days): 0.3 s -1.0%, 1.0 s -1.1%, 5.0 s -1.3%
+
+2b. HANDS THE SEARCH CAN DROP with all the day's jobs still done (labour_search.search on the actual routes;
+    fib wages of the latest hires). Idle hands = hired but no tile work at all that day (dropped for free).
+    | side | budget | hand-days / game | hands with jobs / day | hands dropped / day | dropped-hand-days / game | idle hand-days / game | wages paid / game | wages saved / game (jobs only) | incl. idle |
+    | ours | 0.3 s | 314 | 10.48 | 2.07 | 62.0 | 0.0 | 8,082 | 3,567 | 3,567 |
+    | ours | 1.0 s | 314 | 10.48 | 2.16 | 64.8 | 0.0 | 8,082 | 3,866 | 3,866 |
+    | leader | 0.3 s | 293 | 9.72 | 0.70 | 20.9 | 1.4 | 6,153 | 392 | 395 |
+    | leader | 1.0 s | 293 | 9.72 | 0.71 | 21.2 | 1.4 | 6,153 | 404 | 407 |
+    ours (1 s) distribution of hands dropped per day: 0: 8%, 1: 34%, 2: 26%, 3: 10%, 4: 11%, 5: 10%, 6: 1%
+      days 0-2: hands with jobs 5.67 -> 2.53, wages saved 48 / game
+      days 3-11: hands with jobs 9.58 -> 6.36, wages saved 1,271 / game
+      days 12-17: hands with jobs 12.00 -> 10.76, wages saved 942 / game
+      days 18-23: hands with jobs 12.00 -> 11.00, wages saved 802 / game
+      days 24-29: hands with jobs 11.18 -> 9.01, wages saved 803 / game
+    leader (1 s) distribution of hands dropped per day: 0: 69%, 1: 8%, 2: 10%, 3: 11%, 4: 2%
+      days 0-2: hands with jobs 4.56 -> 2.94, wages saved 20 / game
+      days 3-11: hands with jobs 8.29 -> 6.82, wages saved 225 / game
+      days 12-17: hands with jobs 11.38 -> 11.35, wages saved 15 / game
+      days 18-23: hands with jobs 11.49 -> 11.49, wages saved 0 / game
+      days 24-29: hands with jobs 11.01 -> 10.50, wages saved 143 / game
+
+2c. OURS: the tracer's jobs left open at 23h (fresh maintenance solve, value > 0, minus hour-23 ops; production-
+    affecting = units > 0) inserted by value into the same crew's routes before midnight (release = hour the job
+    first appeared in the executor's task list, 0 if it never did). Per game.
+    | set | jobs | coin value | prod. jobs | prod. value | units |
+    | dropped at 23h (tracer) | 123.1 | 11,866 | 122.4 | 11,852 | 184.8 |
+    | fit into OUR routes as they are (model) | 76.1 | 7,940 | 75.5 | 7,928 | 114.6 |
+    | fit after the min-sum search (1 s) | 115.4 | 11,446 | 114.8 | 11,432 | 175.1 |
+    By command (jobs / value per game: dropped -> fit as they are -> fit after search):
+      WATER               32.8 / 3,141 -> 18.7 / 1,841 -> 31.2 / 3,017
+      FERTILIZE           30.8 / 2,219 -> 10.6 / 979 -> 26.8 / 2,072
+      COLLECT_FERTILIZER  21.4 / 692 -> 17.5 / 565 -> 20.6 / 675
+      CARE                16.1 / 1,624 -> 13.8 / 1,428 -> 15.6 / 1,577
+      FEED                11.6 / 2,335 -> 8.7 / 1,853 -> 11.1 / 2,284
+      HARVEST             10.4 / 1,857 -> 6.9 / 1,274 -> 10.1 / 1,821
+      in_task             121.7 / 11,826 -> 75.0 / 7,905 -> 114.0 / 11,406
+      not_in_task         1.4 / 40 -> 1.1 / 35 -> 1.4 / 40
+      jobs whose idle passes saw 'lack:<item>' (item neither carried nor in the shed; the model assumes stock): 1.2 -> 1.1 -> 1.2
+      days 0-2: dropped 0.0 (0) -> fit as is 0.0 (0) -> after search 0.0 (0)
+      days 3-11: dropped 8.2 (1,208) -> fit as is 7.2 (1,158) -> after search 8.2 (1,208)
+      days 12-17: dropped 41.9 (5,030) -> fit as is 26.2 (3,343) -> after search 40.7 (4,980)
+      days 18-23: dropped 42.9 (3,675) -> fit as is 25.1 (2,248) -> after search 39.5 (3,466)
+      days 24-29: dropped 30.1 (1,954) -> fit as is 17.6 (1,191) -> after search 27.1 (1,792)
+
+    Lower bound without any re-routing (append_check.py): the SAME units continue after their ACTUAL last command
+    (actual timing, not the model), a detour to the shed first when a job needs wheat / fertilizer:
+    APPEND-ONLY lower bound (ours, 12 games, 348 tracer days): dropped jobs the same crew fits AFTER its actual last commands
+      dropped 123.1 jobs / 11,866 coins a game; fit by appending 5.6 / 503; unit-steps after the last command (incl. idle hands) 712 a game
+        WATER               2.0 / 192
+        FERTILIZE           0.0 / 0
+        COLLECT_FERTILIZER  1.1 / 37
+        CARE                2.3 / 259
+        FEED                0.1 / 2
+        HARVEST             0.1 / 14
+        days 0-2: dropped 0.0 (0) -> fit by appending 0.0 (0); after-last-command unit-steps 59 a day
+        days 3-11: dropped 8.2 (1,208) -> fit by appending 2.1 (186); after-last-command unit-steps 42 a day
+        days 12-17: dropped 41.9 (5,030) -> fit by appending 1.7 (194); after-last-command unit-steps 10 a day
+        days 18-23: dropped 42.9 (3,675) -> fit by appending 0.6 (45); after-last-command unit-steps 5 a day
+        days 24-29: dropped 30.1 (1,954) -> fit by appending 1.2 (78); after-last-command unit-steps 12 a day
+    Tracer (all 12 games): when the dropped jobs first entered the executor task list: hour 0 95%, hours 1-11 2%, hours 12-17 1%, hours 18-23 1%, never in tasks 1%
+    ... and the tracer own reason (lead_idle_report attribution): taken 63%, no idle pass while open 34%, plant_late 2%, not_in_tasks 1%, lack:WHEAT 0%, lack:FERTILIZER 0%
+
+4. SEARCH TIME PER DAY (this laptop, one process, pure Python, shared machine)
+    min-sum (a) runs to its budget; t95 = time at which it had 95% of its final saving.
+    labour_search.search (b) stops when no further hand can be emptied (can overrun: checks between hands).
+    | side | search | budget | days | mean s | p50 | p95 | max | t95 mean / p95 |
+    | ours | min-sum | 0.3 | 360 | 0.315 | 0.309 | 0.360 | 0.388 | 0.180 / 0.313 |
+    | ours | min-sum | 1.0 | 360 | 1.024 | 1.017 | 1.067 | 1.114 | 0.588 / 1.017 |
+    | ours | hand-drop | 0.3 | 360 | 0.300 | 0.336 | 0.410 | 0.470 | |
+    | ours | hand-drop | 1.0 | 360 | 0.678 | 0.782 | 1.075 | 1.163 | |
+    | leader | min-sum | 0.3 | 360 | 0.321 | 0.313 | 0.371 | 0.418 | 0.116 / 0.303 |
+    | leader | min-sum | 1.0 | 360 | 1.030 | 1.023 | 1.077 | 1.162 | 0.409 / 0.991 |
+    | leader | hand-drop | 0.3 | 360 | 0.298 | 0.327 | 0.400 | 0.476 | |
+    | leader | hand-drop | 1.0 | 360 | 0.518 | 0.461 | 1.055 | 1.119 | |

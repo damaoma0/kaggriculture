@@ -1,0 +1,292 @@
+{
+ "A_leader_corpus": {
+  "n_games": 54,
+  "n_teams": 6,
+  "seat0": 25,
+  "seat1": 29,
+  "cash_match": 54,
+  "by_day": {
+   "12": {
+    "n_games": 54,
+    "mean_d_animal": 1.757,
+    "mean_d_crop": 4.576,
+    "mean_diff_animal_minus_crop": -2.819,
+    "games_animal_nearer": 54,
+    "games_equal": 0,
+    "games_animal_farther": 0,
+    "mean_n_animal": 20.2,
+    "mean_n_crop": 61.6,
+    "n_games_with_fertilize": 54,
+    "mean_d_fert_targets": 4.858,
+    "games_animal_nearer_than_fert_targets": 54,
+    "games_animal_farther_than_fert_targets": 0
+   },
+   "18": {
+    "n_games": 54,
+    "mean_d_animal": 1.755,
+    "mean_d_crop": 4.585,
+    "mean_diff_animal_minus_crop": -2.831,
+    "games_animal_nearer": 54,
+    "games_equal": 0,
+    "games_animal_farther": 0,
+    "mean_n_animal": 21.0,
+    "mean_n_crop": 65.3,
+    "n_games_with_fertilize": 54,
+    "mean_d_fert_targets": 4.548,
+    "games_animal_nearer_than_fert_targets": 54,
+    "games_animal_farther_than_fert_targets": 0
+   },
+   "24": {
+    "n_games": 54,
+    "mean_d_animal": 1.671,
+    "mean_d_crop": 4.482,
+    "mean_diff_animal_minus_crop": -2.811,
+    "games_animal_nearer": 54,
+    "games_equal": 0,
+    "games_animal_farther": 0,
+    "mean_n_animal": 19.4,
+    "mean_n_crop": 64.9,
+    "n_games_with_fertilize": 54,
+    "mean_d_fert_targets": 4.34,
+    "games_animal_nearer_than_fert_targets": 54,
+    "games_animal_farther_than_fert_targets": 0
+   }
+  },
+  "files": [
+   "data\\leader_semantics\\16623559\\112444449.json.gz",
+   "data\\leader_semantics\\16623559\\112453846.json.gz",
+   "data\\leader_semantics\\16623559\\112463584.json.gz",
+   "data\\leader_semantics\\16623559\\112472993.json.gz",
+   "data\\leader_semantics\\16623559\\112626858.json.gz",
+   "data\\leader_semantics\\16623559\\112660359.json.gz",
+   "data\\leader_semantics\\16623559\\112720890.json.gz",
+   "data\\leader_semantics\\16623559\\112776500.json.gz",
+   "data\\leader_semantics\\16623559\\112829996.json.gz",
+   "data\\leader_semantics\\16623559\\112882446.json.gz",
+   "data\\leader_semantics\\16681125\\112194936.json.gz",
+   "data\\leader_semantics\\16681125\\112245964.json.gz",
+   "data\\leader_semantics\\16681125\\112279383.json.gz",
+   "data\\leader_semantics\\16681125\\112337955.json.gz",
+   "data\\leader_semantics\\16681125\\112396243.json.gz",
+   "data\\leader_semantics\\16681125\\112453075.json.gz",
+   "data\\leader_semantics\\16681125\\112503124.json.gz",
+   "data\\leader_semantics\\16681125\\112572422.json.gz",
+   "data\\leader_semantics\\16681125\\112616237.json.gz",
+   "data\\leader_semantics\\16681125\\112655943.json.gz",
+   "data\\leader_semantics\\16730612\\112413254.json.gz",
+   "data\\leader_semantics\\16730612\\112425266.json.gz",
+   "data\\leader_semantics\\16730612\\112434692.json.gz",
+   "data\\leader_semantics\\16730612\\112443732.json.gz",
+   "data\\leader_semantics\\16730612\\112452639.json.gz",
+   "data\\leader_semantics\\16730612\\112463291.json.gz",
+   "data\\leader_semantics\\16730612\\112473822.json.gz",
+   "data\\leader_semantics\\16730612\\112509186.json.gz",
+   "data\\leader_semantics\\16730612\\112579480.json.gz",
+   "data\\leader_semantics\\16730612\\112616248.json.gz",
+   "data\\leader_semantics\\16732748\\112562136.json.gz",
+   "data\\leader_semantics\\16732748\\112571815.json.gz",
+   "data\\leader_semantics\\16732748\\112583842.json.gz",
+   "data\\leader_semantics\\16732748\\112594857.json.gz",
+   "data\\leader_semantics\\16732748\\112605939.json.gz",
+   "data\\leader_semantics\\16732748\\112637547.json.gz",
+   "data\\leader_semantics\\16732748\\112686298.json.gz",
+   "data\\leader_semantics\\16732748\\112746392.json.gz",
+   "data\\leader_semantics\\16732748\\112816214.json.gz",
+   "data\\leader_semantics\\16732748\\112882443.json.gz",
+   "data\\leader_semantics\\16770421\\112606610.json.gz",
+   "data\\leader_semantics\\16770421\\112618394.json.gz",
+   "data\\leader_semantics\\16770421\\112627588.json.gz",
+   "data\\leader_semantics\\16770421\\112638320.json.gz",
+   "data\\leader_semantics\\16770421\\112676552.json.gz",
+   "data\\leader_semantics\\16770421\\112706957.json.gz",
+   "data\\leader_semantics\\16770421\\112746392.json.gz",
+   "data\\leader_semantics\\16770421\\112797700.json.gz",
+   "data\\leader_semantics\\16770421\\112849913.json.gz",
+   "data\\leader_semantics\\16770421\\112910261.json.gz",
+   "data\\leader_semantics\\16915014\\112397111.json.gz",
+   "data\\leader_semantics\\16915014\\112407959.json.gz",
+   "data\\leader_semantics\\16915014\\112418651.json.gz",
+   "data\\leader_semantics\\16915014\\112454257.json.gz"
+  ]
+ },
+ "B_ours_mgt_lpv_dep6": {
+  "n_games": 12,
+  "by_day": {
+   "12": {
+    "n_games": 12,
+    "mean_d_animal": 1.663,
+    "mean_d_crop": 4.878,
+    "mean_diff_animal_minus_crop": -3.215,
+    "games_animal_nearer": 12,
+    "games_equal": 0,
+    "games_animal_farther": 0,
+    "mean_n_animal": 19.7,
+    "mean_n_crop": 50.9
+   },
+   "18": {
+    "n_games": 12,
+    "mean_d_animal": 1.663,
+    "mean_d_crop": 4.808,
+    "mean_diff_animal_minus_crop": -3.145,
+    "games_animal_nearer": 12,
+    "games_equal": 0,
+    "games_animal_farther": 0,
+    "mean_n_animal": 19.7,
+    "mean_n_crop": 53.6
+   },
+   "24": {
+    "n_games": 12,
+    "mean_d_animal": 1.663,
+    "mean_d_crop": 4.724,
+    "mean_diff_animal_minus_crop": -3.061,
+    "games_animal_nearer": 12,
+    "games_equal": 0,
+    "games_animal_farther": 0,
+    "mean_n_animal": 19.7,
+    "mean_n_crop": 46.7
+   }
+  },
+  "files": [
+   "110937191.json",
+   "111374151.json",
+   "111376633.json",
+   "111416249.json",
+   "111554912.json",
+   "111577649.json",
+   "111681195.json",
+   "111688786.json",
+   "111871547.json",
+   "111902048.json",
+   "111916514.json",
+   "111941962.json"
+  ]
+ },
+ "B_ours_mgt_lpv_tierev": {
+  "n_games": 12,
+  "by_day": {
+   "12": {
+    "n_games": 12,
+    "mean_d_animal": 1.598,
+    "mean_d_crop": 4.856,
+    "mean_diff_animal_minus_crop": -3.258,
+    "games_animal_nearer": 12,
+    "games_equal": 0,
+    "games_animal_farther": 0,
+    "mean_n_animal": 19.2,
+    "mean_n_crop": 51.2
+   },
+   "18": {
+    "n_games": 12,
+    "mean_d_animal": 1.598,
+    "mean_d_crop": 4.76,
+    "mean_diff_animal_minus_crop": -3.162,
+    "games_animal_nearer": 12,
+    "games_equal": 0,
+    "games_animal_farther": 0,
+    "mean_n_animal": 19.2,
+    "mean_n_crop": 53.2
+   },
+   "24": {
+    "n_games": 12,
+    "mean_d_animal": 1.598,
+    "mean_d_crop": 4.743,
+    "mean_diff_animal_minus_crop": -3.146,
+    "games_animal_nearer": 12,
+    "games_equal": 0,
+    "games_animal_farther": 0,
+    "mean_n_animal": 19.2,
+    "mean_n_crop": 48.8
+   }
+  },
+  "files": [
+   "110937191.json",
+   "111374151.json",
+   "111376633.json",
+   "111416249.json",
+   "111554912.json",
+   "111577649.json",
+   "111681195.json",
+   "111688786.json",
+   "111871547.json",
+   "111902048.json",
+   "111916514.json",
+   "111941962.json"
+  ]
+ },
+ "B_ours_mgt_lpv_tiernd": {
+  "n_games": 12,
+  "by_day": {
+   "12": {
+    "n_games": 12,
+    "mean_d_animal": 1.658,
+    "mean_d_crop": 4.857,
+    "mean_diff_animal_minus_crop": -3.198,
+    "games_animal_nearer": 12,
+    "games_equal": 0,
+    "games_animal_farther": 0,
+    "mean_n_animal": 19.8,
+    "mean_n_crop": 51.7
+   },
+   "18": {
+    "n_games": 12,
+    "mean_d_animal": 1.658,
+    "mean_d_crop": 4.835,
+    "mean_diff_animal_minus_crop": -3.176,
+    "games_animal_nearer": 12,
+    "games_equal": 0,
+    "games_animal_farther": 0,
+    "mean_n_animal": 19.8,
+    "mean_n_crop": 54.1
+   },
+   "24": {
+    "n_games": 12,
+    "mean_d_animal": 1.658,
+    "mean_d_crop": 4.761,
+    "mean_diff_animal_minus_crop": -3.102,
+    "games_animal_nearer": 12,
+    "games_equal": 0,
+    "games_animal_farther": 0,
+    "mean_n_animal": 19.8,
+    "mean_n_crop": 48.8
+   }
+  },
+  "files": [
+   "110937191.json",
+   "111374151.json",
+   "111376633.json",
+   "111416249.json",
+   "111554912.json",
+   "111577649.json",
+   "111681195.json",
+   "111688786.json",
+   "111871547.json",
+   "111902048.json",
+   "111916514.json",
+   "111941962.json"
+  ]
+ },
+ "C_dep7_compose_animals": {
+  "n_games": 12,
+  "games_with_key": {
+   "animal_GOOSE": 9,
+   "animal_SHEEP": 4
+  },
+  "sum": {
+   "animal_GOOSE": 10,
+   "animal_SHEEP": 4
+  }
+ },
+ "D_fert_hold_full_panel": {
+  "n_ff1": 185,
+  "n_pv30": 185,
+  "n_paired": 185,
+  "mean_ff1_minus_pv30": 462.0,
+  "boot95": [
+   87.9,
+   919.5
+  ],
+  "better": 89,
+  "worse": 85,
+  "same": 11
+ }
+}

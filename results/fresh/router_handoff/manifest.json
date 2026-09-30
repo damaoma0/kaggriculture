@@ -1,0 +1,276 @@
+{
+  "hashes": {
+    "agents/opening_v2.py": "35362953f8c91ef5712575123d5c7ff39e224d265a5396f7fff4d4e0ce403795",
+    "agents/public/tschinkel_router_v31.py": "e50d3c7b54c051b880fd7b68ed2aa8f954331d6f892b8fb5dca788223b27c24c",
+    "scripts/search_growth_openings.py": "c5960c6e199fe85704d3f42c57b7ad8b1af8f78924196b836d3c25c73d1278e0",
+    "scripts/test_router_handoff.py": "6b493719c6fb81f3102294aa7dde14b1d99cb80aed60077f8edb527feb248140",
+    "scripts/evaluate_boards.py": "97185ed95cedcd1e6f1d5c3072e47ad788be01457c531c6d7daf6a6fa302d170"
+  },
+  "handoff_step": 216,
+  "jobs": [
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86301,
+      96301,
+      0,
+      "replant",
+      "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\router_handoff\\small-herd-replant-86301-seat0"
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86301,
+      96301,
+      0,
+      "router",
+      "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\router_handoff\\small-herd-router-86301-seat0"
+    ],
+    [
+      "public-router",
+      {},
+      86301,
+      96301,
+      0,
+      "router",
+      "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\router_handoff\\public-router-router-86301-seat0"
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86301,
+      96301,
+      1,
+      "replant",
+      "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\router_handoff\\small-herd-replant-86301-seat1"
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86301,
+      96301,
+      1,
+      "router",
+      "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\router_handoff\\small-herd-router-86301-seat1"
+    ],
+    [
+      "public-router",
+      {},
+      86301,
+      96301,
+      1,
+      "router",
+      "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\router_handoff\\public-router-router-86301-seat1"
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86302,
+      96302,
+      0,
+      "replant",
+      null
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86302,
+      96302,
+      0,
+      "router",
+      null
+    ],
+    [
+      "public-router",
+      {},
+      86302,
+      96302,
+      0,
+      "router",
+      null
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86302,
+      96302,
+      1,
+      "replant",
+      null
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86302,
+      96302,
+      1,
+      "router",
+      null
+    ],
+    [
+      "public-router",
+      {},
+      86302,
+      96302,
+      1,
+      "router",
+      null
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86303,
+      96303,
+      0,
+      "replant",
+      null
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86303,
+      96303,
+      0,
+      "router",
+      null
+    ],
+    [
+      "public-router",
+      {},
+      86303,
+      96303,
+      0,
+      "router",
+      null
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86303,
+      96303,
+      1,
+      "replant",
+      null
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86303,
+      96303,
+      1,
+      "router",
+      null
+    ],
+    [
+      "public-router",
+      {},
+      86303,
+      96303,
+      1,
+      "router",
+      null
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86304,
+      96304,
+      0,
+      "replant",
+      null
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86304,
+      96304,
+      0,
+      "router",
+      null
+    ],
+    [
+      "public-router",
+      {},
+      86304,
+      96304,
+      0,
+      "router",
+      null
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86304,
+      96304,
+      1,
+      "replant",
+      null
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86304,
+      96304,
+      1,
+      "router",
+      null
+    ],
+    [
+      "public-router",
+      {},
+      86304,
+      96304,
+      1,
+      "router",
+      null
+    ]
+  ]
+}

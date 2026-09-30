@@ -1,0 +1,43 @@
+{
+ "tag": "round2",
+ "started": "2026-09-17 23:15:36",
+ "benchmark_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+ "seeds": [
+  172000,
+  172001,
+  172002,
+  172003,
+  172004,
+  172005,
+  172006,
+  172007,
+  172008,
+  172009,
+  172010,
+  172011,
+  172012,
+  172013,
+  172014,
+  172015
+ ],
+ "candidates": [
+  "leaderlike_v2",
+  "leaderlike_v2cap",
+  "leaderlike_v2swaps",
+  "leaderlike_v1",
+  "leaderlike_cap",
+  "leaderlike_swaps",
+  "sp_strawdemand"
+ ],
+ "seed_base": 172000,
+ "design": "Paired seeds and both seats against the frozen uploaded agent. Natural engine RNG for shops and weeds. Seed-clustered bootstrap intervals. No tuning on these seeds.",
+ "sources": {
+  "agents/leaderlike_v2.py": "c534402bd48d12072fc88bb87b3ed619e60e150b22591025b5373a6574a56f5c",
+  "agents/leaderlike_v2cap.py": "bec9ff0f090a0aad6c5174766614c23347ca6c5c576ce6abef25ccf15a4ceb5b",
+  "agents/leaderlike_v2swaps.py": "5936daf1b3d6715c6cd3895a508a7052cd693c6283dcf5bd3d2c3f3f78a8b63c",
+  "agents/leaderlike_v1.py": "d2992b77ac27804692cd28de5027786a277084cc161784b66863acca1a0d332a",
+  "agents/leaderlike_cap.py": "3466eb098735bfc945cf171a4a0f2498143a62b32e2ec6d3449092716cde8b1b",
+  "agents/leaderlike_swaps.py": "deace52b38d5a36950d479d11441dcd4832b19a8c489a7d667de66f467c6618c",
+  "agents/sp_strawdemand.py": "028b93658fb0c44232da6d446ab6f77ce49e92be2229fbf87bc25f168b239366"
+ }
+}

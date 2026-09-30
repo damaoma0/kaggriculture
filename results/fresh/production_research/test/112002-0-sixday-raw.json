@@ -1,0 +1,114 @@
+{
+  "seed": 112002,
+  "seat": 0,
+  "opponent": "sixday",
+  "mode": "raw",
+  "cash": 87526.0,
+  "opponent_cash": 87727.0,
+  "ledger": [
+    {
+      "revenue": {
+        "WHEAT": 17802,
+        "FERTILIZER": 14680,
+        "WOOL": 36723,
+        "MILK": 18321,
+        "MELON": 14267,
+        "STRAWBERRY": 17640,
+        "CARROT": 1024
+      },
+      "sold_units": {
+        "WHEAT": 561,
+        "FERTILIZER": 334,
+        "WOOL": 242,
+        "MILK": 215,
+        "MELON": 72,
+        "STRAWBERRY": 262,
+        "CARROT": 18
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 11236,
+        "BUY_SEED:WHEAT": 1970,
+        "HIRE": 5400.0,
+        "BUY_ANIMAL:COW": 2800,
+        "BUY_ANIMAL:SHEEP": 5000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:CARROT": 180,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2085
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 18004,
+        "FERTILIZER": 14680,
+        "WOOL": 36728,
+        "MILK": 18321,
+        "MELON": 14267,
+        "STRAWBERRY": 17634,
+        "CARROT": 1024
+      },
+      "sold_units": {
+        "WHEAT": 568,
+        "FERTILIZER": 334,
+        "WOOL": 247,
+        "MILK": 215,
+        "MELON": 72,
+        "STRAWBERRY": 256,
+        "CARROT": 18
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 11236,
+        "BUY_SEED:WHEAT": 1970,
+        "HIRE": 5400.0,
+        "BUY_ANIMAL:COW": 2800,
+        "BUY_ANIMAL:SHEEP": 5000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:CARROT": 180,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2085
+      }
+    }
+  ],
+  "decision": null,
+  "stats": {},
+  "target": null,
+  "snapshots": [],
+  "placement_failed": false,
+  "max_action_seconds": 0.0004085000036866404,
+  "seconds": 8.670912000001408,
+  "branches": [
+    [
+      0,
+      0
+    ],
+    [
+      144,
+      4
+    ],
+    [
+      288,
+      0
+    ],
+    [
+      432,
+      0
+    ],
+    [
+      576,
+      3
+    ]
+  ],
+  "shops": [
+    "YARN_STORE",
+    "SMOOTHIE_SHOP",
+    "BAKERY",
+    "SMOOTHIE_SHOP",
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "PET_CAFE",
+    "ICE_CREAM_SHOP"
+  ],
+  "predecision_hash": "69ecec9eaf5cf116fa45024edc8afb5c134464b2d49c54c85ee83adc338fd9f1"
+}

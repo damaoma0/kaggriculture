@@ -1,0 +1,484 @@
+{
+  "phase": "development",
+  "master_seed": 42021012262921784240395551178505700470,
+  "specs": [
+    {
+      "id": "w00-mgt_m1",
+      "world": {
+        "id": "w00",
+        "seed": 3236523626,
+        "shops": [
+          "BAKERY",
+          "FARMERS_MARKET",
+          "YARN_STORE",
+          "PET_CAFE",
+          "FARMERS_MARKET",
+          "BRUNCH_SPOT",
+          "ICE_CREAM_SHOP",
+          "FARMERS_MARKET"
+        ],
+        "first_shop": "BAKERY",
+        "cohort": "all"
+      },
+      "opponent": "mgt_m1",
+      "seat": 0
+    },
+    {
+      "id": "w00-v56",
+      "world": {
+        "id": "w00",
+        "seed": 3236523626,
+        "shops": [
+          "BAKERY",
+          "FARMERS_MARKET",
+          "YARN_STORE",
+          "PET_CAFE",
+          "FARMERS_MARKET",
+          "BRUNCH_SPOT",
+          "ICE_CREAM_SHOP",
+          "FARMERS_MARKET"
+        ],
+        "first_shop": "BAKERY",
+        "cohort": "all"
+      },
+      "opponent": "v56",
+      "seat": 1
+    },
+    {
+      "id": "w01-mgt_m1",
+      "world": {
+        "id": "w01",
+        "seed": 2641620103,
+        "shops": [
+          "BRUNCH_SPOT",
+          "ICE_CREAM_SHOP",
+          "YARN_STORE",
+          "BAKERY",
+          "SMOOTHIE_SHOP",
+          "BAKERY",
+          "BAKERY",
+          "PIZZA_SHOP"
+        ],
+        "first_shop": "BRUNCH_SPOT",
+        "cohort": "all"
+      },
+      "opponent": "mgt_m1",
+      "seat": 1
+    },
+    {
+      "id": "w01-v56",
+      "world": {
+        "id": "w01",
+        "seed": 2641620103,
+        "shops": [
+          "BRUNCH_SPOT",
+          "ICE_CREAM_SHOP",
+          "YARN_STORE",
+          "BAKERY",
+          "SMOOTHIE_SHOP",
+          "BAKERY",
+          "BAKERY",
+          "PIZZA_SHOP"
+        ],
+        "first_shop": "BRUNCH_SPOT",
+        "cohort": "all"
+      },
+      "opponent": "v56",
+      "seat": 0
+    },
+    {
+      "id": "w02-mgt_m1",
+      "world": {
+        "id": "w02",
+        "seed": 3964513852,
+        "shops": [
+          "FARMERS_MARKET",
+          "ICE_CREAM_SHOP",
+          "SMOOTHIE_SHOP",
+          "BRUNCH_SPOT",
+          "YARN_STORE",
+          "SMOOTHIE_SHOP",
+          "FARMERS_MARKET",
+          "PET_CAFE"
+        ],
+        "first_shop": "FARMERS_MARKET",
+        "cohort": "all"
+      },
+      "opponent": "mgt_m1",
+      "seat": 0
+    },
+    {
+      "id": "w02-v56",
+      "world": {
+        "id": "w02",
+        "seed": 3964513852,
+        "shops": [
+          "FARMERS_MARKET",
+          "ICE_CREAM_SHOP",
+          "SMOOTHIE_SHOP",
+          "BRUNCH_SPOT",
+          "YARN_STORE",
+          "SMOOTHIE_SHOP",
+          "FARMERS_MARKET",
+          "PET_CAFE"
+        ],
+        "first_shop": "FARMERS_MARKET",
+        "cohort": "all"
+      },
+      "opponent": "v56",
+      "seat": 1
+    },
+    {
+      "id": "w03-mgt_m1",
+      "world": {
+        "id": "w03",
+        "seed": 1504562883,
+        "shops": [
+          "ICE_CREAM_SHOP",
+          "BAKERY",
+          "SMOOTHIE_SHOP",
+          "SMOOTHIE_SHOP",
+          "SMOOTHIE_SHOP",
+          "BAKERY",
+          "BAKERY",
+          "FARMERS_MARKET"
+        ],
+        "first_shop": "ICE_CREAM_SHOP",
+        "cohort": "all"
+      },
+      "opponent": "mgt_m1",
+      "seat": 1
+    },
+    {
+      "id": "w03-v56",
+      "world": {
+        "id": "w03",
+        "seed": 1504562883,
+        "shops": [
+          "ICE_CREAM_SHOP",
+          "BAKERY",
+          "SMOOTHIE_SHOP",
+          "SMOOTHIE_SHOP",
+          "SMOOTHIE_SHOP",
+          "BAKERY",
+          "BAKERY",
+          "FARMERS_MARKET"
+        ],
+        "first_shop": "ICE_CREAM_SHOP",
+        "cohort": "all"
+      },
+      "opponent": "v56",
+      "seat": 0
+    },
+    {
+      "id": "w04-mgt_m1",
+      "world": {
+        "id": "w04",
+        "seed": 1030309514,
+        "shops": [
+          "PET_CAFE",
+          "PIZZA_SHOP",
+          "BAKERY",
+          "BAKERY",
+          "FARMERS_MARKET",
+          "PET_CAFE",
+          "PIZZA_SHOP",
+          "FARMERS_MARKET"
+        ],
+        "first_shop": "PET_CAFE",
+        "cohort": "all"
+      },
+      "opponent": "mgt_m1",
+      "seat": 0
+    },
+    {
+      "id": "w04-v56",
+      "world": {
+        "id": "w04",
+        "seed": 1030309514,
+        "shops": [
+          "PET_CAFE",
+          "PIZZA_SHOP",
+          "BAKERY",
+          "BAKERY",
+          "FARMERS_MARKET",
+          "PET_CAFE",
+          "PIZZA_SHOP",
+          "FARMERS_MARKET"
+        ],
+        "first_shop": "PET_CAFE",
+        "cohort": "all"
+      },
+      "opponent": "v56",
+      "seat": 1
+    },
+    {
+      "id": "w05-mgt_m1",
+      "world": {
+        "id": "w05",
+        "seed": 3040039739,
+        "shops": [
+          "PIZZA_SHOP",
+          "YARN_STORE",
+          "FARMERS_MARKET",
+          "YARN_STORE",
+          "YARN_STORE",
+          "PIZZA_SHOP",
+          "PET_CAFE",
+          "BAKERY"
+        ],
+        "first_shop": "PIZZA_SHOP",
+        "cohort": "all"
+      },
+      "opponent": "mgt_m1",
+      "seat": 1
+    },
+    {
+      "id": "w05-v56",
+      "world": {
+        "id": "w05",
+        "seed": 3040039739,
+        "shops": [
+          "PIZZA_SHOP",
+          "YARN_STORE",
+          "FARMERS_MARKET",
+          "YARN_STORE",
+          "YARN_STORE",
+          "PIZZA_SHOP",
+          "PET_CAFE",
+          "BAKERY"
+        ],
+        "first_shop": "PIZZA_SHOP",
+        "cohort": "all"
+      },
+      "opponent": "v56",
+      "seat": 0
+    },
+    {
+      "id": "w06-mgt_m1",
+      "world": {
+        "id": "w06",
+        "seed": 2199966948,
+        "shops": [
+          "SMOOTHIE_SHOP",
+          "ICE_CREAM_SHOP",
+          "FARMERS_MARKET",
+          "SMOOTHIE_SHOP",
+          "FARMERS_MARKET",
+          "FARMERS_MARKET",
+          "ICE_CREAM_SHOP",
+          "BAKERY"
+        ],
+        "first_shop": "SMOOTHIE_SHOP",
+        "cohort": "all"
+      },
+      "opponent": "mgt_m1",
+      "seat": 0
+    },
+    {
+      "id": "w06-v56",
+      "world": {
+        "id": "w06",
+        "seed": 2199966948,
+        "shops": [
+          "SMOOTHIE_SHOP",
+          "ICE_CREAM_SHOP",
+          "FARMERS_MARKET",
+          "SMOOTHIE_SHOP",
+          "FARMERS_MARKET",
+          "FARMERS_MARKET",
+          "ICE_CREAM_SHOP",
+          "BAKERY"
+        ],
+        "first_shop": "SMOOTHIE_SHOP",
+        "cohort": "all"
+      },
+      "opponent": "v56",
+      "seat": 1
+    },
+    {
+      "id": "w07-mgt_m1",
+      "world": {
+        "id": "w07",
+        "seed": 3706317323,
+        "shops": [
+          "YARN_STORE",
+          "YARN_STORE",
+          "YARN_STORE",
+          "BAKERY",
+          "PET_CAFE",
+          "FARMERS_MARKET",
+          "BRUNCH_SPOT",
+          "FARMERS_MARKET"
+        ],
+        "first_shop": "YARN_STORE",
+        "cohort": "all"
+      },
+      "opponent": "mgt_m1",
+      "seat": 1
+    },
+    {
+      "id": "w07-v56",
+      "world": {
+        "id": "w07",
+        "seed": 3706317323,
+        "shops": [
+          "YARN_STORE",
+          "YARN_STORE",
+          "YARN_STORE",
+          "BAKERY",
+          "PET_CAFE",
+          "FARMERS_MARKET",
+          "BRUNCH_SPOT",
+          "FARMERS_MARKET"
+        ],
+        "first_shop": "YARN_STORE",
+        "cohort": "all"
+      },
+      "opponent": "v56",
+      "seat": 0
+    }
+  ],
+  "worlds": [
+    {
+      "id": "w00",
+      "seed": 3236523626,
+      "shops": [
+        "BAKERY",
+        "FARMERS_MARKET",
+        "YARN_STORE",
+        "PET_CAFE",
+        "FARMERS_MARKET",
+        "BRUNCH_SPOT",
+        "ICE_CREAM_SHOP",
+        "FARMERS_MARKET"
+      ],
+      "first_shop": "BAKERY",
+      "cohort": "all"
+    },
+    {
+      "id": "w01",
+      "seed": 2641620103,
+      "shops": [
+        "BRUNCH_SPOT",
+        "ICE_CREAM_SHOP",
+        "YARN_STORE",
+        "BAKERY",
+        "SMOOTHIE_SHOP",
+        "BAKERY",
+        "BAKERY",
+        "PIZZA_SHOP"
+      ],
+      "first_shop": "BRUNCH_SPOT",
+      "cohort": "all"
+    },
+    {
+      "id": "w02",
+      "seed": 3964513852,
+      "shops": [
+        "FARMERS_MARKET",
+        "ICE_CREAM_SHOP",
+        "SMOOTHIE_SHOP",
+        "BRUNCH_SPOT",
+        "YARN_STORE",
+        "SMOOTHIE_SHOP",
+        "FARMERS_MARKET",
+        "PET_CAFE"
+      ],
+      "first_shop": "FARMERS_MARKET",
+      "cohort": "all"
+    },
+    {
+      "id": "w03",
+      "seed": 1504562883,
+      "shops": [
+        "ICE_CREAM_SHOP",
+        "BAKERY",
+        "SMOOTHIE_SHOP",
+        "SMOOTHIE_SHOP",
+        "SMOOTHIE_SHOP",
+        "BAKERY",
+        "BAKERY",
+        "FARMERS_MARKET"
+      ],
+      "first_shop": "ICE_CREAM_SHOP",
+      "cohort": "all"
+    },
+    {
+      "id": "w04",
+      "seed": 1030309514,
+      "shops": [
+        "PET_CAFE",
+        "PIZZA_SHOP",
+        "BAKERY",
+        "BAKERY",
+        "FARMERS_MARKET",
+        "PET_CAFE",
+        "PIZZA_SHOP",
+        "FARMERS_MARKET"
+      ],
+      "first_shop": "PET_CAFE",
+      "cohort": "all"
+    },
+    {
+      "id": "w05",
+      "seed": 3040039739,
+      "shops": [
+        "PIZZA_SHOP",
+        "YARN_STORE",
+        "FARMERS_MARKET",
+        "YARN_STORE",
+        "YARN_STORE",
+        "PIZZA_SHOP",
+        "PET_CAFE",
+        "BAKERY"
+      ],
+      "first_shop": "PIZZA_SHOP",
+      "cohort": "all"
+    },
+    {
+      "id": "w06",
+      "seed": 2199966948,
+      "shops": [
+        "SMOOTHIE_SHOP",
+        "ICE_CREAM_SHOP",
+        "FARMERS_MARKET",
+        "SMOOTHIE_SHOP",
+        "FARMERS_MARKET",
+        "FARMERS_MARKET",
+        "ICE_CREAM_SHOP",
+        "BAKERY"
+      ],
+      "first_shop": "SMOOTHIE_SHOP",
+      "cohort": "all"
+    },
+    {
+      "id": "w07",
+      "seed": 3706317323,
+      "shops": [
+        "YARN_STORE",
+        "YARN_STORE",
+        "YARN_STORE",
+        "BAKERY",
+        "PET_CAFE",
+        "FARMERS_MARKET",
+        "BRUNCH_SPOT",
+        "FARMERS_MARKET"
+      ],
+      "first_shop": "YARN_STORE",
+      "cohort": "all"
+    }
+  ],
+  "arms": [
+    "baseline",
+    "dsm",
+    "normalized",
+    "funded"
+  ],
+  "opponents": [
+    "mgt_m1",
+    "v56"
+  ],
+  "protocol": "8 random worlds; first shop balanced across all shop types, seven independently uniform draws; each world crossed with both opponents and seats balanced.",
+  "shop_lock": "At step 0 and immediately after each natural end-of-day update, set unlocked_shops to the persisted sequence prefix for that day. Policy sees observation only."
+}

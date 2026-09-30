@@ -1,0 +1,115 @@
+{
+  "claim_checked": "Historical v9lite p2750 +611.081",
+  "claim_result": "confirmed: this is mean paired competitive-margin change (candidate margin minus Y3 margin), not own-cash change. Margin is final cash minus the replayed opponent final cash.",
+  "historical_scope": {
+    "candidate_results": "results/fresh/ladder_panel/mgt_v9litepkg/*.json",
+    "paired_y3_results": "results/fresh/kaggle_remote_y2/p2750eval/output/kgr-p2750eval-s0/out/mgt_y3/*.json",
+    "same_episode_seat_recorded_rewards": true,
+    "candidate_rows": 185,
+    "paired_baseline_rows": 185,
+    "pair_intersection": 185,
+    "unpaired_candidate": [],
+    "unpaired_baseline": [],
+    "source_gzip_replays": "data/ladder_panel/p2750/*.json.gz",
+    "source_gzip_count": 185,
+    "source_run_info": {
+      "submission": "p2750",
+      "original_agents": [
+        "mgt_t10",
+        "mgt_m1",
+        "mgt_y2",
+        "mgt_y3"
+      ],
+      "source_episode_count": 185,
+      "recorded_games": 740,
+      "engine": "1.32.7",
+      "python": "3.12.13"
+    },
+    "runner_semantics": "scripts/ladder_panel.py docstring/code: same seed and forced recorded shops; recorded opponent actions replayed while tested build plays live; opponent cannot react. This is historical/counterfactual tape-playback evidence, not live Elo/rating or reactive-opponent estimate.",
+    "seat_counts": {
+      "0": 81,
+      "1": 104
+    }
+  },
+  "raw_185": {
+    "margin_delta": {
+      "n": 185,
+      "mean": 611.081081081081,
+      "min": -4852.0,
+      "max": 12033.0,
+      "better": 32,
+      "same": 145,
+      "worse": 8
+    },
+    "own_cash_delta": {
+      "n": 185,
+      "mean": 212.64324324324323,
+      "min": -7915.0,
+      "max": 14706.0,
+      "better": 24,
+      "same": 145,
+      "worse": 16
+    },
+    "opponent_cash_delta": {
+      "n": 185,
+      "mean": -398.43783783783783,
+      "min": -12202.0,
+      "max": 3979.0,
+      "better": 15,
+      "same": 145,
+      "worse": 25
+    },
+    "candidate_wins": 96,
+    "y3_wins": 87
+  },
+  "ladder_report_tape_break_filter": {
+    "rule": "omit a row if candidate opponent no-effect count exceeds Y3 paired row by >40 (scripts/ladder_panel.py report)",
+    "excluded_count": 1,
+    "excluded_episodes": [
+      112611793
+    ],
+    "excluded_detail": [
+      {
+        "episode": 112611793,
+        "seat": 0,
+        "candidate_margin": -2537.0,
+        "y3_margin": -2443.0,
+        "margin_delta": -94.0,
+        "candidate_cash": 92511.0,
+        "y3_cash": 91800.0,
+        "own_cash_delta": 711.0,
+        "candidate_opponent_cash": 95048.0,
+        "y3_opponent_cash": 94243.0,
+        "opponent_cash_delta": 805.0,
+        "candidate_opponent_no_effect": 46,
+        "y3_opponent_no_effect": 2
+      }
+    ],
+    "filtered_184_margin_delta": {
+      "n": 184,
+      "mean": 614.9130434782609,
+      "min": -4852.0,
+      "max": 12033.0,
+      "better": 32,
+      "same": 145,
+      "worse": 7
+    },
+    "filtered_184_own_cash_delta": {
+      "n": 184,
+      "mean": 209.93478260869566,
+      "min": -7915.0,
+      "max": 14706.0,
+      "better": 23,
+      "same": 145,
+      "worse": 16
+    },
+    "filtered_candidate_wins": 96,
+    "filtered_y3_wins": 87
+  },
+  "source_hashes": {
+    "scripts/ladder_panel.py": "22b2ff506b182d2cf34f1ba6b7324dc29608b1475045f0c75224561d2b717f36",
+    "results/fresh/newphase_20260923/queue_h.json": "df60cfd403ddc30d56d5287e3aa9e29aa6b73426f64fdc418ba71cb00f406429",
+    "p2750_run_info.json": "a5fe0bb991dd16317be8d882fa956af38dd533fbe65e2530186e80edeef06980"
+  },
+  "qualification_separation": "This fact-check reads only historical p2750 panel and metadata; the active release_lite_qualification game records were not read."
+}

@@ -1,0 +1,148 @@
+{
+  "adapter_version": 3,
+  "seed": 155000,
+  "configuration": "no_tomato",
+  "seat": 0,
+  "opponent": "twocoins",
+  "crop": "WHEAT",
+  "cash": 92271.0,
+  "margin": -3337.0,
+  "cash_delta": -9600.0,
+  "margin_delta": -9729.0,
+  "stats": {
+    "committed": 1,
+    "hire_requests": 31,
+    "hire_shortfalls": 0,
+    "deadline_failures": 0,
+    "infeasible_calendar": 0,
+    "plant_requests": 30,
+    "water_requests": 140,
+    "harvest_requests": 30,
+    "harvested_units": 170,
+    "seed_requests": 30,
+    "fertilizer_requests": 30,
+    "plans": {
+      "18": {
+        "workers": 2,
+        "extra_hire_cost": 377
+      },
+      "19": {
+        "workers": 2,
+        "extra_hire_cost": 377
+      },
+      "20": {
+        "workers": 2,
+        "extra_hire_cost": 377
+      },
+      "21": {
+        "workers": 2,
+        "extra_hire_cost": 377
+      },
+      "22": {
+        "workers": 5,
+        "extra_hire_cost": 3804
+      },
+      "23": {
+        "workers": 2,
+        "extra_hire_cost": 377
+      },
+      "24": {
+        "workers": 2,
+        "extra_hire_cost": 377
+      },
+      "25": {
+        "workers": 2,
+        "extra_hire_cost": 377
+      },
+      "26": {
+        "workers": 5,
+        "extra_hire_cost": 2351
+      },
+      "27": {
+        "workers": 2,
+        "extra_hire_cost": 377
+      },
+      "28": {
+        "workers": 2,
+        "extra_hire_cost": 377
+      },
+      "29": {
+        "workers": 3,
+        "extra_hire_cost": 754
+      }
+    },
+    "budget_declines": 0
+  },
+  "ledger": [
+    {
+      "revenue": {
+        "FERTILIZER": 15114,
+        "WHEAT": 25064,
+        "WOOL": 6840,
+        "MILK": 17335,
+        "MELON": 14267,
+        "EGG": 5176,
+        "STRAWBERRY": 46308,
+        "CARROT": 2530
+      },
+      "sold_units": {
+        "FERTILIZER": 339,
+        "WHEAT": 596,
+        "WOOL": 104,
+        "MILK": 206,
+        "MELON": 72,
+        "EGG": 83,
+        "STRAWBERRY": 243,
+        "CARROT": 91
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4251,
+        "HIRE": 14699.0,
+        "BUY_ANIMAL:COW": 3200,
+        "BUY_ANIMAL:SHEEP": 3000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:WHEAT": 1930,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 7000.0,
+        "BUY_PRODUCT:FERTILIZER": 3503,
+        "BUY_ANIMAL:GOOSE": 900,
+        "BUY_SEED:CARROT": 620
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 12334,
+        "FERTILIZER": 15443,
+        "WOOL": 6877,
+        "MILK": 17027,
+        "MELON": 14267,
+        "EGG": 4886,
+        "STRAWBERRY": 47138,
+        "CARROT": 2292
+      },
+      "sold_units": {
+        "WHEAT": 305,
+        "FERTILIZER": 354,
+        "WOOL": 161,
+        "MILK": 245,
+        "MELON": 72,
+        "EGG": 78,
+        "STRAWBERRY": 249,
+        "CARROT": 84
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 5477,
+        "HIRE": 3630.0,
+        "BUY_ANIMAL:COW": 3200,
+        "BUY_ANIMAL:SHEEP": 3000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:WHEAT": 1630,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 1939,
+        "BUY_ANIMAL:GOOSE": 900,
+        "BUY_SEED:CARROT": 620
+      }
+    }
+  ]
+}

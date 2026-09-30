@@ -1,0 +1,32 @@
+{
+  "stage": "direct",
+  "expected": 64,
+  "present": 64,
+  "completed": 64,
+  "arms": {
+    "mgt_exp_hold": {
+      "games": 64,
+      "completed": 64,
+      "wins": 21,
+      "ties": 32,
+      "losses": 11,
+      "mean_margin": 730.96875,
+      "mean_cash": 110602.828125,
+      "max_action_seconds": 4.613555999996606,
+      "actions_over_1s": 32,
+      "runtime_errors": 0,
+      "events": {
+        "committed": 128,
+        "errors": 0,
+        "reject_calendar": 80
+      },
+      "event_units": {
+        "committed": 0
+      },
+      "mean_margin_seed_bootstrap_95": [
+        -73.53125,
+        1830.125
+      ]
+    }
+  }
+}

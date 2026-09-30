@@ -1,0 +1,41 @@
+{
+  "spec": {
+    "world": 25,
+    "seed": 1609718046,
+    "seat": 1,
+    "shops": [
+      "ICE_CREAM_SHOP",
+      "PET_CAFE",
+      "PIZZA_SHOP",
+      "YARN_STORE",
+      "PIZZA_SHOP",
+      "FARMERS_MARKET",
+      "FARMERS_MARKET",
+      "PIZZA_SHOP"
+    ],
+    "id": "random-25-original_m1",
+    "kind": "live",
+    "opponent": "original_m1"
+  },
+  "completed": true,
+  "baseline_margin": 77.0,
+  "candidate_margin": 77.0,
+  "baseline_cash": 104862.0,
+  "candidate_cash": 104862.0,
+  "baseline_rival_cash": 104785.0,
+  "candidate_rival_cash": 104785.0,
+  "margin_delta": 0.0,
+  "cash_delta": 0.0,
+  "rival_delta": 0.0,
+  "selected": [
+    null,
+    null,
+    null
+  ],
+  "intervened": false,
+  "actions_changed": false,
+  "baseline_bank": 59.354340200079605,
+  "candidate_bank": 54.42383510002401,
+  "baseline_divergence": null,
+  "candidate_divergence": null
+}

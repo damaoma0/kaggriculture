@@ -1,0 +1,44 @@
+{
+  "seed": 100002,
+  "seat": 0,
+  "opponent": "sixday",
+  "mode": "baseline",
+  "cash": 75041.0,
+  "opponent_cash": 103135.0,
+  "stats": {},
+  "ledger": {
+    "revenue": {
+      "WHEAT": 11746,
+      "FERTILIZER": 12907,
+      "WOOL": 32484,
+      "MILK": 3362,
+      "MELON": 14267,
+      "STRAWBERRY": 9046,
+      "CARROT": 16728
+    },
+    "sold_units": {
+      "WHEAT": 351,
+      "FERTILIZER": 245,
+      "WOOL": 147,
+      "MILK": 152,
+      "MELON": 72,
+      "STRAWBERRY": 233,
+      "CARROT": 93
+    },
+    "spend": {
+      "BUY_PRODUCT:WHEAT": 4487,
+      "BUY_SEED:WHEAT": 1830,
+      "BUY_SEED:MELON": 960,
+      "HIRE": 5520.0,
+      "BUY_ANIMAL:COW": 3200,
+      "BUY_ANIMAL:SHEEP": 3000,
+      "BUY_SEED:CARROT": 620,
+      "BUY_SEED:STRAWBERRY": 3200,
+      "BUY_LAND": 3000.0,
+      "BUY_PRODUCT:FERTILIZER": 2682
+    }
+  },
+  "action_hash": "7b703e71b2a3e2fab402c826a121df9a75aa831fff749577630cbf028cb29d9e",
+  "physical_hash": "c6b566ba477af7e73ae4bb8fb9abfb908c45e8bd43bcf13cfbb9b74179784ff1",
+  "seconds": 8.967544400002225
+}

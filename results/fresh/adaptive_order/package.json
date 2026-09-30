@@ -1,0 +1,15 @@
+{
+  "mode": "static",
+  "candidate": "agents\\adaptive_order_candidate.py",
+  "sha256": "216ed6a3857187cbd7803e50e033069af0c6bdb88ddf4ffbc879b4b49cbb4c6b",
+  "parity_actions": 1438,
+  "parity_games": 2,
+  "stdlib_only": true,
+  "cli": "passed",
+  "engine_functions": [
+    "_daily_refresh_animals",
+    "_shape",
+    "market_price"
+  ],
+  "status": "Parity passed; confirmation required before promotion."
+}

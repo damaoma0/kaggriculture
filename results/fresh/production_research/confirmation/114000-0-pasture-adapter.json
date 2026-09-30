@@ -1,0 +1,86 @@
+{
+  "seed": 114000,
+  "seat": 0,
+  "opponent": "pasture",
+  "mode": "adapter",
+  "cash": 94225.0,
+  "opponent_cash": 78499.0,
+  "ledger": [
+    {
+      "revenue": {
+        "WHEAT": 20003,
+        "FERTILIZER": 16009,
+        "WOOL": 42824,
+        "MILK": 24560,
+        "MELON": 14389,
+        "STRAWBERRY": 8504,
+        "CARROT": 990
+      },
+      "sold_units": {
+        "WHEAT": 568,
+        "FERTILIZER": 334,
+        "WOOL": 247,
+        "MILK": 215,
+        "MELON": 72,
+        "STRAWBERRY": 256,
+        "CARROT": 18
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 11099,
+        "BUY_SEED:WHEAT": 1970,
+        "HIRE": 5400.0,
+        "BUY_ANIMAL:COW": 2800,
+        "BUY_ANIMAL:SHEEP": 5000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:CARROT": 180,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2345
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 14321,
+        "FERTILIZER": 14254,
+        "WOOL": 34251,
+        "MILK": 20385,
+        "MELON": 14108,
+        "STRAWBERRY": 8256,
+        "CARROT": 660
+      },
+      "sold_units": {
+        "WHEAT": 366,
+        "FERTILIZER": 316,
+        "WOOL": 200,
+        "MILK": 180,
+        "MELON": 72,
+        "STRAWBERRY": 269,
+        "CARROT": 12
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4889,
+        "BUY_SEED:WHEAT": 1870,
+        "BUY_SEED:MELON": 960,
+        "HIRE": 6387.0,
+        "BUY_ANIMAL:COW": 2400,
+        "BUY_ANIMAL:SHEEP": 4500,
+        "BUY_SEED:STRAWBERRY": 3800,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2810,
+        "BUY_SEED:CARROT": 120
+      }
+    }
+  ],
+  "max_action_seconds": 0.010168699998757802,
+  "parity_actions": 719,
+  "shops": [
+    "YARN_STORE",
+    "PIZZA_SHOP",
+    "PET_CAFE",
+    "ICE_CREAM_SHOP",
+    "BAKERY",
+    "BRUNCH_SPOT",
+    "SMOOTHIE_SHOP",
+    "ICE_CREAM_SHOP"
+  ]
+}

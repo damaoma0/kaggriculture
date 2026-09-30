@@ -1,0 +1,206 @@
+{
+  "report": "C:\\Users\\xyygl\\Documents\\kaggriculture\\docs\\value_tape_search_20260923.md",
+  "historical_cases": 19,
+  "strict_historical_total": 10034.0,
+  "cohort_historical_total": 15110.0,
+  "strict_live": {
+    "pairs": 8,
+    "completed": 8,
+    "mean_margin_delta": 0.0,
+    "changed": 0,
+    "better": 0,
+    "worse": 0,
+    "minimum": 0.0,
+    "maximum": 0.0,
+    "rows": [
+      {
+        "seed": 1178485103,
+        "seat": 0,
+        "completed": true,
+        "baseline_margin": 16784.0,
+        "margin": 16784.0,
+        "margin_delta": 0.0,
+        "cash_delta": 0.0,
+        "selected": null,
+        "shops_equal": true
+      },
+      {
+        "seed": 1178485103,
+        "seat": 1,
+        "completed": true,
+        "baseline_margin": 16784.0,
+        "margin": 16784.0,
+        "margin_delta": 0.0,
+        "cash_delta": 0.0,
+        "selected": null,
+        "shops_equal": true
+      },
+      {
+        "seed": 1790550537,
+        "seat": 0,
+        "completed": true,
+        "baseline_margin": 6384.0,
+        "margin": 6384.0,
+        "margin_delta": 0.0,
+        "cash_delta": 0.0,
+        "selected": null,
+        "shops_equal": true
+      },
+      {
+        "seed": 1790550537,
+        "seat": 1,
+        "completed": true,
+        "baseline_margin": 6384.0,
+        "margin": 6384.0,
+        "margin_delta": 0.0,
+        "cash_delta": 0.0,
+        "selected": null,
+        "shops_equal": true
+      },
+      {
+        "seed": 1328429290,
+        "seat": 0,
+        "completed": true,
+        "baseline_margin": -3799.0,
+        "margin": -3799.0,
+        "margin_delta": 0.0,
+        "cash_delta": 0.0,
+        "selected": null,
+        "shops_equal": true
+      },
+      {
+        "seed": 1328429290,
+        "seat": 1,
+        "completed": true,
+        "baseline_margin": -3799.0,
+        "margin": -3799.0,
+        "margin_delta": 0.0,
+        "cash_delta": 0.0,
+        "selected": null,
+        "shops_equal": true
+      },
+      {
+        "seed": 1329978515,
+        "seat": 0,
+        "completed": true,
+        "baseline_margin": -3626.0,
+        "margin": -3626.0,
+        "margin_delta": 0.0,
+        "cash_delta": 0.0,
+        "selected": null,
+        "shops_equal": true
+      },
+      {
+        "seed": 1329978515,
+        "seat": 1,
+        "completed": true,
+        "baseline_margin": -3626.0,
+        "margin": -3626.0,
+        "margin_delta": 0.0,
+        "cash_delta": 0.0,
+        "selected": null,
+        "shops_equal": true
+      }
+    ]
+  },
+  "cohort_live": {
+    "pairs": 8,
+    "completed": 8,
+    "mean_margin_delta": 543.25,
+    "changed": 2,
+    "better": 2,
+    "worse": 0,
+    "minimum": 0.0,
+    "maximum": 2173.0,
+    "rows": [
+      {
+        "seed": 1178485103,
+        "seat": 0,
+        "completed": true,
+        "baseline_margin": 16784.0,
+        "margin": 16784.0,
+        "margin_delta": 0.0,
+        "cash_delta": 0.0,
+        "selected": null,
+        "shops_equal": true
+      },
+      {
+        "seed": 1178485103,
+        "seat": 1,
+        "completed": true,
+        "baseline_margin": 16784.0,
+        "margin": 16784.0,
+        "margin_delta": 0.0,
+        "cash_delta": 0.0,
+        "selected": null,
+        "shops_equal": true
+      },
+      {
+        "seed": 1790550537,
+        "seat": 0,
+        "completed": true,
+        "baseline_margin": 6384.0,
+        "margin": 6384.0,
+        "margin_delta": 0.0,
+        "cash_delta": 0.0,
+        "selected": null,
+        "shops_equal": true
+      },
+      {
+        "seed": 1790550537,
+        "seat": 1,
+        "completed": true,
+        "baseline_margin": 6384.0,
+        "margin": 6384.0,
+        "margin_delta": 0.0,
+        "cash_delta": 0.0,
+        "selected": null,
+        "shops_equal": true
+      },
+      {
+        "seed": 1328429290,
+        "seat": 0,
+        "completed": true,
+        "baseline_margin": -3799.0,
+        "margin": -3799.0,
+        "margin_delta": 0.0,
+        "cash_delta": 0.0,
+        "selected": null,
+        "shops_equal": true
+      },
+      {
+        "seed": 1328429290,
+        "seat": 1,
+        "completed": true,
+        "baseline_margin": -3799.0,
+        "margin": -3799.0,
+        "margin_delta": 0.0,
+        "cash_delta": 0.0,
+        "selected": null,
+        "shops_equal": true
+      },
+      {
+        "seed": 1329978515,
+        "seat": 0,
+        "completed": true,
+        "baseline_margin": -3626.0,
+        "margin": -1453.0,
+        "margin_delta": 2173.0,
+        "cash_delta": 5316.0,
+        "selected": 196,
+        "shops_equal": false
+      },
+      {
+        "seed": 1329978515,
+        "seat": 1,
+        "completed": true,
+        "baseline_margin": -3626.0,
+        "margin": -1453.0,
+        "margin_delta": 2173.0,
+        "cash_delta": 5316.0,
+        "selected": 196,
+        "shops_equal": false
+      }
+    ]
+  }
+}

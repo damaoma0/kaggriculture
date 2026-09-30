@@ -1,0 +1,27 @@
+SUBMITTED 2026-09-30 03:39 UTC as Kaggle ref 56696209 (user, 2026-09-30: "submit our best latest iteration rc233" - read as rc223,
+the best panel-validated arm; rc233 is an untested wheat-land arm; standing permission covers validated arms only).
+Live after this upload (latest 2 active): n18rc223s 56696209 + n18rc99s 56676484; n18rc8s 56655029 retires.
+
+n18rc223s = n18rc223 + the n18rc8s 3-step time-bank guard (lean 32 s, lean2 46 s, greedy 57 s).
+n18rc223  = n18rc216 + executor v18zb sd_goods_sale: MILK (days 12-29, H12, theta 4, same_tick 0.5, phase 1, front, room)
+            and WOOL (H24, same keys) margin hold rules (scripts/patch_exec_goods_sale_20260930.py).
+n18rc216  = n18rc163 + executor v18za sd_straw_sale: STRAWBERRY margin hold rule (days 12-29, H30, theta 4) + room guard.
+n18rc163  = n18rc162 + cassette wheat x1.2 (days 6-11) + block wheat x1.35 (days 12-14); n18rc162 = n18rc160 + same-step
+            land on days 6 and 8; n18rc160 = n18rc127 + land reserve (3rd quadrant on day 8).
+Build: scripts/sem_arms_20260929.py (n18rc223d -> n18rc223 non-det twin -> n18rc223s with --bank-guard + bank_guard config),
+scripts/package_semantic_ship_20260929.py n18rc223s results/fresh/ship_20260930/n18rc223s.
+Archive sha256 290fec29064930c0fe835f6eeed208e5511521d2d777a1824de47af4462eb320 (MANIFEST.json lists every file).
+
+Evidence:
+  Kaggle MGT (packaged mgt_v9lite, 40 fixed-shop worlds, r42): vs n18rc216 +974 (32 better / 8 worse; 33 runtime-valid
+    games +1,367, SE 398, median +1,409, 29/4; wool +829, milk +376, wheat +182); vs n18rc163 +1,008 (32/8); vs n18rc127
+    +658 (29/11); wins 38/40 (n18rc127 40/40, n18rc216 39/40).
+  leaders (DSM / MMPQ recorded, exact credit, 32 games, det_clock twins): vs n18rc216d +487 (median +490, 21/11; wool
+    +563, milk +186).
+  live-ladder panel (133 recorded games of n18rc99s, frozen opponents, det twins): n18rc216d +13,126 mean, 121 wins vs the
+    live n18rc99s +10,444 / 112 wins (25 late-3rd-quadrant games -1,346 -> +7,022; the 21 losses -7,629 -> -603, 9 flip);
+    n18rc223d on this panel queued.
+  local official runner (empty dirs, kaggle_environments file loader and 60 s bank, laptop under load): 2/2 DONE,
+    r40-00-s0 +16,147 (bank left 50.3 s, max step 2.9 s), r40-01-s1 +15,172 (45.8 s, 3.1 s).
+Caveats: frozen-opponent panels cannot react; the Kaggle ladder machines use a median ~30 s of the 60 s bank (ladder study
+2026-09-30), so the guard's lean mode will fire late in some games as for n18rc99s.

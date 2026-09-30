@@ -1,0 +1,16 @@
+8 worlds, per world. own gap -8035, rival gap +4366, MARGIN GAP -12401
+
+product    |    made deleted  unsold    used  bought   price | our sales |  rival $ rival px |   MARGIN
+WHEAT      |   -1931    -123     +14    -920    +174    +288 |    -2531 |     +687   37->38 |    -3217
+CARROT     |    -490      +5     -54      -0      +0     +20 |     -572 |     +110   41->42 |     -682
+TOMATO     |   -1376     +28      -0      -0      +0     -11 |    -1359 |      +21   73->73 |    -1381
+MELON      |      +0      -0      -0      -0      +0      -7 |       -7 |      +20 159->160 |      -26
+STRAWBERRY |   -1164      -0     +78      -0      +0      -6 |    -1092 |    +2564 131->141 |    -3657
+MILK       |   +1578     -86     +99      -0      +0   -2272 |     -681 |     -155   82->82 |     -526
+EGG        |    -545     -95     +19      -0      +0      +1 |     -626 |      +38   50->50 |     -665
+WOOL       |   +1841    -206      -0      -0      +0   -2371 |     -737 |     +655   87->93 |    -1392
+FERTILIZER |   -1352     -34     +39   +1488     +48    -448 |     -259 |     +426   37->40 |     -685
+seeds/animals/hires |                                                         |     -170 |                   |     -170
+TOTAL      |   -3440    -511    +195    +568    +222   -4805 |    -8035 |    +4366          |   -12401
+
+(check: own flows -8035 vs own gap -8035; rival flows +4366 vs rival gap +4366; the rest is start stock / cash-failed orders)

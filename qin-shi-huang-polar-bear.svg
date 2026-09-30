@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Qin Shi Huang riding a polar bear</title>
+  <desc id="desc">A stylized vector illustration of the first emperor of China, wearing a black and gold imperial robe and a ceremonial crown, riding a powerful polar bear bounding through snow toward the right.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#102a40"/><stop offset="1" stop-color="#719eae"/></linearGradient>
+    <linearGradient id="fur" x1="0" y1="0" x2=".4" y2="1"><stop stop-color="#fffdf1"/><stop offset=".55" stop-color="#e9f1ee"/><stop offset="1" stop-color="#a9c7cf"/></linearGradient>
+    <linearGradient id="robe" x2=".8" y2="1"><stop stop-color="#35454b"/><stop offset=".6" stop-color="#14272d"/><stop offset="1" stop-color="#07181f"/></linearGradient>
+    <linearGradient id="gold" x2="1" y2="1"><stop stop-color="#fff1b0"/><stop offset=".45" stop-color="#d4a14d"/><stop offset="1" stop-color="#9d6534"/></linearGradient>
+    <linearGradient id="skin" x2="1" y2="1"><stop stop-color="#e8b887"/><stop offset="1" stop-color="#a66c50"/></linearGradient>
+    <pattern id="snow" width="175" height="160" patternUnits="userSpaceOnUse"><circle cx="28" cy="32" r="2" fill="#f5ffff" opacity=".45"/><circle cx="130" cy="105" r="3" fill="#f5ffff" opacity=".35"/><path d="m60 125 17-5" stroke="#e4f6fa" stroke-width="2" opacity=".3"/></pattern>
+  </defs>
+  <!-- Cold northern landscape and a warm, disc-shaped sun. -->
+  <path fill="url(#sky)" d="M0 0h1400v1000H0z"/>
+  <circle cx="1057" cy="252" r="161" fill="#f2dfab"/>
+  <circle cx="1057" cy="252" r="178" fill="none" stroke="#efdca4" opacity=".18"/>
+  <path d="m0 560 159-170 110 82 160-173 199 249 125-141 120 97 166-120 261 174v442H0" fill="#385e73"/>
+  <path d="m159 390-62 103 64-28 38 12 21-39zm270-91-84 135 75-46 38 34 40-37zm610 85-66 83 71-31 59 34z" fill="#bdd4d7" opacity=".6"/>
+  <path d="m0 677 198-60 205 53 220-72 268 61 254-88 255 82v347H0" fill="#8eb4c2"/>
+  <path d="M0 800Q273 715 543 781t857-45v264H0" fill="#d6e9eb"/>
+  <path d="M0 910q398-139 766-61t634-10v161H0" fill="#edf4ef"/>
+  <path fill="url(#snow)" d="M0 0h1400v1000H0z"/>
+  <ellipse cx="725" cy="875" rx="430" ry="37" fill="#648f9e" opacity=".23"/>
+  <!-- Wind-swept banners of robe fabric. -->
+  <path d="M704 379C568 328 467 377 307 295c32 69 99 113 183 134-117-5-208 32-291 11 75 76 196 77 324 56-64 29-93 70-148 88 148 21 273-24 359-110Z" fill="#7f2c29" stroke="#281f25" stroke-width="5"/>
+  <path d="M687 394C546 394 418 384 334 325m269 131c-102-6-235 37-355 3m416 19c-74 38-149 79-234 87" fill="none" stroke="#d7a156" stroke-width="7"/>
+  <!-- Far legs, visible behind the bounding body. -->
+  <g fill="#afcad0" stroke="#426575" stroke-width="5" stroke-linejoin="round">
+    <path d="M503 653c-57 35-82 92-137 108l-113 8-50 34c-19 16-3 40 23 38l137-5c63-4 128-70 180-115Z"/>
+    <path d="M892 623c35 64 101 88 147 127l88 84c21 22 78 4 65-24l-74-81c-37-44-64-85-77-129Z"/>
+  </g>
+  <!-- Polar bear body, neck and head form one strong silhouette. -->
+  <path d="M352 605c-10-58 39-115 103-128 73-16 141 7 207 18 77 13 142-16 205-37 61-21 97-13 141 5 27-31 69-32 102-9l52 36 56 16c33 10 42 31 23 53-12 15-32 22-58 21l-46-2c-18 42-45 67-98 72-23 28-44 50-78 64-77 32-141 39-245 25-66-9-129-22-192-27-52-4-137-25-155-69-10-21-16-27-17-38Z" fill="url(#fur)" stroke="#365968" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M367 559c-49-24-58 11-34 29l24 9" fill="#e7efea" stroke="#365968" stroke-width="5"/>
+  <path d="M1004 468c-17-41-4-67 20-65 26 3 39 24 32 49" fill="#f7f7eb" stroke="#365968" stroke-width="5"/>
+  <path d="M1019 448c-6-19-2-29 7-25 10 4 15 12 14 22" fill="#78979e"/>
+  <path d="M1085 466c11-15 19-20 33-16" fill="none" stroke="#365968" stroke-width="5" stroke-linecap="round"/>
+  <!-- Near rear leg reaches backward; near front leg is thrust forward. -->
+  <path d="M521 614c29 38 14 97-29 135-37 34-83 52-118 73l-55 52c-21 22-89 10-86-13 2-15 33-30 45-45l44-62c21-33 63-43 65-77" fill="url(#fur)" stroke="#365968" stroke-width="5" stroke-linecap="round"/>
+  <path d="M876 601c-3 55 24 90 81 101l123 12 90 36c26 12 59 5 66-13 9-20-13-35-33-43l-81-37-99-44c-17-10-23-31-24-55" fill="url(#fur)" stroke="#365968" stroke-width="5" stroke-linecap="round"/>
+  <path d="M477 523q87-22 172 17m-81 154q143 30 250-6m-423-81 27-15-6 35 30-15m467-98-23 47 28-12-14 30" fill="none" stroke="#a9c5ca" stroke-width="7" stroke-linecap="round"/>
+  <path d="M1085 499q16-8 29 1" fill="none" stroke="#355361" stroke-width="7" stroke-linecap="round"/>
+  <circle cx="1101" cy="499" r="5" fill="#111f29"/>
+  <circle cx="1102" cy="497" r="1.5" fill="#fff"/>
+  <path d="M1202 506q38 1 39 20c-5 12-17 14-31 8l-16-14Z" fill="#203843"/>
+  <path d="M1170 551q27 8 51-6" fill="none" stroke="#486570" stroke-width="4" stroke-linecap="round"/>
+  <g fill="none" stroke="#496b77" stroke-width="4" stroke-linecap="round"><path d="m1195 721 12 24m-31-34 11 29m-914 113-13 17m36-12-10 17"/></g>
+  <!-- Saddle and harness. -->
+  <path d="M570 491q99 39 233-2l-15 103q-118 41-223-6Z" fill="#852f2b" stroke="#d5ac62" stroke-width="8"/>
+  <path d="M593 508q81 29 181 0l-10 65q-86 26-168 0Z" fill="none" stroke="#d5ac62" stroke-width="3"/>
+  <path d="M876 474q8 88 51 147" fill="none" stroke="#603c30" stroke-width="17"/>
+  <path d="M876 474q8 88 51 147" fill="none" stroke="#c59853" stroke-width="4"/>
+  <path d="m1137 484-29 82" stroke="#6b4735" stroke-width="11"/>
+  <circle cx="1117" cy="553" r="12" fill="none" stroke="url(#gold)" stroke-width="6"/>
+  <path d="M817 398Q944 520 1117 553M818 412q124 163 292 152" fill="none" stroke="#48382b" stroke-width="5"/>
+  <!-- Emperor: riding posture, arm extended to hold the reins. -->
+  <path d="M648 328q-43 30-44 103l-71 64q91 50 162 39l47 94 62-26-30-131 4-91-65-58Z" fill="url(#robe)" stroke="#10212a" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M645 350q-2 86-62 138 49 20 91 19l43 94" fill="none" stroke="url(#gold)" stroke-width="13"/>
+  <path d="m691 339 20 101 42-94" fill="#89372d" stroke="#d5aa60" stroke-width="5"/>
+  <path d="m625 444 138 1 1 25-152-2Z" fill="url(#gold)"/>
+  <rect x="690" y="445" width="34" height="24" rx="5" fill="#9c4433" stroke="#f3d586" stroke-width="4"/>
+  <path d="M753 350q35 10 51 35l32 9-7 45-65-11-39-40" fill="url(#robe)" stroke="#132832" stroke-width="5"/>
+  <path d="m808 388-12 42 24 7 13-43Z" fill="url(#gold)"/>
+  <path d="m831 398 26 1 18 13c9 10-1 19-10 12l-10-4-23 4Z" fill="url(#skin)" stroke="#553a30" stroke-width="3"/>
+  <path d="m739 608 49-15 13 31 29 18c13 10 10 23-7 24l-67-5Z" fill="#12232b" stroke="#091921" stroke-width="5"/>
+  <path d="m755 650 77 6" stroke="#d9ad5c" stroke-width="5"/>
+  <!-- Gold embroidery: a curling dragon motif and cloud scrolls. -->
+  <g fill="none" stroke="#cda45d" stroke-width="3" stroke-linecap="round"><path d="M636 395c-24-30 29-44 22-19-4 15-25 13-23 34 3 25 33 15 23 4m-10-40 12-10m-3 33 13 4m-32 18-11 6m-20 63q17-19 31-3t30-2m48 56 20 14-8 22 17 17"/><path d="M757 382q19-9 27 16"/></g>
+  <!-- Face, moustache, beard and ceremonial mian crown. -->
+  <path d="m681 306-6 38 29 35 37-34-13-44Z" fill="url(#skin)" stroke="#533b32" stroke-width="4"/>
+  <path d="M675 237q39-30 66 1l9 52-12 36-30 20-32-32-11-46Z" fill="url(#skin)" stroke="#4d352c" stroke-width="4"/>
+  <path d="M674 262q-19-11-18 11t20 23" fill="#c58c66" stroke="#4d352c" stroke-width="4"/>
+  <path d="M675 258q0-26 17-27l47 9-4-21-55-7-16 34 8 34" fill="#18252a"/>
+  <path d="m703 264 16-4m12 2 11 3" fill="none" stroke="#2c2928" stroke-width="5" stroke-linecap="round"/>
+  <path d="m706 272 10 1m16-1 7 1m-13 1 5 17-11 3" fill="none" stroke="#513c32" stroke-width="3" stroke-linecap="round"/>
+  <path d="M721 302q-16-9-28 9l24-5q14 10 29-1l-19-3" fill="#20292b"/>
+  <path d="M686 298q6 24 23 23l26-8q-2 40-28 65-1-27-17-45Z" fill="#20292b"/>
+  <path d="m701 330 9 24 12-26" fill="none" stroke="#4d5150" stroke-width="2"/>
+  <path d="m672 228 1-44 63-4 11 53Z" fill="#14232b" stroke="#d7ad61" stroke-width="4"/>
+  <path d="m632 177 102-15 54 27-111 17Z" fill="#1b2c32" stroke="#dfb665" stroke-width="5" stroke-linejoin="round"/>
+  <path d="m676 206 111-17v10l-111 18-44-29v-11Z" fill="#b18443"/>
+  <g stroke="#e1c180" stroke-width="2" fill="#f1d99d">
+    <path d="m741 206 1 53m13-55 2 60m11-63 3 57m11-59 3 55m-142-61-5 48m17-40-4 49m16-43-2 48"/>
+    <circle cx="742" cy="225" r="3"/><circle cx="742" cy="240" r="3"/><circle cx="742" cy="257" r="4"/>
+    <circle cx="756" cy="222" r="3"/><circle cx="757" cy="242" r="3"/><circle cx="757" cy="263" r="4"/>
+    <circle cx="769" cy="218" r="3"/><circle cx="770" cy="237" r="3"/><circle cx="770" cy="257" r="4"/>
+    <circle cx="783" cy="216" r="3"/><circle cx="784" cy="235" r="3"/><circle cx="784" cy="253" r="4"/>
+    <circle cx="638" cy="220" r="3"/><circle cx="636" cy="240" r="4"/><circle cx="651" cy="229" r="3"/><circle cx="649" cy="248" r="4"/><circle cx="665" cy="235" r="3"/><circle cx="664" cy="254" r="4"/>
+  </g>
+  <!-- Speed strokes and snow thrown up by the galloping bear. -->
+  <g fill="none" stroke="#f4fbf7" stroke-linecap="round"><path d="m102 643 174-12m-213 56 208-16m-143 59 91-9" stroke-width="5" opacity=".55"/><path d="M171 881q-51-3-80-33m125 19-42-63m140 87-69 23m848-101 160 8m-40-49 66 14" stroke-width="8"/><path d="m117 810-16-12m272 68-19 5m-197 53-25 1m1136-109 29 3" stroke-width="5"/></g>
+  <g fill="#fffdf1"><ellipse cx="189" cy="838" rx="8" ry="5" transform="rotate(35 189 838)"/><circle cx="147" cy="782" r="5"/><circle cx="298" cy="914" r="5"/><circle cx="354" cy="883" r="7"/><circle cx="1219" cy="788" r="6"/><circle cx="1280" cy="773" r="4"/><circle cx="1105" cy="820" r="4"/></g>
+  <path d="M56 60h1288v880H56Z" fill="none" stroke="#e7d5a3" stroke-width="2" opacity=".35"/>
+</svg>

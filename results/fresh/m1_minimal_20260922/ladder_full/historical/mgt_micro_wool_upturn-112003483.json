@@ -1,0 +1,248 @@
+{
+  "arm": "mgt_micro_wool_upturn",
+  "episode": 112003483,
+  "completed": true,
+  "source_sha256": "12f91b4bdd3970a397f16a1b39d1bbcaad99a74e794c14c640f9b476bbaf7c1e",
+  "seed": 124089417,
+  "seat": 0,
+  "cash": 85506.0,
+  "opponent_cash": 74976.0,
+  "margin": 10530.0,
+  "recorded": [
+    85506.0,
+    74976.0
+  ],
+  "action_changes": 0,
+  "first_change": null,
+  "economics": [
+    {
+      "revenue": {
+        "FERTILIZER": 10826,
+        "WHEAT": 18492,
+        "WOOL": 23387,
+        "MILK": 4221,
+        "MELON": 15297,
+        "EGG": 2173,
+        "STRAWBERRY": 19180,
+        "TOMATO": 7686,
+        "CARROT": 7561
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 3365,
+        "HIRE": 4680.0,
+        "BUY_ANIMAL:COW": 1600,
+        "BUY_ANIMAL:SHEEP": 5500,
+        "BUY_SEED:MELON": 1120,
+        "BUY_SEED:WHEAT": 1530,
+        "BUY_SEED:CARROT": 1080,
+        "BUY_SEED:STRAWBERRY": 2300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 1142,
+        "BUY_ANIMAL:GOOSE": 300,
+        "BUY_SEED:TOMATO": 700
+      },
+      "units": {
+        "FERTILIZER": 171,
+        "WHEAT": 472,
+        "WOOL": 226,
+        "MILK": 91,
+        "MELON": 84,
+        "EGG": 34,
+        "STRAWBERRY": 180,
+        "TOMATO": 105,
+        "CARROT": 179
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 15122,
+        "FERTILIZER": 15930,
+        "WOOL": 23716,
+        "MILK": 4703,
+        "MELON": 14231,
+        "STRAWBERRY": 24296,
+        "CARROT": 2933
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 5890,
+        "BUY_SEED:WHEAT": 1660,
+        "HIRE": 4850.0,
+        "BUY_ANIMAL:COW": 2400,
+        "BUY_ANIMAL:SHEEP": 5500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 835,
+        "BUY_SEED:CARROT": 560
+      },
+      "units": {
+        "WHEAT": 390,
+        "FERTILIZER": 320,
+        "WOOL": 238,
+        "MILK": 148,
+        "MELON": 72,
+        "STRAWBERRY": 242,
+        "CARROT": 80
+      }
+    }
+  ],
+  "overlay": {
+    "evals": [
+      [
+        6,
+        13,
+        2,
+        10,
+        3,
+        "cash",
+        -1994
+      ],
+      [
+        7,
+        13,
+        4,
+        11,
+        2,
+        "cash",
+        -1699
+      ],
+      [
+        8,
+        13,
+        8,
+        13,
+        0
+      ],
+      [
+        9,
+        13,
+        8,
+        11,
+        2,
+        "cash",
+        -1991
+      ],
+      [
+        10,
+        13,
+        10,
+        13,
+        0
+      ],
+      [
+        11,
+        13,
+        11,
+        12,
+        1
+      ],
+      [
+        12,
+        13,
+        11,
+        11,
+        2,
+        1,
+        -4487,
+        -164,
+        233
+      ],
+      [
+        13,
+        13,
+        11,
+        11,
+        2,
+        1,
+        -4123,
+        50,
+        229
+      ],
+      [
+        14,
+        13,
+        11,
+        11,
+        2,
+        1,
+        -4055,
+        -111,
+        229
+      ],
+      [
+        15,
+        13,
+        11,
+        11,
+        2,
+        1,
+        -3765,
+        14,
+        224
+      ],
+      [
+        16,
+        13,
+        11,
+        11,
+        2,
+        1,
+        -3527,
+        14,
+        200
+      ],
+      [
+        17,
+        13,
+        11,
+        11,
+        2,
+        1,
+        -3292,
+        10,
+        141
+      ],
+      [
+        18,
+        13,
+        11,
+        11,
+        2,
+        1,
+        -3032,
+        10,
+        49
+      ],
+      [
+        19,
+        13,
+        11,
+        11,
+        2,
+        1,
+        -2796,
+        10,
+        18
+      ]
+    ],
+    "wool_upturn_quotes": 6,
+    "declined_cash": 3,
+    "declined_hire_cash": 1,
+    "hire_guard_fired": 1,
+    "hire_guard_trimmed": 3,
+    "declined_profit": 8,
+    "guard_wheat": 2
+  },
+  "router": {
+    "switches": 3,
+    "router_errors": 0,
+    "hamming_max": 1,
+    "dist_d6": -0.02,
+    "dist_d12": -0.04,
+    "dist_d18": 0.45,
+    "dist_d24": 6.95
+  },
+  "max_action_seconds": 0.5153685999684967,
+  "actions_over_1s": 0,
+  "ledger_verified": true
+}

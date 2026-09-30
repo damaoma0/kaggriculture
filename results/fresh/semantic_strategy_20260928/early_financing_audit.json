@@ -1,0 +1,195 @@
+{
+  "purpose": "Read-only early financing mechanism audit; no counterfactual profit claim",
+  "evidence": [
+    {
+      "version": "smoke_v1",
+      "case": {
+        "id": "live-01",
+        "seed": 869148193,
+        "seat": 1
+      },
+      "day": 6,
+      "starting_cash": 729.0,
+      "ending_cash": 8.0,
+      "proposal": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 2,
+          "WHEAT": 3
+        },
+        "animal_add_counts": {
+          "SHEEP": 6,
+          "COW": 2
+        },
+        "animal_retire_counts": {},
+        "target_animals": {
+          "COW": 4,
+          "SHEEP": 9
+        },
+        "target_crop_counts": {
+          "MELON": 10,
+          "STRAWBERRY": 12,
+          "WHEAT": 3
+        },
+        "build_counts": {
+          "PASTURE": 8
+        },
+        "remove_structure_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "target_land_count": 2,
+        "estimated_work_p95": 164.76,
+        "estimated_capital_cost": 5030.0,
+        "modeled_free_tiles": 12
+      },
+      "produced": {
+        "WOOL": 18,
+        "FERTILIZER": 5
+      },
+      "sold": {
+        "WOOL": 10,
+        "FERTILIZER": 0
+      },
+      "purchases": {
+        "HIRE": 54.0,
+        "BUY_ANIMAL:SHEEP": 1500,
+        "BUY_PRODUCT:WHEAT": 593,
+        "BUY_SEED:WHEAT": 30,
+        "BUY_SEED:STRAWBERRY": 200,
+        "BUY_LAND": 1000.0
+      }
+    },
+    {
+      "version": "strategy_v2_nearest",
+      "case": {
+        "id": "live-01",
+        "seed": 869148193,
+        "seat": 1
+      },
+      "day": 6,
+      "starting_cash": 729.0,
+      "ending_cash": 8.0,
+      "proposal": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 2,
+          "WHEAT": 3
+        },
+        "animal_add_counts": {
+          "SHEEP": 6,
+          "COW": 2
+        },
+        "animal_retire_counts": {},
+        "target_animals": {
+          "COW": 4,
+          "SHEEP": 9
+        },
+        "target_crop_counts": {
+          "MELON": 10,
+          "STRAWBERRY": 12,
+          "WHEAT": 3
+        },
+        "build_counts": {
+          "PASTURE": 8
+        },
+        "remove_structure_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "target_land_count": 2,
+        "estimated_work_p95": 164.76,
+        "estimated_capital_cost": 5030.0,
+        "modeled_free_tiles": 12,
+        "wheat_reserve_extra_requested": 0
+      },
+      "produced": {
+        "WOOL": 18,
+        "FERTILIZER": 5
+      },
+      "sold": {
+        "WOOL": 10,
+        "FERTILIZER": 0
+      },
+      "purchases": {
+        "HIRE": 54.0,
+        "BUY_ANIMAL:SHEEP": 1500,
+        "BUY_PRODUCT:WHEAT": 593,
+        "BUY_SEED:WHEAT": 30,
+        "BUY_SEED:STRAWBERRY": 200,
+        "BUY_LAND": 1000.0
+      }
+    },
+    {
+      "version": "strategy_v2_unlock",
+      "case": {
+        "id": "live-01",
+        "seed": 869148193,
+        "seat": 1
+      },
+      "day": 6,
+      "starting_cash": 729.0,
+      "ending_cash": 98.0,
+      "proposal": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 2,
+          "WHEAT": 3
+        },
+        "animal_add_counts": {
+          "SHEEP": 6,
+          "COW": 2
+        },
+        "animal_retire_counts": {},
+        "target_animals": {
+          "COW": 4,
+          "SHEEP": 9
+        },
+        "target_crop_counts": {
+          "MELON": 10,
+          "STRAWBERRY": 12,
+          "WHEAT": 3
+        },
+        "build_counts": {
+          "PASTURE": 8
+        },
+        "remove_structure_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "target_land_count": 2,
+        "estimated_work_p95": 164.76,
+        "estimated_capital_cost": 5030.0,
+        "modeled_free_tiles": 12,
+        "wheat_reserve_extra_requested": 0
+      },
+      "produced": {
+        "WOOL": 18,
+        "FERTILIZER": 5
+      },
+      "sold": {
+        "WOOL": 15,
+        "FERTILIZER": 1
+      },
+      "purchases": {
+        "BUY_ANIMAL:COW": 400,
+        "HIRE": 54.0,
+        "BUY_ANIMAL:SHEEP": 2000,
+        "BUY_PRODUCT:WHEAT": 780,
+        "BUY_SEED:WHEAT": 30,
+        "BUY_SEED:STRAWBERRY": 200,
+        "BUY_LAND": 1000.0
+      }
+    }
+  ],
+  "source_hashes": {
+    "scripts\\dsm_sell_pace.py": "0883b769c6afb863652a13d9583d7252903b4b0a0e59f60d26d2b2dbb52ed111",
+    "results\\fresh\\semantic_strategy_20260928\\runtime\\agents\\mgt_lead_kb115lt.py": "2ebe94ece8ef48bf0058e620b5803c11050de7e663a63f4f41522f0758186ee0",
+    "results\\fresh\\semantic_strategy_20260928\\executor_recipe_online.json": "5152565508925c2180f9282662d08ea5b8112b69772612488aa1ab6d31202b76",
+    "results\\fresh\\semantic_strategy_20260928\\runtime\\results\\fresh\\threads_20260928\\dsm_sell_pace.json": "6d46c142b09e8b0b2a34ef011e1020e37005a0a6c35b40ad2ca7cbabf42d8294",
+    "results\\fresh\\semantic_strategy_20260928\\runs\\smoke_v1\\development\\live\\live-01.json": "f12551e5d46c436301d81cc96fd79d92d0660fb5900bd15b0fc8ca9da260b664",
+    "results\\fresh\\semantic_strategy_20260928\\runs\\smoke_v1\\development\\live\\live-01.actions.json": "f56f031fb6fcd4456ba15afe776db050688a8f2d19f2f905e78fc394ada2d5a5",
+    "results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v2_nearest\\development\\live\\live-01.json": "ff2910b47f55ad7420389bf7fc518d92c098c2a7318ddb7580de5e363162c55e",
+    "results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v2_nearest\\development\\live\\live-01.actions.json": "e24712ec593a61a668ef3f1e0db58643bc1cbc7ab62302e0f4039c68b9531bed",
+    "results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v2_unlock\\development\\live\\live-01.json": "0057649278827d6179327481afcb4e51bb6bcbb4fb14c307d13e3cf00185d9e2",
+    "results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v2_unlock\\development\\live\\live-01.actions.json": "dc68d3591425bbe04b953611b10e53da36c2fe3160d208844bc792ee89dd417d"
+  },
+  "report": "docs/semantic_strategy_early_financing_audit_20260928.md"
+}

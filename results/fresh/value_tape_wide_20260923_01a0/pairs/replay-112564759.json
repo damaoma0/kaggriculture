@@ -1,0 +1,69 @@
+{
+  "spec": {
+    "id": "replay-112564759",
+    "world": 112564759,
+    "kind": "replay",
+    "episode": 112564759,
+    "seat": 1,
+    "opponent": "Smackaveli",
+    "submission": 56497826,
+    "rating": 2809.7
+  },
+  "completed": true,
+  "baseline_margin": 101958.0,
+  "candidate_margin": 109104.0,
+  "baseline_cash": 154247.0,
+  "candidate_cash": 161566.0,
+  "baseline_rival_cash": 52289.0,
+  "candidate_rival_cash": 52462.0,
+  "margin_delta": 7146.0,
+  "cash_delta": 7319.0,
+  "rival_delta": 173.0,
+  "selected": [
+    486,
+    null,
+    null
+  ],
+  "intervened": true,
+  "actions_changed": true,
+  "baseline_bank": 59.64645949995611,
+  "candidate_bank": 53.88859190000221,
+  "baseline_divergence": {
+    "first_board_difference": 25,
+    "first_private_difference": 25,
+    "extra_failed_commands": 2326,
+    "recorded_cash": 111858.0,
+    "counterfactual_cash": 52289.0,
+    "sold_units_delta": {
+      "WHEAT": -187,
+      "CARROT": -103,
+      "TOMATO": -72,
+      "STRAWBERRY": -113,
+      "MELON": -39,
+      "EGG": -141,
+      "MILK": -85,
+      "WOOL": -173,
+      "FERTILIZER": -146
+    },
+    "material_command_break": true
+  },
+  "candidate_divergence": {
+    "first_board_difference": 25,
+    "first_private_difference": 25,
+    "extra_failed_commands": 2326,
+    "recorded_cash": 111858.0,
+    "counterfactual_cash": 52462.0,
+    "sold_units_delta": {
+      "WHEAT": -187,
+      "CARROT": -103,
+      "TOMATO": -72,
+      "STRAWBERRY": -113,
+      "MELON": -39,
+      "EGG": -141,
+      "MILK": -85,
+      "WOOL": -173,
+      "FERTILIZER": -146
+    },
+    "material_command_break": true
+  }
+}

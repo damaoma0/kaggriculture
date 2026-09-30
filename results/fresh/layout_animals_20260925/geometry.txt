@@ -1,0 +1,529 @@
+Animal vs crop placement relative to the shed (stored data only; no games run). Script: results/fresh/layout_animals_20260925/geometry.py
+Distance = Manhattan to the nearest shed tile (4,4),(5,4),(4,5),(5,5); those 4 tiles are farmable (d0). Every quadrant: 1 tile d0, 2 d1, 3 d2, 4 d3, 5 d4, 4 d5, 3 d6, 2 d7, 1 d8 (mean 4.0).
+Leader boards = day start; leader "co" resolved by build history (BUILD_COOP -> empty coop, BUILD_PASTURE -> cow).
+Fertilized tiles: leaders = maintenance.FERTILIZE (effective); ours = per-tile fertilized_until_day increases between day starts (lead_cycles states). Detour = min over live animals of d(shed,animal)+d(animal,tile)-d(shed,tile).
+
+======================================================================================================================================================
+DSM: n=100 games (cash_match 100/100)  data\leader_semantics\16732748 (100 files)
+  mean distance to shed (tiles per game-day in brackets); uniform unlocked tile = 4.00
+  asset                   0-5          6-11         12-17         18-23         24-29           all
+  sheep           1.33 ( 2.5)   1.59 ( 4.6)   1.71 ( 6.1)   1.67 ( 6.3)   1.59 ( 4.5)   1.61 ( 4.8)
+  cow             1.00 ( 1.7)   1.41 ( 6.9)   1.38 ( 9.3)   1.29 ( 8.7)   1.18 ( 7.5)   1.30 ( 6.8)
+  goose              - ( 0.0)   2.01 ( 2.5)   2.18 ( 6.8)   2.17 ( 6.7)   2.14 ( 6.2)   2.14 ( 4.4)
+  ANIMALS         1.20 ( 4.2)   1.57 (13.9)   1.72 (22.2)   1.67 (21.7)   1.61 (18.2)   1.63 (16.0)
+  pasture_empty      - ( 0.0)   3.08 ( 0.0)   2.51 ( 0.1)   2.61 ( 0.3)   1.60 ( 1.4)   1.83 ( 0.4)
+  coop_empty         - ( 0.0)   3.00 ( 0.0)      - ( 0.0)   2.70 ( 0.0)   2.52 ( 0.3)   2.55 ( 0.1)
+  ANIM+STRUCT     1.20 ( 4.2)   1.58 (13.9)   1.72 (22.2)   1.69 (22.1)   1.62 (19.9)   1.64 (16.5)
+  ST              5.86 ( 4.0)   5.45 (17.9)   5.00 (30.4)   4.68 (24.4)   4.24 (10.5)   4.95 (17.4)
+  TO                 - ( 0.0)   6.14 ( 1.2)   5.40 (10.1)   5.18 (15.7)   5.24 ( 8.0)   5.29 ( 7.0)
+  ME              3.61 ( 7.6)   3.60 ( 8.9)      - ( 0.0)      - ( 0.0)      - ( 0.0)   3.60 ( 3.3)
+  WH              5.80 ( 3.8)   4.49 (11.5)   3.75 (26.5)   3.98 (23.6)   4.12 (26.4)   4.09 (18.3)
+  CA                 - ( 0.0)   3.01 ( 0.2)   3.59 ( 3.7)   4.05 ( 7.0)   4.03 (16.0)   3.97 ( 5.4)
+  CROPS           4.73 (15.4)   4.76 (39.8)   4.51 (70.7)   4.50 (70.6)   4.27 (60.9)   4.50 (51.5)
+  OCCUPIED        3.98 (19.6)   3.94 (53.7)   3.84 (92.9)   3.83 (92.7)   3.61 (80.8)   3.81 (67.9)
+  share of tile-days at distance 0 / <=1 / <=2 (uniform unlocked tile: 4% / 12% / 24%)
+  group                        0-5               6-11              12-17              18-23              24-29                all
+  ANIMALS              20/ 60/100%        16/ 47/ 83%        16/ 44/ 76%        16/ 46/ 78%        18/ 48/ 80%        17/ 47/ 80%
+  sheep                 0/ 67/100%         6/ 53/ 86%         7/ 49/ 79%         8/ 49/ 81%         9/ 53/ 83%         7/ 52/ 84%
+  cow                  50/ 50/100%        26/ 51/ 86%        26/ 55/ 85%        28/ 59/ 88%        31/ 62/ 91%        29/ 57/ 88%
+  goose                          -         7/ 26/ 73%         9/ 25/ 62%         9/ 26/ 62%        10/ 27/ 63%         9/ 26/ 64%
+  ANIM+STRUCT          20/ 60/100%        16/ 47/ 83%        16/ 44/ 76%        16/ 45/ 77%        18/ 48/ 79%        16/ 47/ 80%
+  CROPS                 0/  0/  4%         0/  1/  5%         1/  3/ 10%         1/  3/ 10%         1/  4/ 13%         1/  3/  9%
+  ST                    0/  0/  0%         0/  0/  0%         0/  0/  2%         0/  1/  3%         0/  1/  5%         0/  0/  2%
+  TO                             -         0/  1/  3%         0/  1/  7%         0/  1/  8%         0/  1/  7%         0/  1/  7%
+  ME                    0/  0/  9%         0/  0/ 11%                  -                  -                  -         0/  0/ 10%
+  WH                    0/  0/  0%         1/  3/  7%         2/  6/ 19%         1/  5/ 17%         1/  4/ 15%         1/  5/ 15%
+  CA                             -         4/ 19/ 38%         2/  7/ 20%         2/  6/ 15%         2/  6/ 17%         2/  6/ 17%
+  ring occupancy, tiles per game-day: d0 = the 4 shed tiles; d1-2 = the 20 tiles at distance 1-2
+  (unlocked | animals | empty pasture/coop | crops | empty)
+  window                          d0 (4 tiles)                         d1-2 (20 tiles)
+  0-5          1.0 |  0.8 |  0.0 |  0.0 |  0.2         5.0 |  3.3 |  0.0 |  0.7 |  1.0
+  6-11         2.3 |  2.2 |  0.0 |  0.1 |  0.0        11.7 |  9.4 |  0.0 |  1.9 |  0.4
+  12-17        4.0 |  3.5 |  0.0 |  0.5 |  0.0        20.0 | 13.5 |  0.0 |  6.4 |  0.1
+  18-23        4.0 |  3.5 |  0.0 |  0.5 |  0.0        20.0 | 13.4 |  0.1 |  6.5 |  0.0
+  24-29        4.0 |  3.3 |  0.1 |  0.5 |  0.0        20.0 | 11.1 |  1.2 |  7.1 |  0.6
+  per quadrant, days the quadrant is unlocked; distance = to the quadrant's inner (shed) corner
+  quadrant  unlock d anim/gd crop/gd anim mean crop mean  anim d0/<=2  crop d0/<=2   corner tile: anim/struct/crop/empty
+  1st NW           0     5.9    17.3      1.68      4.77    16%/  79%     0%/   6%                 97%/   0%/   0%/   3%
+  2nd NE           7     7.9    15.2      1.88      4.95    12%/  70%     0%/   2%                 98%/   2%/   1%/   0%
+  3rd SW          10     4.9    18.1      1.23      4.58    20%/  98%     0%/   6%                 98%/   1%/   0%/   0%
+  4th SE          11     1.2    16.5      0.89      3.47    40%/  94%     3%/  28%                 48%/   1%/  50%/   1%
+  animal mean distance / crop mean distance per quadrant and window (- = none)
+  quadrant           0-5         6-11        12-17        18-23        24-29
+  1st NW       1.20/4.73    1.29/4.71    1.87/4.85    1.87/4.81    1.91/4.73
+  2nd NE          -/   -    1.88/5.15    1.97/5.12    1.88/4.99    1.73/4.52
+  3rd SW          -/   -    1.17/4.61    1.22/4.69    1.26/4.64    1.24/4.35
+  4th SE          -/   -    0.28/2.34    0.77/3.45    0.97/3.61    0.94/3.43
+  game level, days 6-29 (n=100 of 100 games with animals): animal mean 1.65, crop mean 4.49; animal-minus-crop mean -2.84 (p10 -3.01, median -2.86, p90 -2.66); animals closer in 100/100 games; animal tile-days on a shed tile 16%
+  fertilizer per game: COLLECT_FERTILIZER commands 475, FERTILIZE tiles 237, fertilizer bought 0.8, sold 235; live animal-days 481
+  fertilized tiles: mean distance 4.43 (animals 1.63); detour to pass a live animal on the way from the shed: 0 steps   91%, <=2  100% of 23711 fertilized tile-days (all live crop tile-days: 0 steps   88%, <=2  100%); fertilized with no live animal on the board 0
+  care frequency (maintenance tiles + harvested tiles, excl. COLLECT_FERTILIZER which has no tile record): animals visited on 88% of tile-days, 1.87 effective ops/tile-day (FEED 77%, CARE 76%, HARVEST 34%); crops visited on 70% of tile-days, 1.09 effective ops/tile-day (FEED 0%, CARE 0%, WATER 66%, FERTILIZE 15%, HARVEST 27%)
+
+======================================================================================================================================================
+DECEM: n=100 games (cash_match 100/100)  data\leader_semantics\16623559 (100 files)
+  mean distance to shed (tiles per game-day in brackets); uniform unlocked tile = 4.00
+  asset                   0-5          6-11         12-17         18-23         24-29           all
+  sheep           1.33 ( 2.5)   1.55 ( 4.6)   1.71 ( 6.3)   1.67 ( 6.4)   1.53 ( 4.4)   1.60 ( 4.9)
+  cow             1.00 ( 1.7)   1.45 ( 6.5)   1.44 ( 9.1)   1.37 ( 8.5)   1.23 ( 7.1)   1.36 ( 6.6)
+  goose              - ( 0.0)   1.75 ( 2.4)   2.01 ( 6.5)   2.00 ( 6.4)   1.95 ( 5.8)   1.96 ( 4.2)
+  ANIMALS         1.20 ( 4.2)   1.54 (13.5)   1.69 (21.9)   1.65 (21.4)   1.55 (17.3)   1.59 (15.7)
+  pasture_empty      - ( 0.0)   2.73 ( 0.0)   2.71 ( 0.0)   2.83 ( 0.4)   1.67 ( 1.5)   1.92 ( 0.4)
+  coop_empty         - ( 0.0)   1.60 ( 0.0)   4.00 ( 0.0)   3.05 ( 0.0)   2.15 ( 0.3)   2.24 ( 0.1)
+  ANIM+STRUCT     1.20 ( 4.2)   1.54 (13.5)   1.69 (21.9)   1.67 (21.8)   1.57 (19.1)   1.60 (16.1)
+  ST              5.92 ( 3.4)   5.49 (16.4)   5.03 (28.9)   4.68 (24.0)   4.23 (11.2)   4.95 (16.8)
+  TO                 - ( 0.0)   6.48 ( 0.5)   5.24 ( 9.5)   5.06 (16.6)   5.24 ( 8.1)   5.18 ( 6.9)
+  ME              3.66 ( 8.2)   3.68 (10.0)   4.48 ( 0.2)      - ( 0.0)      - ( 0.0)   3.68 ( 3.7)
+  WH              5.82 ( 4.1)   4.57 (12.5)   3.77 (26.4)   4.09 (23.2)   4.23 (27.8)   4.18 (18.8)
+  CA                 - ( 0.0)   3.09 ( 0.3)   3.42 ( 3.6)   3.84 ( 7.2)   3.88 (15.6)   3.80 ( 5.3)
+  CROPS           4.72 (15.7)   4.74 (39.7)   4.49 (68.6)   4.49 (71.1)   4.28 (62.6)   4.49 (51.5)
+  OCCUPIED        3.99 (19.9)   3.93 (53.2)   3.81 (90.5)   3.83 (92.9)   3.64 (81.7)   3.80 (67.6)
+  share of tile-days at distance 0 / <=1 / <=2 (uniform unlocked tile: 4% / 12% / 24%)
+  group                        0-5               6-11              12-17              18-23              24-29                all
+  ANIMALS              20/ 60/100%        16/ 49/ 85%        16/ 45/ 77%        17/ 47/ 79%        19/ 51/ 82%        17/ 48/ 81%
+  sheep                 0/ 67/100%         5/ 55/ 88%         7/ 49/ 80%         8/ 51/ 82%         9/ 57/ 87%         7/ 54/ 86%
+  cow                  50/ 50/100%        25/ 48/ 84%        23/ 52/ 84%        25/ 54/ 87%        28/ 60/ 91%        26/ 53/ 87%
+  goose                          -        14/ 39/ 82%        15/ 33/ 65%        16/ 33/ 65%        16/ 36/ 67%        16/ 34/ 67%
+  ANIM+STRUCT          20/ 60/100%        16/ 49/ 85%        16/ 45/ 77%        17/ 46/ 78%        18/ 50/ 82%        17/ 48/ 81%
+  CROPS                 0/  0/  4%         0/  1/  5%         1/  3/ 10%         1/  3/ 10%         1/  4/ 12%         1/  3/  9%
+  ST                    0/  0/  0%         0/  0/  0%         0/  0/  1%         0/  0/  3%         0/  0/  5%         0/  0/  2%
+  TO                             -         0/  1/  1%         0/  2/ 10%         0/  2/ 11%         0/  2/  8%         0/  2/ 10%
+  ME                    0/  0/  8%         0/  0/ 10%         0/  0/  0%                  -                  -         0/  0/  9%
+  WH                    0/  0/  0%         1/  2/  7%         1/  6/ 18%         1/  4/ 15%         0/  4/ 13%         1/  4/ 13%
+  CA                             -         3/ 14/ 36%         2/  8/ 23%         3/  6/ 17%         2/  7/ 20%         2/  7/ 20%
+  ring occupancy, tiles per game-day: d0 = the 4 shed tiles; d1-2 = the 20 tiles at distance 1-2
+  (unlocked | animals | empty pasture/coop | crops | empty)
+  window                          d0 (4 tiles)                         d1-2 (20 tiles)
+  0-5          1.0 |  0.8 |  0.0 |  0.0 |  0.2         5.0 |  3.3 |  0.0 |  0.7 |  1.0
+  6-11         2.3 |  2.2 |  0.0 |  0.1 |  0.0        11.7 |  9.3 |  0.0 |  1.9 |  0.5
+  12-17        4.0 |  3.5 |  0.0 |  0.5 |  0.0        20.0 | 13.4 |  0.0 |  6.5 |  0.1
+  18-23        4.0 |  3.6 |  0.0 |  0.4 |  0.0        20.0 | 13.3 |  0.1 |  6.6 |  0.0
+  24-29        4.0 |  3.4 |  0.2 |  0.4 |  0.0        20.0 | 10.8 |  1.3 |  7.3 |  0.6
+  per quadrant, days the quadrant is unlocked; distance = to the quadrant's inner (shed) corner
+  quadrant  unlock d anim/gd crop/gd anim mean crop mean  anim d0/<=2  crop d0/<=2   corner tile: anim/struct/crop/empty
+  1st NW           0     5.9    17.4      1.68      4.77    16%/  79%     0%/   5%                 96%/   0%/   0%/   3%
+  2nd NE           7     7.4    15.8      1.81      4.89    13%/  74%     0%/   2%                 94%/   2%/   4%/   0%
+  3rd SW          10     4.7    18.6      1.21      4.57    21%/  96%     0%/   7%                 99%/   1%/   0%/   0%
+  4th SE          11     1.4    15.2      0.98      3.38    41%/  92%     2%/  29%                 59%/   2%/  38%/   1%
+  animal mean distance / crop mean distance per quadrant and window (- = none)
+  quadrant           0-5         6-11        12-17        18-23        24-29
+  1st NW       1.20/4.72    1.29/4.71    1.87/4.86    1.88/4.82    1.88/4.74
+  2nd NE          -/   -    1.84/5.04    1.93/5.03    1.82/4.96    1.61/4.55
+  3rd SW          -/   -    1.13/4.58    1.21/4.66    1.24/4.64    1.19/4.36
+  4th SE          -/   -    0.24/2.27    0.91/3.26    1.08/3.55    0.96/3.35
+  game level, days 6-29 (n=100 of 100 games with animals): animal mean 1.61, crop mean 4.48; animal-minus-crop mean -2.87 (p10 -3.02, median -2.87, p90 -2.74); animals closer in 100/100 games; animal tile-days on a shed tile 17%
+  fertilizer per game: COLLECT_FERTILIZER commands 464, FERTILIZE tiles 231, fertilizer bought 3.1, sold 234; live animal-days 470
+  fertilized tiles: mean distance 4.41 (animals 1.59); detour to pass a live animal on the way from the shed: 0 steps   94%, <=2  100% of 23117 fertilized tile-days (all live crop tile-days: 0 steps   92%, <=2  100%); fertilized with no live animal on the board 0
+  care frequency (maintenance tiles + harvested tiles, excl. COLLECT_FERTILIZER which has no tile record): animals visited on 89% of tile-days, 1.91 effective ops/tile-day (FEED 77%, CARE 76%, HARVEST 37%); crops visited on 71% of tile-days, 1.10 effective ops/tile-day (FEED 0%, CARE 0%, WATER 67%, FERTILIZE 15%, HARVEST 27%)
+
+======================================================================================================================================================
+Vadim: n=100 games (cash_match 100/100)  data\leader_semantics\16770421 (100 files)
+  mean distance to shed (tiles per game-day in brackets); uniform unlocked tile = 4.00
+  asset                   0-5          6-11         12-17         18-23         24-29           all
+  sheep           1.33 ( 2.5)   1.58 ( 4.7)   1.71 ( 6.6)   1.66 ( 6.9)   1.53 ( 4.9)   1.60 ( 5.1)
+  cow             1.00 ( 1.7)   1.42 ( 6.7)   1.40 ( 9.1)   1.37 ( 8.9)   1.25 ( 7.5)   1.34 ( 6.8)
+  goose              - ( 0.0)   1.95 ( 2.3)   2.17 ( 6.2)   2.17 ( 6.1)   2.13 ( 5.7)   2.13 ( 4.0)
+  ANIMALS         1.20 ( 4.2)   1.56 (13.7)   1.71 (21.8)   1.68 (22.0)   1.60 (18.1)   1.63 (15.9)
+  pasture_empty      - ( 0.0)   2.82 ( 0.1)      - ( 0.0)   2.63 ( 0.3)   1.59 ( 1.4)   1.80 ( 0.3)
+  coop_empty         - ( 0.0)   2.00 ( 0.0)   3.00 ( 0.0)   2.68 ( 0.0)   2.53 ( 0.2)   2.55 ( 0.1)
+  ANIM+STRUCT     1.20 ( 4.2)   1.57 (13.8)   1.71 (21.8)   1.70 (22.3)   1.61 (19.7)   1.63 (16.3)
+  ST              5.87 ( 4.0)   5.50 (16.6)   5.06 (27.6)   4.71 (22.0)   4.24 (10.0)   5.00 (16.0)
+  TO                 - ( 0.0)   6.14 ( 1.0)   5.43 ( 9.7)   5.27 (14.5)   5.44 ( 6.5)   5.38 ( 6.3)
+  ME              3.61 ( 7.7)   3.59 ( 9.0)      - ( 0.0)      - ( 0.0)      - ( 0.0)   3.60 ( 3.3)
+  WH              5.79 ( 3.8)   4.56 (12.4)   3.79 (27.1)   4.09 (25.4)   4.25 (30.7)   4.18 (19.9)
+  CA                 - ( 0.0)   3.06 ( 0.4)   3.53 ( 5.2)   3.89 ( 8.0)   4.05 (15.6)   3.90 ( 5.8)
+  CROPS           4.73 (15.5)   4.76 (39.3)   4.51 (69.5)   4.51 (69.8)   4.32 (62.8)   4.51 (51.4)
+  OCCUPIED        3.98 (19.7)   3.94 (53.1)   3.84 (91.4)   3.83 (92.0)   3.67 (82.5)   3.82 (67.7)
+  share of tile-days at distance 0 / <=1 / <=2 (uniform unlocked tile: 4% / 12% / 24%)
+  group                        0-5               6-11              12-17              18-23              24-29                all
+  ANIMALS              20/ 60/100%        16/ 48/ 84%        16/ 45/ 77%        16/ 45/ 78%        18/ 49/ 80%        17/ 47/ 80%
+  sheep                 0/ 67/100%         6/ 54/ 86%         9/ 49/ 79%        10/ 51/ 81%        11/ 57/ 85%         8/ 54/ 84%
+  cow                  50/ 50/100%        26/ 49/ 86%        25/ 53/ 85%        25/ 54/ 86%        29/ 59/ 90%        27/ 54/ 87%
+  goose                          -         7/ 30/ 75%         9/ 26/ 61%         9/ 27/ 61%        10/ 28/ 62%         9/ 27/ 63%
+  ANIM+STRUCT          20/ 60/100%        16/ 47/ 84%        16/ 45/ 77%        16/ 45/ 77%        18/ 48/ 80%        16/ 47/ 80%
+  CROPS                 0/  0/  4%         0/  1/  5%         1/  3/ 10%         1/  3/  9%         1/  4/ 12%         1/  3/  9%
+  ST                    0/  0/  0%         0/  0/  0%         0/  0/  1%         0/  0/  2%         0/  0/  4%         0/  0/  1%
+  TO                             -         0/  0/  2%         0/  1/  7%         0/  1/  8%         0/  1/  7%         0/  1/  7%
+  ME                    0/  0/  9%         0/  0/ 11%                  -                  -                  -         0/  0/ 10%
+  WH                    0/  0/  0%         1/  2/  6%         1/  6/ 18%         1/  4/ 14%         1/  4/ 13%         1/  4/ 13%
+  CA                             -         6/ 18/ 41%         3/  9/ 21%         3/  7/ 16%         2/  6/ 18%         2/  7/ 18%
+  ring occupancy, tiles per game-day: d0 = the 4 shed tiles; d1-2 = the 20 tiles at distance 1-2
+  (unlocked | animals | empty pasture/coop | crops | empty)
+  window                          d0 (4 tiles)                         d1-2 (20 tiles)
+  0-5          1.0 |  0.8 |  0.0 |  0.0 |  0.2         5.0 |  3.3 |  0.0 |  0.7 |  1.0
+  6-11         2.3 |  2.2 |  0.0 |  0.1 |  0.0        11.6 |  9.3 |  0.0 |  1.8 |  0.5
+  12-17        4.0 |  3.4 |  0.0 |  0.5 |  0.0        19.8 | 13.3 |  0.0 |  6.4 |  0.1
+  18-23        4.0 |  3.5 |  0.0 |  0.4 |  0.0        19.8 | 13.5 |  0.1 |  6.1 |  0.0
+  24-29        4.0 |  3.3 |  0.2 |  0.5 |  0.0        19.8 | 11.1 |  1.1 |  7.1 |  0.5
+  per quadrant, days the quadrant is unlocked; distance = to the quadrant's inner (shed) corner
+  quadrant  unlock d anim/gd crop/gd anim mean crop mean  anim d0/<=2  crop d0/<=2   corner tile: anim/struct/crop/empty
+  1st NW           0     5.9    17.4      1.67      4.77    16%/  79%     0%/   5%                 96%/   0%/   0%/   3%
+  2nd NE           7     8.0    15.4      1.88      4.98    12%/  70%     0%/   2%                 98%/   2%/   1%/   0%
+  3rd SW          10     4.8    18.6      1.22      4.59    21%/  97%     0%/   7%                 99%/   1%/   0%/   0%
+  4th SE          11     1.2    16.1      0.85      3.41    40%/  97%     3%/  28%                 47%/   2%/  50%/   1%
+  animal mean distance / crop mean distance per quadrant and window (- = none)
+  quadrant           0-5         6-11        12-17        18-23        24-29
+  1st NW       1.20/4.73    1.29/4.71    1.86/4.85    1.87/4.80    1.87/4.74
+  2nd NE          -/   -    1.87/5.12    1.96/5.09    1.91/5.06    1.76/4.66
+  3rd SW          -/   -    1.15/4.60    1.22/4.67    1.25/4.64    1.22/4.43
+  4th SE          -/   -    0.47/2.26    0.79/3.35    0.92/3.54    0.84/3.38
+  game level, days 6-29 (n=100 of 100 games with animals): animal mean 1.65, crop mean 4.50; animal-minus-crop mean -2.86 (p10 -3.05, median -2.86, p90 -2.67); animals closer in 100/100 games; animal tile-days on a shed tile 16%
+  fertilizer per game: COLLECT_FERTILIZER commands 472, FERTILIZE tiles 179, fertilizer bought 0.8, sold 290; live animal-days 478
+  fertilized tiles: mean distance 4.74 (animals 1.63); detour to pass a live animal on the way from the shed: 0 steps   93%, <=2  100% of 17904 fertilized tile-days (all live crop tile-days: 0 steps   89%, <=2  100%); fertilized with no live animal on the board 0
+  care frequency (maintenance tiles + harvested tiles, excl. COLLECT_FERTILIZER which has no tile record): animals visited on 88% of tile-days, 1.86 effective ops/tile-day (FEED 77%, CARE 76%, HARVEST 34%); crops visited on 71% of tile-days, 1.05 effective ops/tile-day (FEED 0%, CARE 0%, WATER 66%, FERTILIZE 12%, HARVEST 27%)
+
+======================================================================================================================================================
+MG: n=100 games (cash_match 100/100)  data\leader_semantics\16730612 (100 files)
+  mean distance to shed (tiles per game-day in brackets); uniform unlocked tile = 4.00
+  asset                   0-5          6-11         12-17         18-23         24-29           all
+  sheep           1.33 ( 2.5)   1.55 ( 4.4)   1.75 ( 6.0)   1.73 ( 6.0)   1.62 ( 4.0)   1.64 ( 4.6)
+  cow             0.98 ( 1.6)   1.44 ( 6.7)   1.43 ( 9.0)   1.36 ( 8.4)   1.22 ( 7.0)   1.35 ( 6.6)
+  goose              - ( 0.0)   1.84 ( 2.5)   2.12 ( 6.1)   2.10 ( 5.9)   2.03 ( 5.4)   2.06 ( 4.0)
+  ANIMALS         1.19 ( 4.1)   1.55 (13.6)   1.72 (21.1)   1.68 (20.3)   1.58 (16.4)   1.62 (15.1)
+  pasture_empty   2.80 ( 0.0)   2.91 ( 0.0)   2.86 ( 0.0)   2.57 ( 0.3)   1.61 ( 1.4)   1.85 ( 0.4)
+  coop_empty      3.33 ( 0.0)   2.75 ( 0.0)   2.90 ( 0.0)   2.93 ( 0.1)   2.68 ( 0.2)   2.76 ( 0.1)
+  ANIM+STRUCT     1.20 ( 4.2)   1.55 (13.6)   1.73 (21.1)   1.70 (20.7)   1.60 (18.0)   1.63 (15.5)
+  ST              5.85 ( 3.6)   5.50 (17.9)   5.13 (28.1)   4.83 (21.4)   4.26 ( 8.1)   5.07 (15.8)
+  TO                 - ( 0.0)   6.57 ( 0.5)   5.29 ( 7.0)   5.15 (12.8)   5.35 ( 6.4)   5.26 ( 5.3)
+  ME              3.64 ( 7.7)   3.64 ( 9.1)   5.71 ( 0.0)      - ( 0.0)      - ( 0.0)   3.64 ( 3.4)
+  WH              5.77 ( 4.5)   4.63 (11.3)   3.93 (24.9)   4.07 (23.4)   4.28 (26.2)   4.25 (18.1)
+  CA                 - ( 0.0)   3.63 ( 0.4)   4.07 ( 2.5)   4.48 ( 6.7)   4.21 (16.6)   4.26 ( 5.3)
+  CROPS           4.75 (15.8)   4.81 (39.2)   4.62 (62.5)   4.58 (64.3)   4.38 (57.3)   4.59 (47.8)
+  OCCUPIED        4.01 (20.0)   3.97 (52.8)   3.89 (83.7)   3.88 (84.9)   3.71 (75.4)   3.87 (63.4)
+  share of tile-days at distance 0 / <=1 / <=2 (uniform unlocked tile: 4% / 12% / 24%)
+  group                        0-5               6-11              12-17              18-23              24-29                all
+  ANIMALS              20/ 60/100%        16/ 48/ 85%        15/ 44/ 77%        16/ 45/ 78%        18/ 49/ 81%        16/ 47/ 81%
+  sheep                 0/ 67/100%         5/ 56/ 88%         8/ 49/ 78%         8/ 50/ 79%        10/ 55/ 82%         7/ 53/ 83%
+  cow                  51/ 51/100%        27/ 47/ 84%        25/ 51/ 83%        27/ 54/ 85%        30/ 59/ 90%        28/ 53/ 86%
+  goose                          -         6/ 35/ 82%         8/ 27/ 65%         8/ 28/ 66%         8/ 31/ 68%         8/ 30/ 68%
+  ANIM+STRUCT          20/ 60/100%        16/ 48/ 85%        15/ 44/ 76%        15/ 45/ 77%        17/ 49/ 81%        16/ 47/ 80%
+  CROPS                 0/  0/  4%         0/  0/  4%         1/  2/  8%         1/  2/  9%         1/  3/ 11%         1/  2/  8%
+  ST                    0/  0/  0%         0/  0/  0%         0/  0/  1%         0/  0/  2%         0/  0/  4%         0/  0/  1%
+  TO                             -         1/  1/  1%         0/  2/  8%         0/  2/  8%         0/  2/  6%         0/  2/  7%
+  ME                    0/  0/  8%         0/  0/ 10%         0/  0/  0%                  -                  -         0/  0/  9%
+  WH                    0/  0/  0%         0/  1/  4%         1/  4/ 15%         1/  4/ 14%         1/  4/ 13%         1/  3/ 12%
+  CA                             -         3/  5/ 21%         2/  5/ 16%         2/  4/ 10%         1/  4/ 14%         2/  4/ 14%
+  ring occupancy, tiles per game-day: d0 = the 4 shed tiles; d1-2 = the 20 tiles at distance 1-2
+  (unlocked | animals | empty pasture/coop | crops | empty)
+  window                          d0 (4 tiles)                         d1-2 (20 tiles)
+  0-5          1.0 |  0.8 |  0.0 |  0.0 |  0.2         5.0 |  3.3 |  0.0 |  0.7 |  1.0
+  6-11         2.3 |  2.2 |  0.0 |  0.1 |  0.0        11.3 |  9.3 |  0.0 |  1.5 |  0.5
+  12-17        3.6 |  3.1 |  0.0 |  0.4 |  0.0        17.9 | 13.0 |  0.0 |  4.6 |  0.3
+  18-23        3.6 |  3.2 |  0.0 |  0.4 |  0.0        17.9 | 12.6 |  0.2 |  5.1 |  0.1
+  24-29        3.6 |  3.0 |  0.1 |  0.4 |  0.0        17.9 | 10.3 |  1.1 |  6.0 |  0.6
+  per quadrant, days the quadrant is unlocked; distance = to the quadrant's inner (shed) corner
+  quadrant  unlock d anim/gd crop/gd anim mean crop mean  anim d0/<=2  crop d0/<=2   corner tile: anim/struct/crop/empty
+  1st NW           0     5.7    17.6      1.64      4.75    17%/  80%     0%/   6%                 96%/   0%/   0%/   3%
+  2nd NE           7     7.6    15.9      1.81      4.97    13%/  73%     0%/   2%                 97%/   2%/   1%/   0%
+  3rd SW          10     5.0    18.4      1.31      4.62    20%/  95%     0%/   6%                 99%/   1%/   0%/   0%
+  4th SE          11     0.6    15.4      0.93      3.26    44%/  88%     5%/  32%                 27%/   1%/  70%/   2%
+  animal mean distance / crop mean distance per quadrant and window (- = none)
+  quadrant           0-5         6-11        12-17        18-23        24-29
+  1st NW       1.19/4.75    1.29/4.71    1.84/4.84    1.82/4.79    1.82/4.66
+  2nd NE          -/   -    1.83/5.11    1.91/5.10    1.83/5.01    1.63/4.66
+  3rd SW          -/   -    1.20/4.67    1.31/4.69    1.34/4.67    1.30/4.46
+  4th SE          -/   -    0.11/2.23    0.63/3.20    1.05/3.37    1.04/3.24
+  game level, days 6-29 (n=100 of 100 games with animals): animal mean 1.64, crop mean 4.60; animal-minus-crop mean -2.96 (p10 -3.21, median -2.93, p90 -2.77); animals closer in 100/100 games; animal tile-days on a shed tile 16%
+  fertilizer per game: COLLECT_FERTILIZER commands 448, FERTILIZE tiles 218, fertilizer bought 0.0, sold 228; live animal-days 453
+  fertilized tiles: mean distance 4.56 (animals 1.62); detour to pass a live animal on the way from the shed: 0 steps   93%, <=2  100% of 21792 fertilized tile-days (all live crop tile-days: 0 steps   91%, <=2  100%); fertilized with no live animal on the board 0
+  care frequency (maintenance tiles + harvested tiles, excl. COLLECT_FERTILIZER which has no tile record): animals visited on 89% of tile-days, 1.91 effective ops/tile-day (FEED 77%, CARE 77%, HARVEST 37%); crops visited on 73% of tile-days, 1.13 effective ops/tile-day (FEED 0%, CARE 0%, WATER 70%, FERTILIZE 15%, HARVEST 28%)
+
+======================================================================================================================================================
+MMPQ: n=100 games (cash_match 100/100)  data\leader_semantics\16681125 (100 files)
+  mean distance to shed (tiles per game-day in brackets); uniform unlocked tile = 4.00
+  asset                   0-5          6-11         12-17         18-23         24-29           all
+  sheep           1.15 ( 1.7)   1.41 ( 5.5)   1.52 ( 7.8)   1.42 ( 7.5)   1.32 ( 5.8)   1.41 ( 5.7)
+  cow             1.80 ( 3.2)   1.92 ( 6.9)   1.85 ( 8.6)   1.84 ( 8.4)   1.80 ( 7.7)   1.84 ( 7.0)
+  ANIMALS         1.57 ( 5.0)   1.69 (12.4)   1.69 (16.4)   1.64 (15.9)   1.60 (13.5)   1.65 (12.6)
+  pasture_empty      - ( 0.0)   1.93 ( 0.0)   2.44 ( 0.0)   2.91 ( 0.2)   1.42 ( 1.2)   1.67 ( 0.3)
+  ANIM+STRUCT     1.57 ( 5.0)   1.69 (12.4)   1.69 (16.4)   1.66 (16.2)   1.58 (14.7)   1.65 (12.9)
+  ST              6.16 ( 3.0)   5.13 (19.3)   4.68 (27.8)   4.20 (23.1)   3.27 ( 7.0)   4.58 (16.0)
+  ME              3.72 ( 7.3)   3.80 ( 7.7)   7.00 ( 0.0)      - ( 0.0)      - ( 0.0)   3.76 ( 3.0)
+  WH              5.31 ( 5.0)   4.46 (16.3)   4.55 (22.7)   4.89 (22.9)   4.59 (28.9)   4.67 (19.1)
+  CA                 - ( 0.0)   4.19 ( 1.0)   4.71 ( 7.8)   4.90 (12.1)   4.68 (14.5)   4.75 ( 7.1)
+  CROPS           4.72 (15.3)   4.63 (44.3)   4.64 (58.2)   4.62 (58.0)   4.43 (50.4)   4.59 (45.3)
+  OCCUPIED        3.95 (20.3)   3.99 (56.7)   3.99 (74.7)   3.97 (74.2)   3.79 (65.1)   3.94 (58.2)
+  share of tile-days at distance 0 / <=1 / <=2 (uniform unlocked tile: 4% / 12% / 24%)
+  group                        0-5               6-11              12-17              18-23              24-29                all
+  ANIMALS              17/ 50/ 83%        18/ 51/ 76%        18/ 50/ 76%        18/ 51/ 77%        20/ 51/ 78%        19/ 51/ 77%
+  sheep                 0/ 95/ 95%        20/ 72/ 83%        22/ 63/ 78%        22/ 65/ 81%        26/ 67/ 83%        21/ 68/ 82%
+  cow                  26/ 26/ 77%        17/ 34/ 70%        14/ 38/ 73%        15/ 38/ 74%        16/ 39/ 75%        16/ 37/ 73%
+  goose                          -                  -                  -                  -                  -                  -
+  ANIM+STRUCT          17/ 50/ 83%        18/ 51/ 76%        18/ 50/ 76%        18/ 50/ 76%        20/ 52/ 78%        18/ 51/ 77%
+  CROPS                 0/  0/  5%         0/  1/  9%         0/  1/ 10%         0/  1/ 10%         0/  2/ 12%         0/  1/ 10%
+  ST                    0/  0/  0%         0/  1/  8%         0/  2/ 12%         0/  2/ 16%         0/  3/ 27%         0/  2/ 13%
+  TO                             -                  -                  -                  -                  -                  -
+  ME                    0/  0/ 11%         0/  0/ 11%         0/  0/  0%                  -                  -         0/  0/ 11%
+  WH                    0/  0/  0%         0/  1/ 10%         0/  1/  8%         0/  1/  5%         0/  2/  8%         0/  1/  7%
+  CA                             -         1/  4/ 13%         1/  1/  6%         0/  1/  5%         0/  3/ 12%         0/  2/  9%
+  ring occupancy, tiles per game-day: d0 = the 4 shed tiles; d1-2 = the 20 tiles at distance 1-2
+  (unlocked | animals | empty pasture/coop | crops | empty)
+  window                          d0 (4 tiles)                         d1-2 (20 tiles)
+  0-5          1.0 |  0.8 |  0.0 |  0.0 |  0.2         5.0 |  3.3 |  0.0 |  0.8 |  0.8
+  6-11         2.4 |  2.3 |  0.0 |  0.0 |  0.1        12.1 |  7.1 |  0.0 |  4.0 |  0.9
+  12-17        3.0 |  2.9 |  0.0 |  0.1 |  0.0        15.0 |  9.4 |  0.0 |  5.5 |  0.0
+  18-23        3.0 |  2.9 |  0.0 |  0.1 |  0.0        15.0 |  9.3 |  0.1 |  5.6 |  0.0
+  24-29        3.0 |  2.7 |  0.2 |  0.1 |  0.0        15.0 |  7.8 |  0.8 |  5.9 |  0.5
+  per quadrant, days the quadrant is unlocked; distance = to the quadrant's inner (shed) corner
+  quadrant  unlock d anim/gd crop/gd anim mean crop mean  anim d0/<=2  crop d0/<=2   corner tile: anim/struct/crop/empty
+  1st NW           0     6.8    16.6      1.90      4.79    14%/  71%     0%/   5%                 97%/   0%/   0%/   3%
+  2nd NE           6     4.6    18.5      1.52      4.55    20%/  79%     0%/  11%                 94%/   3%/   0%/   3%
+  3rd SW           9     3.2    20.3      1.09      4.39    28%/  91%     0%/  14%                 91%/   2%/   6%/   1%
+  animal mean distance / crop mean distance per quadrant and window (- = none)
+  quadrant           0-5         6-11        12-17        18-23        24-29
+  1st NW       1.57/4.72    1.99/4.83    2.01/4.86    1.94/4.83    1.91/4.69
+  2nd NE          -/   -    1.41/4.53    1.63/4.66    1.54/4.62    1.43/4.39
+  3rd SW          -/   -    0.87/4.45    1.07/4.43    1.15/4.44    1.15/4.26
+  4th SE          -/   -       -/   -       -/   -       -/   -       -/   -
+  game level, days 6-29 (n=100 of 100 games with animals): animal mean 1.62, crop mean 4.59; animal-minus-crop mean -2.96 (p10 -3.20, median -2.98, p90 -2.68); animals closer in 100/100 games; animal tile-days on a shed tile 19%
+  fertilizer per game: COLLECT_FERTILIZER commands 382, FERTILIZE tiles 180, fertilizer bought 0.0, sold 195; live animal-days 379
+  fertilized tiles: mean distance 4.55 (animals 1.65); detour to pass a live animal on the way from the shed: 0 steps   98%, <=2  100% of 17959 fertilized tile-days (all live crop tile-days: 0 steps   97%, <=2  100%); fertilized with no live animal on the board 0
+  care frequency (maintenance tiles + harvested tiles, excl. COLLECT_FERTILIZER which has no tile record): animals visited on 87% of tile-days, 1.75 effective ops/tile-day (FEED 74%, CARE 73%, HARVEST 28%); crops visited on 77% of tile-days, 1.14 effective ops/tile-day (FEED 0%, CARE 0%, WATER 72%, FERTILIZE 13%, HARVEST 28%)
+
+======================================================================================================================================================
+Boey: n=40 games (cash_match 40/40)  data\leader_semantics\16915014 (40 files)
+  mean distance to shed (tiles per game-day in brackets); uniform unlocked tile = 4.00
+  asset                   0-5          6-11         12-17         18-23         24-29           all
+  sheep           0.69 ( 1.8)   1.47 ( 4.5)   1.74 ( 6.8)   1.76 ( 6.9)   1.75 ( 5.4)   1.62 ( 5.1)
+  cow             2.25 ( 2.9)   2.23 ( 6.4)   2.01 ( 7.6)   1.89 ( 7.2)   1.75 ( 6.6)   1.99 ( 6.1)
+  goose           3.59 ( 1.1)   2.84 ( 4.6)   2.49 ( 6.2)   2.49 ( 6.2)   2.48 ( 6.2)   2.60 ( 4.8)
+  ANIMALS         2.01 ( 5.8)   2.19 (15.5)   2.07 (20.6)   2.03 (20.3)   2.00 (18.1)   2.06 (16.1)
+  pasture_empty      - ( 0.0)   0.00 ( 0.0)   4.20 ( 0.0)   3.31 ( 0.2)   1.65 ( 0.9)   1.99 ( 0.2)
+  coop_empty      2.00 ( 0.0)   2.00 ( 0.0)   2.00 ( 0.0)   2.00 ( 0.0)   2.75 ( 0.0)   2.18 ( 0.0)
+  ANIM+STRUCT     2.01 ( 5.8)   2.19 (15.5)   2.07 (20.6)   2.04 (20.5)   1.98 (19.1)   2.06 (16.3)
+  ST              5.62 ( 1.1)   4.65 (17.0)   4.61 (24.9)   4.52 (21.3)   5.03 ( 5.2)   4.64 (13.9)
+  ME              4.38 ( 7.3)   4.66 (10.5)   4.55 ( 2.8)   4.94 ( 0.3)   8.00 ( 0.0)   4.55 ( 4.2)
+  WH              5.08 ( 6.5)   4.90 (11.6)   4.73 (23.9)   4.59 (24.2)   4.33 (26.5)   4.63 (18.6)
+  CA                 - ( 0.0)   5.81 ( 0.6)   5.92 ( 2.3)   5.62 ( 7.6)   4.88 (13.7)   5.23 ( 4.8)
+  CROPS           4.77 (14.9)   4.74 (39.7)   4.72 (53.9)   4.71 (53.4)   4.58 (45.4)   4.69 (41.4)
+  OCCUPIED        3.99 (20.7)   4.03 (55.3)   3.99 (74.5)   3.97 (73.9)   3.81 (64.4)   3.95 (57.8)
+  share of tile-days at distance 0 / <=1 / <=2 (uniform unlocked tile: 4% / 12% / 24%)
+  group                        0-5               6-11              12-17              18-23              24-29                all
+  ANIMALS              14/ 43/ 61%        14/ 36/ 60%        15/ 39/ 65%        15/ 39/ 66%        15/ 40/ 67%        15/ 39/ 64%
+  sheep                45/ 90/ 98%        28/ 58/ 82%        21/ 47/ 74%        21/ 45/ 74%        22/ 44/ 74%        24/ 51/ 77%
+  cow                   0/ 29/ 60%         9/ 34/ 62%        13/ 42/ 68%        14/ 44/ 72%        15/ 48/ 77%        12/ 41/ 69%
+  goose                 0/  0/  1%         6/ 18/ 37%         9/ 27/ 50%         9/ 27/ 50%         9/ 27/ 50%         8/ 24/ 46%
+  ANIM+STRUCT          14/ 43/ 61%        14/ 36/ 60%        15/ 39/ 65%        15/ 39/ 66%        16/ 40/ 67%        15/ 39/ 64%
+  CROPS                 0/  0/ 10%         0/  2/  9%         0/  2/  9%         0/  2/  8%         0/  3/ 10%         0/  2/  9%
+  ST                    0/  0/  0%         0/  3/ 10%         0/  3/ 10%         0/  3/ 11%         0/  1/  6%         0/  3/ 10%
+  TO                             -                  -                  -                  -                  -                  -
+  ME                    0/  0/ 11%         0/  2/ 10%         0/  7/  9%         0/  0/  5%         0/  0/  0%         0/  2/ 10%
+  WH                    0/  0/  9%         0/  0/  7%         0/  0/  8%         0/  1/  8%         0/  3/ 12%         0/  1/  9%
+  CA                             -         0/  0/  1%         0/  0/  3%         0/  0/  3%         0/  3/  8%         0/  2/  6%
+  ring occupancy, tiles per game-day: d0 = the 4 shed tiles; d1-2 = the 20 tiles at distance 1-2
+  (unlocked | animals | empty pasture/coop | crops | empty)
+  window                          d0 (4 tiles)                         d1-2 (20 tiles)
+  0-5          1.0 |  0.8 |  0.0 |  0.0 |  0.2         5.0 |  2.7 |  0.0 |  1.4 |  0.8
+  6-11         2.3 |  2.2 |  0.0 |  0.0 |  0.1        11.5 |  7.2 |  0.0 |  3.5 |  0.7
+  12-17        3.0 |  3.0 |  0.0 |  0.0 |  0.0        15.0 | 10.3 |  0.0 |  4.7 |  0.0
+  18-23        3.0 |  3.0 |  0.0 |  0.0 |  0.0        15.0 | 10.4 |  0.1 |  4.5 |  0.0
+  24-29        3.0 |  2.8 |  0.2 |  0.0 |  0.0        15.0 |  9.4 |  0.5 |  4.6 |  0.6
+  per quadrant, days the quadrant is unlocked; distance = to the quadrant's inner (shed) corner
+  quadrant  unlock d anim/gd crop/gd anim mean crop mean  anim d0/<=2  crop d0/<=2   corner tile: anim/struct/crop/empty
+  1st NW           0     9.1    14.1      2.44      4.96    10%/  51%     0%/   7%                 93%/   3%/   0%/   3%
+  2nd NE           7     5.1    18.6      1.78      4.53    19%/  75%     0%/  11%                 99%/   1%/   0%/   0%
+  3rd SW           9     4.4    18.9      1.28      4.59    22%/  91%     0%/   9%                 95%/   1%/   0%/   4%
+  animal mean distance / crop mean distance per quadrant and window (- = none)
+  quadrant           0-5         6-11        12-17        18-23        24-29
+  1st NW       2.01/4.77    2.54/5.01    2.53/5.07    2.46/5.06    2.46/4.85
+  2nd NE          -/   -    1.69/4.59    1.83/4.58    1.80/4.56    1.77/4.38
+  3rd SW          -/   -    1.00/4.58    1.26/4.60    1.34/4.60    1.32/4.56
+  4th SE          -/   -       -/   -       -/   -       -/   -       -/   -
+  game level, days 6-29 (n=40 of 40 games with animals): animal mean 2.05, crop mean 4.69; animal-minus-crop mean -2.64 (p10 -2.76, median -2.64, p90 -2.51); animals closer in 40/40 games; animal tile-days on a shed tile 15%
+  fertilizer per game: COLLECT_FERTILIZER commands 465, FERTILIZE tiles 205, fertilizer bought 755.5, sold 1007; live animal-days 482
+  fertilized tiles: mean distance 4.53 (animals 2.06); detour to pass a live animal on the way from the shed: 0 steps  100%, <=2  100% of 8210 fertilized tile-days (all live crop tile-days: 0 steps   99%, <=2  100%); fertilized with no live animal on the board 0
+  care frequency (maintenance tiles + harvested tiles, excl. COLLECT_FERTILIZER which has no tile record): animals visited on 94% of tile-days, 2.06 effective ops/tile-day (FEED 83%, CARE 82%, HARVEST 40%); crops visited on 70% of tile-days, 1.08 effective ops/tile-day (FEED 1%, CARE 1%, WATER 64%, FERTILIZE 16%, HARVEST 26%)
+
+======================================================================================================================================================
+ALL LEADERS (pooled tile-days; Boey 40 games, others 100): n=540 games (cash_match 540/540)  data/leader_semantics/*
+  mean distance to shed (tiles per game-day in brackets); uniform unlocked tile = 4.00
+  asset                   0-5          6-11         12-17         18-23         24-29           all
+  sheep           1.27 ( 2.3)   1.53 ( 4.7)   1.68 ( 6.6)   1.63 ( 6.7)   1.53 ( 4.8)   1.57 ( 5.0)
+  cow             1.36 ( 2.0)   1.58 ( 6.7)   1.53 ( 8.9)   1.47 ( 8.5)   1.37 ( 7.3)   1.48 ( 6.7)
+  goose           3.59 ( 0.1)   2.04 ( 2.1)   2.15 ( 5.2)   2.14 ( 5.1)   2.10 ( 4.7)   2.13 ( 3.4)
+  ANIMALS         1.35 ( 4.4)   1.63 (13.6)   1.73 (20.7)   1.69 (20.3)   1.62 (16.8)   1.66 (15.1)
+  pasture_empty   2.80 ( 0.0)   2.66 ( 0.0)   2.72 ( 0.0)   2.74 ( 0.3)   1.59 ( 1.3)   1.83 ( 0.3)
+  coop_empty      2.50 ( 0.0)   2.16 ( 0.0)   2.74 ( 0.0)   2.80 ( 0.0)   2.44 ( 0.2)   2.49 ( 0.0)
+  ANIM+STRUCT     1.36 ( 4.4)   1.64 (13.6)   1.73 (20.7)   1.71 (20.6)   1.63 (18.3)   1.66 (15.5)
+  ST              5.92 ( 3.4)   5.35 (17.6)   4.96 (28.3)   4.61 (22.8)   4.14 ( 9.1)   4.89 (16.2)
+  TO                 - ( 0.0)   6.26 ( 0.6)   5.34 ( 6.7)   5.16 (11.0)   5.31 ( 5.4)   5.28 ( 4.7)
+  ME              3.70 ( 7.7)   3.74 ( 9.1)   4.58 ( 0.2)   4.94 ( 0.0)   8.00 ( 0.0)   3.74 ( 3.4)
+  WH              5.61 ( 4.4)   4.56 (12.7)   3.99 (25.4)   4.25 (23.7)   4.30 (27.9)   4.30 (18.8)
+  CA                 - ( 0.0)   3.84 ( 0.5)   4.06 ( 4.4)   4.40 ( 8.1)   4.21 (15.5)   4.23 ( 5.7)
+  CROPS           4.73 (15.5)   4.74 (40.4)   4.56 (65.0)   4.54 (65.8)   4.35 (57.8)   4.55 (48.9)
+  OCCUPIED        3.98 (20.0)   3.96 (54.0)   3.88 (85.7)   3.87 (86.3)   3.69 (76.1)   3.85 (64.4)
+  share of tile-days at distance 0 / <=1 / <=2 (uniform unlocked tile: 4% / 12% / 24%)
+  group                        0-5               6-11              12-17              18-23              24-29                all
+  ANIMALS              19/ 56/ 93%        16/ 47/ 81%        16/ 45/ 76%        16/ 46/ 77%        19/ 49/ 79%        17/ 47/ 79%
+  sheep                 3/ 72/ 99%        10/ 59/ 86%        12/ 52/ 79%        12/ 53/ 80%        15/ 57/ 83%        11/ 56/ 83%
+  cow                  38/ 41/ 89%        23/ 45/ 81%        22/ 50/ 81%        23/ 52/ 83%        26/ 55/ 87%        24/ 50/ 83%
+  goose                 0/  0/  1%         8/ 30/ 71%        10/ 28/ 62%        10/ 28/ 62%        11/ 30/ 64%        10/ 29/ 63%
+  ANIM+STRUCT          19/ 56/ 93%        16/ 47/ 81%        16/ 45/ 76%        16/ 46/ 76%        18/ 49/ 79%        17/ 47/ 78%
+  CROPS                 0/  0/  5%         0/  1/  6%         1/  3/ 10%         0/  2/  9%         1/  3/ 12%         0/  2/  9%
+  ST                    0/  0/  0%         0/  1/  2%         0/  1/  4%         0/  1/  6%         0/  1/  8%         0/  1/  4%
+  TO                             -         0/  1/  2%         0/  2/  8%         0/  2/  9%         0/  2/  7%         0/  2/  8%
+  ME                    0/  0/  9%         0/  0/ 11%         0/  6/  8%         0/  0/  5%         0/  0/  0%         0/  0/ 10%
+  WH                    0/  0/  1%         0/  1/  7%         1/  4/ 15%         1/  4/ 13%         0/  3/ 12%         1/  3/ 12%
+  CA                             -         2/  9/ 23%         2/  5/ 15%         2/  4/ 11%         1/  5/ 16%         2/  5/ 14%
+  ring occupancy, tiles per game-day: d0 = the 4 shed tiles; d1-2 = the 20 tiles at distance 1-2
+  (unlocked | animals | empty pasture/coop | crops | empty)
+  window                          d0 (4 tiles)                         d1-2 (20 tiles)
+  0-5          1.0 |  0.8 |  0.0 |  0.0 |  0.2         5.0 |  3.3 |  0.0 |  0.7 |  1.0
+  6-11         2.3 |  2.2 |  0.0 |  0.1 |  0.0        11.7 |  8.8 |  0.0 |  2.3 |  0.5
+  12-17        3.7 |  3.3 |  0.0 |  0.4 |  0.0        18.3 | 12.3 |  0.0 |  5.8 |  0.1
+  18-23        3.7 |  3.3 |  0.0 |  0.3 |  0.0        18.3 | 12.3 |  0.1 |  5.9 |  0.0
+  24-29        3.7 |  3.1 |  0.2 |  0.3 |  0.0        18.3 | 10.2 |  1.0 |  6.5 |  0.5
+  per quadrant, days the quadrant is unlocked; distance = to the quadrant's inner (shed) corner
+  quadrant  unlock d anim/gd crop/gd anim mean crop mean  anim d0/<=2  crop d0/<=2   corner tile: anim/struct/crop/empty
+  1st NW           0     6.3    17.0      1.80      4.78    15%/  75%     0%/   6%                 96%/   0%/   0%/   3%
+  2nd NE           7     6.9    16.4      1.80      4.83    14%/  73%     0%/   5%                 96%/   2%/   1%/   1%
+  3rd SW          10     4.5    18.8      1.22      4.55    22%/  95%     0%/   8%                 97%/   1%/   1%/   0%
+  4th SE          11     1.2    15.8      0.91      3.39    41%/  93%     3%/  29%                 47%/   2%/  50%/   1%
+  animal mean distance / crop mean distance per quadrant and window (- = none)
+  quadrant           0-5         6-11        12-17        18-23        24-29
+  1st NW       1.35/4.73    1.61/4.75    1.96/4.87    1.94/4.83    1.94/4.72
+  2nd NE          -/   -    1.79/4.93    1.90/4.95    1.82/4.89    1.66/4.54
+  3rd SW          -/   -    1.11/4.57    1.22/4.62    1.26/4.60    1.23/4.38
+  4th SE          -/   -    0.29/2.29    0.82/3.33    1.00/3.54    0.93/3.36
+  game level, days 6-29 (n=540 of 540 games with animals): animal mean 1.66, crop mean 4.54; animal-minus-crop mean -2.88 (p10 -3.12, median -2.88, p90 -2.65); animals closer in 540/540 games; animal tile-days on a shed tile 17%
+  fertilizer per game: COLLECT_FERTILIZER commands 449, FERTILIZE tiles 209, fertilizer bought 56.8, sold 293; live animal-days 454
+  fertilized tiles: mean distance 4.53 (animals 1.66); detour to pass a live animal on the way from the shed: 0 steps   94%, <=2  100% of 112693 fertilized tile-days (all live crop tile-days: 0 steps   92%, <=2  100%); fertilized with no live animal on the board 0
+  care frequency (maintenance tiles + harvested tiles, excl. COLLECT_FERTILIZER which has no tile record): animals visited on 89% of tile-days, 1.88 effective ops/tile-day (FEED 77%, CARE 76%, HARVEST 35%); crops visited on 72% of tile-days, 1.10 effective ops/tile-day (FEED 0%, CARE 0%, WATER 68%, FERTILIZE 14%, HARVEST 27%)
+
+======================================================================================================================================================
+OURS mgt_lpv_dep6 (12 p2750 worlds, lead_cycles records): n=12 games  results\fresh\lead_cycles\mgt_lpv_dep6 (12 files with boards)
+  mean distance to shed (tiles per game-day in brackets); uniform unlocked tile = 4.00
+  asset                   0-5          6-11         12-17         18-23         24-29           all
+  sheep           1.33 ( 2.5)   1.46 ( 4.4)   1.57 ( 4.9)   1.60 ( 5.0)   1.63 ( 4.3)   1.54 ( 4.2)
+  cow             1.00 ( 1.7)   1.51 ( 6.5)   1.53 ( 8.8)   1.52 ( 8.8)   1.51 ( 8.8)   1.50 ( 6.9)
+  goose              - ( 0.0)   1.50 ( 1.6)   1.68 ( 4.8)   1.72 ( 5.0)   1.72 ( 5.1)   1.69 ( 3.3)
+  ANIMALS         1.20 ( 4.2)   1.49 (12.5)   1.58 (18.6)   1.59 (18.8)   1.60 (18.1)   1.55 (14.4)
+  pasture_empty      - ( 0.0)   3.25 ( 0.3)   4.55 ( 0.3)   4.50 ( 0.3)   2.32 ( 1.1)   3.12 ( 0.4)
+  coop_empty         - ( 0.0)   2.77 ( 0.3)   2.84 ( 0.8)   2.98 ( 0.6)   3.17 ( 0.5)   2.94 ( 0.4)
+  ANIM+STRUCT     1.20 ( 4.2)   1.56 (13.1)   1.68 (19.7)   1.68 (19.7)   1.68 (19.7)   1.63 (15.2)
+  ST              5.56 ( 2.2)   5.44 (14.2)   5.18 (21.3)   5.06 (17.8)   4.49 ( 5.3)   5.16 (12.2)
+  TO                 - ( 0.0)   5.82 ( 0.8)   5.43 ( 6.6)   5.22 ( 7.7)   4.84 ( 2.0)   5.29 ( 3.4)
+  ME              3.61 ( 7.7)   3.59 ( 9.2)   4.96 ( 1.9)   4.86 ( 2.7)   4.94 ( 0.7)   3.91 ( 4.4)
+  WH              5.79 ( 5.4)   4.87 (11.1)   4.37 (22.0)   4.46 (22.6)   4.77 (28.2)   4.67 (17.9)
+  CA                 - ( 0.0)   3.38 ( 0.2)   3.37 ( 1.3)   2.90 ( 1.0)   4.46 ( 1.9)   3.74 ( 0.9)
+  CROPS           4.67 (15.3)   4.78 (35.6)   4.82 (53.2)   4.77 (51.6)   4.72 (38.1)   4.77 (38.8)
+  OCCUPIED        3.93 (19.5)   3.92 (48.7)   3.97 (72.9)   3.92 (71.3)   3.68 (57.8)   3.88 (54.0)
+  share of tile-days at distance 0 / <=1 / <=2 (uniform unlocked tile: 4% / 12% / 24%)
+  group                        0-5               6-11              12-17              18-23              24-29                all
+  ANIMALS              20/ 60/100%        17/ 50/ 86%        16/ 49/ 80%        16/ 48/ 80%        16/ 48/ 80%        17/ 49/ 82%
+  sheep                 0/ 67/100%         6/ 58/ 90%         7/ 54/ 84%         7/ 53/ 83%         7/ 53/ 81%         6/ 56/ 87%
+  cow                  50/ 50/100%        26/ 44/ 83%        23/ 48/ 81%        23/ 48/ 81%        23/ 49/ 82%        25/ 48/ 83%
+  goose                          -        14/ 50/ 86%        14/ 44/ 74%        13/ 42/ 73%        13/ 41/ 74%        13/ 43/ 75%
+  ANIM+STRUCT          20/ 60/100%        16/ 48/ 84%        15/ 46/ 78%        15/ 46/ 78%        15/ 46/ 78%        16/ 47/ 80%
+  CROPS                 0/  0/  4%         0/  0/  4%         0/  0/  5%         0/  0/  5%         0/  0/  6%         0/  0/  5%
+  ST                    0/  0/  0%         0/  0/  0%         0/  0/  1%         0/  0/  2%         0/  0/  8%         0/  0/  2%
+  TO                             -         0/  0/  3%         0/  0/  8%         0/  0/  8%         0/  0/  6%         0/  0/  8%
+  ME                    0/  0/  9%         0/  0/ 11%         0/  0/  4%         0/  0/  3%         0/  0/  0%         0/  0/  8%
+  WH                    0/  0/  0%         0/  0/  2%         0/  0/  6%         0/  0/  6%         0/  0/  5%         0/  0/  5%
+  CA                             -         0/  0/ 25%         0/  0/ 26%         0/  0/ 32%         0/  0/ 12%         0/  0/ 21%
+  ring occupancy, tiles per game-day: d0 = the 4 shed tiles; d1-2 = the 20 tiles at distance 1-2
+  (unlocked | animals | empty pasture/coop | crops | empty)
+  window                          d0 (4 tiles)                         d1-2 (20 tiles)
+  0-5          1.0 |  0.8 |  0.0 |  0.0 |  0.2         5.0 |  3.3 |  0.0 |  0.7 |  1.0
+  6-11         2.2 |  2.2 |  0.0 |  0.0 |  0.0        10.8 |  8.6 |  0.2 |  1.3 |  0.8
+  12-17        3.0 |  3.0 |  0.0 |  0.0 |  0.0        15.0 | 11.9 |  0.4 |  2.6 |  0.1
+  18-23        3.0 |  3.0 |  0.0 |  0.0 |  0.0        15.0 | 12.0 |  0.3 |  2.7 |  0.0
+  24-29        3.0 |  2.9 |  0.1 |  0.0 |  0.0        15.0 | 11.4 |  0.8 |  2.1 |  0.6
+  per quadrant, days the quadrant is unlocked; distance = to the quadrant's inner (shed) corner
+  quadrant  unlock d anim/gd crop/gd anim mean crop mean  anim d0/<=2  crop d0/<=2   corner tile: anim/struct/crop/empty
+  1st NW           0     5.3    16.8      1.42      4.71    18%/  89%     0%/   5%                 97%/   0%/   0%/   3%
+  2nd NE           7     8.5    14.1      1.88      5.15    12%/  69%     0%/   0%                 99%/   1%/   0%/   0%
+  3rd SW          10     3.8    16.8      0.98      4.50    26%/ 100%     0%/   9%                100%/   0%/   0%/   0%
+  animal mean distance / crop mean distance per quadrant and window (- = none)
+  quadrant           0-5         6-11        12-17        18-23        24-29
+  1st NW       1.20/4.67    1.24/4.64    1.50/4.77    1.53/4.69    1.54/4.77
+  2nd NE          -/   -    1.78/5.10    1.91/5.16    1.91/5.17    1.91/5.14
+  3rd SW          -/   -    0.71/4.52    0.97/4.60    1.00/4.51    1.02/4.31
+  4th SE          -/   -       -/   -       -/   -       -/   -       -/   -
+  game level, days 6-29 (n=12 of 12 games with animals): animal mean 1.56, crop mean 4.78; animal-minus-crop mean -3.21 (p10 -3.32, median -3.20, p90 -3.09); animals closer in 12/12 games; animal tile-days on a shed tile 16%
+  fertilizer per game: COLLECT_FERTILIZER commands 396, FERTILIZE tiles 139 (FERTILIZE commands 150), sold 243; live animal-days 433
+  fertilized tiles: mean distance 4.63 (animals 1.55); detour to pass a live animal on the way from the shed: 0 steps  100%, <=2  100% of 1663 fertilized tile-days (all live crop tile-days: 0 steps  100%, <=2  100%); fertilized with no live animal on the board 0
+
+======================================================================================================================================================
+OURS mgt_lpv_q4 (12 p2750 worlds, lead_cycles records): n=12 games  results\fresh\lead_cycles\mgt_lpv_q4 (12 files with boards)
+  mean distance to shed (tiles per game-day in brackets); uniform unlocked tile = 4.00
+  asset                   0-5          6-11         12-17         18-23         24-29           all
+  sheep           1.33 ( 2.5)   1.47 ( 4.4)   1.57 ( 5.0)   1.57 ( 5.0)   1.58 ( 4.3)   1.52 ( 4.2)
+  cow             1.00 ( 1.7)   1.51 ( 6.5)   1.52 ( 8.7)   1.54 ( 8.9)   1.54 ( 8.9)   1.51 ( 6.9)
+  goose              - ( 0.0)   1.45 ( 1.6)   1.24 ( 3.8)   1.29 ( 4.0)   1.29 ( 4.0)   1.30 ( 2.7)
+  ANIMALS         1.20 ( 4.2)   1.49 (12.5)   1.48 (17.5)   1.49 (17.9)   1.49 (17.3)   1.47 (13.9)
+  pasture_empty      - ( 0.0)   3.25 ( 0.3)   3.68 ( 0.5)   4.36 ( 0.5)   3.43 ( 1.6)   3.62 ( 0.6)
+  coop_empty         - ( 0.0)   2.74 ( 0.3)   2.87 ( 0.8)   3.00 ( 0.6)   3.00 ( 0.6)   2.92 ( 0.4)
+  ANIM+STRUCT     1.20 ( 4.2)   1.56 (13.1)   1.59 (18.8)   1.61 (19.0)   1.70 (19.4)   1.60 (14.9)
+  ST              5.56 ( 2.2)   5.44 (14.3)   4.98 (24.2)   4.81 (20.9)   4.04 ( 8.0)   4.93 (13.9)
+  TO                 - ( 0.0)   5.80 ( 0.8)   4.70 (11.2)   4.39 (12.8)   4.04 ( 2.8)   4.52 ( 5.5)
+  ME              3.61 ( 7.7)   3.59 ( 9.2)   3.96 ( 2.4)   4.01 ( 2.8)   5.08 ( 0.3)   3.71 ( 4.5)
+  WH              5.79 ( 5.4)   4.82 (11.2)   4.14 (33.2)   4.27 (34.5)   4.32 (33.9)   4.37 (23.6)
+  CA                 - ( 0.0)   3.33 ( 0.2)   3.63 ( 1.4)   3.51 ( 1.3)   4.94 ( 6.0)   4.49 ( 1.8)
+  CROPS           4.67 (15.3)   4.76 (35.7)   4.49 (72.4)   4.42 (72.2)   4.34 (51.0)   4.49 (49.3)
+  OCCUPIED        3.93 (19.5)   3.90 (48.8)   3.89 (91.2)   3.84 (91.2)   3.61 (70.4)   3.82 (64.2)
+  share of tile-days at distance 0 / <=1 / <=2 (uniform unlocked tile: 4% / 12% / 24%)
+  group                        0-5               6-11              12-17              18-23              24-29                all
+  ANIMALS              20/ 60/100%        18/ 50/ 86%        19/ 53/ 83%        19/ 52/ 83%        19/ 52/ 82%        19/ 53/ 84%
+  sheep                 0/ 67/100%         6/ 58/ 90%         7/ 54/ 84%         7/ 53/ 85%         6/ 54/ 83%         6/ 56/ 87%
+  cow                  50/ 50/100%        26/ 44/ 83%        23/ 49/ 81%        22/ 48/ 80%        22/ 48/ 80%        24/ 47/ 82%
+  goose                          -        16/ 53/ 86%        26/ 63/ 87%        25/ 60/ 85%        25/ 60/ 85%        24/ 60/ 86%
+  ANIM+STRUCT          20/ 60/100%        17/ 49/ 84%        18/ 50/ 80%        18/ 49/ 79%        17/ 48/ 78%        17/ 50/ 81%
+  CROPS                 0/  0/  4%         0/  0/  4%         1/  4/ 12%         1/  4/ 12%         1/  4/ 13%         1/  3/ 11%
+  ST                    0/  0/  0%         0/  0/  0%         0/  1/  5%         0/  1/  7%         0/  3/ 18%         0/  1/  6%
+  TO                             -         0/  0/  3%         0/  1/ 16%         1/  1/ 17%         2/  2/ 17%         1/  1/ 16%
+  ME                    0/  0/  9%         0/  0/ 11%         0/  0/ 11%         0/  0/ 10%         0/  0/  0%         0/  0/ 10%
+  WH                    0/  0/  0%         0/  1/  3%         2/  7/ 14%         2/  6/ 13%         1/  4/ 13%         1/  5/ 12%
+  CA                             -         0/  0/ 27%         0/  6/ 24%         0/  6/ 19%         0/  1/  5%         0/  3/ 10%
+  ring occupancy, tiles per game-day: d0 = the 4 shed tiles; d1-2 = the 20 tiles at distance 1-2
+  (unlocked | animals | empty pasture/coop | crops | empty)
+  window                          d0 (4 tiles)                         d1-2 (20 tiles)
+  0-5          1.0 |  0.8 |  0.0 |  0.0 |  0.2         5.0 |  3.3 |  0.0 |  0.7 |  1.0
+  6-11         2.3 |  2.2 |  0.0 |  0.1 |  0.0        11.4 |  8.5 |  0.2 |  1.4 |  1.3
+  12-17        4.0 |  3.3 |  0.0 |  0.7 |  0.0        20.0 | 11.2 |  0.4 |  7.7 |  0.6
+  18-23        4.0 |  3.3 |  0.0 |  0.7 |  0.0        20.0 | 11.5 |  0.2 |  8.2 |  0.1
+  24-29        4.0 |  3.3 |  0.1 |  0.4 |  0.3        20.0 | 10.9 |  0.8 |  6.3 |  2.0
+  per quadrant, days the quadrant is unlocked; distance = to the quadrant's inner (shed) corner
+  quadrant  unlock d anim/gd crop/gd anim mean crop mean  anim d0/<=2  crop d0/<=2   corner tile: anim/struct/crop/empty
+  1st NW           0     4.9    16.9      1.28      4.67    20%/  97%     0%/   5%                 97%/   0%/   0%/   3%
+  2nd NE           7     8.5    13.6      1.88      5.16    12%/  69%     0%/   0%                 99%/   1%/   0%/   0%
+  3rd SW          10     3.3    16.8      0.82      4.41    30%/ 100%     0%/  12%                100%/   0%/   0%/   0%
+  4th SE          11     0.3    17.3      0.00      3.64   100%/ 100%     3%/  28%                 33%/   0%/  57%/  10%
+  animal mean distance / crop mean distance per quadrant and window (- = none)
+  quadrant           0-5         6-11        12-17        18-23        24-29
+  1st NW       1.20/4.67    1.24/4.63    1.32/4.75    1.32/4.65    1.31/4.62
+  2nd NE          -/   -    1.79/5.10    1.89/5.17    1.91/5.19    1.92/5.17
+  3rd SW          -/   -    0.59/4.52    0.78/4.51    0.86/4.41    0.86/4.23
+  4th SE          -/   -    0.00/1.00    0.00/3.72    0.00/3.65    0.00/3.54
+  game level, days 6-29 (n=12 of 12 games with animals): animal mean 1.48, crop mean 4.48; animal-minus-crop mean -2.99 (p10 -3.16, median -3.05, p90 -2.78); animals closer in 12/12 games; animal tile-days on a shed tile 19%
+  fertilizer per game: COLLECT_FERTILIZER commands 386, FERTILIZE tiles 160 (FERTILIZE commands 181), sold 198; live animal-days 416
+  fertilized tiles: mean distance 4.19 (animals 1.47); detour to pass a live animal on the way from the shed: 0 steps   87%, <=2  100% of 1924 fertilized tile-days (all live crop tile-days: 0 steps   85%, <=2  100%); fertilized with no live animal on the board 0
+
+======================================================================================================================================================
+PART 2. Fertilizer source per FERTILIZE command, from recorded per-step unit commands (commands, not verified effects). Leaders: data/leader_tapes/<team>_<sub>/<episode>.json.gz (the leader seat's "actions", same episodes as the semantics corpus). Ours: per-step actions from results/fresh/lead_world_trace/<agent>_<ep>.json (dep6 byte-identical to the kaggle_remote_lead/wtr2 copies; final cash equals the lead_cycles record in 12/12 worlds for dep6 and for q4). NOTE agents/mgt_lpv_dep6.py predates fert_hold (agents/mgt_lead_deploy.py now defaults fert_hold 1, commit 9fc1035), so no stored sequence covers the fert_hold build. Sourcing is counted per unit-day (inventories dump at midnight; hands vanish).
+  DSM                        n=100  per game: COLLECT   475  FERTILIZE   238  PICKUP FERTILIZER   9.5 cmds /  28.4 units  PLACE FERTILIZER  55.5 units
+                                    FERTILIZE sourced by the same unit's earlier COLLECT that day:   91% (shed-first bound   91%), shed PICKUP    9%, no visible source    0%; shed op between collect and fertilize   0% of collected-sourced
+                                    unit-days with FERTILIZE 156.4/game: collected-only  94%, shed-only   5%, both   1%, none   0%; COLLECTs used by the same unit the same day  46%; COLLECTs in unit-days that also do crop ops (WATER/FERTILIZE/PLANT)  92%, of those issued before the unit's first crop op  87%
+  DECEM                      n=100  per game: COLLECT   464  FERTILIZE   232  PICKUP FERTILIZER  16.1 cmds /  38.1 units  PLACE FERTILIZER  63.1 units
+                                    FERTILIZE sourced by the same unit's earlier COLLECT that day:   90% (shed-first bound   90%), shed PICKUP   10%, no visible source    0%; shed op between collect and fertilize   0% of collected-sourced
+                                    unit-days with FERTILIZE 154.1/game: collected-only  94%, shed-only   5%, both   1%, none   0%; COLLECTs used by the same unit the same day  45%; COLLECTs in unit-days that also do crop ops (WATER/FERTILIZE/PLANT)  92%, of those issued before the unit's first crop op  88%
+  Vadim                      n=100  per game: COLLECT   472  FERTILIZE   180  PICKUP FERTILIZER  10.0 cmds /  30.0 units  PLACE FERTILIZER  55.2 units
+                                    FERTILIZE sourced by the same unit's earlier COLLECT that day:   91% (shed-first bound   90%), shed PICKUP    9%, no visible source    0%; shed op between collect and fertilize   0% of collected-sourced
+                                    unit-days with FERTILIZE 127.5/game: collected-only  93%, shed-only   6%, both   1%, none   0%; COLLECTs used by the same unit the same day  35%; COLLECTs in unit-days that also do crop ops (WATER/FERTILIZE/PLANT)  90%, of those issued before the unit's first crop op  88%
+  MG                         n=100  per game: COLLECT   448  FERTILIZE   219  PICKUP FERTILIZER   7.2 cmds /  20.1 units  PLACE FERTILIZER  54.9 units
+                                    FERTILIZE sourced by the same unit's earlier COLLECT that day:   93% (shed-first bound   92%), shed PICKUP    7%, no visible source    0%; shed op between collect and fertilize   0% of collected-sourced
+                                    unit-days with FERTILIZE 147.4/game: collected-only  95%, shed-only   4%, both   1%, none   0%; COLLECTs used by the same unit the same day  45%; COLLECTs in unit-days that also do crop ops (WATER/FERTILIZE/PLANT)  91%, of those issued before the unit's first crop op  89%
+  MMPQ                       n=100  per game: COLLECT   382  FERTILIZE   180  PICKUP FERTILIZER  15.0 cmds /  59.3 units  PLACE FERTILIZER  53.6 units
+                                    FERTILIZE sourced by the same unit's earlier COLLECT that day:   81% (shed-first bound   80%), shed PICKUP   19%, no visible source    0%; shed op between collect and fertilize   0% of collected-sourced
+                                    unit-days with FERTILIZE 123.4/game: collected-only  91%, shed-only   8%, both   1%, none   0%; COLLECTs used by the same unit the same day  38%; COLLECTs in unit-days that also do crop ops (WATER/FERTILIZE/PLANT)  95%, of those issued before the unit's first crop op  89%
+  Boey                       n= 40  per game: COLLECT   465  FERTILIZE   205  PICKUP FERTILIZER  20.3 cmds /  71.2 units  PLACE FERTILIZER 2630.9 units
+                                    FERTILIZE sourced by the same unit's earlier COLLECT that day:   76% (shed-first bound   75%), shed PICKUP   24%, no visible source    0%; shed op between collect and fertilize   2% of collected-sourced
+                                    unit-days with FERTILIZE 127.5/game: collected-only  87%, shed-only  12%, both   1%, none   0%; COLLECTs used by the same unit the same day  33%; COLLECTs in unit-days that also do crop ops (WATER/FERTILIZE/PLANT)  77%, of those issued before the unit's first crop op  80%
+  ALL LEADERS                n=540  per game: COLLECT   449  FERTILIZE   209  PICKUP FERTILIZER  12.2 cmds /  37.8 units  PLACE FERTILIZER 247.2 units
+                                    FERTILIZE sourced by the same unit's earlier COLLECT that day:   89% (shed-first bound   88%), shed PICKUP   11%, no visible source    0%; shed op between collect and fertilize   0% of collected-sourced
+                                    unit-days with FERTILIZE 140.7/game: collected-only  93%, shed-only   6%, both   1%, none   0%; COLLECTs used by the same unit the same day  41%; COLLECTs in unit-days that also do crop ops (WATER/FERTILIZE/PLANT)  91%, of those issued before the unit's first crop op  88%
+  OURS mgt_lpv_dep6          n= 12  per game: COLLECT   396  FERTILIZE   150  PICKUP FERTILIZER  58.6 cmds / 199.2 units  PLACE FERTILIZER  42.2 units
+                                    FERTILIZE sourced by the same unit's earlier COLLECT that day:   81% (shed-first bound   60%), shed PICKUP   19%, no visible source    0%; shed op between collect and fertilize   4% of collected-sourced
+                                    unit-days with FERTILIZE 114.4/game: collected-only  85%, shed-only   6%, both   9%, none   0%; COLLECTs used by the same unit the same day  31%; COLLECTs in unit-days that also do crop ops (WATER/FERTILIZE/PLANT)  80%, of those issued before the unit's first crop op  90%
+  OURS mgt_lpv_q4            n= 12  per game: COLLECT   386  FERTILIZE   181  PICKUP FERTILIZER  85.0 cmds / 285.8 units  PLACE FERTILIZER  48.7 units
+                                    FERTILIZE sourced by the same unit's earlier COLLECT that day:   70% (shed-first bound   48%), shed PICKUP   30%, no visible source    0%; shed op between collect and fertilize   5% of collected-sourced
+                                    unit-days with FERTILIZE 128.8/game: collected-only  76%, shed-only  13%, both  11%, none   0%; COLLECTs used by the same unit the same day  33%; COLLECTs in unit-days that also do crop ops (WATER/FERTILIZE/PLANT)  82%, of those issued before the unit's first crop op  86%

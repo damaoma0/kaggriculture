@@ -1,0 +1,30 @@
+{
+  "v44": {
+    "screened_mode": "order",
+    "selected_mode": "order",
+    "gates": {
+      "positive_mean": true,
+      "nonnegative_each_rival": true,
+      "six_positive_seeds": true,
+      "no_fewer_wins": true,
+      "no_errors": true,
+      "under_one_second": true
+    },
+    "path": "agents\\v44_our_selected.py",
+    "sha256": "51076eb6d7af20c70c613bcd502523f7113e7cf8738b27e9665a7c39842ba872"
+  },
+  "v45": {
+    "screened_mode": "order",
+    "selected_mode": "order",
+    "gates": {
+      "positive_mean": true,
+      "nonnegative_each_rival": true,
+      "six_positive_seeds": true,
+      "no_fewer_wins": true,
+      "no_errors": true,
+      "under_one_second": true
+    },
+    "path": "agents\\v45_our_selected.py",
+    "sha256": "88cb37b9a35434f4edb89a6dfa7c51a2681d21c12ebaa94c3a2dd5ad18650059"
+  }
+}

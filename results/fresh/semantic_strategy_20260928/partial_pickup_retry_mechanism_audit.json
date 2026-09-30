@@ -1,0 +1,539 @@
+{
+  "purpose": "Read-only route-local partial WHEAT pickup mechanism evidence, no new games or runtime implementation.",
+  "scope": "First trigger per case has exact paired prefix. Later V6 triggers are descriptive only. Baseline subsequent stocks/actions are diagnostic, never proposed runtime inputs.",
+  "first_event_evidence_path": "results/fresh/semantic_strategy_20260928/partial_pickup_first_event_diagnostic.json",
+  "first_event_evidence_sha256": "97a1b77892a017ec288216075345d2269dfdcd35fab2be54e5a39d36b830ee3b",
+  "source_hashes": {
+    "results/fresh/semantic_strategy_20260928/runtime/agents/mgt_lead_kb115lt.py": "2ebe94ece8ef48bf0058e620b5803c11050de7e663a63f4f41522f0758186ee0",
+    ".venv/Lib/site-packages/kaggle_environments/envs/kaggriculture/kaggriculture.py": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "agents/semantic_strategy_20260928.py": "b3091b4b2bb40d72b268b980622202934326c814542c96a5175ecc905adfd50f"
+  },
+  "raw_sources": [
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-00.json",
+      "result_sha256": "77a2283a3f345a2ade614dbaf9649c1158d69087eb4891a7f363ef68d6352336",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-00.actions.json",
+      "actions_sha256": "a14d4dbd86a6ac848a7b9f9bafc19857c0e978e8394b111f9a092b34385801cc",
+      "candidate_manifest_sha256": "fcf72e591c1f424a0c576c442087a63534d2d2c8b1c3f9ac146a290260843f2c"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-01.json",
+      "result_sha256": "4c5f7c3a687bc4f10eb0f591bdf2474c80c655684f061540765a5ebb32348415",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-01.actions.json",
+      "actions_sha256": "76b08bdcd4e18c46766213b3787cc5567b0c3f5181825f63b1f5af652837d8c9",
+      "candidate_manifest_sha256": "fcf72e591c1f424a0c576c442087a63534d2d2c8b1c3f9ac146a290260843f2c"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-02.json",
+      "result_sha256": "9a8ab2f36e124b53524ddf04792d4ad841d78597f17156ee5bd4f117aae088f5",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-02.actions.json",
+      "actions_sha256": "0ca65c88b231d086f45cb97ec22c41d176939ce70da4e3e7ba93ebbae55e46e7",
+      "candidate_manifest_sha256": "fcf72e591c1f424a0c576c442087a63534d2d2c8b1c3f9ac146a290260843f2c"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-03.json",
+      "result_sha256": "ebe532f0323c8f76949a616f18dee9c76abaae6c793edb94568b470f82a25281",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-03.actions.json",
+      "actions_sha256": "118c507b5dc74912b08f8e16a7cb0a33df0cf978f502a7e17821c13136436a85",
+      "candidate_manifest_sha256": "fcf72e591c1f424a0c576c442087a63534d2d2c8b1c3f9ac146a290260843f2c"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-04.json",
+      "result_sha256": "66806145a740ac5bb4baa0d0bb15511cf7f2debb906006d28663d25a718204b1",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-04.actions.json",
+      "actions_sha256": "35b76c4b65d1a8097d16c2a30be9b666ca319bac8b65d3a77ef948e172d6b7a3",
+      "candidate_manifest_sha256": "fcf72e591c1f424a0c576c442087a63534d2d2c8b1c3f9ac146a290260843f2c"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-05.json",
+      "result_sha256": "5f1243a16e677396dbf4f5f216d7c23f1cc985abfd11d630144b7f02733789f9",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-05.actions.json",
+      "actions_sha256": "4c33f6e2878b69a41dc33f5c193d5552382c2da4b738c4f116166eb085900277",
+      "candidate_manifest_sha256": "fcf72e591c1f424a0c576c442087a63534d2d2c8b1c3f9ac146a290260843f2c"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-06.json",
+      "result_sha256": "c7265b3b643af74cdee8ddc56329b4e4c488b9c98ed17e6103871990c1ad5ab0",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-06.actions.json",
+      "actions_sha256": "7bb24e077d61f48feb4449d2f627e39681c87f6ccd137a284ec141db31fa917c",
+      "candidate_manifest_sha256": "fcf72e591c1f424a0c576c442087a63534d2d2c8b1c3f9ac146a290260843f2c"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-07.json",
+      "result_sha256": "46ccdf5b40d5f749dc01f9dae30242fad73fd7a882e68e432198d9235ab8f0df",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v5_blocks100_finance/development/live/live-07.actions.json",
+      "actions_sha256": "80d6e7f2254a99156dba2fdb9e7cd889689731d9e1f32bdc8a050808f3c8e558",
+      "candidate_manifest_sha256": "fcf72e591c1f424a0c576c442087a63534d2d2c8b1c3f9ac146a290260843f2c"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-00.json",
+      "result_sha256": "d7951a2a42b573dd272832c4c886539666a1deee4c724824cdecadc01c634ace",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-00.actions.json",
+      "actions_sha256": "b1f060ea8f3ad6aaf668ccc957f66e7ec9be5c33091413972fd6ab17565e8aa9",
+      "candidate_manifest_sha256": "549d3fa5fcbef01742bcadbbc4fc022741b3ed572dcce075da58ffc1723bbd03"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-01.json",
+      "result_sha256": "ffed427ada37aebe95a6104efbe3f75de9ea075458ce4b196d22b558f371c06e",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-01.actions.json",
+      "actions_sha256": "4ce2f753e0532b61ee9fb0a604b185ab6b2b1c0036acff584e8defb411514638",
+      "candidate_manifest_sha256": "549d3fa5fcbef01742bcadbbc4fc022741b3ed572dcce075da58ffc1723bbd03"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-02.json",
+      "result_sha256": "1897bd0afafe67fa71b89a44e3807987f5e3c3653eac7fc73fa26a864b6c3182",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-02.actions.json",
+      "actions_sha256": "4f567679978d746a134126d1fa7b0163ae2e8ecae774702bad9624cb9ac16588",
+      "candidate_manifest_sha256": "549d3fa5fcbef01742bcadbbc4fc022741b3ed572dcce075da58ffc1723bbd03"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-03.json",
+      "result_sha256": "826f2c64db4e52092c6bf9e0758991945a6205c31a550fc86c5d8eb3ad779bd6",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-03.actions.json",
+      "actions_sha256": "201a3fdef974f91bdcdbe56637f3f3f76cafd3cb4fb470793be453fb26e26135",
+      "candidate_manifest_sha256": "549d3fa5fcbef01742bcadbbc4fc022741b3ed572dcce075da58ffc1723bbd03"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-04.json",
+      "result_sha256": "e3af56dab34c322008e07b6619a17726fe9d9a45971915b3b3eb917b25b5dc1b",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-04.actions.json",
+      "actions_sha256": "26bed8ed5baac11d91f05bf0585b733aaeeabc9b248cabfbcba146f9b0fec9ee",
+      "candidate_manifest_sha256": "549d3fa5fcbef01742bcadbbc4fc022741b3ed572dcce075da58ffc1723bbd03"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-05.json",
+      "result_sha256": "43cad1f158fff14dfc4f983345fd5a2aaeae4ddb944116a7a8630e99a807565b",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-05.actions.json",
+      "actions_sha256": "98fb9229e8f6d1d1b74320e622af05b8979c405a96bd62c93c092cf96366f9f5",
+      "candidate_manifest_sha256": "549d3fa5fcbef01742bcadbbc4fc022741b3ed572dcce075da58ffc1723bbd03"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-06.json",
+      "result_sha256": "6e985526176b57e429e553193b45b6b58af34052450bd6effc298b5f529f5be0",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-06.actions.json",
+      "actions_sha256": "12ae1b09195607004fdfad46616cb7f690ba7e58cf016affe5a3ef425ef7ea97",
+      "candidate_manifest_sha256": "549d3fa5fcbef01742bcadbbc4fc022741b3ed572dcce075da58ffc1723bbd03"
+    },
+    {
+      "result_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-07.json",
+      "result_sha256": "df91ab5f2d87491ea5796b1f599e9c746e3a4124f18912cffb5a52a732ff6620",
+      "actions_path": "results/fresh/semantic_strategy_20260928/runs/strategy_v6_blocks100_recovery/development/live/live-07.actions.json",
+      "actions_sha256": "d1c91ed7982c4a71c2a82e384569b7b553e46b8c0af42195ec2de6664e1a1a1c",
+      "candidate_manifest_sha256": "549d3fa5fcbef01742bcadbbc4fc022741b3ed572dcce075da58ffc1723bbd03"
+    }
+  ],
+  "all_v6_stock_events": [
+    {
+      "case": "live-00",
+      "day": 8,
+      "hour": 4,
+      "event": [
+        195,
+        9,
+        "pick_short",
+        55,
+        "WHEAT 2/3"
+      ]
+    },
+    {
+      "case": "live-01",
+      "day": 8,
+      "hour": 3,
+      "event": [
+        194,
+        0,
+        "pick_short",
+        44,
+        "WHEAT 6/7"
+      ]
+    },
+    {
+      "case": "live-02",
+      "day": 9,
+      "hour": 2,
+      "event": [
+        217,
+        2,
+        "pick_short",
+        45,
+        "WHEAT 2/4"
+      ]
+    },
+    {
+      "case": "live-02",
+      "day": 10,
+      "hour": 2,
+      "event": [
+        241,
+        6,
+        "pick_short",
+        45,
+        "WHEAT 4/5"
+      ]
+    },
+    {
+      "case": "live-03",
+      "day": 7,
+      "hour": 4,
+      "event": [
+        171,
+        8,
+        "pick_short",
+        54,
+        "WHEAT 2/3"
+      ]
+    },
+    {
+      "case": "live-03",
+      "day": 9,
+      "hour": 2,
+      "event": [
+        217,
+        5,
+        "pick_short",
+        44,
+        "WHEAT 2/3"
+      ]
+    },
+    {
+      "case": "live-04",
+      "day": 7,
+      "hour": 2,
+      "event": [
+        169,
+        0,
+        "pick_short",
+        44,
+        "WHEAT 1/3"
+      ]
+    },
+    {
+      "case": "live-04",
+      "day": 9,
+      "hour": 2,
+      "event": [
+        217,
+        6,
+        "pick_short",
+        45,
+        "WHEAT 2/4"
+      ]
+    },
+    {
+      "case": "live-05",
+      "day": 7,
+      "hour": 3,
+      "event": [
+        170,
+        9,
+        "pick_short",
+        55,
+        "WHEAT 1/3"
+      ]
+    },
+    {
+      "case": "live-05",
+      "day": 8,
+      "hour": 2,
+      "event": [
+        193,
+        0,
+        "pick_short",
+        44,
+        "WHEAT 1/2"
+      ]
+    },
+    {
+      "case": "live-06",
+      "day": 8,
+      "hour": 3,
+      "event": [
+        194,
+        9,
+        "pick_short",
+        45,
+        "WHEAT 1/2"
+      ]
+    },
+    {
+      "case": "live-06",
+      "day": 10,
+      "hour": 3,
+      "event": [
+        242,
+        11,
+        "pick_short",
+        45,
+        "WHEAT 1/2"
+      ]
+    },
+    {
+      "case": "live-07",
+      "day": 7,
+      "hour": 3,
+      "event": [
+        170,
+        9,
+        "pick_short",
+        55,
+        "WHEAT 2/4"
+      ]
+    },
+    {
+      "case": "live-07",
+      "day": 9,
+      "hour": 2,
+      "event": [
+        217,
+        5,
+        "pick_short",
+        44,
+        "WHEAT 4/6"
+      ]
+    }
+  ],
+  "all_v6_stock_event_types": {
+    "pick_short": 14
+  },
+  "first_events": [
+    {
+      "case": "live-00",
+      "day": 8,
+      "hour": 4,
+      "unit": 9,
+      "shortfall": 1,
+      "shed_now": 0,
+      "other_baseline_same_hour_pickups": 0,
+      "stock_after_other_baseline_picks": 0,
+      "stock_covers_gap": false,
+      "baseline_next_action": [
+        "NORTH"
+      ],
+      "baseline_remaining_pass_hours": [
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "baseline_next_four_shed_stocks": [
+        0,
+        2,
+        1,
+        2
+      ],
+      "upper_extra_actions_relative_broken_route": 2,
+      "paired_both_actions_equal": true,
+      "paired_snapshot_equal": true
+    },
+    {
+      "case": "live-01",
+      "day": 8,
+      "hour": 3,
+      "unit": 0,
+      "shortfall": 1,
+      "shed_now": 0,
+      "other_baseline_same_hour_pickups": 0,
+      "stock_after_other_baseline_picks": 0,
+      "stock_covers_gap": false,
+      "baseline_next_action": [
+        "FEED"
+      ],
+      "baseline_remaining_pass_hours": [
+        23
+      ],
+      "baseline_next_four_shed_stocks": [
+        0,
+        5,
+        5,
+        4
+      ],
+      "upper_extra_actions_relative_broken_route": 2,
+      "paired_both_actions_equal": true,
+      "paired_snapshot_equal": true
+    },
+    {
+      "case": "live-02",
+      "day": 9,
+      "hour": 2,
+      "unit": 2,
+      "shortfall": 2,
+      "shed_now": 10,
+      "other_baseline_same_hour_pickups": 5,
+      "stock_after_other_baseline_picks": 5,
+      "stock_covers_gap": true,
+      "baseline_next_action": [
+        "EAST"
+      ],
+      "baseline_remaining_pass_hours": [
+        22,
+        23
+      ],
+      "baseline_next_four_shed_stocks": [
+        10,
+        3,
+        4,
+        2
+      ],
+      "upper_extra_actions_relative_broken_route": 3,
+      "paired_both_actions_equal": true,
+      "paired_snapshot_equal": true
+    },
+    {
+      "case": "live-03",
+      "day": 7,
+      "hour": 4,
+      "unit": 8,
+      "shortfall": 1,
+      "shed_now": 0,
+      "other_baseline_same_hour_pickups": 0,
+      "stock_after_other_baseline_picks": 0,
+      "stock_covers_gap": false,
+      "baseline_next_action": [
+        "NORTH"
+      ],
+      "baseline_remaining_pass_hours": [],
+      "baseline_next_four_shed_stocks": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "upper_extra_actions_relative_broken_route": 2,
+      "paired_both_actions_equal": true,
+      "paired_snapshot_equal": true
+    },
+    {
+      "case": "live-04",
+      "day": 7,
+      "hour": 2,
+      "unit": 0,
+      "shortfall": 2,
+      "shed_now": 10,
+      "other_baseline_same_hour_pickups": 8,
+      "stock_after_other_baseline_picks": 2,
+      "stock_covers_gap": true,
+      "baseline_next_action": [
+        "FEED"
+      ],
+      "baseline_remaining_pass_hours": [
+        22,
+        23
+      ],
+      "baseline_next_four_shed_stocks": [
+        10,
+        0,
+        2,
+        2
+      ],
+      "upper_extra_actions_relative_broken_route": 3,
+      "paired_both_actions_equal": true,
+      "paired_snapshot_equal": true
+    },
+    {
+      "case": "live-05",
+      "day": 7,
+      "hour": 3,
+      "unit": 9,
+      "shortfall": 2,
+      "shed_now": 0,
+      "other_baseline_same_hour_pickups": 0,
+      "stock_after_other_baseline_picks": 0,
+      "stock_covers_gap": false,
+      "baseline_next_action": [
+        "PICKUP",
+        "GOOSE",
+        1
+      ],
+      "baseline_remaining_pass_hours": [
+        23
+      ],
+      "baseline_next_four_shed_stocks": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "upper_extra_actions_relative_broken_route": 3,
+      "paired_both_actions_equal": true,
+      "paired_snapshot_equal": true
+    },
+    {
+      "case": "live-06",
+      "day": 8,
+      "hour": 3,
+      "unit": 9,
+      "shortfall": 1,
+      "shed_now": 3,
+      "other_baseline_same_hour_pickups": 0,
+      "stock_after_other_baseline_picks": 3,
+      "stock_covers_gap": true,
+      "baseline_next_action": [
+        "PICKUP",
+        "SHEEP",
+        1
+      ],
+      "baseline_remaining_pass_hours": [],
+      "baseline_next_four_shed_stocks": [
+        3,
+        3,
+        3,
+        3
+      ],
+      "upper_extra_actions_relative_broken_route": 2,
+      "paired_both_actions_equal": true,
+      "paired_snapshot_equal": true
+    },
+    {
+      "case": "live-07",
+      "day": 7,
+      "hour": 3,
+      "unit": 9,
+      "shortfall": 2,
+      "shed_now": 2,
+      "other_baseline_same_hour_pickups": 0,
+      "stock_after_other_baseline_picks": 2,
+      "stock_covers_gap": true,
+      "baseline_next_action": [
+        "NORTH"
+      ],
+      "baseline_remaining_pass_hours": [
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23
+      ],
+      "baseline_next_four_shed_stocks": [
+        2,
+        2,
+        2,
+        2
+      ],
+      "upper_extra_actions_relative_broken_route": 3,
+      "paired_both_actions_equal": true,
+      "paired_snapshot_equal": true
+    }
+  ],
+  "summary": {
+    "paired_first_events": 8,
+    "exact_both_actions_and_snapshot": 8,
+    "immediate_stock_sufficient_after_baseline_same_hour_pickups": 4,
+    "immediate_baseline_pass": 0,
+    "empty_now_nonempty_next_observation": 2,
+    "empty_all_next_four_observations": 2
+  },
+  "limitations": [
+    "Observed later idle hours are not a forward-safe route slack certificate.",
+    "No counterfactual profit or survival effect estimated.",
+    "Other future scheduled wheat pickups require reservation beyond observed same-hour pickups.",
+    "Full V6 natural comparison changes shops in6/8; not an isolated mechanism estimate.",
+    "Tier item retry remains proposed, off and unimplemented."
+  ]
+}

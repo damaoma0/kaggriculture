@@ -1,0 +1,23 @@
+{
+  "schema_version": 2,
+  "created": "2026-09-22",
+  "qualification_status": "NOT_RUN",
+  "inherits": "promotion_protocol.json",
+  "parent_protocol_sha256": "788f4eef33eed1de8d8c701de44812ab82c6f7225ea3ef0d8bad37747cc416c7",
+  "inheritance_note": "The parent remains byte-for-byte frozen. This overlay retains its 128 natural seed clusters, both seats, 64 historical worlds, controls, validity prerequisites, blockers, and bootstrap method.",
+  "rating_target": {
+    "candidate_rating": 3000,
+    "opponent_rating_assumption": 2750,
+    "elo_scale": 400,
+    "standard_logistic_expected_win_score": 0.8083176725494586,
+    "practical_observed_win_score_target": 0.9,
+    "interpretation": "A fixed V56 matchup cannot establish a Kaggle rating. The 0.9 target is a planning target for an observed 128-world clustered panel, not a result."
+  },
+  "gates": {
+    "v56": {
+      "minimum_win_score": 0.8083176725494586,
+      "win_score_ci95_lower_strictly_above": 0.8083176725494586,
+      "mean_margin_ci95_lower_strictly_above": 0
+    }
+  }
+}

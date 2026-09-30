@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "episodes": [
+    109780145,
+    110271825,
+    110344290,
+    109839895,
+    110366273,
+    109817724,
+    109789754,
+    109835616,
+    110059839,
+    109530921
+  ],
+  "days": [
+    12,
+    18,
+    24
+  ],
+  "selection": "First ten test episodes in the existing outcome-independent frozen manifest; every listed episode at all three days.",
+  "manifest_sha256": "d859fbda7148e4f2cecd3e531d14bc91ba5be56dfacbd8bdcb6e909a4d662ab9",
+  "modes": [
+    "forecast_end_only",
+    "forecast_timed",
+    "realized_timed_oracle"
+  ],
+  "funding": "Starting cash only; no credit for future sales. Static seed/animal prices; feed/fertilizer valued at checkpoint prices, conditional on those procurement prices.",
+  "hires_per_day": 11,
+  "travel_fraction": 0.3,
+  "animal_addition_cap_each": 2,
+  "max_seconds_per_solve": 5,
+  "assets": "Preserve current productive animals; preserve current crops to the engine-profile release. Reclaim only legal free or explicitly cleaned tiles.",
+  "targets": "Nine actual harvested/collected products; cumulative remaining output up to exclusive horizon next3,next6,end. Compare end-only and timed forecast against the SAME full timed forecast vector; realized oracle is labelled hindsight.",
+  "interpretation": "Diagnostic aggregate resource/target projection only. No path/worker/cargo execution proof or profit claim. Infeasible targets report deviations. Solver timeouts reported."
+}

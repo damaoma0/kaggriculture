@@ -1,0 +1,527 @@
+{
+  "scope": "read-only audit; no games launched, package files unmodified, no submission made",
+  "artifacts": {
+    "v9y3_archive": {
+      "path": "submissions/2026-09-24-mgt_v9y3/submission.tar.gz",
+      "sha256": "3191f44db763646c017f7cd91b9663ae6a0e58eaa5d5d6dc78a446aa22a045ec",
+      "bytes": 8879153,
+      "manifest_archive_sha256": "3191f44db763646c017f7cd91b9663ae6a0e58eaa5d5d6dc78a446aa22a045ec",
+      "members_checked": 184,
+      "member_mismatches": []
+    },
+    "v9y3_manifest": {
+      "path": "submissions/2026-09-24-mgt_v9y3/MANIFEST.json",
+      "sha256": "db2f77e2d705ad46fffe3ff0203741bb42877089bffb5feb0884c219e7b9ec44",
+      "bytes": 27182
+    },
+    "v9y3_notes": {
+      "path": "submissions/2026-09-24-mgt_v9y3/NOTES.txt",
+      "sha256": "03455c147757b9d0cc04969e2a90f9e104a2efe4baf4db85035ecd3e6c0ec94d",
+      "bytes": 2626
+    },
+    "v9y3_main": {
+      "path": "submissions/2026-09-24-mgt_v9y3/pkg/main.py",
+      "sha256": "2d69c34905eae95a01ec3e9e7e5d944ff5451d6fc53b6d7d9a646dd10a8f014c",
+      "bytes": 6564
+    },
+    "v9lite_archive": {
+      "path": "C:/Users/xyygl/AppData/Local/Temp/claude/C--Users-xyygl-Documents-kaggriculture/6d41efd9-2702-44ee-9a16-7709427fd202/scratchpad/v9lite_pkg/submission.tar.gz",
+      "sha256": "6f5e2c2781325a91525b56343dd6fb73f6aeba2fabde63e55cfeae9fdb390f3b",
+      "bytes": 8883310,
+      "manifest_archive_sha256": "6f5e2c2781325a91525b56343dd6fb73f6aeba2fabde63e55cfeae9fdb390f3b",
+      "members_checked": 185,
+      "member_mismatches": []
+    },
+    "v9lite_manifest": {
+      "path": "C:/Users/xyygl/AppData/Local/Temp/claude/C--Users-xyygl-Documents-kaggriculture/6d41efd9-2702-44ee-9a16-7709427fd202/scratchpad/v9lite_pkg/MANIFEST.json",
+      "sha256": "13166aab02d27995bd1304d598ec3a81bdaaf01f8b2e6f5165f6fe297b4717c0",
+      "bytes": 27290
+    },
+    "v9lite_main": {
+      "path": "C:/Users/xyygl/AppData/Local/Temp/claude/C--Users-xyygl-Documents-kaggriculture/6d41efd9-2702-44ee-9a16-7709427fd202/scratchpad/v9lite_pkg/pkg/main.py",
+      "sha256": "04e4a5e89d801b6fd6fcabd3f420782e1c3aabd822068a2367d9b88420176114",
+      "bytes": 10233
+    },
+    "v9lite_package_isolated": {
+      "path": "results/fresh/v9lite_20260924/pkg/isolated_gunzip.json",
+      "sha256": "51f8656bc73ddafeee11d9239ad3c6d06ef815b582d2d7806901347aefe3bc8c",
+      "bytes": 522
+    },
+    "v9lite_shadow_invalid": {
+      "path": "results/fresh/v9lite_20260924/phase1/112200188.INVALID_bank_exhausted_by_shadow_run.json",
+      "sha256": "6e793f6ba5a2908ed7dac85c501bfbb85b4243deb82bece6bd7a1b3a21e23a07",
+      "bytes": 4088
+    }
+  },
+  "archive_checks": {
+    "v9y3_manifest_matches_archive_sha256": true,
+    "v9lite_manifest_matches_archive_sha256": true,
+    "v9y3_all_member_hashes_match": true,
+    "v9lite_all_member_hashes_match": true
+  },
+  "entry_builds": {
+    "v9y3": {
+      "main_sha256": "2d69c34905eae95a01ec3e9e7e5d944ff5451d6fc53b6d7d9a646dd10a8f014c",
+      "same_as": [
+        "agents/mgt_v9y3pkg.py",
+        "agents/mgt_v9y3pkg1w.py"
+      ],
+      "reveals": [
+        288,
+        360,
+        432
+      ],
+      "reserve_seconds": 8,
+      "cap_seconds": 20,
+      "minimum_seconds": 3,
+      "fallback": "unfinished/failed search keeps native route"
+    },
+    "v9lite": {
+      "main_sha256": "04e4a5e89d801b6fd6fcabd3f420782e1c3aabd822068a2367d9b88420176114",
+      "same_as": [
+        "agents/mgt_v9litepkg.py"
+      ],
+      "reveals": [
+        288,
+        360,
+        432
+      ],
+      "reserve_seconds": 8,
+      "frontload_caps": {
+        "288": 30,
+        "360": 20,
+        "432": 20
+      },
+      "later_reserve_seconds": 6,
+      "minimum_seconds": 2,
+      "warmup": "background builder starts at step 2; throwaway rollout at step 240; gc.freeze during search",
+      "parameters": {
+        "count": 7,
+        "keep": 2,
+        "lazy_keep": true,
+        "worlds": 4,
+        "scout_min": 350,
+        "final_min": 350,
+        "skip_native_commit": true,
+        "max_hamming": 12
+      }
+    }
+  },
+  "panel_results_vs_y3": {
+    "v9lite_p2750_185": {
+      "mean_delta": 611.081,
+      "better": 32,
+      "same": 145,
+      "worse": 8,
+      "wins": 96,
+      "baseline_wins": 87,
+      "runtime_log_rows": 555,
+      "search_errors": 0,
+      "max_search_seconds": 9.2,
+      "warm_runtime_seconds_shards": [
+        11.24,
+        11.47
+      ],
+      "max_rollout_seconds_shards": [
+        2.27,
+        2.47
+      ]
+    },
+    "v9y3pkg_p2750_4games_per_kernel_185": {
+      "mean_delta": 163.8649,
+      "better": 9,
+      "same": 172,
+      "worse": 4,
+      "wins": 89,
+      "baseline_wins": 87,
+      "errors": 0,
+      "max_step_seconds": 9.6
+    },
+    "v9y3pkg1w_p2750_185": {
+      "mean_delta": 472.1514,
+      "better": 23,
+      "same": 157,
+      "worse": 5,
+      "wins": 93,
+      "baseline_wins": 87,
+      "runtime_log_rows": 555,
+      "search_errors": 0,
+      "max_search_seconds_per_shard": [
+        15.42,
+        16.29,
+        15.59
+      ]
+    }
+  },
+  "v9lite_isolated_archive_gunzip": [
+    {
+      "seed": 0,
+      "seat": 0,
+      "gunzip": true,
+      "steps": 720,
+      "wall": 70.4,
+      "status": [
+        "DONE",
+        "DONE"
+      ],
+      "reward": [
+        126289.0,
+        126289.0
+      ],
+      "bank_end": 32.584793,
+      "bank_min": 32.584793,
+      "max_bank_drop": 10.39
+    },
+    {
+      "seed": 0,
+      "seat": 1,
+      "gunzip": true,
+      "steps": 720,
+      "wall": 67.9,
+      "status": [
+        "DONE",
+        "DONE"
+      ],
+      "reward": [
+        126289.0,
+        126289.0
+      ],
+      "bank_end": 35.008935,
+      "bank_min": 35.008935,
+      "max_bank_drop": 9.72
+    }
+  ],
+  "v9lite_shadow_mode_regression": {
+    "agent": "mgt_v9lite",
+    "episode": 112200188,
+    "seat": 0,
+    "final": 40799.0,
+    "rival": 160971.0,
+    "margin": -120172.0,
+    "recorded": [
+      119446.0,
+      134359.0
+    ],
+    "dead": 21,
+    "missing": 0,
+    "opp_dead": 5,
+    "revenue": {
+      "FERTILIZER": 10404,
+      "WHEAT": 2914,
+      "WOOL": 22920,
+      "MILK": 4209,
+      "MELON": 14267,
+      "EGG": 742,
+      "STRAWBERRY": 5850
+    },
+    "spend": {
+      "BUY_PRODUCT:WHEAT": 3528,
+      "HIRE": 1985.0,
+      "BUY_ANIMAL:COW": 1600,
+      "BUY_ANIMAL:SHEEP": 7000,
+      "BUY_SEED:MELON": 1120,
+      "BUY_SEED:WHEAT": 820,
+      "BUY_SEED:CARROT": 180,
+      "BUY_SEED:STRAWBERRY": 2300,
+      "BUY_LAND": 3000.0,
+      "BUY_PRODUCT:FERTILIZER": 874,
+      "BUY_ANIMAL:GOOSE": 600,
+      "BUY_SEED:TOMATO": 500
+    },
+    "sold": {
+      "FERTILIZER": 139,
+      "WHEAT": 76,
+      "WOOL": 100,
+      "MILK": 56,
+      "MELON": 72,
+      "EGG": 14,
+      "STRAWBERRY": 27
+    },
+    "hires": {
+      "asked": 147,
+      "got": 147,
+      "short_days": []
+    },
+    "rival_revenue": {
+      "WHEAT": 13853,
+      "FERTILIZER": 14663,
+      "WOOL": 74006,
+      "MILK": 5300,
+      "MELON": 15285,
+      "EGG": 3497,
+      "STRAWBERRY": 41289,
+      "TOMATO": 10744,
+      "CARROT": 8467
+    },
+    "rival_spend": {
+      "BUY_PRODUCT:WHEAT": 4579,
+      "HIRE": 4680.0,
+      "BUY_ANIMAL:COW": 1600,
+      "BUY_ANIMAL:SHEEP": 7500,
+      "BUY_SEED:MELON": 1120,
+      "BUY_SEED:WHEAT": 1320,
+      "BUY_SEED:CARROT": 860,
+      "BUY_SEED:STRAWBERRY": 2300,
+      "BUY_LAND": 3000.0,
+      "BUY_PRODUCT:FERTILIZER": 874,
+      "BUY_ANIMAL:GOOSE": 600,
+      "BUY_SEED:TOMATO": 700
+    },
+    "rival_sold": {
+      "WHEAT": 338,
+      "FERTILIZER": 251,
+      "WOOL": 316,
+      "MILK": 93,
+      "MELON": 84,
+      "EGG": 65,
+      "STRAWBERRY": 180,
+      "TOMATO": 98,
+      "CARROT": 150
+    },
+    "revenue_daily": [
+      {},
+      {},
+      {
+        "FERTILIZER": 398
+      },
+      {
+        "FERTILIZER": 789,
+        "WHEAT": 61
+      },
+      {
+        "FERTILIZER": 1174,
+        "WHEAT": 121
+      },
+      {
+        "FERTILIZER": 1832,
+        "WHEAT": 182
+      },
+      {
+        "FERTILIZER": 2290,
+        "WHEAT": 246
+      },
+      {
+        "FERTILIZER": 3004,
+        "WHEAT": 544,
+        "WOOL": 2087
+      },
+      {
+        "FERTILIZER": 3526,
+        "WHEAT": 544,
+        "WOOL": 2486
+      },
+      {
+        "FERTILIZER": 4117,
+        "WHEAT": 544,
+        "WOOL": 2486,
+        "MILK": 1910
+      },
+      {
+        "FERTILIZER": 5161,
+        "WHEAT": 616,
+        "WOOL": 4296,
+        "MILK": 1910
+      },
+      {
+        "FERTILIZER": 5395,
+        "WHEAT": 616,
+        "WOOL": 4296,
+        "MILK": 3227,
+        "MELON": 13000
+      },
+      {
+        "FERTILIZER": 6904,
+        "WHEAT": 616,
+        "WOOL": 4296,
+        "MILK": 3670,
+        "MELON": 14267
+      },
+      {
+        "FERTILIZER": 7874,
+        "WHEAT": 941,
+        "WOOL": 7072,
+        "MILK": 3982,
+        "MELON": 14267
+      },
+      {
+        "FERTILIZER": 8382,
+        "WHEAT": 941,
+        "WOOL": 7072,
+        "MILK": 4084,
+        "MELON": 14267
+      },
+      {
+        "FERTILIZER": 8931,
+        "WHEAT": 1513,
+        "WOOL": 11281,
+        "MILK": 4195,
+        "MELON": 14267,
+        "EGG": 212
+      },
+      {
+        "FERTILIZER": 9618,
+        "WHEAT": 1878,
+        "WOOL": 15956,
+        "MILK": 4199,
+        "MELON": 14267,
+        "EGG": 212
+      },
+      {
+        "FERTILIZER": 9991,
+        "WHEAT": 2794,
+        "WOOL": 18302,
+        "MILK": 4205,
+        "MELON": 14267,
+        "EGG": 212,
+        "STRAWBERRY": 4557
+      },
+      {
+        "FERTILIZER": 10404,
+        "WHEAT": 2914,
+        "WOOL": 22920,
+        "MILK": 4209,
+        "MELON": 14267,
+        "EGG": 742,
+        "STRAWBERRY": 5850
+      },
+      {
+        "FERTILIZER": 10404,
+        "WHEAT": 2914,
+        "WOOL": 22920,
+        "MILK": 4209,
+        "MELON": 14267,
+        "EGG": 742,
+        "STRAWBERRY": 5850
+      }
+    ],
+    "rival_revenue_daily": [
+      {},
+      {
+        "WHEAT": 518
+      },
+      {
+        "WHEAT": 518,
+        "FERTILIZER": 398
+      },
+      {
+        "WHEAT": 579,
+        "FERTILIZER": 789
+      },
+      {
+        "WHEAT": 639,
+        "FERTILIZER": 1174
+      },
+      {
+        "WHEAT": 700,
+        "FERTILIZER": 1832
+      },
+      {
+        "WHEAT": 764,
+        "FERTILIZER": 2290
+      },
+      {
+        "WHEAT": 1062,
+        "FERTILIZER": 3004,
+        "WOOL": 2087
+      },
+      {
+        "WHEAT": 1062,
+        "FERTILIZER": 3526,
+        "WOOL": 2486
+      },
+      {
+        "WHEAT": 1062,
+        "FERTILIZER": 4117,
+        "WOOL": 2486,
+        "MILK": 1910
+      },
+      {
+        "WHEAT": 1134,
+        "FERTILIZER": 5319,
+        "WOOL": 4296,
+        "MILK": 1910
+      },
+      {
+        "WHEAT": 1134,
+        "FERTILIZER": 5553,
+        "WOOL": 4296,
+        "MILK": 3227,
+        "MELON": 13000
+      },
+      {
+        "WHEAT": 1134,
+        "FERTILIZER": 6918,
+        "WOOL": 4296,
+        "MILK": 3670,
+        "MELON": 14267
+      },
+      {
+        "WHEAT": 1539,
+        "FERTILIZER": 7891,
+        "WOOL": 7081,
+        "MILK": 3961,
+        "MELON": 14267
+      },
+      {
+        "WHEAT": 1539,
+        "FERTILIZER": 8610,
+        "WOOL": 8257,
+        "MILK": 4051,
+        "MELON": 14267
+      },
+      {
+        "WHEAT": 2271,
+        "FERTILIZER": 9159,
+        "WOOL": 13407,
+        "MILK": 4123,
+        "MELON": 14267
+      },
+      {
+        "WHEAT": 2956,
+        "FERTILIZER": 9614,
+        "WOOL": 14575,
+        "MILK": 4147,
+        "MELON": 14267,
+        "EGG": 212
+      },
+      {
+        "WHEAT": 3516,
+        "FERTILIZER": 9941,
+        "WOOL": 19732,
+        "MILK": 4153,
+        "MELON": 14267,
+        "EGG": 212,
+        "STRAWBERRY": 3484
+      },
+      {
+        "WHEAT": 4074,
+        "FERTILIZER": 10538,
+        "WOOL": 22958,
+        "MILK": 4157,
+        "MELON": 14267,
+        "EGG": 742,
+        "STRAWBERRY": 5634
+      },
+      {
+        "WHEAT": 13853,
+        "FERTILIZER": 14663,
+        "WOOL": 74006,
+        "MILK": 5300,
+        "MELON": 15285,
+        "EGG": 3497,
+        "STRAWBERRY": 41289,
+        "TOMATO": 10744,
+        "CARROT": 8467
+      }
+    ],
+    "overlay": {},
+    "router": {},
+    "switches": [],
+    "opponent": "Azat Akhtyamov"
+  },
+  "recommendation": {
+    "strongest_evaluated_outcome": "v9lite package entry on p2750: +611.081 mean over 185 paired games vs y3; exact scratchpad archive manifest/member hashes verify and its isolated archive gunzip test is DONE/DONE both seats. Archive is only in a Temp scratchpad, so it is not durable/reproducible deployment artifact until promoted with same hash/manifest.",
+    "durable_fallback": "v9y3 frozen submission archive submissions/2026-09-24-mgt_v9y3/submission.tar.gz (SHA-256 3191f44db763646c017f7cd91b9663ae6a0e58eaa5d5d6dc78a446aa22a045ec); package1w uses the exact same entry main bytes and is the stronger tested operating point (+472.1514 vs y3 on the 185 panel), while 4-way contention package result is +163.8649.",
+    "qualification": "These are saved historical panel/package checks, not a new qualification run. v9lite package logs had zero search errors; an explicitly non-production shadow run 112200188 is INVALID due to bank exhaustion and must not be conflated with packaged results."
+  }
+}

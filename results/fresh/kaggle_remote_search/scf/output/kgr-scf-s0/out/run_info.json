@@ -1,0 +1,31 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/sector_run.py",
+   "both",
+   "S11cg,S11cgs,S11cgd,S11cgsd",
+   "--streams",
+   "S11w,S11caw,S11wh,S11wh2",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/sector_20260925/trace/*/*.json",
+   "results/fresh/day12_viz/*_streams/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 264,
+ "pip_seconds": 61.99155068397522,
+ "run_seconds": 1227.3761761188507,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "completed 264 games in 1227s, errors (FAILED) 0"
+ ],
+ "stderr_tail": []
+}

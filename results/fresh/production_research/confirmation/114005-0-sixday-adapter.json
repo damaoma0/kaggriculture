@@ -1,0 +1,92 @@
+{
+  "seed": 114005,
+  "seat": 0,
+  "opponent": "sixday",
+  "mode": "adapter",
+  "cash": 90217.0,
+  "opponent_cash": 88971.0,
+  "ledger": [
+    {
+      "revenue": {
+        "WHEAT": 13419,
+        "FERTILIZER": 14508,
+        "WOOL": 5547,
+        "MILK": 21294,
+        "MELON": 14267,
+        "EGG": 3490,
+        "STRAWBERRY": 23391,
+        "CARROT": 26871
+      },
+      "sold_units": {
+        "WHEAT": 427,
+        "FERTILIZER": 332,
+        "WOOL": 138,
+        "MILK": 267,
+        "MELON": 72,
+        "EGG": 79,
+        "STRAWBERRY": 260,
+        "CARROT": 116
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 10996,
+        "BUY_SEED:WHEAT": 1640,
+        "HIRE": 5400.0,
+        "BUY_ANIMAL:COW": 3600,
+        "BUY_ANIMAL:SHEEP": 2500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:CARROT": 1060,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 1914,
+        "BUY_ANIMAL:GOOSE": 1200
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 13071,
+        "FERTILIZER": 14508,
+        "WOOL": 5547,
+        "MILK": 20927,
+        "MELON": 14267,
+        "EGG": 3406,
+        "STRAWBERRY": 23393,
+        "CARROT": 26422
+      },
+      "sold_units": {
+        "WHEAT": 415,
+        "FERTILIZER": 332,
+        "WOOL": 138,
+        "MILK": 267,
+        "MELON": 72,
+        "EGG": 77,
+        "STRAWBERRY": 262,
+        "CARROT": 114
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 10996,
+        "BUY_SEED:WHEAT": 1640,
+        "HIRE": 5400.0,
+        "BUY_ANIMAL:COW": 3600,
+        "BUY_ANIMAL:SHEEP": 2500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:CARROT": 1060,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 1914,
+        "BUY_ANIMAL:GOOSE": 1200
+      }
+    }
+  ],
+  "max_action_seconds": 0.0061563000053865835,
+  "parity_actions": 0,
+  "shops": [
+    "SMOOTHIE_SHOP",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP",
+    "PET_CAFE",
+    "PET_CAFE",
+    "PET_CAFE",
+    "FARMERS_MARKET",
+    "PIZZA_SHOP"
+  ]
+}

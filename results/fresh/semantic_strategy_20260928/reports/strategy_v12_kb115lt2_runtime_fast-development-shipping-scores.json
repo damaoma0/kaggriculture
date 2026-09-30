@@ -1,0 +1,233 @@
+{
+  "candidate": "strategy_v12_kb115lt2_runtime_fast",
+  "split": "development",
+  "candidate_manifest_sha256": "aafa32c48bc4b32627855bd0f0bf18bf93f4f982c496f5ec5f7411dc43a938a1",
+  "shipping_score_addendum_sha256": "95cce9dcf13e13c7834c0786e14fb55ef0408bc9dec09c02335ce8dc107a1958",
+  "original_independent_audit_pass": true,
+  "panels": {
+    "live": {
+      "planned": 8,
+      "recorded": 8,
+      "technically_valid": 8,
+      "wins": 5,
+      "complete": true,
+      "meets_30_of_40": false,
+      "mean_margin": 1992.875,
+      "original_strict_wins": 5,
+      "original_strict_valid": 8,
+      "original_strict_complete": true,
+      "material_script_breaks": [],
+      "technical_failures": {},
+      "missing_cases": [],
+      "hashes": {
+        "live-00": {
+          "result_sha256": "4ccc8d5fcd1471946bb9a0b089723f0b277cedd5944a5058e6a5038a0bb5c245",
+          "actions_sha256": "f95f7e6b74cfb4eef84097927ebd983b8a4eb928e9acad676095e189bb8104f8"
+        },
+        "live-01": {
+          "result_sha256": "ea54498356154a06c4ea0cd68bbd232efb3b90c372f09f5b4a9219fd7e2acfac",
+          "actions_sha256": "bda64442957d6236d8741c5bfb0052b9143b7da42d10d5b29fabd47e0f11fbef"
+        },
+        "live-02": {
+          "result_sha256": "d2165f7c72e27db8f1b387dcbaa0c198b9e18a65881936231805521c3355d74e",
+          "actions_sha256": "0e1e2d32833c20f14469ba4d25e0f37b511ffaa853fa198b7216c1b6c877a4fd"
+        },
+        "live-03": {
+          "result_sha256": "917889afdb64c2b98b1ddcd5bbd2252fc1d8e198733a68bd89084c7fd6690445",
+          "actions_sha256": "fd40e8b4980dceda8500fe48158baeab24b4bea9dabf36595a797b4b6308c246"
+        },
+        "live-04": {
+          "result_sha256": "11c16399aecc9d6d6a6bbbb3294636ac00ceb66ca3354b75ff052fb5d0030d39",
+          "actions_sha256": "c0c985e2dddd15e44e3ae1b08fa88712f24cf2c2c03bbff2251907eb3fed777a"
+        },
+        "live-05": {
+          "result_sha256": "7681467ab3d1daf86cded897ca3e4b30259392c19cbec9f4dbf4bf3970409482",
+          "actions_sha256": "cf908091cc0ca9ec5e3f11c89b5e58cf752f758abf773cdb0103278d1d652146"
+        },
+        "live-06": {
+          "result_sha256": "3ce31c119350261d49c42182038e6616914fd623d63af7f8d65d25d62a7ec150",
+          "actions_sha256": "16b17a2ee531877ce7703880d1cbeba5e4e776513c4449e5da617a8ef4dc1600"
+        },
+        "live-07": {
+          "result_sha256": "92175a3267a1c73ef95895d148fbf6968f87a147082f4c081a4ad6a451b4b888",
+          "actions_sha256": "d2f37a129aa6995c8a40b10da75e287e8df53f30ff72a4d93f0a8062b2624000"
+        }
+      }
+    },
+    "recorded": {
+      "planned": 8,
+      "recorded": 8,
+      "technically_valid": 8,
+      "wins": 4,
+      "complete": true,
+      "meets_30_of_40": false,
+      "mean_margin": -147.25,
+      "original_strict_wins": 3,
+      "original_strict_valid": 5,
+      "original_strict_complete": false,
+      "material_script_breaks": [
+        {
+          "case": "recorded-112476470",
+          "margin": -3628.0,
+          "additional_failed_commands": 120,
+          "material_command_break": true,
+          "control_sha256": "ae188106ddb961139ab5879868072d7f9cd92bf0f7f95d6d1654421fc2071252",
+          "additional_missing_worker_commands": 0,
+          "failures_by_day": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            5,
+            3,
+            5,
+            4,
+            5,
+            5,
+            7,
+            7,
+            7,
+            6,
+            4,
+            4,
+            5,
+            5,
+            5,
+            4,
+            4,
+            4,
+            5,
+            9,
+            7,
+            4,
+            3,
+            2
+          ],
+          "note": "Frozen commands cannot react to counterfactual prices. Passing this necessary screen is not proof of live policy equivalence."
+        },
+        {
+          "case": "recorded-112610631",
+          "margin": 4054.0,
+          "additional_failed_commands": 47,
+          "material_command_break": true,
+          "control_sha256": "7d72f4f1715f3b0a298caf9a2a8ece149c10df504b8bb48c660e8efcf15732da",
+          "additional_missing_worker_commands": 22,
+          "failures_by_day": [
+            6,
+            4,
+            8,
+            5,
+            7,
+            2,
+            8,
+            15,
+            28,
+            3,
+            7,
+            8,
+            3,
+            3,
+            3,
+            3,
+            2,
+            4,
+            2,
+            3,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "note": "Frozen commands cannot react to counterfactual prices. Passing this necessary screen is not proof of live policy equivalence."
+        },
+        {
+          "case": "recorded-112612822",
+          "margin": -564.0,
+          "additional_failed_commands": 93,
+          "material_command_break": true,
+          "control_sha256": "2e65bfbec1d921757886b489256365576fbb21419f8d4f1a58711bb7b9b65e43",
+          "additional_missing_worker_commands": 0,
+          "failures_by_day": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            4,
+            0,
+            4,
+            10,
+            0,
+            1,
+            7,
+            6,
+            5,
+            5,
+            3,
+            7,
+            6,
+            4,
+            7,
+            3,
+            9,
+            4,
+            3,
+            5
+          ],
+          "note": "Frozen commands cannot react to counterfactual prices. Passing this necessary screen is not proof of live policy equivalence."
+        }
+      ],
+      "technical_failures": {},
+      "missing_cases": [],
+      "hashes": {
+        "recorded-111681195": {
+          "result_sha256": "9862e2dc55cb2b1384a88074011358960985c34a83927f72140f1922ef943256",
+          "actions_sha256": "65c2439ab396d03cf05ab12948e054a01dcaa522252ba0891af0edbbb0fa4b87"
+        },
+        "recorded-111871547": {
+          "result_sha256": "16ec6bf15250a7fc2cb8f1e0396144fbe93468a1bdd93618751ece1f689c7008",
+          "actions_sha256": "697fe34f7a52395994bcb57435c3719dc96ed73611902c5d84200cd2f58288da"
+        },
+        "recorded-111902048": {
+          "result_sha256": "e51044b9129afe5415510bed9c843f1dbc9cf16830716160989f6002f872664d",
+          "actions_sha256": "2a468b658d459c8b2c88ba740d22e8116f8dd40babc4a37cf98c5fa793d9a0cd"
+        },
+        "recorded-112181121": {
+          "result_sha256": "ba47c2549ac9eee2f8935f309f8798c6057044d1cac2cef5c002319e18fc1d4e",
+          "actions_sha256": "149bba9c8294d2a1ecaa8a7e2820c6a34c3cf64397e9c57dda724434b6931816"
+        },
+        "recorded-112476470": {
+          "result_sha256": "60c8a001f45aff4a9635eee2331247aac1bba6acd94b554c88fa9679fa7154aa",
+          "actions_sha256": "89422e10f53e00806ea69277c64be5612bcadd8baafec79906e51a84ecf8ac39"
+        },
+        "recorded-112610631": {
+          "result_sha256": "8dae692f98071ee7be474e91f30a91a9128ebfda0cdb5800fa8dc8b4487f1633",
+          "actions_sha256": "c39d257a5229d5db62c5b0af2594ef3431a2e6d558edf7ab4df31c810092a573"
+        },
+        "recorded-112612822": {
+          "result_sha256": "42d8deda6b0abe62acd9362f5bd385b55381407c057790bd8f66bca752fb61e3",
+          "actions_sha256": "42664de60f1409aa1a5bdcd457c4b650abc7a3b18068a87a71851911479820f3"
+        },
+        "recorded-112615422": {
+          "result_sha256": "8e54039c940432142638e0f045ed0549c64b94469aa5affadc54a31ada9d1d72",
+          "actions_sha256": "ef4dfbcb2f47cc9b4f60d4d2d5af219c00fa57d45ceb154be790c5c51c8ca52d"
+        }
+      }
+    }
+  },
+  "shipping_gate_pass": false,
+  "note": "Scripted and responsive scores remain separate. All planned slots retained; original strict artifacts unchanged."
+}

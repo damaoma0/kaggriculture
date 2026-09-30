@@ -1,0 +1,47 @@
+{
+  "packaged_selector_sha256": "5e06663e57b5a84e7ff806eaac30aac4edd5dc6136db2e02194e112be09403ae",
+  "checked_candidate_rows": 339,
+  "blocked_decisions": 2,
+  "changed_decisions": 2,
+  "examples": [
+    {
+      "log": "results\\fresh\\v9lite_20260924\\phase2\\v9lite_decisions.jsonl",
+      "line": 4,
+      "tag": "112200188",
+      "pid": null,
+      "step": 288,
+      "current": 140,
+      "diagnostic_margin_only": 147,
+      "changed": true,
+      "blocked": [
+        {
+          "route": 147,
+          "mean_margin": 12757.75,
+          "minimum_margin": 10097.0,
+          "mean_own_cash": -3943.5,
+          "risk": 11049.253424974168
+        }
+      ]
+    },
+    {
+      "log": "results\\fresh\\v9lite_20260924\\pkg\\v9lite_decisions.jsonl",
+      "line": 1,
+      "tag": null,
+      "pid": 31700,
+      "step": 288,
+      "current": 140,
+      "diagnostic_margin_only": 147,
+      "changed": true,
+      "blocked": [
+        {
+          "route": 147,
+          "mean_margin": 12757.75,
+          "minimum_margin": 10097.0,
+          "mean_own_cash": -3943.5,
+          "risk": 11049.253424974168
+        }
+      ]
+    }
+  ],
+  "limitations": "Saved development/runtime logs can overlap worlds and predate the final thread-free package. Admission booleans reproduce the packaged function. No new full games or strength estimate. Removing the gate changes lazy expansion too; logged counterfactuals are not a full policy replay."
+}

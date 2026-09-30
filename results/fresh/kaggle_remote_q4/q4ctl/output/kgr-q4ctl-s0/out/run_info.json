@@ -1,0 +1,30 @@
+{
+ "shard": {
+  "agents": [
+   "mgt_lpv_tievalff0"
+  ],
+  "submission": "p2750",
+  "episodes": [
+   "110937191",
+   "111577649",
+   "111941962"
+  ],
+  "workers": 3
+ },
+ "games": 3,
+ "pip_seconds": 57.142800092697144,
+ "run_seconds": 30.8790340423584,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "3 games, 3 workers (32.7 GB free)",
+  "mgt_lpv_tievalff0 111577649 margin   -17,977 (recorded    +4,794)",
+  "mgt_lpv_tievalff0 110937191 margin    +8,739 (recorded    +6,275)",
+  "mgt_lpv_tievalff0 111941962 margin    +1,835 (recorded   +22,041)"
+ ],
+ "stderr_tail": []
+}

@@ -1,0 +1,663 @@
+{
+  "train": {
+    "SHEEP": {
+      "cases": 16,
+      "mean_cash": 91482.75,
+      "margin_gain": 0.0,
+      "cash_gain": 0.0,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 0,
+      "negative_cases": 0,
+      "cash_over_skip": 712.0,
+      "lower_quartile_cash_over_skip": -2005.0,
+      "choices": {
+        "SHEEP": 16,
+        "COW": 0,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "129000": 0.0,
+        "129001": 0.0,
+        "129002": 0.0,
+        "129003": 0.0,
+        "129004": 0.0,
+        "129005": 0.0,
+        "129006": 0.0,
+        "129007": 0.0
+      }
+    },
+    "COW": {
+      "cases": 16,
+      "mean_cash": 90308.3125,
+      "margin_gain": -1674.375,
+      "cash_gain": -1174.4375,
+      "worst_margin_gain": -4829.0,
+      "positive_cases": 6,
+      "negative_cases": 10,
+      "cash_over_skip": -462.4375,
+      "lower_quartile_cash_over_skip": -1399.5,
+      "choices": {
+        "SHEEP": 0,
+        "COW": 16,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "129000": -4720.0,
+        "129001": 274.0,
+        "129002": -75.0,
+        "129003": 1797.0,
+        "129004": -2211.0,
+        "129005": -3890.0,
+        "129006": 259.0,
+        "129007": -4829.0
+      }
+    },
+    "SKIP": {
+      "cases": 16,
+      "mean_cash": 90770.75,
+      "margin_gain": -2280.0625,
+      "cash_gain": -712.0,
+      "worst_margin_gain": -4858.0,
+      "positive_cases": 0,
+      "negative_cases": 16,
+      "cash_over_skip": 0.0,
+      "lower_quartile_cash_over_skip": 0.0,
+      "choices": {
+        "SHEEP": 0,
+        "COW": 0,
+        "SKIP": 16
+      },
+      "seed_margin_gains": {
+        "129000": -4446.0,
+        "129001": -1094.0,
+        "129002": -436.0,
+        "129003": -92.0,
+        "129004": -1920.0,
+        "129005": -3120.5,
+        "129006": -2274.0,
+        "129007": -4858.0
+      }
+    },
+    "learned": {
+      "cases": 16,
+      "mean_cash": 91638.75,
+      "margin_gain": 257.0,
+      "cash_gain": 156.0,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 4,
+      "negative_cases": 0,
+      "cash_over_skip": 868.0,
+      "lower_quartile_cash_over_skip": -1489.5,
+      "choices": {
+        "SHEEP": 12,
+        "COW": 4,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "129000": 0.0,
+        "129001": 0.0,
+        "129002": 0.0,
+        "129003": 1797.0,
+        "129004": 0.0,
+        "129005": 0.0,
+        "129006": 259.0,
+        "129007": 0.0
+      }
+    },
+    "oracle": {
+      "cases": 16,
+      "mean_cash": 91672.125,
+      "margin_gain": 291.25,
+      "cash_gain": 189.375,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 6,
+      "negative_cases": 0,
+      "cash_over_skip": 901.375,
+      "lower_quartile_cash_over_skip": -1489.5,
+      "choices": {
+        "SHEEP": 10,
+        "COW": 6,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "129000": 0.0,
+        "129001": 274.0,
+        "129002": 0.0,
+        "129003": 1797.0,
+        "129004": 0.0,
+        "129005": 0.0,
+        "129006": 259.0,
+        "129007": 0.0
+      }
+    }
+  },
+  "test": {
+    "SHEEP": {
+      "cases": 32,
+      "mean_cash": 91510.875,
+      "margin_gain": 0.0,
+      "cash_gain": 0.0,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 0,
+      "negative_cases": 0,
+      "cash_over_skip": 2592.125,
+      "lower_quartile_cash_over_skip": 190.25,
+      "choices": {
+        "SHEEP": 32,
+        "COW": 0,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "130000": 0.0,
+        "130001": 0.0,
+        "130002": 0.0,
+        "130003": 0.0,
+        "130004": 0.0,
+        "130005": 0.0,
+        "130006": 0.0,
+        "130007": 0.0
+      }
+    },
+    "COW": {
+      "cases": 32,
+      "mean_cash": 89149.25,
+      "margin_gain": -2884.0,
+      "cash_gain": -2361.625,
+      "worst_margin_gain": -5028.0,
+      "positive_cases": 8,
+      "negative_cases": 24,
+      "cash_over_skip": 230.5,
+      "lower_quartile_cash_over_skip": -985.25,
+      "choices": {
+        "SHEEP": 0,
+        "COW": 32,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "130000": 93.0,
+        "130001": -4238.0,
+        "130002": -4832.0,
+        "130003": -4859.0,
+        "130004": -4711.5,
+        "130005": -4997.0,
+        "130006": -1971.5,
+        "130007": 2444.0
+      }
+    },
+    "SKIP": {
+      "cases": 32,
+      "mean_cash": 88918.75,
+      "margin_gain": -3881.53125,
+      "cash_gain": -2592.125,
+      "worst_margin_gain": -5320.0,
+      "positive_cases": 0,
+      "negative_cases": 32,
+      "cash_over_skip": 0.0,
+      "lower_quartile_cash_over_skip": 0.0,
+      "choices": {
+        "SHEEP": 0,
+        "COW": 0,
+        "SKIP": 32
+      },
+      "seed_margin_gains": {
+        "130000": -729.0,
+        "130001": -3846.0,
+        "130002": -4742.0,
+        "130003": -5248.25,
+        "130004": -4641.0,
+        "130005": -5077.5,
+        "130006": -3122.5,
+        "130007": -3646.0
+      }
+    },
+    "learned": {
+      "cases": 32,
+      "mean_cash": 91931.375,
+      "margin_gain": 305.5,
+      "cash_gain": 420.5,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 4,
+      "negative_cases": 0,
+      "cash_over_skip": 3012.625,
+      "lower_quartile_cash_over_skip": 287.25,
+      "choices": {
+        "SHEEP": 28,
+        "COW": 4,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "130000": 0.0,
+        "130001": 0.0,
+        "130002": 0.0,
+        "130003": 0.0,
+        "130004": 0.0,
+        "130005": 0.0,
+        "130006": 0.0,
+        "130007": 2444.0
+      }
+    },
+    "oracle": {
+      "cases": 32,
+      "mean_cash": 91943.625,
+      "margin_gain": 317.125,
+      "cash_gain": 432.75,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 8,
+      "negative_cases": 0,
+      "cash_over_skip": 3024.875,
+      "lower_quartile_cash_over_skip": 336.25,
+      "choices": {
+        "SHEEP": 24,
+        "COW": 8,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "130000": 93.0,
+        "130001": 0.0,
+        "130002": 0.0,
+        "130003": 0.0,
+        "130004": 0.0,
+        "130005": 0.0,
+        "130006": 0.0,
+        "130007": 2444.0
+      }
+    }
+  },
+  "stress": {
+    "SHEEP": {
+      "cases": 16,
+      "mean_cash": 72160.0,
+      "margin_gain": 0.0,
+      "cash_gain": 0.0,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 0,
+      "negative_cases": 0,
+      "cash_over_skip": 1088.0,
+      "lower_quartile_cash_over_skip": -413.5,
+      "choices": {
+        "SHEEP": 16,
+        "COW": 0,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "131000": 0.0,
+        "131001": 0.0,
+        "131002": 0.0,
+        "131003": 0.0,
+        "131004": 0.0,
+        "131005": 0.0,
+        "131006": 0.0,
+        "131007": 0.0
+      }
+    },
+    "COW": {
+      "cases": 16,
+      "mean_cash": 70994.75,
+      "margin_gain": -1184.375,
+      "cash_gain": -1165.25,
+      "worst_margin_gain": -5148.0,
+      "positive_cases": 12,
+      "negative_cases": 4,
+      "cash_over_skip": -77.25,
+      "lower_quartile_cash_over_skip": -1041.5,
+      "choices": {
+        "SHEEP": 0,
+        "COW": 16,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "131000": 95.0,
+        "131001": -5148.0,
+        "131002": 98.0,
+        "131003": 95.0,
+        "131004": 95.0,
+        "131005": -4900.0,
+        "131006": 95.0,
+        "131007": 95.0
+      }
+    },
+    "SKIP": {
+      "cases": 16,
+      "mean_cash": 71072.0,
+      "margin_gain": -1379.375,
+      "cash_gain": -1088.0,
+      "worst_margin_gain": -5567.0,
+      "positive_cases": 4,
+      "negative_cases": 12,
+      "cash_over_skip": 0.0,
+      "lower_quartile_cash_over_skip": 0.0,
+      "choices": {
+        "SHEEP": 0,
+        "COW": 0,
+        "SKIP": 16
+      },
+      "seed_margin_gains": {
+        "131000": -43.0,
+        "131001": -5567.0,
+        "131002": 70.0,
+        "131003": 424.0,
+        "131004": -192.0,
+        "131005": -3396.0,
+        "131006": -446.0,
+        "131007": -1885.0
+      }
+    },
+    "learned": {
+      "cases": 16,
+      "mean_cash": 72160.0,
+      "margin_gain": 0.0,
+      "cash_gain": 0.0,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 0,
+      "negative_cases": 0,
+      "cash_over_skip": 1088.0,
+      "lower_quartile_cash_over_skip": -413.5,
+      "choices": {
+        "SHEEP": 16,
+        "COW": 0,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "131000": 0.0,
+        "131001": 0.0,
+        "131002": 0.0,
+        "131003": 0.0,
+        "131004": 0.0,
+        "131005": 0.0,
+        "131006": 0.0,
+        "131007": 0.0
+      }
+    },
+    "oracle": {
+      "cases": 16,
+      "mean_cash": 72293.25,
+      "margin_gain": 112.75,
+      "cash_gain": 133.25,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 12,
+      "negative_cases": 0,
+      "cash_over_skip": 1221.25,
+      "lower_quartile_cash_over_skip": -162.5,
+      "choices": {
+        "SHEEP": 4,
+        "COW": 10,
+        "SKIP": 2
+      },
+      "seed_margin_gains": {
+        "131000": 95.0,
+        "131001": 0.0,
+        "131002": 98.0,
+        "131003": 424.0,
+        "131004": 95.0,
+        "131005": 0.0,
+        "131006": 95.0,
+        "131007": 95.0
+      }
+    }
+  },
+  "test_selected": {
+    "SHEEP": {
+      "cases": 16,
+      "mean_cash": 90781.125,
+      "margin_gain": 0.0,
+      "cash_gain": 0.0,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 0,
+      "negative_cases": 0,
+      "cash_over_skip": 2487.6875,
+      "lower_quartile_cash_over_skip": 86.0,
+      "choices": {
+        "SHEEP": 16,
+        "COW": 0,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "130000": 0.0,
+        "130001": 0.0,
+        "130002": 0.0,
+        "130003": 0.0,
+        "130004": 0.0,
+        "130005": 0.0,
+        "130006": 0.0,
+        "130007": 0.0
+      }
+    },
+    "COW": {
+      "cases": 16,
+      "mean_cash": 88467.375,
+      "margin_gain": -2758.75,
+      "cash_gain": -2313.75,
+      "worst_margin_gain": -4966.0,
+      "positive_cases": 4,
+      "negative_cases": 12,
+      "cash_over_skip": 173.9375,
+      "lower_quartile_cash_over_skip": -1059.0,
+      "choices": {
+        "SHEEP": 0,
+        "COW": 16,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "130000": 95.0,
+        "130001": -4015.0,
+        "130002": -4796.0,
+        "130003": -4832.0,
+        "130004": -4673.0,
+        "130005": -4966.0,
+        "130006": -1618.0,
+        "130007": 2735.0
+      }
+    },
+    "SKIP": {
+      "cases": 16,
+      "mean_cash": 88293.4375,
+      "margin_gain": -3625.25,
+      "cash_gain": -2487.6875,
+      "worst_margin_gain": -5242.0,
+      "positive_cases": 0,
+      "negative_cases": 16,
+      "cash_over_skip": 0.0,
+      "lower_quartile_cash_over_skip": 0.0,
+      "choices": {
+        "SHEEP": 0,
+        "COW": 0,
+        "SKIP": 16
+      },
+      "seed_margin_gains": {
+        "130000": -388.0,
+        "130001": -3273.0,
+        "130002": -4719.0,
+        "130003": -5211.0,
+        "130004": -4613.0,
+        "130005": -5054.0,
+        "130006": -2687.0,
+        "130007": -3057.0
+      }
+    },
+    "learned": {
+      "cases": 16,
+      "mean_cash": 91207.75,
+      "margin_gain": 341.875,
+      "cash_gain": 426.625,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 2,
+      "negative_cases": 0,
+      "cash_over_skip": 2914.3125,
+      "lower_quartile_cash_over_skip": 125.0,
+      "choices": {
+        "SHEEP": 14,
+        "COW": 2,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "130000": 0.0,
+        "130001": 0.0,
+        "130002": 0.0,
+        "130003": 0.0,
+        "130004": 0.0,
+        "130005": 0.0,
+        "130006": 0.0,
+        "130007": 2735.0
+      }
+    },
+    "oracle": {
+      "cases": 16,
+      "mean_cash": 91220.375,
+      "margin_gain": 353.75,
+      "cash_gain": 439.25,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 4,
+      "negative_cases": 0,
+      "cash_over_skip": 2926.9375,
+      "lower_quartile_cash_over_skip": 175.5,
+      "choices": {
+        "SHEEP": 12,
+        "COW": 4,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "130000": 95.0,
+        "130001": 0.0,
+        "130002": 0.0,
+        "130003": 0.0,
+        "130004": 0.0,
+        "130005": 0.0,
+        "130006": 0.0,
+        "130007": 2735.0
+      }
+    }
+  },
+  "test_sixday": {
+    "SHEEP": {
+      "cases": 16,
+      "mean_cash": 92240.625,
+      "margin_gain": 0.0,
+      "cash_gain": 0.0,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 0,
+      "negative_cases": 0,
+      "cash_over_skip": 2696.5625,
+      "lower_quartile_cash_over_skip": 449.5,
+      "choices": {
+        "SHEEP": 16,
+        "COW": 0,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "130000": 0.0,
+        "130001": 0.0,
+        "130002": 0.0,
+        "130003": 0.0,
+        "130004": 0.0,
+        "130005": 0.0,
+        "130006": 0.0,
+        "130007": 0.0
+      }
+    },
+    "COW": {
+      "cases": 16,
+      "mean_cash": 89831.125,
+      "margin_gain": -3009.25,
+      "cash_gain": -2409.5,
+      "worst_margin_gain": -5028.0,
+      "positive_cases": 4,
+      "negative_cases": 12,
+      "cash_over_skip": 287.0625,
+      "lower_quartile_cash_over_skip": -903.5,
+      "choices": {
+        "SHEEP": 0,
+        "COW": 16,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "130000": 91.0,
+        "130001": -4461.0,
+        "130002": -4868.0,
+        "130003": -4886.0,
+        "130004": -4750.0,
+        "130005": -5028.0,
+        "130006": -2325.0,
+        "130007": 2153.0
+      }
+    },
+    "SKIP": {
+      "cases": 16,
+      "mean_cash": 89544.0625,
+      "margin_gain": -4137.8125,
+      "cash_gain": -2696.5625,
+      "worst_margin_gain": -5320.0,
+      "positive_cases": 0,
+      "negative_cases": 16,
+      "cash_over_skip": 0.0,
+      "lower_quartile_cash_over_skip": 0.0,
+      "choices": {
+        "SHEEP": 0,
+        "COW": 0,
+        "SKIP": 16
+      },
+      "seed_margin_gains": {
+        "130000": -1070.0,
+        "130001": -4419.0,
+        "130002": -4765.0,
+        "130003": -5285.5,
+        "130004": -4669.0,
+        "130005": -5101.0,
+        "130006": -3558.0,
+        "130007": -4235.0
+      }
+    },
+    "learned": {
+      "cases": 16,
+      "mean_cash": 92655.0,
+      "margin_gain": 269.125,
+      "cash_gain": 414.375,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 2,
+      "negative_cases": 0,
+      "cash_over_skip": 3110.9375,
+      "lower_quartile_cash_over_skip": 449.5,
+      "choices": {
+        "SHEEP": 14,
+        "COW": 2,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "130000": 0.0,
+        "130001": 0.0,
+        "130002": 0.0,
+        "130003": 0.0,
+        "130004": 0.0,
+        "130005": 0.0,
+        "130006": 0.0,
+        "130007": 2153.0
+      }
+    },
+    "oracle": {
+      "cases": 16,
+      "mean_cash": 92666.875,
+      "margin_gain": 280.5,
+      "cash_gain": 426.25,
+      "worst_margin_gain": 0.0,
+      "positive_cases": 4,
+      "negative_cases": 0,
+      "cash_over_skip": 3122.8125,
+      "lower_quartile_cash_over_skip": 497.0,
+      "choices": {
+        "SHEEP": 12,
+        "COW": 4,
+        "SKIP": 0
+      },
+      "seed_margin_gains": {
+        "130000": 91.0,
+        "130001": 0.0,
+        "130002": 0.0,
+        "130003": 0.0,
+        "130004": 0.0,
+        "130005": 0.0,
+        "130006": 0.0,
+        "130007": 2153.0
+      }
+    }
+  },
+  "promotion_gate_passed": false
+}

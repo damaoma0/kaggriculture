@@ -1,0 +1,12 @@
+V45 event-forecast input valuation, submitted at explicit user request.
+Source: agents/v45_event_candidate.py (the experimental candidate, not the retained baseline).
+SHA-256: 07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f
+Base: public V45 plus our available-stock price-impact sale ordering.
+Change: frozen event-based delivery-price forecast values native fertilizer-worker plans.
+Forecast validation: primary wheat/carrot MAE 0.320 versus 0.723 flow and 0.576 calibrated no-event control; all eight held-out seeds improved.
+Policy confirmation: +11.7 mean margin, +16.6 own cash; both candidate and baseline won 48/48.
+Three seed-average margins improved; five unchanged. Failed predeclared six-positive-seeds gate; user explicitly requested this candidate be submitted nevertheless.
+169 total research/integration games. Standalone file passed official file-path loader and cash/wheat accounting checks. Zero candidate execution error/fallback counters in confirmation.
+Reports: docs/event_prices.md; docs/event_inputs.md.
+Upload succeeded. Submission ID: 56280048. Initial status: PENDING.
+Server timestamp: 2026-09-16 13:51:30.803000. Initial public score unavailable.

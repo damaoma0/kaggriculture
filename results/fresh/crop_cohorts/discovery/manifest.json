@@ -1,0 +1,57 @@
+{
+  "controlled_shops": "Eight uniform draws with replacement from sorted engine shops, seeded independently of farm RNG and installed only after each end-of-day reveal.",
+  "design": "Baseline and each candidate run in both seats against each opponent. Each game uses a fresh worker process. Seed is the independent cluster; seats are paired replicates.",
+  "engine": "1.32.7",
+  "games": 80,
+  "natural_shop_caveat": "Natural shops are not guaranteed to match within seed because weed spawning and shop draws share engine RNG whose consumption can depend on both farms.",
+  "opponents": {
+    "twocoins": {
+      "hash": "495bfa4825c9e58638e804aeeb62a9537826f6d4d869222815e1bbeefd84d3dc",
+      "path": "C:\\Users\\xyygl\\Documents\\kaggriculture\\data\\router_refresh_20260916\\twocoins\\main.py"
+    },
+    "v45": {
+      "hash": "2536d41ed5a00c75204b6350f1c76c54259c774cb065ba2a3a0072eedf210d94",
+      "path": "C:\\Users\\xyygl\\Documents\\kaggriculture\\data\\router_refresh_20260916\\v45\\main.py"
+    }
+  },
+  "policies": [
+    {
+      "hash": "e512d755d45fb3cee6602493a9af799131fb3b2dd3707f927e744e4b7a6cd7a3",
+      "id": "baseline-e512d755d4",
+      "kind": "baseline",
+      "path": "C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\v45_event_opening_fixed.py"
+    },
+    {
+      "hash": "fb6fa694f9f3bd2930eb536c3f081896bb1d22fe64545437f3f8b18dd96587f6",
+      "id": "candidate-v45_cohort_carrot_batch-fb6fa694f9",
+      "kind": "candidate",
+      "path": "C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\v45_cohort_carrot_batch.py"
+    },
+    {
+      "hash": "33e3566be1173377e5532f16bcfff1183815d6ddf00f6405cf14f661d23583a1",
+      "id": "candidate-v45_cohort_carrot_stagger-33e3566be1",
+      "kind": "candidate",
+      "path": "C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\v45_cohort_carrot_stagger.py"
+    },
+    {
+      "hash": "698757763862325fdea1eb899fbd6eeff4fadb831cbe93420edf5dba553e8ef6",
+      "id": "candidate-v45_cohort_tomato_batch-6987577638",
+      "kind": "candidate",
+      "path": "C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\v45_cohort_tomato_batch.py"
+    },
+    {
+      "hash": "3333807319fe6326b9fb6392f416fbfd04cf327089dd88141430a14792a7656d",
+      "id": "candidate-v45_cohort_tomato_stagger-3333807319",
+      "kind": "candidate",
+      "path": "C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\v45_cohort_tomato_stagger.py"
+    }
+  ],
+  "seeds": [
+    157010,
+    157011,
+    157012,
+    157013
+  ],
+  "shops": "controlled",
+  "workers": 4
+}

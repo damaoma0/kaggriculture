@@ -1,0 +1,445 @@
+{
+  "protocol": "Frozen R3 extension on all 42 previously fetched recordings: 32 rated-opponent records plus 10 original-m1 anchors. Earlier V9 results were inspected; this is not a new holdout. Reuse exact source reconstructions and baseline/V9 controls by hash. Exclude broken opponent-action counterfactuals from competitive claims, retaining all outcomes in the report.",
+  "specs": [
+    {
+      "id": "anchor-111902048",
+      "world": 111902048,
+      "kind": "replay",
+      "anchored": true,
+      "episode": 111902048,
+      "seat": 1,
+      "opponent": "Evil Mango",
+      "submission": 56451263,
+      "rating": 2804.4
+    },
+    {
+      "id": "anchor-112109339",
+      "world": 112109339,
+      "kind": "replay",
+      "anchored": true,
+      "episode": 112109339,
+      "seat": 0,
+      "opponent": "Snorlax",
+      "submission": 56466756,
+      "rating": 2774.9
+    },
+    {
+      "id": "anchor-112158883",
+      "world": 112158883,
+      "kind": "replay",
+      "anchored": true,
+      "episode": 112158883,
+      "seat": 0,
+      "opponent": "Xiangyu Liu",
+      "submission": 56419383,
+      "rating": 2757.4
+    },
+    {
+      "id": "anchor-112445421",
+      "world": 112445421,
+      "kind": "replay",
+      "anchored": true,
+      "episode": 112445421,
+      "seat": 0,
+      "opponent": "Dieter",
+      "submission": 56490415,
+      "rating": 2796.3
+    },
+    {
+      "id": "anchor-112483478",
+      "world": 112483478,
+      "kind": "replay",
+      "anchored": true,
+      "episode": 112483478,
+      "seat": 0,
+      "opponent": "mikelou1",
+      "submission": 56434031,
+      "rating": 2752.7
+    },
+    {
+      "id": "anchor-112496304",
+      "world": 112496304,
+      "kind": "replay",
+      "anchored": true,
+      "episode": 112496304,
+      "seat": 0,
+      "opponent": "mikelou1",
+      "submission": 56433763,
+      "rating": 2780.8
+    },
+    {
+      "id": "anchor-112502033",
+      "world": 112502033,
+      "kind": "replay",
+      "anchored": true,
+      "episode": 112502033,
+      "seat": 0,
+      "opponent": "mikelou1",
+      "submission": 56434031,
+      "rating": 2752.7
+    },
+    {
+      "id": "anchor-112543358",
+      "world": 112543358,
+      "kind": "replay",
+      "anchored": true,
+      "episode": 112543358,
+      "seat": 1,
+      "opponent": "Evil Mango",
+      "submission": 56495314,
+      "rating": 2801.0
+    },
+    {
+      "id": "anchor-112543662",
+      "world": 112543662,
+      "kind": "replay",
+      "anchored": true,
+      "episode": 112543662,
+      "seat": 1,
+      "opponent": "QQ\u519c\u573a",
+      "submission": 56463893,
+      "rating": 2774.9
+    },
+    {
+      "id": "anchor-112600049",
+      "world": 112600049,
+      "kind": "replay",
+      "anchored": true,
+      "episode": 112600049,
+      "seat": 1,
+      "opponent": "Xiangyu Liu",
+      "submission": 56419383,
+      "rating": 2757.4
+    },
+    {
+      "id": "replay-111841299",
+      "world": 111841299,
+      "kind": "replay",
+      "episode": 111841299,
+      "seat": 1,
+      "opponent": "ShunkiKyoya",
+      "submission": 56446454,
+      "rating": 2819.1
+    },
+    {
+      "id": "replay-111911466",
+      "world": 111911466,
+      "kind": "replay",
+      "episode": 111911466,
+      "seat": 0,
+      "opponent": "ShunkiKyoya",
+      "submission": 56446454,
+      "rating": 2819.1
+    },
+    {
+      "id": "replay-111931722",
+      "world": 111931722,
+      "kind": "replay",
+      "episode": 111931722,
+      "seat": 0,
+      "opponent": "ShunkiKyoya",
+      "submission": 56446454,
+      "rating": 2819.1
+    },
+    {
+      "id": "replay-112350251",
+      "world": 112350251,
+      "kind": "replay",
+      "episode": 112350251,
+      "seat": 0,
+      "opponent": "\u5403\u767d\u996d\u7684\u5927\u80a5\u9c7c",
+      "submission": 56483899,
+      "rating": 2984.3
+    },
+    {
+      "id": "replay-112364218",
+      "world": 112364218,
+      "kind": "replay",
+      "episode": 112364218,
+      "seat": 1,
+      "opponent": "\u5403\u767d\u996d\u7684\u5927\u80a5\u9c7c",
+      "submission": 56483899,
+      "rating": 2984.3
+    },
+    {
+      "id": "replay-112403275",
+      "world": 112403275,
+      "kind": "replay",
+      "episode": 112403275,
+      "seat": 0,
+      "opponent": "\u5403\u767d\u996d\u7684\u5927\u80a5\u9c7c",
+      "submission": 56483899,
+      "rating": 2984.3
+    },
+    {
+      "id": "replay-112482214",
+      "world": 112482214,
+      "kind": "replay",
+      "episode": 112482214,
+      "seat": 0,
+      "opponent": "ActiveMusyoku",
+      "submission": 56492278,
+      "rating": 2856.2
+    },
+    {
+      "id": "replay-112484193",
+      "world": 112484193,
+      "kind": "replay",
+      "episode": 112484193,
+      "seat": 1,
+      "opponent": "ActiveMusyoku",
+      "submission": 56492278,
+      "rating": 2856.2
+    },
+    {
+      "id": "replay-112493546",
+      "world": 112493546,
+      "kind": "replay",
+      "episode": 112493546,
+      "seat": 1,
+      "opponent": "ActiveMusyoku",
+      "submission": 56492278,
+      "rating": 2856.2
+    },
+    {
+      "id": "replay-112511698",
+      "world": 112511698,
+      "kind": "replay",
+      "episode": 112511698,
+      "seat": 0,
+      "opponent": "Otter Vibe",
+      "submission": 56497078,
+      "rating": 2889.6
+    },
+    {
+      "id": "replay-112524265",
+      "world": 112524265,
+      "kind": "replay",
+      "episode": 112524265,
+      "seat": 1,
+      "opponent": "Smackaveli",
+      "submission": 56497826,
+      "rating": 2809.7
+    },
+    {
+      "id": "replay-112528344",
+      "world": 112528344,
+      "kind": "replay",
+      "episode": 112528344,
+      "seat": 0,
+      "opponent": "Smackaveli",
+      "submission": 56497826,
+      "rating": 2809.7
+    },
+    {
+      "id": "replay-112530951",
+      "world": 112530951,
+      "kind": "replay",
+      "episode": 112530951,
+      "seat": 0,
+      "opponent": "TheEggman",
+      "submission": 56498825,
+      "rating": 2885.0
+    },
+    {
+      "id": "replay-112535967",
+      "world": 112535967,
+      "kind": "replay",
+      "episode": 112535967,
+      "seat": 0,
+      "opponent": "Otter Vibe",
+      "submission": 56497078,
+      "rating": 2889.6
+    },
+    {
+      "id": "replay-112537790",
+      "world": 112537790,
+      "kind": "replay",
+      "episode": 112537790,
+      "seat": 0,
+      "opponent": "ActiveMusyoku",
+      "submission": 56492278,
+      "rating": 2856.2
+    },
+    {
+      "id": "replay-112540733",
+      "world": 112540733,
+      "kind": "replay",
+      "episode": 112540733,
+      "seat": 1,
+      "opponent": "Otter Vibe",
+      "submission": 56497078,
+      "rating": 2889.6
+    },
+    {
+      "id": "replay-112541065",
+      "world": 112541065,
+      "kind": "replay",
+      "episode": 112541065,
+      "seat": 1,
+      "opponent": "TheEggman",
+      "submission": 56498825,
+      "rating": 2885.0
+    },
+    {
+      "id": "replay-112547678",
+      "world": 112547678,
+      "kind": "replay",
+      "episode": 112547678,
+      "seat": 0,
+      "opponent": "trantrikien239",
+      "submission": 56497709,
+      "rating": 2757.4
+    },
+    {
+      "id": "replay-112550110",
+      "world": 112550110,
+      "kind": "replay",
+      "episode": 112550110,
+      "seat": 1,
+      "opponent": "Fourth Quadrant",
+      "submission": 56497837,
+      "rating": 2951.7
+    },
+    {
+      "id": "replay-112550687",
+      "world": 112550687,
+      "kind": "replay",
+      "episode": 112550687,
+      "seat": 0,
+      "opponent": "Fourth Quadrant",
+      "submission": 56497837,
+      "rating": 2951.7
+    },
+    {
+      "id": "replay-112562107",
+      "world": 112562107,
+      "kind": "replay",
+      "episode": 112562107,
+      "seat": 0,
+      "opponent": "TheEggman",
+      "submission": 56498825,
+      "rating": 2885.0
+    },
+    {
+      "id": "replay-112564759",
+      "world": 112564759,
+      "kind": "replay",
+      "episode": 112564759,
+      "seat": 1,
+      "opponent": "Smackaveli",
+      "submission": 56497826,
+      "rating": 2809.7
+    },
+    {
+      "id": "replay-112565891",
+      "world": 112565891,
+      "kind": "replay",
+      "episode": 112565891,
+      "seat": 1,
+      "opponent": "TheEggman",
+      "submission": 56498825,
+      "rating": 2885.0
+    },
+    {
+      "id": "replay-112568392",
+      "world": 112568392,
+      "kind": "replay",
+      "episode": 112568392,
+      "seat": 0,
+      "opponent": "trantrikien239",
+      "submission": 56497709,
+      "rating": 2757.4
+    },
+    {
+      "id": "replay-112574317",
+      "world": 112574317,
+      "kind": "replay",
+      "episode": 112574317,
+      "seat": 1,
+      "opponent": "Fourth Quadrant",
+      "submission": 56497837,
+      "rating": 2951.7
+    },
+    {
+      "id": "replay-112579165",
+      "world": 112579165,
+      "kind": "replay",
+      "episode": 112579165,
+      "seat": 0,
+      "opponent": "Smackaveli",
+      "submission": 56497826,
+      "rating": 2809.7
+    },
+    {
+      "id": "replay-112581606",
+      "world": 112581606,
+      "kind": "replay",
+      "episode": 112581606,
+      "seat": 1,
+      "opponent": "trantrikien239",
+      "submission": 56497709,
+      "rating": 2757.4
+    },
+    {
+      "id": "replay-112582778",
+      "world": 112582778,
+      "kind": "replay",
+      "episode": 112582778,
+      "seat": 1,
+      "opponent": "ShunkiKyoya",
+      "submission": 56446454,
+      "rating": 2819.1
+    },
+    {
+      "id": "replay-112583951",
+      "world": 112583951,
+      "kind": "replay",
+      "episode": 112583951,
+      "seat": 0,
+      "opponent": "Fourth Quadrant",
+      "submission": 56497837,
+      "rating": 2951.7
+    },
+    {
+      "id": "replay-112598809",
+      "world": 112598809,
+      "kind": "replay",
+      "episode": 112598809,
+      "seat": 1,
+      "opponent": "Otter Vibe",
+      "submission": 56497078,
+      "rating": 2889.6
+    },
+    {
+      "id": "replay-112602320",
+      "world": 112602320,
+      "kind": "replay",
+      "episode": 112602320,
+      "seat": 1,
+      "opponent": "trantrikien239",
+      "submission": 56497709,
+      "rating": 2757.4
+    },
+    {
+      "id": "replay-112604806",
+      "world": 112604806,
+      "kind": "replay",
+      "episode": 112604806,
+      "seat": 1,
+      "opponent": "\u5403\u767d\u996d\u7684\u5927\u80a5\u9c7c",
+      "submission": 56483899,
+      "rating": 2984.3
+    }
+  ],
+  "policy_sha256": "b7a1bc9fb53441c38cc9804a0e5680f85a2c23464f99f3c9a28ad3c33002a814",
+  "harness_sha256": "c2589fa9420cfd3df3df73dce2afe9e0081e401fa90364e7c27f79161436ccb6",
+  "arms": [
+    "candidate"
+  ],
+  "decisions": [
+    12,
+    15,
+    18
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "seeds": [
+    124000,
+    124001,
+    124002,
+    124003
+  ],
+  "opponents": [
+    "sixday",
+    "pasture",
+    "prompt",
+    "priority",
+    "stockpiler"
+  ],
+  "modes": [
+    "fixed",
+    "static",
+    "clock",
+    "visible"
+  ],
+  "engine": "1.32.7",
+  "sources": {
+    "agents\\market_priority_selected.py": "6e8d5c672bb325fae8e2c425232ace9fbfa4b9ca9faa3e0bd37f0484cfa73ba2",
+    "agents\\production_selected.py": "4e5ef404f1d4065a523fbc0d7c46597599350adfd7b66532f65e9fe961efc74d",
+    "agents\\adaptive_market_order.py": "814526558e90c6c8e270493e64cfd3d34af5e41c000bfc31e8c8b57229d5a64a",
+    "agents\\opponent_sales.py": "7ce0a0ec4d54908c2e85c86157651250ec337a9f1356b41c9dd21eee8e196014",
+    "agents\\market_forecast.py": "3afc6b2b7b48ee3a3be57cb01f4105a2e4cb476c2babf09846053ce212afa74f",
+    "agents\\public\\tschinkel_router_v31.py": "e50d3c7b54c051b880fd7b68ed2aa8f954331d6f892b8fb5dca788223b27c24c",
+    "data\\public_candidates\\thomastschinkel\\extracted\\main.py": "91772fda544e2d5768afff819e2de75ecb7a12db8acb40a48ee9edcf76aca434",
+    "data\\public_candidates\\indarkarhana\\extracted\\agents\\e776a_engine_exact_latent_pasture.py": "2c603fd6f9bf978d7e8eef78a34647bd379d0e89963ada0cbb1c52c39b0f4b3f"
+  },
+  "scope": "Reorder existing SELL slots after turn 216; quantities and non-SELL positions unchanged. No holding.",
+  "shop_control": false
+}

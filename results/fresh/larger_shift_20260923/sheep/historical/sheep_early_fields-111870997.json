@@ -1,0 +1,213 @@
+{
+  "arm": "sheep_early_fields",
+  "episode": 111870997,
+  "completed": true,
+  "source_sha256": "bc6204ae442ca5927445349ff1d46f12a145acec167bc02568f09bc689cecbf2",
+  "seed": 148637717,
+  "seat": 0,
+  "cash": 100058.0,
+  "opponent_cash": 98087.0,
+  "margin": 1971.0,
+  "recorded": [
+    109143.0,
+    101292.0
+  ],
+  "action_changes": 420,
+  "first_change": 266,
+  "economics": [
+    {
+      "revenue": {
+        "FERTILIZER": 12595,
+        "WHEAT": 15459,
+        "WOOL": 48639,
+        "MILK": 19444,
+        "MELON": 15312,
+        "STRAWBERRY": 19813,
+        "TOMATO": 4179,
+        "CARROT": 1455
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 9030,
+        "HIRE": 8827.0,
+        "BUY_ANIMAL:COW": 2000,
+        "BUY_ANIMAL:SHEEP": 10000,
+        "BUY_SEED:MELON": 1120,
+        "BUY_SEED:WHEAT": 1690,
+        "BUY_SEED:CARROT": 320,
+        "BUY_SEED:STRAWBERRY": 2400,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 951,
+        "BUY_SEED:TOMATO": 500
+      },
+      "units": {
+        "FERTILIZER": 325,
+        "WHEAT": 382,
+        "WOOL": 410,
+        "MILK": 158,
+        "MELON": 84,
+        "STRAWBERRY": 174,
+        "TOMATO": 76,
+        "CARROT": 35
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 14863,
+        "FERTILIZER": 14070,
+        "WOOL": 45130,
+        "MILK": 22332,
+        "MELON": 14231,
+        "STRAWBERRY": 25549,
+        "CARROT": 3660
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 10352,
+        "BUY_SEED:WHEAT": 1660,
+        "HIRE": 9518.0,
+        "BUY_ANIMAL:COW": 2400,
+        "BUY_ANIMAL:SHEEP": 8500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 7000.0,
+        "BUY_PRODUCT:FERTILIZER": 498,
+        "BUY_SEED:CARROT": 560
+      },
+      "units": {
+        "WHEAT": 369,
+        "FERTILIZER": 380,
+        "WOOL": 389,
+        "MILK": 191,
+        "MELON": 72,
+        "STRAWBERRY": 246,
+        "CARROT": 83
+      }
+    }
+  ],
+  "overlay": {
+    "evals": [
+      [
+        6,
+        13,
+        2,
+        16,
+        -3
+      ],
+      [
+        7,
+        13,
+        3,
+        16,
+        -3
+      ],
+      [
+        8,
+        13,
+        8,
+        20,
+        -7
+      ],
+      [
+        9,
+        17,
+        8,
+        16,
+        4,
+        "cash",
+        -1992
+      ],
+      [
+        10,
+        17,
+        12,
+        20,
+        4,
+        "cash",
+        -1929
+      ],
+      [
+        11,
+        17,
+        13,
+        18,
+        4,
+        4,
+        3612,
+        16807,
+        235
+      ],
+      [
+        12,
+        17,
+        18,
+        21,
+        4,
+        1,
+        -4977,
+        1217,
+        238
+      ]
+    ],
+    "hand_days": 26,
+    "topup_tasks": 2,
+    "ops_feed": 73,
+    "ops_care": 55,
+    "hire_guard_fired": 1,
+    "hire_guard_trimmed": 3,
+    "declined_cash": 2,
+    "commitments": 1,
+    "sheep_bought": 4,
+    "decisions": [
+      {
+        "day": 11,
+        "hour": 2,
+        "target": 17,
+        "owned": 13,
+        "planned": 18,
+        "n": 4,
+        "hands": 2,
+        "tiles": [
+          [
+            3,
+            6
+          ],
+          [
+            3,
+            7
+          ],
+          [
+            2,
+            7
+          ],
+          [
+            0,
+            4
+          ]
+        ],
+        "wool": 235.0,
+        "profit": 3612
+      }
+    ],
+    "ops_build_pasture": 4,
+    "ops_place": 4,
+    "ops_dig": 1,
+    "declined_profit": 1,
+    "ops_collect_fertilizer": 38,
+    "feed_rebuys": 3,
+    "ops_harvest": 16,
+    "sold_wool": 54,
+    "sold_fertilizer": 9,
+    "guard_wheat": 10
+  },
+  "router": {
+    "switches": 2,
+    "router_errors": 0,
+    "hamming_max": 2,
+    "dist_d6": -0.02,
+    "dist_d12": -0.04,
+    "dist_d18": 8.46,
+    "dist_d24": 19.46
+  },
+  "max_action_seconds": 0.013334200019016862,
+  "actions_over_1s": 0,
+  "ledger_verified": true
+}

@@ -1,0 +1,266 @@
+{
+ "DSM": {
+  "games": 100,
+  "per_game": {
+   "collect": 474.7,
+   "fertilize_cmds": 237.5,
+   "pickup_fert_cmds": 9.5,
+   "pickup_fert_units_requested": 28.4
+  },
+  "fert_from_same_unit_collect_collected_first": 0.9139,
+  "fert_from_same_unit_collect_shed_first": 0.9093,
+  "fert_from_shed_pickup_collected_first": 0.0861,
+  "fert_no_source": 0.0,
+  "collected_sourced_with_shed_op_between": 0.0041,
+  "collects_before_first_crop_op": 0.8661,
+  "collects_used_same_unit_day": 0.4573,
+  "collect_in_same_stay_as_feed_or_care": 0.5508,
+  "position_metrics": {
+   "n_collected_sourced_fert": 21432,
+   "collect_tile_nearer_shed_than_fert_tile": 0.9836,
+   "equal": 0.0133,
+   "collect_tile_farther": 0.0031,
+   "mean_dist_collect_tile": 1.294,
+   "mean_dist_fert_tile": 4.522,
+   "walked_over_manhattan_collect_to_fert": 1.097,
+   "no_detour_share": 0.8625,
+   "strict_outbound_share": 0.9595,
+   "collects_on_a_shed_tile": 0.1671
+  }
+ },
+ "DECEM": {
+  "games": 100,
+  "per_game": {
+   "collect": 463.7,
+   "fertilize_cmds": 231.7,
+   "pickup_fert_cmds": 16.1,
+   "pickup_fert_units_requested": 38.1
+  },
+  "fert_from_same_unit_collect_collected_first": 0.9044,
+  "fert_from_same_unit_collect_shed_first": 0.8965,
+  "fert_from_shed_pickup_collected_first": 0.0956,
+  "fert_no_source": 0.0,
+  "collected_sourced_with_shed_op_between": 0.005,
+  "collects_before_first_crop_op": 0.8812,
+  "collects_used_same_unit_day": 0.4519,
+  "collect_in_same_stay_as_feed_or_care": 0.5447,
+  "position_metrics": {
+   "n_collected_sourced_fert": 20668,
+   "collect_tile_nearer_shed_than_fert_tile": 0.9862,
+   "equal": 0.0102,
+   "collect_tile_farther": 0.0036,
+   "mean_dist_collect_tile": 1.258,
+   "mean_dist_fert_tile": 4.497,
+   "walked_over_manhattan_collect_to_fert": 1.102,
+   "no_detour_share": 0.8586,
+   "strict_outbound_share": 0.9688,
+   "collects_on_a_shed_tile": 0.1739
+  }
+ },
+ "Vadim": {
+  "games": 100,
+  "per_game": {
+   "collect": 472.4,
+   "fertilize_cmds": 179.7,
+   "pickup_fert_cmds": 10.0,
+   "pickup_fert_units_requested": 30.0
+  },
+  "fert_from_same_unit_collect_collected_first": 0.9092,
+  "fert_from_same_unit_collect_shed_first": 0.9001,
+  "fert_from_shed_pickup_collected_first": 0.0907,
+  "fert_no_source": 0.0001,
+  "collected_sourced_with_shed_op_between": 0.0048,
+  "collects_before_first_crop_op": 0.8793,
+  "collects_used_same_unit_day": 0.3459,
+  "collect_in_same_stay_as_feed_or_care": 0.5453,
+  "position_metrics": {
+   "n_collected_sourced_fert": 16301,
+   "collect_tile_nearer_shed_than_fert_tile": 0.9864,
+   "equal": 0.011,
+   "collect_tile_farther": 0.0025,
+   "mean_dist_collect_tile": 1.225,
+   "mean_dist_fert_tile": 4.827,
+   "walked_over_manhattan_collect_to_fert": 1.154,
+   "no_detour_share": 0.7815,
+   "strict_outbound_share": 0.9704,
+   "collects_on_a_shed_tile": 0.167
+  }
+ },
+ "MG": {
+  "games": 100,
+  "per_game": {
+   "collect": 448.4,
+   "fertilize_cmds": 219.5,
+   "pickup_fert_cmds": 7.2,
+   "pickup_fert_units_requested": 20.1
+  },
+  "fert_from_same_unit_collect_collected_first": 0.9287,
+  "fert_from_same_unit_collect_shed_first": 0.9244,
+  "fert_from_shed_pickup_collected_first": 0.0713,
+  "fert_no_source": 0.0,
+  "collected_sourced_with_shed_op_between": 0.0035,
+  "collects_before_first_crop_op": 0.8914,
+  "collects_used_same_unit_day": 0.4546,
+  "collect_in_same_stay_as_feed_or_care": 0.5275,
+  "position_metrics": {
+   "n_collected_sourced_fert": 20101,
+   "collect_tile_nearer_shed_than_fert_tile": 0.9857,
+   "equal": 0.0109,
+   "collect_tile_farther": 0.0034,
+   "mean_dist_collect_tile": 1.316,
+   "mean_dist_fert_tile": 4.626,
+   "walked_over_manhattan_collect_to_fert": 1.107,
+   "no_detour_share": 0.8546,
+   "strict_outbound_share": 0.9677,
+   "collects_on_a_shed_tile": 0.1628
+  }
+ },
+ "MMPQ": {
+  "games": 100,
+  "per_game": {
+   "collect": 381.7,
+   "fertilize_cmds": 179.7,
+   "pickup_fert_cmds": 15.0,
+   "pickup_fert_units_requested": 59.3
+  },
+  "fert_from_same_unit_collect_collected_first": 0.8138,
+  "fert_from_same_unit_collect_shed_first": 0.7997,
+  "fert_from_shed_pickup_collected_first": 0.186,
+  "fert_no_source": 0.0002,
+  "collected_sourced_with_shed_op_between": 0.0161,
+  "collects_before_first_crop_op": 0.8933,
+  "collects_used_same_unit_day": 0.3832,
+  "collect_in_same_stay_as_feed_or_care": 0.5064,
+  "position_metrics": {
+   "n_collected_sourced_fert": 14620,
+   "collect_tile_nearer_shed_than_fert_tile": 0.9911,
+   "equal": 0.0063,
+   "collect_tile_farther": 0.0026,
+   "mean_dist_collect_tile": 1.166,
+   "mean_dist_fert_tile": 4.58,
+   "walked_over_manhattan_collect_to_fert": 1.09,
+   "no_detour_share": 0.8762,
+   "strict_outbound_share": 0.9544,
+   "collects_on_a_shed_tile": 0.1902
+  }
+ },
+ "Boey": {
+  "games": 40,
+  "per_game": {
+   "collect": 465.2,
+   "fertilize_cmds": 205.2,
+   "pickup_fert_cmds": 20.3,
+   "pickup_fert_units_requested": 71.2
+  },
+  "fert_from_same_unit_collect_collected_first": 0.7585,
+  "fert_from_same_unit_collect_shed_first": 0.7491,
+  "fert_from_shed_pickup_collected_first": 0.2415,
+  "fert_no_source": 0.0,
+  "collected_sourced_with_shed_op_between": 0.0432,
+  "collects_before_first_crop_op": 0.8014,
+  "collects_used_same_unit_day": 0.3346,
+  "collect_in_same_stay_as_feed_or_care": 0.431,
+  "position_metrics": {
+   "n_collected_sourced_fert": 6069,
+   "collect_tile_nearer_shed_than_fert_tile": 0.9946,
+   "equal": 0.0035,
+   "collect_tile_farther": 0.002,
+   "mean_dist_collect_tile": 1.205,
+   "mean_dist_fert_tile": 4.539,
+   "walked_over_manhattan_collect_to_fert": 1.08,
+   "no_detour_share": 0.8926,
+   "strict_outbound_share": 0.988,
+   "collects_on_a_shed_tile": 0.157
+  }
+ },
+ "ALL_LEADERS": {
+  "games": 540,
+  "per_game": {
+   "collect": 449.4,
+   "fertilize_cmds": 209.3,
+   "pickup_fert_cmds": 12.2,
+   "pickup_fert_units_requested": 37.8
+  },
+  "fert_from_same_unit_collect_collected_first": 0.8869,
+  "fert_from_same_unit_collect_shed_first": 0.8791,
+  "fert_from_shed_pickup_collected_first": 0.1131,
+  "fert_no_source": 0.0,
+  "collected_sourced_with_shed_op_between": 0.0085,
+  "collects_before_first_crop_op": 0.8766,
+  "collects_used_same_unit_day": 0.413,
+  "collect_in_same_stay_as_feed_or_care": 0.5281,
+  "position_metrics": {
+   "n_collected_sourced_fert": 99191,
+   "collect_tile_nearer_shed_than_fert_tile": 0.9868,
+   "equal": 0.0102,
+   "collect_tile_farther": 0.003,
+   "mean_dist_collect_tile": 1.256,
+   "mean_dist_fert_tile": 4.597,
+   "walked_over_manhattan_collect_to_fert": 1.108,
+   "no_detour_share": 0.8506,
+   "strict_outbound_share": 0.9659,
+   "collects_on_a_shed_tile": 0.1706
+  }
+ },
+ "leader_validation": {
+  "seat_match": 540,
+  "name_is_team": 540,
+  "maint_fert_tiles": 112693,
+  "days": 16200,
+  "days_hands_match": 14404,
+  "feed_pos_n": 181081,
+  "feed_pos_in_effective_set": 181080,
+  "fert_pos_n": 111952,
+  "fert_pos_in_effective_set": 111946,
+  "fert_pos_match_rate": 0.9999,
+  "feed_pos_match_rate": 1.0
+ },
+ "OURS_mgt_lpv_dep6": {
+  "games": 12,
+  "per_game": {
+   "collect": 395.7,
+   "fertilize_cmds": 150.4,
+   "pickup_fert_cmds": 58.6,
+   "pickup_fert_units_requested": 199.2
+  },
+  "fert_from_same_unit_collect_collected_first": 0.8072,
+  "fert_from_same_unit_collect_shed_first": 0.5961,
+  "fert_from_shed_pickup_collected_first": 0.1928,
+  "fert_no_source": 0.0,
+  "collected_sourced_with_shed_op_between": 0.0124,
+  "collects_before_first_crop_op": 0.9035,
+  "collects_used_same_unit_day": 0.3069,
+  "collect_in_same_stay_as_feed_or_care": 0.6144,
+  "cross_check_vs_lead_cycles": {
+   "lead_cycles_found": 12,
+   "final_cash_match": 12,
+   "fert_cmd_total_match": 12,
+   "collect_cmd_total_match": 12,
+   "has_boards": 12
+  }
+ },
+ "OURS_mgt_lpv_q4": {
+  "games": 12,
+  "per_game": {
+   "collect": 386.5,
+   "fertilize_cmds": 180.9,
+   "pickup_fert_cmds": 85.0,
+   "pickup_fert_units_requested": 285.8
+  },
+  "fert_from_same_unit_collect_collected_first": 0.6988,
+  "fert_from_same_unit_collect_shed_first": 0.4818,
+  "fert_from_shed_pickup_collected_first": 0.3012,
+  "fert_no_source": 0.0,
+  "collected_sourced_with_shed_op_between": 0.0158,
+  "collects_before_first_crop_op": 0.8612,
+  "collects_used_same_unit_day": 0.3271,
+  "collect_in_same_stay_as_feed_or_care": 0.6085,
+  "cross_check_vs_lead_cycles": {
+   "lead_cycles_found": 12,
+   "final_cash_match": 12,
+   "fert_cmd_total_match": 12,
+   "collect_cmd_total_match": 12,
+   "has_boards": 12
+  }
+ }
+}

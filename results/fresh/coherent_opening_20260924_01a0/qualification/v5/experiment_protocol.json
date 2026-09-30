@@ -1,0 +1,23 @@
+{
+  "status": "frozen before qualification games",
+  "worlds": 32,
+  "opponents": [
+    "mgt_m1",
+    "v56"
+  ],
+  "cases": 64,
+  "arms": [
+    "baseline",
+    "latest",
+    "semantic_inputs",
+    "semantic_bank"
+  ],
+  "primary": "semantic_bank vs baseline own cash and cash margin",
+  "ablations": [
+    "semantic_inputs vs latest isolates input execution within same112-tape bank",
+    "semantic_bank vs semantic_inputs isolates32 additional recent tapes; fixed opening source"
+  ],
+  "inference": "paired by seed, opponent,seat; bootstrap whole worlds for intervals",
+  "selection": "versions frozen after8 development worlds; all32 qualification worlds distinct; no candidate edits or tuning on outcomes",
+  "scope": "complete-policy comparison, not a causal estimate of opening production plan alone"
+}

@@ -1,0 +1,7 @@
+{
+ "kernels": [
+  "kgr-g1b-s0"
+ ],
+ "cmd": "scripts/lead_ablation.py run E2base3,E2ar4,E2ar8,E2cut,Gbase,Gcut,Gar4 --workers 4",
+ "pushed": 1790303500.5555248
+}

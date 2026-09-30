@@ -49,6 +49,11 @@ def bundle(agents):
         else:
             (repo / extra).parent.mkdir(parents=True, exist_ok=True)
             shutil.copy(src, repo / extra)
+    # KGR_GZ_RAW="dir,dir": .gz files under these repo-relative dirs travel as .gz.raw (byte-identical; Kaggle leaves them
+    # alone) for payloads whose hashes are checked - the kernel's re-gzip below changes bytes; the run renames them back
+    for pre in [x for x in os.environ.get('KGR_GZ_RAW', '').split(',') if x]:
+        for f in list((repo / pre).rglob('*.gz')):
+            f.rename(str(f) + '.raw')
     # Kaggle decompresses .gz files on upload; list them so the kernel can restore every one
     (repo / 'gz_manifest.txt').write_text(chr(10).join(p.relative_to(repo).as_posix() for p in repo.rglob('*.gz')),
                                           encoding='utf-8')

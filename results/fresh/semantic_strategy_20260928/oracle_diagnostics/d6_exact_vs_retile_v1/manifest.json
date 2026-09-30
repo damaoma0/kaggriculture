@@ -1,0 +1,264 @@
+{
+  "id": "d6_exact_vs_retile_v1",
+  "scope": "COMPONENT_DIAGNOSTIC_NOT_POLICY",
+  "created_utc": "2026-09-28T04:14:01Z",
+  "games_executed_at_preparation": 0,
+  "reference_candidate": "strategy_v4_modern4_finance",
+  "reference_manifest_sha256": "aded3097b4b853e5195ee86837ab17d3adbcb2c65e1529d433e9b1fc54c94968",
+  "protocol_sha256": "43ed18af7564e376ba6651881f8c7ca3937f1204ce60c8b3cca939b731606a42",
+  "universe": [
+    "112575429",
+    "112588791",
+    "112626851",
+    "112616236",
+    "112587591",
+    "112593664",
+    "112596061",
+    "112573049",
+    "112570602",
+    "112605939",
+    "112585076",
+    "112592389",
+    "112574236",
+    "112570782",
+    "112602061",
+    "112606801",
+    "112581436",
+    "112576658",
+    "112603263",
+    "112586293",
+    "112577829",
+    "112579036",
+    "112600855",
+    "112604454",
+    "112588103",
+    "112605661",
+    "112610623",
+    "112598450",
+    "112621294",
+    "112608021",
+    "112599653",
+    "112594857",
+    "112591190",
+    "112589990",
+    "112583842",
+    "112580238",
+    "112582639",
+    "112621356",
+    "112571815",
+    "112597248"
+  ],
+  "selection": "First8 by hash of fixed namespace plus episode; no outcomes used.",
+  "cases": [
+    {
+      "id": "oracle6-112575429",
+      "episode": "112575429",
+      "seed": 385930656,
+      "seat": 0,
+      "file": "oracle_diagnostics/d6_exact_vs_retile_v1/recordings/112575429.json.gz",
+      "sha256": "920d3fadd174084d52a2cbe8b8f15e5cfd6c5cb3a9005fdae53c20afed1b9164",
+      "source": {
+        "seat": 0,
+        "seed": 385930656,
+        "semantic_path": "data/leader_semantics/16732748/112575429.json.gz",
+        "semantic_sha256": "e64a8a24764ce66164f05af417d9f8b5f988fb7dd77068c3fccbf9658cb2dd4d",
+        "tape_path": "data/leader_tapes/16732748_56498734/112575429.json.gz",
+        "tape_sha256": "4650314d0316631b83a4bd5bd9230e539c727e0f97688f1b8e506224db3978f4",
+        "action_keys": {
+          "dsm": "actions",
+          "opponent": "opp_actions"
+        },
+        "actual_day29_hires": 10
+      }
+    },
+    {
+      "id": "oracle6-112588791",
+      "episode": "112588791",
+      "seed": 1841221327,
+      "seat": 0,
+      "file": "oracle_diagnostics/d6_exact_vs_retile_v1/recordings/112588791.json.gz",
+      "sha256": "d06258b011485b5493711441ce72d5ddf7a71164e4d4cb893d98de3880ac2c97",
+      "source": {
+        "seat": 0,
+        "seed": 1841221327,
+        "semantic_path": "data/leader_semantics/16732748/112588791.json.gz",
+        "semantic_sha256": "29f5011623512de7c77e64967c0f88070a5ad5ac361b813b4f11350cf2c29740",
+        "tape_path": "data/leader_tapes/16732748_56498734/112588791.json.gz",
+        "tape_sha256": "b1fd647b52d2966cd0ddd8269f8d3a13eb485eace08f7f250acabecd75477a06",
+        "action_keys": {
+          "dsm": "actions",
+          "opponent": "opp_actions"
+        },
+        "actual_day29_hires": 10
+      }
+    },
+    {
+      "id": "oracle6-112626851",
+      "episode": "112626851",
+      "seed": 1526021611,
+      "seat": 1,
+      "file": "oracle_diagnostics/d6_exact_vs_retile_v1/recordings/112626851.json.gz",
+      "sha256": "9d6c8bfb335a3b54658d40b20a7006bba308c9ad15997f8b4fedca4218b8e588",
+      "source": {
+        "seat": 1,
+        "seed": 1526021611,
+        "semantic_path": "data/leader_semantics/16732748/112626851.json.gz",
+        "semantic_sha256": "5d8945d998441263d7979b1384602723741c54dca977aff0804d014bf3bbc52e",
+        "tape_path": "data/leader_tapes/16732748_56498734/112626851.json.gz",
+        "tape_sha256": "12d9dfa8e881682ff90e2cd8dc2f98369a9627fedf0e10b8323edbc9d7514544",
+        "action_keys": {
+          "dsm": "actions",
+          "opponent": "opp_actions"
+        },
+        "actual_day29_hires": 10
+      }
+    },
+    {
+      "id": "oracle6-112616236",
+      "episode": "112616236",
+      "seed": 1084420597,
+      "seat": 0,
+      "file": "oracle_diagnostics/d6_exact_vs_retile_v1/recordings/112616236.json.gz",
+      "sha256": "4c0eb13b402dc2700670fda49ec22e79848d8963ae123d1d997456a1f2df7dc6",
+      "source": {
+        "seat": 0,
+        "seed": 1084420597,
+        "semantic_path": "data/leader_semantics/16732748/112616236.json.gz",
+        "semantic_sha256": "ab7695adaa358756b9a95466988b750ddfa670a1e278152d5c9faaabc313fb09",
+        "tape_path": "data/leader_tapes/16732748_56498734/112616236.json.gz",
+        "tape_sha256": "afde25a7d9baf9c7b90b9de697e2d82e9c7dab82d99abb319ca13051412ba9e8",
+        "action_keys": {
+          "dsm": "actions",
+          "opponent": "opp_actions"
+        },
+        "actual_day29_hires": 10
+      }
+    },
+    {
+      "id": "oracle6-112587591",
+      "episode": "112587591",
+      "seed": 961223215,
+      "seat": 0,
+      "file": "oracle_diagnostics/d6_exact_vs_retile_v1/recordings/112587591.json.gz",
+      "sha256": "97d108135aa3ec812e04798162bfe5c8a7b84f863df5b4df157054c5baa290c8",
+      "source": {
+        "seat": 0,
+        "seed": 961223215,
+        "semantic_path": "data/leader_semantics/16732748/112587591.json.gz",
+        "semantic_sha256": "80bc0990a515bb776c2e62c9e2f0800e4e5c204a60bbcad022557999d9ea897e",
+        "tape_path": "data/leader_tapes/16732748_56498734/112587591.json.gz",
+        "tape_sha256": "ef54d38d4c5742daab254fa97647c304821b6aa3e8d9cb0512ffaf7cb41cab49",
+        "action_keys": {
+          "dsm": "actions",
+          "opponent": "opp_actions"
+        },
+        "actual_day29_hires": 10
+      }
+    },
+    {
+      "id": "oracle6-112593664",
+      "episode": "112593664",
+      "seed": 325559405,
+      "seat": 1,
+      "file": "oracle_diagnostics/d6_exact_vs_retile_v1/recordings/112593664.json.gz",
+      "sha256": "4032e240b7a4d875e024e38fbab179269b4bfe86004aede465b2c89c53cdd98f",
+      "source": {
+        "seat": 1,
+        "seed": 325559405,
+        "semantic_path": "data/leader_semantics/16732748/112593664.json.gz",
+        "semantic_sha256": "a56e9be9d31035803284a9fa600b2766f4e14d1112f55b3b67ec6fd4fb133d0c",
+        "tape_path": "data/leader_tapes/16732748_56498734/112593664.json.gz",
+        "tape_sha256": "56eba46f179e26f79f29bf1b1f83c99b117e4062a63ecaa8de3ec9cfeeac2019",
+        "action_keys": {
+          "dsm": "actions",
+          "opponent": "opp_actions"
+        },
+        "actual_day29_hires": 10
+      }
+    },
+    {
+      "id": "oracle6-112596061",
+      "episode": "112596061",
+      "seed": 615221455,
+      "seat": 0,
+      "file": "oracle_diagnostics/d6_exact_vs_retile_v1/recordings/112596061.json.gz",
+      "sha256": "ce18c39bc15972c00a6081cb041a6b5f93d05f4d8c7bc9984d5df7a2bdfc15f4",
+      "source": {
+        "seat": 0,
+        "seed": 615221455,
+        "semantic_path": "data/leader_semantics/16732748/112596061.json.gz",
+        "semantic_sha256": "3734230e9df72dee4d7fd19d2f659747040580c5eb4b60ffd40f0711a03ce139",
+        "tape_path": "data/leader_tapes/16732748_56498734/112596061.json.gz",
+        "tape_sha256": "217afa69bf9416231fc656a66ca0b132d35c7495e0837446f705e7e133695bb3",
+        "action_keys": {
+          "dsm": "actions",
+          "opponent": "opp_actions"
+        },
+        "actual_day29_hires": 10
+      }
+    },
+    {
+      "id": "oracle6-112573049",
+      "episode": "112573049",
+      "seed": 1614292512,
+      "seat": 1,
+      "file": "oracle_diagnostics/d6_exact_vs_retile_v1/recordings/112573049.json.gz",
+      "sha256": "4da4f9e8787e4cc377b53132e1f6501114e09932ac1978b66d36feace3ea4a13",
+      "source": {
+        "seat": 1,
+        "seed": 1614292512,
+        "semantic_path": "data/leader_semantics/16732748/112573049.json.gz",
+        "semantic_sha256": "a0e9fd0cc26fabb8edf8ac604d03ed4232d52751ea021db268da4985f41292ed",
+        "tape_path": "data/leader_tapes/16732748_56498734/112573049.json.gz",
+        "tape_sha256": "b12d727949219da59bc233d2bcf0add428b2ebba72ad2ed6a24177f91abe0a7d",
+        "action_keys": {
+          "dsm": "actions",
+          "opponent": "opp_actions"
+        },
+        "actual_day29_hires": 10
+      }
+    }
+  ],
+  "handoff_step": 144,
+  "options": {
+    "reactive_land_unlock": true,
+    "early_financing": {
+      "enabled": true
+    }
+  },
+  "arms": [
+    "exact",
+    "retile"
+  ],
+  "candidate_manifest_sha256": {
+    "exact": "7d79da3333fdb3ef8b6f6ebb60ab51ee2c208acb9db64ee18f15dc0bc027580e",
+    "retile": "63fac4dd0c7b9bb58334b04e1d234385e7b9f3c1f2af164ea1960b315fc6aac5"
+  },
+  "harness_files": {
+    "semantic_strategy_oracle_gate_20260928.py": "4e877a85dd6e8ce37920247d83d1485c1d61ed6d685cfa6236b1a35b85807698",
+    "semantic_strategy_gate_20260928.py": "d0f4b49f9200f8d83448d8dec92328f37c7798349bd80f6c834f0fc37ecd0fd8",
+    "tape_vs_bench.py": "e286e6a22d8d9566b025ff16c02cd16166ac140eb4860ffa5c98668ec3bb510e",
+    "analyze_efficiency.py": "5ee6c00f88a3f1fa658b93394127d2ee423b0d5e98bbb02b1ff5bf439eb82f11",
+    "evaluate_boards.py": "97185ed95cedcd1e6f1d5c3072e47ad788be01457c531c6d7daf6a6fa302d170",
+    "market_corpus.py": "7666a22048795862bcf4c29c5686d477d564f78f021f84b6cc258d9d6bb6baad"
+  },
+  "compiler_files": {
+    "build_semantic_tile_stack_20260928.py": "db7b2bb626f7b71458421ce7743a05abf9f4cfa0fdc4e9e81e6f757448522e8a",
+    "semantic_tile_inputs_20260928.py": "9f05f5c4fbb2e4ae88299c32eef8fe908eb942fed3ed1fb9c2e237a563c5bde4",
+    "semantic_tile_planner_20260928.py": "fc2b4160f6ef04aa3c64b8e064146f92fd7f34c9aaf3a2739d3d46b5769d220a",
+    "semantic_tile_allocator_20260928.py": "cabc9bcf818aa00ffa3e5ffbd3f9798643f60b7a59deb4a384dd8ebce889d0ae",
+    "semantic_tile_lifetimes_20260928.py": "8fc6df1c01016b85614933247346011b18e16923dc35635e20386fc7c1be6959",
+    "semantic_tile_polish_20260928.py": "5f93a755b2ffbff3625fd0f43013955b35262bed6963d3c023b3651958825ecc"
+  },
+  "input_files": {
+    "semantic_inputs.json": "5be19b103ad948eb83fa47878ec8f590059ee8ab876ac3aeca989658f1494f47",
+    "exact_plans.json": "f003d8a75042ca4c1131bd01aeff0bccdcde5a0904dbd703b037c0a073dbc37e",
+    "retile_plans.json": "6b3b2f0071167c7f79cffbec39648994ea8f32ac3f8a10e54189ac45213564ab"
+  },
+  "source_semantics_sha256": "775b435ec293a950f212da49636134c8e78abe9ab0690fff6752cedecd7441fa",
+  "source_audit_sha256": "eecea089a0fd77713d0ba6e12101a08cfbb931a7d1287b5c4e4155bbc58edfd4",
+  "source_exact_sha256": "f9a5bf807cc26d6ce4b65b6ce2d29d2052ce51b1099b3493747695474b930210",
+  "contrast": "Same source prefix, native recorded rival and shops, KB115LT recipe, reactive unlock and financing options. Only suffix TilePlanView layout differs.",
+  "validity": "All8 source controls must reproduce both original final cash totals. Each arm must reproduce both original action prefixes and both observations at step144, complete720 states with both ledgers and runtime valid, and pass recorded-rival integrity. No replacement or selective rerun.",
+  "limitation": "Future source tile-change counts or exact coordinates are oracle inputs. This measures component execution on old training/development worlds, never causal policy strength or qualification."
+}

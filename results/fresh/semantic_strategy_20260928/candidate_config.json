@@ -1,0 +1,38 @@
+{
+  "model_file": "block_model_modern100.json",
+  "reactive_land_unlock": true,
+  "policy": {
+    "land_limit": 4,
+    "economics_weight": 0,
+    "release_age": {
+      "WHEAT": 3,
+      "CARROT": 3,
+      "MELON": 10,
+      "TOMATO": 12,
+      "STRAWBERRY": 17
+    }
+  },
+  "tiles": {
+    "release_age": {
+      "WHEAT": 3,
+      "CARROT": 3,
+      "MELON": 10,
+      "TOMATO": 12,
+      "STRAWBERRY": 17
+    }
+  },
+  "early_financing": {
+    "enabled": true
+  },
+  "policy_kind": "three_day_budget",
+  "executor_file": "agents/mgt_lead_kb115lt2.py",
+  "executor": {
+    "sd_collect_at_floor": 1,
+    "sd_polish": 3000,
+    "sd_polish_final": 1,
+    "sd_polish_xch": 0.2,
+    "sd_polish_water_c": 20.0,
+    "sd_tier_dawn_shape": "learned2",
+    "sd_tier_anim_harv_frac": 0.3
+  }
+}

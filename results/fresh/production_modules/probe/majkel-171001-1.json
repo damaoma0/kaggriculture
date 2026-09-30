@@ -1,0 +1,70 @@
+{
+  "config": "majkel",
+  "seed": 171001,
+  "seat": 1,
+  "expected": {
+    "CARROT": 8
+  },
+  "actual": {
+    "CARROT": 8
+  },
+  "successful_plants": {},
+  "cash": 3208.0,
+  "spend": {
+    "BUY_SEED:CARROT": 80
+  },
+  "revenue": {
+    "CARROT": 288
+  },
+  "report": {
+    "days": [
+      {
+        "day": 12,
+        "commands": 21,
+        "order": [
+          0,
+          2,
+          1,
+          3
+        ],
+        "permutations": 24
+      },
+      {
+        "day": 14,
+        "commands": 21,
+        "order": [
+          0,
+          2,
+          1,
+          3
+        ],
+        "permutations": 24
+      }
+    ],
+    "rejections": [],
+    "missing_inputs": []
+  },
+  "missing_workers": 0,
+  "per_tile": {
+    "(2, 3)": {
+      "plants": 1,
+      "harvest": 2
+    },
+    "(3, 2)": {
+      "plants": 1,
+      "harvest": 2
+    },
+    "(1, 3)": {
+      "plants": 1,
+      "harvest": 2
+    },
+    "(3, 1)": {
+      "plants": 1,
+      "harvest": 2
+    }
+  },
+  "per_tile_passed": true,
+  "source_sha256": "b2627ba92ec63a74d08bc019823eafc1bc4baa3d9a7dcea59687dcc8a10f87db",
+  "opponent_sha256": "044a26601be23816d397c51c22c4d86b938f8bac4b914f9bea1fbe38bac1e8a5",
+  "passed": true
+}

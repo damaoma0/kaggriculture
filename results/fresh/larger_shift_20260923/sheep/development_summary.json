@@ -1,0 +1,636 @@
+{
+  "stage": "development",
+  "total": 18,
+  "completed": 18,
+  "errors": [],
+  "arms": {
+    "mgt_m1": {
+      "mean_margin": 0.0,
+      "mean_own": 0.0,
+      "mean_opponent": 0.0,
+      "better": 0,
+      "worse": 0,
+      "unchanged": 18,
+      "high_yarn_better": 0,
+      "high_yarn_total": 14,
+      "sheep_bought": 67,
+      "cases": [
+        {
+          "episode": 111242873,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 4,
+          "first_change": null
+        },
+        {
+          "episode": 111284179,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        },
+        {
+          "episode": 111286417,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 4,
+          "first_change": null
+        },
+        {
+          "episode": 111296871,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 4,
+          "first_change": null
+        },
+        {
+          "episode": 111300962,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111317706,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111331242,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 7,
+          "first_change": null
+        },
+        {
+          "episode": 111494799,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111591604,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        },
+        {
+          "episode": 111890117,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        },
+        {
+          "episode": 111912791,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111918927,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        },
+        {
+          "episode": 111949778,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111959745,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        },
+        {
+          "episode": 111998751,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 112048711,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 112086793,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 112109339,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        }
+      ]
+    },
+    "sheep_market_credit": {
+      "mean_margin": 0.0,
+      "mean_own": 0.0,
+      "mean_opponent": 0.0,
+      "better": 0,
+      "worse": 0,
+      "unchanged": 18,
+      "high_yarn_better": 0,
+      "high_yarn_total": 14,
+      "sheep_bought": 67,
+      "cases": [
+        {
+          "episode": 111242873,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 4,
+          "first_change": null
+        },
+        {
+          "episode": 111284179,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        },
+        {
+          "episode": 111286417,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 4,
+          "first_change": null
+        },
+        {
+          "episode": 111296871,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 4,
+          "first_change": null
+        },
+        {
+          "episode": 111300962,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111317706,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111331242,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 7,
+          "first_change": null
+        },
+        {
+          "episode": 111494799,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111591604,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        },
+        {
+          "episode": 111890117,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        },
+        {
+          "episode": 111912791,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111918927,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        },
+        {
+          "episode": 111949778,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111959745,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        },
+        {
+          "episode": 111998751,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 112048711,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 112086793,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 112109339,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        }
+      ]
+    },
+    "sheep_early_fields": {
+      "mean_margin": -1086.7222222222222,
+      "mean_own": -1471.3333333333333,
+      "mean_opponent": -384.6111111111111,
+      "better": 0,
+      "worse": 4,
+      "unchanged": 14,
+      "high_yarn_better": 0,
+      "high_yarn_total": 14,
+      "sheep_bought": 80,
+      "cases": [
+        {
+          "episode": 111242873,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 4,
+          "first_change": null
+        },
+        {
+          "episode": 111284179,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        },
+        {
+          "episode": 111286417,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 4,
+          "first_change": null
+        },
+        {
+          "episode": 111296871,
+          "margin_delta": -3153.0,
+          "own_delta": -3297.0,
+          "opponent_delta": -144.0,
+          "bought": 8,
+          "first_change": 266
+        },
+        {
+          "episode": 111300962,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111317706,
+          "margin_delta": -4865.0,
+          "own_delta": -11945.0,
+          "opponent_delta": -7080.0,
+          "bought": 4,
+          "first_change": 290
+        },
+        {
+          "episode": 111331242,
+          "margin_delta": -438.0,
+          "own_delta": -953.0,
+          "opponent_delta": -515.0,
+          "bought": 8,
+          "first_change": 266
+        },
+        {
+          "episode": 111494799,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111591604,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        },
+        {
+          "episode": 111890117,
+          "margin_delta": -11105.0,
+          "own_delta": -10289.0,
+          "opponent_delta": 816.0,
+          "bought": 12,
+          "first_change": 290
+        },
+        {
+          "episode": 111912791,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111918927,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        },
+        {
+          "episode": 111949778,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111959745,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        },
+        {
+          "episode": 111998751,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 112048711,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 112086793,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 112109339,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 8,
+          "first_change": null
+        }
+      ]
+    },
+    "sheep_early_carrot": {
+      "mean_margin": -32.27777777777778,
+      "mean_own": 5374.444444444444,
+      "mean_opponent": 5406.722222222223,
+      "better": 5,
+      "worse": 5,
+      "unchanged": 8,
+      "high_yarn_better": 5,
+      "high_yarn_total": 14,
+      "sheep_bought": 0,
+      "cases": [
+        {
+          "episode": 111242873,
+          "margin_delta": 1051.0,
+          "own_delta": -15.0,
+          "opponent_delta": -1066.0,
+          "bought": 0,
+          "first_change": 290
+        },
+        {
+          "episode": 111284179,
+          "margin_delta": -2439.0,
+          "own_delta": 10646.0,
+          "opponent_delta": 13085.0,
+          "bought": 0,
+          "first_change": 266
+        },
+        {
+          "episode": 111286417,
+          "margin_delta": -6815.0,
+          "own_delta": -5197.0,
+          "opponent_delta": 1618.0,
+          "bought": 0,
+          "first_change": 290
+        },
+        {
+          "episode": 111296871,
+          "margin_delta": -2376.0,
+          "own_delta": -2313.0,
+          "opponent_delta": 63.0,
+          "bought": 0,
+          "first_change": 314
+        },
+        {
+          "episode": 111300962,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111317706,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111331242,
+          "margin_delta": 4051.0,
+          "own_delta": 3847.0,
+          "opponent_delta": -204.0,
+          "bought": 0,
+          "first_change": 290
+        },
+        {
+          "episode": 111494799,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111591604,
+          "margin_delta": 3955.0,
+          "own_delta": 25458.0,
+          "opponent_delta": 21503.0,
+          "bought": 0,
+          "first_change": 266
+        },
+        {
+          "episode": 111890117,
+          "margin_delta": -6467.0,
+          "own_delta": -7170.0,
+          "opponent_delta": -703.0,
+          "bought": 0,
+          "first_change": 266
+        },
+        {
+          "episode": 111912791,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111918927,
+          "margin_delta": -3107.0,
+          "own_delta": 12967.0,
+          "opponent_delta": 16074.0,
+          "bought": 0,
+          "first_change": 266
+        },
+        {
+          "episode": 111949778,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 111959745,
+          "margin_delta": 3208.0,
+          "own_delta": 29345.0,
+          "opponent_delta": 26137.0,
+          "bought": 0,
+          "first_change": 266
+        },
+        {
+          "episode": 111998751,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 112048711,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 112086793,
+          "margin_delta": 0.0,
+          "own_delta": 0.0,
+          "opponent_delta": 0.0,
+          "bought": 0,
+          "first_change": null
+        },
+        {
+          "episode": 112109339,
+          "margin_delta": 8358.0,
+          "own_delta": 29172.0,
+          "opponent_delta": 20814.0,
+          "bought": 0,
+          "first_change": 266
+        }
+      ]
+    }
+  }
+}

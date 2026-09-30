@@ -1,0 +1,15 @@
+n18rc8s = n18rc8 + 3-step time-bank guard. SUBMITTED 2026-09-28 23:50 UTC (2026-09-29 local) as Kaggle ref 56655029 (standing permission after n18s passed the old ratings)
+Archive sha256 4afde50b3d75a81d3e9d3a8cdc2d6d4d728ac9797bb11c5e970b8fae1849b9dc (MANIFEST.json lists every file). Build: scripts/sem_arms_20260929.py (n18r -> n18rc -> n18rc4 ->
+n18rc7 -> n18rc8 -> n18rc8s), scripts/package_semantic_ship_20260929.py n18rc8s results/fresh/ship_20260929/n18rc8s.
+Stack vs the live n18s: semantic planner retrained on DSM's CURRENT submission 56619023 (88 games; 3 quadrants, day-6 melon
+wave, geese, hires), DSM cassette for days 6-11 (end-of-day targets by revealed shop-type mix), free tiles filled with
+wheat / carrots (days 8-26), 10 tomatoes on day 18, cash-window dawn trips on days 6-10 (executor v18e), wool sold on
+arrival. Default-off options only; opening = DSM's current opening via the tape router (as n18s).
+Evidence (fixed shops; opponent MGT = packaged mgt_v9lite):
+  vs MGT, 40 new worlds: 39/40 (97.5%), +8,091 (n18: 38/40, +9,705).
+  vs the leaders (exact credit: the leader plays its real game): DSM 0/16 -18,692 (+2,076 vs n18, 11/16), MMPQ 0/16
+    -19,938 (+688 vs n18, 13/16).
+  ladder validation (all 49 of n18s's ladder games so far, opponent's recorded commands frozen, exact credit; every
+    control reproduces the live result): n18rc8 42/49 +14,876 vs n18 37/49 +12,524 (live n18s 37/49 +11,813): +2,352
+    a game (31 better / 18 worse), 8 losses -> wins, 3 wins -> losses; wins 8 of the 12 games n18s lost live.
+  local official runner (empty dirs, kaggle_environments loader and bank): DONE, won +5,042, < 1 s of bank used.

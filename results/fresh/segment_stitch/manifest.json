@@ -1,0 +1,226 @@
+{
+  "schema_version": 1,
+  "submission": 56266758,
+  "products": [
+    "WHEAT",
+    "CARROT",
+    "TOMATO",
+    "STRAWBERRY",
+    "MELON",
+    "EGG",
+    "MILK",
+    "WOOL",
+    "FERTILIZER"
+  ],
+  "days": [
+    12,
+    15,
+    18,
+    21,
+    24,
+    27
+  ],
+  "requested_games": 105,
+  "segments": 630,
+  "missing_raw": [],
+  "job_schema": {
+    "day": "relative 0..2",
+    "hour": "recorded 0..23",
+    "tile": "[x,y] or null",
+    "cmd": "recorded command",
+    "requested": "action was issued",
+    "successful": "pre/post tile-state delta check"
+  },
+  "limitations": [
+    "Portable jobs are historical coordinates and require current-state eligibility checks before use.",
+    "Route templates are separate diagnostics; they are not compiler-ready routes.",
+    "Start snapshots exclude later shop reveals.",
+    "Daily action-derived output excludes animal production; recorded_production is exact authoritative segment output."
+  ],
+  "library_sha256": "62eb8782c0b63fc8c336145f7ed9815e8252d5b13266662adc60b7f8799e0d3c",
+  "audit_sample": [
+    {
+      "library_id": "109712554:0:d12",
+      "serialized_rich_output_match": true,
+      "action_derived_output": {
+        "WHEAT": 76,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 18,
+        "MILK": 18,
+        "WOOL": 24,
+        "FERTILIZER": 53
+      },
+      "action_derived_matches_rich": true,
+      "jobs": 346,
+      "route_steps": 72
+    },
+    {
+      "library_id": "109712554:0:d15",
+      "serialized_rich_output_match": true,
+      "action_derived_output": {
+        "WHEAT": 79,
+        "CARROT": 12,
+        "TOMATO": 0,
+        "STRAWBERRY": 38,
+        "MELON": 0,
+        "EGG": 26,
+        "MILK": 15,
+        "WOOL": 38,
+        "FERTILIZER": 53
+      },
+      "action_derived_matches_rich": true,
+      "jobs": 379,
+      "route_steps": 72
+    },
+    {
+      "library_id": "109712554:0:d18",
+      "serialized_rich_output_match": true,
+      "action_derived_output": {
+        "WHEAT": 45,
+        "CARROT": 39,
+        "TOMATO": 9,
+        "STRAWBERRY": 48,
+        "MELON": 6,
+        "EGG": 24,
+        "MILK": 13,
+        "WOOL": 35,
+        "FERTILIZER": 51
+      },
+      "action_derived_matches_rich": true,
+      "jobs": 380,
+      "route_steps": 72
+    },
+    {
+      "library_id": "109712554:0:d21",
+      "serialized_rich_output_match": true,
+      "action_derived_output": {
+        "WHEAT": 31,
+        "CARROT": 52,
+        "TOMATO": 76,
+        "STRAWBERRY": 30,
+        "MELON": 6,
+        "EGG": 23,
+        "MILK": 8,
+        "WOOL": 23,
+        "FERTILIZER": 51
+      },
+      "action_derived_matches_rich": true,
+      "jobs": 463,
+      "route_steps": 72
+    },
+    {
+      "library_id": "109712554:0:d24",
+      "serialized_rich_output_match": true,
+      "action_derived_output": {
+        "WHEAT": 37,
+        "CARROT": 106,
+        "TOMATO": 13,
+        "STRAWBERRY": 22,
+        "MELON": 0,
+        "EGG": 23,
+        "MILK": 13,
+        "WOOL": 24,
+        "FERTILIZER": 48
+      },
+      "action_derived_matches_rich": true,
+      "jobs": 451,
+      "route_steps": 72
+    },
+    {
+      "library_id": "109712554:0:d27",
+      "serialized_rich_output_match": true,
+      "action_derived_output": {
+        "WHEAT": 112,
+        "CARROT": 141,
+        "TOMATO": 0,
+        "STRAWBERRY": 8,
+        "MELON": 0,
+        "EGG": 24,
+        "MILK": 9,
+        "WOOL": 32,
+        "FERTILIZER": 43
+      },
+      "action_derived_matches_rich": true,
+      "jobs": 327,
+      "route_steps": 71
+    },
+    {
+      "library_id": "109793225:1:d12",
+      "serialized_rich_output_match": true,
+      "action_derived_output": {
+        "WHEAT": 92,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 26,
+        "MILK": 21,
+        "WOOL": 21,
+        "FERTILIZER": 53
+      },
+      "action_derived_matches_rich": true,
+      "jobs": 340,
+      "route_steps": 72
+    },
+    {
+      "library_id": "109793225:1:d15",
+      "serialized_rich_output_match": true,
+      "action_derived_output": {
+        "WHEAT": 89,
+        "CARROT": 12,
+        "TOMATO": 0,
+        "STRAWBERRY": 30,
+        "MELON": 0,
+        "EGG": 38,
+        "MILK": 21,
+        "WOOL": 5,
+        "FERTILIZER": 54
+      },
+      "action_derived_matches_rich": true,
+      "jobs": 383,
+      "route_steps": 72
+    },
+    {
+      "library_id": "109793225:1:d18",
+      "serialized_rich_output_match": true,
+      "action_derived_output": {
+        "WHEAT": 46,
+        "CARROT": 44,
+        "TOMATO": 4,
+        "STRAWBERRY": 44,
+        "MELON": 5,
+        "EGG": 36,
+        "MILK": 37,
+        "WOOL": 5,
+        "FERTILIZER": 53
+      },
+      "action_derived_matches_rich": true,
+      "jobs": 393,
+      "route_steps": 72
+    },
+    {
+      "library_id": "109793225:1:d21",
+      "serialized_rich_output_match": true,
+      "action_derived_output": {
+        "WHEAT": 70,
+        "CARROT": 23,
+        "TOMATO": 30,
+        "STRAWBERRY": 54,
+        "MELON": 6,
+        "EGG": 34,
+        "MILK": 25,
+        "WOOL": 3,
+        "FERTILIZER": 47
+      },
+      "action_derived_matches_rich": true,
+      "jobs": 443,
+      "route_steps": 72
+    }
+  ],
+  "all_serialized_rich_output_matches": true,
+  "action_derived_output_exact_matches": 630,
+  "action_derived_output_note": "Independent pre/post action reconstruction; mismatches are retained because daily refresh and ambiguous midnight effects are not silently imputed."
+}

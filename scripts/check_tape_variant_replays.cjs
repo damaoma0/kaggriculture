@@ -1,0 +1,62 @@
+const assert = require('node:assert/strict');
+const path = require('node:path');
+const {pathToFileURL} = require('node:url');
+const {chromium} = require('C:/Users/xyygl/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright');
+
+(async()=>{
+  const browser=await chromium.launch({headless:true,channel:'msedge'});
+  const page=await browser.newPage({viewport:{width:1360,height:1100}});
+  const errors=[];
+  page.on('pageerror',e=>errors.push(e.message));
+  await page.goto(pathToFileURL(path.resolve(__dirname,'../viz/tape-109740300-before-after.html')).href);
+  await page.locator('#viewer').waitFor({state:'visible'});
+  assert.equal(await page.locator('#board button').count(),100);
+  assert.equal(await page.locator('#game option').count(),2);
+  await page.locator('#d17').click();
+  assert.match(await page.locator('#clock').innerText(),/Day 17.*turn 409/);
+  assert.match(await page.locator('#compareBody').innerText(),/CARE/);
+  assert.match(await page.locator('#compareBody').innerText(),/PICKUP WHEAT 2/);
+  const before=await page.locator('#tileDetail').innerText();
+  await page.locator('#game').selectOption('1');
+  assert.match(await page.locator('#farmTitle').innerText(),/After/);
+  assert.match(await page.locator('#clock').innerText(),/turn 409/);
+  assert.equal(await page.locator('#tileDetail').innerText(),before);
+  await page.locator('#seek').fill('413');
+  assert.match(await page.locator('#tileDetail').innerText(),/cared today: true/);
+  await page.locator('#game').selectOption('0');
+  assert.match(await page.locator('#tileDetail').innerText(),/cared today: false/);
+  await page.locator('#d23').click();
+  assert.match(await page.locator('#explanation').innerText(),/rejected/);
+  await page.locator('#end').click();
+  assert.equal(await page.locator('#cash').innerText(),'87,878');
+  assert.equal(await page.locator('#lead').innerText(),'-10,424');
+  assert.equal(await page.locator('#orders').innerText(),'End of recorded game');
+  await page.locator('#game').selectOption('1');
+  assert.equal(await page.locator('#cash').innerText(),'88,192');
+  assert.equal(await page.locator('#lead').innerText(),'-10,336');
+  const rows=await page.locator('#compareBody tr').allTextContents();
+  assert(rows.some(x=>x==='Wool harvested9091'));
+  assert(rows.some(x=>x==='Milk harvested116113'));
+  await page.locator('#side').selectOption('opponent');
+  assert.match(await page.locator('#farmTitle').innerText(),/Abish Pius/);
+  await page.locator('#side').selectOption('ours');
+  // Exercise the actual sequence boundary without waiting through both seasons.
+  await page.locator('#both').click();
+  await page.evaluate(()=>{cur=719;tick();});
+  assert.equal(await page.locator('#game').inputValue(),'1');
+  assert.match(await page.locator('#clock').innerText(),/turn [0-9]+/);
+  assert.match(await page.locator('#status').innerText(),/Back-to-back.*2 \/ 2.*After/);
+  await page.evaluate(()=>{cur=719;tick();});
+  assert.equal(await page.locator('#status').innerText(),'Playback complete · After');
+  await page.locator('#d17').click();
+  for(const width of [1360,736,390,320]){
+    await page.setViewportSize({width,height:1100});
+    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false,`overflow at ${width}`);
+  }
+  await page.setViewportSize({width:1360,height:1100});
+  await page.locator('#seek').fill('412');
+  await page.screenshot({path:path.resolve(__dirname,'../viz/tape-109740300-before-after-preview.png'),fullPage:true});
+  assert.deepEqual(errors,[]);
+  console.log('Passed: both verified replays load; exact before/after care state; final totals; opponent view; automatic before-to-after transition and stop; responsive layout at 1360/736/390/320px; no browser errors.');
+  await browser.close();
+})().catch(e=>{console.error(e);process.exit(1);});

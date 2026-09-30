@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "checks": 5,
+  "cases": [
+    {
+      "case": "midnight_delivery_once",
+      "credit": 2,
+      "remaining_carry": 0
+    },
+    {
+      "case": "midnight_shed_overflow_uncredited",
+      "credit": 0,
+      "remaining_carry": 0
+    },
+    {
+      "case": "duplicate_age2_falls_back",
+      "result": "age3_fallback",
+      "jobs": 3,
+      "harvest_day": 15
+    },
+    {
+      "case": "duplicate_age2_without_fallback",
+      "result": "care_proof"
+    },
+    {
+      "case": "distinct_age2",
+      "result": "age2_water_then_harvest",
+      "jobs": 3,
+      "harvest_day": 14
+    }
+  ]
+}

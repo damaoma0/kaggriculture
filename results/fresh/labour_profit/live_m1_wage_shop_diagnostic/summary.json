@@ -1,0 +1,221 @@
+{
+  "label": "Post-hoc diagnostic only; excluded from primary confirmation",
+  "seed": 226226,
+  "source_sha256": "498f1d7c54bc39f266b01047e3fdcbc7224e6c9cc9ee2af8fe1710d5e78f5cd7",
+  "script_sha256": "920b4c847c4e8ab31560b950d78af504d8bebd8a0af91a49820c1ae4e715d64d",
+  "shops": {
+    "0": [],
+    "1": [],
+    "2": [],
+    "3": [
+      "SMOOTHIE_SHOP"
+    ],
+    "4": [
+      "SMOOTHIE_SHOP"
+    ],
+    "5": [
+      "SMOOTHIE_SHOP"
+    ],
+    "6": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE"
+    ],
+    "7": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE"
+    ],
+    "8": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE"
+    ],
+    "9": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT"
+    ],
+    "10": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT"
+    ],
+    "11": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT"
+    ],
+    "12": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP"
+    ],
+    "13": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP"
+    ],
+    "14": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP"
+    ],
+    "15": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY"
+    ],
+    "16": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY"
+    ],
+    "17": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY"
+    ],
+    "18": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP"
+    ],
+    "19": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP"
+    ],
+    "20": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP"
+    ],
+    "21": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP",
+      "SMOOTHIE_SHOP"
+    ],
+    "22": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP",
+      "SMOOTHIE_SHOP"
+    ],
+    "23": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP",
+      "SMOOTHIE_SHOP"
+    ],
+    "24": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP",
+      "SMOOTHIE_SHOP",
+      "YARN_STORE"
+    ],
+    "25": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP",
+      "SMOOTHIE_SHOP",
+      "YARN_STORE"
+    ],
+    "26": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP",
+      "SMOOTHIE_SHOP",
+      "YARN_STORE"
+    ],
+    "27": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP",
+      "SMOOTHIE_SHOP",
+      "YARN_STORE"
+    ],
+    "28": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP",
+      "SMOOTHIE_SHOP",
+      "YARN_STORE"
+    ],
+    "29": [
+      "SMOOTHIE_SHOP",
+      "YARN_STORE",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP",
+      "SMOOTHIE_SHOP",
+      "YARN_STORE"
+    ]
+  },
+  "baseline_cash": [
+    119977.0,
+    119977.0
+  ],
+  "treated": [
+    {
+      "seat": 0,
+      "cash": [
+        119742.0,
+        119970.0
+      ],
+      "own_gain": -235.0,
+      "margin": -228.0
+    },
+    {
+      "seat": 1,
+      "cash": [
+        120046.0,
+        119558.0
+      ],
+      "own_gain": -419.0,
+      "margin": -488.0
+    }
+  ]
+}

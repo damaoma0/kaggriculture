@@ -1,0 +1,248 @@
+T gap deep decomposition, 2026-09-25 (results/fresh/t_gap_20260925/deep_decomp.py; stored data only)
+Leader = the leader's own recorded game replayed; ours = T (agents/mgt_lead.py defaults), same seed, forced shops,
+recorded opponent. Positive = leader ahead (widens the gap). Means per game with 95% t-intervals.
+Data check: results/fresh/lead_ledger/* equals E1's ledg1 ledger on all 18,000 shared day-fields and finals;
+it adds board_list / plants / overflow / shed_after. Shed stock identity closes exactly on days 0-28 for all 24 runs.
+Four-quadrant games: 112449129, 112655730, 112661570, 112667461, 112673479, 112708229, 112714050, 112721923
+Per-tile reconstruction: unmatched crop deaths 0, unmatched animal escapes 0 (both must be 0).
+
+== 0. Lead's top level reproduced
+  all 12: gap  +13,450 (+4,856..+22,043) | A  +22,299 (+15,977..+28,622) | inputs   -3,884 (-5,238..-2,530) | B wages     +112 (-37..+261) | land       +0 (+0..+0) | C1   +2,775 (+757..+4,792) | C2   -7,852 (-15,187..-518) | resid 1.1e-11
+  four-quadrant 8: gap  +15,703 (+4,454..+26,952) | A  +23,645 (+16,230..+31,060) | inputs   -3,705 (-5,535..-1,875) | B wages     +161 (-72..+394) | land       +0 (+0..+0) | C1   +2,532 (-159..+5,222) | C2   -6,929 (-15,735..+1,876) | resid 7.3e-12
+
+== THREE REASONS (all numbered lines add to the gap exactly; positive = leader ahead)
+                                                                                                                       all 12                  four-quadrant 8
+  CASH GAP                                                                                          +13,450 (+4,856..+22,043)        +15,703 (+4,454..+26,952)
+  1. LESS PRODUCTION (subtotal)                                                                     +11,725 (+3,406..+20,044)        +13,871 (+3,052..+24,689)
+     crops: fewer / later plantings inside T's planting window (missed plantings)                     +7,830 (+6,537..+9,122)          +8,227 (+7,080..+9,374)
+     crops: leader plantings after T's plant_cutoff (skipped by design)                               +4,121 (+2,506..+5,736)          +4,467 (+1,918..+7,016)
+     crops: plants dying before their harvest  [labour: missed water]                                   +1,027 (-375..+2,430)            +1,304 (-918..+3,526)
+     crops: ripe one-time crops left to decay  [labour: missed harvest]                               +1,793 (+1,323..+2,263)          +2,085 (+1,698..+2,472)
+     crops: fewer units per harvested planting  [labour: fertilize, tomato harvests]                  +5,430 (+2,106..+8,754)          +5,380 (+1,005..+9,754)
+     crops: fertilizer the leader spreads instead of selling (pays for part of the line above)        -4,271 (-5,645..-2,897)          -3,846 (-5,715..-1,976)
+     animals: fewer animals placed                                                                    +4,442 (+1,561..+7,324)            +5,060 (+712..+9,408)
+     animals: later placement (fewer production days)                                                 +3,076 (+1,579..+4,573)          +2,824 (+1,690..+3,959)
+     animals: escapes (the leader lets more go; in our favour)                                          -2,211 (-3,884..-539)            -2,929 (-5,274..-584)
+     animals: output per production day (we care / feed more; in our favour)                          -2,762 (-4,251..-1,274)            -2,937 (-5,308..-565)
+     fertilizer: fewer animal-days to collect from                                                    +2,455 (+1,507..+3,404)          +2,575 (+1,795..+3,354)
+     fertilizer: lower collection rate per animal-day  [labour]                                         +1,070 (+499..+1,641)            +1,089 (+150..+2,029)
+     inputs: seeds / animals the leader paid more for                                                     -767 (-1,184..-350)            -1,031 (-1,439..-623)
+     inputs: extra wheat / fertilizer bought (resale value at leader price - cost)                           -387 (-804..+30)                -328 (-834..+178)
+     inputs: wheat fed to animals (leader feeds more)                                                     -894 (-1,569..-219)              -814 (-1,447..-181)
+     output lost at the midnight shed cap (units carry > 100 items at day end) [labour/logistics]          +1,053 (-268..+2,374)            +1,096 (-961..+3,153)
+     our units become available on later (cheaper) days                                               +5,921 (+4,556..+7,285)          +6,435 (+4,834..+8,037)
+     market depth: our fewer units sell at higher prices (same-day price gap)                       -15,202 (-21,865..-8,539)        -14,787 (-23,310..-6,264)
+  2. MORE LABOUR COST (our wages - leader wages)                                                             +112 (-37..+261)                 +161 (-72..+394)
+  3. BAD SALE TIMING (subtotal)                                                                       +1,612 (+1,014..+2,211)            +1,672 (+990..+2,353)
+     holding pattern: days between a unit becoming available and its sale                               +1,429 (+919..+1,940)            +1,422 (+695..+2,149)
+     stock still unsold at the end                                                                          +183 (-182..+549)                +250 (-196..+695)
+  residual                                                                                                        +0 (-0..+0)                      +0 (-0..+0)
+  memo: A, production at the leader's average price (before market depth)                          +22,299 (+15,977..+28,622)       +23,645 (+16,230..+31,060)
+  memo: crops fewer plantings x leader units per planting (task definition)                        +13,497 (+11,003..+15,992)       +14,288 (+10,616..+17,959)
+  memo: crops later planting dates (potential per planting)                                           -1,547 (-2,088..-1,005)            -1,594 (-2,466..-722)
+  memo: C2 timing = later supply + holding pattern                                                    +7,350 (+5,816..+8,884)          +7,857 (+6,029..+9,686)
+  memo: crop care shortfall (deaths + decay + units per harvested planting)                          +8,251 (+4,289..+12,212)         +8,769 (+3,467..+14,070)
+  memo: crop care shortfall net of the fertilizer the leader did not sell                               +3,980 (+931..+7,028)          +4,923 (+1,036..+8,810)
+  memo: animal care (escapes + output per production day + collection)                                -3,904 (-6,278..-1,530)          -4,776 (-8,181..-1,372)
+  memo: 1. LESS PRODUCTION if C2 timing is valued at the leader's daily prices                      +12,833 (+4,875..+20,790)        +14,802 (+4,310..+25,293)
+  memo: 3. BAD SALE TIMING if C2 timing is valued at the leader's daily prices                            +505 (-392..+1,403)              +741 (-485..+1,967)
+
+== Per game (positive = leader ahead)
+  episode    4Q      gap     PROD        A   window   cutoff cropcare  fertapp  animals  anicare   fertAD   inputs latersup    depth    WAGES   TIMING  holding     held  discard
+  112444381   n  +13,869  +13,464  +38,595   +7,707   +4,280  +13,821   -6,165  +14,424     -176   +4,704   -2,837   +4,926  -27,219       +0     +405     +982     -577       +0
+  112445586   n  +14,586  +11,215  +14,018   +3,365   +4,351   +2,599   -5,107   +5,393      +15   +3,154   -3,022   +4,165   -5,213       +0   +3,371   +2,434     +937   +1,515
+  112447950   n  +19,643  +18,409  +15,510  +10,789   +2,559  +12,250   -6,897     +973   -3,255   -1,103      +57   +8,230   -4,990      +55   +1,179   +1,663     -484     -203
+  112449129   y  +20,583  +17,509  +20,081   +8,781   +2,289  +16,663   -5,248   +4,731   -8,344   +1,270     -497   +9,653  -11,100     +843   +2,231   +2,682     -451     -689
+  112655730   y  +17,222  +14,796  +22,475   +7,327   +4,882   +8,764   -5,471   +5,689   -2,490   +3,431   -1,650   +4,803  -10,292      +89   +2,337   +1,256   +1,081     -198
+  112661570   y   +2,159     +631  +32,598   +8,285   +2,636   +7,044   -5,477  +19,377   -2,313   +3,090   -2,326   +6,516  -35,111       +0   +1,528   +1,199     +330   -1,089
+  112667461   y  +40,125  +37,824  +40,343  +10,320   +9,383  +18,469   -6,174   +4,337   +1,736   +2,030   -3,393   +4,868   -3,947       +0   +2,301   +1,475     +825     +196
+  112673479   y  +27,514  +25,024  +23,723   +6,061   +8,559  +10,604   -4,504   +5,577   -5,310   +2,624   -2,189   +5,999   -3,905      +89   +2,401   +2,672     -270   +1,507
+  112708229   y     +953     -609  +13,522   +9,350   +1,889   +3,755   -1,178   +3,325   -5,869   +1,317   -1,272   +5,766  -20,732      +89   +1,473     +969     +504   +3,041
+  112714050   y   +7,657   +6,568  +15,375   +7,002   +1,435     -140     -265   +6,791   -3,955   +3,221   -3,141   +4,810  -15,409      +89   +1,000   +1,000       +0   +6,219
+  112715010   n  -12,330  -13,351  +10,307   +6,277   +2,531     +186   -2,316   +6,360   -5,214   +2,112   -1,383   +2,246  -26,707       +0   +1,021     +695     +326   +2,558
+  112721923   y   +9,414   +9,221  +21,046   +8,690   +4,663   +4,992   -2,449  +13,248  -11,668   +3,614   -2,920   +9,067  -17,798      +89     +104     +125      -21     -219
+  (A = gross production at leader price, a memo: PROD = window + cutoff + cropcare + fertapp + animals + anicare
+   + fertAD + inputs + discard + latersup + depth; cropcare = deaths + decay + units per harvested planting; animals = fewer +
+   later placed; anicare = escapes + output per production day + fertilizer collection; inputs = seeds/animals +
+   wheat/fertilizer purchase + wheat fed)
+
+== 1. Production shortfall A by product: shift-share terms (x leader price), means with 95% t-intervals
+  -- all 12
+    crop                           A total            fewer plantings                later dates                     deaths                      decay            units/harvested |    plantings+dates: window               after cutoff
+    WHEAT          +6,285 (+4,839..+7,732)    +4,908 (+3,971..+5,844)          -671 (-849..-493)           -52 (-225..+122)      +1,070 (+778..+1,361)       +1,030 (+71..+1,990) |    +2,887 (+2,311..+3,464)      +1,350 (+931..+1,769)
+    CARROT         +3,601 (+1,481..+5,721)    +2,708 (+1,414..+4,003)            -97 (-157..-37)            +25 (-63..+114)        +723 (+262..+1,184)        +241 (-527..+1,009) |    +2,393 (+1,177..+3,609)          +218 (+110..+326)
+    TOMATO         +2,457 (+1,503..+3,412)      +1,226 (+742..+1,711)            -96 (-151..-41)          +319 (-155..+794)                +0 (+0..+0)      +1,008 (+485..+1,531) |        +833 (+404..+1,262)          +297 (+107..+486)
+    STRAWBERRY    +7,381 (+3,218..+11,544)    +4,655 (+2,252..+7,058)        -683 (-1,166..-199)        +734 (-327..+1,795)                +0 (+0..+0)       +2,674 (+78..+5,271) |      +1,716 (+933..+2,498)      +2,257 (+648..+3,865)
+    MELON                +477 (+420..+533)                +0 (+0..+0)                +0 (+0..+0)                +0 (+0..+0)                +0 (+0..+0)          +477 (+420..+533) |                +0 (+0..+0)                +0 (+0..+0)
+    animal                         A total              fewer animals            later placement                    escapes            output/prod day |          fewer animal-days          output/animal-day
+    EGG            +3,100 (+1,994..+4,206)      +1,692 (+715..+2,668)    +1,780 (+1,231..+2,329)           -246 (-583..+91)          -126 (-440..+189) |    +3,067 (+1,930..+4,204)           +33 (-241..+306)
+    MILK             -109 (-3,295..+3,078)        +832 (-691..+2,355)        +744 (-110..+1,598)          -659 (-1,322..+4)      -1,026 (-2,201..+149) |    +1,083 (-1,322..+3,487)       -1,191 (-2,475..+92)
+    WOOL             -446 (-3,782..+2,890)    +1,919 (-1,540..+5,378)        +552 (-528..+1,632)      -1,306 (-2,770..+158)      -1,611 (-2,739..-483) |    +1,415 (-1,413..+4,242)      -1,861 (-2,849..-872)
+    FERTILIZER       -447 (-2,340..+1,446) = fewer animal-days +2,455 (+1,507..+3,404); collection rate +1,070 (+499..+1,641); applied to crops -4,271 (-5,645..-2,897); bought    +76 (-91..+242); held at end    +95 (+5..+186); discarded   +127 (-13..+267)
+  -- four-quadrant 8
+    crop                           A total            fewer plantings                later dates                     deaths                      decay            units/harvested |    plantings+dates: window               after cutoff
+    WHEAT          +6,450 (+4,410..+8,490)    +4,837 (+3,623..+6,050)          -598 (-797..-399)          -104 (-370..+161)    +1,278 (+1,004..+1,551)       +1,037 (-88..+2,163) |    +3,012 (+2,263..+3,760)      +1,227 (+840..+1,614)
+    CARROT         +3,836 (+2,909..+4,764)    +3,239 (+2,120..+4,359)           -135 (-213..-58)            +9 (-121..+139)        +807 (+447..+1,167)           -84 (-634..+467) |    +2,800 (+1,737..+3,863)          +304 (+189..+418)
+    TOMATO         +3,083 (+2,040..+4,125)      +1,356 (+795..+1,916)            -96 (-178..-14)        +532 (-168..+1,233)                +0 (+0..+0)      +1,290 (+576..+2,005) |        +913 (+378..+1,448)           +347 (+59..+635)
+    STRAWBERRY    +7,614 (+1,677..+13,551)    +4,856 (+1,048..+8,664)          -764 (-1,533..+4)        +867 (-837..+2,571)                +0 (+0..+0)      +2,656 (-634..+5,945) |      +1,502 (+742..+2,263)       +2,589 (+43..+5,136)
+    MELON                +480 (+395..+565)                +0 (+0..+0)                +0 (+0..+0)                +0 (+0..+0)                +0 (+0..+0)          +480 (+395..+565) |                +0 (+0..+0)                +0 (+0..+0)
+    animal                         A total              fewer animals            later placement                    escapes            output/prod day |          fewer animal-days          output/animal-day
+    EGG            +3,280 (+1,923..+4,637)      +2,057 (+764..+3,350)    +1,811 (+1,093..+2,528)          -460 (-734..-186)          -128 (-640..+385) |    +3,295 (+1,841..+4,750)           -15 (-445..+414)
+    MILK           -1,035 (-3,270..+1,200)        +253 (-620..+1,125)         +474 (-62..+1,009)        -683 (-1,654..+288)      -1,079 (-2,787..+630) |          +192 (-600..+983)      -1,227 (-3,088..+635)
+    WOOL             -226 (-5,588..+5,135)    +2,750 (-2,489..+7,990)        +540 (-337..+1,417)      -1,786 (-3,974..+402)      -1,730 (-3,199..-261) |    +1,847 (-2,751..+6,446)      -2,074 (-3,248..-900)
+    FERTILIZER       +164 (-2,156..+2,484) = fewer animal-days +2,575 (+1,795..+3,354); collection rate +1,089 (+150..+2,029); applied to crops -3,846 (-5,715..-1,976); bought   +113 (-155..+382); held at end    +59 (-64..+181); discarded   +173 (-42..+389)
+
+  Physical drivers per game (means, leader / ours; all 12 | four-quadrant 8)
+    WHEAT:
+      all 12: plantings 171.1/134.6 (after T's cutoff day 25: 15.4/0.0), mean day 15.8/14.6, pot/planting 3.85/4.00, deaths 2.8/1.8 (premature 2.8/1.8, lost units 11.3/7.3), decayed 0.6/8.2, harvested 681/495, units per harvestable pot 1.06/0.99; ops: water per tile-day 0.98/0.89, fertilize per planting 0.56/0.39, harvest ops per planting 0.97/0.90, dug live 0.4/0.0
+      4Q 8  : plantings 174.9/138.4 (after T's cutoff day 25: 14.4/0.0), mean day 15.7/14.7, pot/planting 3.87/4.00, deaths 4.0/2.4 (premature 4.0/2.4, lost units 16.0/9.5), decayed 0.6/9.9, harvested 693/499, units per harvestable pot 1.05/0.99; ops: water per tile-day 0.97/0.88, fertilize per planting 0.52/0.40, harvest ops per planting 0.96/0.88, dug live 0.6/0.0
+    CARROT:
+      all 12: plantings 70.0/49.5 (after T's cutoff day 26: 2.9/0.0), mean day 21.5/21.3, pot/planting 2.96/3.00, deaths 0.8/0.8 (premature 0.8/0.8, lost units 2.5/2.2), decayed 0.7/5.8, harvested 204/126, units per harvestable pot 1.04/1.04; ops: water per tile-day 1.00/0.90, fertilize per planting 0.39/0.44, harvest ops per planting 0.96/0.82, dug live 0.0/0.0
+      4Q 8  : plantings 79.2/53.1 (after T's cutoff day 26: 4.1/0.0), mean day 21.2/20.8, pot/planting 2.94/3.00, deaths 1.1/0.9 (premature 1.1/0.9, lost units 3.4/2.6), decayed 0.8/7.0, harvested 226/136, units per harvestable pot 1.01/1.02; ops: water per tile-day 0.98/0.88, fertilize per planting 0.27/0.37, harvest ops per planting 0.96/0.78, dug live 0.0/0.0
+    TOMATO:
+      all 12: plantings 14.9/12.3 (after T's cutoff day 18: 0.8/0.0), mean day 14.4/14.2, pot/planting 3.91/4.00, deaths 0.7/2.0 (premature 0.6/1.2, lost units 2.2/4.4), decayed 1.8/6.3, harvested 105/68, units per harvestable pot 1.88/1.52; ops: water per tile-day 0.75/0.62, fertilize per planting 1.65/1.30, harvest ops per planting 3.41/2.53, dug live 7.3/0.3
+      4Q 8  : plantings 18.1/15.4 (after T's cutoff day 18: 0.9/0.0), mean day 14.0/13.9, pot/planting 3.95/4.00, deaths 0.9/2.9 (premature 0.8/1.8, lost units 2.9/6.6), decayed 2.4/8.6, harvested 127/83, units per harvestable pot 1.86/1.48; ops: water per tile-day 0.73/0.61, fertilize per planting 1.65/1.21, harvest ops per planting 3.32/2.36, dug live 9.5/0.0
+    STRAWBERRY:
+      all 12: plantings 29.1/24.2 (after T's cutoff day 13: 3.1/0.0), mean day 7.1/6.7, pot/planting 3.88/4.00, deaths 0.5/1.1 (premature 0.2/1.0, lost units 0.7/3.3), decayed 1.9/12.5, harvested 208/159, units per harvestable pot 1.81/1.72; ops: water per tile-day 0.73/0.53, fertilize per planting 2.16/1.68, harvest ops per planting 3.62/3.64, dug live 19.2/1.9
+      4Q 8  : plantings 29.2/24.4 (after T's cutoff day 13: 3.1/0.0), mean day 7.0/6.6, pot/planting 3.90/4.00, deaths 0.6/1.4 (premature 0.4/1.2, lost units 1.0/4.0), decayed 2.5/14.6, harvested 207/156, units per harvestable pot 1.77/1.68; ops: water per tile-day 0.69/0.53, fertilize per planting 2.06/1.64, harvest ops per planting 3.56/3.60, dug live 19.0/0.8
+    MELON:
+      all 12: plantings 10.0/10.0 (after T's cutoff day 19: 0.0/0.0), mean day 0.4/0.4, pot/planting 6.00/6.00, deaths 0.0/0.0 (premature 0.0/0.0, lost units 0.0/0.0), decayed 0.0/0.0, harvested 60/58, units per harvestable pot 1.00/0.96; ops: water per tile-day 0.82/0.76, fertilize per planting 0.00/0.00, harvest ops per planting 1.00/1.00, dug live 0.0/0.0
+      4Q 8  : plantings 10.0/10.0 (after T's cutoff day 19: 0.0/0.0), mean day 0.4/0.4, pot/planting 6.00/6.00, deaths 0.0/0.0 (premature 0.0/0.0, lost units 0.0/0.0), decayed 0.0/0.0, harvested 60/58, units per harvestable pot 1.00/0.96; ops: water per tile-day 0.81/0.76, fertilize per planting 0.00/0.00, harvest ops per planting 1.00/1.00, dug live 0.0/0.0
+    GOOSE (EGG):
+      all 12: animals placed 8.4/7.2, mean placement day 8.8/12.1, animal-days 165/124, base production days 148/106, escapes 2.08/0.50, EGG 262/196, output per animal-day 1.598/1.602, per base production 1.89/1.94; ops per animal-day: feed 0.87/0.91, care 0.85/0.84, harvest 0.64/0.78, collect 0.98/0.90
+      4Q 8  : animals placed 8.9/7.4, mean placement day 8.7/12.1, animal-days 174/128, base production days 156/108, escapes 2.25/0.12, EGG 275/202, output per animal-day 1.584/1.598, per base production 1.87/1.92; ops per animal-day: feed 0.86/0.91, care 0.84/0.83, harvest 0.60/0.77, collect 0.98/0.88
+    COW (MILK):
+      all 12: animals placed 7.7/7.5, mean placement day 5.0/5.9, animal-days 172/168, base production days 65/61, escapes 1.50/0.67, MILK 169/183, output per animal-day 0.940/1.079, per base production 2.72/3.07; ops per animal-day: feed 0.71/0.79, care 0.72/0.75, harvest 0.25/0.35, collect 0.99/0.98
+      4Q 8  : animals placed 7.1/7.1, mean placement day 4.9/5.9, animal-days 160/160, base production days 61/58, escapes 1.38/0.75, MILK 155/175, output per animal-day 0.946/1.087, per base production 2.75/3.11; ops per animal-day: feed 0.71/0.81, care 0.72/0.76, harvest 0.25/0.35, collect 0.99/0.99
+    SHEEP (WOOL):
+      all 12: animals placed 6.2/5.6, mean placement day 1.9/3.1, animal-days 137/129, base production days 42/36, escapes 5.33/3.50, WOOL 121/127, output per animal-day 0.793/0.929, per base production 2.84/3.32; ops per animal-day: feed 0.79/0.80, care 0.73/0.68, harvest 0.18/0.28, collect 0.99/0.96
+      4Q 8  : animals placed 6.6/5.8, mean placement day 1.6/2.6, animal-days 144/135, base production days 44/38, escapes 6.00/3.00, WOOL 127/131, output per animal-day 0.754/0.911, per base production 2.72/3.25; ops per animal-day: feed 0.79/0.79, care 0.70/0.66, harvest 0.17/0.28, collect 0.99/0.96
+    FERTILIZER all 12: collected 466/394 over animal-days 474/422 (rate 0.986/0.935), applied to crops 207/127, bought 2/0, held at end 0.7/2.5, discarded 0.4/3.1
+    FERTILIZER four-quadrant 8: collected 469/393 over animal-days 478/423 (rate 0.983/0.931), applied to crops 206/133, bought 3/0, held at end 0.8/1.9, discarded 0.6/4.2
+
+== 2. Price per unit sold (C2) by product: sale timing vs volume (market depth)
+  timing = our units moved onto the leader's sale-day mix, valued at our own daily price (task definition);
+  volume = leader-world minus our-world price on the leader's sale days (our lower cumulative sales and smaller lots);
+  timing = later supply (net units becoming available later: harvest; wheat + bought - fed; fertilizer collected +
+  bought - applied) + holding (the rest: how long units wait between availability and sale). alt: timing at leader prices.
+  -- all 12
+    product                           C2             volume/depth                   timing           = later supply                + holding             timing (alt)     = later supply (alt)          + holding (alt)
+    WHEAT              -551 (-931..-171)      -818 (-1,215..-420)         +266 (+94..+439)         +123 (+44..+203)         +143 (+39..+247)        +458 (+289..+627)        +291 (+150..+431)         +167 (+81..+253)
+    CARROT            -789 (-1,480..-97)      -793 (-1,476..-109)            +4 (-23..+31)            -9 (-65..+48)           +13 (-31..+56)            +44 (-5..+93)           +61 (+4..+117)            -16 (-37..+5)
+    TOMATO             -283 (-423..-142)        -304 (-493..-115)           +21 (-43..+86)            +4 (-36..+44)           +17 (-25..+59)            +6 (-26..+39)           +16 (-23..+54)            -9 (-44..+25)
+    STRAWBERRY   -3,426 (-5,317..-1,536)  -4,367 (-6,070..-2,664)      +941 (+433..+1,448)         +507 (+60..+955)        +433 (+178..+689)      +790 (+173..+1,407)      +752 (+253..+1,250)         +39 (-208..+286)
+    MELON              +352 (+173..+531)        -284 (-431..-136)        +635 (+436..+835)        +529 (+345..+712)          +107 (-3..+216)      +808 (+552..+1,065)        +670 (+434..+906)         +138 (-26..+302)
+    EGG                -418 (-689..-146)        -461 (-732..-191)            +43 (+5..+82)            +52 (+6..+98)             -9 (-21..+4)           +59 (+25..+92)          +77 (+37..+118)            -19 (-33..-5)
+    MILK         -1,452 (-6,257..+3,354)  -2,775 (-7,224..+1,674)    +1,323 (+396..+2,250)    +1,271 (+481..+2,062)         +52 (-150..+253)    +1,375 (+550..+2,200)    +1,467 (+713..+2,221)         -92 (-348..+164)
+    WOOL         -1,813 (-8,080..+4,455)  -4,308 (-10,129..+1,513)  +2,496 (+1,598..+3,393)  +2,309 (+1,359..+3,258)         +187 (-18..+392)  +3,229 (+2,009..+4,450)  +3,499 (+1,910..+5,089)        -270 (-773..+234)
+    FERTILIZER       +527 (-953..+2,007)    -1,093 (-2,045..-140)    +1,620 (+935..+2,305)    +1,134 (+532..+1,735)        +486 (+318..+654)    +1,534 (+980..+2,087)    +1,150 (+618..+1,681)        +384 (+229..+539)
+    TOTAL         -7,852 (-15,187..-518) -15,202 (-21,865..-8,539)  +7,350 (+5,816..+8,884)  +5,921 (+4,556..+7,285)    +1,429 (+919..+1,940)  +8,304 (+6,412..+10,195)  +7,982 (+5,940..+10,023)      +322 (-550..+1,194)
+    product     units sold L/O | mean sale day L/O | avg price L/O | units per selling day L/O | cum units leader ahead (our sale days) | unit-days behind schedule | of which with our stock in the shed | our units sold ahead of the leader's cum | units sold at <10% of base L/O | day-29 units L/O
+    WHEAT       468/212 | 21.0/22.2 | 33.8/36.3 | 18.8/13.9 | 171.7 | 2609 | 510 | 0.0 | 0.0/0.0 | 69.0/59.7
+    CARROT      201/122 | 25.2/25.4 | 41.8/46.2 | 17.9/12.3 | 48.3 | 469 | 70 | 0.1 | 0.0/0.0 | 41.7/33.0
+    TOMATO      104/64 | 24.8/24.7 | 60.4/64.8 | 10.4/7.1 | 22.9 | 240 | 44 | 0.4 | 0.0/0.0 | 13.8/7.0
+    STRAWBERRY  207/157 | 20.5/20.2 | 130.2/150.0 | 12.7/10.0 | 22.4 | 402 | 96 | 2.8 | 0.1/0.2 | 11.5/4.2
+    MELON       60/58 | 10.5/10.8 | 212.6/206.4 | 20.0/18.8 | 7.8 | 61 | 9 | 0.0 | 0.0/0.0 | 0.0/0.0
+    EGG         261/190 | 21.0/21.9 | 47.1/49.3 | 14.2/10.5 | 47.9 | 785 | 152 | 0.1 | 0.0/0.0 | 16.8/18.8
+    MILK        168/182 | 19.0/19.8 | 94.2/94.7 | 9.1/10.2 | -5.2 | 94 | 7 | 65.6 | 4.8/21.3 | 8.2/11.8
+    WOOL        121/126 | 14.2/16.0 | 132.9/116.8 | 8.3/9.2 | 2.0 | 146 | 10 | 28.7 | 8.7/19.7 | 5.4/4.8
+    FERTILIZER  260/261 | 15.1/16.8 | 51.7/49.9 | 9.2/9.7 | 14.7 | 519 | 254 | 35.8 | 30.4/9.0 | 13.5/23.1
+  -- four-quadrant 8
+    product                           C2             volume/depth                   timing           = later supply                + holding             timing (alt)     = later supply (alt)          + holding (alt)
+    WHEAT               -528 (-972..-84)      -842 (-1,295..-389)         +314 (+54..+574)          +133 (+4..+261)         +182 (+41..+322)        +481 (+313..+650)        +280 (+138..+421)         +202 (+85..+318)
+    CARROT           -704 (-1,199..-209)      -704 (-1,169..-239)            -0 (-41..+40)            -4 (-70..+63)            +3 (-33..+39)          +45 (-22..+113)          +62 (-22..+146)           -17 (-51..+18)
+    TOMATO             -347 (-523..-172)        -378 (-648..-109)          +31 (-74..+136)            +7 (-59..+73)           +24 (-44..+92)            +6 (-46..+57)           +26 (-36..+87)           -20 (-74..+34)
+    STRAWBERRY     -3,742 (-6,635..-848)  -4,918 (-7,489..-2,347)    +1,176 (+561..+1,792)      +733 (+102..+1,364)        +444 (+167..+720)    +1,076 (+200..+1,951)      +981 (+246..+1,716)         +95 (-257..+447)
+    MELON               +319 (+68..+569)        -340 (-516..-164)        +659 (+425..+892)        +502 (+289..+716)         +156 (+12..+301)      +842 (+566..+1,118)        +645 (+377..+912)          +197 (-7..+402)
+    EGG                -369 (-567..-172)        -426 (-627..-225)           +57 (+16..+97)          +69 (+21..+118)            -13 (-31..+5)          +68 (+23..+113)          +86 (+35..+138)            -19 (-37..-0)
+    MILK           -135 (-3,757..+3,486)  -1,261 (-4,561..+2,039)    +1,126 (+134..+2,119)    +1,126 (+159..+2,094)          -0 (-142..+141)    +1,061 (+193..+1,930)    +1,193 (+334..+2,052)         -132 (-305..+42)
+    WOOL         -1,467 (-10,819..+7,884)  -4,481 (-13,126..+4,163)  +3,014 (+1,833..+4,195)  +2,850 (+1,604..+4,097)         +164 (-94..+421)  +3,924 (+2,426..+5,421)  +4,112 (+1,933..+6,291)        -189 (-906..+528)
+    FERTILIZER      +45 (-2,025..+2,115)     -1,436 (-2,844..-27)    +1,480 (+651..+2,309)    +1,018 (+312..+1,724)        +463 (+227..+698)    +1,449 (+683..+2,214)    +1,076 (+387..+1,766)        +373 (+156..+589)
+    TOTAL        -6,929 (-15,735..+1,876) -14,787 (-23,310..-6,264)  +7,857 (+6,029..+9,686)  +6,435 (+4,834..+8,037)    +1,422 (+695..+2,149)  +8,951 (+6,221..+11,681)  +8,460 (+5,433..+11,487)      +491 (-712..+1,695)
+    product     units sold L/O | mean sale day L/O | avg price L/O | units per selling day L/O | cum units leader ahead (our sale days) | unit-days behind schedule | of which with our stock in the shed | our units sold ahead of the leader's cum | units sold at <10% of base L/O | day-29 units L/O
+    WHEAT       465/214 | 21.1/22.4 | 33.6/36.0 | 19.1/14.3 | 169.8 | 2512 | 514 | 0.0 | 0.0/0.0 | 67.5/65.0
+    CARROT      222/130 | 24.8/25.0 | 42.6/47.6 | 19.5/12.0 | 56.4 | 512 | 79 | 0.0 | 0.0/0.0 | 47.6/34.2
+    TOMATO      126/76 | 24.4/24.3 | 68.6/73.9 | 11.4/7.6 | 25.7 | 279 | 47 | 0.5 | 0.0/0.0 | 14.4/6.2
+    STRAWBERRY  205/155 | 20.4/20.2 | 127.7/148.0 | 12.3/9.6 | 22.0 | 410 | 100 | 3.8 | 0.1/0.4 | 11.2/3.5
+    MELON       60/58 | 10.5/10.8 | 213.3/207.8 | 20.0/19.2 | 8.7 | 63 | 9 | 0.0 | 0.0/0.0 | 0.0/0.0
+    EGG         273/195 | 21.0/21.7 | 46.2/47.9 | 14.9/10.8 | 49.8 | 830 | 153 | 0.1 | 0.0/0.0 | 18.0/19.4
+    MILK        155/174 | 19.1/19.7 | 95.2/93.5 | 8.4/9.7 | -9.0 | 34 | 6 | 73.2 | 1.5/14.4 | 8.8/9.5
+    WOOL        127/131 | 13.5/15.8 | 137.8/113.9 | 9.0/9.4 | 4.7 | 205 | 12 | 27.0 | 3.9/23.6 | 5.6/5.9
+    FERTILIZER  266/254 | 15.0/16.7 | 51.1/51.0 | 9.4/9.5 | 20.7 | 627 | 281 | 23.9 | 32.6/5.1 | 12.5/23.8
+
+== Per product: revenue gap (leader minus ours) = A + C1 + C2; C2 = depth + later supply + holding
+  -- all 12
+    product                  revenue gap             A production                C1 unsold                 C2 depth          C2 later supply               C2 holding
+    WHEAT        +8,027 (+7,120..+8,934)  +6,285 (+4,839..+7,732)  +2,293 (+1,057..+3,528)      -818 (-1,215..-420)         +123 (+44..+203)         +143 (+39..+247)
+    CARROT       +2,877 (+1,394..+4,360)  +3,601 (+1,481..+5,721)         +65 (-107..+237)      -793 (-1,476..-109)            -9 (-65..+48)           +13 (-31..+56)
+    TOMATO       +2,411 (+1,474..+3,348)  +2,457 (+1,503..+3,412)        +236 (-141..+612)        -304 (-493..-115)            +4 (-36..+44)           +17 (-25..+59)
+    STRAWBERRY     +3,989 (-103..+8,081)  +7,381 (+3,218..+11,544)         +34 (-221..+289)  -4,367 (-6,070..-2,664)         +507 (+60..+955)        +433 (+178..+689)
+    MELON            +828 (+623..+1,034)        +477 (+420..+533)              +0 (+0..+0)        -284 (-431..-136)        +529 (+345..+712)          +107 (-3..+216)
+    EGG          +2,870 (+1,800..+3,939)  +3,100 (+1,994..+4,206)          +188 (+2..+373)        -461 (-732..-191)            +52 (+6..+98)             -9 (-21..+4)
+    MILK         -1,635 (-4,692..+1,421)    -109 (-3,295..+3,078)         -75 (-277..+127)  -2,775 (-7,224..+1,674)    +1,271 (+481..+2,062)         +52 (-150..+253)
+    WOOL         -2,225 (-6,215..+1,766)    -446 (-3,782..+2,890)         +34 (-107..+175)  -4,308 (-10,129..+1,513)  +2,309 (+1,359..+3,258)         +187 (-18..+392)
+    FERTILIZER          +80 (-590..+750)    -447 (-2,340..+1,446)              +0 (+0..+0)    -1,093 (-2,045..-140)    +1,134 (+532..+1,735)        +486 (+318..+654)
+  -- four-quadrant 8
+    product                  revenue gap             A production                C1 unsold                 C2 depth          C2 later supply               C2 holding
+    WHEAT        +7,843 (+6,649..+9,036)  +6,450 (+4,410..+8,490)    +1,921 (+469..+3,373)      -842 (-1,295..-389)          +133 (+4..+261)         +182 (+41..+322)
+    CARROT       +3,227 (+2,420..+4,035)  +3,836 (+2,909..+4,764)         +95 (-160..+351)      -704 (-1,169..-239)            -4 (-70..+63)            +3 (-33..+39)
+    TOMATO       +3,085 (+2,113..+4,057)  +3,083 (+2,040..+4,125)        +350 (-241..+941)        -378 (-648..-109)            +7 (-59..+73)           +24 (-44..+92)
+    STRAWBERRY   +3,792 (-2,085..+9,668)  +7,614 (+1,677..+13,551)         -81 (-442..+281)  -4,918 (-7,489..-2,347)      +733 (+102..+1,364)        +444 (+167..+720)
+    MELON            +799 (+511..+1,086)        +480 (+395..+565)              +0 (+0..+0)        -340 (-516..-164)        +502 (+289..+716)         +156 (+12..+301)
+    EGG          +3,133 (+1,694..+4,573)  +3,280 (+1,923..+4,637)         +222 (-60..+505)        -426 (-627..-225)          +69 (+21..+118)            -13 (-31..+5)
+    MILK         -1,111 (-5,444..+3,222)  -1,035 (-3,270..+1,200)          +59 (-34..+152)  -1,261 (-4,561..+2,039)    +1,126 (+159..+2,094)          -0 (-142..+141)
+    WOOL         -1,729 (-5,941..+2,484)    -226 (-5,588..+5,135)          -35 (-119..+48)  -4,481 (-13,126..+4,163)  +2,850 (+1,604..+4,097)         +164 (-94..+421)
+    FERTILIZER         +209 (-491..+908)    +164 (-2,156..+2,484)              +0 (+0..+0)     -1,436 (-2,844..-27)    +1,018 (+312..+1,724)        +463 (+227..+698)
+
+== 3. Produced but not sold (C1) by component (x leader price)
+  -- all 12
+    WHEAT       C1 +2,293 (+1,057..+3,528) = fed   -894 (-1,569..-219) held   +140 (+5..+276) disc   +392 (+6..+778) bought +2,655 (+1,544..+3,766)
+    CARROT      C1    +65 (-107..+237) = fed     +0 (+0..+0) held    +40 (-9..+89) disc    +25 (-143..+193) bought     +0 (+0..+0)
+    TOMATO      C1   +236 (-141..+612) = fed     +0 (+0..+0) held     -2 (-38..+35) disc   +237 (-137..+612) bought     +0 (+0..+0)
+    STRAWBERRY  C1    +34 (-221..+289) = fed     +0 (+0..+0) held    +35 (-42..+111) disc     -0 (-243..+243) bought     +0 (+0..+0)
+    EGG         C1   +188 (+2..+373) = fed     +0 (+0..+0) held    -10 (-48..+28) disc   +198 (+14..+382) bought     +0 (+0..+0)
+    MILK        C1    -75 (-277..+127) = fed     +0 (+0..+0) held    -92 (-287..+104) disc    +17 (-20..+54) bought     +0 (+0..+0)
+    WOOL        C1    +34 (-107..+175) = fed     +0 (+0..+0) held    -23 (-75..+28) disc    +57 (-69..+184) bought     +0 (+0..+0)
+    WHEAT units (leader/ours): fed 379/354, held at end 0.8/5.2, discarded 3.2/16.1, bought 170/92; wheat purchase spend, leader minus ours +3,004; C1-bought + spend = net wheat-purchase margin  -350 (-721..+22)
+    all products units held at end 2.8/7.2, discarded 8.7/31.6
+  -- four-quadrant 8
+    WHEAT       C1 +1,921 (+469..+3,373) = fed   -814 (-1,447..-181) held   +137 (-8..+282) disc   +366 (-198..+930) bought +2,232 (+1,044..+3,420)
+    CARROT      C1    +95 (-160..+351) = fed     +0 (+0..+0) held    +60 (-15..+135) disc    +35 (-217..+287) bought     +0 (+0..+0)
+    TOMATO      C1   +350 (-241..+941) = fed     +0 (+0..+0) held    +16 (-22..+53) disc   +334 (-263..+931) bought     +0 (+0..+0)
+    STRAWBERRY  C1    -81 (-442..+281) = fed     +0 (+0..+0) held     +0 (+0..+0) disc    -81 (-442..+281) bought     +0 (+0..+0)
+    EGG         C1   +222 (-60..+505) = fed     +0 (+0..+0) held    -21 (-72..+30) disc   +243 (-34..+520) bought     +0 (+0..+0)
+    MILK        C1    +59 (-34..+152) = fed     +0 (+0..+0) held    +34 (-46..+114) disc    +25 (-34..+84) bought     +0 (+0..+0)
+    WOOL        C1    -35 (-119..+48) = fed     +0 (+0..+0) held    -35 (-119..+48) disc     +0 (+0..+0) bought     +0 (+0..+0)
+    WHEAT units (leader/ours): fed 381/357, held at end 0.9/4.8, discarded 4.9/16.6, bought 159/92; wheat purchase spend, leader minus ours +2,504; C1-bought + spend = net wheat-purchase margin  -272 (-663..+119)
+    all products units held at end 1.8/7.0, discarded 12.1/35.0
+== Notes
+- Mapping: every numbered line belongs to exactly one of the three reasons and they add to the gap with residual 0 in
+  every game. Shift-share order for crops: plantings -> potential per planting (planting day) -> death share -> decay
+  share -> units per harvestable potential; animals: animals -> potential per animal (placement day) -> escape share ->
+  output per base production. Potentials follow the engine (full water, no fertilizer, harvest by day 29).
+- Less production is first valued at the leader's own average price (A = +22.3k) and then corrected by market depth
+  (-15.2k): the leader's extra units push its own prices down, so they are worth far less than its average price
+  (112661570 wool: the leader's daily price falls to about 50 from day 21 while ours stays about 235; 112444381 milk:
+  the leader's late price is 40-100 against our 200+).
+- Labour cost is about 0 by construction: T hires the leader's hand count each day. Missed work shows up as less
+  production instead; those lines are tagged [labour] (deaths = missed water, decay = missed harvest, units per
+  harvested planting = fewer fertilizes and tomato harvests, fertilizer collection rate).
+- C2 timing (+7.4k) is mostly later supply (+5.9k), i.e. production: our units exist later (sheep and geese placed
+  about 1 and 3 days later, melons harvested later, extra late milk and wool). The part the sell decision owns is the
+  holding pattern, +1.4k at our daily prices and +0.3k (CI crosses 0) at the leader's, plus +0.2k unsold at the end.
+- T sells on the leader's cumulative schedule capped by its stock. Being behind the schedule is mostly stock-limited
+  (strawberry 402 unit-days behind, 96 with stock in the shed); wheat (feed reserve) and fertilizer (fertilize reserve)
+  are held back on purpose.
+- T sells ahead of the leader's schedule for milk (65.6 units a game), wool (28.7) and fertilizer (35.8), and sells
+  21.3 milk and 19.7 wool a game on days when its average price is under 10% of base (leader 4.8 and 8.7). These units
+  come from animals T keeps feeding while the leader retires them late in the season (leader escapes 8.9 a game, mean
+  day 25.1; T 4.7, day 26.7). They show up as 'escapes' and 'output per production day' in our favour at the leader's
+  price, and are taken back by later supply and market depth. The ledger does not show which T rule sold them (day-29
+  dump, hire funding, or the evening shed-overflow sell).
+- Crop deaths are unwatered end-of-day deaths only (the ledger's died counter). Mid-day decays are separated per tile;
+  an ongoing crop that dies after its last production is a retirement and costs 0.
+- Shed cap: T loses 31.6 units a game at midnight against the leader's 8.7 (wheat 16.1 vs 3.2). Counted as lost output
+  (production), because the stock that overflows is carried by the units, not unsold stock in the shed.
+- Fertilizer: the leader spreads 207 against 127 on crops. Not selling it costs the leader 4.3k, which pays for most of
+  its +5.4k crop-yield edge (net crop care +4.0k).
+- The four-quadrant subset (n=8) tells the same story, with slightly larger production terms.

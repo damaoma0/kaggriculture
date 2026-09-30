@@ -1,0 +1,22 @@
+SUBMITTED 2026-09-30 20:56 UTC as Kaggle ref 56718560 (user, 2026-09-30 ~20:50 UTC: "I think we need to assemble the stack now,
+submission is due in 3 hours"; uploaded under the standing permission for panel-validated improvements).
+Live after this upload (latest 2 active): n18rc240s 56718560 + n18rc223s 56696209 (2452.4 at upload time);
+n18rc99s 56676484 (2343.0) retires.
+
+n18rc240s = n18rc240 + the 3-step time-bank guard (as n18rc223s).
+n18rc240  = n18rc223 + executor unit-mode selling (v18zc: units sold one at a time while the next unit's best hold gain
+            stays <= theta) + auto sell order (v18zd: the rule goods' SELLs at the queue head ordered by our units x the
+            rival's tracked holdings x the price drop a unit causes now).
+Package: results/fresh/ship_20260930/n18rc240s (built by the coordinator thread; its MANIFEST still says "NOT submitted" -
+this file records the upload). Archive sha256 3a37d0864f45d833c5b99e9bef59dab1064e2cccaf269642cdc768306ea3773a (checked
+against MANIFEST.json before upload; 25 files, main.py entry).
+
+Evidence (docs/v16_progress_20260929.md):
+  Kaggle r43 (MGT = packaged mgt_v9lite, 40 fixed-shop worlds) vs n18rc223: +215 (29 better / 10 worse; vs n18rc237 unit
+    mode alone +133, SE 43, 26 / 8); fixed order variant n18rc241 +202 (28 / 11).
+  leaders panel (32, det twins) vs rc237d: n18rc240d +22 (SE 25, 21 / 9).
+  local official runner (empty dirs, kaggle_environments file loader, 60 s bank): 2/2 DONE, r40-00-s0 margin +16,203 (bank
+    left 56.5 s, max step 2.1 s), r40-01-s1 +16,045 (53.2 s, 2.2 s).
+Caveats: a small, consistent selling improvement; the n18 lineage sits at ~2350-2460 on the ladder (top 20 today >= 2790).
+The coordinator's verdict: the only validated improvement over n18rc223s before the deadline (4Q-leader openings failed on
+MGT and run slower).

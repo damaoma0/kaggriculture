@@ -1,0 +1,86 @@
+<div id="umg-shop-change-view">
+  <h3>UMG output movement after a shop reveal</h3>
+  <div class="text-small">30 games · days 15, 18, 21, 24 · harvested units after minus before</div>
+  <hr>
+  <div id="usc-selection" aria-live="polite"></div>
+  <details>
+    <summary>Individual games and all products</summary>
+    <div class="table-responsive"><table class="table table-sm"><caption id="usc-pair-caption"></caption><thead><tr><th>Episode</th><th class="text-end">Before</th><th class="text-end">After</th><th class="text-end">Change</th></tr></thead><tbody id="usc-pairs"></tbody></table></div>
+    <div class="table-responsive"><table class="table table-sm"><caption>All products in the selected shop/day group</caption><thead><tr><th>Product</th><th class="text-end">Before mean</th><th class="text-end">After mean</th><th class="text-end">Change range</th><th class="text-end">Median</th></tr></thead><tbody id="usc-products"></tbody></table></div>
+  </details>
+  <hr>
+  <div class="text-small">Products demanded by each shop · observed min…max · n = games · select a range for detail</div>
+  <div class="table-responsive">
+    <table class="table table-sm">
+      <thead><tr><th>New shop</th><th>Product</th><th class="text-center">Day 15</th><th class="text-center">Day 18</th><th class="text-center">Day 21</th><th class="text-center">Day 24</th></tr></thead>
+      <tbody id="usc-overview"></tbody>
+    </table>
+  </div>
+  <div class="text-small">Observed ranges, not causal effects or confidence intervals. n = 1 is a single observation.</div>
+</div>
+<script id="usc-data" type="application/json">__DATA__</script>
+<script>
+(() => {
+  const root = document.getElementById('umg-shop-change-view');
+  const data = JSON.parse(document.getElementById('usc-data').textContent);
+  const get = id => root.querySelector('#' + id);
+  const name = s => s.toLowerCase().replaceAll('_',' ').replace(/\b\w/g, c => c.toUpperCase());
+  const number = n => n == null ? '—' : Number.isInteger(n) ? String(n) : n.toFixed(1);
+  const signed = n => n == null ? '—' : (n > 0 ? '+' : '') + number(n);
+  const range = r => !r.n ? 'No data' : r.min === r.max ? signed(r.min) : signed(r.min) + '…' + signed(r.max);
+  const group = (shop, day) => data.groups.find(g => g.shop === shop && g.day === day);
+  let selected = {shop:'FARMERS_MARKET',day:18,product:'STRAWBERRY'};
+  function applySaved(saved) {
+    const s = saved?.modelContent || saved;
+    if (s && group(s.shop, Number(s.day)) && data.products.includes(s.product)) selected = {shop:s.shop,day:Number(s.day),product:s.product};
+  }
+  applySaved(window.openai?.widgetState);
+  const overview = get('usc-overview');
+  for (const [shop, products] of Object.entries(data.shop_products)) {
+    products.forEach((product, pi) => {
+      const row = document.createElement('tr');
+      if (pi === 0) {
+        const th = document.createElement('th'); th.scope = 'rowgroup'; th.rowSpan = products.length; th.textContent = name(shop); row.append(th);
+      }
+      const label = document.createElement('th');label.scope='row';label.textContent=name(product);row.append(label);
+      for (const day of data.days) {
+        const r = group(shop,day).products[product];
+        const td = document.createElement('td');td.className='text-center';
+        const button = document.createElement('button');button.type='button';button.className='btn btn-ghost';
+        button.textContent=range(r);button.dataset.key=[shop,day,product].join('|');
+        button.setAttribute('aria-label', `${name(shop)}, day ${day}, ${name(product)}: change ${range(r)} units, median ${signed(r.median)}, ${r.n} games`);
+        button.addEventListener('click', () => {selected={shop,day,product};render();if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:selected,privateContent:null}).catch(()=>{});});
+        td.append(button);
+        const count=document.createElement('div');count.className='text-small';count.textContent='n = '+r.n;td.append(count);row.append(td);
+      }
+      overview.append(row);
+    });
+  }
+  function render() {
+    const g=group(selected.shop,selected.day),p=selected.product,r=g.products[p],d=selected.day;
+    const target=get('usc-selection');target.replaceChildren();
+    const title=document.createElement('h3');title.textContent=`${name(g.shop)} · day ${d} · ${name(p)}`;target.append(title);
+    const lines=[
+      `Days ${d-3}–${d-1} → ${d}–${d+2} · ${g.n} games`,
+      `Change ${range(r)} units · median ${signed(r.median)}`,
+      `Mean output ${number(r.before.mean)} → ${number(r.after.mean)} · mean change ${signed(r.mean)}`,
+      `Other shops on day ${d}: mean change ${signed(r.other_shop_changes.mean)} (${r.other_shop_changes.n} games)`
+    ];
+    lines.forEach((text,i)=>{const line=document.createElement('div');line.className=i===0||i===3?'text-small':'tabular-nums';line.textContent=text;target.append(line);});
+    get('usc-pair-caption').textContent=`${name(p)}: days ${d-3}–${d-1} versus ${d}–${d+2}`;
+    get('usc-pairs').replaceChildren();
+    for(const e of data.events.filter(e=>e.shop===g.shop&&e.day===d)){
+      const tr=document.createElement('tr');
+      [e.episode,e.before[p],e.after[p],signed(e.delta[p])].forEach((v,i)=>{const td=document.createElement('td');td.textContent=v;td.className=i?'text-end':'';tr.append(td);});get('usc-pairs').append(tr);
+    }
+    get('usc-products').replaceChildren();
+    for(const product of data.products){
+      const x=g.products[product],tr=document.createElement('tr');
+      [name(product),number(x.before.mean),number(x.after.mean),range(x),signed(x.median)].forEach((v,i)=>{const td=document.createElement('td');td.textContent=v;td.className=i?'text-end':'';tr.append(td);});get('usc-products').append(tr);
+    }
+    for(const b of overview.querySelectorAll('button'))b.setAttribute('aria-pressed',String(b.dataset.key===[g.shop,d,p].join('|')));
+  }
+  window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState){applySaved(e.detail.globals.widgetState);render();}});
+  render();
+})();
+</script>

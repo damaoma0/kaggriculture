@@ -1,0 +1,77 @@
+{
+  "experiment": "d6_exact_vs_retile_locked_v4",
+  "scope": "COMPONENT_DIAGNOSTIC_NOT_POLICY",
+  "independent_of_runner": true,
+  "audit_pass": true,
+  "errors": [],
+  "valid_source_controls": 8,
+  "results": {
+    "exact": {
+      "expected": 8,
+      "recorded": 8,
+      "valid": 8,
+      "complete": true,
+      "wins": 4,
+      "mean_margin": -3238.625
+    },
+    "retile": {
+      "expected": 8,
+      "recorded": 8,
+      "valid": 8,
+      "complete": true,
+      "wins": 3,
+      "mean_margin": -3616.5
+    }
+  },
+  "paired": [
+    {
+      "case": "oracle6-112575429",
+      "margin_delta": 7185.0,
+      "own_cash_delta": 1832.0,
+      "rival_cash_delta": -5353.0
+    },
+    {
+      "case": "oracle6-112588791",
+      "margin_delta": -444.0,
+      "own_cash_delta": 396.0,
+      "rival_cash_delta": 840.0
+    },
+    {
+      "case": "oracle6-112626851",
+      "margin_delta": -4587.0,
+      "own_cash_delta": 2855.0,
+      "rival_cash_delta": 7442.0
+    },
+    {
+      "case": "oracle6-112616236",
+      "margin_delta": -724.0,
+      "own_cash_delta": -2277.0,
+      "rival_cash_delta": -1553.0
+    },
+    {
+      "case": "oracle6-112587591",
+      "margin_delta": 8.0,
+      "own_cash_delta": 3186.0,
+      "rival_cash_delta": 3178.0
+    },
+    {
+      "case": "oracle6-112593664",
+      "margin_delta": -1484.0,
+      "own_cash_delta": -2269.0,
+      "rival_cash_delta": -785.0
+    },
+    {
+      "case": "oracle6-112596061",
+      "margin_delta": -3288.0,
+      "own_cash_delta": -3086.0,
+      "rival_cash_delta": 202.0
+    },
+    {
+      "case": "oracle6-112573049",
+      "margin_delta": 311.0,
+      "own_cash_delta": 186.0,
+      "rival_cash_delta": -125.0
+    }
+  ],
+  "note": "Old training/development worlds with future oracle intent; no causal policy or qualification claim."
+}

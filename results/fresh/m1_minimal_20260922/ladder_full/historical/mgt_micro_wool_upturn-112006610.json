@@ -1,0 +1,256 @@
+{
+  "arm": "mgt_micro_wool_upturn",
+  "episode": 112006610,
+  "completed": true,
+  "source_sha256": "12f91b4bdd3970a397f16a1b39d1bbcaad99a74e794c14c640f9b476bbaf7c1e",
+  "seed": 772632944,
+  "seat": 0,
+  "cash": 115576.0,
+  "opponent_cash": 118456.0,
+  "margin": -2880.0,
+  "recorded": [
+    115340.0,
+    118535.0
+  ],
+  "action_changes": 20,
+  "first_change": 626,
+  "economics": [
+    {
+      "revenue": {
+        "FERTILIZER": 11740,
+        "WHEAT": 14238,
+        "WOOL": 31991,
+        "MILK": 25235,
+        "MELON": 15301,
+        "STRAWBERRY": 27628,
+        "EGG": 1366,
+        "TOMATO": 10031,
+        "CARROT": 3465
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4211,
+        "HIRE": 5434.0,
+        "BUY_ANIMAL:COW": 2000,
+        "BUY_ANIMAL:SHEEP": 5000,
+        "BUY_SEED:MELON": 1120,
+        "BUY_SEED:WHEAT": 1450,
+        "BUY_SEED:CARROT": 480,
+        "BUY_SEED:STRAWBERRY": 3600,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 1074,
+        "BUY_ANIMAL:GOOSE": 300,
+        "BUY_SEED:TOMATO": 750
+      },
+      "units": {
+        "FERTILIZER": 193,
+        "WHEAT": 356,
+        "WOOL": 214,
+        "MILK": 148,
+        "MELON": 84,
+        "STRAWBERRY": 269,
+        "EGG": 27,
+        "TOMATO": 91,
+        "CARROT": 66
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 13616,
+        "FERTILIZER": 16527,
+        "WOOL": 32488,
+        "MILK": 30310,
+        "MELON": 14267,
+        "STRAWBERRY": 30654,
+        "CARROT": 6124
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4094,
+        "BUY_SEED:WHEAT": 1550,
+        "HIRE": 4253.0,
+        "BUY_ANIMAL:COW": 2400,
+        "BUY_ANIMAL:SHEEP": 5500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2513,
+        "BUY_SEED:CARROT": 960
+      },
+      "units": {
+        "WHEAT": 341,
+        "FERTILIZER": 332,
+        "WOOL": 252,
+        "MILK": 191,
+        "MELON": 72,
+        "STRAWBERRY": 247,
+        "CARROT": 114
+      }
+    }
+  ],
+  "overlay": {
+    "evals": [
+      [
+        6,
+        13,
+        2,
+        10,
+        3,
+        "cash",
+        -1992
+      ],
+      [
+        7,
+        13,
+        4,
+        11,
+        2,
+        "cash",
+        -1763
+      ],
+      [
+        8,
+        13,
+        8,
+        13,
+        0
+      ],
+      [
+        9,
+        13,
+        8,
+        10,
+        3,
+        "cash",
+        -1996
+      ],
+      [
+        10,
+        13,
+        10,
+        12,
+        1
+      ],
+      [
+        11,
+        13,
+        10,
+        10,
+        3,
+        1,
+        -5463,
+        -1013,
+        230
+      ],
+      [
+        12,
+        13,
+        10,
+        10,
+        3,
+        1,
+        -4720,
+        -270,
+        233
+      ],
+      [
+        13,
+        13,
+        10,
+        10,
+        3,
+        1,
+        -4521,
+        -353,
+        232
+      ],
+      [
+        14,
+        13,
+        10,
+        10,
+        3,
+        1,
+        -4404,
+        -493,
+        232
+      ],
+      [
+        15,
+        13,
+        10,
+        10,
+        3,
+        1,
+        -3925,
+        -109,
+        229
+      ],
+      [
+        16,
+        13,
+        10,
+        10,
+        3,
+        1,
+        -3582,
+        14,
+        215
+      ],
+      [
+        17,
+        13,
+        10,
+        10,
+        3,
+        1,
+        -3372,
+        10,
+        196
+      ],
+      [
+        18,
+        13,
+        10,
+        10,
+        3,
+        1,
+        -3110,
+        10,
+        129
+      ],
+      [
+        19,
+        13,
+        10,
+        10,
+        3,
+        1,
+        -2892,
+        10,
+        55
+      ]
+    ],
+    "wool_upturn_quotes": 10,
+    "declined_cash": 3,
+    "declined_hire_cash": 1,
+    "hire_guard_fired": 2,
+    "hire_guard_sold": 2,
+    "hire_guard_trimmed": 2,
+    "declined_profit": 9,
+    "hand_days": 4,
+    "topup_tasks": 14,
+    "ops_feed": 14,
+    "ops_care": 14
+  },
+  "router": {
+    "switches": 2,
+    "router_errors": 0,
+    "hamming_max": 0,
+    "dist_d6": -0.02,
+    "dist_d12": 5.97,
+    "dist_d18": 20.47,
+    "dist_d24": 43.97
+  },
+  "max_action_seconds": 0.6184892000164837,
+  "actions_over_1s": 0,
+  "ledger_verified": true
+}

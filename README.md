@@ -11,6 +11,80 @@ prices react to supply and demand. Agents compete head-to-head on a live leaderb
 
 ## Fresh research (2026-09-15)
 
+**d9c4o full-game panel, 43 worlds (2026-09-30):** the day-9 handover candidate (DSM-new cassette days 6-11, Q4 on
+day 10) played whole games in all 43 DSM-new worlds (held-out folds) against the frozen recorded opponents: margin -4.1k
+vs the live build (SE 1.0k, better 9/43); the 4th quadrant costs 9.1k more spend for 6.7k more revenue. Against
+opponents rated 2650+ both lose (candidate 1/10, live 2/10 wins; DSM 10/10). Live vs DSM: -16.4k margin, of which
++12.8k is the opponent earning more (prices) and -3.6k our own cash. Executor switches on the 10 strongest worlds
+(window-water value, idle filler, forced wheat fertilizing) leave 4Q level with live at best; the 4Q wheat gap is
+fertilizer collection (d9c4 376 vs DSM 486 a world, same crew), not watering. See `docs/dsm4q_day9_handover_20260930.md`.
+
+**Full stack (2026-09-30):** DSM prefix (days 0-10) -> the semantic planner + tiler (candidate d9c4o) -> the
+time-based path-partition executor (`scripts/fullstack_smoke_20260930.py`). Two worlds: -19.4k / -21.7k vs DSM's own
+continuation, 2.4-4.6k behind the same executor on DSM's hindsight plan; season cassettes with other leaders' figures
+lose to the existing policy. Largest remaining item: wheat (-9.4k). With the candidate's own days 0-10 in front
+(4 quadrants on time) the stack ends -19.3k / -19.8k, while the candidate alone (same day-11 state, its own tier executor
+after day 11) ends -1.1k / -8.9k. That executor gap was measured with this thread's older TPP configuration (arm i); the
+other thread's current TPP already fixes the strawberry dig bug found here - re-measure before quoting. See
+`docs/time_path_partition_20260930.md`.
+
+**Latest public agents vs the opening (2026-09-30):** seven recent public agents (one lineage: the V56-descended router
+with a shop-keyed route table) smoked to day 11 in DSM-new world 115518441: all own 2 quadrants at the day-11 dawn
+(2nd on day 6, none after) with ~$16.8k banked, vs DSM's 4 (days 6 / 8 / 10). None fixes the opening. See
+`docs/public_agents_opening_20260930.md`.
+
+**Post-day-11 solver: time-based path partition (2026-09-30):** user design - per tile mandatory / non-mandatory /
+slack hours, one path-like route per worker (mandatory <= day, + non-mandatory <= day, + slack >= day + 1 h),
+bring-backers planned first, cut slack then non-mandatory by value, fewest tiles walked, useless jobs never listed.
+Offline on DSM's own farms (774 game-days, DSM's plan and crew): every mandatory and non-mandatory job fits, 12-19%
+fewer tiles walked than DSM, 1-1.8 fewer workers needed; DSM itself drops ~75% of alternate-day waters and keeps ~99% of
+deadline-tonight work. See `docs/time_path_partition_20260930.md`, viewer viz/path_partition_115518441_d15.html.
+
+**Us vs the new DSM on days 9-10 (2026-09-30):** after an exact day-8 handover in 43 recorded DSM-new games, the live
+build's day-11 board is 37.6 tiles off DSM's (it never buys Q4). A DSM-new cassette (targets by revealed shop types)
+buys Q4 on DSM's schedule (day 10, hour 10) and halves the composition gap (28.7 -> 16-18 tiles), but plantings on
+new land and on day 9 are still dropped: tier routes skipped still-locked Q4 stops (fixed by `sd_tier_defer_locked`),
+and day-9 cash runs out after a day-9 Q3 purchase. See [the report](docs/dsm4q_day9_handover_20260930.md).
+
+**Live n18rc99s ladder losses (2026-09-30):** all 133 ladder games of 56676484 were replayed exactly (112 W / 21 L;
+2,400-2,600 opponents 11-8). Losses come from strawberries -4.2k, wheat -4.2k and wool -2.8k a game, while our egg,
+tomato and milk edges shrink against strong teams. Clearest marker: the third quadrant bought on day 9-10 instead of
+day 8 (cash short after contested day 6-8 sales). Those 25 games lost 16; the 108 day-8 games lost 5. The time bank
+is not the cause, but ladder games use ~30 s of it. See [the loss report](docs/ladder_losses_n18rc99s_20260930.md).
+
+**Marked tape revisions (2026-09-22):** a register now covers all 584 UMG tapes,
+with 13 flagged for milk-to-wool review. The first revision changes four worker
+commands on each of three active days in tape 109740300, shifting cow care to an
+existing sheep. In its discovery replay: +314 own cash, +88 margin, +1 wool,
+-3 milk and unchanged spending. Marked **diagnostic improvement**, with applicable
+responsive-opponent validation outstanding. Three other-donor controls remain
+identical; seven isolation/condition tests pass. See [the revision report](docs/tape_sequence_variants.md).
+
+**Minimal m1 experiments (2026-09-22):** a six-line wool-forecast change has a small
+positive confirmation result: +85 paired margin (95% seed-bootstrap CI +7..+214)
+on 24 untouched seeds, both seats, against live V56. Seven games improve, 41 remain
+identical, and wins stay at 32/48. On 198 available historical m1 games it gains +131
+margin, flips two losses and loses no existing wins; recorded opponents cannot react.
+Two separate purchase-gate edits changed no actions in their diagnostic/development
+panels. The saved candidate is `agents/mgt_micro_wool_upturn.py`; m1 remains unchanged.
+A -494 historical regression identifies a narrow next target: respecting planned
+animal retirement and crop replacement. See [the experiment report](docs/mgt_m1_minimal_experiments.md).
+
+**Continuation execution and recovery (2026-09-22):** retain `mgt_m1`. The new bounded
+compiler exactly reproduces output and ending tiles in 8/12 native windows (previously
+4/12), and ten runtime/engine/fault-injection tests pass. Three full-game development
+variants all underperform m1: the best is 8–8 versus V56 against m1's 10–6, and the final
+productive fallback is 4–12. Preserving assets without maintaining profitable
+replacement cohorts can still cause large losses. See [implementation and results](docs/continuation_execution_and_recovery.md).
+
+**Production-module integration (2026-09-21):** keep `mgt_m1`. Bounded leader-derived
+carrot cycles now execute in the full farm using reserved native visits. Forced swaps
+lose to the matched tape-holding control in every tested game: −465 margin/game on
+the natural V48/V50 panel, −504 with shops held fixed, and −281 in 12 recorded ladder
+worlds. The conservative value gate leaves the baseline unchanged. The executor is a
+useful building block; this crop-selection policy is not an upgrade. See
+[the integration report](docs/production_module_integration.md).
+
 **V48 and pre-emption feasibility (2026-09-18):** V48 (`agents/v48_public.py`, fetched
 from the public notebook) beats our current agent 0-0-32 by 1,753/game; no opening
 variant helps (all 0-32). V48 already opens Nash-like and runs anti-clone pre-emption,

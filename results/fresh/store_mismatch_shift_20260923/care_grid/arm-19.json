@@ -1,0 +1,126 @@
+{
+  "days": [
+    19
+  ],
+  "arm": "19",
+  "source_sha256": "db00bad6840fc85b2230dfd6c5812dabda02776bce380101a7f522fae361a02d",
+  "cash": 87938.0,
+  "opponent_cash": 98422.0,
+  "margin": -10484.0,
+  "ledgers": [
+    {
+      "revenue": {
+        "FERTILIZER": 12257,
+        "WHEAT": 10442,
+        "WOOL": 15945,
+        "MILK": 6310,
+        "MELON": 15301,
+        "EGG": 10956,
+        "STRAWBERRY": 28058,
+        "CARROT": 10048,
+        "TOMATO": 4839
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 5153,
+        "HIRE": 5976.0,
+        "BUY_ANIMAL:COW": 2000,
+        "BUY_ANIMAL:SHEEP": 2500,
+        "BUY_SEED:MELON": 1120,
+        "BUY_SEED:WHEAT": 1060,
+        "BUY_SEED:CARROT": 1120,
+        "BUY_SEED:STRAWBERRY": 3600,
+        "BUY_LAND": 3000.0,
+        "BUY_ANIMAL:GOOSE": 2100,
+        "BUY_PRODUCT:FERTILIZER": 1189,
+        "BUY_SEED:TOMATO": 400
+      },
+      "units": {
+        "FERTILIZER": 209,
+        "WHEAT": 263,
+        "WOOL": 90,
+        "MILK": 115,
+        "MELON": 84,
+        "EGG": 245,
+        "STRAWBERRY": 284,
+        "CARROT": 178,
+        "TOMATO": 64
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 12149,
+        "FERTILIZER": 16648,
+        "WOOL": 27646,
+        "MILK": 7236,
+        "MELON": 14267,
+        "EGG": 7034,
+        "STRAWBERRY": 29994,
+        "CARROT": 8979
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4605,
+        "BUY_SEED:WHEAT": 1420,
+        "HIRE": 4075.0,
+        "BUY_ANIMAL:COW": 2400,
+        "BUY_ANIMAL:SHEEP": 3000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_ANIMAL:GOOSE": 1500,
+        "BUY_PRODUCT:FERTILIZER": 3031,
+        "BUY_SEED:CARROT": 1240
+      },
+      "units": {
+        "WHEAT": 309,
+        "FERTILIZER": 332,
+        "WOOL": 155,
+        "MILK": 161,
+        "MELON": 72,
+        "EGG": 161,
+        "STRAWBERRY": 245,
+        "CARROT": 166
+      }
+    }
+  ],
+  "harvested": {
+    "WHEAT": 424,
+    "WOOL": 90,
+    "MILK": 115,
+    "MELON": 84,
+    "EGG": 245,
+    "STRAWBERRY": 284,
+    "CARROT": 178,
+    "TOMATO": 64
+  },
+  "changed_steps": [
+    457,
+    458,
+    459,
+    460,
+    461,
+    462,
+    463,
+    464,
+    465,
+    466,
+    467,
+    468,
+    469,
+    470,
+    471,
+    472,
+    541
+  ],
+  "applied_days": [
+    19
+  ],
+  "decisions": [
+    {
+      "day": 19,
+      "milk": 7.0,
+      "wool": 158.0,
+      "reason": "applied"
+    }
+  ],
+  "exact_engine": true
+}

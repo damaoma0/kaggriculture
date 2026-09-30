@@ -1,0 +1,101 @@
+{
+  "protocol": "Development: four largest unchanged live V56 losses plus Snorlax and Evil Mango exact native recordings. Previously inspected outcomes; not a holdout.",
+  "specs": [
+    {
+      "id": "anchor-112109339",
+      "world": 112109339,
+      "kind": "replay",
+      "anchored": true,
+      "episode": 112109339,
+      "seat": 0,
+      "opponent": "Snorlax",
+      "submission": 56466756,
+      "rating": 2774.9
+    },
+    {
+      "id": "anchor-112543358",
+      "world": 112543358,
+      "kind": "replay",
+      "anchored": true,
+      "episode": 112543358,
+      "seat": 1,
+      "opponent": "Evil Mango",
+      "submission": 56495314,
+      "rating": 2801.0
+    },
+    {
+      "world": 24,
+      "seed": 2625279302,
+      "seat": 0,
+      "shops": [
+        "FARMERS_MARKET",
+        "ICE_CREAM_SHOP",
+        "PET_CAFE",
+        "YARN_STORE",
+        "SMOOTHIE_SHOP",
+        "PIZZA_SHOP",
+        "FARMERS_MARKET",
+        "ICE_CREAM_SHOP"
+      ],
+      "id": "random-24-v56",
+      "kind": "live",
+      "opponent": "v56"
+    },
+    {
+      "world": 2,
+      "seed": 2498640317,
+      "seat": 0,
+      "shops": [
+        "PET_CAFE",
+        "FARMERS_MARKET",
+        "BRUNCH_SPOT",
+        "SMOOTHIE_SHOP",
+        "PET_CAFE",
+        "PET_CAFE",
+        "YARN_STORE",
+        "YARN_STORE"
+      ],
+      "id": "random-02-v56",
+      "kind": "live",
+      "opponent": "v56"
+    },
+    {
+      "world": 0,
+      "seed": 3616476249,
+      "seat": 0,
+      "shops": [
+        "SMOOTHIE_SHOP",
+        "BRUNCH_SPOT",
+        "ICE_CREAM_SHOP",
+        "PIZZA_SHOP",
+        "YARN_STORE",
+        "YARN_STORE",
+        "SMOOTHIE_SHOP",
+        "YARN_STORE"
+      ],
+      "id": "random-00-v56",
+      "kind": "live",
+      "opponent": "v56"
+    },
+    {
+      "world": 6,
+      "seed": 1606348154,
+      "seat": 0,
+      "shops": [
+        "SMOOTHIE_SHOP",
+        "BAKERY",
+        "ICE_CREAM_SHOP",
+        "YARN_STORE",
+        "YARN_STORE",
+        "ICE_CREAM_SHOP",
+        "BRUNCH_SPOT",
+        "YARN_STORE"
+      ],
+      "id": "random-06-v56",
+      "kind": "live",
+      "opponent": "v56"
+    }
+  ],
+  "policy_sha256": "b699586d71f68d72a7c7f39a98b64e2f7b4e02d71de7d234fdc7e94c88b50867",
+  "harness_sha256": "df562eff0e5ba5a1a453438b730e91f6aedd727f3273ca0ec2ed3d8235014400"
+}

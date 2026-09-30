@@ -1,0 +1,40 @@
+{
+  "seed": 20260915,
+  "players": [
+    {
+      "agent": "agents/public/tschinkel_router_v31.py",
+      "sha256": "e50d3c7b54c051b880fd7b68ed2aa8f954331d6f892b8fb5dca788223b27c24c"
+    },
+    {
+      "agent": "agents/public/tschinkel_router_v31.py",
+      "sha256": "e50d3c7b54c051b880fd7b68ed2aa8f954331d6f892b8fb5dca788223b27c24c"
+    }
+  ],
+  "engine_version": "1.32.7",
+  "configuration": {
+    "seed": null,
+    "episodeSteps": 720,
+    "actTimeout": 1,
+    "runTimeout": 1200,
+    "boardSize": 10,
+    "startingMoney": 3000,
+    "maxMarketOrdersPerTurn": 10,
+    "turnsPerDay": 24,
+    "shedCapacity": 100,
+    "weedSpawnChance": 0.005,
+    "townShopUnlockInterval": 3,
+    "townShopSellInterval": 4,
+    "townCenterSellInterval": 24,
+    "farmHandCostMult": 1,
+    "marketParams": {}
+  },
+  "states": 720,
+  "rewards": [
+    101540.0,
+    110930.0
+  ],
+  "statuses": [
+    "DONE",
+    "DONE"
+  ]
+}

@@ -195,6 +195,17 @@ CFG = {
     "sd_glut_hours": 48,
     "sd_maint_floor_stat": "mean",  # "mean" | "max" of the trailing quotes
     "sd_books_batch": 0,      # > 0 (DSM's wool glut on 112604454: never more than 8 units a step, never at $1; KC3 dumped surplus wool at h21 down to $1, where a sale earns 1 and adds no market stock, so the rival's price rises): the surplus / capacity sells of sd_books_sell products are at most this many units a step, and none while the quote is <= sd_books_minpx
+    "sd_books_front": 0.0,    # X in (0, 1] (user 2026-09-28, KB115L decomposition: the learned pace alone costs -8.1k a world
+    # vs DSM's books - it is a 40-game average that sells ~50% of wool by h8, DSM sells a production day's wool by h8 in
+    # lots ahead of the rival's h3-h9 sales, and the rival then sells the same units into the price we lowered; KB115L wool
+    # -7.4k / -4.8k, milk -1.4k / -2.6k, all on the rival's side): with sd_books_source "pace", a product the rival sold
+    # on the previous 3 days (inferred from the market, mean >= sd_books_front_min units a day) sells our shed in even lots
+    # from hour 1 so that it is gone by the hour the rival has usually sold X of its day's units (past that hour: by its
+    # last usual selling hour; after it: the pace); never slower than the pace. 0 = off. PARKED (2026-09-28): KB115LF50
+    # vs KB115L on 33 panel worlds paired -937 a world (95% -1,707..-147), 10 better / 23 worse, wins 27 -> 25; it helped
+    # the two worlds it was built on (+0.5k / +3.1k) - mechanism: front-loading sells into our own price impact in most
+    # worlds; beating the rival's sale needs the rival's per-day volume and our arrival timing, not an hour average
+    "sd_books_front_min": 1.0,
     "sd_books_minpx": 5,
     "sd_books_walk": 0,       # 1 (KC4 still sold 14 wool at $1: near the floor a unit lowers the wool price by ~6, so a batch of 8 from quote 24 ends at 1; DSM never sold wool at $1): every sd_books_sell sell stops before the engine price of the next unit (market stock + units already sold this step) would be <= sd_books_minpx
     "sd_books_source": "dsm", # "pace" (DSM-free, user 2026-09-27: KB99 hazard -1,913 - a share of our shed each hour sells slower than DSM when our goods arrive late, rival windfall +1.4k): DSM's learned PACE (dsm_sell_pace.py: share of the day's goods - dawn stock + arrivals - sold by each hour, by product / phase / hour / rival habit), we sell up to pace x (our shed + our sales today) - our sales today; "dsm": the leader's recorded sell plan (dsm_sales); "hazard" (DSM-free, user 2026-09-27: we will not have DSM's plans): DSM's learned selling hazard x our shed stock, by product / season phase / hour / the rival's habit (its units at this hour and in the next 4 on the previous 3 days, inferred from the market: stock change - our sales + shop consumption); tables results/fresh/threads_20260928/dsm_sell_hazard2.json (fallback dsm_sell_hazard.json), 40 recordings
@@ -261,6 +272,13 @@ CFG = {
     "sd_fert_ages": None,     # {crop: [age_lo, age_hi]}: the first-useful-day FERTILIZE rule only at these ages (e.g. wheat [1, 2])
     "sd_fert_first_crops": None,   # list of crops the first-useful-day FERTILIZE rule applies to (None = all)
     "sd_collect_floor": 0.0,  # a COLLECT_FERTILIZER op is worth at least this many coins (fertilizer is worth more on crops than its sale price late)
+    "sd_collect_at_floor": 0,  # 1 (2026-09-28, KB160 day 27 on 112602061: the fertilizer quote hit $1 on day 26, the maintenance
+    # module emits COLLECT_FERTILIZER only while the quote is > 1, so the day had no collect op at all, 16 fertilizes had no
+    # supply and the hands idled 74 actions; KB115L: 2/40 worlds, days 24-27, 140 unplanned fertilizes): the tier plan
+    # gets a collect op on every pen with fertilizer available that has none, worth max(quote, sd_collect_floor).
+    # 2: only as many as the day's FERTILIZE ops (value > 0) lacking a collect, pens nearest them first (mode 1 on
+    # 112592389 added 24 collects on day 28, when a fertilizer has almost no use left: -2,383; +8,640 / +6,678 where the
+    # bug starved days 24-27)
     "sd_wheat_frac": None,    # feeding is charged this fraction of the wheat price in the maintenance values (None = full)
     "sd_feed_bonus": 0.0,     # coins added to every FEED / CARE op of a live animal (user: bonus on animals fed / cared)
     "sell_now": [],           # products sold as soon as they reach the shed, whatever the leader's quota (e.g. MELON)
@@ -302,11 +320,124 @@ CFG = {
     "sd_tier_rebalance": 0,   # 1 (user 2026-09-27: "for waste of work post-20 o'clock could we reassign tiles from busy sectors to non-busy"): the refill pass (sd_tier_dump_refill) may give a leftover extra on a tile another hand owns to any hand with room (tile ownership and the nearest-hands filter off), so the hands that end at 20-23 take the busy sectors' undone waterings / fertilizing / care
     "sd_keep_alive_guard": 0,  # 1 (KS5a on 112604454: the maintenance module abandoned the whole sheep flock on days 23-24 when the trailing wool floor followed a glut down; R2 of docs/abandonment_research_20260926.md): an animal unfed yesterday with >= 2 production nights left (up to night 28) always gets a mandatory keep-alive FEED, whatever the module decided
     "sd_tier_dawn_learned_max": 4,   # sd_tier_dawn_shape "learned": at most this many dawn trips a day (DSM: 0-4, 1.8 on average)
+    # sd_tier_dawn_shape "learned2" (user 2026-09-28, KB115L: the learned rule makes 2-3 trips / 8-12 units on 112602061's
+    # synchronized wool mornings d21/24/27 where DSM makes 6-7 / 26-31, and DSM dawn trips were +4.2k there with DSM books):
+    # "learned" plus, in any phase, sheep pens one tile off with 4 <= wool < max_held when >= sd_tier_dawn_sync_n sheep pens
+    # within 2 tiles hold >= 4 wool at dawn (DSM days 18+: 1-off rate 1-4% with 0-3 such pens, 33% with 6-7, 68% with 8-9),
+    # sheep pens two tiles off when >= sd_tier_dawn_sync_n2 (DSM 18%; paired into the trip of an adjacent 1-off pen, as DSM's
+    # 2-pen trips; no trip of its own), and up to sd_tier_dawn_learned_max2 trips on those mornings (DSM 5.9 pens a day, max 8)
+    "sd_tier_dawn_sync_n": 6,
+    "sd_tier_dawn_sync_n2": 8,
+    "sd_tier_dawn_learned_max2": 8,
     "sd_keep_alive_guard_min": 2,   # productions left (nights up to 28) from which the keep-alive guard holds; 1 = every animal that still produces once more (KH5 lost 1.2 animals a world before day 27 vs 0.3 with DSM's data: the module abandons flocks in their last cycles when the wool price path dips, and our wool keeps the rival's price down)
     "sd_tier_dayret_shape": None,   # "file" (user 2026-09-27: improve with DSM knowledge; the dawn SHAPE copy was worth +2.0k where copying only the COUNT of returns was worth nothing): DSM's daytime returns of this world (results/fresh/threads_20260928/dsm_dayret/<ep>.json: hand, drop hour, the tiles it harvested the goods on); each return goes to our outbound hand whose mandatory route holds the most of those tiles, as a shed stop (DELIVER) right after the last of them, kept when it adds no lateness; never skipped by the executor
     "sd_tier_dayret_relocate": 0,   # > 0: a DSM return that would make its hand late may move up to this many of the hand's tail stops (after the return) to the outbound hand where each fits cheapest without lateness (user: reassign tiles from busy sectors to non-busy)
     "sd_defer_shed": 0,       # > 0 (KB0 on 40 worlds: on 219 overflow nights the shed already held wool 7.0 / milk 4.7 units - our surplus over DSM's plan that the price floor keeps unsold - vs DSM's 0.9 / 1.3; DSM keeps its glut wool ON the sheep): at planning, a product whose shed stock is at least this many units has its animal harvests left on the animals when the tile can hold them without losing production (sd_tier_dump_defer's check)
     "sd_harvest_follow_dsm": [],   # crops or animals (SHEEP / COW / GOOSE: same rule on the pens; KB2: 46% of DSM's daytime returns found no match because 30% of our strawberry harvests fall on another day than DSM's, same 44 tiles): harvest a tile of these crops on the days DSM harvested it (the target's harvested tiles per day); on other days its harvest waits when the plant can hold the units without losing production
+    "sd_wheat_d3": 0,  # 1 (user 2026-09-27: DSM harvests wheat at age 3 - PW . FW WH, 5 units - and at age 4 only when the
+    # day-3 harvest + replant cannot fit - PW . FW W WH, 6 units; KB118 copying his age-4 days cost the extra waters' labour):
+    # a wheat harvest before its last full day is not mandatory; where DSM plants wheat on the tile within
+    # sd_wheat_d3_ahead days (same-type replant on our timing) the day-3 harvest + replant is an optional bundle worth
+    # sd_wheat_d3_v wheat prices, merged into the stop of the (then mandatory) day-3 water; without a replant the
+    # harvest waits for the last full day (mandatory then)
+    "sd_wheat_d3_v": 1.0,
+    "sd_evening_wheat_surplus": 0,  # 1 (user 2026-09-28: the day-17 hand plan overflowed with 15 wheat held in the shed while 25
+    # came home in the hands - tomorrow needs ~23; KB155 (wheat_days 0) over-sold all day and rebought 40-52 wheat; an
+    # evening round trip costs ~0 a unit: sold 38.0-40.0, rebought next morning 37.6-39.0): from sd_ews_hour, only when the
+    # projected midnight load (shed + hands + the routes' remaining harvests / collects - fertilizes - this step's sales)
+    # exceeds 100 - sd_tier_dump_buffer, sell shed wheat up to that excess and never below tomorrow's feeds (animals x
+    # wheat_days) net of the wheat coming home. PARKED as a safe add-on (KB158 = KB115 + keep 0: 112604454 identical to KB115,
+    # 112602061 -122 own, midnight deletions 3 -> 1; with the day-17 hand plan v1: deletions 18 -> 3, next morning ~+300,
+    # days 17-19 sales ~+700; keep 1.0 sold only 5 of the 15 shed wheat - animals x 1 overstates the ~23-31 feeds a day)
+    "sd_ews_hour": 21,
+    "sd_ews_keep": 1.0,  # share of tomorrow's feeds (net of the wheat coming home) kept in the shed; 0 = when overflowing, sell
+    # shed wheat up to the excess (the hour-0 wheat buy covers the morning at ~ the evening price)
+    "sd_wheat_net": 0,  # 1 (user 2026-09-28, midnight audit of 112602061: DSM empties the shed every evening - 0-3 units before
+    # the dump - and collects 29.5 fertilizer a day vs our 19.2; the planner's midnight room subtracted a whole day of feed
+    # wheat (100 - animals - 5, ~65) while the hands' loads already carry the ~25 harvested wheat that feeds tomorrow):
+    # _tier_deliver's room = 100 - max(0, animals x wheat_days - wheat the routes bring home) - sd_tier_dump_buffer
+    "sd_collect_make_room": 0,  # 1 (KB146-148: freeing midnight room raised no collects - 90 of ~103 unplaced collects a world
+    # sit on pens a route already visits, the route packed to 24 by earlier phases): after the fills, an unplaced collect
+    # joins the visit of a route that stops at its pen, dropping that route's cheapest optional ops worth less than the
+    # collect (supply and lateness kept); extra collects within the projected midnight room
+    "sd_collect_market": 0,  # 1: a COLLECT_FERTILIZER op is worth the fertilizer's market price (not the module's shadow price,
+    # which collapses late in the season, nor the 80 floor); sd_collect_floor is ignored
+    "sd_pen_sweep": 0,  # 1 (user 2026-09-28, hand plans of days 17 / 22: one hand per pen doing its whole service, straight
+    # sweeps from the spawn tiles, crops as route tails: +14 ops on 25 fewer steps in the engine): replaces the mandatory
+    # search and the fills for the outbound / post segments by a constructive plan over TILE SERVICE UNITS (a tile's
+    # mandatory ops + its optional ops worth >= sd_pen_sweep_vmin): equal-work angular sectors (several start angles),
+    # hands matched to sectors by spawn tile, nearest-neighbour order, trimmed to the day (lateness / supply by _tier_eval),
+    # leftover mandatory units inserted with room made by dropping the cheapest optional ops, then local search (relocate,
+    # swap, 2-opt, insert). The delivery / midnight-load pass (_tier_deliver) runs after it as usual. PARKED (KB140-144, 2
+    # worlds, vs KB115: margin -6.2k..-16.5k a world; vmin 16 / 60 / 150 all worse): no fertilizer supply planning - the
+    # sector routes holding the outer crops pass few pens and are packed with (over-valued) cares / feeds, so the pairing
+    # move finds no room: fertilizes 195 -> 34-100 on 112602061, none at all from day 23; a higher vmin also drops the
+    # wheat fertilizes themselves. The hand plans worked because each route's pens supplied its own crop tails' fertilizes
+    # (+ 3-5 shed fertilizers). A v2 must build collect -> fertilize chains first
+    "sd_pen_sweep_vmin": 16.0,
+    "sd_pen_sweep_iters": 3000,
+    "sd_polish": 0,  # N > 0 (user 2026-09-28: "teach how you manually plan to the planner"; offline scripts/proc_planner.py
+    # optimize on the KB115 / KB158 routes of two worlds, days 12-27, with the planner's drops / deliveries kept: +87 / +83
+    # a day on the engine-true scorer, from collects, care and fertilize put into hours freed by fewer steps and dropped
+    # zero-value waters; the day-17 engine check KB160 matched the scorer the next morning, +199): after every fill,
+    # carry and delivery pass, N iterations of hill climbing over the finished routes (relocate / swap a whole stop, reverse
+    # a run of stops, add an unplaced optional WATER / FERTILIZE / CARE / FEED / COLLECT_FERTILIZER, drop one), on
+    # engine-true values: a window water bonus x price, a FERTILIZED ongoing crop's production-day water 1 unit, a water
+    # whose skip makes tomorrow's survival water a must + sd_polish_water_c, fertilize = units gained x price - the
+    # fertilizer quote, collect = the quote, care = 1 unit when the animal is fed today (fed already, a mandatory feed, or a
+    # feed on the same route) and a later production is ahead, feed = bank x price on a production night (an unfed animal
+    # still produces 1) + sd_polish_water_c when skipping it makes tomorrow's feed a must; lateness / supply as _tier_eval, minus sd_polish_step_w per route hour, and the
+    # midnight load at most the delivery pass's headroom above the plan's. Stops with dawn legs, deliveries, drops,
+    # in-place drops, placements, builds and copy returns stay where they are; harvests / plantings are never dropped
+    "sd_polish_water_c": 10.0,
+    "sd_polish_step_w": 0.2,
+    "sd_polish_seed": 1,
+    "sd_polish_xch": 0.0,  # > 0: share of iterations spent on the EXCHANGE move (an unplaced op into a stop the route already
+    # makes, the best of up to 6 lower-value optional ops of that route out); ltp1: routes are full to 24, so a lone add is
+    # late and a lone drop loses value - 1.8 collects / 4.4 cares added a world while DSM collects 79 / cares 33 more
+    "sd_polish_final": 0,  # 1: the polish runs once a day on the plan the hour-0 passes keep (the core may run up to 5 times
+    # for the spawn agreement; with the routes' first stops fixed the result is the same, the discarded passes are skipped)
+    "sd_manual_plan": None,  # research (user 2026-09-28: validate hand plans in the engine): path of a JSON {episode: {day:
+    # {"routes": [{"u", "fpick", "stops": [[x, y, [OP, ...]], ...]}]}}}; on that world and day each planned unit's route is
+    # replaced by the hand route (ops taken from the day's catalogue with their values / mandatory flags; PICKUP = a
+    # mid-route shed pickup of wheat for the feeds after it; DROP = drop at the shed tile); declared fertilizer pickups
+    # are allowed and reserved that day. Every other day is the normal plan
+    "sd_water_useless_zero": 0,  # 1 (user 2026-09-27: KB115 waters wheat at age 1 9.0 times a world vs DSM 2.5, from the 10-coin
+    # water floor): an OPTIONAL water on a wheat / carrot plant before its window (age < (max_yield_day + 1) // 2) that is
+    # not needed for survival (not dry yesterday) adds nothing and is dropped
+    "sd_keepalive_wheat": 0,  # 1 (user 2026-09-27: a keep-alive water is worth the wheat it would waste plus one action to dig
+    # the dead plant, not +5000): a wheat SURVIVAL water (dry yesterday, not watered, not harvested / replaced today) is
+    # optional, worth (units the plant holds after today's water) x wheat price + sd_labor_price; the planting-day water
+    # stays mandatory with its plant
+    "sd_labor_price": 20.0,   # coins an action (user: wheat earns ~22 an action, ~16 an hour with one-hour visits)
+    "sd_anim_value_exact": 0,  # 1 (user: then bring the animal prices down; KB115 plans value a sheep care 234 where wool sells
+    # at 93, a cow care 144-209 against milk 86-92): optional CARE / FEED REPLACED by the engine rule of _tier_anim_value
+    # (CARE = one product unit when a production night is ahead, else 0; optional FEED = bank x price on a production day
+    # + half a unit when a production is ahead); keep-alive / survival feeds stay mandatory
+    "sd_tier_fert_use": 0,  # 1 (user 2026-09-27: F optional but valued; KB115 on 112602061: 39 of 143 age-2 wheat fertilizes,
+    # worth 42-78, unplaced - 11 on full routes whose earlier collect left a fertilizer in hand: fertilizes are offered in
+    # phase C, collects arrive in D / E, the fertilize is not offered again and the fertilizer is dumped and sold): after the
+    # fills, each route's carried fertilizer (fpick + collects - fertilizes so far) is spent on unplaced FERTILIZE ops of its
+    # own later stops that already water the tile; a full route makes room by dropping its cheapest optional op worth less
+    # than the fertilize (never on that tile, never a collect / fertilize), keeping lateness and supply
+    "sd_fert_bonus": 0.0,  # coins added to a FERTILIZE's value (sd_tier_fert_exact) for the crops in sd_fert_bonus_crops
+    "sd_fert_bonus_crops": ["WHEAT"],
+    "sd_wheat_fert_mand": 0,  # 1 (user 2026-09-27: F matters more than harvest timing - a 13-day loop gives 20 units fertilized vs
+    # 12 unfertilized on either cycle; unfertilized wheat is not worth growing): the age-2 FERTILIZE of every wheat plant
+    # is mandatory (KB115 on 112602061: 39 of 143 were offered to the fills, values 42-78, and never placed); the route
+    # evaluation supplies a mandatory fertilize its own collects do not cover by a shed pickup at the route start, the
+    # finished routes carry those pickups (within the shed's hour-0 stock) and the market keeps today's and tomorrow's
+    # wheat fertilizer in the shed
+    "sd_wheat_h3_opt": 0,  # 1 (user 2026-09-27: stop the day-3 harvest being mandatory, more wiggle for the planner): a wheat
+    # harvest before its last full day, on a tile with no replant / build of DSM's today, is optional (tier 3, worth
+    # sd_wheat_h3_frac x units x wheat price) together with the water that precedes it (mandatory only for survival);
+    # the last full day (age 4) and the last two days of the season stay mandatory; replants stay on DSM's days
+    "sd_wheat_h3_frac": 0.5,
+    "sd_wheat_h3_wv": 1.0,  # the optional day-3 water's value: this x its units x wheat price (KB123-125 at 1.0: the W+H bundle
+    # ~166 coins outbid the day-2 fertilizes, 118 -> 102; a day-3 harvest gains nothing over a day-4 one, 5 units either way)
+    "sd_wheat_d3_ahead": 2,
+    "sd_follow_defer_exact": 0,   # 1: sd_harvest_follow_dsm holds a one-time crop until its last full day (KB116 on 112602061: the
+    # default defer test never let an age-3 wheat wait for DSM's age-4 harvest: 52 cohorts harvested a day early, 5 units vs 6)
     "sd_harvest_follow_keep": 0,   # 1 (KB9, 40 worlds: we sell wool 9-15 units behind DSM at the rival's sales from day 18; sheep harvest days match DSM on 16.4 pen-days a world, 15.1 DSM-only / 16.5 ours-only; on 112604454 day 17 the dump deferral removed the 3 pens DSM harvested): harvests added or kept by sd_harvest_follow_dsm are exempt from the dump deferral
     "sd_maint_follow_dsm": [],   # ops (FEED / CARE / WATER / FERTILIZE; KB17 on 112604454: idle 182 -> 106 unit-hours changed nothing, the freed hours went to walking and low-value waters; DSM does +32 fertilizes, +38 cares, +32 collects and -38 feeds with the same hands, geese cared 85 vs our 43 a world): on the tiles DSM did the op today (semantics maintenance lists, tile-exact board) our optional op becomes mandatory; a missing FEED / CARE / WATER is added (FERTILIZE only promoted: it needs fertilizer in hand)
     "sd_maint_follow_drop": [],  # ops of sd_maint_follow_dsm whose optional instances are dropped on tiles DSM did not service today (frees the labor DSM does not spend; keep-alive and feed-bank feeds are added later and stay)
@@ -361,6 +492,15 @@ CFG = {
     "sd_tier_fert_carry_min": 0,  # hands whose planned route ends by hour 23 carry this many shed fertilizer even with no planned insertion (KB12 on 112604454: 150 of 170 idle unit-hours fall at hours 21-23, away from the shed, when the shed holds no fertilizer - it is sold during the day; the pickup at the outbound feeds sd_tier_idle_fert at the day's end)
     "sd_tier_idle_fert": 0,   # 1 (user: hands with free steps at the end pick up shed fertilizer and fertilize more, the excess returns at the evening dump; KB37 found the PLANNED routes full - 153 of 227 end at 24, the rest at 22-23 - the idle hours (182 unit-hours on 112604454) appear in execution): a hand whose plan is done fertilizes the nearest plant where one FERTILIZE still adds units (_tier_fert_gain), reachable before hour 23; without fertilizer it first picks up at the shed as many as the reachable targets, the shed stock and the midnight headroom allow
     "sd_tier_idle_fert_max": 4,  # fertilizer an idle hand picks up at most
+    "sd_tier_idle_work": 0,   # 1 (2026-09-28, hand-plan lesson "fill the route tails"; hour budget on 10 worlds: a hand-day works
+    # 12.24 h vs DSM's 13.09 and idles 0.78 h after its last job vs 0.03 - about 40 hand-hours a world, while DSM collects 79
+    # more fertilizers, cares 33 more geese and waters wheat 26 more times): a hand whose plan is done walks to the best job on
+    # the live board by value / (walk + 1) that it can finish by hour 23 and no other hand's remaining plan does: CARE on an
+    # animal fed today with a production ahead (a unit), COLLECT_FERTILIZER (the quote, within the midnight room), WATER (a
+    # window bonus x price, a fertilized ongoing crop's production-day unit, else sd_tier_idle_work_wc when skipping it makes
+    # tomorrow's water a must); targets are claimed so idle hands do not collide
+    "sd_tier_idle_work_wc": 10.0,
+    "sd_tier_idle_work_minv": 5.0,
     "sd_tier_fert_opp": 0,    # 1 (KB40 on 112604454: 36 hands carried 67 shed fertilizer, 2 were used - the idle hours fall at hour 23 with no time to reach a target): a hand carrying fertilizer beyond its own remaining plan fertilizes the plant it stands on (stops and the tiles it walks across) when one FERTILIZE still adds units, no plan fertilizes it today, and its remaining plan still ends by hour 23 with the extra hour(s); then WATERs it when not watered and no plan waters it today
     "sd_tier_fert_shed": 0,   # 1 (user: "the rule to fertilize and pick up for regular hands"; KB37/40/41 added fertilizes after the fills, when the routes were already filled to hour 24 with low-value extras - 2 to 6 a season): a FERTILIZE extra a hand has no fertilizer for may be supplied by a shed pickup at the start of its route (besides the paired pen collect), inside the normal fill, competing on value; the pickups share a day budget = the shed's hour-0 fertilizer minus sd_tier_sclu_fert_keep and the trips' pickups
     "sd_tier_fert_merge": 0,  # 1 (user 2026-09-27: "getting fertilizer at turn beginning... pick up fertilizer from shed such that they use that extra spare hour to fertilize"; DSM picks up 28 fertilizer a world at the turn start, we 0; 68 of our hand-days end idle, 33.5 of them picked up nothing): after planning, a hand starting on a shed tile with a spare hour picks up shed fertilizer at the start and FERTILIZEs the plants it already stops at to WATER (not yet watered today; the fertilize goes first, so a one-time crop's water in its window gives +2, a strawberry's production night its second unit), when gain x price beats the fertilizer's own price; the pickups share the shed's hour-0 stock
@@ -388,6 +528,39 @@ CFG = {
     "sd_path_iters": 3000,  # annealing iterations per planning pass
     "sd_path_near": 4,  # tiles: a move only targets routes with a stop this close
     "sd_path_t0": 20.0,  # annealing start temperature (coins)
+    # tile exactness (user 2026-09-27: type exact - retirements modelled exactly, a same-type replant may keep our timing).
+    # KB78 on 112602061: 44 tiles of another type than DSM's by day 29 - DSM let 5 cows escape on days 16-19 that we
+    # kept (his wheat / carrots there were moved), DSM's pastures / wheat went elsewhere because our tomatoes /
+    # strawberries still stood on his tiles
+    "sd_exact_retire": 0,  # 1: DSM's animal escapes copied: no FEED / CARE on our animal (same tile by smap) on a day
+    # DSM's animal of that species is not alive at the next or the one-after morning (2 unfed days = the escape night; also
+    # an animal of ours where DSM has another species or none); its HARVEST on the escape day is mandatory. 2: only
+    # escapes before night 27 (DSM's end-of-season stop of feeding not copied)
+    "sd_clean": 0,  # 1 (user 2026-09-28, KB115LT: "everything that goes to tile planner can be kept"): the LOWER layer reads
+    # none of DSM's recorded game beyond the tile plan interface (TilePlanView) - off: DSM's daily sales quota in the
+    # delivery values (sd_dv_quota) and in the dispatcher's open products (quota_open), the regular sell path's DSM quota
+    # (every product it serves is sold by sell_now / sd_fert_sell / the books anyway), and DSM's tomorrow fertilize count in
+    # the fertilizer reserve (T.fert). Inactive in the tier arms and not covered here (keep them off; sd_tp_iface counts
+    # any read): fert_shadow, sd_mr, sd_cap_all, sd_hourly_profile, sd_h0_front, fert_follow, maint_source /
+    # harvest_source "leader", the books "dsm" source, sd_harvest_follow_dsm, copy returns, dayret, dawn shape "file"
+    "sd_clean_plan": 0,  # 1 (the user's first ruling, 2026-09-28, kept for a tile planner that supplies no cohort ends /
+    # exits): the plan-side DSM timing off too - DSM's animal exits (sd_exact_retire + prefeed; see sd_own_retire), the
+    # late-planting cutoff exemption for cohorts the plan harvests (cut_mode leader_harvest -> every late planting),
+    # replant_leader (harvest-and-replant on the plan's harvest day) and the catch-up skip when the plan's own cohort is
+    # gone from its board (T.board)
+    "sd_tp_iface": 0,  # 1 (KB115LT): the plan is read only through TilePlanView (the tile planner -> lower layer interface,
+    # fields listed on the class); other fields of the recorded game and the per-world DSM files (_dsm_data) return empty
+    # and every such read is counted in _TP_LEAK, logged per day as the tier summary's "tp_leak"
+    "sd_tp_file": None,  # with sd_tp_iface: a JSON tile plan {episode: TilePlanView.to_dict()} (or one plan) replaces the
+    # recorded game's plan entirely - the input a trained tile planner writes (scripts/export_tile_plans.py writes DSM's)
+    "sd_own_retire": 0,  # 1 (with sd_clean): our retirement rule - an animal with no production night left that can still
+    # reach the market (nights day .. last - 1; a night-28 product is harvested and sold on day 29) gets no FEED / CARE
+    # (the survival feed included) and its held yield is harvested on the day it escapes (the sd_exact_retire mechanics)
+    "sd_exact_retire_prefeed": 0,  # 1: FEED mandatory on our animal two days before DSM's escape night (the two unfed days
+    # then fall on DSM's: KB113 on 112604454 lost 4 sheep a night early where the module had skipped that feed)
+    "sd_exact_site": 0,  # 1: DSM's planting / structure stays on DSM's tile when our asset of another type holds it: a live
+    # plant of another crop (any age) is harvested (when it holds units) and dug, an empty structure dug, an animal of ours
+    # that sd_exact_retire lets go is waited for; 2: also wait (no remap) where our plant is the same crop (our timing)
     "sd_tier_fert_merge_collect": 0,  # 1: a merged fertilize may use fertilizer the route already collects and does not spend (look-back pen collects) before asking for a shed pickup (one spare hour instead of two)
     "sd_tier_prio_ani": 0,    # 1 (user 2026-09-26: "melon mode" for important animal harvests): the farmer (no melon duty that day) first harvests the cow / sheep pens holding >= sd_tier_prio_ani_min units (or due), feed / care in the same visit, best units x price per added hour while his drop at the shed stays by sd_tier_prio_ani_by; then he is a normal hand (post segment in the sector search), as after a melon delivery
     "sd_tier_prio_ani_min": {"COW": 3, "SHEEP": 4},   # DSM's mean units per harvest at pens near the shed (cow 3.4-3.8, sheep 4.2-4.4); eggs left out (DSM delivers only 18% of eggs the same day)
@@ -469,7 +642,19 @@ CFG = {
     "sd_melon_rule": 0,       # 1 (user): hard-coded melon trips (by 8 bonus / 8-12 penalty / never after 12), melon hands kept out of the planner
     "sd_mel_bonus": 10.0,     # coins per melon unit per hour delivered before 8
     "sd_mel_pen": 10.0,       # coins per melon unit per hour delivered after 8 (never after 12)
-    "sd_fert_sell": 0,        # 1 (user rule, leader tapes): the shed's fertilizer is all sold (no reserve), fertilizer is never picked up from the shed, collected fertilizer stays in hand for fertilizing (never delivered mid-day; the midnight dump brings the rest, sold next morning)
+    "sd_melon_fert": 0,       # 1 (user 2026-09-29, "an hour is literally worth thousands here": melons are a pool with no shop
+    # demand - only the town takes 1 a day - so the first seller takes the top of a quadratic price curve; V9-lite dumps
+    # 60 melons on day 10 from hour 9 at ~238, the next seller gets ~180 or less; no side fertilizes melons, so at dawn of
+    # day 10 they sit at 5 units and wait for the day's water): a melon aged 6..8, not fertilized and below its cap, gets a
+    # FERTILIZE (+ the day's WATER) extra worth sd_melon_fert_v - each later window water then adds 2, so it is at the cap
+    # by day 9 and the harvest-day trip needs no water
+    "sd_melon_fert_v": 300.0,
+    "sd_melon_rush": 0,       # 1 (same): on the melon harvest day the trips are scored around hour sd_melon_rush_by instead
+    # of 8, the melon hand does not replant before walking back, and the drop is sold in the same turn (unit actions run
+    # before market orders; the sale goes first in the order list)
+    "sd_melon_rush_by": 6,
+    "sd_fert_sell": 0,        # 3: as 1 (collected fertilizer stays in hand) but the shed keeps tomorrow's fertilize need for
+                              # route pickups (KB134 / KB135 with sd_tier_fert_shed); 1 (user rule, leader tapes): the shed's fertilizer is all sold (no reserve), fertilizer is never picked up from the shed, collected fertilizer stays in hand for fertilizing (never delivered mid-day; the midnight dump brings the rest, sold next morning)
     "sd_retire": 0,           # plants the plan retires (abandoned / cleared before producing again) get no hard water job
     "sd_plan_log": 0,         # viewer: log each hand's planned job tiles (route order) on every change (L["plan_log"])
     "sd_early_animal": 0,     # a BUILD job's animal is bought while its tile still waits for the crop harvest
@@ -666,6 +851,120 @@ class Target:
                     last_plant[t] = (d, c)
 
 
+_TP_LEAK = Counter()    # sd_tp_iface: reads of non-interface plan fields / per-world DSM files
+
+
+class TilePlanView:
+    """sd_tp_iface (KB115LT): the TILE PLANNER -> LOWER LAYER interface. The lower layer (maintenance, harvests, labour,
+    routes, sales) reads only these fields of the plan; a trained tile planner must supply exactly them. Per day d of n:
+      n                  season length in days
+      plant[d]           {tile: crop} plantings the plan makes on day d
+      events             [(planting day, tile, crop)] the same plantings as one list
+      struct_by_day[d]   {tile: "COOP" | "PASTURE"} structures standing at the end of day d
+      animals_by_day[d]  {tile: species} animals the plan keeps at the end of day d (a placement is the first day on a
+                         tile, an exit / retirement the first day off it)
+      board[d]           [100 labels] the plan's board at the start of day d (crop cohorts, structures, animals, locked)
+      harv_tiles[d]      set(tile) crop cohorts that END on day d (one-time crop harvest) or have their FIRST harvest
+                         (ongoing crop): cohort life, not pick timing; animal pens are left out (their harvests are ours)
+      removals[d]        [(tile, crop, planting day)] live crop cohorts the plan digs out on day d
+      land_day           {quadrant: day} land purchases
+      hands[d]           hands present on day d
+      cum_sold[d]        OPENING ONLY: cumulative units sold through day d for d <= 10 (the replayed opening's sales,
+                         which are ours; the harness seeds our sold counter from day 10 at the handoff); d >= 11 is the
+                         lower layer's business (empty, counted as "cum_sold>10")
+    Days 0-10 are the recorded opening (the harness replays them). Everything else of the recorded game - fert
+    (fertilize targets), maint (upkeep lists), cash, final, hire_steps - belongs to the lower layer: a read returns empty
+    data and counts in _TP_LEAK; _dsm_data (per-world DSM files) returns None and counts too."""
+
+    OPENING_LAST = 10
+
+    class _Opening(list):
+        def __getitem__(self, i):
+            if isinstance(i, int) and (i if i >= 0 else len(self) + i) > TilePlanView.OPENING_LAST:
+                _TP_LEAK["cum_sold>10"] += 1
+                return Counter()
+            return list.__getitem__(self, i)
+
+    def __init__(self, T):
+        self.cum_sold = TilePlanView._Opening(T.cum_sold)
+        self.n = T.n
+        self.plant = T.plant
+        self.events = T.events
+        self.struct_by_day = T.struct_by_day
+        self.animals_by_day = T.animals_by_day
+        self.board = T.board
+        self.removals = T.removals
+        self.land_day = T.land_day
+        self.hands = T.hands
+        ht, seen = [], set()
+        for d in range(T.n):
+            keep = set()
+            for t in sorted(getattr(T, "harv_tiles", [set()] * T.n)[d]):
+                crop = LABEL_CROP.get(T.board[d][t])
+                if crop is None:
+                    continue                           # a pen (or no crop): the lower layer's harvest
+                if not CROPS[crop]["ongoing"]:
+                    keep.add(t)                        # a one-time cohort ends
+                elif t not in seen:
+                    keep.add(t)                        # an ongoing cohort's first harvest
+                    seen.add(t)
+            for t in T.plant[d]:
+                seen.discard(t)                        # a new cohort on the tile
+            ht.append(keep)
+        self.harv_tiles = ht
+
+    _FIELDS = ("n", "plant", "events", "struct_by_day", "animals_by_day", "board", "harv_tiles", "removals", "land_day",
+               "hands", "cum_sold")
+
+    def to_dict(self):
+        """the interface as plain JSON data (int tile keys become strings; cum_sold only for the opening days 0-10)"""
+        return {"n": self.n,
+                "plant": [{str(t): c for t, c in x.items()} for x in self.plant],
+                "events": [list(e) for e in self.events],
+                "struct_by_day": [{str(t): k for t, k in x.items()} for x in self.struct_by_day],
+                "animals_by_day": [{str(t): a for t, a in x.items()} for x in self.animals_by_day],
+                "board": [list(b) for b in self.board],
+                "harv_tiles": [sorted(x) for x in self.harv_tiles],
+                "removals": [[list(r) for r in x] for x in self.removals],
+                "land_day": dict(self.land_day),
+                "hands": list(self.hands),
+                "cum_sold": [dict(list.__getitem__(self.cum_sold, d)) for d in range(min(self.n, TilePlanView.OPENING_LAST + 1))]}
+
+    @classmethod
+    def from_dict(cls, d):
+        """sd_tp_file: a tile plan supplied as JSON data (the fields above, as to_dict writes them)"""
+        v = cls.__new__(cls)
+        n = int(d["n"])
+        v.n = n
+        v.plant = [{int(t): c for t, c in x.items()} for x in d["plant"]]
+        v.events = [(int(e[0]), int(e[1]), e[2]) for e in d["events"]]
+        v.struct_by_day = [{int(t): k for t, k in x.items()} for x in d["struct_by_day"]]
+        v.animals_by_day = [{int(t): a for t, a in x.items()} for x in d["animals_by_day"]]
+        v.board = [list(b) for b in d["board"]]
+        v.harv_tiles = [set(int(t) for t in x) for x in d["harv_tiles"]]
+        v.removals = [[(int(r[0]), r[1], int(r[2])) for r in x] for x in d["removals"]]
+        v.land_day = {q: int(x) for q, x in d["land_day"].items()}
+        v.hands = [int(h) for h in d["hands"]]
+        cs = [Counter(x) for x in d.get("cum_sold", [])]
+        v.cum_sold = TilePlanView._Opening(cs + [Counter() for _ in range(n - len(cs))])
+        return v
+
+    def __getattr__(self, name):
+        if name.startswith("__"):
+            raise AttributeError(name)
+        _TP_LEAK[name] += 1
+        n = self.__dict__.get("n", 30)
+        if name == "fert":
+            return [set() for _ in range(n)]
+        if name == "maint":
+            return [{} for _ in range(n)]
+        if name == "cash":
+            return [None] * n
+        if name == "hire_steps":
+            return {}
+        return None
+
+
 def configure(sem, **cfg):
     global _T, _S, _TGT_EP
     _T = Target(sem)
@@ -673,6 +972,17 @@ def configure(sem, **cfg):
     _TGT_EP = (sem.get("meta") or {}).get("episode")
     _DSM_DATA.clear()
     CFG.update(cfg)
+    _TP_LEAK.clear()
+    if CFG.get("sd_tp_iface"):
+        src_ = CFG.get("sd_tp_file")
+        if src_:                                   # an external tile plan (a trained planner's output), JSON by episode
+            import json as _j
+            from pathlib import Path as _P
+            pth_ = _P(src_) if _P(src_).is_absolute() else _P(__file__).resolve().parents[1] / src_
+            plans_ = _j.loads(pth_.read_text(encoding="utf-8"))
+            _T = TilePlanView.from_dict(plans_[str(_TGT_EP)] if str(_TGT_EP) in plans_ else plans_)
+        else:
+            _T = TilePlanView(_T)                  # KB115LT: the plan only through its interface
 
 
 _TGT_EP = None
@@ -689,10 +999,20 @@ def _dawn_shape(day=None, tiles=None):
     v = CFG["sd_tier_dawn_shape"]
     if v == "file":
         return ((_dsm_data("dawn") or {}).get("days")) or {}
-    if v == "learned":
+    if v in ("learned", "learned2"):
         if day is None or tiles is None:
             return {}
-        cands = []
+        l2_ = v == "learned2"
+        ne_ = 0
+        if l2_:                                   # the morning's eligible sheep pens (<= 2 tiles, >= 4 wool)
+            for idx in range(100):
+                t = _tile(tiles, idx)
+                if _animal(t) and t["animal"] == "SHEEP" and int(t.get("yield_units", 0) or 0) >= 4 and \
+                        min(abs(idx % 10 - a) + abs(idx // 10 - b) for a, b in SHED) <= 2:
+                    ne_ += 1
+        sync1_ = l2_ and ne_ >= int(CFG["sd_tier_dawn_sync_n"])
+        sync2_ = l2_ and ne_ >= int(CFG["sd_tier_dawn_sync_n2"])
+        cands, far_ = [], []
         for idx in range(100):
             t = _tile(tiles, idx)
             if not _animal(t):
@@ -701,22 +1021,37 @@ def _dawn_shape(day=None, tiles=None):
             d = min(abs(x - a) + abs(y - b) for a, b in SHED)
             u = int(t.get("yield_units", 0) or 0)
             an = t["animal"]
+            mh_ = int(ANIMALS[an]["max_held"])
             if d == 0 and u >= {"COW": 3, "SHEEP": 4, "GOOSE": 4}[an]:
                 cands.append((0, -u, idx, an))
             elif d == 1 and day <= 17 and u >= {"COW": 6, "SHEEP": 4}.get(an, 99):
                 cands.append((1, -u, idx, an))
+            elif d == 1 and sync1_ and an == "SHEEP" and 4 <= u < mh_:
+                cands.append((1, -u, idx, an))
+            elif d == 2 and sync2_ and an == "SHEEP" and 4 <= u < mh_:
+                far_.append((2, -u, idx, an))
         cands.sort()
+        cap_ = int(CFG["sd_tier_dawn_learned_max2"]) if sync2_ else int(CFG["sd_tier_dawn_learned_max"])
         trips = []
-        for i, (d, _, idx, an) in enumerate(cands[:int(CFG["sd_tier_dawn_learned_max"])]):
+        for i, (d, _, idx, an) in enumerate(cands[:cap_]):
             sh = min(((a, b) for a, b in SHED), key=lambda q: abs(q[0] - idx % 10) + abs(q[1] - idx // 10))
             shi = sh[1] * 10 + sh[0]
             trips.append([0 if i == 0 else i, 0 if i == 0 else 1, shi, [[idx, an]], shi])
+        for d, _, idx, an in sorted(far_):        # learned2: a 2-off pen joins the trip of an adjacent 1-off pen
+            hit_ = next((tr for tr in trips if len(tr[3]) == 1 and abs(tr[3][0][0] % 10 - idx % 10)
+                         + abs(tr[3][0][0] // 10 - idx // 10) == 1 and min(abs(tr[3][0][0] % 10 - a)
+                         + abs(tr[3][0][0] // 10 - b) for a, b in SHED) == 1), None)
+            if hit_ is not None:
+                hit_[3].append([idx, an])
         return {str(day): trips}
     return v or {}
 
 
 def _dsm_data(kind):
     """research copies only: per-episode leader data built by scripts/build_dsm_<kind>.py (None when missing)"""
+    if CFG.get("sd_tp_iface"):                     # KB115LT: not part of the tile plan interface
+        _TP_LEAK["dsm_data:" + kind] += 1
+        return None
     if kind not in _DSM_DATA:
         _DSM_DATA[kind] = None
         try:
@@ -936,6 +1271,60 @@ def _removals(S, tiles, d, day):
     return out, by_lt
 
 
+def _exact_retire(S, tiles, d):
+    """sd_exact_retire: our animals to let go today {our tile: escapes tonight (bool)}: our animal on a tile that maps to a
+    tile of DSM's (identity or smap) where DSM's animal of the same species is not alive at the next morning or the one
+    after (DSM left it unfed: the escape needs 2 unfed days)."""
+    T = _T
+    last = T.n - 1
+    if int(CFG["sd_exact_retire"]) >= 2 and d >= 27:
+        return {}
+    inv = {}
+    struct_tiles = set()
+    for dd in range(T.n):
+        struct_tiles.update(T.struct_by_day[dd])
+    for tt in struct_tiles:
+        if S["smap"].get(tt, tt) == tt:
+            inv.setdefault(tt, tt)
+    for tt, m in S["smap"].items():
+        inv[m] = tt
+    out = {}
+    must = S["_xfeed"] = set()
+    for m, tt in inv.items():
+        t = _tile(tiles, m)
+        if not _animal(t) or t.get("fed_today"):
+            continue
+        sp = t["animal"]
+        a1 = T.animals_by_day[d].get(tt) == sp
+        a2 = T.animals_by_day[min(d + 1, last)].get(tt) == sp
+        if not (a1 and a2):
+            out[m] = not a1
+        elif (CFG["sd_exact_retire_prefeed"] and d + 2 <= last and T.animals_by_day[d + 2].get(tt) != sp
+              and not (int(CFG["sd_exact_retire"]) >= 2 and d + 2 >= 27)):
+            must.add(m)                          # DSM's escapes at night d + 2: fed today, unfed d + 1 and d + 2
+    return out
+
+
+def _own_retire(tiles, d):
+    """sd_own_retire (see the flag): {our tile: escapes tonight} for our animals with no production night left that can
+    still reach the market (production at the end of night n: n + 1 - placed - first >= 0 and divisible by the interval;
+    useful nights d .. last - 1)."""
+    last = _T.n - 1
+    out = {}
+    if d >= last:
+        return out
+    for m in range(100):
+        t = _tile(tiles, m)
+        if not _animal(t):
+            continue
+        a = ANIMALS[t["animal"]]
+        pd_ = int(t.get("placed_day", d))
+        if any(n + 1 - pd_ - a["first"] >= 0 and (n + 1 - pd_ - a["first"]) % a["interval"] == 0 for n in range(d, last)):
+            continue
+        out[m] = int(t.get("consecutive_unfed", 0) or 0) >= 1 and not t.get("fed_today")
+    return out
+
+
 def _plan(obs, S, tiles, day):
     """Structural jobs for today: {our_idx: job} where job = ('PLANT', crop, event) |
     ('BUILD', kind) | ('PLACE', species) (a BUILD may carry a place species) | ('REMOVE', crop) (sem4)."""
@@ -947,6 +1336,12 @@ def _plan(obs, S, tiles, day):
     if CFG["exact_removals"]:
         rm, rm_lt = _removals(S, tiles, d, day)
     S["rm"] = rm
+    if CFG["sd_exact_retire"] and not CFG["sd_clean_plan"]:
+        S["_xretire"] = _exact_retire(S, tiles, d)
+    elif CFG["sd_own_retire"]:
+        S["_xretire"] = _own_retire(tiles, d)       # sd_own_retire: our rule, no DSM escapes
+    else:
+        S["_xretire"] = {}
     # reserve target tiles used for structural work in the next days (keep the layout free)
     reserved = set()
     for dd in range(d, min(last, d + 2) + 1):
@@ -978,6 +1373,13 @@ def _plan(obs, S, tiles, day):
             S["smap"][tt] = m
             reserved.add(m)
             ok = True
+        if not ok and CFG["sd_exact_site"] and isinstance(cur, dict):
+            if _is_plant(cur) or ("animal" not in cur and cur.get("kind") in ("COOP", "PASTURE")):
+                ok = True                    # sd_exact_site: harvest / dig ours, build on DSM's tile
+                S["log"]["xsite_struct_" + str(cur.get("crop") or cur.get("kind"))] += 1
+            elif _animal(cur) and m in S.get("_xretire", {}):
+                S["log"]["xsite_struct_wait"] += 1
+                continue                     # our animal escapes tonight / tomorrow night (DSM's did): wait
         if not ok:
             m2 = _free_tile(tiles, (tt % 10, tt // 10), reserved | set(jobs))
             if m2 is None:
@@ -988,14 +1390,25 @@ def _plan(obs, S, tiles, day):
         jobs[m] = ("BUILD", kind, want_animal.get(tt))
     # plantings (today's events + recent catch-up)
     cut = CFG["plant_cutoff"]
+    d3_ = bool(CFG["sd_wheat_d3"])
+    d3a_ = int(CFG["sd_wheat_d3_ahead"]) if d3_ else 0
+    wown_ = S.setdefault("_wown", set())            # sd_wheat_d3: (our tile, planting day) already credited to an event
     for (pd, tt, crop) in T.events:
-        if pd > d or d - pd > CFG["late"].get(crop, LATE[crop]):
+        early_ = False
+        if d3_ and crop == "WHEAT" and d < pd <= d + d3a_ and (pd, tt) not in S["done"]:
+            m_e = S["pmap"].get((pd, tt), tt)
+            t_e = _tile(tiles, m_e)
+            if (m_e not in jobs and _is_plant(t_e) and t_e["crop"] == "WHEAT" and day - int(t_e["planted_day"]) >= 3
+                    and int(t_e.get("yield_units", 0) or 0) > 0):
+                early_ = True                    # our wheat can be harvested and the tile replanted ahead of DSM
+        late_ = CFG["late"].get(crop, LATE[crop]) + (d3a_ if crop == "WHEAT" else 0)
+        if not early_ and (pd > d or d - pd > late_):
             if (CFG["pf_log"] and pd <= d and d - pd == CFG["late"].get(crop, LATE[crop]) + 1
                     and (pd, tt) not in S["done"]):
                 _pf_set(S, (pd, tt), crop, d, "window_expired")
             continue
         if cut and d > cut.get(crop, 99) and not (
-                CFG["cut_mode"] == "leader_harvest"
+                CFG["cut_mode"] == "leader_harvest" and not CFG["sd_clean_plan"]
                 and any(tt in T.harv_tiles[d2] for d2 in range(pd + 1, T.n) if d2 < len(getattr(T, "harv_tiles", ())))):
             ck = ("cut", pd, tt)
             if ck not in S["done"]:
@@ -1007,14 +1420,29 @@ def _plan(obs, S, tiles, day):
         key = (pd, tt)
         if key in S["done"]:
             continue
-        if pd < d and T.board[d][tt] != CROP_LABEL[crop]:
+        if pd < d and not CFG["sd_clean_plan"] and T.board[d][tt] != CROP_LABEL[crop]:
             if CFG["pf_log"]:
                 _pf_set(S, key, crop, d, "cohort_gone")
             continue  # the target's own cohort is gone; no catch-up
         m = S["pmap"].get(key, tt)
         cur = _tile(tiles, m)
         why_ = None
+        if (d3_ and crop == "WHEAT" and _is_plant(cur) and cur["crop"] == crop
+                and pd - d3a_ <= cur["planted_day"] < pd and (m, cur["planted_day"]) not in wown_
+                and cur["planted_day"] > max((p_ for (p_, t2_, c2_) in T.events if t2_ == tt and p_ < pd), default=-1)):
+            S["done"].add(key)                   # sd_wheat_d3: our replant ahead of DSM's fulfils his planting
+            wown_.add((m, cur["planted_day"]))
+            S["log"]["wheat_d3_credit"] += 1
+            continue
+        if early_:
+            if m in jobs or m != S["pmap"].get(key, tt):
+                continue
+            jobs[m] = ("PLANT", crop, key, "d3")
+            S["log"]["wheat_d3_offer"] += 1
+            continue
         if _is_plant(cur) and cur["crop"] == crop and cur["planted_day"] >= pd:
+            if d3_ and crop == "WHEAT":
+                wown_.add((m, cur["planted_day"]))
             if CFG["pf_log"]:
                 _pf_set(S, key, crop, d, "planted", tile=m, planted_day=cur["planted_day"], remapped=(m != tt))
             S["done"].add(key)
@@ -1036,15 +1464,26 @@ def _plan(obs, S, tiles, day):
                 c = CROPS[cur["crop"]]
                 # xfix replant_leader: the leader harvested this very crop on this tile today / yesterday to replant it
                 # (melons at age 10, wheat at age 2): harvest now and plant here instead of remapping the planting
-                lead_rp = (CFG["replant_leader"] and m == tt and not c["ongoing"] and harv
+                lead_rp = (CFG["replant_leader"] and not CFG["sd_clean_plan"] and m == tt and not c["ongoing"] and harv
                            and cur.get("yield_units", 0) > 0 and T.board[d][tt] == CROP_LABEL.get(cur["crop"])
                            and any(tt in hs for hs in getattr(T, "harv_tiles", [])[max(0, d - 1):d + 1]))
                 if lead_rp and (pd, tt) not in S.setdefault("rp_seen", set()):
                     S["rp_seen"].add((pd, tt))
                     S["log"]["replant_leader_" + cur["crop"]] += 1
                 if not (fin or (not c["ongoing"] and harv and age >= c["maxday"] - 1) or m in rm or lead_rp):
-                    m = None
-                    why_ = "live_%s_age%d_%s" % (cur["crop"], age, "harvestable" if harv else "growing")
+                    if CFG["sd_exact_site"] and cur["crop"] != crop:
+                        S["log"]["xsite_plant_over_" + cur["crop"]] += 1   # harvest / dig ours, plant on DSM's tile
+                    elif int(CFG["sd_exact_site"]) >= 2 and cur["crop"] == crop:
+                        S["log"]["xsite_plant_wait_" + crop] += 1          # same crop: ours stands in (our timing)
+                        continue
+                    else:
+                        m = None
+                        why_ = "live_%s_age%d_%s" % (cur["crop"], age, "harvestable" if harv else "growing")
+            elif CFG["sd_exact_site"] and isinstance(cur, dict) and "animal" not in cur and cur.get("kind") in ("COOP", "PASTURE"):
+                S["log"]["xsite_plant_over_" + cur["kind"]] += 1           # dig our empty structure, plant on DSM's tile
+            elif CFG["sd_exact_site"] and _animal(cur) and m in S.get("_xretire", {}):
+                S["log"]["xsite_plant_wait_animal"] += 1
+                continue                                                   # our animal escapes (as DSM's did): wait
             else:
                 m = None
                 why_ = "structure"
@@ -1079,7 +1518,7 @@ def _plan(obs, S, tiles, day):
         S["lead_harv"] = lh
     # fertilize targets (mapped)
     fert = set()
-    for tt in T.fert[d]:
+    for tt in (T.fert[d] if CFG["fert_follow"] else ()):
         m = tt
         for (pd, t2), mm in S["pmap"].items():
             if t2 == tt:
@@ -1580,13 +2019,13 @@ def agent(obs, config=None):
     seeds_left = Counter(seeds)
     d_ = min(day, _T.n - 1)
     quota_open = {p for p in PRODUCTS if p != "WHEAT"
-                  and _T.cum_sold[d_].get(p, 0) - S["sold"][p] - shed.get(p, 0) > 0}
+                  and (CFG["sd_clean"] or _T.cum_sold[d_].get(p, 0) - S["sold"][p] - shed.get(p, 0) > 0)}
     fert_short = demand.get("FERTILIZER", 0) > shed.get("FERTILIZER", 0)
 
     fert_keep = fert_short or (CFG["fert_hold"] == 1 and demand.get("FERTILIZER", 0) > 0) or CFG["fert_hold"] == 2
     if CFG["sd_fert_sell"]:
         fert_keep = True                  # sd_fert_sell: collected fertilizer is applied, never walked back to the shed
-        if CFG["sd_fert_sell"] == 1:
+        if CFG["sd_fert_sell"] == 1 and S.get("_manual_today") != day:
             shed_left["FERTILIZER"] = 0   # ... and never picked up from the shed (the shed's stock is sold)
     if CFG["fert_release"] and CFG["fert_hold"] == 1 and not fert_short:
         fert_keep = demand.get("FERTILIZER", 0) >= carried.get("FERTILIZER", 0)    # xfix: only the surplus is deliverable
@@ -2923,11 +3362,21 @@ _PACE = {}
 
 
 def _pace_tables():
-    if not _PACE:
+    f_ = CFG.get("sd_books_pace_file") or "results/fresh/threads_20260928/dsm_sell_pace.json"
+    if CFG.get("sd_books_pace_map"):               # {episode: table} (leave-fold-out tables: no world's own recording)
         try:
             import json as _j
             from pathlib import Path as _P
-            f_ = CFG.get("sd_books_pace_file") or "results/fresh/threads_20260928/dsm_sell_pace.json"
+            mp_ = _j.loads((_P(__file__).resolve().parents[1] / CFG["sd_books_pace_map"]).read_text())
+            f_ = mp_.get(str(_TGT_EP)) or f_
+        except Exception:
+            pass
+    if _PACE.get("_file") != f_:                   # cached per table file (a worker process plays several worlds)
+        _PACE.clear()
+        _PACE["_file"] = f_
+        try:
+            import json as _j
+            from pathlib import Path as _P
             d_ = _j.loads((_P(__file__).resolve().parents[1] / f_).read_text())
             _PACE["p2"], _PACE["p1"] = d_["p2"], d_["p1"]
         except Exception:
@@ -2980,8 +3429,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     reserve["WHEAT"] = max(0, demand.get("WHEAT", 0) - carried.get("WHEAT", 0)
                            + (n_anim * CFG["wheat_days"] if (day < last_day - 1 and not CFG["sd_wheat_reserve_today"]) else 0))
     n_plants = sum(1 for r in farm["tiles"] for t in r if _is_plant(t))
-    tomorrow = min(len(T.fert[d + 1]) if d + 1 < T.n else 0, n_plants)
-    if CFG["fert_release"] and not CFG.get("fert_follow"):
+    tomorrow = 0 if CFG["sd_clean"] else min(len(T.fert[d + 1]) if d + 1 < T.n else 0, n_plants)
+    if (CFG["fert_release"] and not CFG.get("fert_follow")) or CFG["sd_clean"]:
         tomorrow = 0                  # xfix: the leader's tomorrow targets are not ours (the module decides our fertilize)
     if CFG["fert_ongoing"]:
         if CFG["fert_reserve_soon"]:
@@ -2999,11 +3448,30 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
         else:
             n_on = sum(1 for r in farm["tiles"] for t in r if _is_plant(t) and CROPS[t["crop"]]["ongoing"])
             tomorrow = max(tomorrow, n_on // 2)
+    if CFG["sd_wheat_fert_mand"]:                # tomorrow's mandatory wheat fertilizes (today's age-1 wheat)
+        tomorrow = max(tomorrow, sum(1 for r in farm["tiles"] for t in r
+                                     if _is_plant(t) and t.get("crop") == "WHEAT" and day - int(t.get("planted_day", day)) == 1))
     reserve["FERTILIZER"] = max(0, demand.get("FERTILIZER", 0) + tomorrow - carried.get("FERTILIZER", 0))
     if CFG["sd_fert_sell"]:
         reserve["FERTILIZER"] = 0         # sd_fert_sell: no fertilizer kept in the shed
         if CFG["sd_fert_sell"] == 2:     # 2: keep only what today's fertilize jobs still need (picked up at trip start)
             reserve["FERTILIZER"] = max(0, demand.get("FERTILIZER", 0) - carried.get("FERTILIZER", 0))
+        if CFG["sd_fert_sell"] == 3:     # 3 (user 2026-09-27): the shed keeps tomorrow's fertilizer for route pickups
+            need_ = 0                    # (not reduced by what hands carry; the midnight cap ignored for now)
+            for r_ in farm["tiles"]:
+                for t_ in r_:
+                    if not _is_plant(t_) or int(t_.get("fertilized_until_day", -1)) >= day + 1:
+                        continue
+                    a_ = day - int(t_.get("planted_day", day))
+                    cd_ = CROPS.get(t_.get("crop"), {})
+                    if t_.get("crop") == "WHEAT" and a_ == 1:
+                        need_ += 1
+                    elif t_.get("crop") == "CARROT" and a_ in (0, 1):
+                        need_ += 1
+                    elif cd_.get("ongoing") and a_ + 2 - cd_["first"] >= 0 and (a_ + 2 - cd_["first"]) % max(1, cd_["interval"]) == 0:
+                        need_ += 1               # an ongoing crop producing tomorrow night
+            reserve["FERTILIZER"] = max(need_, demand.get("FERTILIZER", 0))
+            S["log"]["fert_keep_next"] += need_
     TPw_ = S.get("tier") if CFG["sd_tier"] and CFG["sd_tier_wheat"] else None
     if TPw_ and TPw_.get("day") == day:
         left_ = sum(it_["n"] for R_ in TPw_["routes"].values() for it_ in R_["items"][R_["k"]:]
@@ -3014,7 +3482,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                 left_ += int(pn_[1].get("WHEAT", 0))
         reserve["WHEAT"] = max(reserve["WHEAT"], left_)
     TPf_ = S.get("tier") if CFG["sd_tier"] and (CFG["sd_tier_sclu_fert"] or CFG["sd_tier_sclu_outfert"] or CFG["sd_tier_fert_carry"]
-                                                 or CFG["sd_tier_fert_shed"] or CFG["sd_tier_fert_merge"] or CFG["sd_path_planner"]) else None
+                                                 or CFG["sd_tier_fert_shed"] or CFG["sd_tier_fert_merge"] or CFG["sd_path_planner"]
+                                                 or CFG["sd_wheat_fert_mand"] or S.get("_manual_today") == day) else None
     if TPf_ and TPf_.get("day") == day:            # sd_tier_sclu_fert: the trips' fertilizer stays in the shed until picked up
         left_f = sum(it_["n"] for R_ in TPf_["routes"].values() for it_ in R_["items"][R_["k"]:]
                      if it_["kind"] == "pick" and it_["item"] == "FERTILIZER")
@@ -3043,6 +3512,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                     quota = shed.get("WHEAT", 0) - (n_an * max(0, 28 - day) + 10)
                 else:
                     quota = have
+            elif CFG["sd_clean"]:
+                quota = have                  # sd_clean: no DSM quota (sell_now / sd_fert_sell / the books serve these)
             else:
                 quota = T.cum_sold[d].get(p, 0) - S["sold"][p]
                 prof_ = CFG["sd_hourly_profile"]
@@ -3057,6 +3528,8 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
             n = min(have, quota)
         if n > 0:
             sells.append(["SELL", p, int(n)])
+    if CFG["sd_evening_wheat_surplus"] and hour >= int(CFG["sd_ews_hour"]) and day < last_day:
+        _evening_wheat_surplus(S, day, shed, invs, farm, sells)
     # shed overflow guard: midnight drop discards above 100
     total = sum(shed.values()) + sum(sum(i.values()) for i in invs)
     sold_now = sum(o[2] for o in sells)
@@ -3412,6 +3885,24 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
                     pv_ = float(P_["p2"].get("%s|%d|%d" % (k1_, now_, soon_), P_["p1"].get(k1_, 0.0)))
                     st_ = int(S["sold"][p_]) - int((S.get("_sold_d0") or {}).get(p_, 0))
                     q_ = int(round(pv_ * (have_ + st_))) - st_
+                    fx_ = float(CFG["sd_books_front"] or 0)
+                    if fx_ > 0 and dd_ and have_ > 0:      # sd_books_front: gone before the rival's usual selling hours
+                        R_ = [sum(rh_.get((d_ * 24 + hh_, p_), 0) for d_ in dd_) / len(dd_) for hh_ in range(24)]
+                        tot_ = sum(R_)
+                        if tot_ >= float(CFG["sd_books_front_min"]):
+                            hl_ = max(hh_ for hh_ in range(24) if R_[hh_] > 0)
+                            cum_r_, hx_ = 0.0, hl_
+                            for hh_ in range(24):
+                                cum_r_ += R_[hh_]
+                                if cum_r_ >= fx_ * tot_ - 1e-9:
+                                    hx_ = hh_
+                                    break
+                            end_ = hx_ if hour <= hx_ else (hl_ if hour <= hl_ else None)
+                            if end_ is not None and hour >= 1:
+                                qf_ = -(-have_ // (end_ - hour + 1))
+                                if qf_ > q_:
+                                    S["log"]["books_front_" + p_] += min(have_, qf_) - max(0, q_)
+                                    q_ = qf_
                     if q_ > 0:
                         front_.append((0, ["SELL", p_, min(have_, q_)]))
                     continue
@@ -3689,7 +4180,7 @@ def _sd_dv_table(S, day, prices, shed):
     picked, strawberries / tomatoes mostly the next morning)."""
     fr = CFG["sd_dv_frac"] or {}
     co = CFG["sd_dv_coins"] or {}
-    gate = bool(CFG["sd_dv_quota"]) and CFG.get("sell_source") == "leader" and _T is not None
+    gate = bool(CFG["sd_dv_quota"]) and CFG.get("sell_source") == "leader" and _T is not None and not CFG["sd_clean"]
     d_ = min(day, _T.n - 1) if gate else 0
     out = {}
     for k in PRODUCTS:
@@ -3964,7 +4455,9 @@ def _sd_opvals(S, idx, t, ops, plan, day, E, last_day):
             v = max(v, float(CFG["sd_water_tomorrow"]))   # tomorrow's labour saved (a dry plant is a must-do tomorrow)
         if CFG.get("sd_feed_bonus") and c in ("FEED", "CARE") and _animal(t):
             v += float(CFG["sd_feed_bonus"])        # user: a bonus on animals fed / cared
-        if CFG["sd_collect_floor"] and c == "COLLECT_FERTILIZER" and _animal(t):
+        if CFG["sd_collect_market"] and c == "COLLECT_FERTILIZER" and _animal(t):
+            v = max(1.0, float((S.get("prices") or {}).get("FERTILIZER", 0) or 0))   # sd_collect_market
+        elif CFG["sd_collect_floor"] and c == "COLLECT_FERTILIZER" and _animal(t):
             v = max(v, float(CFG["sd_collect_floor"]))   # sd_collect_floor
         if hard and c == "WATER" and CFG["sd_retire"] and idx in ((S.get("sd") or {}).get("retired_now") or ()):
             hard = False                               # sd_retire: the plan retires this plant (no forced water)
@@ -6130,7 +6623,8 @@ def _mel_block(p0, hour, block, tiles, day):
     if drop > 12:
         cost = float("inf")
     else:
-        cost = units * (float(CFG["sd_mel_pen"]) * max(0, drop - 8) - float(CFG["sd_mel_bonus"]) * max(0, 8 - drop))
+        piv_ = int(CFG["sd_melon_rush_by"]) if CFG["sd_melon_rush"] else 8
+        cost = units * (float(CFG["sd_mel_pen"]) * max(0, drop - piv_) - float(CFG["sd_mel_bonus"]) * max(0, piv_ - drop))
     return drop, cost, units, order, hh
 
 
@@ -6324,6 +6818,8 @@ def _tier_eval(seg, stops=None, want_hours=False):
     late = hop = bad = 0
     nf, na = _tier_picks(stops)
     fp_ = int(seg.get("fpick", 0) or 0)                # sd_tier_sclu_fert: fertilizer picked up at the start
+    if CFG["sd_wheat_fert_mand"]:                      # mandatory fertilizes not covered by the route's collects: shed pickup
+        fp_ += _tier_fmand_need(stops, fp_)
     w, f = 0, 0
     an = Counter()
     kd = 0
@@ -6386,6 +6882,564 @@ def _tier_eval(seg, stops=None, want_hours=False):
     if want_hours:
         return t, late, hop, bad, hours
     return t, late, hop, bad
+
+
+def _evening_wheat_surplus(S, day, shed, invs, farm, sells):
+    """sd_evening_wheat_surplus (see the flag): appends / enlarges a SELL WHEAT order."""
+    tiles = farm["tiles"]
+    load = sum(int(v or 0) for v in shed.values()) + sum(int(v or 0) for inv in invs for k, v in (inv or {}).items() if k in PRODUCTS)
+    inc_w = sum(int((inv or {}).get("WHEAT", 0) or 0) for inv in invs)
+    TP = S.get("tier")
+    if TP and TP.get("day") == day:
+        for R_ in TP["routes"].values():
+            for j_, it_ in enumerate(R_["items"][R_["k"]:]):
+                if it_.get("kind") != "stop":
+                    continue
+                t_ = _tile(tiles, it_["tile"])
+                for c_ in (it_["ops"][R_["sub"]:] if j_ == 0 else it_["ops"]):
+                    if not (isinstance(c_, list) and c_):
+                        continue
+                    if c_[0] == "HARVEST" and isinstance(t_, dict):
+                        u_ = int(t_.get("yield_units", 0) or 0)
+                        load += u_
+                        if t_.get("crop") == "WHEAT":
+                            inc_w += u_
+                    elif c_[0] == "COLLECT_FERTILIZER":
+                        load += 1
+                    elif c_[0] == "FERTILIZE":
+                        load -= 1
+    sold_now = sum(int(o[2]) for o in sells if o[0] == "SELL")
+    excess = load - sold_now - (100 - int(CFG["sd_tier_dump_buffer"]))
+    if excess <= 0:
+        return
+    n_anim = sum(1 for r in tiles for t in r if _animal(t))
+    already_w = sum(int(o[2]) for o in sells if o[0] == "SELL" and o[1] == "WHEAT")
+    shed_w = int(shed.get("WHEAT", 0) or 0) - already_w
+    surplus = shed_w + inc_w - int(round(float(CFG["sd_ews_keep"]) * n_anim * int(CFG["wheat_days"])))
+    n = min(excess, surplus, shed_w)
+    if n <= 0:
+        return
+    for o in sells:
+        if o[0] == "SELL" and o[1] == "WHEAT":
+            o[2] = int(o[2]) + int(n)
+            break
+    else:
+        sells.append(["SELL", "WHEAT", int(n)])
+    S["log"]["evening_wheat_surplus_sold"] += int(n)
+
+
+def _tier_collect_make_room(segs, rest, collects, tiles, day, st):
+    """sd_collect_make_room (see the flag)."""
+    n_anim = sum(1 for r in tiles for t in r if _animal(t))
+    loads = [_tier_load(sg, sg["stops"], tiles, day) for sg in segs]
+    home_w = sum(int(l.get("WHEAT", 0)) for l in loads)
+    res_w = max(0, n_anim * int(CFG["wheat_days"]) - home_w) if CFG["sd_wheat_net"] else n_anim * int(CFG["wheat_days"])
+    budget = 100 - res_w - int(CFG["sd_tier_dump_buffer"]) - sum(sum(v for v in l.values() if v > 0) for l in loads)
+    cand = {}
+    for bd in rest:
+        for o in bd["ops"]:
+            if o["c"][0] == "COLLECT_FERTILIZER":
+                cand[bd["tile"]] = (bd, o)
+    for t_, o in collects.items():
+        cand.setdefault(t_, (None, o))
+    added = removed = 0
+    for tile, (bd, co) in sorted(cand.items(), key=lambda kv: -float(kv[1][1]["v"])):
+        if budget <= 0:
+            break
+        best = None
+        for k, sg in enumerate(segs):
+            j = next((jj for jj, x in enumerate(sg["stops"]) if x["tile"] == tile and not x.get("turn")), None)
+            if j is None:
+                continue
+            ev0 = _tier_eval(sg)
+            trial = [dict(x, ops=list(x["ops"])) for x in sg["stops"]]
+            trial[j]["ops"] = sorted(trial[j]["ops"] + [dict(co)], key=lambda o: o["rank"])
+            lost = 0.0
+            ok = True
+            while True:
+                ev = _tier_eval(sg, trial)
+                if ev[1] <= ev0[1] and ev[3] <= ev0[3] and ev[0] <= max(24, ev0[0]):
+                    break
+                opts = sorted((float(o2["v"]), k2, id(o2)) for k2, x2 in enumerate(trial) if not x2.get("turn")
+                              for o2 in x2["ops"] if not o2["m"] and o2["c"][0] not in ("COLLECT_FERTILIZER", "FERTILIZE", "DELIVER")
+                              and not (k2 == j and o2["c"][0] == "COLLECT_FERTILIZER"))
+                if not opts or opts[0][0] + lost >= float(co["v"]):
+                    ok = False
+                    break
+                v2, k2, oid = opts[0]
+                trial[k2]["ops"] = [o2 for o2 in trial[k2]["ops"] if id(o2) != oid]
+                lost += v2
+                trial = [x for x in trial if x["ops"]]
+                j = next((jj for jj, x in enumerate(trial) if x["tile"] == tile and not x.get("turn")), j)
+            if ok and (best is None or lost < best[0]):
+                best = (lost, k, trial)
+        if best is None:
+            continue
+        lost, k, trial = best
+        segs[k]["stops"] = trial
+        segs[k]["ver"] = segs[k].get("ver", 0) + 1
+        added += 1
+        removed += int(lost > 0)
+        budget -= 1
+        if bd is not None:
+            bd["ops"] = [o for o in bd["ops"] if o is not co]
+            bd["v"] = sum(float(o["v"]) for o in bd["ops"])
+        collects.pop(tile, None)
+    rest[:] = [bd for bd in rest if bd["ops"]]
+    st["collect_make_room"] = st.get("collect_make_room", 0) + added
+    st["collect_make_room_swaps"] = st.get("collect_make_room_swaps", 0) + removed
+    return added
+
+
+def _tier_fert_use(segs, rec, tiles, day, st):
+    """sd_tier_fert_use (see the flag): spend each route's carried fertilizer on unplaced fertilizes of its own stops."""
+    placed = {x["tile"] for sg in segs for x in sg["stops"] for o in x["ops"] if o["c"][0] == "FERTILIZE"}
+    cand = {}
+    for i, r_ in rec.items():
+        fz = [o for o in r_["ops"] if o["c"][0] == "FERTILIZE" and not o["m"] and o["v"] > 0]
+        t_ = _tile(tiles, i)
+        if fz and i not in placed and _is_plant(t_) and int(t_.get("fertilized_until_day", -1)) < day:
+            cand[i] = fz[0]
+    n_ins = n_room = 0
+    for sg in segs:
+        if sg["kind"] == "central" or not sg["stops"]:
+            continue
+        changed = True
+        while changed and cand:
+            changed = False
+            ev0 = _tier_eval(sg)
+            f = int(sg.get("fpick", 0) or 0)
+            for k, x in enumerate(sg["stops"]):
+                for o in x["ops"]:
+                    c = o["c"][0]
+                    if c == "COLLECT_FERTILIZER":
+                        f += 1
+                    elif c == "FERTILIZE":
+                        f -= 1
+                if f <= 0 or x.get("dawn") or x["tile"] not in cand:
+                    continue
+                t_ = _tile(tiles, x["tile"])
+                if not (t_.get("watered_today") or any(o["c"][0] == "WATER" for o in x["ops"])):
+                    continue                       # the gain needs today's water on the tile
+                o_new = dict(cand[x["tile"]])
+                trial = [dict(s_) for s_ in sg["stops"]]
+                trial[k]["ops"] = sorted(trial[k]["ops"] + [o_new], key=lambda o: o["rank"])
+                ev = _tier_eval(sg, trial)
+                if ev[3] > ev0[3]:
+                    continue
+                if ev[1] > ev0[1] or ev[0] > max(24, ev0[0]):
+                    ok = False                     # make room: the cheapest optional op worth less, elsewhere
+                    opts = sorted((float(o2["v"]), k2, j2) for k2, s2 in enumerate(trial) if k2 != k and not s2.get("turn")
+                                  for j2, o2 in enumerate(s2["ops"])
+                                  if not o2["m"] and o2["c"][0] not in ("FERTILIZE", "COLLECT_FERTILIZER", "DELIVER")
+                                  and float(o2["v"]) < float(o_new["v"]))
+                    for v2, k2, j2 in opts[:8]:
+                        t2 = [dict(s_) for s_ in trial]
+                        t2[k2]["ops"] = [o3 for jj, o3 in enumerate(t2[k2]["ops"]) if jj != j2]
+                        t2 = [s_ for s_ in t2 if s_["ops"]]
+                        ev2 = _tier_eval(sg, t2)
+                        if ev2[3] <= ev0[3] and ev2[1] <= ev0[1] and ev2[0] <= max(24, ev0[0]):
+                            trial, ev, ok = t2, ev2, True
+                            n_room += 1
+                            break
+                    if not ok:
+                        continue
+                sg["stops"] = trial
+                sg["ver"] = sg.get("ver", 0) + 1
+                del cand[x["tile"]]
+                n_ins += 1
+                changed = True
+                break
+    st["tier_fert_use"] = st.get("tier_fert_use", 0) + n_ins
+    st["tier_fert_use_room"] = st.get("tier_fert_use_room", 0) + n_room
+    return n_ins
+
+
+def _tier_pensweep(segs, rec, anim, owner, st, rng):
+    """sd_pen_sweep (see the flag). Returns (unplaced optional bundles, {pen: unplaced collect op})."""
+    import math
+    t_start = time.perf_counter()
+    vmin = float(CFG["sd_pen_sweep_vmin"])
+    idx = [k for k, sg in enumerate(segs) if sg["kind"] in ("out", "post")]
+    for k in idx:
+        segs[k]["stops"] = []
+        segs[k]["lo"] = 0
+    units = {}
+    for i, r_ in rec.items():
+        ops = [dict(o) for o in r_["ops"] if o["m"] or float(o["v"]) >= vmin
+               or (o["c"][0] == "COLLECT_FERTILIZER" and float(o["v"]) > 0)]   # a pen's collect: the routes' fertilizer
+        if ops:
+            units[i] = {"tile": i, "ops": sorted(ops, key=lambda o: o["rank"]), "rel": r_.get("rel", 0),
+                        "mand": any(o["m"] for o in ops)}
+    if not idx or not units:
+        return [], {}
+
+    def uval(ops):
+        return sum(float(o["v"]) for o in ops if not o["m"])
+
+    def rscore(sg, stops):
+        if not stops:
+            return 0.0, (sg["t0"], 0, 0, 0)
+        ev = _tier_eval(sg, stops)
+        v = sum(uval(x["ops"]) for x in stops) + 3000.0 * sum(1 for x in stops for o in x["ops"] if o["m"])
+        return v - 1000.0 * (ev[1] + ev[3]) - 0.01 * ev[0], ev
+
+    def fits(sg, stops):
+        if not stops:
+            return True
+        ev = _tier_eval(sg, stops)
+        return ev[1] == 0 and ev[3] == 0 and ev[0] <= 24
+
+    def trim(sg, stops, pool):
+        """drop optional ops (lowest value first; a FERTILIZE without supply first) until the route fits"""
+        stops = [dict(x, ops=list(x["ops"])) for x in stops]
+        while stops and not fits(sg, stops):
+            ev = _tier_eval(sg, stops)
+            cand = []
+            for j, x in enumerate(stops):
+                for o in x["ops"]:
+                    if not o["m"]:
+                        pri = -1e9 if (ev[3] > 0 and o["c"][0] == "FERTILIZE") else float(o["v"])
+                        cand.append((pri, j, id(o)))
+            if not cand:
+                mj = [j for j, x in enumerate(stops)]
+                j = mj[-1]                         # a mandatory unit that cannot fit: back to the pool
+                pool.append(stops.pop(j))
+                continue
+            _, j, oid = min(cand)
+            o = next(o for o in stops[j]["ops"] if id(o) == oid)
+            stops[j]["ops"].remove(o)
+            pool.append({"tile": stops[j]["tile"], "ops": [o], "rel": stops[j]["rel"], "mand": False})
+            if not stops[j]["ops"]:
+                stops.pop(j)
+        return stops
+
+    D = _TIER_D
+    keys = list(units)
+    wk = {i: len(units[i]["ops"]) + 1.0 for i in keys}
+    ang = {i: math.atan2(i // 10 - 4.5, i % 10 - 4.5) for i in keys}
+    order = sorted(keys, key=lambda i: ang[i])
+    hours = {k: max(1.0, 24.0 - float(segs[k]["t0"])) for k in idx}
+    best = None
+    for off in range(int(CFG["sd_tier_offsets"])):
+        rot = order[(off * len(order)) // (2 * int(CFG["sd_tier_offsets"])):] + order[:(off * len(order)) // (2 * int(CFG["sd_tier_offsets"]))]
+        tot = sum(wk[i] for i in rot)
+        H = sum(hours.values())
+        arcs, cur, acc, kk = [], [], 0.0, 0
+        caps = [tot * hours[k] / H for k in idx]
+        for i in rot:
+            cur.append(i)
+            acc += wk[i]
+            if acc >= caps[min(kk, len(caps) - 1)] and kk < len(idx) - 1:
+                arcs.append(cur)
+                cur, acc = [], 0.0
+                kk += 1
+        arcs.append(cur)
+        while len(arcs) < len(idx):
+            arcs.append([])
+        # hands to arcs: nearest entry (greedy on the pair distances)
+        pairs = []
+        for a, arc in enumerate(arcs):
+            for k in idx:
+                dmin = min((D[segs[k]["p0"]][i] for i in arc), default=0)
+                pairs.append((dmin + 0.2 * float(segs[k]["t0"]), a, k))
+        pairs.sort()
+        ua, uk, assign = set(), set(), {}
+        for _, a, k in pairs:
+            if a in ua or k in uk:
+                continue
+            assign[k] = arcs[a]
+            ua.add(a)
+            uk.add(k)
+        routes, pool = {}, []
+        for k in idx:
+            arc = list(assign.get(k, []))
+            pos, seq = segs[k]["p0"], []
+            while arc:
+                pens_ = [i for i in arc if i in anim]
+                src_ = pens_ if pens_ else arc         # pens first (their collects supply the crops' fertilizes)
+                nx = min(src_, key=lambda i: (D[pos][i], -wk[i], i))
+                arc.remove(nx)
+                seq.append({"tile": nx, "ops": [dict(o) for o in units[nx]["ops"]], "rel": units[nx]["rel"],
+                            "mand": units[nx]["mand"]})
+                pos = nx
+            routes[k] = trim(segs[k], seq, pool)
+        sc = sum(rscore(segs[k], routes[k])[0] for k in idx) - 5000.0 * sum(1 for x in pool if x["mand"])
+        if best is None or sc > best[0]:
+            best = (sc, routes, pool)
+    _, routes, pool = best
+
+    def ins_best(x, allow_room):
+        """cheapest feasible insertion of unit x (merged into a stop on the same tile when the route has one)"""
+        bb = None
+        for k in idx:
+            R = routes[k]
+            base = rscore(segs[k], R)[0]
+            same = next((j for j, y in enumerate(R) if y["tile"] == x["tile"]), None)
+            cands = []
+            if same is not None:
+                R2 = [dict(y, ops=list(y["ops"])) for y in R]
+                R2[same]["ops"] = sorted(R2[same]["ops"] + list(x["ops"]), key=lambda o: o["rank"])
+                cands.append(R2)
+            else:
+                for j in range(len(R) + 1):
+                    cands.append(R[:j] + [dict(x, ops=list(x["ops"]))] + R[j:])
+            for R2 in cands:
+                if fits(segs[k], R2):
+                    gain = rscore(segs[k], R2)[0] - base
+                    if bb is None or gain > bb[0]:
+                        bb = (gain, k, R2, [])
+                elif allow_room:
+                    extra = []
+                    R3 = trim(segs[k], R2, extra)
+                    if any(y["mand"] for y in extra) or not any(y["tile"] == x["tile"] for y in R3):
+                        continue
+                    gain = rscore(segs[k], R3)[0] - base
+                    if bb is None or gain > bb[0]:
+                        bb = (gain, k, R3, extra)
+        return bb
+
+    # leftover mandatory units first (room made by dropping optional ops), then optional ones
+    pool.sort(key=lambda x: (not x["mand"], -uval(x["ops"])))
+    left = []
+    for x in pool:
+        bb = ins_best(x, x["mand"])
+        if bb is None or (not x["mand"] and bb[0] <= 0):
+            left.append(x)
+            continue
+        routes[bb[1]] = bb[2]
+        left.extend(bb[3])
+    # local search
+    n_it = int(CFG["sd_pen_sweep_iters"])
+    acc_ = 0
+    for it in range(n_it):
+        mv = rng.random()
+        ks = [k for k in idx if routes[k]]
+        if not ks:
+            break
+        if mv < 0.45:                              # relocate one visit to another route
+            a = rng.choice(ks)
+            j = rng.randrange(len(routes[a]))
+            x = routes[a][j]
+            near = sorted(idx, key=lambda k: min([D[segs[k]["p0"]][x["tile"]]] + [D[y["tile"]][x["tile"]] for y in routes[k]]))[:4]
+            b = rng.choice(near)
+            if b == a:
+                continue
+            Ra = routes[a][:j] + routes[a][j + 1:]
+            s0 = rscore(segs[a], routes[a])[0] + rscore(segs[b], routes[b])[0]
+            bestb = None
+            for q in range(len(routes[b]) + 1):
+                Rb = routes[b][:q] + [x] + routes[b][q:]
+                if not fits(segs[b], Rb):
+                    continue
+                s1 = rscore(segs[a], Ra)[0] + rscore(segs[b], Rb)[0]
+                if bestb is None or s1 > bestb[0]:
+                    bestb = (s1, Rb)
+            if bestb and bestb[0] > s0 + 1e-6:
+                routes[a], routes[b] = Ra, bestb[1]
+                acc_ += 1
+        elif mv < 0.65:                            # swap two visits between routes
+            a, b = rng.choice(ks), rng.choice(ks)
+            if a == b:
+                continue
+            i, j = rng.randrange(len(routes[a])), rng.randrange(len(routes[b]))
+            Ra = routes[a][:i] + [routes[b][j]] + routes[a][i + 1:]
+            Rb = routes[b][:j] + [routes[a][i]] + routes[b][j + 1:]
+            if fits(segs[a], Ra) and fits(segs[b], Rb):
+                s0 = rscore(segs[a], routes[a])[0] + rscore(segs[b], routes[b])[0]
+                s1 = rscore(segs[a], Ra)[0] + rscore(segs[b], Rb)[0]
+                if s1 > s0 + 1e-6:
+                    routes[a], routes[b] = Ra, Rb
+                    acc_ += 1
+        elif mv < 0.85:                            # 2-opt inside a route
+            a = rng.choice(ks)
+            if len(routes[a]) < 3:
+                continue
+            i = rng.randrange(len(routes[a]) - 1)
+            j = rng.randrange(i + 1, len(routes[a]))
+            Ra = routes[a][:i] + routes[a][i:j + 1][::-1] + routes[a][j + 1:]
+            if fits(segs[a], Ra) and rscore(segs[a], Ra)[0] > rscore(segs[a], routes[a])[0] + 1e-6:
+                routes[a] = Ra
+                acc_ += 1
+        elif left:                                 # try a leftover optional unit again
+            x = left.pop(rng.randrange(len(left)))
+            bb = ins_best(x, False)
+            if bb is not None and bb[0] > 0:
+                routes[bb[1]] = bb[2]
+                acc_ += 1
+            else:
+                left.append(x)
+    # fertilize pairing: an unplaced FERTILIZE goes into the route that visits its tile; the fertilizer comes from a
+    # collect moved into that route (from the pen's route, when that route keeps its own supply)
+    lf = [x for x in left if any(o["c"][0] == "FERTILIZE" for o in x["ops"])]
+    n_pair = 0
+    for x in sorted(lf, key=lambda x: -uval(x["ops"])):
+        fo = next(o for o in x["ops"] if o["c"][0] == "FERTILIZE")
+        done_ = False
+        for k in idx:
+            R = routes[k]
+            j = next((jj for jj, y in enumerate(R) if y["tile"] == x["tile"]), None)
+            if j is None:
+                continue
+            R2 = [dict(y, ops=list(y["ops"])) for y in R]
+            R2[j]["ops"] = sorted(R2[j]["ops"] + [fo], key=lambda o: o["rank"])
+            if fits(segs[k], R2):
+                routes[k] = R2
+                done_ = True
+                break
+            base = rscore(segs[k], R)[0]
+            pens_ = sorted((pp for pp in anim), key=lambda pp: min([D[segs[k]["p0"]][pp]] + [D[y["tile"]][pp] for y in R[:j + 1]]))[:4]
+            for pp in pens_:
+                src = None
+                for q in idx:                      # the route holding pp's collect
+                    for jj, y in enumerate(routes[q]):
+                        co = next((o for o in y["ops"] if o["c"][0] == "COLLECT_FERTILIZER"), None)
+                        if y["tile"] == pp and co is not None:
+                            src = (q, jj, co)
+                if src is None:
+                    continue
+                q, jj, co = src
+                if q == k:
+                    continue
+                Rq = [dict(y, ops=[o for o in y["ops"] if o is not co]) for y in routes[q]]
+                Rq = [y for y in Rq if y["ops"]]
+                if not fits(segs[q], Rq):
+                    continue
+                for pos_ in range(j + 1):
+                    R3 = [dict(y, ops=list(y["ops"])) for y in R2]
+                    jm = next((a for a, y in enumerate(R3[:j + 1]) if y["tile"] == pp), None)
+                    if jm is not None:
+                        R3[jm]["ops"] = sorted(R3[jm]["ops"] + [co], key=lambda o: o["rank"])
+                    else:
+                        R3 = R3[:pos_] + [{"tile": pp, "ops": [co], "rel": 0, "mand": False}] + R3[pos_:]
+                    if fits(segs[k], R3) and rscore(segs[k], R3)[0] + rscore(segs[q], Rq)[0] > base + rscore(segs[q], routes[q])[0]:
+                        routes[k], routes[q] = R3, Rq
+                        done_ = True
+                        break
+                    if jm is not None:
+                        break
+                if done_:
+                    break
+            if done_:
+                break
+        if done_:
+            left.remove(x)
+            n_pair += 1
+    # low-value work into spare time (optional ops worth less than sd_pen_sweep_vmin, e.g. waters)
+    n_low = 0
+    for i, r_ in sorted(rec.items(), key=lambda kv: -max([float(o["v"]) for o in kv[1]["ops"] if not o["m"]] or [0.0])):
+        low = [dict(o) for o in r_["ops"] if not o["m"] and 0.0 < float(o["v"]) < vmin and o["c"][0] != "FERTILIZE"]
+        if not low:
+            continue
+        bb = ins_best({"tile": i, "ops": low, "rel": r_.get("rel", 0), "mand": False}, False)
+        if bb is not None and bb[0] > 0:
+            routes[bb[1]] = bb[2]
+            n_low += 1
+    for k in idx:                                  # merge consecutive visits of one tile
+        mg = []
+        for x in routes[k]:
+            if mg and mg[-1]["tile"] == x["tile"]:
+                mg[-1] = dict(mg[-1], ops=mg[-1]["ops"] + x["ops"])
+            else:
+                mg.append(x)
+        routes[k] = mg
+    placed_f = 0
+    for k in idx:
+        segs[k]["stops"] = [{"tile": x["tile"], "ops": sorted(x["ops"], key=lambda o: o["rank"]), "rel": x["rel"]} for x in routes[k]]
+        segs[k]["ver"] = segs[k].get("ver", 0) + 1
+        for x in routes[k]:
+            if x["tile"] not in anim:
+                owner[x["tile"]] = k
+            placed_f += sum(1 for o in x["ops"] if o["c"][0] == "FERTILIZE")
+    mand_left = [x["tile"] for x in left if x["mand"]]
+    rest, collects = [], {}
+    for x in left:
+        opt = [o for o in x["ops"] if not o["m"]]
+        for o in opt:
+            if o["c"][0] == "COLLECT_FERTILIZER":
+                collects[x["tile"]] = o
+        if opt:
+            rest.append({"tile": x["tile"], "ops": opt, "v": uval(opt)})
+    st["_pensweep_day"] = {"units": len(units), "mand_left": mand_left, "opt_left": len(rest), "fert": placed_f,
+                           "pair": n_pair, "low": n_low,
+                           "moves": acc_, "ms": round((time.perf_counter() - t_start) * 1000.0, 1)}
+    st["pensweep_mand_left"] = st.get("pensweep_mand_left", 0) + len(mand_left)
+    return rest, collects
+
+
+_MANUAL_PLANS = {}
+
+
+def _tier_manual_apply(S, segs, rec, day, st):
+    """sd_manual_plan (see the flag): replace the segments' stops by the hand routes of this world / day."""
+    path = CFG["sd_manual_plan"]
+    if path not in _MANUAL_PLANS:
+        import json as _json
+        try:
+            _MANUAL_PLANS[path] = _json.load(open(path, encoding="utf-8"))
+        except Exception:
+            _MANUAL_PLANS[path] = {}
+    plan = (_MANUAL_PLANS[path].get(str(_TGT_EP)) or {}).get(str(day))
+    if not plan:
+        return
+    S["_manual_today"] = day
+    by_u = {int(R["u"]): R for R in plan["routes"]}
+    used = {}
+    n_ops = n_new = 0
+    for sg in segs:
+        R = by_u.get(int(sg["u"]))
+        if R is None:
+            continue
+        seq, stops = [], []
+        for x, y, ops in R["stops"]:
+            tile = int(y) * 10 + int(x)
+            od = []
+            for op in ops:
+                if op == "PICKUP":
+                    if od:
+                        stp = {"tile": tile, "ops": od, "rel": 0}
+                        seq.append(stp)
+                        stops.append(stp)
+                        od = []
+                    seq.append({"pick_item": "WHEAT", "tile": tile})
+                    continue
+                if op == "DROP":
+                    od.append(_tier_op(["DROP"], True, 0.0, 2))
+                    continue
+                cand = [o for o in (rec.get(tile) or {}).get("ops", []) if o["c"][0] == op and id(o) not in used.get(tile, set())]
+                if cand:
+                    used.setdefault(tile, set()).add(id(cand[0]))
+                    od.append(dict(cand[0]))
+                else:
+                    od.append(_tier_op([op], False, 1.0, 3))
+                    n_new += 1
+                n_ops += 1
+            if od:
+                stp = {"tile": tile, "ops": od, "rel": 0}
+                seq.append(stp)
+                stops.append(stp)
+        sg["stops"] = stops
+        sg["manual_seq"] = seq
+        sg["fpick"] = int(R.get("fpick", 0) or 0)
+        sg["ver"] = sg.get("ver", 0) + 1
+    st["_manual_day"] = {"routes": len(by_u), "ops": n_ops, "not_in_catalogue": n_new}
+
+
+def _tier_fmand_need(stops, fp0):
+    """sd_wheat_fert_mand: extra fertilizer a route must pick up at its start so that every MANDATORY fertilize has one in
+    hand (collects on the way count; optional fertilizes keep their own supply rules)."""
+    f, need = fp0, 0
+    for s in stops:
+        for o in s["ops"]:
+            c = o["c"][0]
+            if c == "COLLECT_FERTILIZER":
+                f += 1
+            elif c == "FERTILIZE":
+                if f > 0:
+                    f -= 1
+                elif o["m"]:
+                    need += 1
+    return need
 
 
 def _tier_cost(seg, ev=None, stops=None):
@@ -6802,7 +7856,7 @@ def _tier_fert_gain(idx, t, day):
     return sum(1 for dd in range(day, last + 1) if prod(dd) and dd > fu)
 
 
-def _tier_anim_value(rec, tiles, day, last_day, prices, st):
+def _tier_anim_value(rec, tiles, day, last_day, prices, st, replace=False):
     """sd_path_planner (KB107: sheep care 236 -> 170, wool -70 units, when care was valued ~20-40 against a collect's 80):
     CARE and optional FEED valued by the engine rule - a fed + cared day banks one unit for the next production (paid
     only when fed that night), a fed production night cashes the bank. CARE = product price when a production night
@@ -6825,13 +7879,17 @@ def _tier_anim_value(rec, tiles, day, last_day, prices, st):
         bank = int(t.get("pending_care_bonus", 0) or 0)
         for o in r_["ops"]:
             c = o["c"][0]
+            if c == "CARE" and o["m"] and replace:
+                continue
             if c == "CARE" and later:
                 v = pr
+            elif c == "CARE" and replace:
+                v = 0.0                            # sd_anim_value_exact: no production ahead, the care is wasted
             elif c == "FEED" and not o["m"]:
                 v = (bank * pr if today else 0.0) + (0.5 * pr if later else 0.0)
             else:
                 continue
-            if v > o["v"]:
+            if v > o["v"] or (replace and v != o["v"]):
                 o["v"] = v
                 n += 1
     st["tier_anim_value"] = st.get("tier_anim_value", 0) + n
@@ -6857,6 +7915,8 @@ def _tier_fert_exact(rec, tiles, day, prices, st):
         g = _tier_fert_gain(idx, t, day)
         price = float(prices.get(t["crop"], 0) or 0)
         v = g * price - charge
+        if g > 0 and CFG["sd_fert_bonus"] and t["crop"] in (CFG["sd_fert_bonus_crops"] or ()):
+            v += float(CFG["sd_fert_bonus"])      # sd_fert_bonus
         if v <= 0:
             if r_ and "FERTILIZE" in cm:
                 r_["ops"] = [o for o in r_["ops"] if o["c"][0] != "FERTILIZE"]
@@ -7951,6 +9011,10 @@ def _tier_deliver(S, segs, tiles, day, st):
     n_anim = sum(1 for r in tiles for t in r if _animal(t))
     room = 100 - n_anim * int(CFG["wheat_days"]) - int(CFG["sd_tier_dump_buffer"])
     loads = [_tier_load(sg, sg["stops"], tiles, day) for sg in segs]
+    if CFG["sd_wheat_net"]:                        # tomorrow's feed wheat net of the wheat the hands bring home tonight
+        home_w_ = sum(int(l.get("WHEAT", 0)) for l in loads)
+        room = 100 - max(0, n_anim * int(CFG["wheat_days"]) - home_w_) - int(CFG["sd_tier_dump_buffer"])
+        st["_wheat_net_room"] = room
     total = sum(sum(l.values()) for l in loads)
     st["tier_dump_proj"] = st.get("tier_dump_proj", 0) + total
     if CFG["sd_tier_turnaround"]:
@@ -8157,8 +9221,10 @@ def _tier_melon(day, tiles, units):
     return (best[1] if best else []), left
 
 
-def _tier_defer_ok(t, day):
-    """sd_tier_dump_defer: the tile keeps its units until tomorrow without losing production."""
+def _tier_defer_ok(t, day, exact=False):
+    """sd_tier_dump_defer: the tile keeps its units until tomorrow without losing production. exact (sd_follow_defer_exact):
+    a one-time crop whose decay starts at the start of the day after tomorrow may wait (the engine decays from
+    max_lifespan_step on; the default test also refuses that last full day, so an age-3 wheat never waits for age 4)."""
     if _animal(t):
         return not _tier_anim_harv_needed(t, day)
     crop = t.get("crop")
@@ -8166,7 +9232,7 @@ def _tier_defer_ok(t, day):
         return False
     cd = CROPS[crop]
     ls = int(t.get("max_lifespan_step", -1) or -1)
-    if ls != -1 and ls <= (day + 2) * 24:
+    if ls != -1 and (ls < (day + 2) * 24 if exact else ls <= (day + 2) * 24):
         return False                               # decays by tomorrow's end
     if cd["ongoing"]:
         dsf = day + 1 - int(t.get("planted_day", day)) - cd["first"]
@@ -8757,6 +9823,19 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                         continue                       # DSM: a trickle of service once the product is glutted
             r_["ops"].append(_tier_op(o, m, v_, tier, after_plant=plant_seen and c == "WATER"))
     st["tier_pred_skipped"] = st.get("tier_pred_skipped", 0) + skipped
+    if CFG["sd_collect_at_floor"] and day < last_day:   # the module emits no collect job at a $1 fertilizer quote
+        fv_ = max(float(prices.get("FERTILIZER", 0) or 0), float(CFG["sd_collect_floor"] or 0))
+        pens_ = [i_ for i_ in range(100) if _animal(_tile(tiles, i_)) and _tile(tiles, i_).get("fertilizer_available")
+                 and not any(o["c"][0] == "COLLECT_FERTILIZER" for o in (rec.get(i_) or {}).get("ops", []))]
+        if int(CFG["sd_collect_at_floor"]) >= 2:   # mode 2: only as many as the fertilizes still lacking a supply
+            fz_ = [i_ for i_, r_ in rec.items() if any(o["c"][0] == "FERTILIZE" and o["v"] > 0 for o in r_["ops"])]
+            have_ = sum(1 for r_ in rec.values() for o in r_["ops"] if o["c"][0] == "COLLECT_FERTILIZER")
+            need_ = max(0, len(fz_) - have_)
+            pens_ = sorted(pens_, key=lambda i_: min([_TIER_D[i_][j_] for j_ in fz_] or [99]))[:need_]
+        for idx_ in pens_:
+            r_ = rec.setdefault(idx_, {"ops": [], "rel": 0})
+            r_["ops"].append(_tier_op(["COLLECT_FERTILIZER"], False, fv_, 4))
+            st["tier_collect_at_floor"] = st.get("tier_collect_at_floor", 0) + 1
     if CFG["sd_harvest_follow_dsm"]:               # harvest days as DSM's (same tiles: the plan is followed tile-exact)
         hs_ = _T.harv_tiles[day] if day < len(getattr(_T, "harv_tiles", ())) else set()
         crops_ = set(CFG["sd_harvest_follow_dsm"])
@@ -8768,7 +9847,7 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                 continue
             r_ = rec.get(idx_)
             has_ = bool(r_) and any(o["c"][0] == "HARVEST" for o in r_["ops"])
-            if has_ and idx_ not in hs_ and _tier_defer_ok(t_, day):
+            if has_ and idx_ not in hs_ and _tier_defer_ok(t_, day, exact=bool(CFG["sd_follow_defer_exact"])):
                 r_["ops"] = [o for o in r_["ops"] if o["c"][0] not in ("HARVEST", "PLACE_HARVEST")]
                 st["tier_follow_held"] = st.get("tier_follow_held", 0) + 1
                 fr_["held"].append(idx_)
@@ -8898,11 +9977,109 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                     st["tier_feed_bank"] = st.get("tier_feed_bank", 0) + 1
     if int(CFG["sd_tier_goose_care"]) > 0:        # KWE: goose CARE with the FEED
         _tier_goose_care(rec, tiles, day, last_day, prices, st)
+    if CFG["sd_exact_retire"] and CFG["sd_exact_retire_prefeed"] and not CFG["sd_clean_plan"]:
+        for idx_ in S.get("_xfeed") or ():
+            r_ = rec.setdefault(idx_, {"ops": [], "rel": 0})
+            fd_ = [o for o in r_["ops"] if o["c"][0] == "FEED"]
+            for o in fd_:
+                o["m"], o["tier"] = True, 2
+            if not fd_:
+                r_["ops"].insert(0, _tier_op(["FEED"], True, 0.0, 2))
+            st["xretire_prefeed"] = st.get("xretire_prefeed", 0) + 1
+    if (CFG["sd_exact_retire"] or CFG["sd_own_retire"]) and S.get("_xretire"):   # DSM's escapes copied / sd_own_retire (after every feed-forcing pass)
+        for idx_, tonight_ in S["_xretire"].items():
+            t_ = _tile(tiles, idx_)
+            r_ = rec.get(idx_)
+            if r_:
+                n0_ = len(r_["ops"])
+                r_["ops"] = [o for o in r_["ops"] if o["c"][0] not in ("FEED", "CARE")]
+                st["xretire_dropped"] = st.get("xretire_dropped", 0) + n0_ - len(r_["ops"])
+            if tonight_ and int(t_.get("yield_units", 0) or 0) > 0:
+                r_ = rec.setdefault(idx_, {"ops": [], "rel": 0})
+                hv_ = [o for o in r_["ops"] if o["c"][0] == "HARVEST"]
+                for o in hv_:
+                    o["m"], o["tier"] = True, 2
+                if not hv_:
+                    r_["ops"].append(_tier_op(["HARVEST"], True, 0.0, 2))
+                    st["xretire_harvest_added"] = st.get("xretire_harvest_added", 0) + 1
+            st["xretire_animals"] = st.get("xretire_animals", 0) + 1
+        for idx_ in [i for i, r_ in rec.items() if not r_["ops"]]:
+            del rec[idx_]
+    if CFG["sd_wheat_h3_opt"]:                     # the day-3 wheat harvest (and its water) optional, by value
+        pw_ = float((prices or {}).get("WHEAT", 0) or 0)
+        fr_ = float(CFG["sd_wheat_h3_frac"])
+        for idx_, r_ in rec.items():
+            t_ = _tile(tiles, idx_)
+            if not (_is_plant(t_) and t_.get("crop") == "WHEAT"):
+                continue
+            job_ = jobs.get(idx_)
+            if job_ and job_[0] in ("PLANT", "BUILD"):
+                continue                          # the tile is replanted / built today: as planned
+            if (day - int(t_.get("planted_day", day)) >= CROPS["WHEAT"]["maxday"] or day >= last_day - 1
+                    or not _tier_defer_ok(t_, day, exact=True)):
+                continue
+            hv_ = [o for o in r_["ops"] if o["c"][0] == "HARVEST" and o["m"]]
+            if not hv_:
+                continue
+            wat_ = any(o["c"][0] == "WATER" for o in r_["ops"]) and not t_.get("watered_today")
+            bonus_ = (2 if int(t_.get("fertilized_until_day", -1)) >= day else 1) if wat_ else 0
+            units_ = min(CROPS["WHEAT"]["max"], int(t_.get("yield_units", 0) or 0) + bonus_)
+            hard_ = int(t_.get("consecutive_unwatered", 0) or 0) >= 1 and not t_.get("watered_today")
+            for o in r_["ops"]:
+                c_ = o["c"][0]
+                if c_ == "HARVEST" and o["m"]:
+                    o["m"], o["tier"], o["v"] = False, 3, max(1.0, fr_ * units_ * pw_)
+                elif c_ == "PLACE_HARVEST" and o["m"]:
+                    o["m"], o["tier"], o["v"] = False, 3, max(1.0, float(o["v"]))
+                elif c_ == "WATER" and o["m"] and o["rank"] == _TIER_RANK["WATER"] and not hard_:
+                    o["m"], o["tier"], o["v"] = False, 3, max(0.5, float(CFG["sd_wheat_h3_wv"]) * bonus_ * pw_)
+            st["wheat_h3_opt"] = st.get("wheat_h3_opt", 0) + 1
+    if CFG["sd_wheat_d3"]:                         # wheat harvests by value: day 3 only with a replant, else the last full day
+        pw_ = float((prices or {}).get("WHEAT", 0) or 0)
+        for idx_ in range(100):
+            t_ = _tile(tiles, idx_)
+            if _is_plant(t_) and t_.get("crop") == "WHEAT" and (jobs.get(idx_) or (None,))[-1] == "d3":
+                rec.setdefault(idx_, {"ops": [], "rel": 0})
+            r_ = rec.get(idx_)
+            if not (r_ and _is_plant(t_) and t_.get("crop") == "WHEAT"):
+                continue
+            if not any(o["c"][0] == "HARVEST" for o in r_["ops"]) and not (jobs.get(idx_) or (None,))[-1] == "d3":
+                continue
+            job_ = jobs.get(idx_)
+            hold_ = (_tier_defer_ok(t_, day, exact=True) and day < last_day - 1
+                     and day - int(t_.get("planted_day", day)) < CROPS["WHEAT"]["maxday"])
+            if job_ and job_[0] == "PLANT" and not (len(job_) > 3 and job_[3] == "d3"):
+                continue                          # DSM replants today: harvest + plant as planned
+            if job_ and len(job_) > 3 and job_[3] == "d3" and not hold_:
+                continue                          # last full day: the replant job stays mandatory (below)
+            if not hold_:
+                continue
+            n0_ = len(r_["ops"])
+            r_["ops"] = [o for o in r_["ops"] if o["c"][0] not in ("HARVEST", "PLACE_HARVEST")]
+            st["wheat_d3_held"] = st.get("wheat_d3_held", 0) + (1 if len(r_["ops"]) < n0_ else 0)
+            if job_ and len(job_) > 3 and job_[3] == "d3":
+                if not t_.get("watered_today"):   # the day-3 water is mandatory (the day-4 path needs it too)
+                    wo_ = [o for o in r_["ops"] if o["c"][0] == "WATER"]
+                    for o in wo_:
+                        o["m"], o["tier"] = True, 2
+                    if not wo_:
+                        r_["ops"].append(_tier_op(["WATER"], True, 0.0, 2))
+                v3_ = float(CFG["sd_wheat_d3_v"]) * pw_ / 3.0
+                r_["ops"] = [o for o in r_["ops"] if o["c"][0] != "FERTILIZE"]
+                r_["ops"] += [_tier_op(["HARVEST"], False, v3_, 3), _tier_op(["PLANT", "WHEAT"], False, v3_, 3),
+                              _tier_op(["WATER"], False, v3_, 3, after_plant=True)]
+                r_["ops"] = sorted(r_["ops"], key=lambda o: o["rank"])
+                r_["d3"] = True
+                st["wheat_d3_bundles"] = st.get("wheat_d3_bundles", 0) + 1
+        for idx_ in [i for i, r_ in rec.items() if not r_["ops"]]:
+            del rec[idx_]
     # ---- the leader's plan for today that the hour-0 task list does not show yet (seeds / animals bought later)
     added = 0
     for idx, job in sorted(jobs.items()):
         if not job:
             continue
+        if (rec.get(idx) or {}).get("d3"):
+            continue                              # sd_wheat_d3: the optional day-3 bundle replaces the plan job
         r_ = rec.setdefault(idx, {"ops": [], "rel": 0})
         cm = [o["c"][0] for o in r_["ops"]]
         t = _tile(tiles, idx)
@@ -8918,11 +10095,19 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
                     pre = [["DIG"]] if c_.get("ongoing") else []
                 elif ripe_ and not c_.get("ongoing"):
                     pre = [["HARVEST"]]
+                elif CFG["sd_exact_site"] and ripe_ and c_.get("ongoing"):
+                    pre = [["HARVEST"], ["DIG"]]     # sd_exact_site: take the units, then dig
                 else:
                     pre = [["DIG"]]
+                if CFG["sd_exact_site"] and t.get("crop") != (job[1] if job[0] == "PLANT" else None):
+                    r_["ops"] = [o for o in r_["ops"] if o["c"][0] not in ("WATER", "FERTILIZE")]   # the plant is replaced
             elif isinstance(t, dict) and "animal" not in t:
                 pre = [["DIG"]]
             new = [_tier_op(o, True, 0.0, 2) for o in pre]
+            if CFG["sd_exact_site"]:
+                for o in new:
+                    if o["c"][0] == "DIG":
+                        o["rank"] = 6.7              # after HARVEST / PLACE_HARVEST (DIG ranks first otherwise)
             if job[0] == "PLANT":
                 new += [_tier_op(["PLANT", job[1]], True, float(CFG["plan_value"]), 2),
                         _tier_op(["WATER"], True, 0.0, 2, after_plant=True)]
@@ -8947,8 +10132,84 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
         st["tier_fert_dropped"] = st.get("tier_fert_dropped", 0) + nd_
     if CFG["sd_tier_fert_exact"]:
         _tier_fert_exact(rec, tiles, day, prices, st)
-    if int(CFG["sd_path_planner"]):                # the path planner trusts values: care / feed by their engine effect
-        _tier_anim_value(rec, tiles, day, last_day, prices, st)
+    if CFG["sd_melon_fert"] and day < last_day:      # melons at their cap before the harvest day (see the flag); after
+        # the exact-fertilize pass, which values a melon fertilize at 0 units (the cap is reached anyway, one hour later)
+        for idx_ in range(100):
+            t_ = _tile(tiles, idx_)
+            if not (_is_plant(t_) and t_.get("crop") == "MELON"):
+                continue
+            a_ = day - int(t_.get("planted_day", day))
+            if not (6 <= a_ <= 8) or int(t_.get("fertilized_until_day", -1) or -1) >= day \
+                    or int(t_.get("yield_units", 0) or 0) >= CROPS["MELON"]["max"]:
+                continue
+            r_ = rec.setdefault(idx_, {"ops": [], "rel": 0})
+            if not any(o["c"][0] == "FERTILIZE" for o in r_["ops"]):
+                r_["ops"].append(_tier_op(["FERTILIZE"], False, float(CFG["sd_melon_fert_v"]), 3))
+                st["tier_melon_fert"] = st.get("tier_melon_fert", 0) + 1
+            if not t_.get("watered_today") and not any(o["c"][0] == "WATER" for o in r_["ops"]):
+                r_["ops"].append(_tier_op(["WATER"], False, float(prices.get("MELON", 0) or 0), 3))
+    if int(CFG["sd_path_planner"]) or CFG["sd_anim_value_exact"]:   # care / feed by their engine effect
+        _tier_anim_value(rec, tiles, day, last_day, prices, st, replace=bool(CFG["sd_anim_value_exact"]))
+    if CFG["sd_wheat_fert_mand"]:                  # every wheat plant fertilized at age 2 (mandatory, shed-supplied)
+        for idx_ in range(100):
+            t_ = _tile(tiles, idx_)
+            if not (_is_plant(t_) and t_.get("crop") == "WHEAT") or day >= last_day - 1:
+                continue
+            if day - int(t_.get("planted_day", day)) != 2 or int(t_.get("fertilized_until_day", -1)) >= day:
+                continue
+            r_ = rec.setdefault(idx_, {"ops": [], "rel": 0})
+            cm_ = [o["c"][0] for o in r_["ops"]]
+            if any(c_ in ("HARVEST", "PLANT", "DIG", "BUILD_COOP", "BUILD_PASTURE") for c_ in cm_):
+                continue                          # harvested / replaced today
+            fz_ = [o for o in r_["ops"] if o["c"][0] == "FERTILIZE"]
+            for o in fz_:
+                o["m"], o["tier"] = True, 2
+            if not fz_:
+                r_["ops"].append(_tier_op(["FERTILIZE"], True, 1.0, 2))
+            if not t_.get("watered_today"):
+                wo_ = [o for o in r_["ops"] if o["c"][0] == "WATER"]
+                for o in wo_:
+                    o["m"], o["tier"] = True, 2
+                if not wo_:
+                    r_["ops"].append(_tier_op(["WATER"], True, 0.0, 2))
+            r_["ops"].sort(key=lambda o: o["rank"])
+            st["wheat_fert_mand"] = st.get("wheat_fert_mand", 0) + 1
+    if CFG["sd_water_useless_zero"]:               # no optional water before a one-time crop's window
+        nz_ = 0
+        for idx_, r_ in rec.items():
+            t_ = _tile(tiles, idx_)
+            if not (_is_plant(t_) and t_.get("crop") in ("WHEAT", "CARROT")) or t_.get("watered_today"):
+                continue
+            cd_ = CROPS[t_["crop"]]
+            if (day - int(t_.get("planted_day", day)) >= (cd_["maxday"] + 1) // 2
+                    or int(t_.get("consecutive_unwatered", 0) or 0) >= 1):
+                continue
+            n0_ = len(r_["ops"])
+            r_["ops"] = [o for o in r_["ops"] if not (o["c"][0] == "WATER" and not o["m"] and o["rank"] == _TIER_RANK["WATER"])]
+            nz_ += n0_ - len(r_["ops"])
+        st["water_useless_dropped"] = st.get("water_useless_dropped", 0) + nz_
+        for idx_ in [i for i, r_ in rec.items() if not r_["ops"]]:
+            del rec[idx_]
+    if CFG["sd_keepalive_wheat"]:                  # wheat keep-alive water: the wheat it saves + one action, optional
+        pw_ = float((prices or {}).get("WHEAT", 0) or 0)
+        lab_ = float(CFG["sd_labor_price"])
+        cw_ = CROPS["WHEAT"]
+        for idx_, r_ in rec.items():
+            t_ = _tile(tiles, idx_)
+            if not (_is_plant(t_) and t_.get("crop") == "WHEAT") or t_.get("watered_today"):
+                continue
+            if int(t_.get("consecutive_unwatered", 0) or 0) < 1:
+                continue
+            if any(o["c"][0] in ("HARVEST", "PLANT", "DIG", "BUILD_COOP", "BUILD_PASTURE") for o in r_["ops"]):
+                continue                          # harvested / replaced today
+            age_ = day - int(t_.get("planted_day", day))
+            bonus_ = ((2 if int(t_.get("fertilized_until_day", -1)) >= day else 1)
+                      if (cw_["maxday"] + 1) // 2 <= age_ <= cw_["maxday"] else 0)
+            v_ = min(cw_["max"], int(t_.get("yield_units", 0) or 0) + bonus_) * pw_ + lab_
+            for o in r_["ops"]:
+                if o["c"][0] == "WATER" and o["m"] and o["rank"] == _TIER_RANK["WATER"]:
+                    o["m"], o["tier"], o["v"] = False, 3, v_
+                    st["keepalive_wheat"] = st.get("keepalive_wheat", 0) + 1
     if CFG["sd_tier_straw_fert_days"]:             # user: very high weight on the cycle's fertilize days (9, 13)
         fdays_ = set(int(x) for x in CFG["sd_tier_straw_fert_days"])
         for idx, r_ in rec.items():
@@ -9188,6 +10449,22 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
         TP["summary"]["cf"] = {"units": [{"u": x["u"], "end": x["end"], "late": x["late"], "stops": x.get("stops_v") or x["stops"]}
                                          for x in TPc["summary"]["units"]],
                                "unplanned": TPc["summary"]["unplanned"], "mand_late": TPc["summary"]["mand_late"]}
+    if TP.get("_pol") is not None:               # sd_polish_final: once, on the plan the passes kept
+        segs_p, rest_p, build_p = TP["_pol"]
+        _tier_polish(S, segs_p, rest_p, tiles, day, st)
+        if (st.get("_polish_day") or {}).get("committed"):
+            by_u_ = {}
+            for s_p in segs_p:
+                r_out, sm = build_p(s_p, count=False)
+                keep_ = TP["routes"].get(s_p["u"]) or {}
+                for k_ in ("t0", "wt0", "t0plan"):         # the passes' own start fixes stay
+                    if k_ in keep_:
+                        r_out[k_] = keep_[k_]
+                TP["routes"][s_p["u"]] = r_out
+                by_u_[s_p["u"]] = sm
+            TP["summary"]["units"] = [by_u_.get(x["u"], x) for x in TP["summary"]["units"]]
+            TP["summary"]["unplanned"] = [[bd["tile"], [o["c"][0] for o in bd["ops"]], round(bd["v"], 1)] for bd in rest_p]
+    TP.pop("_pol", None)
     TP["summary"]["spawn"] = [list(q) for q in sp0 + sp1]
     TP["summary"]["after1"] = [list(q) for q in after1]     # diagnostics: the plan's unit positions at the hour-1 market
     TP["wheat_buy"] = wbuy
@@ -9201,6 +10478,12 @@ def _tier_pre(S, L, obs, step, day, hour, last_day, tiles, pos, invs, tasks, job
     TP["summary"]["fcarry"] = st.pop("_fcarry_day", None)
     TP["summary"]["ocl"] = st.pop("_ocl_day", None)
     TP["summary"]["pcl"] = st.pop("_pcl_day", None)
+    if CFG["sd_polish"]:
+        TP["summary"]["polish"] = st.pop("_polish_day", None)
+    if CFG["sd_tp_iface"]:
+        TP["summary"]["tp_leak"] = dict(_TP_LEAK)
+    TP["summary"]["psw"] = st.pop("_pensweep_day", None)
+    TP["summary"]["manual"] = st.pop("_manual_day", None)
     TP["summary"]["swap"] = st.pop("_swap_day", None)
     TP["summary"]["fmerge"] = st.pop("_fmerge_day", None)
     TP["summary"]["edel"] = st.pop("_edel_day", None)
@@ -9756,6 +11039,312 @@ def _tier_route_swap(segs_m, owner, anim, segs, st):
     return n
 
 
+def _tier_polish(S, segs, rest, tiles, day, st):
+    """sd_polish (see the flag): hill climbing over the finished routes on engine-true values; commits only a gain."""
+    import random as _rnd
+    D = _TIER_D
+    prices = S.get("_tier_prices") or {}
+    last_day = int(S.get("_tier_last_day", 29))
+    rng = _rnd.Random(int(CFG["sd_polish_seed"]) * 1009 + day)
+    fp = float(prices.get("FERTILIZER", 0) or 0)
+    wc = float(CFG["sd_polish_water_c"])
+    sw = float(CFG["sd_polish_step_w"])
+    OPT = ("WATER", "FERTILIZE", "CARE", "FEED", "COLLECT_FERTILIZER")
+    FIX = ("DELIVER", "DROP", "PLACE_HARVEST", "PICKUP", "PLACE", "BUILD_COOP", "BUILD_PASTURE")
+    fed0 = set()                                   # fed whatever the search does: fed already or a mandatory FEED
+    for sg in segs:
+        for x in sg["stops"]:
+            if any(o["c"][0] == "FEED" and o["m"] for o in x["ops"]):
+                fed0.add(x["tile"])
+    for idx_ in range(100):
+        t_ = _tile(tiles, idx_)
+        if _animal(t_) and t_.get("fed_today"):
+            fed0.add(idx_)
+
+    def movable(x):
+        return not (x.get("dawn") or x.get("copy") or x.get("sell_all") or x.get("place") or x.get("turn")
+                    or x.get("deliver") or any(o["c"][0] in FIX for o in x["ops"]))
+
+    def pr(k):
+        return float(prices.get(k, 0) or 0)
+
+    def prod_night(t, n):                          # an ongoing crop's production at the end of day n
+        cr = CROPS[t["crop"]]
+        iv = max(1, int(cr["interval"]))
+        ds = n + 1 - int(t.get("planted_day", n)) - cr["first"]
+        return ds >= 0 and ds % iv == 0 and ds // iv + 1 <= cr["max"]
+
+    def anim_prod(t, n):
+        a = ANIMALS[t["animal"]]
+        ds = n + 1 - int(t.get("placed_day", n)) - a["first"]
+        return ds >= 0 and ds % a["interval"] == 0
+
+    def fert_gain(t, watered):
+        cr = CROPS[t["crop"]]
+        pd = int(t.get("planted_day", day))
+        fu = int(t.get("fertilized_until_day", -1) or -1)
+        if fu >= day:
+            return 0
+        if not cr["ongoing"]:
+            w0, w1 = (cr["maxday"] + 1) // 2, cr["maxday"]
+            if not (w0 <= day - pd <= w1):
+                return 0
+            y0 = int(t.get("yield_units", 0) or 0)
+
+            def units(f):
+                y = y0
+                for dd in range(day, pd + w1 + 1):
+                    if w0 <= dd - pd <= w1:
+                        y = min(cr["max"], y + (2 if (f and dd <= day + 2) else 1))
+                return y
+            return units(True) - units(False)
+        return sum(1 for dd in range(day, min(day + 3, last_day)) if prod_night(t, dd) and (dd > day or watered))
+
+    def stop_val(x, feeds):
+        t = _tile(tiles, x["tile"])
+        if not isinstance(t, dict):
+            return 0.0
+        cs = [o["c"][0] for o in x["ops"]]
+        fh, wh, hh = "FERTILIZE" in cs, "WATER" in cs, "HARVEST" in cs
+        v = 0.0
+        for o in x["ops"]:
+            if o["m"]:
+                continue
+            c = o["c"][0]
+            if c == "COLLECT_FERTILIZER" and _animal(t):
+                v += fp
+            elif c == "FERTILIZE" and _is_plant(t):
+                v += fert_gain(t, wh or t.get("watered_today")) * pr(t["crop"]) - fp
+            elif c == "WATER" and _is_plant(t) and not t.get("watered_today"):
+                cr = CROPS[t["crop"]]
+                a = day - int(t.get("planted_day", day))
+                fn = fh or int(t.get("fertilized_until_day", -1) or -1) >= day
+                if not cr["ongoing"] and (cr["maxday"] + 1) // 2 <= a <= cr["maxday"]:
+                    v += min(2 if fn else 1, max(0, cr["max"] - int(t.get("yield_units", 0) or 0))) * pr(t["crop"])
+                elif cr["ongoing"] and fn and prod_night(t, day):
+                    v += pr(t["crop"])
+                if not hh and int(t.get("consecutive_unwatered", 0) or 0) == 0 and day < last_day - 1:
+                    v += wc
+            elif c == "CARE" and _animal(t):              # banks +1 only on a fed day
+                if ((x["tile"] in fed0 or x["tile"] in feeds or "FEED" in cs)
+                        and any(anim_prod(t, n) for n in range(day + 1, last_day))):
+                    v += pr(ANIMALS[t["animal"]]["product"])
+            elif c == "FEED" and _animal(t):              # an unfed animal still produces 1: the feed pays the bank on a
+                p_ = pr(ANIMALS[t["animal"]]["product"])  # production night, and a skipped feed makes tomorrow's a must
+                if anim_prod(t, day):
+                    v += int(t.get("pending_care_bonus", 0) or 0) * p_
+                if int(t.get("consecutive_unfed", 0) or 0) == 0 and day < last_day - 1:
+                    v += wc
+        return v
+
+    def seg_eval(sg, stops):
+        if not stops:
+            return {"val": 0.0, "pen": 0.0, "hrs": 0, "load": 0}
+        ev = _tier_eval(sg, stops)
+        feeds = {x["tile"] for x in stops if any(o["c"][0] == "FEED" for o in x["ops"])}
+        return {"val": sum(stop_val(x, feeds) for x in stops), "pen": 1000.0 * (ev[1] + ev[3]), "hrs": max(0, ev[0] - sg["t0"]),
+                "load": sum(_tier_load(sg, stops, tiles, day).values())}
+
+    cur = [list(sg["stops"]) for sg in segs]
+    E = [seg_eval(sg, cur[k]) for k, sg in enumerate(segs)]
+    load0 = sum(e["load"] for e in E)
+    dd = st.get("_dump_day") or {}
+    head = max(0, 100 - int(CFG["sd_tier_dump_buffer"]) - int(dd.get("left", 100))) if dd else 0
+
+    def total(E_):
+        return (sum(e["val"] - e["pen"] - sw * e["hrs"] for e in E_)
+                - 1000.0 * max(0, sum(e["load"] for e in E_) - load0 - head))
+
+    base = best = total(E)
+    pool = []                                      # (bundle, op) unplaced optional maintenance ops
+    for bd in rest:
+        for o in bd["ops"]:
+            if o["c"][0] in OPT and not o["m"]:
+                pool.append((bd, o))
+    added, dropped = [], []
+    nmov = Counter()
+
+    def try_set(ch, kind):
+        nonlocal best
+        E2 = list(E)
+        for k, stops in ch.items():
+            E2[k] = seg_eval(segs[k], stops)
+        v = total(E2)
+        if v > best + 1e-6:
+            best = v
+            for k, stops in ch.items():
+                cur[k] = stops
+                E[k] = E2[k]
+            nmov[kind] += 1
+            return True
+        return False
+
+    def cpx(x, ops=None):
+        return dict(x, ops=list(x["ops"] if ops is None else ops))
+
+    def near_segs(tile, excl=None, n=3):
+        cand = []
+        for k, sg in enumerate(segs):
+            if k == excl:
+                continue
+            dmin = min([D[sg["p0"]][tile]] + [D[y["tile"]][tile] for y in cur[k]])
+            cand.append((dmin, k))
+        return [k for _, k in sorted(cand)[:n]]
+
+    def lo(k):                                     # the route's first real stop (after a dawn prefix): it stays first, so the
+        j = 0                                      # hands' first moves and the hires' spawn prediction do not change
+        while j < len(cur[k]) and cur[k][j].get("dawn"):
+            j += 1
+        return j
+
+    def mv_ok(k, j):
+        return movable(cur[k][j]) and j != lo(k)
+
+    def spots(k, tile):                            # insertion positions next to the two nearest stops, and the end
+        f = lo(k) + 1
+        near = sorted(range(len(cur[k])), key=lambda j: D[cur[k][j]["tile"]][tile])[:2]
+        qs = {len(cur[k])}
+        for j in near:
+            qs.update((j, j + 1))
+        return sorted(q for q in qs if f <= q <= len(cur[k]))
+
+    iters = int(CFG["sd_polish"])
+    for _ in range(iters):
+        mv = rng.random()
+        ks = [k for k in range(len(segs)) if any(mv_ok(k, j) for j in range(len(cur[k])))]
+        if not ks:
+            break
+        if mv < 0.35:                              # relocate a stop to the best position of a nearby route
+            a = rng.choice(ks)
+            js = [j for j in range(len(cur[a])) if mv_ok(a, j)]
+            j = rng.choice(js)
+            x = cur[a][j]
+            sa = cur[a][:j] + cur[a][j + 1:]
+            ea = seg_eval(segs[a], sa)
+            bestq = None
+            for b in near_segs(x["tile"], a):
+                for q in spots(b, x["tile"]):
+                    sb = cur[b][:q] + [cpx(x)] + cur[b][q:]
+                    E2 = list(E)
+                    E2[a] = ea
+                    E2[b] = seg_eval(segs[b], sb)
+                    v = total(E2)
+                    if bestq is None or v > bestq[0]:
+                        bestq = (v, b, sb)
+            if bestq and bestq[0] > best + 1e-6:
+                try_set({a: sa, bestq[1]: bestq[2]}, "relocate")
+        elif mv < 0.5:                             # swap two stops between routes
+            a, b = rng.choice(ks), rng.choice(ks)
+            if a == b:
+                continue
+            ia = rng.choice([j for j in range(len(cur[a])) if mv_ok(a, j)])
+            ib = rng.choice([j for j in range(len(cur[b])) if mv_ok(b, j)])
+            sa, sb = list(cur[a]), list(cur[b])
+            sa[ia], sb[ib] = cpx(cur[b][ib]), cpx(cur[a][ia])
+            try_set({a: sa, b: sb}, "swap")
+        elif mv < 0.7:                             # reverse a run of movable stops inside a route
+            a = rng.choice(ks)
+            if len(cur[a]) < 3:
+                continue
+            i = rng.randrange(len(cur[a]) - 1)
+            j = rng.randrange(i + 1, len(cur[a]))
+            if not all(mv_ok(a, q) for q in range(i, j + 1)):
+                continue
+            sa = cur[a][:i] + cur[a][i:j + 1][::-1] + cur[a][j + 1:]
+            try_set({a: sa}, "reverse")
+        elif mv < 0.7 + float(CFG["sd_polish_xch"]) and pool:   # exchange: an unplaced op into a stop the route already
+            pi = rng.randrange(len(pool))          # makes (no walking), a lower-value optional op of that route out
+            bd, o = pool[pi]
+            owners = [(k, j) for k in range(len(segs)) for j, y in enumerate(cur[k]) if y["tile"] == bd["tile"] and movable(y)
+                      and not any(o2["c"][0] == o["c"][0] for o2 in y["ops"])]
+            if not owners:
+                continue
+            k, j = rng.choice(owners)
+            cands = [(j2, o2) for j2, y in enumerate(cur[k]) if movable(y) for o2 in y["ops"] if o2["c"][0] in OPT and not o2["m"]]
+            if not cands:
+                continue
+            bestx = None
+            for j2, o2 in rng.sample(cands, min(6, len(cands))):
+                sk = list(cur[k])
+                sk[j] = cpx(cur[k][j], sorted(cur[k][j]["ops"] + [o], key=lambda z: z.get("rank", 5)))
+                ops2 = [z for z in sk[j2]["ops"] if z is not o2]
+                if not ops2 and j2 == lo(k):
+                    continue
+                sk = sk[:j2] + ([cpx(sk[j2], ops2)] if ops2 else []) + sk[j2 + 1:]
+                E2 = list(E)
+                E2[k] = seg_eval(segs[k], sk)
+                v = total(E2)
+                if bestx is None or v > bestx[0]:
+                    bestx = (v, sk, j2, o2)
+            if bestx and bestx[0] > best + 1e-6:
+                y2 = cur[k][bestx[2]]
+                if try_set({k: bestx[1]}, "exchange"):
+                    pool.pop(pi)
+                    added.append((bd, o))
+                    pool.append(({"tile": y2["tile"], "ops": [bestx[3]], "v": 0.0, "rel": y2.get("rel", 0)}, bestx[3]))
+                    dropped.append((y2["tile"], bestx[3]))
+        elif mv < 0.88 + float(CFG["sd_polish_xch"]) and pool:   # add an unplaced optional op: to its tile's visit, else a new stop
+            pi = rng.randrange(len(pool))
+            bd, o = pool[pi]
+            tile = bd["tile"]
+            own = next(((k, j) for k in range(len(segs)) for j, y in enumerate(cur[k]) if y["tile"] == tile and movable(y)), None)
+            ok = False
+            if own is not None:
+                k, j = own
+                if not any(o2["c"][0] == o["c"][0] for o2 in cur[k][j]["ops"]):
+                    sk = list(cur[k])
+                    sk[j] = cpx(cur[k][j], sorted(cur[k][j]["ops"] + [o], key=lambda z: z.get("rank", 5)))
+                    ok = try_set({k: sk}, "add")
+            else:
+                bestq = None
+                for k in near_segs(tile, None, 2):
+                    for q in spots(k, tile):
+                        sk = cur[k][:q] + [{"tile": tile, "ops": [o], "rel": int(bd.get("rel", 0) or 0)}] + cur[k][q:]
+                        E2 = list(E)
+                        E2[k] = seg_eval(segs[k], sk)
+                        v = total(E2)
+                        if bestq is None or v > bestq[0]:
+                            bestq = (v, k, sk)
+                if bestq and bestq[0] > best + 1e-6:
+                    ok = try_set({bestq[1]: bestq[2]}, "add")
+            if ok:
+                pool.pop(pi)
+                added.append((bd, o))
+        else:                                      # drop an optional maintenance op (frees an hour / supply / room)
+            a = rng.choice(ks)
+            js = [j for j, x in enumerate(cur[a]) if movable(x) and any(o["c"][0] in OPT and not o["m"] for o in x["ops"])]
+            if not js:
+                continue
+            j = rng.choice(js)
+            x = cur[a][j]
+            opts = [o for o in x["ops"] if o["c"][0] in OPT and not o["m"]]
+            o = rng.choice(opts)
+            ops2 = [z for z in x["ops"] if z is not o]
+            if not ops2 and j == lo(a):
+                continue                           # the first stop is never emptied (first moves / spawn prediction)
+            sa = cur[a][:j] + ([cpx(x, ops2)] if ops2 else []) + cur[a][j + 1:]
+            if try_set({a: sa}, "drop"):
+                pool.append(({"tile": x["tile"], "ops": [o], "v": 0.0, "rel": x.get("rel", 0)}, o))
+                dropped.append((x["tile"], o))
+    gain = best - base
+    if gain > 1e-6:
+        for k, sg in enumerate(segs):
+            if cur[k] is not sg["stops"] and cur[k] != sg["stops"]:
+                sg["stops"] = cur[k]
+                sg["ver"] = sg.get("ver", 0) + 1
+        for bd, o in added:
+            if o in bd["ops"]:
+                bd["ops"] = [z for z in bd["ops"] if z is not o]
+                bd["v"] = sum(z["v"] for z in bd["ops"])
+        for tile, o in dropped:
+            if not any(o is z for bd, z in added):
+                rest.append({"tile": tile, "ops": [o], "v": float(o.get("v", 0.0))})
+        rest[:] = [bd for bd in rest if bd["ops"]]
+    st["_polish_day"] = {"gain": round(gain, 1), "moves": dict(nmov), "added": Counter(o["c"][0] for _, o in added),
+                         "dropped": Counter(o["c"][0] for _, o in dropped), "load0": load0, "head": head,
+                         "committed": gain > 1e-6}
+
+
 def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
     _TIER_WY.clear()
     _TIER_CC["n"] = 0
@@ -9786,7 +11375,7 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         mel_of[u] = {"stops": stops, "p0": p0[1] * 10 + p0[0], "t0": t0, "drop": drop, "hh": dict(hh)}
     # the rest of a melon tile's work: the melon hand does it when its drop stays by 8, else the tile's owner after the
     # planned harvest (harvested-by flag)
-    for u, M in mel_of.items():
+    for u, M in mel_of.items():   # sd_melon_rush: straight back, no replant first (only the merge below is skipped)
         for i in [s["tile"] for s in M["stops"] if not s.get("place")]:
             r_ = rec.get(i)
             if r_:
@@ -9797,7 +11386,7 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             else:
                 continue
             rest = [o for o in r_["ops"] if o["m"] and not (o["c"][0] == "PLACE" and o["c"][1:2] and o["c"][1] in ANIMALS)]
-            if rest and len(rest) == len([o for o in r_["ops"] if o["m"]]):
+            if rest and len(rest) == len([o for o in r_["ops"] if o["m"]]) and not CFG["sd_melon_rush"]:
                 seg_ = {"p0": M["p0"], "t0": M["t0"], "stops": M["stops"]}
                 st2 = [dict(s) for s in M["stops"]]
                 for s in st2:
@@ -9960,7 +11549,10 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         _tier_wy_fill(tiles)                       # shed hours -11 a world but moves +13: supply only after the search
     if CFG["sd_tier_pdrop"] and int(CFG["sd_tier_pdrop_early"]):   # the mid-day drop before the fills
         _tier_pdrop(S, segs_m, tiles, day, st)
-    if int(CFG["sd_path_planner"]):              # user: tile services by value per hour, one search (see the flag)
+    if int(CFG["sd_pen_sweep"]):                 # user: tile-service sweeps from the spawn tiles (see the flag)
+        rest, collects = _tier_pensweep(segs, rec, set(anim), owner, st, rng)
+        rate = float(CFG["sd_tier_rate"])
+    elif int(CFG["sd_path_planner"]):            # user: tile services by value per hour, one search (see the flag)
         rest = _tier_psearch(segs, segs_m, rec, set(anim), owner, st, rng,
                              fbud=int((S.get("_shed_h0") or {}).get("FERTILIZER", 0) or 0))
         collects = {}
@@ -10049,6 +11641,8 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         _tier_fill(segs, list(range(len(segs))), rest, collects, owner, rate, st, "e")
         if CFG["sd_tier_relief"] and rest:
             _tier_relief(segs, rest, collects, owner, rate, st)
+    if CFG["sd_collect_make_room"]:               # collects at visited pens, room made by dropping cheaper optional ops
+        _tier_collect_make_room(segs, rest, collects, tiles, day, st)
     if CFG["sd_tier_deliver"]:
         _tier_deliver(S, segs, tiles, day, st)
         if CFG["sd_tier_dump_refill"]:            # the hours the deferral / delivery trims freed: non-harvest extras
@@ -10169,6 +11763,29 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             fc_["picked"] += sg["fpick"]
             fc_["fert"] += sum(1 for x in sg["stops"] for o in x["ops"] if o["c"][0] == "FERTILIZE") - nf0_
         st["_fcarry_day"] = fc_
+    if CFG["sd_tier_fert_use"]:                    # carried fertilizer spent on the route's own unplaced fertilizes
+        n_fu_ = _tier_fert_use(segs, rec, tiles, day, st)
+        st["_fuse_day"] = n_fu_
+    if CFG["sd_wheat_fert_mand"]:                  # the routes' shed pickups for their mandatory fertilizes
+        fav_m = max(0, int((S.get("_shed_h0") or {}).get("FERTILIZER", 0) or 0)
+                    - sum(int(M_.get("fpick", 0) or 0) for M_ in mel_of.values())
+                    - sum(int(sg.get("fpick", 0) or 0) for sg in segs))
+        fm_ = {"need": 0, "picked": 0, "short": 0}
+        for sg in segs:
+            n_ = _tier_fmand_need(sg["stops"], int(sg.get("fpick", 0) or 0))
+            if n_ <= 0:
+                continue
+            k_ = min(n_, fav_m)
+            sg["fpick"] = int(sg.get("fpick", 0) or 0) + k_
+            fav_m -= k_
+            fm_["need"] += n_
+            fm_["picked"] += k_
+            fm_["short"] += n_ - k_
+        st["_fmand_day"] = fm_
+    if int(CFG["sd_polish"]) and not int(CFG["sd_polish_final"]):   # hand-plan lessons (see the flag)
+        _tier_polish(S, segs, rest, tiles, day, st)
+    if CFG["sd_manual_plan"]:                      # research: the day's hand plan replaces the planned routes
+        _tier_manual_apply(S, segs, rec, day, st)
     # ---- routes per unit
     def build_route(s, count=True):
         u = s["u"]
@@ -10189,6 +11806,33 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
             for x in dawn_of[u]["stops"]:
                 items.append({"kind": "stop", "tile": x["tile"], "ops": [o["c"] for o in x["ops"]],
                               "mand": [o["m"] for o in x["ops"]], "rel": x.get("rel", 0)})
+        if s.get("manual_seq") is not None:         # sd_manual_plan: the hand route's own item sequence
+            seq_ = s["manual_seq"]
+            nf0_ = 0
+            for x in seq_:
+                if x.get("pick_item"):
+                    break
+                nf0_ += sum(1 for o in x["ops"] if o["c"][0] == "FEED")
+            if nf0_:
+                items.append({"kind": "pick", "item": "WHEAT", "n": nf0_})
+            if s.get("fpick"):
+                items.append({"kind": "pick", "item": "FERTILIZER", "n": int(s["fpick"])})
+            for j_, x in enumerate(seq_):
+                if x.get("pick_item"):
+                    n_ = sum(1 for y_ in seq_[j_ + 1:] if not y_.get("pick_item") for o in y_["ops"] if o["c"][0] == "FEED")
+                    items.append({"kind": "pick", "item": "WHEAT", "n": max(1, n_)})
+                else:
+                    items.append({"kind": "stop", "tile": x["tile"], "ops": [o["c"] for o in x["ops"]],
+                                  "mand": [o["m"] for o in x["ops"]], "rel": 0})
+            ev = _tier_eval(s, want_hours=True) if s["stops"] else (s["t0"], 0, 0, 0, [])
+            r_out = {"items": items, "k": 0, "sub": 0, "kind": s["kind"], "waited": 0, "wait": {}, "t0plan": s["t0"],
+                     "p0plan": s["p0"], "hold0": bool(s.get("hold0")), "plan_hours": [(b_, c_[0], h) for b_, c_, h in ev[4]]}
+            sm = {"u": u, "kind": s["kind"], "t0": s["t0"], "end": ev[0], "late": ev[1], "hop": ev[2], "bad": ev[3],
+                  "drop": None, "melons": [], "manual": True, "stops": [[x["tile"], [o["c"][0] for o in x["ops"]]] for x in s["stops"]]}
+            if CFG["sd_tier_log_v"]:
+                sm["stops_v"] = [[x["tile"], [[o["c"][0], int(o["m"]), o["tier"], round(o["v"], 1)] for o in x["ops"]]]
+                                 for x in s["stops"]]
+            return r_out, sm
         nf, na = _tier_picks(s["stops"])
         if _TIER_WY and count:
             st["_feedh_day"] = st.get("_feedh_day", 0) + sum(1 for x in s["stops"] for o in x["ops"] if o["c"][0] == "FEED") - nf
@@ -10249,7 +11893,9 @@ def _tier_core(S, L, st, day, tiles, rec, units, want, t_start):
         routes_u[s["u"]] = r_out
         summ.append(sm)
     unplanned = [[bd["tile"], [o["c"][0] for o in bd["ops"]], round(bd["v"], 1)] for bd in rest]
+    pol_ = (segs, rest, build_route) if (int(CFG["sd_polish"]) and int(CFG["sd_polish_final"])) else None
     return {"day": day, "routes": routes_u, "log": [], "cnt": Counter(), "owner": owner, "_sp1_true": sp1_true, "_spx_wrong": spx_wrong,
+            "_pol": pol_,
                  "summary": {"units": summ, "left_out_melons": left, "mand_late": late_m, "unplanned": unplanned,
                              "plan_ms": round(1000 * (time.perf_counter() - t_start), 1), "search_cost": round(cost, 2),
                              "want": want, "n_mand_stops": len(stops_all)}}
@@ -10445,6 +12091,95 @@ def _tier_idle_fert(TP, R, u, p, inv, tiles, day, hour, shed_left):
     return ["PICKUP", "FERTILIZER", k]
 
 
+def _tier_idle_work(TP, R, u, p, inv, tiles, day, hour):
+    """sd_tier_idle_work: the next command of a hand with no planned work left, or None (see the flag)."""
+    S = _S or {}
+    prices = S.get("_tier_prices") or {}
+    last_day = int(S.get("_tier_last_day", 29))
+    if hour >= 24 or day >= last_day:
+        return None
+    cnt = TP["cnt"]
+    claims = TP.setdefault("_idle_claims", {})
+    if TP.get("_idle_day") != day:
+        claims.clear()
+        TP["_idle_day"] = day
+        TP["_idle_coll"] = 0
+    for k_ in [k_ for k_, v_ in claims.items() if v_ == u]:
+        del claims[k_]
+    left = 24 - hour
+    pend = {c_: set() for c_ in ("WATER", "CARE", "FEED", "COLLECT_FERTILIZER")}
+    for u2, R2 in TP["routes"].items():
+        if u2 == u:
+            continue
+        for j2, it2 in enumerate(R2["items"][R2["k"]:]):
+            if it2.get("kind") != "stop":
+                continue
+            for c2 in (it2["ops"][R2["sub"]:] if j2 == 0 else it2["ops"]):
+                if c2[0] in pend:
+                    pend[c2[0]].add(it2["tile"])
+    pr = lambda k: float(prices.get(k, 0) or 0)
+    fp = pr("FERTILIZER")
+    wc = float(CFG["sd_tier_idle_work_wc"])
+    head = (100 - int(CFG["sd_tier_dump_buffer"]) - int(TP.get("_load_now", 0) or 0) - int(TP.get("_harv_left", 0) or 0)
+            - int(TP.get("_idle_coll", 0) or 0))
+    best = None
+    for i in range(100):
+        if claims.get(i, u) != u:
+            continue
+        t = _tile(tiles, i)
+        if not isinstance(t, dict):
+            continue
+        q = (i % 10, i // 10)
+        d_ = abs(p[0] - q[0]) + abs(p[1] - q[1])
+        if d_ + 1 > left:
+            continue
+        cands = []
+        if _animal(t):
+            a = ANIMALS[t["animal"]]
+            pd_ = int(t.get("placed_day", day))
+            ahead = any((n + 1 - pd_ - a["first"]) >= 0 and (n + 1 - pd_ - a["first"]) % a["interval"] == 0
+                        for n in range(day + 1, last_day))
+            if (not t.get("cared_today") and i not in pend["CARE"] and ahead
+                    and (t.get("fed_today") or i in pend["FEED"])):
+                cands.append((pr(a["product"]), "CARE"))
+            if t.get("fertilizer_available") and i not in pend["COLLECT_FERTILIZER"] and head > 0 and fp >= 2:
+                cands.append((fp, "COLLECT_FERTILIZER"))
+        elif _is_plant(t) and not t.get("watered_today") and i not in pend["WATER"]:
+            cr = CROPS.get(t.get("crop"))
+            if cr:
+                a_ = day - int(t.get("planted_day", day))
+                fn = int(t.get("fertilized_until_day", -1) or -1) >= day
+                v = 0.0
+                if not cr["ongoing"] and (cr["maxday"] + 1) // 2 <= a_ <= cr["maxday"]:
+                    v = min(2 if fn else 1, max(0, cr["max"] - int(t.get("yield_units", 0) or 0))) * pr(t["crop"])
+                elif cr["ongoing"] and fn:
+                    iv = max(1, int(cr["interval"]))
+                    ds = day + 1 - int(t.get("planted_day", day)) - cr["first"]
+                    if ds >= 0 and ds % iv == 0 and ds // iv + 1 <= cr["max"]:
+                        v = pr(t["crop"])
+                if int(t.get("consecutive_unwatered", 0) or 0) == 0 and day < last_day - 1:
+                    v += wc
+                cands.append((v, "WATER"))
+        for v, c in cands:
+            if v < float(CFG["sd_tier_idle_work_minv"]):
+                continue
+            sc = v / (d_ + 1)
+            if best is None or sc > best[0]:
+                best = (sc, i, c, d_, q)
+    if best is None:
+        return None
+    sc, i, c, d_, q = best
+    if d_ == 0:
+        cnt["idle_work_" + c] += 1
+        if c == "COLLECT_FERTILIZER":
+            TP["_idle_coll"] = int(TP.get("_idle_coll", 0) or 0) + 1
+        R.setdefault("done", []).append((hour, i, c))
+        return [c]
+    claims[i] = u
+    cnt["idle_work_walk"] += 1
+    return _step_toward(p, q)
+
+
 def _tier_cmd(TP, R, u, p, inv, tiles, day, hour, step, seeds_left, shed_left):
     items = R["items"]
     lg = TP["log"]
@@ -10495,6 +12230,8 @@ def _tier_cmd(TP, R, u, p, inv, tiles, day, hour, step, seeds_left, shed_left):
                 return _step_toward(p, q)
             R["k"] += 1
             R.setdefault("done", []).append((hour, it["tile"], "PLACE"))
+            if CFG["sd_melon_rush"]:                   # sold in the same turn (unit actions run before the market)
+                TP.setdefault("dsell", Counter())["MELON"] += m
             return ["PLACE", "MELON", m]
         q = (it["tile"] % 10, it["tile"] // 10)
         if p != q:
@@ -10579,6 +12316,10 @@ def _tier_cmd(TP, R, u, p, inv, tiles, day, hour, step, seeds_left, shed_left):
         R["sub"] += 1
     if CFG["sd_tier_idle_fert"] and hour < 23:     # the plan is done: fertilize more with shed fertilizer (user)
         a_ = _tier_idle_fert(TP, R, u, p, inv, tiles, day, hour, shed_left)
+        if a_ is not None:
+            return a_
+    if CFG["sd_tier_idle_work"]:                   # the plan is done: the best job on the live board (see the flag)
+        a_ = _tier_idle_work(TP, R, u, p, inv, tiles, day, hour)
         if a_ is not None:
             return a_
     return ["PASS"]

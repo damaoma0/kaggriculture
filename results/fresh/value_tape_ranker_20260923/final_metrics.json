@@ -1,0 +1,236 @@
+{
+  "all": {
+    "matchups": 18,
+    "worlds": 6,
+    "improved": 6,
+    "unchanged": 12,
+    "worse": 0,
+    "mean_margin": 461.8333333333333,
+    "total_margin": 8313.0,
+    "mean_own_cash": 54.166666666666664,
+    "mean_rival_cash": -407.6666666666667,
+    "native_wins": 15,
+    "scout_wins": 15,
+    "exact_wins": 15,
+    "same_as_exact_games": 18,
+    "multiple_commitments": 0
+  },
+  "by_opponent": {
+    "pasture": {
+      "matchups": 6,
+      "worlds": 6,
+      "improved": 2,
+      "unchanged": 4,
+      "worse": 0,
+      "mean_margin": 459.0,
+      "total_margin": 2754.0,
+      "mean_own_cash": 116.83333333333333,
+      "mean_rival_cash": -342.1666666666667,
+      "native_wins": 6,
+      "scout_wins": 6,
+      "exact_wins": 6,
+      "same_as_exact_games": 6,
+      "multiple_commitments": 0
+    },
+    "sixday": {
+      "matchups": 6,
+      "worlds": 6,
+      "improved": 2,
+      "unchanged": 4,
+      "worse": 0,
+      "mean_margin": 392.6666666666667,
+      "total_margin": 2356.0,
+      "mean_own_cash": -35.666666666666664,
+      "mean_rival_cash": -428.3333333333333,
+      "native_wins": 6,
+      "scout_wins": 6,
+      "exact_wins": 6,
+      "same_as_exact_games": 6,
+      "multiple_commitments": 0
+    },
+    "v56": {
+      "matchups": 6,
+      "worlds": 6,
+      "improved": 2,
+      "unchanged": 4,
+      "worse": 0,
+      "mean_margin": 533.8333333333334,
+      "total_margin": 3203.0,
+      "mean_own_cash": 81.33333333333333,
+      "mean_rival_cash": -452.5,
+      "native_wins": 3,
+      "scout_wins": 3,
+      "exact_wins": 3,
+      "same_as_exact_games": 6,
+      "multiple_commitments": 0
+    }
+  },
+  "changed_games": [
+    {
+      "id": "2-v56",
+      "seed": 3626998516,
+      "commitments": [
+        {
+          "day": 18,
+          "route": 74,
+          "episode": 109644324,
+          "retains_incumbent": false,
+          "same_as_native_reveal_tape": false
+        }
+      ],
+      "margin_delta": 2410.0,
+      "own_cash_delta": 281.0,
+      "rival_cash_delta": -2129.0,
+      "before": -6452.0,
+      "after": -4042.0,
+      "versus_exact": 0.0
+    },
+    {
+      "id": "5-v56",
+      "seed": 1607935832,
+      "commitments": [
+        {
+          "day": 18,
+          "route": 561,
+          "episode": 110366265,
+          "retains_incumbent": true,
+          "same_as_native_reveal_tape": false
+        }
+      ],
+      "margin_delta": 793.0,
+      "own_cash_delta": 207.0,
+      "rival_cash_delta": -586.0,
+      "before": 1310.0,
+      "after": 2103.0,
+      "versus_exact": 0.0
+    },
+    {
+      "id": "2-sixday",
+      "seed": 3626998516,
+      "commitments": [
+        {
+          "day": 18,
+          "route": 74,
+          "episode": 109644324,
+          "retains_incumbent": false,
+          "same_as_native_reveal_tape": false
+        }
+      ],
+      "margin_delta": 1079.0,
+      "own_cash_delta": -289.0,
+      "rival_cash_delta": -1368.0,
+      "before": 2828.0,
+      "after": 3907.0,
+      "versus_exact": 0.0
+    },
+    {
+      "id": "5-sixday",
+      "seed": 1607935832,
+      "commitments": [
+        {
+          "day": 18,
+          "route": 561,
+          "episode": 110366265,
+          "retains_incumbent": true,
+          "same_as_native_reveal_tape": false
+        }
+      ],
+      "margin_delta": 1277.0,
+      "own_cash_delta": 75.0,
+      "rival_cash_delta": -1202.0,
+      "before": 9525.0,
+      "after": 10802.0,
+      "versus_exact": 0.0
+    },
+    {
+      "id": "2-pasture",
+      "seed": 3626998516,
+      "commitments": [
+        {
+          "day": 18,
+          "route": 74,
+          "episode": 109644324,
+          "retains_incumbent": false,
+          "same_as_native_reveal_tape": false
+        }
+      ],
+      "margin_delta": 1350.0,
+      "own_cash_delta": 695.0,
+      "rival_cash_delta": -655.0,
+      "before": 8813.0,
+      "after": 10163.0,
+      "versus_exact": 0.0
+    },
+    {
+      "id": "5-pasture",
+      "seed": 1607935832,
+      "commitments": [
+        {
+          "day": 18,
+          "route": 561,
+          "episode": 110366265,
+          "retains_incumbent": true,
+          "same_as_native_reveal_tape": false
+        }
+      ],
+      "margin_delta": 1404.0,
+      "own_cash_delta": 6.0,
+      "rival_cash_delta": -1398.0,
+      "before": 16100.0,
+      "after": 17504.0,
+      "versus_exact": 0.0
+    }
+  ],
+  "search": {
+    "decisions": 54,
+    "selection_equal": 54,
+    "exact_turns": 383542,
+    "scout_turns": 280913,
+    "turn_reduction": 0.26758216831533443,
+    "exact_rollouts": 1131,
+    "scout_rollouts": 871,
+    "scout_median_wall": 10.508995800017146,
+    "scout_max_wall": 23.04175590001978,
+    "scout_min_wall": 5.7954507999820635,
+    "budget_enforced": false
+  },
+  "paired_uncached_timings": [
+    {
+      "id": "historical-111262874-12",
+      "exact_seconds": 24.011493000027258,
+      "scout_seconds": 30.043797500024084,
+      "wall_reduction": -0.2512257151185884,
+      "cpu_reduction": -0.24444444444444446,
+      "matched_forecasts": 21,
+      "selection_equal": true
+    },
+    {
+      "id": "historical-111269605-15",
+      "exact_seconds": 24.739792400039732,
+      "scout_seconds": 19.201305700000376,
+      "wall_reduction": 0.22386957054782974,
+      "cpu_reduction": 0.22779187817258884,
+      "matched_forecasts": 27,
+      "selection_equal": true
+    },
+    {
+      "id": "historical-111287532-12",
+      "exact_seconds": 34.572959700017236,
+      "scout_seconds": 21.715411900018808,
+      "wall_reduction": 0.3718960688225954,
+      "cpu_reduction": 0.37072503419972636,
+      "matched_forecasts": 24,
+      "selection_equal": true
+    }
+  ],
+  "exact_source_hashes_verified": true,
+  "complete_games": 54,
+  "all_cash_ledgers_verified": true,
+  "caveats": [
+    "Six independent new demand worlds; opponents/dates within a world are correlated.",
+    "The static learned ranker is experimental and is not used by V8.",
+    "Candidate search is approximate; exact physical forecasts still use a modeled rival and sampled future shops.",
+    "Shadow reference decisions reuse identical forecasts; compare work counts, not cached shadow wall time.",
+    "No competition-time readiness claim; 1s action / 12s total overage remains the deployment gate."
+  ]
+}

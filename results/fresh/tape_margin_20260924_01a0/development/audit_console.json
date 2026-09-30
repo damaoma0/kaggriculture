@@ -1,0 +1,227 @@
+{
+  "panel": "development",
+  "completed": 50,
+  "expected": 50,
+  "comparisons": {
+    "baseline": {
+      "matchups": 50,
+      "independent_worlds": 26,
+      "better": 9,
+      "equal": 40,
+      "worse": 1,
+      "margin_gain": {
+        "n": 50,
+        "mean": 773.96,
+        "median": 0.0,
+        "p95": 4474.399999999996,
+        "minimum": -2530.0,
+        "maximum": 10993.0
+      },
+      "world_cluster_bootstrap_95": [
+        96.3,
+        1687.5126838235294
+      ],
+      "own_cash_gain": {
+        "n": 50,
+        "mean": 276.68,
+        "median": 0.0,
+        "p95": 1776.1,
+        "minimum": -1260.0,
+        "maximum": 6465.0
+      },
+      "rival_cash_gain": {
+        "n": 50,
+        "mean": -497.28,
+        "median": 0.0,
+        "p95": 0.0,
+        "minimum": -8625.0,
+        "maximum": 4298.0
+      },
+      "reference_wins": 19,
+      "candidate_wins": 23,
+      "reference_ties": 20,
+      "candidate_ties": 17,
+      "wins_gained": 5,
+      "wins_lost": 1,
+      "deficit_before": 41748.0,
+      "deficit_after": 31637.0,
+      "deficit_recovery_fraction": 0.24219124269426082
+    },
+    "r3": {
+      "matchups": 50,
+      "independent_worlds": 26,
+      "better": 1,
+      "equal": 49,
+      "worse": 0,
+      "margin_gain": {
+        "n": 50,
+        "mean": 161.08,
+        "median": 0.0,
+        "p95": 0.0,
+        "minimum": 0.0,
+        "maximum": 8054.0
+      },
+      "world_cluster_bootstrap_95": [
+        0.0,
+        493.1020408163265
+      ],
+      "own_cash_gain": {
+        "n": 50,
+        "mean": -11.42,
+        "median": 0.0,
+        "p95": 0.0,
+        "minimum": -571.0,
+        "maximum": 0.0
+      },
+      "rival_cash_gain": {
+        "n": 50,
+        "mean": -172.5,
+        "median": 0.0,
+        "p95": 0.0,
+        "minimum": -8625.0,
+        "maximum": 0.0
+      },
+      "reference_wins": 23,
+      "candidate_wins": 23,
+      "reference_ties": 17,
+      "candidate_ties": 17,
+      "wins_gained": 0,
+      "wins_lost": 0,
+      "deficit_before": 39691.0,
+      "deficit_after": 31637.0,
+      "deficit_recovery_fraction": 0.20291753798090248
+    },
+    "v9": {
+      "matchups": 50,
+      "independent_worlds": 26,
+      "better": 3,
+      "equal": 47,
+      "worse": 0,
+      "margin_gain": {
+        "n": 50,
+        "mean": 235.5,
+        "median": 0.0,
+        "p95": 558.7999999999971,
+        "minimum": 0.0,
+        "maximum": 8054.0
+      },
+      "world_cluster_bootstrap_95": [
+        0.0,
+        611.76
+      ],
+      "own_cash_gain": {
+        "n": 50,
+        "mean": -42.44,
+        "median": 0.0,
+        "p95": 0.0,
+        "minimum": -1260.0,
+        "maximum": 0.0
+      },
+      "rival_cash_gain": {
+        "n": 50,
+        "mean": -277.94,
+        "median": 0.0,
+        "p95": 0.0,
+        "minimum": -8625.0,
+        "maximum": 0.0
+      },
+      "reference_wins": 22,
+      "candidate_wins": 23,
+      "reference_ties": 18,
+      "candidate_ties": 17,
+      "wins_gained": 1,
+      "wins_lost": 0,
+      "deficit_before": 39691.0,
+      "deficit_after": 31637.0,
+      "deficit_recovery_fraction": 0.20291753798090248
+    }
+  },
+  "decisions": {
+    "total": 150,
+    "timeouts": 0,
+    "ordinary_candidates": 857,
+    "fully_evaluated_ordinary": 35,
+    "extra_spending_failure_rejects": 0,
+    "fully_evaluated_nonpositive_own_cash": 15,
+    "nonpositive_own_cash_passing_other_gates": 3,
+    "overrides": 1
+  },
+  "changed": [
+    {
+      "case": "fresh-22-v56",
+      "world": "panel-22",
+      "opponent": "v56",
+      "candidate": -854.0,
+      "override_days": [
+        15
+      ],
+      "r3_action_exact": false,
+      "baseline": -8908.0,
+      "delta_baseline": 8054.0,
+      "own_cash_delta_baseline": -571.0,
+      "rival_cash_delta_baseline": -8625.0,
+      "r3": -8908.0,
+      "delta_r3": 8054.0,
+      "own_cash_delta_r3": -571.0,
+      "rival_cash_delta_r3": -8625.0,
+      "v9": -8908.0,
+      "delta_v9": 8054.0,
+      "own_cash_delta_v9": -571.0,
+      "rival_cash_delta_v9": -8625.0,
+      "economics_delta_r3": [
+        {
+          "revenue": {
+            "TOMATO": 2637,
+            "WOOL": -2,
+            "MELON": 448,
+            "EGG": -16,
+            "FERTILIZER": -271,
+            "CARROT": -7767,
+            "WHEAT": 6328,
+            "STRAWBERRY": -1401,
+            "MILK": -1304
+          },
+          "spend": {
+            "HIRE": 89.0,
+            "BUY_PRODUCT:WHEAT": -479,
+            "BUY_PRODUCT:FERTILIZER": 133,
+            "BUY_SEED:TOMATO": 100,
+            "BUY_SEED:CARROT": -920,
+            "BUY_SEED:WHEAT": 300
+          },
+          "units": {
+            "TOMATO": 41,
+            "WOOL": -4,
+            "MELON": 6,
+            "FERTILIZER": -18,
+            "CARROT": -151,
+            "WHEAT": 168,
+            "STRAWBERRY": 38,
+            "MILK": 18
+          }
+        },
+        {
+          "revenue": {
+            "WOOL": -14,
+            "EGG": 24,
+            "FERTILIZER": 256,
+            "CARROT": 3168,
+            "WHEAT": -1610,
+            "STRAWBERRY": -6841,
+            "MILK": -3343
+          },
+          "spend": {
+            "BUY_PRODUCT:FERTILIZER": 145,
+            "BUY_SEED:CARROT": 220,
+            "BUY_SEED:WHEAT": -100
+          },
+          "units": {
+            "CARROT": 36,
+            "WHEAT": -30,
+            "MILK": -5
+          }
+        }
+      ]
+    }
+  ]
+}

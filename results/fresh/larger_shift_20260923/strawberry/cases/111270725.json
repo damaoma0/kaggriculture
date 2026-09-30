@@ -1,0 +1,755 @@
+{
+  "episode": 111270725,
+  "seed": 330467082,
+  "seat": 0,
+  "recorded_rewards": [
+    104192.0,
+    104059.0
+  ],
+  "original_loss": false,
+  "arms": [
+    {
+      "arm": "unchanged",
+      "cash": 104192.0,
+      "opponent_cash": 104059.0,
+      "margin": 133.0,
+      "held_units": 0,
+      "release_order_units": 0,
+      "pressure_lifts": 0,
+      "modified_market_orders": 0,
+      "strawberry_sales_by_day": {
+        "24": [
+          6,
+          898
+        ],
+        "25": [
+          6,
+          1003
+        ],
+        "27": [
+          14,
+          2546
+        ],
+        "28": [
+          5,
+          911
+        ],
+        "29": [
+          6,
+          1106
+        ]
+      },
+      "opponent_strawberry_sales_by_day": {
+        "24": [
+          22,
+          3196
+        ],
+        "25": [
+          11,
+          1688
+        ],
+        "26": [
+          21,
+          3734
+        ],
+        "27": [
+          6,
+          1089
+        ],
+        "28": [
+          20,
+          3717
+        ]
+      },
+      "final_strawberry_shed": 0,
+      "ledger_verified": true,
+      "margin_delta": 0.0,
+      "cash_delta": 0.0,
+      "opponent_cash_delta": 0.0
+    },
+    {
+      "arm": "d24-q6",
+      "cash": 103091.0,
+      "opponent_cash": 104398.0,
+      "margin": -1307.0,
+      "held_units": 18,
+      "release_order_units": 9,
+      "pressure_lifts": 3,
+      "modified_market_orders": 1,
+      "strawberry_sales_by_day": {
+        "25": [
+          6,
+          1028
+        ],
+        "27": [
+          14,
+          2593
+        ],
+        "28": [
+          9,
+          1635
+        ],
+        "29": [
+          4,
+          744
+        ]
+      },
+      "opponent_strawberry_sales_by_day": {
+        "24": [
+          22,
+          3196
+        ],
+        "25": [
+          11,
+          1749
+        ],
+        "26": [
+          21,
+          3810
+        ],
+        "27": [
+          6,
+          1109
+        ],
+        "28": [
+          20,
+          3745
+        ]
+      },
+      "final_strawberry_shed": 0,
+      "ledger_verified": true,
+      "margin_delta": -1440.0,
+      "cash_delta": -1101.0,
+      "opponent_cash_delta": 339.0
+    },
+    {
+      "arm": "d24-q12",
+      "cash": 102894.0,
+      "opponent_cash": 104426.0,
+      "margin": -1532.0,
+      "held_units": 24,
+      "release_order_units": 14,
+      "pressure_lifts": 3,
+      "modified_market_orders": 3,
+      "strawberry_sales_by_day": {
+        "25": [
+          6,
+          1028
+        ],
+        "27": [
+          9,
+          1672
+        ],
+        "28": [
+          14,
+          2564
+        ],
+        "29": [
+          4,
+          744
+        ]
+      },
+      "opponent_strawberry_sales_by_day": {
+        "24": [
+          22,
+          3196
+        ],
+        "25": [
+          11,
+          1749
+        ],
+        "26": [
+          21,
+          3810
+        ],
+        "27": [
+          6,
+          1116
+        ],
+        "28": [
+          20,
+          3754
+        ]
+      },
+      "final_strawberry_shed": 0,
+      "ledger_verified": true,
+      "margin_delta": -1665.0,
+      "cash_delta": -1298.0,
+      "opponent_cash_delta": 367.0
+    },
+    {
+      "arm": "d24-q24",
+      "cash": 102815.0,
+      "opponent_cash": 104434.0,
+      "margin": -1619.0,
+      "held_units": 26,
+      "release_order_units": 16,
+      "pressure_lifts": 3,
+      "modified_market_orders": 3,
+      "strawberry_sales_by_day": {
+        "25": [
+          6,
+          1028
+        ],
+        "27": [
+          7,
+          1300
+        ],
+        "28": [
+          16,
+          2939
+        ],
+        "29": [
+          4,
+          744
+        ]
+      },
+      "opponent_strawberry_sales_by_day": {
+        "24": [
+          22,
+          3196
+        ],
+        "25": [
+          11,
+          1749
+        ],
+        "26": [
+          21,
+          3810
+        ],
+        "27": [
+          6,
+          1116
+        ],
+        "28": [
+          20,
+          3757
+        ]
+      },
+      "final_strawberry_shed": 0,
+      "ledger_verified": true,
+      "margin_delta": -1752.0,
+      "cash_delta": -1377.0,
+      "opponent_cash_delta": 375.0
+    },
+    {
+      "arm": "d25-q6",
+      "cash": 103305.0,
+      "opponent_cash": 104199.0,
+      "margin": -894.0,
+      "held_units": 12,
+      "release_order_units": 9,
+      "pressure_lifts": 2,
+      "modified_market_orders": 1,
+      "strawberry_sales_by_day": {
+        "24": [
+          6,
+          898
+        ],
+        "27": [
+          14,
+          2593
+        ],
+        "28": [
+          9,
+          1635
+        ],
+        "29": [
+          4,
+          744
+        ]
+      },
+      "opponent_strawberry_sales_by_day": {
+        "24": [
+          22,
+          3196
+        ],
+        "25": [
+          11,
+          1688
+        ],
+        "26": [
+          21,
+          3810
+        ],
+        "27": [
+          6,
+          1109
+        ],
+        "28": [
+          20,
+          3745
+        ]
+      },
+      "final_strawberry_shed": 0,
+      "ledger_verified": true,
+      "margin_delta": -1027.0,
+      "cash_delta": -887.0,
+      "opponent_cash_delta": 140.0
+    },
+    {
+      "arm": "d25-q12",
+      "cash": 103108.0,
+      "opponent_cash": 104227.0,
+      "margin": -1119.0,
+      "held_units": 18,
+      "release_order_units": 14,
+      "pressure_lifts": 2,
+      "modified_market_orders": 3,
+      "strawberry_sales_by_day": {
+        "24": [
+          6,
+          898
+        ],
+        "27": [
+          9,
+          1672
+        ],
+        "28": [
+          14,
+          2564
+        ],
+        "29": [
+          4,
+          744
+        ]
+      },
+      "opponent_strawberry_sales_by_day": {
+        "24": [
+          22,
+          3196
+        ],
+        "25": [
+          11,
+          1688
+        ],
+        "26": [
+          21,
+          3810
+        ],
+        "27": [
+          6,
+          1116
+        ],
+        "28": [
+          20,
+          3754
+        ]
+      },
+      "final_strawberry_shed": 0,
+      "ledger_verified": true,
+      "margin_delta": -1252.0,
+      "cash_delta": -1084.0,
+      "opponent_cash_delta": 168.0
+    },
+    {
+      "arm": "d25-q24",
+      "cash": 103029.0,
+      "opponent_cash": 104235.0,
+      "margin": -1206.0,
+      "held_units": 20,
+      "release_order_units": 16,
+      "pressure_lifts": 2,
+      "modified_market_orders": 3,
+      "strawberry_sales_by_day": {
+        "24": [
+          6,
+          898
+        ],
+        "27": [
+          7,
+          1300
+        ],
+        "28": [
+          16,
+          2939
+        ],
+        "29": [
+          4,
+          744
+        ]
+      },
+      "opponent_strawberry_sales_by_day": {
+        "24": [
+          22,
+          3196
+        ],
+        "25": [
+          11,
+          1688
+        ],
+        "26": [
+          21,
+          3810
+        ],
+        "27": [
+          6,
+          1116
+        ],
+        "28": [
+          20,
+          3757
+        ]
+      },
+      "final_strawberry_shed": 0,
+      "ledger_verified": true,
+      "margin_delta": -1339.0,
+      "cash_delta": -1163.0,
+      "opponent_cash_delta": 176.0
+    },
+    {
+      "arm": "d26-q6",
+      "cash": 103406.0,
+      "opponent_cash": 104110.0,
+      "margin": -704.0,
+      "held_units": 6,
+      "release_order_units": 9,
+      "pressure_lifts": 1,
+      "modified_market_orders": 2,
+      "strawberry_sales_by_day": {
+        "24": [
+          6,
+          898
+        ],
+        "25": [
+          6,
+          1003
+        ],
+        "27": [
+          8,
+          1480
+        ],
+        "28": [
+          9,
+          1635
+        ],
+        "29": [
+          4,
+          744
+        ]
+      },
+      "opponent_strawberry_sales_by_day": {
+        "24": [
+          22,
+          3196
+        ],
+        "25": [
+          11,
+          1688
+        ],
+        "26": [
+          21,
+          3734
+        ],
+        "27": [
+          6,
+          1109
+        ],
+        "28": [
+          20,
+          3745
+        ]
+      },
+      "final_strawberry_shed": 0,
+      "ledger_verified": true,
+      "margin_delta": -837.0,
+      "cash_delta": -786.0,
+      "opponent_cash_delta": 51.0
+    },
+    {
+      "arm": "d26-q12",
+      "cash": 103208.0,
+      "opponent_cash": 104134.0,
+      "margin": -926.0,
+      "held_units": 12,
+      "release_order_units": 14,
+      "pressure_lifts": 1,
+      "modified_market_orders": 3,
+      "strawberry_sales_by_day": {
+        "24": [
+          6,
+          898
+        ],
+        "25": [
+          6,
+          1003
+        ],
+        "27": [
+          3,
+          559
+        ],
+        "28": [
+          14,
+          2564
+        ],
+        "29": [
+          4,
+          744
+        ]
+      },
+      "opponent_strawberry_sales_by_day": {
+        "24": [
+          22,
+          3196
+        ],
+        "25": [
+          11,
+          1688
+        ],
+        "26": [
+          21,
+          3734
+        ],
+        "27": [
+          6,
+          1116
+        ],
+        "28": [
+          20,
+          3754
+        ]
+      },
+      "final_strawberry_shed": 0,
+      "ledger_verified": true,
+      "margin_delta": -1059.0,
+      "cash_delta": -984.0,
+      "opponent_cash_delta": 75.0
+    },
+    {
+      "arm": "d26-q24",
+      "cash": 103129.0,
+      "opponent_cash": 104141.0,
+      "margin": -1012.0,
+      "held_units": 14,
+      "release_order_units": 16,
+      "pressure_lifts": 1,
+      "modified_market_orders": 3,
+      "strawberry_sales_by_day": {
+        "24": [
+          6,
+          898
+        ],
+        "25": [
+          6,
+          1003
+        ],
+        "27": [
+          1,
+          187
+        ],
+        "28": [
+          16,
+          2939
+        ],
+        "29": [
+          4,
+          744
+        ]
+      },
+      "opponent_strawberry_sales_by_day": {
+        "24": [
+          22,
+          3196
+        ],
+        "25": [
+          11,
+          1688
+        ],
+        "26": [
+          21,
+          3734
+        ],
+        "27": [
+          6,
+          1116
+        ],
+        "28": [
+          20,
+          3757
+        ]
+      },
+      "final_strawberry_shed": 0,
+      "ledger_verified": true,
+      "margin_delta": -1145.0,
+      "cash_delta": -1063.0,
+      "opponent_cash_delta": 82.0
+    },
+    {
+      "arm": "d27-q6",
+      "cash": 103406.0,
+      "opponent_cash": 104110.0,
+      "margin": -704.0,
+      "held_units": 6,
+      "release_order_units": 9,
+      "pressure_lifts": 1,
+      "modified_market_orders": 2,
+      "strawberry_sales_by_day": {
+        "24": [
+          6,
+          898
+        ],
+        "25": [
+          6,
+          1003
+        ],
+        "27": [
+          8,
+          1480
+        ],
+        "28": [
+          9,
+          1635
+        ],
+        "29": [
+          4,
+          744
+        ]
+      },
+      "opponent_strawberry_sales_by_day": {
+        "24": [
+          22,
+          3196
+        ],
+        "25": [
+          11,
+          1688
+        ],
+        "26": [
+          21,
+          3734
+        ],
+        "27": [
+          6,
+          1109
+        ],
+        "28": [
+          20,
+          3745
+        ]
+      },
+      "final_strawberry_shed": 0,
+      "ledger_verified": true,
+      "margin_delta": -837.0,
+      "cash_delta": -786.0,
+      "opponent_cash_delta": 51.0
+    },
+    {
+      "arm": "d27-q12",
+      "cash": 103208.0,
+      "opponent_cash": 104134.0,
+      "margin": -926.0,
+      "held_units": 12,
+      "release_order_units": 14,
+      "pressure_lifts": 1,
+      "modified_market_orders": 3,
+      "strawberry_sales_by_day": {
+        "24": [
+          6,
+          898
+        ],
+        "25": [
+          6,
+          1003
+        ],
+        "27": [
+          3,
+          559
+        ],
+        "28": [
+          14,
+          2564
+        ],
+        "29": [
+          4,
+          744
+        ]
+      },
+      "opponent_strawberry_sales_by_day": {
+        "24": [
+          22,
+          3196
+        ],
+        "25": [
+          11,
+          1688
+        ],
+        "26": [
+          21,
+          3734
+        ],
+        "27": [
+          6,
+          1116
+        ],
+        "28": [
+          20,
+          3754
+        ]
+      },
+      "final_strawberry_shed": 0,
+      "ledger_verified": true,
+      "margin_delta": -1059.0,
+      "cash_delta": -984.0,
+      "opponent_cash_delta": 75.0
+    },
+    {
+      "arm": "d27-q24",
+      "cash": 103129.0,
+      "opponent_cash": 104141.0,
+      "margin": -1012.0,
+      "held_units": 14,
+      "release_order_units": 16,
+      "pressure_lifts": 1,
+      "modified_market_orders": 3,
+      "strawberry_sales_by_day": {
+        "24": [
+          6,
+          898
+        ],
+        "25": [
+          6,
+          1003
+        ],
+        "27": [
+          1,
+          187
+        ],
+        "28": [
+          16,
+          2939
+        ],
+        "29": [
+          4,
+          744
+        ]
+      },
+      "opponent_strawberry_sales_by_day": {
+        "24": [
+          22,
+          3196
+        ],
+        "25": [
+          11,
+          1688
+        ],
+        "26": [
+          21,
+          3734
+        ],
+        "27": [
+          6,
+          1116
+        ],
+        "28": [
+          20,
+          3757
+        ]
+      },
+      "final_strawberry_shed": 0,
+      "ledger_verified": true,
+      "margin_delta": -1145.0,
+      "cash_delta": -1063.0,
+      "opponent_cash_delta": 82.0
+    }
+  ]
+}

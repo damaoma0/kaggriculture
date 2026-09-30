@@ -1,0 +1,20 @@
+{
+  "arguments": {
+    "count": 4,
+    "offset": 0,
+    "rounds": 80,
+    "days": null,
+    "chain": true,
+    "tag": "pilot3",
+    "workers": 2
+  },
+  "paths": [
+    "data\\ladder_panel\\56368334\\110944913.json.gz",
+    "data\\ladder_panel\\56341683\\110598908.json.gz",
+    "data\\ladder_panel\\56341683\\110624179.json.gz",
+    "data\\ladder_panel\\56341683\\110629720.json.gz"
+  ],
+  "script_sha256": "7bd85b2410e13167ad4eb48cb3b3843bd5dc9817c532fc8d7faec626bfde13e0",
+  "engine_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+  "information": "Fixed hindsight daily production jobs; all selectors use hindsight feasibility validation. Only oracle ranks by future realized profit."
+}

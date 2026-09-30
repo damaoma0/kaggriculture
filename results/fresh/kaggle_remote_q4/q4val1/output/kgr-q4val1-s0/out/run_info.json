@@ -1,0 +1,28 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/lead_cycles.py",
+   "run",
+   "mgt_lpv_tieval",
+   "110937191,111374151,111376633,111416249,111554912,111577649,111681195,111688786,111871547,111902048,111916514,111941962",
+   "p2750",
+   "--idle"
+  ],
+  "collect": [
+   "results/fresh/lead_cycles/*/*.json",
+   "results/fresh/lead_cycles/*/idle/*/*.jsonl"
+  ],
+  "workers": 4
+ },
+ "games": 24,
+ "pip_seconds": 44.19698715209961,
+ "run_seconds": 190.0095317363739,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [],
+ "stderr_tail": []
+}

@@ -1,0 +1,428 @@
+{
+ "manifest": {
+  "tag": "round2",
+  "started": "2026-09-17 23:15:36",
+  "benchmark_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+  "seeds": [
+   172000,
+   172001,
+   172002,
+   172003,
+   172004,
+   172005,
+   172006,
+   172007,
+   172008,
+   172009,
+   172010,
+   172011,
+   172012,
+   172013,
+   172014,
+   172015
+  ],
+  "candidates": [
+   "leaderlike_v2",
+   "leaderlike_v2cap",
+   "leaderlike_v2swaps",
+   "leaderlike_v1",
+   "leaderlike_cap",
+   "leaderlike_swaps",
+   "sp_strawdemand"
+  ],
+  "seed_base": 172000,
+  "design": "Paired seeds and both seats against the frozen uploaded agent. Natural engine RNG for shops and weeds. Seed-clustered bootstrap intervals. No tuning on these seeds.",
+  "sources": {
+   "agents/leaderlike_v2.py": "c534402bd48d12072fc88bb87b3ed619e60e150b22591025b5373a6574a56f5c",
+   "agents/leaderlike_v2cap.py": "bec9ff0f090a0aad6c5174766614c23347ca6c5c576ce6abef25ccf15a4ceb5b",
+   "agents/leaderlike_v2swaps.py": "5936daf1b3d6715c6cd3895a508a7052cd693c6283dcf5bd3d2c3f3f78a8b63c",
+   "agents/leaderlike_v1.py": "d2992b77ac27804692cd28de5027786a277084cc161784b66863acca1a0d332a",
+   "agents/leaderlike_cap.py": "3466eb098735bfc945cf171a4a0f2498143a62b32e2ec6d3449092716cde8b1b",
+   "agents/leaderlike_swaps.py": "deace52b38d5a36950d479d11441dcd4832b19a8c489a7d667de66f467c6618c",
+   "agents/sp_strawdemand.py": "028b93658fb0c44232da6d446ab6f77ce49e92be2229fbf87bc25f168b239366"
+  }
+ },
+ "failures": [],
+ "candidates": {
+  "leaderlike_v2": {
+   "label": "leaderlike_v2",
+   "build_sha256": "c534402bd48d12072fc88bb87b3ed619e60e150b22591025b5373a6574a56f5c",
+   "games": 32,
+   "seeds": 16,
+   "wins": 0,
+   "ties": 0,
+   "losses": 32,
+   "win_rate": 0.0,
+   "win_rate_ci95": [
+    0.0,
+    0.0
+   ],
+   "mean_margin": -17552.9,
+   "margin_ci95": [
+    -22029.5,
+    -13617.2
+   ],
+   "median_margin": -15718.0,
+   "mean_cash": 90010,
+   "mean_bench_cash": 107563,
+   "seeds_positive": 0,
+   "per_seed_margin": {
+    "172000": -23085,
+    "172001": -14759,
+    "172002": -11055,
+    "172003": -4231,
+    "172004": -17584,
+    "172005": -11369,
+    "172006": -5979,
+    "172007": -20862,
+    "172008": -39300,
+    "172009": -15434,
+    "172010": -14999,
+    "172011": -16002,
+    "172012": -33540,
+    "172013": -18479,
+    "172014": -14220,
+    "172015": -19948
+   },
+   "telemetry": {
+    "straw_alive_last": 0,
+    "straw_plants_suppressed": 472,
+    "strawberry_swaps": 20,
+    "carrot_swaps": 611,
+    "carrot_seed_orders_added": 310,
+    "carrot_target_last": 0,
+    "straw_seed_orders_suppressed": 354,
+    "strawberry_seed_orders_added": 14,
+    "straw_target_last": 256
+   },
+   "parent_diagnostics": {
+    "supply_budget_declines": 40
+   },
+   "max_seconds": 0.176
+  },
+  "leaderlike_v2cap": {
+   "label": "leaderlike_v2cap",
+   "build_sha256": "bec9ff0f090a0aad6c5174766614c23347ca6c5c576ce6abef25ccf15a4ceb5b",
+   "games": 32,
+   "seeds": 16,
+   "wins": 4,
+   "ties": 0,
+   "losses": 28,
+   "win_rate": 12.5,
+   "win_rate_ci95": [
+    0.0,
+    31.2
+   ],
+   "mean_margin": -10720.3,
+   "margin_ci95": [
+    -14085.6,
+    -7150.9
+   ],
+   "median_margin": -11977.5,
+   "mean_cash": 91709,
+   "mean_bench_cash": 102429,
+   "seeds_positive": 2,
+   "per_seed_margin": {
+    "172000": -14285,
+    "172001": -11136,
+    "172002": 1491,
+    "172003": -217,
+    "172004": -15054,
+    "172005": -9138,
+    "172006": 2884,
+    "172007": -18119,
+    "172008": -23029,
+    "172009": -12443,
+    "172010": -11512,
+    "172011": -13826,
+    "172012": -3902,
+    "172013": -15720,
+    "172014": -9951,
+    "172015": -17568
+   },
+   "telemetry": {
+    "straw_seed_orders_suppressed": 354,
+    "straw_alive_last": 0,
+    "straw_plants_suppressed": 472,
+    "straw_target_last": 256
+   },
+   "parent_diagnostics": {
+    "parent_input_capacity_declines": 6,
+    "supply_budget_declines": 40,
+    "sheep_capacity_declines": 2
+   },
+   "max_seconds": 0.127
+  },
+  "leaderlike_v2swaps": {
+   "label": "leaderlike_v2swaps",
+   "build_sha256": "5936daf1b3d6715c6cd3895a508a7052cd693c6283dcf5bd3d2c3f3f78a8b63c",
+   "games": 32,
+   "seeds": 16,
+   "wins": 0,
+   "ties": 0,
+   "losses": 32,
+   "win_rate": 0.0,
+   "win_rate_ci95": [
+    0.0,
+    0.0
+   ],
+   "mean_margin": -2803.1,
+   "margin_ci95": [
+    -3410.1,
+    -2194.1
+   ],
+   "median_margin": -2869.5,
+   "mean_cash": 92579,
+   "mean_bench_cash": 95382,
+   "seeds_positive": 0,
+   "per_seed_margin": {
+    "172000": -4111,
+    "172001": -2851,
+    "172002": -1446,
+    "172003": -2888,
+    "172004": -4095,
+    "172005": -1403,
+    "172006": -4682,
+    "172007": -650,
+    "172008": -4349,
+    "172009": -2691,
+    "172010": -3931,
+    "172011": -3711,
+    "172012": -1547,
+    "172013": -3407,
+    "172014": -1436,
+    "172015": -1652
+   },
+   "telemetry": {
+    "straw_alive_last": 0,
+    "carrot_swaps": 556,
+    "carrot_seed_orders_added": 290,
+    "carrot_target_last": 0,
+    "strawberry_seed_orders_added": 2,
+    "straw_target_last": 256
+   },
+   "parent_diagnostics": {
+    "parent_input_capacity_declines": 4,
+    "supply_budget_declines": 46,
+    "sheep_capacity_declines": 2
+   },
+   "max_seconds": 0.155
+  },
+  "leaderlike_v1": {
+   "label": "leaderlike_v1",
+   "build_sha256": "d2992b77ac27804692cd28de5027786a277084cc161784b66863acca1a0d332a",
+   "games": 32,
+   "seeds": 16,
+   "wins": 0,
+   "ties": 0,
+   "losses": 32,
+   "win_rate": 0.0,
+   "win_rate_ci95": [
+    0.0,
+    0.0
+   ],
+   "mean_margin": -14494.6,
+   "margin_ci95": [
+    -19027.6,
+    -10630.2
+   ],
+   "median_margin": -14626.0,
+   "mean_cash": 87581,
+   "mean_bench_cash": 102076,
+   "seeds_positive": 0,
+   "per_seed_margin": {
+    "172000": -15878,
+    "172001": -14626,
+    "172002": -5479,
+    "172003": -3375,
+    "172004": -11249,
+    "172005": -9774,
+    "172006": -4062,
+    "172007": -21778,
+    "172008": -39895,
+    "172009": -15586,
+    "172010": -5547,
+    "172011": -17344,
+    "172012": -14628,
+    "172013": -19620,
+    "172014": -13665,
+    "172015": -19408
+   },
+   "telemetry": {
+    "straw_alive_last": 0,
+    "straw_plants_suppressed": 454,
+    "strawberry_swaps": 18,
+    "carrot_swaps": 640,
+    "carrot_seed_orders_added": 328,
+    "carrot_target_last": 0,
+    "straw_seed_orders_suppressed": 374,
+    "strawberry_seed_orders_added": 20,
+    "straw_target_last": 256
+   },
+   "parent_diagnostics": {
+    "supply_budget_declines": 40
+   },
+   "max_seconds": 0.145
+  },
+  "leaderlike_cap": {
+   "label": "leaderlike_cap",
+   "build_sha256": "3466eb098735bfc945cf171a4a0f2498143a62b32e2ec6d3449092716cde8b1b",
+   "games": 32,
+   "seeds": 16,
+   "wins": 3,
+   "ties": 0,
+   "losses": 29,
+   "win_rate": 9.4,
+   "win_rate_ci95": [
+    0.0,
+    25.0
+   ],
+   "mean_margin": -9394.9,
+   "margin_ci95": [
+    -12958.1,
+    -5822.9
+   ],
+   "median_margin": -10543.5,
+   "mean_cash": 90530,
+   "mean_bench_cash": 99925,
+   "seeds_positive": 1,
+   "per_seed_margin": {
+    "172000": -12337,
+    "172001": -11136,
+    "172002": -1950,
+    "172003": -217,
+    "172004": -9190,
+    "172005": -5543,
+    "172006": 4159,
+    "172007": -18119,
+    "172008": -23029,
+    "172009": -12443,
+    "172010": -3252,
+    "172011": -13826,
+    "172012": -196,
+    "172013": -15720,
+    "172014": -9951,
+    "172015": -17568
+   },
+   "telemetry": {
+    "straw_seed_orders_suppressed": 366,
+    "straw_alive_last": 0,
+    "straw_plants_suppressed": 452,
+    "straw_target_last": 256
+   },
+   "parent_diagnostics": {
+    "parent_input_capacity_declines": 6,
+    "supply_budget_declines": 40,
+    "sheep_capacity_declines": 2
+   },
+   "max_seconds": 0.154
+  },
+  "leaderlike_swaps": {
+   "label": "leaderlike_swaps",
+   "build_sha256": "deace52b38d5a36950d479d11441dcd4832b19a8c489a7d667de66f467c6618c",
+   "games": 32,
+   "seeds": 16,
+   "wins": 0,
+   "ties": 0,
+   "losses": 32,
+   "win_rate": 0.0,
+   "win_rate_ci95": [
+    0.0,
+    0.0
+   ],
+   "mean_margin": -2492.0,
+   "margin_ci95": [
+    -3100.6,
+    -1919.7
+   ],
+   "median_margin": -2286.5,
+   "mean_cash": 92831,
+   "mean_bench_cash": 95323,
+   "seeds_positive": 0,
+   "per_seed_margin": {
+    "172000": -4299,
+    "172001": -2438,
+    "172002": -1470,
+    "172003": -1399,
+    "172004": -3172,
+    "172005": -1302,
+    "172006": -4405,
+    "172007": -436,
+    "172008": -4798,
+    "172009": -1792,
+    "172010": -2838,
+    "172011": -3094,
+    "172012": -2135,
+    "172013": -2920,
+    "172014": -1539,
+    "172015": -1835
+   },
+   "telemetry": {
+    "straw_alive_last": 0,
+    "carrot_swaps": 536,
+    "carrot_seed_orders_added": 284,
+    "carrot_target_last": 0,
+    "strawberry_seed_orders_added": 2,
+    "straw_target_last": 256
+   },
+   "parent_diagnostics": {
+    "parent_input_capacity_declines": 2,
+    "supply_budget_declines": 46
+   },
+   "max_seconds": 0.15
+  },
+  "sp_strawdemand": {
+   "label": "sp_strawdemand",
+   "build_sha256": "028b93658fb0c44232da6d446ab6f77ce49e92be2229fbf87bc25f168b239366",
+   "games": 32,
+   "seeds": 16,
+   "wins": 4,
+   "ties": 20,
+   "losses": 8,
+   "win_rate": 12.5,
+   "win_rate_ci95": [
+    0.0,
+    31.2
+   ],
+   "mean_margin": -342.8,
+   "margin_ci95": [
+    -886.8,
+    10.6
+   ],
+   "median_margin": 0.0,
+   "mean_cash": 96254,
+   "mean_bench_cash": 96597,
+   "seeds_positive": 2,
+   "per_seed_margin": {
+    "172000": 0,
+    "172001": 0,
+    "172002": 92,
+    "172003": -145,
+    "172004": 0,
+    "172005": -1393,
+    "172006": -3671,
+    "172007": 0,
+    "172008": 0,
+    "172009": 0,
+    "172010": -681,
+    "172011": 0,
+    "172012": 314,
+    "172013": 0,
+    "172014": 0,
+    "172015": 0
+   },
+   "telemetry": {
+    "target_last": 1004,
+    "seed_units_suppressed": 52,
+    "plants_suppressed": 74,
+    "seed_orders_suppressed": 48
+   },
+   "parent_diagnostics": {
+    "parent_input_capacity_declines": 6,
+    "supply_budget_declines": 46,
+    "sheep_capacity_declines": 4
+   },
+   "max_seconds": 0.183
+  }
+ }
+}

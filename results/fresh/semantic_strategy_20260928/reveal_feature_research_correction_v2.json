@@ -1,0 +1,32 @@
+{
+  "correction": "D6\u201329 animal harvest numerator uses cumulative ledger[30]-ledger[6], not ledger[29]-ledger[5].",
+  "historical_manifest_path": "results/fresh/semantic_strategy_20260928/reveal_feature_prototype_manifest.json",
+  "historical_manifest_sha256": "1ab2cbeb8f58c1a773f7830c0d92995a7a4a47e3e098c4050472b9b80330ab15",
+  "original_script_report_runtime_model_restored_or_preserved_exact": {
+    "scripts/diagnose_semantic_strategy_v5_20260928.py": true,
+    "docs/semantic_strategy_v5_what_when_20260928.md": true,
+    "scripts/semantic_strategy_blocks_reveal_20260928.py": true,
+    "results/fresh/semantic_strategy_20260928/block_model_reveal_modern100.json": true
+  },
+  "historical_diagnostic_expected_sha256": "409261d5e3b8f3b49314c76d4c2c4195ec2697c724f1d500dd85a454a74a69d8",
+  "historical_diagnostic_bytes_available": false,
+  "historical_diagnostic_current_path_sha256": "b562fa8cf72804b8966b366d0c6f61fa0605c6f4a6e62d6ef24a6b0fa1a58177",
+  "explanation": "Diagnostic JSON was regenerated during correction before the preservation message arrived. Its original hash is not recoverable from retained copies; no exact-byte restoration is claimed. Original manifest remains unchanged. Current unversioned diagnostic contains corrected data and is superseded by explicitv2 artifact.",
+  "unchanged": [
+    "training data",
+    "LOO metrics",
+    "fitted model",
+    "policy runtime",
+    "V9 candidate runtime closure"
+  ],
+  "corrected_files": {
+    "scripts/diagnose_semantic_strategy_v5_20260928_v2.py": "c9e6e527138f4a5e98d0d8f2d1fc1bc0041d92b0d81f6206edbff108239c7bc3",
+    "docs/semantic_strategy_v5_what_when_20260928_v2.md": "b2e7a4166dd28a022814a126556995d8ca09b913779ec04925283802f50ce524",
+    "results/fresh/semantic_strategy_20260928/strategic_v5_what_when_diagnostic_v2.json": "b562fa8cf72804b8966b366d0c6f61fa0605c6f4a6e62d6ef24a6b0fa1a58177"
+  },
+  "corrected_v5_ratios": {
+    "MILK": 0.9557001239157372,
+    "WOOL": 0.9671663097787295,
+    "EGG": 0.7960716724659361
+  }
+}

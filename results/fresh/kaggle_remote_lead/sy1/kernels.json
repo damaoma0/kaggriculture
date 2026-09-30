@@ -1,0 +1,7 @@
+{
+ "kernels": [
+  "kgr-sy1-s0"
+ ],
+ "cmd": "scripts/lead_multi_run.py scripts/lead_world_trace.py run mgt_lpv_sy1 110937191,111374151,111376633,111416249,111554912,111577649,111681195,111688786,111871547,111902048,111916514,111941962 :: scripts/lead_ablation.py run E2sy1 --workers 4",
+ "pushed": 1790344854.3717484
+}

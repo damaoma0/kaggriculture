@@ -1,0 +1,34 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/search_dispatch_run.py",
+   "--arms",
+   "V1Fa12",
+   "--worlds",
+   "results/fresh/lead_sem4_20260925/worlds.json",
+   "--suffix",
+   "_w48",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/search_dispatch_20260925/lead_worlds/*/*.json",
+   "results/fresh/search_dispatch_20260925/lead_worlds/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 49,
+ "pip_seconds": 62.876872062683105,
+ "run_seconds": 929.1325449943542,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "48 jobs: arms ['V1Fa12'] x 48 games, workers 4, cfg {}",
+  "completed 48 games in 929s, errors (FAILED) 0"
+ ],
+ "stderr_tail": []
+}

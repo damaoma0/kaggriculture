@@ -1,0 +1,13 @@
+{
+  "second_worker_worlds": [
+    18,
+    19,
+    20,
+    21,
+    22,
+    23
+  ],
+  "maximum_workers": 2,
+  "memory_gate_gib": 2.6,
+  "note": "Original forward coordinator continues. Second worker handles only distant final six worlds; monitor overlap and finish before primary reaches world 18. Timing is shared-host wall time."
+}

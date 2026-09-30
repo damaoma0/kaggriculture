@@ -1,0 +1,15 @@
+{
+  "phase": "development",
+  "arms": [
+    "baseline",
+    "dsm",
+    "normalized",
+    "sales",
+    "latest",
+    "latest_sales"
+  ],
+  "worlds": "../design.json",
+  "controls": "baseline/dsm/normalized reused from v1 after source hash equality; same factory paths",
+  "latest": "add 3 recent DSM full-season tapes; default is most recent episode; original same-family routing uses observed shops only",
+  "sales": "may sell surplus earlier/reorder sales, never cancel production purchases"
+}

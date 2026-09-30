@@ -1,0 +1,243 @@
+{
+  "p1_min_value": 30,
+  "release_stale_d": true,
+  "fert_hold": 1,
+  "dispatch_search": "active",
+  "sd_days": [
+    11,
+    28
+  ],
+  "sd_seed_fix": 1,
+  "sd_sector_w": 40.0,
+  "sd_hop_w": 20.0,
+  "sd_dv_coins": {
+    "MELON": [
+      [
+        0,
+        0.0
+      ],
+      [
+        6,
+        53.8
+      ],
+      [
+        12,
+        3.1
+      ],
+      [
+        18,
+        8.6
+      ],
+      [
+        24,
+        0.5
+      ]
+    ],
+    "WOOL": [
+      [
+        0,
+        0.0
+      ],
+      [
+        6,
+        26.4
+      ],
+      [
+        12,
+        9.3
+      ],
+      [
+        18,
+        7.1
+      ],
+      [
+        24,
+        5.8
+      ]
+    ],
+    "MILK": [
+      [
+        0,
+        0.0
+      ],
+      [
+        6,
+        13.4
+      ],
+      [
+        12,
+        7.2
+      ],
+      [
+        18,
+        0.8
+      ],
+      [
+        24,
+        0.0
+      ]
+    ],
+    "STRAWBERRY": [
+      [
+        0,
+        0.0
+      ],
+      [
+        6,
+        0.0
+      ],
+      [
+        12,
+        2.9
+      ],
+      [
+        18,
+        4.8
+      ],
+      [
+        24,
+        0.0
+      ]
+    ]
+  },
+  "sd_final_trip": 1,
+  "sd_water_first": 1,
+  "sd_coop_pair": 2,
+  "sd_plan_log": 1,
+  "sd_hv_pref": {
+    "decay": {
+      "bonus": 500.0
+    },
+    "MELON": {
+      "bonus": 80.0,
+      "full": 1,
+      "by_hour": 8,
+      "hour_w": 20.0
+    }
+  },
+  "sd_hp_parity": 1,
+  "sd_surv_fb": 20,
+  "sd_evals0": 24000,
+  "sd_evals": 8000,
+  "sd_budget0": 2.0,
+  "sd_budget": 1.0,
+  "sd_step_cap": 3.0,
+  "sd_fert_sell": 1,
+  "sell_now": [
+    "MELON"
+  ],
+  "sd_retire": 1,
+  "sd_hard_late_w": 10.0,
+  "sd_hard_safe": 16,
+  "sd_water_tomorrow": 10.0,
+  "sd_fert_ret": 1,
+  "sd_collect_floor": 80.0,
+  "sd_finish_collect": 1,
+  "sd_fert_first": 1,
+  "sd_fert_first_crops": [
+    "WHEAT",
+    "CARROT"
+  ],
+  "sd_fert_frac": 0.6,
+  "sd_fert_ages": {
+    "WHEAT": [
+      1,
+      2
+    ],
+    "CARROT": [
+      1,
+      2
+    ]
+  },
+  "hp_crops": [
+    "MELON",
+    "WHEAT"
+  ],
+  "hp_wheat_min_units": 5,
+  "cut_mode": "leader_harvest",
+  "sd_feed_bonus": 20.0,
+  "sd_tier": 1,
+  "sd_tier_fert_supply": 1,
+  "sd_tier_coll_cap": 2,
+  "sd_tier_pair_own": 1,
+  "sd_tier_fert_skip_harv": 1,
+  "sd_tier_fert_exact": 1,
+  "sd_tier_relief": 1,
+  "sd_tier_rate_c": 5.0,
+  "sd_tier_wheat": 1,
+  "sd_tier_offsets": 4,
+  "sd_tier_pair_top": 3,
+  "sd_tier_iters": 2500,
+  "sd_tier_relief_minv": 20.0,
+  "sd_tier_fill_near": 5,
+  "sd_tier_farmer_hold": 1,
+  "sd_tier_deliver": 1,
+  "sd_tier_deliver_check": 1,
+  "sd_tier_deliver_keep": [
+    "MILK"
+  ],
+  "sd_tier_log_v": 1,
+  "sd_tier_anim_harv": 1,
+  "sd_tier_anim_c": 1,
+  "sd_tier_anim_c_minv": 150.0,
+  "sd_tier_feed_bank": 1,
+  "sd_final_sell_all": 1,
+  "sd_tier_access_drop": 1,
+  "sd_tier_turnaround": 1,
+  "sd_tier_anim_harv_end": 29,
+  "sd_tier_spawn_h2": 1,
+  "sd_bank_stop": 1000000000.0,
+  "sd_maint_floor": {
+    "MILK": 60,
+    "WOOL": 100,
+    "EGG": 45
+  },
+  "sd_tier_dump_fix": 1,
+  "sd_tier_copy_returns": 0,
+  "sd_tier_access_keep": 1,
+  "sd_tier_copy_returns_end": 22,
+  "sd_tier_spawn_buffer": 1,
+  "sd_books_sell": [
+    "STRAWBERRY",
+    "WOOL",
+    "MILK",
+    "EGG",
+    "TOMATO",
+    "CARROT",
+    "FERTILIZER",
+    "WHEAT"
+  ],
+  "sd_books_cap": 1,
+  "sd_tier_dawn": 3,
+  "sd_tier_dawn_shape": "learned",
+  "sd_maint_floor_trail": 48,
+  "sd_maint_floor_stat": "mean",
+  "sd_wheat_pick_now": 1,
+  "sd_tier_dump_defer": 1,
+  "sd_books_batch": 8,
+  "sd_books_minpx": 5,
+  "sd_books_walk": 1,
+  "sd_keep_alive_guard": 1,
+  "sd_keep_alive_guard_min": 1,
+  "sd_books_cap_free": 1,
+  "sd_books_h0_slots": 2,
+  "sd_tier_spawn_remap": 1,
+  "sd_books_h0_lot": 0,
+  "sd_harvest_follow_dsm": [],
+  "sd_harvest_follow_keep": 0,
+  "sd_tier_path_collect": 1,
+  "sd_tier_path_collect_detour": 1,
+  "sd_tier_deliver_skip": 1,
+  "sd_tier_deliver_skip_min": 5,
+  "sd_tier_deliver_skip_collects": 1,
+  "sd_books_even": [
+    "STRAWBERRY"
+  ],
+  "sd_exact_retire": 1,
+  "sd_exact_site": 2,
+  "sd_exact_retire_prefeed": 1,
+  "sd_books_source": "pace",
+  "sd_clean": 1,
+  "sd_tp_iface": 1,
+  "sd_books_pace_map": "results/fresh/threads_20260928/dsm_sell_pace_folds.json"
+}

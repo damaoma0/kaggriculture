@@ -1,0 +1,96 @@
+{
+  "world": "baseline",
+  "mode": "cohort",
+  "seed": 1329978515,
+  "seat": 0,
+  "completed": true,
+  "selected_route": 196,
+  "shops": [
+    "SMOOTHIE_SHOP",
+    "PIZZA_SHOP",
+    "PET_CAFE",
+    "YARN_STORE",
+    "ICE_CREAM_SHOP",
+    "FARMERS_MARKET",
+    "ICE_CREAM_SHOP",
+    "PIZZA_SHOP"
+  ],
+  "cash": 123884.0,
+  "rival_cash": 129966.0,
+  "margin": -6082.0,
+  "economics": [
+    {
+      "revenue": {
+        "FERTILIZER": 12793,
+        "WHEAT": 14124,
+        "WOOL": 25163,
+        "MILK": 45764,
+        "MELON": 14852,
+        "EGG": 4149,
+        "STRAWBERRY": 20891,
+        "TOMATO": 6215,
+        "CARROT": 6406
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 5478,
+        "HIRE": 5955.0,
+        "BUY_ANIMAL:COW": 4000,
+        "BUY_ANIMAL:SHEEP": 3000,
+        "BUY_SEED:MELON": 1040,
+        "BUY_SEED:WHEAT": 1460,
+        "BUY_SEED:CARROT": 820,
+        "BUY_SEED:STRAWBERRY": 2200,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 870,
+        "BUY_ANIMAL:GOOSE": 900,
+        "BUY_SEED:TOMATO": 750
+      },
+      "units": {
+        "FERTILIZER": 253,
+        "WHEAT": 402,
+        "WOOL": 142,
+        "MILK": 263,
+        "MELON": 78,
+        "EGG": 94,
+        "STRAWBERRY": 146,
+        "TOMATO": 83,
+        "CARROT": 125
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 12115,
+        "FERTILIZER": 16085,
+        "WOOL": 24541,
+        "MILK": 46977,
+        "MELON": 14267,
+        "EGG": 4016,
+        "STRAWBERRY": 31177,
+        "CARROT": 6141
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4591,
+        "BUY_SEED:WHEAT": 1590,
+        "HIRE": 4164.0,
+        "BUY_ANIMAL:COW": 3600,
+        "BUY_ANIMAL:SHEEP": 2500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2948,
+        "BUY_ANIMAL:GOOSE": 900,
+        "BUY_SEED:CARROT": 800
+      },
+      "units": {
+        "WHEAT": 339,
+        "FERTILIZER": 339,
+        "WOOL": 139,
+        "MILK": 266,
+        "MELON": 72,
+        "EGG": 93,
+        "STRAWBERRY": 249,
+        "CARROT": 119
+      }
+    }
+  ]
+}

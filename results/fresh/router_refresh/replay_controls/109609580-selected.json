@@ -1,0 +1,94 @@
+{
+  "episode": 109609580,
+  "opponent": "QQ Farming",
+  "policy": "selected",
+  "seat": 0,
+  "cash": 104306.0,
+  "opponent_cash": 110166.0,
+  "margin": -5860.0,
+  "ledger": [
+    {
+      "revenue": {
+        "WHEAT": 22103,
+        "FERTILIZER": 14092,
+        "WOOL": 19718,
+        "MILK": 22422,
+        "MELON": 17440,
+        "EGG": 4122,
+        "STRAWBERRY": 35588,
+        "CARROT": 818
+      },
+      "sold_units": {
+        "WHEAT": 561,
+        "FERTILIZER": 332,
+        "WOOL": 133,
+        "MILK": 261,
+        "MELON": 72,
+        "EGG": 79,
+        "STRAWBERRY": 240,
+        "CARROT": 18
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 11102,
+        "BUY_SEED:WHEAT": 1970,
+        "HIRE": 5400.0,
+        "BUY_ANIMAL:COW": 3600,
+        "BUY_ANIMAL:SHEEP": 2500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:CARROT": 180,
+        "BUY_SEED:STRAWBERRY": 3200,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 1885,
+        "BUY_ANIMAL:GOOSE": 1200
+      }
+    },
+    {
+      "revenue": {
+        "FERTILIZER": 13072,
+        "WHEAT": 13463,
+        "WOOL": 27625,
+        "MILK": 19420,
+        "CARROT": 2201,
+        "TOMATO": 13046,
+        "EGG": 3834,
+        "STRAWBERRY": 44122,
+        "MELON": 13705
+      },
+      "sold_units": {
+        "FERTILIZER": 250,
+        "WHEAT": 295,
+        "WOOL": 161,
+        "MILK": 194,
+        "CARROT": 52,
+        "TOMATO": 166,
+        "EGG": 74,
+        "STRAWBERRY": 316,
+        "MELON": 90
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 13648,
+        "HIRE": 5303.0,
+        "BUY_ANIMAL:COW": 4400,
+        "BUY_ANIMAL:SHEEP": 5000,
+        "BUY_SEED:WHEAT": 530,
+        "BUY_SEED:STRAWBERRY": 4000,
+        "BUY_SEED:TOMATO": 1050,
+        "BUY_SEED:MELON": 1200,
+        "BUY_LAND": 7000.0,
+        "BUY_ANIMAL:GOOSE": 600,
+        "BUY_SEED:CARROT": 380,
+        "BUY_PRODUCT:FERTILIZER": 211
+      }
+    }
+  ],
+  "shops": [
+    "SMOOTHIE_SHOP",
+    "FARMERS_MARKET",
+    "PIZZA_SHOP",
+    "BRUNCH_SPOT",
+    "YARN_STORE",
+    "BRUNCH_SPOT",
+    "YARN_STORE",
+    "SMOOTHIE_SHOP"
+  ]
+}

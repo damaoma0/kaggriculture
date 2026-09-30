@@ -1,0 +1,261 @@
+{
+  "episode": 111287532,
+  "rows": [
+    {
+      "day": 3,
+      "shops": [
+        "YARN_STORE"
+      ],
+      "new_shop": "YARN_STORE",
+      "actual_demand": {
+        "STRAWBERRY": 0,
+        "TOMATO": 0,
+        "WOOL": 2,
+        "CARROT": 0,
+        "MILK": 0,
+        "EGG": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "day": 6,
+      "shops": [
+        "YARN_STORE",
+        "BAKERY"
+      ],
+      "new_shop": "BAKERY",
+      "actual_demand": {
+        "STRAWBERRY": 0,
+        "TOMATO": 0,
+        "WOOL": 2,
+        "CARROT": 0,
+        "MILK": 0,
+        "EGG": 1,
+        "WHEAT": 1
+      }
+    },
+    {
+      "day": 9,
+      "shops": [
+        "YARN_STORE",
+        "BAKERY",
+        "FARMERS_MARKET"
+      ],
+      "new_shop": "FARMERS_MARKET",
+      "actual_demand": {
+        "STRAWBERRY": 1,
+        "TOMATO": 1,
+        "WOOL": 2,
+        "CARROT": 1,
+        "MILK": 0,
+        "EGG": 1,
+        "WHEAT": 2
+      }
+    },
+    {
+      "day": 12,
+      "shops": [
+        "YARN_STORE",
+        "BAKERY",
+        "FARMERS_MARKET",
+        "BRUNCH_SPOT"
+      ],
+      "new_shop": "BRUNCH_SPOT",
+      "actual_demand": {
+        "STRAWBERRY": 2,
+        "TOMATO": 1,
+        "WOOL": 2,
+        "CARROT": 1,
+        "MILK": 0,
+        "EGG": 2,
+        "WHEAT": 3
+      },
+      "incumbent_tape": 110344290,
+      "history_distance": 3.0,
+      "incumbent_demand": {
+        "STRAWBERRY": 1,
+        "TOMATO": 1,
+        "WOOL": 2,
+        "CARROT": 1,
+        "MILK": 0,
+        "EGG": 2,
+        "WHEAT": 3
+      },
+      "gap": {
+        "STRAWBERRY": 1,
+        "TOMATO": 0,
+        "WOOL": 0,
+        "CARROT": 0,
+        "MILK": 0,
+        "EGG": 0,
+        "WHEAT": 0
+      }
+    },
+    {
+      "day": 15,
+      "shops": [
+        "YARN_STORE",
+        "BAKERY",
+        "FARMERS_MARKET",
+        "BRUNCH_SPOT",
+        "SMOOTHIE_SHOP"
+      ],
+      "new_shop": "SMOOTHIE_SHOP",
+      "actual_demand": {
+        "STRAWBERRY": 3,
+        "TOMATO": 1,
+        "WOOL": 2,
+        "CARROT": 1,
+        "MILK": 1,
+        "EGG": 2,
+        "WHEAT": 3
+      },
+      "incumbent_tape": 110344290,
+      "history_distance": 12.0,
+      "incumbent_demand": {
+        "STRAWBERRY": 1,
+        "TOMATO": 1,
+        "WOOL": 2,
+        "CARROT": 1,
+        "MILK": 0,
+        "EGG": 3,
+        "WHEAT": 4
+      },
+      "gap": {
+        "STRAWBERRY": 2,
+        "TOMATO": 0,
+        "WOOL": 0,
+        "CARROT": 0,
+        "MILK": 1,
+        "EGG": -1,
+        "WHEAT": -1
+      }
+    },
+    {
+      "day": 18,
+      "shops": [
+        "YARN_STORE",
+        "BAKERY",
+        "FARMERS_MARKET",
+        "BRUNCH_SPOT",
+        "SMOOTHIE_SHOP",
+        "YARN_STORE"
+      ],
+      "new_shop": "YARN_STORE",
+      "actual_demand": {
+        "STRAWBERRY": 3,
+        "TOMATO": 1,
+        "WOOL": 4,
+        "CARROT": 1,
+        "MILK": 1,
+        "EGG": 2,
+        "WHEAT": 3
+      },
+      "incumbent_tape": 110344290,
+      "history_distance": 26.0,
+      "incumbent_demand": {
+        "STRAWBERRY": 1,
+        "TOMATO": 2,
+        "WOOL": 2,
+        "CARROT": 1,
+        "MILK": 1,
+        "EGG": 3,
+        "WHEAT": 5
+      },
+      "gap": {
+        "STRAWBERRY": 2,
+        "TOMATO": -1,
+        "WOOL": 2,
+        "CARROT": 0,
+        "MILK": 0,
+        "EGG": -1,
+        "WHEAT": -2
+      }
+    },
+    {
+      "day": 21,
+      "shops": [
+        "YARN_STORE",
+        "BAKERY",
+        "FARMERS_MARKET",
+        "BRUNCH_SPOT",
+        "SMOOTHIE_SHOP",
+        "YARN_STORE",
+        "FARMERS_MARKET"
+      ],
+      "new_shop": "FARMERS_MARKET",
+      "actual_demand": {
+        "STRAWBERRY": 4,
+        "TOMATO": 2,
+        "WOOL": 4,
+        "CARROT": 2,
+        "MILK": 1,
+        "EGG": 2,
+        "WHEAT": 4
+      },
+      "incumbent_tape": 110344290,
+      "history_distance": 43.5,
+      "incumbent_demand": {
+        "STRAWBERRY": 1,
+        "TOMATO": 2,
+        "WOOL": 2,
+        "CARROT": 1,
+        "MILK": 1,
+        "EGG": 4,
+        "WHEAT": 6
+      },
+      "gap": {
+        "STRAWBERRY": 3,
+        "TOMATO": 0,
+        "WOOL": 2,
+        "CARROT": 1,
+        "MILK": 0,
+        "EGG": -2,
+        "WHEAT": -2
+      }
+    },
+    {
+      "day": 24,
+      "shops": [
+        "YARN_STORE",
+        "BAKERY",
+        "FARMERS_MARKET",
+        "BRUNCH_SPOT",
+        "SMOOTHIE_SHOP",
+        "YARN_STORE",
+        "FARMERS_MARKET",
+        "PIZZA_SHOP"
+      ],
+      "new_shop": "PIZZA_SHOP",
+      "actual_demand": {
+        "STRAWBERRY": 4,
+        "TOMATO": 3,
+        "WOOL": 4,
+        "CARROT": 2,
+        "MILK": 2,
+        "EGG": 2,
+        "WHEAT": 5
+      },
+      "incumbent_tape": 110344290,
+      "history_distance": 46.5,
+      "incumbent_demand": {
+        "STRAWBERRY": 1,
+        "TOMATO": 2,
+        "WOOL": 2,
+        "CARROT": 3,
+        "MILK": 1,
+        "EGG": 4,
+        "WHEAT": 6
+      },
+      "gap": {
+        "STRAWBERRY": 3,
+        "TOMATO": 1,
+        "WOOL": 2,
+        "CARROT": -1,
+        "MILK": 1,
+        "EGG": -2,
+        "WHEAT": -1
+      }
+    }
+  ]
+}

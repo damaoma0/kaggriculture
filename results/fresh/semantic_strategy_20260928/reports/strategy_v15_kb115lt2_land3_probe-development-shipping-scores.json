@@ -1,0 +1,209 @@
+{
+  "candidate": "strategy_v15_kb115lt2_land3_probe",
+  "split": "development",
+  "candidate_manifest_sha256": "932c98ecfbcacb1084c942790d44f798023673ea4b81222ccb14aa2e969bc358",
+  "shipping_score_addendum_sha256": "95cce9dcf13e13c7834c0786e14fb55ef0408bc9dec09c02335ce8dc107a1958",
+  "original_independent_audit_pass": true,
+  "panels": {
+    "live": {
+      "planned": 8,
+      "recorded": 0,
+      "technically_valid": 0,
+      "wins": 0,
+      "complete": false,
+      "meets_30_of_40": false,
+      "mean_margin": null,
+      "original_strict_wins": 0,
+      "original_strict_valid": 0,
+      "original_strict_complete": false,
+      "material_script_breaks": [],
+      "technical_failures": {},
+      "missing_cases": [
+        "live-00",
+        "live-01",
+        "live-02",
+        "live-03",
+        "live-04",
+        "live-05",
+        "live-06",
+        "live-07"
+      ],
+      "hashes": {}
+    },
+    "recorded": {
+      "planned": 8,
+      "recorded": 8,
+      "technically_valid": 8,
+      "wins": 1,
+      "complete": true,
+      "meets_30_of_40": false,
+      "mean_margin": -8318.625,
+      "original_strict_wins": 1,
+      "original_strict_valid": 5,
+      "original_strict_complete": false,
+      "material_script_breaks": [
+        {
+          "case": "recorded-112476470",
+          "margin": -14343.0,
+          "additional_failed_commands": 120,
+          "material_command_break": true,
+          "control_sha256": "ae188106ddb961139ab5879868072d7f9cd92bf0f7f95d6d1654421fc2071252",
+          "additional_missing_worker_commands": 0,
+          "failures_by_day": [
+            0,
+            0,
+            0,
+            0,
+            1,
+            0,
+            5,
+            3,
+            5,
+            4,
+            5,
+            5,
+            7,
+            7,
+            7,
+            6,
+            4,
+            4,
+            5,
+            5,
+            5,
+            4,
+            4,
+            4,
+            5,
+            9,
+            7,
+            4,
+            3,
+            2
+          ],
+          "note": "Frozen commands cannot react to counterfactual prices. Passing this necessary screen is not proof of live policy equivalence."
+        },
+        {
+          "case": "recorded-112610631",
+          "margin": -11295.0,
+          "additional_failed_commands": 47,
+          "material_command_break": true,
+          "control_sha256": "7d72f4f1715f3b0a298caf9a2a8ece149c10df504b8bb48c660e8efcf15732da",
+          "additional_missing_worker_commands": 22,
+          "failures_by_day": [
+            6,
+            4,
+            8,
+            5,
+            7,
+            2,
+            8,
+            15,
+            28,
+            3,
+            7,
+            8,
+            3,
+            3,
+            3,
+            3,
+            2,
+            4,
+            2,
+            3,
+            1,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+          ],
+          "note": "Frozen commands cannot react to counterfactual prices. Passing this necessary screen is not proof of live policy equivalence."
+        },
+        {
+          "case": "recorded-112612822",
+          "margin": -8498.0,
+          "additional_failed_commands": 70,
+          "material_command_break": true,
+          "control_sha256": "2e65bfbec1d921757886b489256365576fbb21419f8d4f1a58711bb7b9b65e43",
+          "additional_missing_worker_commands": 0,
+          "failures_by_day": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            4,
+            0,
+            4,
+            8,
+            0,
+            0,
+            4,
+            6,
+            4,
+            1,
+            3,
+            6,
+            2,
+            4,
+            6,
+            3,
+            5,
+            4,
+            2,
+            4
+          ],
+          "note": "Frozen commands cannot react to counterfactual prices. Passing this necessary screen is not proof of live policy equivalence."
+        }
+      ],
+      "technical_failures": {},
+      "missing_cases": [],
+      "hashes": {
+        "recorded-111681195": {
+          "result_sha256": "cb5d976058db4e4a37bc808434eff0d8aeb4cd4b15b0c96881bc89aab06a2c33",
+          "actions_sha256": "92ea33dcba62bd918b3765862013d1c3a87868c6cebdd3c6b7cc905121bedf7f"
+        },
+        "recorded-111871547": {
+          "result_sha256": "af4659d1db31a37bd406184ce267d92fa442295ebdcefbc5fbcc1ea5900f014c",
+          "actions_sha256": "e2ba2dfcb8cf46f7ee1b0f696d1118504f4acb1a139cb0898b0cc3d40941081e"
+        },
+        "recorded-111902048": {
+          "result_sha256": "c404e6e38680bef084862599cb61cfc943560cabab9842bf540dd78ebe6c3a1e",
+          "actions_sha256": "32cd19e9ef9cd1855880d6f289d54f54c08e55631e4b67bb50c71d356e3bc12f"
+        },
+        "recorded-112181121": {
+          "result_sha256": "53a2077cc89a26d887192ee79625cc87cb8c2ca6cc97348097cac87b6d0d8686",
+          "actions_sha256": "4e31769f0cc18d1438082c7d4b0829262b868ea75d2d11920aecfc7a535c86c5"
+        },
+        "recorded-112476470": {
+          "result_sha256": "691c9aeb8232c161c6608a22cdb35bbc1511a1ed6d5f68c0958294363ef3a3ef",
+          "actions_sha256": "fc1b9b6844a5728e2ac60b7ed51bfcd140667506d47b1dbdd6fbb366665f3856"
+        },
+        "recorded-112610631": {
+          "result_sha256": "6394e3dffdc1e015c6c8a08f23d431d04ac028976bed75ad7ef77a32908de2e8",
+          "actions_sha256": "12aae3a70037c8261fea35dfdf005d5e9fa929a43ae8f00ad683ec7fee8188dd"
+        },
+        "recorded-112612822": {
+          "result_sha256": "f76c03daa722c4cc0c8357028c967dfb51d7ed60b31f8ba4f9043302bc8be73d",
+          "actions_sha256": "504a5e96fea02339a11786fa731ee86d8a780ffd2ac3191f0cab6db658c6fe36"
+        },
+        "recorded-112615422": {
+          "result_sha256": "df80ced0a8f14b1b7ab186f43bb363533f482f7fe277b0d2d1ada064b0cefd9a",
+          "actions_sha256": "873e884e891c2cfe8de6706092ecb56ffcd1b83d8d4e5ef222ffaa0a3b47a3d4"
+        }
+      }
+    }
+  },
+  "shipping_gate_pass": false,
+  "note": "Scripted and responsive scores remain separate. All planned slots retained; original strict artifacts unchanged."
+}

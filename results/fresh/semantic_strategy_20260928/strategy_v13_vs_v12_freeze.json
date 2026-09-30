@@ -1,0 +1,25 @@
+{
+  "candidate": "strategy_v13_kb115lt2_harvest_exchange",
+  "manifest_sha256": "82d5d5a2a3acc181705540a4acf2ed0a764294bba964122d888ec3634cbb0550",
+  "dispatch_manifest_sha256": "2d4b9314887b2ca851912aad0f5664b379a32374a61e1b28bbdc28f52b3022be",
+  "source_differences": {
+    "results/fresh/semantic_strategy_20260928/candidate_config.json": {
+      "v12": "2d380887ff57e07496e6fe7203816851c545ff42e1ef101be3b392744960dac8",
+      "v13": "600450cd9433fcde527005468c8032c3132ce81882f4210521a106c39669b728"
+    },
+    "results/fresh/semantic_strategy_20260928/runtime/agents/mgt_lead_kb115lt.py": {
+      "v12": "d6769c6994a9445f96a34e6c517e4fdee8d3bd3160d349e7d480bdc89871452b",
+      "v13": "656fc41fdb3c772e9bd8a13ffedea79c7e8c412acdb4c64218344fa63f082da1"
+    }
+  },
+  "config_changes": {
+    "executor.sd_polish_harvest_exchange": 1
+  },
+  "recipe_difference": {},
+  "base_harness_differences": {},
+  "declared_dispatch_extension_sha256": {
+    "run_semantic_v13_development_20260928.py": "7b47082c027df5107fcc12522d2b743bc16412b625b1a984b51d15a32be473ae"
+  },
+  "qualification_dispatched": false,
+  "engine_dispatched": false
+}

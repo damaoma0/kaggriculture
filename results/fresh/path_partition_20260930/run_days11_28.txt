@@ -1,0 +1,9 @@
+774 DSM game-days; per game-day means
+days   | jobs M / N / S (h) | DSM units, moves | ours at DSM's crew: walk, N cut, S cut, M over | fewest workers with no M over and no N cut | paths short of 25h
+11-15  |  60.7 /  71.4 /  73.7 |  12.5,  111.5 |   97.6,  0.0,  39.7,  0.0 |  11.6 (none within DSM+2 in 0) |  0.7
+16-20  |  55.6 /  69.1 /  90.2 |  13.0,  118.3 |   98.8,  0.0,  43.0,  0.0 |  11.2 (none within DSM+2 in 0) |  0.6
+21-25  |  65.3 /  67.8 /  80.6 |  13.0,  109.3 |   96.6,  0.0,  36.1,  0.0 |  11.5 (none within DSM+2 in 0) |  0.6
+26-28  |  53.0 /  70.4 /  52.4 |  12.5,  119.4 |   97.3,  0.0,  16.2,  0.0 |  10.7 (none within DSM+2 in 0) |  4.4
+idle hours at DSM's crew (paths whose whole work, slack included, ends before the day): days 11-15 0.3, days 16-20 0.2, days 21-25 0.2, days 26-28 8.0
+bring-back legs (DSM's own, planned first): 1.7 units a day, 6.5 unit-hours, 2.2 jobs taken off the pool
+useless jobs filtered, per game-day: fertilize_no_supply 15.1, fertilize_below_fert_price 11.7, care_no_production_left 1.7, dig_no_replant 1.3, water_no_production_left 0.5, feed_no_production_left 0.2

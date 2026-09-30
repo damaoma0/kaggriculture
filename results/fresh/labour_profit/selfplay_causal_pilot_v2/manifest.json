@@ -1,0 +1,19 @@
+{
+  "arguments": {
+    "count": 1,
+    "offset": 0,
+    "workers": 1,
+    "rounds": 80,
+    "tag": "selfplay_causal_pilot_v2"
+  },
+  "paths": [
+    "results\\fresh\\labour_profit\\fixed_ladder\\plans\\110676097.json.gz"
+  ],
+  "sources": {
+    "scripts\\test_labour_selfplay.py": "fe1bda953f4bdc40ed6f2b5b3849dad783a950b70300531fd0adf184486c2beb",
+    "scripts\\research_labour_profit.py": "06b457c9efeceefe58eb235aaacf69e812aecc64c4351896614c65988be949bc",
+    ".venv\\Lib\\site-packages\\kaggle_environments\\envs\\kaggriculture\\kaggriculture.py": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e"
+  },
+  "policy": "Observation and own supplied 48h plan only; no actual future feasibility filter.",
+  "design": "Two modes x two seats + baseline mirror control per world; recorded shops only in evaluator."
+}

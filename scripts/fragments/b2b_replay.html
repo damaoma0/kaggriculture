@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Us vs DSM replay</title>
+<style>
+:root{--bg:#101713;--panel:#19231d;--line:#34463a;--text:#ecf2e9;--muted:#a9b8aa;--accent:#b7e88e;--bad:#ffb4a4;--warn:#efc777;--dsm:#8fc7ff;--ours:#b7e88e}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f4f6f2;--panel:#ffffff;--line:#d5ddd3;--text:#17221a;--muted:#5b6a5d;--accent:#3d7a1f;--bad:#b3261e;--warn:#9a6700;--dsm:#1f5fa8;--ours:#3d7a1f}}
+:root[data-theme="dark"]{--bg:#101713;--panel:#19231d;--line:#34463a;--text:#ecf2e9;--muted:#a9b8aa;--accent:#b7e88e;--bad:#ffb4a4;--warn:#efc777;--dsm:#8fc7ff;--ours:#b7e88e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 system-ui,sans-serif}
+header,main,footer{max-width:1480px;margin:auto;padding:18px 24px}h1{font-size:26px;margin:0;letter-spacing:-.5px}h2{font-size:16px;margin:0 0 10px}
+.eyebrow{color:var(--accent);font-size:12px;letter-spacing:1.4px;text-transform:uppercase}.muted{color:var(--muted)}
+button,select,input{font:inherit}button,select{color:var(--text);background:var(--panel);border:1px solid var(--line);border-radius:7px;padding:7px 10px;cursor:pointer}
+button:hover{border-color:var(--accent)}.primary{background:var(--accent);color:#162210;border:0;font-weight:600}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;min-width:0}
+.transport{margin-bottom:16px}#seek{width:100%;accent-color:var(--accent);margin:12px 0 4px}#clock{margin-left:auto;font-variant-numeric:tabular-nums;font-weight:600}
+.boards{display:grid;grid-template-columns:1fr 1fr;gap:16px}.farmhead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;margin-bottom:8px;flex-wrap:wrap}
+.farmhead h2{margin:0}.dsm h2{color:var(--dsm)}.ours h2{color:var(--ours)}.kpi{font-variant-numeric:tabular-nums}
+.board{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:3px}
+.tile{aspect-ratio:1;border-radius:4px;position:relative;font-size:clamp(10px,1.2vw,16px);display:flex;align-items:center;justify-content:center;background:#27372b;border:1px solid transparent;color:#fff}
+.tile.locked{background:#0d140f;opacity:.55}.tile.diff{border-color:var(--warn)}.tile .y{position:absolute;left:2px;top:0;font-size:9px;opacity:.9}
+.tile .u{position:absolute;right:1px;bottom:0;background:#000b;color:#fff;border-radius:3px;font-size:9px;padding:0 2px}
+.legend{display:flex;gap:6px 12px;flex-wrap:wrap;font-size:12px;margin-top:10px}
+.grid2{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:16px;margin-top:16px}
+table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:right;border-bottom:1px solid var(--line);padding:5px 6px;font-variant-numeric:tabular-nums}
+th:first-child,td:first-child{text-align:left}th{color:var(--muted);font-weight:400}.neg{color:var(--bad)}.pos{color:var(--accent)}
+#chart{width:100%;height:220px;display:block}.notes{display:grid;gap:8px;max-height:560px;overflow:auto}
+.note{border:1px solid var(--line);border-radius:9px;padding:9px 11px;cursor:pointer}.note:hover{border-color:var(--accent)}.note.on{border-color:var(--warn)}
+.note b{display:block}.note .when{color:var(--warn);font-size:12px}.chips{display:flex;gap:5px;flex-wrap:wrap}.chip{padding:2px 7px;border-radius:4px;background:var(--line);font-size:12px}
+#orders{font:12px/1.5 ui-monospace,monospace;white-space:pre-wrap}.summary{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:10px}
+.summary div{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:10px}.summary strong{display:block;font-size:20px;font-variant-numeric:tabular-nums}.summary span{font-size:12px;color:var(--muted)}
+@media(max-width:900px){.boards,.grid2{grid-template-columns:1fr}.summary{grid-template-columns:repeat(2,minmax(0,1fr))}header,main,footer{padding:14px 16px}}
+</style></head><body>
+<header><div class="eyebrow" id="eyebrow"></div><h1>Us vs DSM (current): back-to-back replay</h1><p id="lede" class="muted"></p><div class="summary" id="summary"></div></header>
+<main><p id="error" class="neg"></p><div id="viewer" hidden>
+<section class="panel transport"><div class="row"><button id="play" class="primary">▶ Play side by side</button><button id="seq">▶ Play DSM, then ours</button>
+<label>Speed <select id="speed"><option value="500">Slow</option><option value="110" selected>Normal</option><option value="30">Fast</option></select></label>
+<label><input type="checkbox" id="diff" checked> highlight tiles that differ</label><strong id="clock"></strong></div>
+<input id="seek" type="range" min="0" max="719" value="0" aria-label="Replay hour"><div class="row" id="jumps"></div></section>
+<div class="boards"><section class="panel dsm"><div class="farmhead"><h2>DSM · its own game</h2><span class="kpi" id="kdsm"></span></div><div class="board" id="bdsm"></div></section>
+<section class="panel ours"><div class="farmhead"><h2 id="oursTitle">Ours</h2><span class="kpi" id="kours"></span></div><div class="board" id="bours"></div></section></div>
+<div class="legend" id="legend"></div>
+<div class="grid2"><div style="display:grid;gap:16px;align-content:start">
+<section class="panel"><h2>Margin gap by day (ours − DSM, end of day)</h2><svg id="chart" viewBox="0 0 600 220" role="img" aria-label="Margin gap by day"></svg><p class="muted" id="chartNote"></p></section>
+<section class="panel"><h2>At this hour <small class="muted" id="atday"></small></h2><table><thead><tr><th></th><th style="color:var(--dsm)">DSM</th><th style="color:var(--ours)">Ours</th><th>Ours − DSM</th></tr></thead><tbody id="cmp"></tbody></table></section>
+<section class="panel"><h2>Season so far by product (end of the current day)</h2><table><thead><tr><th>Product</th><th>DSM sold</th><th>Ours sold</th><th>DSM revenue</th><th>Ours revenue</th><th>Opponent revenue Δ</th></tr></thead><tbody id="prod"></tbody></table>
+<p class="muted">Opponent revenue Δ = what the same recorded opponent earns in our game minus in DSM's game (its sales are fixed; its prices move with ours).</p></section>
+</div><div style="display:grid;gap:16px;align-content:start">
+<section class="panel"><h2>What happened when</h2><div class="notes" id="notes"></div></section>
+<section class="panel"><h2>Our commands this hour</h2><div id="orders"></div></section>
+<section class="panel"><h2>Shops open</h2><div class="chips" id="shops"></div></section>
+</div></div></div></main>
+<footer class="muted" id="foot"></footer>
+<script id="data" type="application/json">__DATA__</script>
+<script>
+'use strict';
+const D=JSON.parse(document.getElementById('data').textContent),$=id=>document.getElementById(id);
+const T={WHEAT:['🌾','#6b5a22'],CARROT:['🥕','#7a4a22'],TOMATO:['🍅','#7a3329'],STRAWBERRY:['🍓','#7a3048'],MELON:['🍉','#2f6334'],GOOSE:['🪿','#44555e'],COW:['🐄','#3a5268'],SHEEP:['🐑','#5c6450'],WEED:['✖','#5a4d2a'],PASTURE:['▢','#35483b'],COOP:['▢','#35483b']};
+const fmt=n=>Number(n).toLocaleString('en-GB',{maximumFractionDigits:0}),sg=n=>(n>0?'+':'')+fmt(n),nice=s=>String(s).toLowerCase().replaceAll('_',' ');
+let G=[],cur=0,timer=null,seqMode=0,ready=false;const N=()=>Math.min(G[0].frames.length,G[1].frames.length);
+function kindOf(t){if(t===null||t===undefined)return null;if(typeof t==='string')return t;return t.crop||t.animal||t.kind}
+function frame(g,i){return g.frames[Math.min(i,g.frames.length-1)]}
+function tileKey(t){const k=kindOf(t);return k==='PASTURE'||k==='COOP'?'STRUCT':k}
+function drawBoard(el,g,i,other){const f=frame(g,i),o=frame(other,i),pos={};f.u.forEach(([x,y],u)=>{(pos[y*10+x]??=[]).push(u)});
+ for(let k=0;k<100;k++){const t=g.tiles[f.b[k]],b=el.children[k],kind=kindOf(t),st=T[kind];b.className='tile'+(t==='LOCKED'?' locked':'');
+  if($('diff').checked&&t!=='LOCKED'&&tileKey(t)!==tileKey(other.tiles[o.b[k]]))b.classList.add('diff');
+  b.style.background=st?st[1]:'';b.replaceChildren();if(st){b.append(document.createTextNode(st[0]));if(t.yield_units){const y=document.createElement('span');y.className='y';y.textContent=t.yield_units;b.append(y)}}
+  if(pos[k]){const u=document.createElement('span');u.className='u';u.textContent=pos[k].length>2?pos[k].length+'u':pos[k].map(v=>v?v:'F').join(',');b.append(u)}
+  b.title=`(${k%10},${Math.floor(k/10)}) ${kind?nice(kind):'empty'}`+(t&&typeof t==='object'?Object.entries(t).filter(([a])=>!['kind','crop','animal'].includes(a)).map(([a,v])=>`\n${nice(a)}: ${v}`).join(''):'')}}
+function counts(g,i){const f=frame(g,i),c={};f.b.forEach(id=>{const k=kindOf(g.tiles[id]);const key=k===null?'EMPTY':k;c[key]=(c[key]||0)+1});return c}
+function idle(f){const a=f.a;if(!a)return 0;return [a.farmer,...(a.hands||[])].filter(c=>!c||c[0]==='PASS').length}
+function dayRow(g,d){return g.days[Math.max(0,Math.min(29,d))]}
+function render(){if(!ready)return;const i=cur,day=Math.floor(i/24),[A,B]=G;$('seek').value=i;$('clock').textContent=`Day ${day} · ${String(i%24).padStart(2,'0')}:00 · turn ${i}`;
+ drawBoard($('bdsm'),A,i,B);drawBoard($('bours'),B,i,A);const fa=frame(A,i),fb=frame(B,i);
+ const ma=fa.m[0]-fa.m[1],mb=fb.m[0]-fb.m[1];$('kdsm').textContent=`cash ${fmt(fa.m[0])} · margin ${sg(ma)} · ${fa.u.length-1} hands`;$('kours').textContent=`cash ${fmt(fb.m[0])} · margin ${sg(mb)} · ${fb.u.length-1} hands`;
+ const ca=counts(A,i),cb=counts(B,i),rows=[['Cash',fa.m[0],fb.m[0]],['Margin vs opponent',ma,mb],['Hands (incl. hires)',fa.u.length-1,fb.u.length-1],['Idle commands this hour (PASS)',idle(fa),idle(fb)],
+  ...['WHEAT','STRAWBERRY','CARROT','TOMATO','MELON','COW','SHEEP','GOOSE'].map(k=>[nice(k)+' tiles',ca[k]||0,cb[k]||0]),['Empty tiles',ca.EMPTY||0,cb.EMPTY||0],['Weed tiles',ca.WEED||0,cb.WEED||0],
+  ['Wheat in shed',fa.sh.WHEAT||0,fb.sh.WHEAT||0],['Wheat quote',fa.p[0],fb.p[0]],['Strawberry quote',fa.p[3],fb.p[3]],['Milk quote',fa.p[6],fb.p[6]],['Wool quote',fa.p[7],fb.p[7]]];
+ $('cmp').replaceChildren(...rows.map(([n,a,b])=>{const tr=document.createElement('tr'),d=b-a;[n,fmt(a),fmt(b),sg(d)].forEach((v,j)=>{const td=document.createElement('td');td.textContent=v;if(j===3&&d)td.className=d<0?'neg':'pos';tr.append(td)});return tr}));
+ const pd=Math.max(0,day-1),ra=dayRow(A,pd),rb=dayRow(B,pd);$('atday').textContent=`· season totals to the end of day ${pd}`;
+ $('prod').replaceChildren(...D.goods.map(p=>{const tr=document.createElement('tr'),dop=(rb.opp_rev[p]||0)-(ra.opp_rev[p]||0);[nice(p),fmt(ra.units[p]||0),fmt(rb.units[p]||0),fmt(ra.rev[p]||0),fmt(rb.rev[p]||0),sg(dop)].forEach((v,j)=>{const td=document.createElement('td');td.textContent=v;if(j===4){const d=(rb.rev[p]||0)-(ra.rev[p]||0);if(d)td.className=d<0?'neg':'pos'}if(j===5&&dop)td.className=dop>0?'neg':'pos';tr.append(td)});return tr}));
+ const a=fb.a;$('orders').textContent=a?[`farmer: ${(a.farmer||['PASS']).join(' ')}`,...(a.hands||[]).map((c,j)=>`hand ${j+1}: ${(c||['PASS']).join(' ')}`),'market: '+((a.market||[]).map(o=>o.join(' ')).join(' · ')||'none')].join('\n'):'—';
+ $('shops').replaceChildren(...(fb.s||[]).map(s=>{const e=document.createElement('span');e.className='chip';e.textContent=nice(typeof s==='string'?s:(s.name||s.shop||JSON.stringify(s)));return e}));
+ drawCursor(day);document.querySelectorAll('.note').forEach(n=>n.classList.toggle('on',+n.dataset.day===day))}
+let chartX,chartY;
+function drawChart(){const svg=$('chart'),W=600,Hh=220,pad=38;const gap=G[1].days.map((r,d)=>(r.money-r.opp)-(G[0].days[d].money-G[0].days[d].opp));const lo=Math.min(0,...gap),hi=Math.max(0,...gap);
+ chartX=d=>pad+(W-pad-8)*d/29;chartY=v=>12+(Hh-40)*(hi-v)/((hi-lo)||1);let s=`<line x1="${pad}" x2="${W-8}" y1="${chartY(0)}" y2="${chartY(0)}" stroke="currentColor" opacity=".35"/>`;
+ for(let v=Math.ceil(lo/5000)*5000;v<=hi;v+=5000)s+=`<text x="${pad-4}" y="${chartY(v)+4}" text-anchor="end" font-size="10" fill="currentColor" opacity=".7">${v/1000}k</text>`;
+ for(let d=0;d<30;d+=5)s+=`<text x="${chartX(d)}" y="${Hh-8}" text-anchor="middle" font-size="10" fill="currentColor" opacity=".7">d${d}</text>`;
+ s+=`<polyline fill="none" stroke="var(--bad)" stroke-width="2.2" points="${gap.map((v,d)=>chartX(d)+','+chartY(v)).join(' ')}"/>`;
+ (D.notes.events||[]).forEach(e=>{s+=`<circle cx="${chartX(e.day)}" cy="${chartY(gap[e.day])}" r="4" fill="var(--warn)"><title>D${e.day}: ${e.title}</title></circle>`});
+ s+=`<line id="cursor" x1="0" x2="0" y1="10" y2="${Hh-24}" stroke="var(--accent)" stroke-dasharray="3 3"/>`;svg.innerHTML=s;svg.style.color='var(--text)';
+ $('chartNote').textContent=`End of day 10: ${sg(gap[10])} · end of day 17: ${sg(gap[17])} · final: ${sg(gap[29])}.`}
+function drawCursor(day){const c=document.getElementById('cursor');if(c){c.setAttribute('x1',chartX(day));c.setAttribute('x2',chartX(day))}}
+function stop(){clearInterval(timer);timer=null;$('play').textContent='▶ Play side by side';$('seq').textContent='▶ Play DSM, then ours'}
+function jump(t){stop();cur=Math.max(0,Math.min(N()-1,t));render()}
+function init(){try{Promise.all(D.games.map(async g=>{const bytes=Uint8Array.from(atob(g.packed),c=>c.charCodeAt(0));const st=new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));return {...g,...JSON.parse(await new Response(st).text())}})).then(gs=>{G=gs;
+ for(const id of ['bdsm','bours'])for(let i=0;i<100;i++){const b=document.createElement('div');b.className='tile';$(id).append(b)}
+ Object.entries(T).slice(0,9).forEach(([k,[ic]])=>{const e=document.createElement('span');e.textContent=ic+' '+nice(k);$('legend').append(e)});const e2=document.createElement('span');e2.textContent='gold border = tile kind differs · small number = yield on the tile · F / 1..n = farmer / hands';$('legend').append(e2);
+ $('seek').max=N()-1;$('oursTitle').textContent='Ours · '+D.cand;const [A,B]=G;
+ $('eyebrow').textContent=`Kaggriculture · world ${D.case} (DSM episode ${D.episode}) · DSM's seat ${D.seat}`;
+ $('lede').textContent=D.notes.lede||'';
+ const sm=[['DSM margin',sg(A.margin)],['Our margin',sg(B.margin)],['Gap (ours − DSM)',sg(B.margin-A.margin)],['Our cash − DSM cash',sg(B.cash-A.cash)]];$('summary').replaceChildren(...sm.map(([k,v])=>{const d=document.createElement('div');d.innerHTML=`<span>${k}</span><strong>${v}</strong>`;return d}));
+ const J=[['Day 0',0],['Day 6 (planner / cassette on)',144],['Day 8',192],['Day 10',240],['Day 11',264],['Day 14',336],['Day 17',408],['Day 22',528],['End',N()-1]];J.forEach(([k,t])=>{const b=document.createElement('button');b.textContent=k;b.onclick=()=>jump(t);$('jumps').append(b)});
+ (D.notes.events||[]).forEach(ev=>{const n=document.createElement('div');n.className='note';n.dataset.day=ev.day;n.innerHTML=`<span class="when">Day ${ev.day}${ev.hour!=null?' · '+String(ev.hour).padStart(2,'0')+':00':''}</span><b>${ev.title}</b><span>${ev.text}</span>`;n.onclick=()=>jump(ev.day*24+(ev.hour||0));$('notes').append(n)});
+ drawChart();$('foot').textContent=(D.notes.method||'')+' Space: play/pause · arrows: one hour · Shift+arrows: one day.';ready=true;$('viewer').hidden=false;render()})}catch(e){$('error').textContent='Unable to load the replay in this browser.';console.error(e)}}
+function tick(){if(seqMode===1){if(cur<N()-1){cur++;renderSeq();return}seqMode=2;cur=0;renderSeq();return}if(seqMode===2){if(cur<N()-1){cur++;renderSeq();return}stop();seqMode=0;render();return}if(cur<N()-1){cur++;render()}else stop()}
+function renderSeq(){render();const which=seqMode===1?'DSM':'ours';$('clock').textContent+=` · sequence: ${which}`;$('bdsm').parentElement.style.opacity=seqMode===2?'.35':'1';$('bours').parentElement.style.opacity=seqMode===1?'.35':'1'}
+$('play').onclick=()=>{if(timer&&!seqMode){stop();return}stop();seqMode=0;$('bdsm').parentElement.style.opacity=$('bours').parentElement.style.opacity='1';if(cur>=N()-1)cur=0;timer=setInterval(tick,+$('speed').value);$('play').textContent='Ⅱ Pause'};
+$('seq').onclick=()=>{if(timer&&seqMode){stop();return}stop();seqMode=1;cur=0;timer=setInterval(tick,+$('speed').value);$('seq').textContent='Ⅱ Pause sequence'};
+$('seek').oninput=()=>jump(+$('seek').value);$('diff').onchange=render;$('speed').onchange=()=>{if(timer){const s=seqMode;clearInterval(timer);timer=setInterval(tick,+$('speed').value)}};
+document.addEventListener('keydown',e=>{if(!ready||['INPUT','SELECT','BUTTON'].includes(e.target.tagName))return;if(e.code==='Space'){e.preventDefault();$('play').click()}if(['ArrowLeft','ArrowRight'].includes(e.code)){e.preventDefault();jump(cur+(e.code==='ArrowRight'?1:-1)*(e.shiftKey?24:1))}});
+init();
+</script></body></html>

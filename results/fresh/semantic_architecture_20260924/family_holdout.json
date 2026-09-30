@@ -1,0 +1,41 @@
+{
+  "split": "leave_family_and_shared_episodes_out",
+  "families": {
+    "DECEM": {
+      "held_seasons": 3,
+      "held_episodes": 3,
+      "training_seasons": 45,
+      "nearest_mae": 0.7847222222222222,
+      "calendar_median_mae": 0.6666666666666666
+    },
+    "DSM": {
+      "held_seasons": 37,
+      "held_episodes": 37,
+      "training_seasons": 11,
+      "nearest_mae": 0.8282657657657657,
+      "calendar_median_mae": 0.6707488738738738
+    },
+    "M & M & P & Q": {
+      "held_seasons": 3,
+      "held_episodes": 3,
+      "training_seasons": 44,
+      "nearest_mae": 1.0451388888888888,
+      "calendar_median_mae": 0.8046875
+    },
+    "Unknown Mother-Goose": {
+      "held_seasons": 3,
+      "held_episodes": 3,
+      "training_seasons": 46,
+      "nearest_mae": 0.9027777777777778,
+      "calendar_median_mae": 0.6640625
+    },
+    "Vadim Vasilenko": {
+      "held_seasons": 4,
+      "held_episodes": 4,
+      "training_seasons": 44,
+      "nearest_mae": 0.67578125,
+      "calendar_median_mae": 0.6080729166666666
+    }
+  },
+  "limitation": "Imitation diagnostic only; sparse and unequal families; no policy performance claim."
+}

@@ -1,0 +1,702 @@
+{
+  "complete": true,
+  "expected": 8,
+  "received": 8,
+  "missing": [],
+  "errors": [],
+  "matchups": {
+    "mgt_segment_stitch vs mgt_m1": {
+      "n": 4,
+      "wins": 0,
+      "ties": 0,
+      "losses": 4,
+      "mean_margin": -18011.75,
+      "median_margin": -17075.5,
+      "mean_score": 0.0,
+      "mean_margin_ci": [
+        -22468.5,
+        -13555.0
+      ],
+      "world_cluster_score_ci": [
+        0.0,
+        0.0
+      ],
+      "world_clusters": 2,
+      "max_action_seconds": 16.5458357000025,
+      "actions_over_1s": 8,
+      "activations": 3,
+      "execution_failures": 3,
+      "games_with_activation": 3,
+      "observed_output_windows": [
+        {
+          "seed": 94022000,
+          "seat": 0,
+          "day": 12,
+          "target": {
+            "WHEAT": 65,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": 12,
+            "MILK": 21,
+            "WOOL": 19,
+            "FERTILIZER": 51
+          },
+          "actual_including_any_fallback": {
+            "WHEAT": 65,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": 9,
+            "MILK": 14,
+            "WOOL": 12,
+            "FERTILIZER": 46
+          },
+          "difference": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": -3,
+            "MILK": -7,
+            "WOOL": -7,
+            "FERTILIZER": -5
+          }
+        },
+        {
+          "seed": 94022000,
+          "seat": 1,
+          "day": 12,
+          "target": {
+            "WHEAT": 65,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": 12,
+            "MILK": 21,
+            "WOOL": 19,
+            "FERTILIZER": 51
+          },
+          "actual_including_any_fallback": {
+            "WHEAT": 65,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": 9,
+            "MILK": 14,
+            "WOOL": 12,
+            "FERTILIZER": 46
+          },
+          "difference": {
+            "WHEAT": 0,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": -3,
+            "MILK": -7,
+            "WOOL": -7,
+            "FERTILIZER": -5
+          }
+        },
+        {
+          "seed": 94022001,
+          "seat": 0,
+          "day": 12,
+          "target": {
+            "WHEAT": 76,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": 18,
+            "MILK": 18,
+            "WOOL": 24,
+            "FERTILIZER": 53
+          },
+          "actual_including_any_fallback": {
+            "WHEAT": 71,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": 16,
+            "MILK": 15,
+            "WOOL": 15,
+            "FERTILIZER": 53
+          },
+          "difference": {
+            "WHEAT": -5,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": -2,
+            "MILK": -3,
+            "WOOL": -9,
+            "FERTILIZER": 0
+          }
+        }
+      ],
+      "segment_reports": [
+        {
+          "seed": 94022000,
+          "seat": 0,
+          "report": {
+            "activations": 1,
+            "preflight_failures": 0,
+            "fallbacks": 6,
+            "decisions": [
+              {
+                "day": 12,
+                "id": "109951976:1:d12",
+                "distance": 0.15,
+                "workers": 11,
+                "remap_distance": 0
+              }
+            ],
+            "outputs": {
+              "12": {
+                "WHEAT": 65,
+                "CARROT": 0,
+                "TOMATO": 0,
+                "STRAWBERRY": 0,
+                "MELON": 0,
+                "EGG": 12,
+                "MILK": 21,
+                "WOOL": 19,
+                "FERTILIZER": 51
+              }
+            },
+            "failures": [
+              {
+                "day": 13,
+                "failure": {
+                  "reason": "day_capacity_exceeded",
+                  "required": 30,
+                  "available": 22
+                }
+              }
+            ],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 4
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 94022000,
+          "seat": 1,
+          "report": {
+            "activations": 1,
+            "preflight_failures": 0,
+            "fallbacks": 6,
+            "decisions": [
+              {
+                "day": 12,
+                "id": "109951976:1:d12",
+                "distance": 0.15,
+                "workers": 11,
+                "remap_distance": 0
+              }
+            ],
+            "outputs": {
+              "12": {
+                "WHEAT": 65,
+                "CARROT": 0,
+                "TOMATO": 0,
+                "STRAWBERRY": 0,
+                "MELON": 0,
+                "EGG": 12,
+                "MILK": 21,
+                "WOOL": 19,
+                "FERTILIZER": 51
+              }
+            },
+            "failures": [
+              {
+                "day": 13,
+                "failure": {
+                  "reason": "day_capacity_exceeded",
+                  "required": 30,
+                  "available": 22
+                }
+              }
+            ],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 4
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 94022001,
+          "seat": 0,
+          "report": {
+            "activations": 1,
+            "preflight_failures": 2,
+            "fallbacks": 6,
+            "decisions": [
+              {
+                "day": 12,
+                "id": "109712554:0:d12",
+                "distance": 1.2,
+                "workers": 13,
+                "remap_distance": 0
+              }
+            ],
+            "outputs": {
+              "12": {
+                "WHEAT": 76,
+                "CARROT": 0,
+                "TOMATO": 0,
+                "STRAWBERRY": 0,
+                "MELON": 0,
+                "EGG": 18,
+                "MILK": 18,
+                "WOOL": 24,
+                "FERTILIZER": 53
+              }
+            },
+            "failures": [
+              {
+                "day": 13,
+                "failure": {
+                  "reason": "day_capacity_exceeded",
+                  "required": 25,
+                  "available": 21
+                }
+              }
+            ],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 1
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 94022001,
+          "seat": 1,
+          "report": {
+            "activations": 0,
+            "preflight_failures": 0,
+            "fallbacks": 6,
+            "decisions": [],
+            "outputs": {},
+            "failures": [],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 0
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "mgt_segment_stitch vs v56": {
+      "n": 4,
+      "wins": 2,
+      "ties": 0,
+      "losses": 2,
+      "mean_margin": -11635.5,
+      "median_margin": -11635.5,
+      "mean_score": 0.5,
+      "mean_margin_ci": [
+        -26119.0,
+        2848.0
+      ],
+      "world_cluster_score_ci": [
+        0.0,
+        1.0
+      ],
+      "world_clusters": 2,
+      "max_action_seconds": 16.745030399993993,
+      "actions_over_1s": 6,
+      "activations": 2,
+      "execution_failures": 2,
+      "games_with_activation": 2,
+      "observed_output_windows": [
+        {
+          "seed": 94022000,
+          "seat": 0,
+          "day": 12,
+          "target": {
+            "WHEAT": 65,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": 12,
+            "MILK": 21,
+            "WOOL": 19,
+            "FERTILIZER": 51
+          },
+          "actual_including_any_fallback": {
+            "WHEAT": 74,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": 9,
+            "MILK": 14,
+            "WOOL": 12,
+            "FERTILIZER": 46
+          },
+          "difference": {
+            "WHEAT": 9,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": -3,
+            "MILK": -7,
+            "WOOL": -7,
+            "FERTILIZER": -5
+          }
+        },
+        {
+          "seed": 94022000,
+          "seat": 1,
+          "day": 12,
+          "target": {
+            "WHEAT": 65,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": 12,
+            "MILK": 21,
+            "WOOL": 19,
+            "FERTILIZER": 51
+          },
+          "actual_including_any_fallback": {
+            "WHEAT": 74,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": 9,
+            "MILK": 14,
+            "WOOL": 12,
+            "FERTILIZER": 46
+          },
+          "difference": {
+            "WHEAT": 9,
+            "CARROT": 0,
+            "TOMATO": 0,
+            "STRAWBERRY": 0,
+            "MELON": 0,
+            "EGG": -3,
+            "MILK": -7,
+            "WOOL": -7,
+            "FERTILIZER": -5
+          }
+        }
+      ],
+      "segment_reports": [
+        {
+          "seed": 94022000,
+          "seat": 0,
+          "report": {
+            "activations": 1,
+            "preflight_failures": 0,
+            "fallbacks": 6,
+            "decisions": [
+              {
+                "day": 12,
+                "id": "109951976:1:d12",
+                "distance": 0.15,
+                "workers": 11,
+                "remap_distance": 0
+              }
+            ],
+            "outputs": {
+              "12": {
+                "WHEAT": 65,
+                "CARROT": 0,
+                "TOMATO": 0,
+                "STRAWBERRY": 0,
+                "MELON": 0,
+                "EGG": 12,
+                "MILK": 21,
+                "WOOL": 19,
+                "FERTILIZER": 51
+              }
+            },
+            "failures": [
+              {
+                "day": 13,
+                "failure": {
+                  "reason": "day_capacity_exceeded",
+                  "required": 30,
+                  "available": 22
+                }
+              }
+            ],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 4
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 94022000,
+          "seat": 1,
+          "report": {
+            "activations": 1,
+            "preflight_failures": 0,
+            "fallbacks": 6,
+            "decisions": [
+              {
+                "day": 12,
+                "id": "109951976:1:d12",
+                "distance": 0.15,
+                "workers": 11,
+                "remap_distance": 0
+              }
+            ],
+            "outputs": {
+              "12": {
+                "WHEAT": 65,
+                "CARROT": 0,
+                "TOMATO": 0,
+                "STRAWBERRY": 0,
+                "MELON": 0,
+                "EGG": 12,
+                "MILK": 21,
+                "WOOL": 19,
+                "FERTILIZER": 51
+              }
+            },
+            "failures": [
+              {
+                "day": 13,
+                "failure": {
+                  "reason": "day_capacity_exceeded",
+                  "required": 30,
+                  "available": 22
+                }
+              }
+            ],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 4
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 94022001,
+          "seat": 0,
+          "report": {
+            "activations": 0,
+            "preflight_failures": 0,
+            "fallbacks": 6,
+            "decisions": [],
+            "outputs": {},
+            "failures": [],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 0
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 94022001,
+          "seat": 1,
+          "report": {
+            "activations": 0,
+            "preflight_failures": 0,
+            "fallbacks": 6,
+            "decisions": [],
+            "outputs": {},
+            "failures": [],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 0
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

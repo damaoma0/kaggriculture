@@ -1,0 +1,12 @@
+{
+  "protocol_sha256": "d34f3bc4ff4b8b99b905369250431bf4759252399b8f855c9c3ddf810671b283",
+  "source_sha256": {
+    "cumulative_plan_solver.py": "42de51e34f2a01c48f7b157926bd0f72da64b0dd025b51e14ca12aa21772e674",
+    "cumulative_engine_profiles.py": "a89159fd9a810af514ad1b3fa6d67a61453c17428331ebab9bcb2b1fd2715c86",
+    "cumulative_trajectory_model.py": "3923146f02032523173fc33bf8b6babfa2413a92dfba7afd8d5f4ef1f517c0e6"
+  },
+  "target_generator": "Frozen trained_model.json; no held-out outcome fitting",
+  "model_sha256": "e2fd143df7e5b7124123a2d2d9f41373fe037c3a340ef75e2fa3dd31cc858ae9",
+  "quantity_cap_rule": "Seed/feed/fertilizer procurement caps each1000; actual buys constrained by starting cash and usage. They are not free resources.",
+  "refinement": "Guarded run excludes new animals that cannot harvest their main product by season end. Added after diagnostic exposed late fertilizer-only animal purchase; this is a post-analysis planning diagnostic, not another sealed forecast test."
+}

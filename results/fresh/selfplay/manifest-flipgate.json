@@ -1,0 +1,41 @@
+{
+ "tag": "flipgate",
+ "started": "2026-09-18 11:30:03",
+ "benchmark_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+ "seeds": [
+  173000,
+  173001,
+  173002,
+  173003,
+  173004,
+  173005,
+  173006,
+  173007,
+  173008,
+  173009,
+  173010,
+  173011,
+  173012,
+  173013,
+  173014,
+  173015
+ ],
+ "candidates": [
+  "sp_null",
+  "sp_flip0",
+  "sp_flip5",
+  "sp_flip35",
+  "sp_flip70",
+  "sp_nash5"
+ ],
+ "seed_base": 173000,
+ "design": "Paired seeds and both seats against the frozen uploaded agent. Natural engine RNG for shops and weeds. Seed-clustered bootstrap intervals. No tuning on these seeds.",
+ "sources": {
+  "agents/sp_null.py": "bb63423139f8090e6dbb08f678fe6d1660ad261f33a7a401730d6c5606de981b",
+  "agents/sp_flip0.py": "4e26e82b89711dade95bb3044301caddf1fd83e6dd2bb24d01b00bf615704dfd",
+  "agents/sp_flip5.py": "cdf00f4abfa6a14d8862537f59241c60224374c5aa0c77c76b19d52eb57d98a5",
+  "agents/sp_flip35.py": "d1b23b6afa1f3016695faaf8cc0fcde192299800b2a0e385a9b4a6797ecffd3e",
+  "agents/sp_flip70.py": "9cefb3b2aa1d84488e4e37eceb130fb768378d019adae0f2417ad7fb4009d3a6",
+  "agents/sp_nash5.py": "0a35b503defdeff8484be38772ec7e23a0a4927757986d9661b4bfc470c61d73"
+ }
+}

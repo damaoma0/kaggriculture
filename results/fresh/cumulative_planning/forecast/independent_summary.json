@@ -1,0 +1,545 @@
+{
+  "cells": [
+    {
+      "day": 12,
+      "horizon": 3,
+      "selected": "capacity_interaction_ridge",
+      "mae": 1.3706854822159538,
+      "per_product_mae": {
+        "WHEAT": 7.6651466833588815,
+        "CARROT": 0.09690105630754499,
+        "TOMATO": 0.0,
+        "STRAWBERRY": 0.09241247145336057,
+        "MELON": 0.0,
+        "EGG": 0.9524547991279952,
+        "MILK": 1.0941781657854577,
+        "WOOL": 1.5687377255233879,
+        "FERTILIZER": 0.8663384383869577
+      },
+      "baseline_mae": {
+        "count_ridge": 2.233179301705498,
+        "count_timing_ridge": 1.773726891526142,
+        "own_product_demand_ridge": 3.041376330107437,
+        "state_ridge": 1.3836178890776967,
+        "capacity_interaction_ridge": 1.3706854822159538,
+        "nearest_state": 1.6851851851851851
+      },
+      "coverage": 0.9296296296296297,
+      "all_nine_coverage": 0.7
+    },
+    {
+      "day": 12,
+      "horizon": 6,
+      "selected": "capacity_interaction_ridge",
+      "mae": 3.5252572608990467,
+      "per_product_mae": {
+        "WHEAT": 14.644101517409391,
+        "CARROT": 3.365679136176825,
+        "TOMATO": 0.0,
+        "STRAWBERRY": 1.0565219855339292,
+        "MELON": 0.0,
+        "EGG": 3.2724655920573174,
+        "MILK": 2.6236619819208427,
+        "WOOL": 3.935777897303209,
+        "FERTILIZER": 2.8291072376899087
+      },
+      "baseline_mae": {
+        "count_ridge": 6.038190416713826,
+        "count_timing_ridge": 4.497298587105541,
+        "own_product_demand_ridge": 7.647346028176965,
+        "state_ridge": 3.656814822344175,
+        "capacity_interaction_ridge": 3.5252572608990467,
+        "nearest_state": 5.192592592592592
+      },
+      "coverage": 0.9222222222222223,
+      "all_nine_coverage": 0.6
+    },
+    {
+      "day": 12,
+      "horizon": "end",
+      "selected": "count_timing_ridge",
+      "mae": 24.787678968028462,
+      "per_product_mae": {
+        "WHEAT": 56.172716746081385,
+        "CARROT": 45.577301440829295,
+        "TOMATO": 17.52601352927279,
+        "STRAWBERRY": 22.35566619958575,
+        "MELON": 1.7496924344303078,
+        "EGG": 19.62093906177796,
+        "MILK": 18.518455403424493,
+        "WOOL": 25.3980540651641,
+        "FERTILIZER": 16.170271831690062
+      },
+      "baseline_mae": {
+        "count_ridge": 24.96889182149942,
+        "count_timing_ridge": 24.832151379919537,
+        "own_product_demand_ridge": 35.415781349512194,
+        "state_ridge": 29.73569785360674,
+        "capacity_interaction_ridge": 29.347769655823175,
+        "nearest_state": 51.262962962962966
+      },
+      "coverage": 0.862962962962963,
+      "all_nine_coverage": 0.43333333333333335
+    },
+    {
+      "day": 15,
+      "horizon": 3,
+      "selected": "capacity_interaction_ridge",
+      "mae": 1.505038520636363,
+      "per_product_mae": {
+        "WHEAT": 6.077541735155563,
+        "CARROT": 0.6927343750818209,
+        "TOMATO": 0.0,
+        "STRAWBERRY": 1.3052175350890285,
+        "MELON": 0.0,
+        "EGG": 0.9773586622196249,
+        "MILK": 1.5225595652127835,
+        "WOOL": 2.1267518024114698,
+        "FERTILIZER": 0.8431830105569778
+      },
+      "baseline_mae": {
+        "count_ridge": 5.46587502975892,
+        "count_timing_ridge": 3.6414623337567567,
+        "own_product_demand_ridge": 5.698045574859393,
+        "state_ridge": 1.5566200238548724,
+        "capacity_interaction_ridge": 1.505038520636363,
+        "nearest_state": 3.5444444444444443
+      },
+      "coverage": 0.9370370370370371,
+      "all_nine_coverage": 0.5666666666666667
+    },
+    {
+      "day": 15,
+      "horizon": 6,
+      "selected": "state_ridge",
+      "mae": 5.345073001269399,
+      "per_product_mae": {
+        "WHEAT": 17.12644219153761,
+        "CARROT": 8.792969051888475,
+        "TOMATO": 3.3147154873447353,
+        "STRAWBERRY": 4.774053077508774,
+        "MELON": 0.41448335159388694,
+        "EGG": 2.1054724363968416,
+        "MILK": 4.198797057522383,
+        "WOOL": 4.496206067099942,
+        "FERTILIZER": 2.882518290531938
+      },
+      "baseline_mae": {
+        "count_ridge": 10.709557731350058,
+        "count_timing_ridge": 7.05004903516932,
+        "own_product_demand_ridge": 11.983265826312637,
+        "state_ridge": 5.344098955570787,
+        "capacity_interaction_ridge": 4.899141877834701,
+        "nearest_state": 9.777777777777779
+      },
+      "coverage": 0.8703703703703703,
+      "all_nine_coverage": 0.4
+    },
+    {
+      "day": 15,
+      "horizon": "end",
+      "selected": "count_timing_ridge",
+      "mae": 20.342905831615834,
+      "per_product_mae": {
+        "WHEAT": 49.25927302973069,
+        "CARROT": 36.96919026478648,
+        "TOMATO": 14.091414519247255,
+        "STRAWBERRY": 19.503875551098744,
+        "MELON": 1.84313010450289,
+        "EGG": 19.56430505128945,
+        "MILK": 14.42375598733421,
+        "WOOL": 14.985881908703824,
+        "FERTILIZER": 12.44532606784899
+      },
+      "baseline_mae": {
+        "count_ridge": 25.40221123184989,
+        "count_timing_ridge": 20.396259197190638,
+        "own_product_demand_ridge": 33.08758163413825,
+        "state_ridge": 19.38361376886897,
+        "capacity_interaction_ridge": 18.91279704933068,
+        "nearest_state": 43.74074074074074
+      },
+      "coverage": 0.8555555555555556,
+      "all_nine_coverage": 0.43333333333333335
+    },
+    {
+      "day": 18,
+      "horizon": 3,
+      "selected": "capacity_interaction_ridge",
+      "mae": 2.1520383951636983,
+      "per_product_mae": {
+        "WHEAT": 4.892211632368563,
+        "CARROT": 1.40258197781317,
+        "TOMATO": 2.859920210488211,
+        "STRAWBERRY": 4.024182094451576,
+        "MELON": 0.31719437492011365,
+        "EGG": 1.0357183937288292,
+        "MILK": 1.8999310284822084,
+        "WOOL": 1.9587728857704179,
+        "FERTILIZER": 0.9778329584501937
+      },
+      "baseline_mae": {
+        "count_ridge": 7.085246281333942,
+        "count_timing_ridge": 5.353957156779857,
+        "own_product_demand_ridge": 7.872996377837883,
+        "state_ridge": 2.1837695370559356,
+        "capacity_interaction_ridge": 2.1520383951636983,
+        "nearest_state": 6.3
+      },
+      "coverage": 0.9074074074074073,
+      "all_nine_coverage": 0.4666666666666667
+    },
+    {
+      "day": 18,
+      "horizon": 6,
+      "selected": "capacity_interaction_ridge",
+      "mae": 5.83138650254456,
+      "per_product_mae": {
+        "WHEAT": 12.292026162676855,
+        "CARROT": 6.253895041948281,
+        "TOMATO": 9.722114641742632,
+        "STRAWBERRY": 8.925613330389346,
+        "MELON": 0.4510235283842292,
+        "EGG": 2.1736870842792304,
+        "MILK": 4.243990565781453,
+        "WOOL": 5.795238857922167,
+        "FERTILIZER": 2.6248893097768518
+      },
+      "baseline_mae": {
+        "count_ridge": 13.443799247120669,
+        "count_timing_ridge": 10.06060655690523,
+        "own_product_demand_ridge": 15.431319692046243,
+        "state_ridge": 5.817430244759708,
+        "capacity_interaction_ridge": 5.83138650254456,
+        "nearest_state": 16.466666666666665
+      },
+      "coverage": 0.8814814814814815,
+      "all_nine_coverage": 0.36666666666666664
+    },
+    {
+      "day": 18,
+      "horizon": "end",
+      "selected": "capacity_interaction_ridge",
+      "mae": 15.231454800775706,
+      "per_product_mae": {
+        "WHEAT": 35.673991779473894,
+        "CARROT": 35.05482728743682,
+        "TOMATO": 9.630547121718468,
+        "STRAWBERRY": 12.52046441857462,
+        "MELON": 0.6208798072047372,
+        "EGG": 6.071740710518554,
+        "MILK": 14.159063742725587,
+        "WOOL": 14.328785119195546,
+        "FERTILIZER": 9.02279322013313
+      },
+      "baseline_mae": {
+        "count_ridge": 22.412098627830737,
+        "count_timing_ridge": 17.893784393546273,
+        "own_product_demand_ridge": 28.89306587893751,
+        "state_ridge": 15.18464871669272,
+        "capacity_interaction_ridge": 15.231454800775706,
+        "nearest_state": 38.72962962962963
+      },
+      "coverage": 0.9074074074074073,
+      "all_nine_coverage": 0.5333333333333333
+    },
+    {
+      "day": 21,
+      "horizon": 3,
+      "selected": "capacity_interaction_ridge",
+      "mae": 2.769681346219695,
+      "per_product_mae": {
+        "WHEAT": 5.345680995042754,
+        "CARROT": 1.9174755968816877,
+        "TOMATO": 4.66491409234504,
+        "STRAWBERRY": 4.735330495268981,
+        "MELON": 0.13893875492010468,
+        "EGG": 1.2800746589330438,
+        "MILK": 2.3727140868739878,
+        "WOOL": 2.9070892206679892,
+        "FERTILIZER": 1.564914215043668
+      },
+      "baseline_mae": {
+        "count_ridge": 8.420219083375821,
+        "count_timing_ridge": 6.11342845371725,
+        "own_product_demand_ridge": 9.607258813322778,
+        "state_ridge": 2.804194116790535,
+        "capacity_interaction_ridge": 2.769681346219695,
+        "nearest_state": 8.996296296296297
+      },
+      "coverage": 0.8851851851851851,
+      "all_nine_coverage": 0.43333333333333335
+    },
+    {
+      "day": 21,
+      "horizon": 6,
+      "selected": "capacity_interaction_ridge",
+      "mae": 7.681331989611691,
+      "per_product_mae": {
+        "WHEAT": 18.359227157024893,
+        "CARROT": 16.264912061767067,
+        "TOMATO": 4.88376930574434,
+        "STRAWBERRY": 10.363432378601207,
+        "MELON": 0.13893875492010468,
+        "EGG": 2.456186563771192,
+        "MILK": 5.339962560802065,
+        "WOOL": 6.442108524670763,
+        "FERTILIZER": 4.883450599203595
+      },
+      "baseline_mae": {
+        "count_ridge": 15.352207917779658,
+        "count_timing_ridge": 11.646137555108497,
+        "own_product_demand_ridge": 17.767576898677586,
+        "state_ridge": 7.7687962599560185,
+        "capacity_interaction_ridge": 7.681331989611691,
+        "nearest_state": 18.885185185185186
+      },
+      "coverage": 0.874074074074074,
+      "all_nine_coverage": 0.43333333333333335
+    },
+    {
+      "day": 21,
+      "horizon": "end",
+      "selected": "capacity_interaction_ridge",
+      "mae": 12.166969204961706,
+      "per_product_mae": {
+        "WHEAT": 34.462086829829545,
+        "CARROT": 26.340855863999998,
+        "TOMATO": 5.1721558299397605,
+        "STRAWBERRY": 10.231091252616405,
+        "MELON": 0.13893875492010466,
+        "EGG": 4.758289438117506,
+        "MILK": 9.601897140322134,
+        "WOOL": 10.624341836664128,
+        "FERTILIZER": 8.173065898245774
+      },
+      "baseline_mae": {
+        "count_ridge": 19.47601292225828,
+        "count_timing_ridge": 15.089393463277021,
+        "own_product_demand_ridge": 24.810808547544916,
+        "state_ridge": 12.514545144939994,
+        "capacity_interaction_ridge": 12.166969204961706,
+        "nearest_state": 28.807407407407407
+      },
+      "coverage": 0.9000000000000001,
+      "all_nine_coverage": 0.5666666666666667
+    },
+    {
+      "day": 24,
+      "horizon": 3,
+      "selected": "capacity_interaction_ridge",
+      "mae": 3.5332005969028195,
+      "per_product_mae": {
+        "WHEAT": 8.505340066494973,
+        "CARROT": 3.952642210188509,
+        "TOMATO": 4.085548563373654,
+        "STRAWBERRY": 6.5359309435589354,
+        "MELON": 0.0,
+        "EGG": 1.5346759539536576,
+        "MILK": 2.315888438366458,
+        "WOOL": 2.68275416155865,
+        "FERTILIZER": 2.1860250346305365
+      },
+      "baseline_mae": {
+        "count_ridge": 9.694555244164382,
+        "count_timing_ridge": 7.670964080527126,
+        "own_product_demand_ridge": 10.522015714076062,
+        "state_ridge": 3.7558170287684804,
+        "capacity_interaction_ridge": 3.5332005969028195,
+        "nearest_state": 10.118518518518519
+      },
+      "coverage": 0.8999999999999999,
+      "all_nine_coverage": 0.43333333333333335
+    },
+    {
+      "day": 24,
+      "horizon": 6,
+      "selected": "capacity_interaction_ridge",
+      "mae": 7.132588789280177,
+      "per_product_mae": {
+        "WHEAT": 17.36748093821803,
+        "CARROT": 14.815322801141603,
+        "TOMATO": 3.955286834542141,
+        "STRAWBERRY": 7.21459875311938,
+        "MELON": 0.0,
+        "EGG": 3.888376000187845,
+        "MILK": 5.4419610839837445,
+        "WOOL": 6.375950694085437,
+        "FERTILIZER": 5.134321998243424
+      },
+      "baseline_mae": {
+        "count_ridge": 15.08978169134966,
+        "count_timing_ridge": 11.955249863869554,
+        "own_product_demand_ridge": 18.09704545132088,
+        "state_ridge": 6.564824565732192,
+        "capacity_interaction_ridge": 7.132588789280177,
+        "nearest_state": 19.766666666666666
+      },
+      "coverage": 0.9444444444444444,
+      "all_nine_coverage": 0.6
+    },
+    {
+      "day": 24,
+      "horizon": "end",
+      "selected": "capacity_interaction_ridge",
+      "mae": 7.132588789280177,
+      "per_product_mae": {
+        "WHEAT": 17.36748093821803,
+        "CARROT": 14.815322801141603,
+        "TOMATO": 3.955286834542141,
+        "STRAWBERRY": 7.21459875311938,
+        "MELON": 0.0,
+        "EGG": 3.888376000187845,
+        "MILK": 5.4419610839837445,
+        "WOOL": 6.375950694085437,
+        "FERTILIZER": 5.134321998243424
+      },
+      "baseline_mae": {
+        "count_ridge": 15.08978169134966,
+        "count_timing_ridge": 11.955249863869554,
+        "own_product_demand_ridge": 18.09704545132088,
+        "state_ridge": 6.564824565732192,
+        "capacity_interaction_ridge": 7.132588789280177,
+        "nearest_state": 19.766666666666666
+      },
+      "coverage": 0.9444444444444444,
+      "all_nine_coverage": 0.6
+    }
+  ],
+  "paired_episode_bootstrap": [
+    {
+      "horizon": 3,
+      "baseline": "count_timing_ridge",
+      "selected_mae": 2.2661288682277054,
+      "baseline_mae": 4.910707783261427,
+      "error_reduction_percent": 53.85331466979155,
+      "episode_bootstrap95_percent": [
+        48.989121149171126,
+        57.86284768447957
+      ]
+    },
+    {
+      "horizon": 3,
+      "baseline": "own_product_demand_ridge",
+      "selected_mae": 2.2661288682277054,
+      "baseline_mae": 7.34833856204071,
+      "error_reduction_percent": 69.16134376369318,
+      "episode_bootstrap95_percent": [
+        65.77325028595398,
+        72.01467917947497
+      ]
+    },
+    {
+      "horizon": 3,
+      "baseline": "nearest_state",
+      "selected_mae": 2.2661288682277054,
+      "baseline_mae": 6.128888888888889,
+      "error_reduction_percent": 63.02545356408748,
+      "episode_bootstrap95_percent": [
+        58.146338999118406,
+        66.9773047275765
+      ]
+    },
+    {
+      "horizon": 6,
+      "baseline": "count_timing_ridge",
+      "selected_mae": 5.903127508720975,
+      "baseline_mae": 9.041868319631627,
+      "error_reduction_percent": 34.71340988339594,
+      "episode_bootstrap95_percent": [
+        28.98126143641561,
+        39.91356758857072
+      ]
+    },
+    {
+      "horizon": 6,
+      "baseline": "own_product_demand_ridge",
+      "selected_mae": 5.903127508720975,
+      "baseline_mae": 14.18531077930686,
+      "error_reduction_percent": 58.38563144254623,
+      "episode_bootstrap95_percent": [
+        53.99013788480716,
+        62.44626396978562
+      ]
+    },
+    {
+      "horizon": 6,
+      "baseline": "nearest_state",
+      "selected_mae": 5.903127508720975,
+      "baseline_mae": 14.017777777777777,
+      "error_reduction_percent": 57.888278710773,
+      "episode_bootstrap95_percent": [
+        53.30346887582902,
+        62.11282606370369
+      ]
+    },
+    {
+      "horizon": "end",
+      "baseline": "count_timing_ridge",
+      "selected_mae": 15.93231951893238,
+      "baseline_mae": 18.033367659560604,
+      "error_reduction_percent": 11.65089172634003,
+      "episode_bootstrap95_percent": [
+        7.468041362063012,
+        15.633735573234443
+      ]
+    },
+    {
+      "horizon": "end",
+      "baseline": "own_product_demand_ridge",
+      "selected_mae": 15.93231951893238,
+      "baseline_mae": 28.060856572290746,
+      "error_reduction_percent": 43.22226237860085,
+      "episode_bootstrap95_percent": [
+        37.216401176032164,
+        48.68020843528062
+      ]
+    },
+    {
+      "horizon": "end",
+      "baseline": "nearest_state",
+      "selected_mae": 15.93231951893238,
+      "baseline_mae": 36.46148148148148,
+      "error_reduction_percent": 56.303696746320384,
+      "episode_bootstrap95_percent": [
+        52.59613417723919,
+        59.67670650814179
+      ]
+    },
+    {
+      "horizon": "all",
+      "baseline": "count_timing_ridge",
+      "selected_mae": 8.033858631960353,
+      "baseline_mae": 10.661981254151218,
+      "error_reduction_percent": 24.649477048814095,
+      "episode_bootstrap95_percent": [
+        20.608917792940723,
+        28.325094364012408
+      ]
+    },
+    {
+      "horizon": "all",
+      "baseline": "own_product_demand_ridge",
+      "selected_mae": 8.033858631960353,
+      "baseline_mae": 16.531501971212773,
+      "error_reduction_percent": 51.40273009705858,
+      "episode_bootstrap95_percent": [
+        46.94285317153128,
+        55.628857714804816
+      ]
+    },
+    {
+      "horizon": "all",
+      "baseline": "nearest_state",
+      "selected_mae": 8.033858631960353,
+      "baseline_mae": 18.869382716049383,
+      "error_reduction_percent": 57.42383970447988,
+      "episode_bootstrap95_percent": [
+        54.168159880679006,
+        60.49760257713683
+      ]
+    }
+  ],
+  "n_episodes": 30,
+  "metric": "Mean absolute error in harvested/collected units; all nine products equally weighted. Episode bootstrap resamples complete episode vectors across days; not a profit metric."
+}

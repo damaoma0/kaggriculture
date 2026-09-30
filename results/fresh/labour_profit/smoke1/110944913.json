@@ -1,0 +1,300 @@
+{
+  "episode": 110944913,
+  "seat": 0,
+  "opponent": {
+    "submission": 56268247,
+    "index": 1,
+    "reward": 96596,
+    "team": "wennan cao",
+    "team_id": 16696743
+  },
+  "source": "data\\ladder_panel\\56368334\\110944913.json.gz",
+  "source_sha256": "bb976fc3f0ceb970dbfde57337717825598068eb54e3790c1402beee70248e76",
+  "baseline": [
+    102576.0,
+    96596.0
+  ],
+  "baseline_economics": {
+    "revenue": {
+      "FERTILIZER": 11954,
+      "WHEAT": 20805,
+      "WOOL": 5259,
+      "MILK": 12675,
+      "MELON": 15301,
+      "EGG": 11093,
+      "STRAWBERRY": 44239,
+      "TOMATO": 2499,
+      "CARROT": 1854
+    },
+    "spend": {
+      "BUY_PRODUCT:WHEAT": 4133,
+      "HIRE": 4680.0,
+      "BUY_ANIMAL:COW": 2400,
+      "BUY_ANIMAL:SHEEP": 2500,
+      "BUY_SEED:MELON": 1120,
+      "BUY_SEED:WHEAT": 1580,
+      "BUY_SEED:CARROT": 320,
+      "BUY_SEED:STRAWBERRY": 3500,
+      "BUY_LAND": 3000.0,
+      "BUY_ANIMAL:GOOSE": 1800,
+      "BUY_PRODUCT:FERTILIZER": 870,
+      "BUY_SEED:TOMATO": 200
+    },
+    "units": {
+      "FERTILIZER": 219,
+      "WHEAT": 489,
+      "WOOL": 95,
+      "MILK": 154,
+      "MELON": 84,
+      "EGG": 213,
+      "STRAWBERRY": 264,
+      "TOMATO": 32,
+      "CARROT": 38
+    }
+  },
+  "blocks": [
+    {
+      "day": 11,
+      "jobs": 54,
+      "hands": 10,
+      "rejected": {
+        "route_over_24": 4
+      },
+      "candidates": [
+        {
+          "name": "baseline",
+          "gain": 0.0,
+          "wage": 0.0,
+          "revenue": 0,
+          "input_saving": 0.0,
+          "forecast": 0.0,
+          "robust": 0.0,
+          "advance": false,
+          "sold": {
+            "MELON": 12,
+            "FERTILIZER": 33,
+            "MILK": 9,
+            "EGG": 9,
+            "WOOL": 8,
+            "WHEAT": 21
+          },
+          "opponent_gain": 0.0
+        },
+        {
+          "name": "sales_only",
+          "gain": -175.0,
+          "wage": 0.0,
+          "revenue": -175,
+          "input_saving": 0.0,
+          "forecast": 0.0,
+          "robust": 0.0,
+          "advance": true,
+          "sold": {
+            "FERTILIZER": 33,
+            "MELON": 12,
+            "MILK": 9,
+            "EGG": 9,
+            "WOOL": 8,
+            "WHEAT": 21
+          },
+          "opponent_gain": 142.0
+        },
+        {
+          "name": "shorter:recorded",
+          "gain": 0.0,
+          "wage": 0.0,
+          "revenue": 0,
+          "input_saving": 0.0,
+          "forecast": 0.0,
+          "robust": 0.0,
+          "advance": false,
+          "sold": {
+            "MELON": 12,
+            "FERTILIZER": 33,
+            "MILK": 9,
+            "EGG": 9,
+            "WOOL": 8,
+            "WHEAT": 21
+          },
+          "opponent_gain": 0.0
+        },
+        {
+          "name": "minus1:recorded",
+          "gain": 55.0,
+          "wage": 55.0,
+          "revenue": 0,
+          "input_saving": 0.0,
+          "forecast": 55.0,
+          "robust": 55.0,
+          "advance": false,
+          "sold": {
+            "MELON": 12,
+            "FERTILIZER": 33,
+            "MILK": 9,
+            "EGG": 9,
+            "WOOL": 8,
+            "WHEAT": 21
+          },
+          "opponent_gain": 0.0
+        },
+        {
+          "name": "minus1:early",
+          "gain": -123.0,
+          "wage": 55.0,
+          "revenue": -178,
+          "input_saving": 0.0,
+          "forecast": 52.666666666666664,
+          "robust": 52.0,
+          "advance": true,
+          "sold": {
+            "FERTILIZER": 33,
+            "MELON": 12,
+            "EGG": 9,
+            "MILK": 9,
+            "WOOL": 8,
+            "WHEAT": 21
+          },
+          "opponent_gain": 142.0
+        },
+        {
+          "name": "minus2:recorded",
+          "gain": 89.0,
+          "wage": 89.0,
+          "revenue": 0,
+          "input_saving": 0.0,
+          "forecast": 89.0,
+          "robust": 89.0,
+          "advance": false,
+          "sold": {
+            "MELON": 12,
+            "FERTILIZER": 33,
+            "MILK": 9,
+            "EGG": 9,
+            "WOOL": 8,
+            "WHEAT": 21
+          },
+          "opponent_gain": 0.0
+        },
+        {
+          "name": "relocate:recorded",
+          "gain": 0.0,
+          "wage": 0.0,
+          "revenue": 0,
+          "input_saving": 0.0,
+          "forecast": 0.0,
+          "robust": 0.0,
+          "advance": false,
+          "sold": {
+            "MELON": 12,
+            "FERTILIZER": 33,
+            "MILK": 9,
+            "EGG": 9,
+            "WOOL": 8,
+            "WHEAT": 21
+          },
+          "opponent_gain": 0.0
+        }
+      ],
+      "late_hires": false,
+      "selected": {
+        "wage": {
+          "name": "minus2:recorded",
+          "gain": 89.0,
+          "wage": 89.0,
+          "revenue": 0,
+          "input_saving": 0.0,
+          "forecast": 89.0,
+          "robust": 89.0,
+          "advance": false,
+          "sold": {
+            "MELON": 12,
+            "FERTILIZER": 33,
+            "MILK": 9,
+            "EGG": 9,
+            "WOOL": 8,
+            "WHEAT": 21
+          },
+          "opponent_gain": 0.0
+        },
+        "early": {
+          "name": "sales_only",
+          "gain": -175.0,
+          "wage": 0.0,
+          "revenue": -175,
+          "input_saving": 0.0,
+          "forecast": 0.0,
+          "robust": 0.0,
+          "advance": true,
+          "sold": {
+            "FERTILIZER": 33,
+            "MELON": 12,
+            "MILK": 9,
+            "EGG": 9,
+            "WOOL": 8,
+            "WHEAT": 21
+          },
+          "opponent_gain": 142.0
+        },
+        "forecast": {
+          "name": "minus2:recorded",
+          "gain": 89.0,
+          "wage": 89.0,
+          "revenue": 0,
+          "input_saving": 0.0,
+          "forecast": 89.0,
+          "robust": 89.0,
+          "advance": false,
+          "sold": {
+            "MELON": 12,
+            "FERTILIZER": 33,
+            "MILK": 9,
+            "EGG": 9,
+            "WOOL": 8,
+            "WHEAT": 21
+          },
+          "opponent_gain": 0.0
+        },
+        "robust": {
+          "name": "minus2:recorded",
+          "gain": 89.0,
+          "wage": 89.0,
+          "revenue": 0,
+          "input_saving": 0.0,
+          "forecast": 89.0,
+          "robust": 89.0,
+          "advance": false,
+          "sold": {
+            "MELON": 12,
+            "FERTILIZER": 33,
+            "MILK": 9,
+            "EGG": 9,
+            "WOOL": 8,
+            "WHEAT": 21
+          },
+          "opponent_gain": 0.0
+        },
+        "oracle": {
+          "name": "minus2:recorded",
+          "gain": 89.0,
+          "wage": 89.0,
+          "revenue": 0,
+          "input_saving": 0.0,
+          "forecast": 89.0,
+          "robust": 89.0,
+          "advance": false,
+          "sold": {
+            "MELON": 12,
+            "FERTILIZER": 33,
+            "MILK": 9,
+            "EGG": 9,
+            "WOOL": 8,
+            "WHEAT": 21
+          },
+          "opponent_gain": 0.0
+        }
+      }
+    }
+  ],
+  "chained": {},
+  "seconds": 0.9132607000065036
+}

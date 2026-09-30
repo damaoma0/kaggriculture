@@ -1,0 +1,48 @@
+{
+ "shard": {
+  "agents": [
+   "mgt_lpv_dep6"
+  ],
+  "submission": "p2750",
+  "episodes": [
+   "110937191",
+   "111374151",
+   "111376633",
+   "111416249",
+   "111554912",
+   "111577649",
+   "111681195",
+   "111688786",
+   "111871547",
+   "111902048",
+   "111916514",
+   "111941962"
+  ],
+  "workers": 4
+ },
+ "games": 12,
+ "pip_seconds": 45.391857385635376,
+ "run_seconds": 73.0590877532959,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "AMD EPYC 7B12",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "12 games, 4 workers (32.7 GB free)",
+  "mgt_lpv_dep6 110937191 margin    +7,902 (recorded    +6,275)",
+  "mgt_lpv_dep6 111416249 margin   -10,693 (recorded    -9,726)",
+  "mgt_lpv_dep6 111374151 margin    -4,541 (recorded    +9,311)",
+  "mgt_lpv_dep6 111376633 margin   -17,265 (recorded    +4,158)",
+  "mgt_lpv_dep6 111577649 margin   -19,054 (recorded    +4,794)",
+  "mgt_lpv_dep6 111554912 margin   -14,467 (recorded    -1,356)",
+  "mgt_lpv_dep6 111688786 margin   -15,892 (recorded    +4,007)",
+  "mgt_lpv_dep6 111681195 margin   -20,690 (recorded    +6,142)",
+  "mgt_lpv_dep6 111871547 margin   -18,039 (recorded      -372)",
+  "mgt_lpv_dep6 111902048 margin    -5,463 (recorded    +6,763)",
+  "mgt_lpv_dep6 111941962 margin    +2,190 (recorded   +22,041)",
+  "mgt_lpv_dep6 111916514 margin   -18,216 (recorded    -7,004)"
+ ],
+ "stderr_tail": []
+}

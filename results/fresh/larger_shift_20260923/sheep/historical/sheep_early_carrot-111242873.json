@@ -1,0 +1,162 @@
+{
+  "arm": "sheep_early_carrot",
+  "episode": 111242873,
+  "completed": true,
+  "source_sha256": "9548ae16bf50c988d82663cfac93552b291ca06b1d37070371c289a919bb829d",
+  "seed": 816817771,
+  "seat": 1,
+  "cash": 135480.0,
+  "opponent_cash": 83981.0,
+  "margin": 51499.0,
+  "recorded": [
+    85047.0,
+    135495.0
+  ],
+  "action_changes": 390,
+  "first_change": 290,
+  "economics": [
+    {
+      "revenue": {
+        "FERTILIZER": 13111,
+        "WHEAT": 19423,
+        "WOOL": 68550,
+        "MILK": 6048,
+        "MELON": 16934,
+        "STRAWBERRY": 32158,
+        "EGG": 1901,
+        "TOMATO": 3066,
+        "CARROT": 1785
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 5443,
+        "HIRE": 6442.0,
+        "BUY_ANIMAL:COW": 2400,
+        "BUY_ANIMAL:SHEEP": 5500,
+        "BUY_SEED:MELON": 1120,
+        "BUY_SEED:WHEAT": 1710,
+        "BUY_SEED:CARROT": 320,
+        "BUY_SEED:STRAWBERRY": 3000,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 861,
+        "BUY_ANIMAL:GOOSE": 300,
+        "BUY_SEED:TOMATO": 400
+      },
+      "units": {
+        "FERTILIZER": 221,
+        "WHEAT": 577,
+        "WOOL": 285,
+        "MILK": 130,
+        "MELON": 78,
+        "STRAWBERRY": 219,
+        "EGG": 29,
+        "TOMATO": 55,
+        "CARROT": 38
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 13692,
+        "FERTILIZER": 12410,
+        "WOOL": 31293,
+        "MILK": 3021,
+        "MELON": 14292,
+        "STRAWBERRY": 34709
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 6600,
+        "HIRE": 7156.0,
+        "BUY_ANIMAL:COW": 3200,
+        "BUY_ANIMAL:SHEEP": 2000,
+        "BUY_SEED:MELON": 1360,
+        "BUY_SEED:WHEAT": 1420,
+        "BUY_SEED:STRAWBERRY": 3700,
+        "BUY_LAND": 3000.0
+      },
+      "units": {
+        "WHEAT": 428,
+        "FERTILIZER": 228,
+        "WOOL": 131,
+        "MILK": 215,
+        "MELON": 102,
+        "STRAWBERRY": 260
+      }
+    }
+  ],
+  "overlay": {
+    "evals": [
+      [
+        6,
+        14,
+        2,
+        11,
+        3
+      ],
+      [
+        7,
+        14,
+        5,
+        12,
+        2
+      ],
+      [
+        8,
+        14,
+        9,
+        14,
+        0
+      ],
+      [
+        9,
+        14,
+        9,
+        11,
+        3
+      ],
+      [
+        10,
+        14,
+        11,
+        13,
+        1
+      ],
+      [
+        11,
+        14,
+        11,
+        11,
+        3
+      ],
+      [
+        12,
+        16,
+        11,
+        11,
+        5
+      ]
+    ],
+    "declined_tiles": 6,
+    "declined_hire_cash": 1,
+    "hire_guard_fired": 3,
+    "hire_guard_sold": 2,
+    "hire_guard_unfunded": 2,
+    "hand_days": 12,
+    "topup_tasks": 40,
+    "ops_feed": 38,
+    "ops_care": 35,
+    "orphan_days": 1,
+    "ops_harvest": 1,
+    "sold_wool": 4
+  },
+  "router": {
+    "switches": 4,
+    "router_errors": 0,
+    "hamming_max": 1,
+    "dist_d6": -0.02,
+    "dist_d12": 5.98,
+    "dist_d18": 25.48,
+    "dist_d24": 38.98
+  },
+  "max_action_seconds": 0.013655099959578365,
+  "actions_over_1s": 0,
+  "ledger_verified": true
+}

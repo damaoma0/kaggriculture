@@ -1,0 +1,27 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/test_package_isolated.py",
+   "submissions/2026-09-24-mgt_v9lite/pkg",
+   "data/router_refresh_20260922/v56/main.py",
+   "results/fresh/newphase_20260923/v9litepkg3_time_cpu1.json",
+   "4",
+   "--cpus=1"
+  ],
+  "collect": [
+   "results/fresh/newphase_20260923/v9litepkg3_time_cpu1.json"
+  ],
+  "workers": 4
+ },
+ "games": 1,
+ "pip_seconds": 44.80754256248474,
+ "run_seconds": 217.71150946617126,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "AMD EPYC 7B12",
+ "mem_gb": 33.7,
+ "stdout_tail": [],
+ "stderr_tail": []
+}

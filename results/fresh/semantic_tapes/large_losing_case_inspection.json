@@ -1,0 +1,592 @@
+{
+  "episode": 111287532,
+  "day": 18,
+  "seat": 1,
+  "rewards": [
+    116947.0,
+    110884.0
+  ],
+  "start_money": 44629.0,
+  "start_assets": {
+    "WHEAT": 22,
+    "STRAWBERRY": 18,
+    "COW": 5,
+    "MELON": 2,
+    "TOMATO": 16,
+    "SHEEP": 11,
+    "GOOSE": 1
+  },
+  "start_seeds": {
+    "WHEAT": 8,
+    "CARROT": 5,
+    "TOMATO": 0,
+    "STRAWBERRY": 1,
+    "MELON": 0
+  },
+  "start_shed": {
+    "WHEAT": 43,
+    "CARROT": 0,
+    "TOMATO": 0,
+    "STRAWBERRY": 8,
+    "MELON": 0,
+    "EGG": 4,
+    "MILK": 1,
+    "WOOL": 4,
+    "FERTILIZER": 18,
+    "GOOSE": 0,
+    "COW": 0,
+    "SHEEP": 0
+  },
+  "wheat_plantings": [
+    {
+      "t": 435,
+      "unit": 2,
+      "pos": [
+        4,
+        5
+      ],
+      "later": [
+        {
+          "t": 506,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WHEAT": 3
+          }
+        },
+        {
+          "t": 507,
+          "cmd": [
+            "PLANT",
+            "CARROT"
+          ],
+          "delta": {
+            "WHEAT": 0
+          }
+        },
+        {
+          "t": 578,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "CARROT": 3
+          }
+        },
+        {
+          "t": 579,
+          "cmd": [
+            "PLANT",
+            "CARROT"
+          ],
+          "delta": {
+            "CARROT": 0
+          }
+        },
+        {
+          "t": 650,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "CARROT": 3
+          }
+        },
+        {
+          "t": 651,
+          "cmd": [
+            "PLANT",
+            "CARROT"
+          ],
+          "delta": {
+            "CARROT": 0
+          }
+        },
+        {
+          "t": 713,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "CARROT": 2,
+            "FERTILIZER": 0
+          }
+        }
+      ]
+    },
+    {
+      "t": 437,
+      "unit": 6,
+      "pos": [
+        4,
+        6
+      ],
+      "later": [
+        {
+          "t": 508,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WHEAT": 5,
+            "FERTILIZER": 0
+          }
+        },
+        {
+          "t": 509,
+          "cmd": [
+            "PLANT",
+            "CARROT"
+          ],
+          "delta": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          }
+        },
+        {
+          "t": 580,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "CARROT": 4,
+            "FERTILIZER": 0
+          }
+        },
+        {
+          "t": 581,
+          "cmd": [
+            "PLANT",
+            "CARROT"
+          ],
+          "delta": {
+            "CARROT": 0,
+            "FERTILIZER": 0
+          }
+        },
+        {
+          "t": 652,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "CARROT": 4,
+            "FERTILIZER": 0
+          }
+        },
+        {
+          "t": 653,
+          "cmd": [
+            "PLANT",
+            "WHEAT"
+          ],
+          "delta": {
+            "CARROT": 0,
+            "FERTILIZER": 0
+          }
+        },
+        {
+          "t": 699,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WHEAT": 2
+          }
+        }
+      ]
+    },
+    {
+      "t": 443,
+      "unit": 5,
+      "pos": [
+        7,
+        1
+      ],
+      "later": [
+        {
+          "t": 546,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WOOL": 0,
+            "WHEAT": 6,
+            "FERTILIZER": 0,
+            "STRAWBERRY": 0
+          }
+        },
+        {
+          "t": 547,
+          "cmd": [
+            "PLANT",
+            "WHEAT"
+          ],
+          "delta": {
+            "WOOL": 0,
+            "FERTILIZER": 0,
+            "WHEAT": 0,
+            "STRAWBERRY": 0
+          }
+        },
+        {
+          "t": 615,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WHEAT": 5,
+            "FERTILIZER": 0
+          }
+        },
+        {
+          "t": 616,
+          "cmd": [
+            "PLANT",
+            "WHEAT"
+          ],
+          "delta": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          }
+        },
+        {
+          "t": 703,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WHEAT": 6
+          }
+        }
+      ]
+    },
+    {
+      "t": 446,
+      "unit": 8,
+      "pos": [
+        2,
+        1
+      ],
+      "later": [
+        {
+          "t": 520,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WOOL": 0,
+            "WHEAT": 5,
+            "FERTILIZER": 0
+          }
+        },
+        {
+          "t": 521,
+          "cmd": [
+            "PLANT",
+            "WHEAT"
+          ],
+          "delta": {
+            "WOOL": 0,
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          }
+        },
+        {
+          "t": 589,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WHEAT": 5
+          }
+        },
+        {
+          "t": 590,
+          "cmd": [
+            "PLANT",
+            "CARROT"
+          ],
+          "delta": {
+            "WHEAT": 0
+          }
+        },
+        {
+          "t": 663,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WOOL": 0,
+            "CARROT": 4,
+            "FERTILIZER": 0
+          }
+        },
+        {
+          "t": 665,
+          "cmd": [
+            "PLANT",
+            "CARROT"
+          ],
+          "delta": {
+            "WOOL": 0,
+            "CARROT": 0,
+            "FERTILIZER": 0
+          }
+        },
+        {
+          "t": 709,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "CARROT": 3
+          }
+        }
+      ]
+    },
+    {
+      "t": 450,
+      "unit": 11,
+      "pos": [
+        2,
+        7
+      ],
+      "later": [
+        {
+          "t": 538,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WHEAT": 5,
+            "FERTILIZER": 0
+          }
+        },
+        {
+          "t": 539,
+          "cmd": [
+            "PLANT",
+            "CARROT"
+          ],
+          "delta": {
+            "WHEAT": 0,
+            "FERTILIZER": 0
+          }
+        },
+        {
+          "t": 614,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "TOMATO": 0,
+            "EGG": 0,
+            "CARROT": 4,
+            "WHEAT": 0
+          }
+        },
+        {
+          "t": 615,
+          "cmd": [
+            "PLANT",
+            "CARROT"
+          ],
+          "delta": {
+            "TOMATO": 0,
+            "CARROT": 0,
+            "EGG": 0,
+            "WHEAT": 0
+          }
+        },
+        {
+          "t": 683,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "CARROT": 4
+          }
+        }
+      ]
+    },
+    {
+      "t": 452,
+      "unit": 3,
+      "pos": [
+        8,
+        0
+      ],
+      "later": [
+        {
+          "t": 547,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WHEAT": 5,
+            "STRAWBERRY": 0
+          }
+        },
+        {
+          "t": 548,
+          "cmd": [
+            "PLANT",
+            "WHEAT"
+          ],
+          "delta": {
+            "WHEAT": 0,
+            "STRAWBERRY": 0
+          }
+        },
+        {
+          "t": 646,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WOOL": 0,
+            "WHEAT": 6,
+            "FERTILIZER": 0
+          }
+        }
+      ]
+    },
+    {
+      "t": 452,
+      "unit": 7,
+      "pos": [
+        0,
+        0
+      ],
+      "later": [
+        {
+          "t": 525,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WHEAT": 5,
+            "FERTILIZER": 0,
+            "STRAWBERRY": 0
+          }
+        },
+        {
+          "t": 526,
+          "cmd": [
+            "PLANT",
+            "WHEAT"
+          ],
+          "delta": {
+            "WHEAT": 0,
+            "FERTILIZER": 0,
+            "STRAWBERRY": 0
+          }
+        },
+        {
+          "t": 597,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WHEAT": 3
+          }
+        },
+        {
+          "t": 598,
+          "cmd": [
+            "PLANT",
+            "WHEAT"
+          ],
+          "delta": {
+            "WHEAT": 0
+          }
+        },
+        {
+          "t": 671,
+          "cmd": [
+            "HARVEST"
+          ],
+          "delta": {
+            "WHEAT": 5,
+            "FERTILIZER": 0
+          }
+        }
+      ]
+    }
+  ],
+  "sales": {
+    "1": {
+      "revenue": {
+        "FERTILIZER": 11614,
+        "WHEAT": 18779,
+        "WOOL": 50795,
+        "MILK": 4932,
+        "MELON": 15228,
+        "STRAWBERRY": 18586,
+        "EGG": 1687,
+        "TOMATO": 8257,
+        "CARROT": 7110
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 5004,
+        "HIRE": 5900.0,
+        "BUY_ANIMAL:COW": 2000,
+        "BUY_ANIMAL:SHEEP": 5500,
+        "BUY_SEED:MELON": 1120,
+        "BUY_SEED:WHEAT": 1640,
+        "BUY_SEED:CARROT": 1080,
+        "BUY_SEED:STRAWBERRY": 1900,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 860,
+        "BUY_ANIMAL:GOOSE": 300,
+        "BUY_SEED:TOMATO": 800
+      }
+    },
+    "0": {
+      "revenue": {
+        "WHEAT": 12422,
+        "FERTILIZER": 15252,
+        "WOOL": 52889,
+        "MILK": 5340,
+        "MELON": 14231,
+        "STRAWBERRY": 40528,
+        "CARROT": 2951
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 6239,
+        "HIRE": 5083.0,
+        "BUY_ANIMAL:COW": 2400,
+        "BUY_ANIMAL:SHEEP": 5500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:WHEAT": 1650,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 974,
+        "BUY_SEED:CARROT": 560
+      }
+    }
+  },
+  "output_from_day18": {
+    "1": {
+      "MILK": 63,
+      "WOOL": 147,
+      "FERTILIZER": 192,
+      "WHEAT": 436,
+      "STRAWBERRY": 76,
+      "EGG": 22,
+      "MELON": 11,
+      "TOMATO": 120,
+      "CARROT": 183
+    },
+    "0": {
+      "WOOL": 176,
+      "FERTILIZER": 181,
+      "MILK": 75,
+      "STRAWBERRY": 209,
+      "WHEAT": 366,
+      "CARROT": 79
+    }
+  }
+}

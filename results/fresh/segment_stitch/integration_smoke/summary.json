@@ -1,0 +1,365 @@
+{
+  "complete": true,
+  "expected": 8,
+  "received": 8,
+  "missing": [],
+  "errors": [],
+  "matchups": {
+    "mgt_segment_state vs v56": {
+      "n": 4,
+      "wins": 2,
+      "ties": 0,
+      "losses": 2,
+      "mean_margin": -1086.5,
+      "median_margin": -1086.5,
+      "mean_score": 0.5,
+      "mean_margin_ci": [
+        -5021.0,
+        2848.0
+      ],
+      "world_cluster_score_ci": [
+        0.0,
+        1.0
+      ],
+      "world_clusters": 2,
+      "max_action_seconds": 13.100564599968493,
+      "actions_over_1s": 2,
+      "activations": 0,
+      "execution_failures": 0,
+      "games_with_activation": 0,
+      "observed_output_windows": [],
+      "segment_reports": [
+        {
+          "seed": 94022000,
+          "seat": 0,
+          "report": {
+            "activations": 0,
+            "preflight_failures": 12,
+            "fallbacks": 6,
+            "decisions": [],
+            "outputs": {},
+            "failures": [],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 4
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 94022000,
+          "seat": 1,
+          "report": {
+            "activations": 0,
+            "preflight_failures": 12,
+            "fallbacks": 6,
+            "decisions": [],
+            "outputs": {},
+            "failures": [],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 4
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 94022001,
+          "seat": 0,
+          "report": {
+            "activations": 0,
+            "preflight_failures": 0,
+            "fallbacks": 6,
+            "decisions": [],
+            "outputs": {},
+            "failures": [],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 0
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 94022001,
+          "seat": 1,
+          "report": {
+            "activations": 0,
+            "preflight_failures": 0,
+            "fallbacks": 6,
+            "decisions": [],
+            "outputs": {},
+            "failures": [],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 0
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "mgt_segment_stitch vs v56": {
+      "n": 4,
+      "wins": 2,
+      "ties": 0,
+      "losses": 2,
+      "mean_margin": -1086.5,
+      "median_margin": -1086.5,
+      "mean_score": 0.5,
+      "mean_margin_ci": [
+        -5021.0,
+        2848.0
+      ],
+      "world_cluster_score_ci": [
+        0.0,
+        1.0
+      ],
+      "world_clusters": 2,
+      "max_action_seconds": 12.96830539999064,
+      "actions_over_1s": 2,
+      "activations": 0,
+      "execution_failures": 0,
+      "games_with_activation": 0,
+      "observed_output_windows": [],
+      "segment_reports": [
+        {
+          "seed": 94022000,
+          "seat": 0,
+          "report": {
+            "activations": 0,
+            "preflight_failures": 12,
+            "fallbacks": 6,
+            "decisions": [],
+            "outputs": {},
+            "failures": [],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 4
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 94022000,
+          "seat": 1,
+          "report": {
+            "activations": 0,
+            "preflight_failures": 12,
+            "fallbacks": 6,
+            "decisions": [],
+            "outputs": {},
+            "failures": [],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 4
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 94022001,
+          "seat": 0,
+          "report": {
+            "activations": 0,
+            "preflight_failures": 0,
+            "fallbacks": 6,
+            "decisions": [],
+            "outputs": {},
+            "failures": [],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 0
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        },
+        {
+          "seed": 94022001,
+          "seat": 1,
+          "report": {
+            "activations": 0,
+            "preflight_failures": 0,
+            "fallbacks": 6,
+            "decisions": [],
+            "outputs": {},
+            "failures": [],
+            "attempts": [
+              {
+                "day": 12,
+                "remappable": 0
+              },
+              {
+                "day": 15,
+                "remappable": 0
+              },
+              {
+                "day": 18,
+                "remappable": 0
+              },
+              {
+                "day": 21,
+                "remappable": 0
+              },
+              {
+                "day": 24,
+                "remappable": 0
+              },
+              {
+                "day": 27,
+                "remappable": 0
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }
+}

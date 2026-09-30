@@ -1,0 +1,100 @@
+{
+  "selected": "agents/market_impact_selected.py",
+  "promoted": true,
+  "mode": "static",
+  "gates": {
+    "positive_mean_margin": true,
+    "no_fewer_wins": true,
+    "direct_wins_exceed_losses": true,
+    "beats_availability_margin": true
+  },
+  "summary": "Keep agents/market_impact_selected.py as the locally preferred candidate. The confirmed static ordering policy produced 80 wins, 0 ties and 0 losses in 80 matches, versus 64 wins, 16 ties and 0 losses for fixed priority on the same panel. Mean cash changed by +701.9 and match margin by +1304.0. Its additional margin improvement over availability-only ordering was +1107.5. The selected price-impact rule uses current prices and available lot sizes; it does not use opponent forecasts. The previous selected files are preserved. No Kaggle submission was made.",
+  "sha256": "216ed6a3857187cbd7803e50e033069af0c6bdb88ddf4ffbc879b4b49cbb4c6b",
+  "confirmation": {
+    "n": 80,
+    "cash_delta": 701.9,
+    "margin_delta": 1304.025,
+    "wins": 80,
+    "ties": 0,
+    "losses": 0,
+    "baseline_wins": 64,
+    "baseline_ties": 16,
+    "baseline_losses": 0,
+    "seed_margin_deltas": {
+      "126000": 1238.0,
+      "126001": 1671.6,
+      "126002": 441.4,
+      "126003": 874.4,
+      "126004": 589.0,
+      "126005": 2240.2,
+      "126006": 2669.4,
+      "126007": 708.2
+    },
+    "changed_routes": 0,
+    "changed_shops": 0,
+    "stats": {
+      "opportunities": 4060,
+      "reordered_turns": 1556
+    },
+    "max_action_seconds": 0.3040234000000055
+  },
+  "direct_against_fixed": {
+    "n": 16,
+    "cash_delta": 1179.375,
+    "margin_delta": 2285.5,
+    "wins": 16,
+    "ties": 0,
+    "losses": 0,
+    "baseline_wins": 0,
+    "baseline_ties": 16,
+    "baseline_losses": 0,
+    "seed_margin_deltas": {
+      "126000": 2190.0,
+      "126001": 3445.0,
+      "126002": 940.0,
+      "126003": 1595.0,
+      "126004": 719.0,
+      "126005": 3581.0,
+      "126006": 3989.0,
+      "126007": 1825.0
+    },
+    "changed_routes": 0,
+    "changed_shops": 0,
+    "stats": {
+      "opportunities": 812,
+      "reordered_turns": 296
+    },
+    "max_action_seconds": 0.20057529999758117
+  },
+  "versus_availability": {
+    "n": 80,
+    "cash_delta": 548.45,
+    "margin_delta": 1107.5,
+    "wins": 80,
+    "ties": 0,
+    "losses": 0,
+    "baseline_wins": 80,
+    "baseline_ties": 0,
+    "baseline_losses": 0,
+    "seed_margin_deltas": {
+      "126000": 948.8,
+      "126001": 1533.8,
+      "126002": 245.0,
+      "126003": 625.6,
+      "126004": 450.0,
+      "126005": 1995.6,
+      "126006": 2526.4,
+      "126007": 534.8
+    },
+    "changed_routes": 0,
+    "changed_shops": 0,
+    "stats": {
+      "opportunities": 4060,
+      "reordered_turns": 1556
+    },
+    "max_action_seconds": 0.3040234000000055
+  },
+  "scored_games": 600,
+  "additional_smoke_parity_games": 4,
+  "packaged_parity_actions": 58958
+}

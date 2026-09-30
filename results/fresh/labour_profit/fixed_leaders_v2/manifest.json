@@ -1,0 +1,25 @@
+{
+  "arguments": {
+    "count": 8,
+    "offset": 0,
+    "rounds": 80,
+    "days": "4,6,8,10,12,14,16,18,20,22,24,26",
+    "chain": true,
+    "tag": "fixed_leaders_v2",
+    "workers": 2,
+    "panel": "results/fresh/labour_profit/fixed_leaders"
+  },
+  "paths": [
+    "results\\fresh\\labour_profit\\fixed_leaders\\plans\\110003096.json.gz",
+    "results\\fresh\\labour_profit\\fixed_leaders\\plans\\110022430.json.gz",
+    "results\\fresh\\labour_profit\\fixed_leaders\\plans\\109971156.json.gz",
+    "results\\fresh\\labour_profit\\fixed_leaders\\plans\\109983899.json.gz",
+    "results\\fresh\\labour_profit\\fixed_leaders\\plans\\110003132.json.gz",
+    "results\\fresh\\labour_profit\\fixed_leaders\\plans\\109940134.json.gz",
+    "results\\fresh\\labour_profit\\fixed_leaders\\plans\\109712554.json.gz",
+    "results\\fresh\\labour_profit\\fixed_leaders\\plans\\109978530.json.gz"
+  ],
+  "script_sha256": "06b457c9efeceefe58eb235aaacf69e812aecc64c4351896614c65988be949bc",
+  "engine_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+  "information": "Fixed hindsight daily production jobs; all selectors use hindsight feasibility validation. Only oracle ranks by future realized profit."
+}

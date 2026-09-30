@@ -1,0 +1,229 @@
+"""Compile coordinate-free daily farm changes into a KB115LT TilePlanView.
+
+The only input coordinates are the already-played opening/public D11 farm.
+No future source tile, recorded action, sale, or opponent outcome is consulted.
+The full daily plan also retains physically present animals marked for retirement.
+"""
+from __future__ import annotations
+
+import argparse
+import copy
+import hashlib
+import json
+from collections import Counter
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+CROP_LABEL = {"WHEAT": "WH", "CARROT": "CA", "TOMATO": "TO", "STRAWBERRY": "ST", "MELON": "ME"}
+LABEL_CROP = {v: k for k, v in CROP_LABEL.items()}
+FIRST = {"WHEAT": 2, "CARROT": 2, "TOMATO": 8, "STRAWBERRY": 10, "MELON": 10}
+LIFE = {"WHEAT": 4, "CARROT": 3, "TOMATO": 11, "STRAWBERRY": 16, "MELON": 12}
+ANIMAL_LABEL = {"COW": "co", "SHEEP": "sh", "GOOSE": "go"}
+STRUCTURE = {"COW": "PASTURE", "SHEEP": "PASTURE", "GOOSE": "COOP"}
+
+
+def distance(t, u):
+    return abs(t % 10 - u % 10) + abs(t // 10 - u // 10)
+
+
+def shed_distance(t):
+    return min(distance(t, s) for s in (44, 45, 54, 55))
+
+
+def label(cell):
+    if cell.get("locked"):
+        return " L"
+    if cell.get("animal"):
+        return ANIMAL_LABEL[cell["animal"]]
+    if cell.get("crop"):
+        return CROP_LABEL[cell["crop"]]
+    if cell.get("kind") == "PASTURE":
+        return "pa"
+    if cell.get("kind") == "COOP":
+        return "co"
+    return " ."
+
+
+def _counts(value):
+    return {k: int(v) for k, v in (value or {}).items() if int(v)}
+
+
+def fallback_assign(day, requests, available, state, config):
+    """Stable maturity-safe baseline; the independent allocator adds joint scoring."""
+    result = []
+    free = set(available)
+    for req in requests:
+        kind = req["kind"]
+        def score(t):
+            reuse = state[t].get("released_kind") == kind
+            peers = [u for u, c in state.items() if c.get("crop") == kind]
+            group = min((distance(t, u) for u in peers + result), default=0)
+            return (-5 * reuse + 0.4 * shed_distance(t) + 0.7 * group, t)
+        t = min(free, key=score)
+        free.remove(t)
+        result.append(t)
+    return result
+
+
+def compile_plan(semantic, *, variant="cohort", config=None):
+    """Return executable interface plus detailed daily desired physical states."""
+    cfg = dict(config or {})
+    cfg.setdefault("variant", variant)
+    n = int(semantic.get("n", 30))
+    handoff = int(semantic.get("handoff_day", 11))
+    initial = semantic["initial_state"]
+    prefix = copy.deepcopy(semantic["opening_plan"])
+    state = {t: {} for t in range(100)}
+    for t, cell in initial["tiles"].items():
+        state[int(t)] = copy.deepcopy(cell)
+    out = {
+        "n": n,
+        "plant": copy.deepcopy(prefix["plant"][:handoff]) + [{} for _ in range(n-handoff)],
+        "events": [list(e) for e in prefix["events"] if int(e[0]) < handoff],
+        "board": copy.deepcopy(prefix["board"][:handoff]) + [[] for _ in range(n-handoff)],
+        "struct_by_day": copy.deepcopy(prefix["struct_by_day"][:handoff]) + [{} for _ in range(n-handoff)],
+        "animals_by_day": copy.deepcopy(prefix["animals_by_day"][:handoff]) + [{} for _ in range(n-handoff)],
+        "harv_tiles": copy.deepcopy(prefix["harv_tiles"][:handoff]) + [[] for _ in range(n-handoff)],
+        "removals": copy.deepcopy(prefix["removals"][:handoff]) + [[] for _ in range(n-handoff)],
+        "land_day": copy.deepcopy(prefix.get("land_day", {})),
+        "hands": list(prefix["hands"][:handoff]) + [0]*(n-handoff),
+        "cum_sold": copy.deepcopy(prefix.get("cum_sold", []))[:handoff],
+    }
+    daily = []
+    warnings = []
+    try:
+        from semantic_tile_allocator_20260928 import assign_tiles
+    except ImportError:
+        assign_tiles = fallback_assign
+
+    def select(candidates, count, key, day, what):
+        if len(candidates) < count:
+            raise ValueError(f"D{day} {what}: need {count}, available {len(candidates)}")
+        return sorted(candidates, key=key)[:count]
+
+    def clear_crop(t):
+        c = state[t]
+        state[t] = {"released_kind": c["crop"], "released_birth": c.get("planted_day", 0)}
+
+    for day in range(handoff, n):
+        change = semantic["days"][day]
+        out["board"][day] = [label(state[t]) for t in range(100)]
+        out["hands"][day] = int(change["hands"])
+        # Land additions are anonymous; use the engine's standard quadrant order.
+        for _ in range(int(change.get("land_add_count", 0))):
+            q = next((q for q in ("NE", "SW", "SE") if q not in out["land_day"]), None)
+            if q is None:
+                raise ValueError("land additions exceed quadrants")
+            out["land_day"][q] = day
+            for t, cell in state.items():
+                quad = ("S" if t//10 >= 5 else "N") + ("E" if t%10 >= 5 else "W")
+                if quad == q:
+                    cell.pop("locked", None)
+
+        # Explicit first-unfed day, while animal continues physically occupying its pen.
+        retired_today = []
+        for sp, count in _counts(change.get("animal_retire_counts")).items():
+            cand = [t for t,c in state.items() if c.get("animal")==sp and "retiring_since" not in c]
+            chosen = select(cand, count, lambda t:(-shed_distance(t), -state[t].get("placed_day", 0), t), day, "retire "+sp)
+            for t in chosen:
+                state[t]["retiring_since"] = day
+                retired_today.append({"tile":t, "animal":sp, "first_unfed_day":day, "expected_exit_day":day+1})
+
+        # The semantic compiler chooses cohorts by age, never source tile identities.
+        for crop, count in _counts(change.get("crop_remove_counts")).items():
+            cand = [t for t,c in state.items() if c.get("crop")==crop]
+            chosen = select(cand, count, lambda t:(state[t].get("planted_day",0), t), day, "remove "+crop)
+            for t in chosen:
+                out["removals"][day].append([t,crop,state[t].get("planted_day",0)])
+                clear_crop(t)
+        for crop, count in _counts(change.get("crop_end_counts")).items():
+            cand = [t for t,c in state.items() if c.get("crop")==crop]
+            chosen = select(cand, count, lambda t:(state[t].get("planted_day",0),t), day, "end "+crop)
+            for t in chosen:
+                age=day-state[t].get("planted_day",0)
+                if age < FIRST[crop]:
+                    warnings.append({"day":day,"kind":"immature_end","crop":crop,"age":age,"tile":t})
+                out["harv_tiles"][day].append(t)
+                clear_crop(t)
+        for crop, count in _counts(change.get("first_harvest_counts")).items():
+            cand = [t for t,c in state.items() if c.get("crop")==crop and not c.get("first_harvest_done")]
+            chosen = select(cand, count, lambda t:(state[t].get("planted_day",0),t), day, "first harvest "+crop)
+            for t in chosen:
+                state[t]["first_harvest_done"]=True
+                out["harv_tiles"][day].append(t)
+        for kind, count in _counts(change.get("remove_structure_counts")).items():
+            cand=[t for t,c in state.items() if c.get("kind")==kind and not c.get("animal")]
+            chosen=select(cand,count,lambda t:(-shed_distance(t),t),day,"remove structure "+kind)
+            for t in chosen:
+                state[t]={"released_kind":kind}
+
+        requests=[]
+        for kind,count in sorted(_counts(change.get("build_counts")).items()):
+            requests.extend([{"kind":kind,"category":"structure"} for _ in range(count)])
+        for crop,count in sorted(_counts(change.get("plant_counts")).items()):
+            requests.extend([{"kind":crop,"category":"crop","duration":LIFE[crop]} for _ in range(count)])
+        available=[t for t,c in state.items() if not any(c.get(k) for k in ("crop","animal","kind","locked"))]
+        if len(requests)>len(available):
+            raise ValueError(f"D{day} capacity: {len(requests)} plant/build requests but {len(available)} free tiles")
+        assigned=assign_tiles(day,requests,available,state,cfg) if requests else []
+        assert len(assigned)==len(requests) and len(set(assigned))==len(assigned)
+        for req,t in zip(requests,assigned):
+            if t not in available:
+                raise ValueError("allocator returned occupied tile")
+            if req["category"]=="crop":
+                crop=req["kind"]
+                state[t]={"crop":crop,"planted_day":day}
+                out["plant"][day][str(t)]=crop
+                out["events"].append([day,t,crop])
+            else:
+                state[t]={"kind":req["kind"],"built_day":day}
+        for sp,count in sorted(_counts(change.get("animal_add_counts")).items()):
+            cand=[t for t,c in state.items() if c.get("kind")==STRUCTURE[sp] and not c.get("animal")]
+            chosen=select(cand,count,lambda t:(shed_distance(t),t),day,"place "+sp)
+            for t in chosen:
+                state[t].update(animal=sp,placed_day=day)
+
+        # Escape happens at the evening refresh, after daytime work.
+        exits=[]
+        for sp,count in _counts(change.get("animal_exit_counts")).items():
+            cand=[t for t,c in state.items() if c.get("animal")==sp]
+            chosen=select(cand,count,lambda t:(state[t].get("retiring_since",99),-shed_distance(t),t),day,"exit "+sp)
+            for t in chosen:
+                if state[t].get("retiring_since") != day-1:
+                    warnings.append({"day":day,"tile":t,"kind":"exit_without_two_day_retirement","animal":sp})
+                exits.append({"tile":t,"animal":sp})
+                state[t]={"kind":STRUCTURE[sp],"last_animal":sp}
+        out["struct_by_day"][day]={str(t):c["kind"] for t,c in state.items() if c.get("kind") in ("COOP","PASTURE")}
+        out["animals_by_day"][day]={str(t):c["animal"] for t,c in state.items() if c.get("animal")}
+        out["harv_tiles"][day]=sorted(set(out["harv_tiles"][day]))
+        daily.append({"day":day,"hands":out["hands"][day],"retirements_started":retired_today,"animal_exits":exits,
+                      "end_board":[label(state[t]) for t in range(100)],
+                      "tiles":{str(t):{k:v for k,v in c.items() if not k.startswith("released_")} for t,c in state.items()}})
+    out["planner_metadata"]={"version":"semantic_tiles_20260928","variant":variant,"config":cfg,
+        "source":"coordinate-free counts plus public handoff state","handoff_day":handoff,
+        "warnings":warnings,"daily":daily}
+    return out
+
+
+def main():
+    ap=argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--inputs",default="results/fresh/semantic_tile_20260928/semantic_inputs.json")
+    ap.add_argument("--out")
+    ap.add_argument("--variant",default="cohort")
+    ap.add_argument("--config",default="{}")
+    args=ap.parse_args()
+    src=Path(args.inputs)
+    inp=json.loads(src.read_text(encoding="utf-8"))
+    worlds=inp.get("worlds",inp)
+    plans={}
+    for ep,s in worlds.items():
+        plans[str(ep)]=compile_plan(s,variant=args.variant,config=json.loads(args.config))
+    dst=Path(args.out or f"results/fresh/semantic_tile_20260928/plans/{args.variant}.json")
+    dst.parent.mkdir(parents=True,exist_ok=True)
+    dst.write_text(json.dumps(plans,separators=(",",":")),encoding="utf-8")
+    print(json.dumps({"worlds":len(plans),"path":str(dst),"sha256":hashlib.sha256(dst.read_bytes()).hexdigest(),
+                      "warnings":sum(len(p["planner_metadata"]["warnings"]) for p in plans.values())}))
+
+
+if __name__=="__main__":
+    main()

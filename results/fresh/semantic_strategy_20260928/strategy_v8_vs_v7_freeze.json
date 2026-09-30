@@ -1,0 +1,54 @@
+{
+  "candidate": "strategy_v8_kb115lt2_readiness",
+  "manifest_sha256": "f5133c24fdf845874c4fb3ba66760dfb3fe4eee3ee30a64b07fcc28364c56f5f",
+  "reference_manifest_sha256": "6b155e1e44e370a87fa1197c1cd6076de1f1e016ba4a849bdbbf4b6837ecdb4e",
+  "source_differences": {
+    "results/fresh/semantic_strategy_20260928/executor_recipe_online.json": {
+      "v7": "5152565508925c2180f9282662d08ea5b8112b69772612488aa1ab6d31202b76",
+      "v8": "5af4adb91963b040dab6ce0b521fad21fd979669e5015d4cedec167b8ce3a4cc"
+    },
+    "results/fresh/semantic_strategy_20260928/runtime/agents/mgt_lead_kb115lt.py": {
+      "v7": "2ebe94ece8ef48bf0058e620b5803c11050de7e663a63f4f41522f0758186ee0",
+      "v8": "527d4c48b5d6bbef7854d430797e8691858724242d50eeec1e1636665ee124e7"
+    }
+  },
+  "harness_differences": {},
+  "config_difference": {},
+  "executor_recipe_difference": {
+    "sd_collect_at_floor": {
+      "v7": null,
+      "v8": 1
+    },
+    "sd_polish": {
+      "v7": null,
+      "v8": 3000
+    },
+    "sd_polish_final": {
+      "v7": null,
+      "v8": 1
+    },
+    "sd_polish_xch": {
+      "v7": null,
+      "v8": 0.2
+    },
+    "sd_polish_water_c": {
+      "v7": null,
+      "v8": 20
+    },
+    "sd_tier_dawn_shape": {
+      "v7": "learned",
+      "v8": "learned2"
+    },
+    "sd_tier_anim_harv_frac": {
+      "v7": null,
+      "v8": 0.3
+    }
+  },
+  "sd_days": [
+    6,
+    29
+  ],
+  "pooled_pace_preserved": true,
+  "recovery_enabled": false,
+  "hand_bonus_enabled": false
+}

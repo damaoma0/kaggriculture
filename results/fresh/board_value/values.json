@@ -1,0 +1,122 @@
+{
+  "definition": "Scenario-weighted terminal cash under a specified continuation and opponent policy; not optimal board value",
+  "equal_policy_comparisons": [
+    {
+      "mode": "maintain",
+      "our_value": {
+        "mean": 36152.22222222222,
+        "minimum": 14576.0,
+        "maximum": 53319.0,
+        "n": 9
+      },
+      "router_value": {
+        "mean": 93411.11111111111,
+        "minimum": 62947.0,
+        "maximum": 117898.0,
+        "n": 9
+      }
+    },
+    {
+      "mode": "replant",
+      "our_value": {
+        "mean": 48980.555555555555,
+        "minimum": 25826.0,
+        "maximum": 63341.0,
+        "n": 9
+      },
+      "router_value": {
+        "mean": 101538.0,
+        "minimum": 76281.0,
+        "maximum": 123878.0,
+        "n": 9
+      }
+    },
+    {
+      "mode": "expand",
+      "our_value": {
+        "mean": 47813.666666666664,
+        "minimum": 26275.0,
+        "maximum": 62735.0,
+        "n": 9
+      },
+      "router_value": {
+        "mean": 98999.44444444444,
+        "minimum": 70984.0,
+        "maximum": 118818.0,
+        "n": 9
+      }
+    },
+    {
+      "mode": "native",
+      "our_value": {
+        "mean": 34533.0,
+        "minimum": 24730.0,
+        "maximum": 46860.0,
+        "n": 9
+      },
+      "router_value": {
+        "mean": 159864.0,
+        "minimum": 146546.0,
+        "maximum": 170195.0,
+        "n": 9
+      }
+    }
+  ],
+  "against_native_router": [
+    {
+      "mode": "maintain",
+      "mean": 30498.11111111111,
+      "minimum": 14965.0,
+      "maximum": 52395.0,
+      "n": 9,
+      "mean_margin": -129888.88888888889
+    },
+    {
+      "mode": "replant",
+      "mean": 45966.0,
+      "minimum": 28572.0,
+      "maximum": 62064.0,
+      "n": 9,
+      "mean_margin": -110852.88888888889
+    },
+    {
+      "mode": "expand",
+      "mean": 44219.0,
+      "minimum": 27648.0,
+      "maximum": 62618.0,
+      "n": 9,
+      "mean_margin": -113873.55555555556
+    },
+    {
+      "mode": "native",
+      "mean": 34533.0,
+      "minimum": 24730.0,
+      "maximum": 46860.0,
+      "n": 9,
+      "mean_margin": -125331.0
+    }
+  ],
+  "representative_root": [
+    {
+      "mode": "maintain",
+      "final_cash_mean": [
+        50569.666666666664,
+        112605.66666666667
+      ]
+    },
+    {
+      "mode": "replant",
+      "final_cash_mean": [
+        61960.666666666664,
+        121613.66666666667
+      ]
+    },
+    {
+      "mode": "native",
+      "final_cash_mean": [
+        46640.0,
+        169774.66666666666
+      ]
+    }
+  ]
+}

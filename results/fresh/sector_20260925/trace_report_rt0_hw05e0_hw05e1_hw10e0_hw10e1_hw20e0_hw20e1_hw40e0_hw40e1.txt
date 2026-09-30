@@ -1,0 +1,73 @@
+day 11 from the leader exact morning; worlds with LEADER: 42
+rt0 (1): cash gap to leader -77, margin gap -152
+hw05e0 (1): cash gap to leader -144, margin gap -218 | vs rt0: cash -67, margin -66
+hw05e1 (1): cash gap to leader -144, margin gap -218 | vs rt0: cash -67, margin -66
+hw10e0 (1): cash gap to leader -144, margin gap -218 | vs rt0: cash -67, margin -66
+hw10e1 (1): cash gap to leader -144, margin gap -218 | vs rt0: cash -67, margin -66
+hw20e0 (1): cash gap to leader -181, margin gap -282 | vs rt0: cash -104, margin -130
+hw20e1 (1): cash gap to leader -181, margin gap -282 | vs rt0: cash -104, margin -130
+hw40e0 (1): cash gap to leader -249, margin gap -350 | vs rt0: cash -172, margin -198
+hw40e1 (1): cash gap to leader -249, margin gap -350 | vs rt0: cash -172, margin -198
+
+| arm | coop built / goose placed (worlds) | hands | extra hand-visits (all / patch only) | idle (PASS) | moves / hand | field ops / hand | main-quadrant share | one-quadrant hands | main = spawn | spawn first / second / third / fourth | trips 1 / 2 / 3+ | work-tile gap 1 / 2 / 3 / 4+ (mean) |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---|---|---|
+| LEADER | 39 / 39 of 42 | 11.2 | 19.5 / 7.3 | 1.0 | 9.6 | 12.0 | 92% | 73% | 79% | 2.0 / 4.0 / 3.0 / 2.2 | 74% / 26% / 0% | 85% / 12% / 2% / 1% (1.18) |
+| rt0 | 2 / 2 of 2 | 11.5 | 37.5 / 15.0 | 7.0 | 11.7 | 9.3 | 86% | 52% | 78% | 3.0 / 2.0 / 3.5 / 3.0 | 70% / 30% / 0% | 71% / 22% / 6% / 2% (1.39) |
+| hw05e0 | 2 / 2 of 2 | 11.5 | 33.0 / 13.0 | 9.0 | 10.9 | 10.0 | 87% | 52% | 78% | 3.0 / 2.5 / 3.0 / 3.0 | 65% / 30% / 4% | 82% / 7% / 7% / 4% (1.35) |
+| hw05e1 | 2 / 2 of 2 | 11.5 | 29.5 / 13.5 | 10.0 | 10.5 | 10.2 | 87% | 57% | 78% | 3.0 / 2.5 / 3.0 / 3.0 | 70% / 26% / 4% | 75% / 15% / 7% / 3% (1.38) |
+| hw10e0 | 2 / 2 of 2 | 11.5 | 27.0 / 10.0 | 7.5 | 10.3 | 10.8 | 90% | 61% | 70% | 3.0 / 3.0 / 3.0 / 2.5 | 65% / 30% / 4% | 86% / 9% / 4% / 2% (1.21) |
+| hw10e1 | 2 / 2 of 2 | 11.5 | 27.0 / 10.0 | 7.5 | 10.3 | 10.8 | 90% | 61% | 70% | 3.0 / 3.0 / 3.0 / 2.5 | 65% / 30% / 4% | 86% / 9% / 4% / 2% (1.21) |
+| hw20e0 | 1 / 1 of 2 | 11.5 | 27.5 / 11.5 | 7.5 | 10.7 | 10.4 | 92% | 65% | 70% | 3.0 / 3.0 / 3.0 / 2.5 | 74% / 22% / 4% | 77% / 21% / 2% / 0% (1.25) |
+| hw20e1 | 1 / 1 of 2 | 11.5 | 27.0 / 11.0 | 6.5 | 10.5 | 10.7 | 94% | 61% | 74% | 3.0 / 3.0 / 3.0 / 2.5 | 74% / 26% / 0% | 88% / 12% / 0% / 0% (1.12) |
+| hw40e0 | 1 / 1 of 2 | 11.5 | 32.5 / 13.0 | 9.0 | 11.0 | 10.2 | 86% | 52% | 78% | 3.0 / 2.5 / 3.0 / 3.0 | 78% / 22% / 0% | 82% / 5% / 7% / 5% (1.36) |
+| hw40e1 | 1 / 1 of 2 | 11.5 | 30.0 / 10.0 | 8.0 | 11.0 | 10.2 | 86% | 48% | 74% | 3.0 / 2.5 / 3.0 / 3.0 | 74% / 26% / 0% | 80% / 5% / 9% / 5% (1.40) |
+
+LEADER: moves per hand-day outward / inward / sideways 7.0 / 1.6 / 0.4; reversals per hand-day 1.44, hands never reversing 26%
+LEADER: hires on day 11 11.2 a world, wages 259
+LEADER: goose placed on day 11 in 39 of 42 worlds (hours [(13, 1), (14, 38)]); G1 worlds: 11 of 11 (hours [(14, 11)])
+LEADER: melons, all worlds: median hour 6, harvested by 8 AM 75% (167 harvests), melons in hand at 23h 5.7 a world; G1 worlds: median hour 6.0, harvested by 8 AM 75% (44 harvests), melons in hand at 23h 6.0 a world
+rt0: moves per hand-day outward / inward / sideways 7.8 / 3.2 / 0.7; reversals per hand-day 3.74, hands never reversing 0%
+rt0: hires on day 11 11.5 a world, wages 304
+rt0: goose placed on day 11 in 2 of 2 worlds (hours [(23, 2)]); G1 worlds: 2 of 2 (hours [(23, 2)])
+rt0: melons, all worlds: median hour 8.0, harvested by 8 AM 38% (8 harvests), melons in hand at 23h 3.0 a world; G1 worlds: median hour 8.0, harvested by 8 AM 38% (8 harvests), melons in hand at 23h 3.0 a world
+rt0: planner 48 steps in 2 worlds, time-capped 0, evals 8,089 a step, plan ms median 56.8 / p99 188.83 / max 188.83; caps {'sd_evals0': 24000, 'sd_evals': 8000, 'sd_budget0': 2.0, 'sd_budget': 1.0, 'sd_step_cap': 3.0}; hard jobs left unplanned, summed over steps 20
+hw05e0: moves per hand-day outward / inward / sideways 7.2 / 2.8 / 0.8; reversals per hand-day 2.96, hands never reversing 0%
+hw05e0: hires on day 11 11.5 a world, wages 304
+hw05e0: goose placed on day 11 in 2 of 2 worlds (hours [(13, 1), (16, 1)]); G1 worlds: 2 of 2 (hours [(13, 1), (16, 1)])
+hw05e0: melons, all worlds: median hour 8, harvested by 8 AM 43% (7 harvests), melons in hand at 23h 0.0 a world; G1 worlds: median hour 8, harvested by 8 AM 43% (7 harvests), melons in hand at 23h 0.0 a world
+hw05e0: planner 48 steps in 2 worlds, time-capped 0, evals 8,530 a step, plan ms median 56.08 / p99 201.49 / max 201.49; caps {'sd_evals0': 24000, 'sd_evals': 8000, 'sd_budget0': 2.0, 'sd_budget': 1.0, 'sd_step_cap': 3.0}; hard jobs left unplanned, summed over steps 15
+hw05e1: moves per hand-day outward / inward / sideways 7.2 / 2.5 / 0.8; reversals per hand-day 2.22, hands never reversing 0%
+hw05e1: hires on day 11 11.5 a world, wages 304
+hw05e1: goose placed on day 11 in 2 of 2 worlds (hours [(13, 1), (16, 1)]); G1 worlds: 2 of 2 (hours [(13, 1), (16, 1)])
+hw05e1: melons, all worlds: median hour 8.5, harvested by 8 AM 38% (8 harvests), melons in hand at 23h 0.0 a world; G1 worlds: median hour 8.5, harvested by 8 AM 38% (8 harvests), melons in hand at 23h 0.0 a world
+hw05e1: planner 48 steps in 2 worlds, time-capped 0, evals 8,287 a step, plan ms median 54.51 / p99 197.26 / max 197.26; caps {'sd_evals0': 24000, 'sd_evals': 8000, 'sd_budget0': 2.0, 'sd_budget': 1.0, 'sd_step_cap': 3.0}; hard jobs left unplanned, summed over steps 0
+hw10e0: moves per hand-day outward / inward / sideways 6.7 / 2.9 / 0.7; reversals per hand-day 1.96, hands never reversing 13%
+hw10e0: hires on day 11 11.5 a world, wages 304
+hw10e0: goose placed on day 11 in 2 of 2 worlds (hours [(23, 2)]); G1 worlds: 2 of 2 (hours [(23, 2)])
+hw10e0: melons, all worlds: median hour 8.0, harvested by 8 AM 25% (8 harvests), melons in hand at 23h 3.0 a world; G1 worlds: median hour 8.0, harvested by 8 AM 25% (8 harvests), melons in hand at 23h 3.0 a world
+hw10e0: planner 48 steps in 2 worlds, time-capped 0, evals 8,303 a step, plan ms median 53.98 / p99 210.13 / max 210.13; caps {'sd_evals0': 24000, 'sd_evals': 8000, 'sd_budget0': 2.0, 'sd_budget': 1.0, 'sd_step_cap': 3.0}; hard jobs left unplanned, summed over steps 0
+hw10e1: moves per hand-day outward / inward / sideways 6.7 / 2.9 / 0.7; reversals per hand-day 1.96, hands never reversing 13%
+hw10e1: hires on day 11 11.5 a world, wages 304
+hw10e1: goose placed on day 11 in 2 of 2 worlds (hours [(23, 2)]); G1 worlds: 2 of 2 (hours [(23, 2)])
+hw10e1: melons, all worlds: median hour 8.0, harvested by 8 AM 25% (8 harvests), melons in hand at 23h 3.0 a world; G1 worlds: median hour 8.0, harvested by 8 AM 25% (8 harvests), melons in hand at 23h 3.0 a world
+hw10e1: planner 48 steps in 2 worlds, time-capped 0, evals 8,303 a step, plan ms median 53.87 / p99 202.12 / max 202.12; caps {'sd_evals0': 24000, 'sd_evals': 8000, 'sd_budget0': 2.0, 'sd_budget': 1.0, 'sd_step_cap': 3.0}; hard jobs left unplanned, summed over steps 0
+hw20e0: moves per hand-day outward / inward / sideways 7.1 / 3.0 / 0.6; reversals per hand-day 3.04, hands never reversing 0%
+hw20e0: hires on day 11 11.5 a world, wages 304
+hw20e0: goose placed on day 11 in 1 of 2 worlds (hours [(20, 1)]); G1 worlds: 1 of 2 (hours [(20, 1)])
+hw20e0: melons, all worlds: median hour 9, harvested by 8 AM 29% (7 harvests), melons in hand at 23h 3.0 a world; G1 worlds: median hour 9, harvested by 8 AM 29% (7 harvests), melons in hand at 23h 3.0 a world
+hw20e0: planner 48 steps in 2 worlds, time-capped 0, evals 8,074 a step, plan ms median 52.45 / p99 209.95 / max 209.95; caps {'sd_evals0': 24000, 'sd_evals': 8000, 'sd_budget0': 2.0, 'sd_budget': 1.0, 'sd_step_cap': 3.0}; hard jobs left unplanned, summed over steps 13
+hw20e1: moves per hand-day outward / inward / sideways 6.9 / 2.9 / 0.6; reversals per hand-day 2.91, hands never reversing 0%
+hw20e1: hires on day 11 11.5 a world, wages 304
+hw20e1: goose placed on day 11 in 1 of 2 worlds (hours [(20, 1)]); G1 worlds: 1 of 2 (hours [(20, 1)])
+hw20e1: melons, all worlds: median hour 9, harvested by 8 AM 29% (7 harvests), melons in hand at 23h 3.0 a world; G1 worlds: median hour 9, harvested by 8 AM 29% (7 harvests), melons in hand at 23h 3.0 a world
+hw20e1: planner 48 steps in 2 worlds, time-capped 0, evals 8,160 a step, plan ms median 51.96 / p99 199.61 / max 199.61; caps {'sd_evals0': 24000, 'sd_evals': 8000, 'sd_budget0': 2.0, 'sd_budget': 1.0, 'sd_step_cap': 3.0}; hard jobs left unplanned, summed over steps 5
+hw40e0: moves per hand-day outward / inward / sideways 6.8 / 3.3 / 0.8; reversals per hand-day 3.04, hands never reversing 0%
+hw40e0: hires on day 11 11.5 a world, wages 304
+hw40e0: goose placed on day 11 in 1 of 2 worlds (hours [(21, 1)]); G1 worlds: 1 of 2 (hours [(21, 1)])
+hw40e0: melons, all worlds: median hour 13.0, harvested by 8 AM 25% (8 harvests), melons in hand at 23h 12.0 a world; G1 worlds: median hour 13.0, harvested by 8 AM 25% (8 harvests), melons in hand at 23h 12.0 a world
+hw40e0: planner 48 steps in 2 worlds, time-capped 0, evals 8,428 a step, plan ms median 52.4 / p99 199.66 / max 199.66; caps {'sd_evals0': 24000, 'sd_evals': 8000, 'sd_budget0': 2.0, 'sd_budget': 1.0, 'sd_step_cap': 3.0}; hard jobs left unplanned, summed over steps 3
+hw40e1: moves per hand-day outward / inward / sideways 6.7 / 3.3 / 0.9; reversals per hand-day 3.35, hands never reversing 0%
+hw40e1: hires on day 11 11.5 a world, wages 304
+hw40e1: goose placed on day 11 in 1 of 2 worlds (hours [(21, 1)]); G1 worlds: 1 of 2 (hours [(21, 1)])
+hw40e1: melons, all worlds: median hour 13.0, harvested by 8 AM 25% (8 harvests), melons in hand at 23h 12.0 a world; G1 worlds: median hour 13.0, harvested by 8 AM 25% (8 harvests), melons in hand at 23h 12.0 a world
+hw40e1: planner 48 steps in 2 worlds, time-capped 0, evals 8,439 a step, plan ms median 55.18 / p99 196.53 / max 196.53; caps {'sd_evals0': 24000, 'sd_evals': 8000, 'sd_budget0': 2.0, 'sd_budget': 1.0, 'sd_step_cap': 3.0}; hard jobs left unplanned, summed over steps 7

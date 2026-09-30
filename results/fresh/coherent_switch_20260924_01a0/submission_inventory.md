@@ -1,0 +1,29 @@
+# Submission inventory (read-only)
+
+## Competition and limits
+
+- Competition slug: `kaggriculture` (official page: https://www.kaggle.com/competitions/kaggriculture).
+- Official competition overview says a submission has a `main.py` at archive root; one-file agents upload directly, multi-file agents upload a `.tar.gz`. Each agent exposes `agent(obs)`.
+- Official current overview lists 100 MiB max upload, five submissions per day, and only the latest two submissions remain active and count for final evaluation. Upload runs a validation self-play; failed validation marks it Error and logs can be downloaded.
+- Kaggriculture engine config/docs in the repo: `episodeSteps=720`, `actTimeout=1s`; actual local Kaggle engine checks documented in `docs/tape_cloud_speed_20260923.md` confirmed `remainingOverageTime=60s` and `runTimeout=1200s`. Competition resource page lists 6.5 GiB RAM, 1.6 vCPU, and 8 GiB disk. Competition deadline is 2026-09-30 23:59 UTC; entry/rules acceptance deadline was Sep 23.
+- Sources: [official Kaggle overview and submission instructions](https://www.kaggle.com/competitions/kaggriculture/overview/citation), [official Kaggle engine configuration](https://github.com/Kaggle/kaggle-environments/blob/master/kaggle_environments/envs/kaggriculture/kaggriculture.json), local `docs/environment.md` and `docs/tape_cloud_speed_20260923.md`.
+
+## Local packaging and verification workflow
+
+1. Single-file builds use an agent source as `main.py`; the production record uses `submissions/2026-09-20-mgt_m1/main.py`. Historical metadata is in `submissions/<dated-name>/submission.json` and records competition, ID, submitted time, uploaded file, source SHA, and selection rationale.
+2. Multi-file packaging is done by a builder such as `scripts/package_v9y3.py <out_dir>`. It writes `<out_dir>/pkg/` with `main.py` at root, `submission.tar.gz`, and `MANIFEST.json` (per-file SHA-256 and archive SHA-256). The official upload command is `kaggle competitions submit kaggriculture -f <main.py-or-submission.tar.gz> -m "<message>"`.
+3. Local checks before upload: `scripts/test_package_isolated.py <submission.tar.gz-or-unpacked-dir> <opponent.py> <out.json> [seeds] [--gunzip]` runs from an empty working directory through Kaggle's file loader. For a single-file candidate, `scripts/kaggle_load_check.py <out.json> <agent.py> <opponent.py> [seeds]` exercises the loader and actual overage accounting. Relevant limits are one second per action plus a 60-second cumulative overage bank.
+4. Post-upload: `kaggle competitions submissions kaggriculture` to inspect status/ID; `kaggle competitions episodes <submission_id>` and `kaggle competitions logs <episode_id> <seat>` to inspect validation/game outcomes. The Kaggle overview documents these CLI commands.
+5. Existing local convention is explicit approval before submitting: candidate NOTES say “NOT SUBMITTED” / awaiting approval; approved submissions have a `submission.json` with uploaded-file path, SHA, ID, timestamp, status, and notes about which older slot is displaced. Kaggle retains only two active submissions, so a new upload changes the final-evaluation pair.
+
+## Existing submissions and strongest local saved candidates
+
+- Production control: `agents/mgt_m1.py`, expected SHA-256 `1152ef2e12c4535dbc381b9c54ac7d7a0b1a9ad3d0a8018a7567dcf5c4a52470` (user supplied; existing local record agrees). `submissions/2026-09-20-mgt_m1/submission.json` records Kaggle submission 56395605, uploaded `submissions/2026-09-20-mgt_m1/main.py` on Sep 20. Its local approval note says it replaced older submission 56341683 and at that time retained mgt_t10 56368334 as the other active slot.
+- Other approved historical slot: mgt_t10 submission 56368334, source SHA `14f4def11f5108103a913ef347a83f28214a01ba7363df28fd71627d66b68e2c`, uploaded Sep 19. These IDs/statuses are local historical metadata, not a live account read.
+- Strongest previously packaged *unsubmitted* candidate found: `mgt_v9y3` (`submissions/2026-09-24-mgt_v9y3/`). Its NOTES report an 8.88 MB / 184-file package, isolated file-loader and decompressed-library checks, and full games; on a 185-game p2750 frozen panel its packaged budgeted build scored +164 vs mgt_y3 (+38..+323) and +470 vs mgt_m1. At one game per 4-vCPU machine it matched the unbudgeted V9 result (+472 vs y3). NOTES explicitly state NOT SUBMITTED. This is historical saved evidence and not necessarily the current best after today's opening study.
+- Current coherent-opening qualification (`results/fresh/coherent_opening_20260924_01a0/qualification_v5_audit.md`) compared baseline/mgt_m1 with latest, semantic_inputs, semantic_bank on 32 worlds x two opponents. Baseline mean own cash was $108,959; semantic_inputs $104,333 (paired mean difference -$4,626 vs baseline; 95% world-bootstrap CI -$9,006 to -$709), semantic_bank $103,724 (difference -$5,235; CI -$9,634 to -$1,312); latest $90,033. Thus those particular opening candidates do not beat the production control on this qualification panel. No `coherent_switch_20260924_01a0` build/package exists yet at inventory time.
+
+## Account and authorization availability
+
+- Local Kaggle Python client is installed (2.2.4). This host has no `KAGGLE_USERNAME`, `KAGGLE_KEY`, or `KAGGLE_CONFIG_DIR` environment variables, and the default `.kaggle/kaggle.json` credential file is absent. I therefore did not attempt an account-scoped Kaggle API read; no secrets were accessed or printed. Recent live submission status, currently active pair, remaining daily quota, and whether the local environment still has a valid account token are unverified.
+- Previous successful submissions strongly imply the team joined/accepted rules before the entry cutoff. If uploading from this host, configure an approved Kaggle credential or sign in through Kaggle; verify the current submissions page first because only two submissions stay active. No upload/activation was attempted.

@@ -1,0 +1,50 @@
+{
+ "thread": "sem4 (2026-09-25): leader semantic plans, four-quadrant leader worlds; amended with exact removals (arm T) and removal counts (arms S / S0)",
+ "cwd": "C:/Users/xyygl/Documents/kaggriculture (Git Bash: /c/Users/xyygl/Documents/kaggriculture)",
+ "env_every_remote_command": "KGR_DATASET=yiyangxudmm/kaggriculture-panel-bundle-sem4 KGR_STAGE=results/fresh/kaggle_remote_sem4",
+ "max_concurrent_kernels": 2,
+ "arms": {
+  "LEADER": "the leader's own tape actions (must reproduce its recorded cash)",
+  "T0": "agents/mgt_lead_semT.py (byte copy of agents/mgt_lead.py, sha a1cd70e6) + EXEC_CFG (p1_min_value 30, release_stale_d true, fert_hold 1): leader tiles, no removal of live plants",
+  "T": "agents/mgt_lead_exact.py (mgt_lead.py + exact_removals, default on) + EXEC_CFG: the leader's DIGs of plants issued on our cohort tile, harvest first",
+  "S": "agents/mgt_lead_sem.py + EXEC_CFG: counts and timing incl. removal counts (oldest live plants first), our care-order tiles",
+  "S0": "agents/mgt_lead_sem0.py + EXEC_CFG: the same with the deploy's nearest-centre tiles",
+  "D": "agents/mgt_lead_semDx.py = deploy at 3f9798f with tie_value 0 (its only default-on option mgt_lead.py lacks; hire_demand / maint_goal default off): same executor settings as the other arms; this episode excluded from retrieval",
+  "Dp": "'D+': agents/mgt_lead_semDp.py = deploy at 3f9798f as is (tie_value 1), reference only",
+  "optional": "D4 = D with land_max 3 (may buy the fourth quadrant; D never buys SE), Snr = S without removal counts"
+ },
+ "steps": [
+  {"name": "0 bundle (once; re-run only if an agent / script changes)",
+   "bash": "KGR_DATASET=yiyangxudmm/kaggriculture-panel-bundle-sem4 KGR_STAGE=results/fresh/kaggle_remote_sem4 KGR_EXTRA=data/leader_semantics,data/leader_tapes,results/fresh/lead_sem4_20260925/worlds.json .venv/Scripts/python.exe scripts/kaggle_remote/remote_panel.py bundle mgt_lead mgt_lead_semT mgt_lead_exact mgt_lead_sem mgt_lead_sem0 mgt_lead_semDx mgt_lead_semDp",
+   "then": ".venv/Scripts/kaggle.exe datasets status yiyangxudmm/kaggriculture-panel-bundle-sem4   (repeat until the last line is 'ready')"},
+  {"name": "1 reproduction + control + engine smoke (ONE kernel, 12 arms x 2 games = 24 games)",
+   "bash": "KGR_DATASET=yiyangxudmm/kaggriculture-panel-bundle-sem4 KGR_STAGE=results/fresh/kaggle_remote_sem4 .venv/Scripts/python.exe scripts/kaggle_remote/remote_panel.py pushcmd sem4r \"scripts/lead_sem4.py run --arms T0r,T0Lr,T0ffr,Tc0r,Tc,T0,T,S,S0,D,Dp,LEADER --games 16732748:112655730,16770421:112714050 --suffix _r --workers 4\" \"results/fresh/lead_sem4_20260925/*/*.json,results/fresh/lead_sem4_20260925/manifest_*.json\"",
+   "poll": "KGR_DATASET=yiyangxudmm/kaggriculture-panel-bundle-sem4 KGR_STAGE=results/fresh/kaggle_remote_sem4 .venv/Scripts/python.exe scripts/kaggle_remote/remote_panel.py status sem4r   (every ~3 min until complete / error)",
+   "fetch": "KGR_DATASET=yiyangxudmm/kaggriculture-panel-bundle-sem4 KGR_STAGE=results/fresh/kaggle_remote_sem4 .venv/Scripts/python.exe scripts/kaggle_remote/remote_panel.py fetchcmd sem4r",
+   "check": ".venv/Scripts/python.exe scripts/lead_sem4.py repro _r   -> must print REPRODUCTION PASS (do not start step 2 otherwise)",
+   "expected": {
+    "T0r_r, T0Lr_r (mgt_lead.py own defaults) and Tc0r_r (mgt_lead_exact.py, exact_removals false) = results/fresh/lead_agent_20260924/abl_Gbase2_remote": {"112655730": [79844, 106718], "112714050": [65932, 68277]},
+    "T0ffr_r (mgt_lead.py + fert_hold 1) = abl_Gff1_remote": {"112655730": [78240, 107680], "112714050": [62859, 70009]},
+    "D_r (deploy 3f9798f, tie_value 0) = abl_E2ff1_remote (deploy before tie_value)": {"112655730": [80595, 103951], "112714050": [64539, 75096], "retrieval_leak": false},
+    "Dp_r (deploy 3f9798f as is) = abl_E2dep8_remote (= abl_E2_tievalff)": {"112655730": [82345, 105734], "112714050": [66013, 76080], "retrieval_leak": false},
+    "LEADER_r = recorded rewards": {"112655730": [97066, 92826], "112714050": [73589, 76344]},
+    "control pairs": "Tc_r == T0_r and Tc0r_r == T0r_r: final, opponent and all 30 day-start cash values identical",
+    "T_r, S_r, S0_r": "a result file per game with every status DONE (engine smoke of the removal code); repro prints their dug-live counts and rm_* agent log"}},
+  {"name": "2 main arms over the 48 worlds (TWO kernels at once, 7 arms x 24 worlds = 168 games each)",
+   "bash_a": "KGR_DATASET=yiyangxudmm/kaggriculture-panel-bundle-sem4 KGR_STAGE=results/fresh/kaggle_remote_sem4 .venv/Scripts/python.exe scripts/kaggle_remote/remote_panel.py pushcmd sem4a \"scripts/lead_sem4.py run --arms LEADER,T0,T,S,S0,D,Dp --worlds results/fresh/lead_sem4_20260925/worlds.json --shard 0/2 --workers 4\" \"results/fresh/lead_sem4_20260925/*/*.json,results/fresh/lead_sem4_20260925/manifest_*.json\"",
+   "bash_b": "KGR_DATASET=yiyangxudmm/kaggriculture-panel-bundle-sem4 KGR_STAGE=results/fresh/kaggle_remote_sem4 .venv/Scripts/python.exe scripts/kaggle_remote/remote_panel.py pushcmd sem4b \"scripts/lead_sem4.py run --arms LEADER,T0,T,S,S0,D,Dp --worlds results/fresh/lead_sem4_20260925/worlds.json --shard 1/2 --workers 4\" \"results/fresh/lead_sem4_20260925/*/*.json,results/fresh/lead_sem4_20260925/manifest_*.json\"",
+   "poll_powershell": "$env:KGR_DATASET='yiyangxudmm/kaggriculture-panel-bundle-sem4'; $env:KGR_STAGE='results/fresh/kaggle_remote_sem4'; for ($i=0; $i -lt 3; $i++) { .venv/Scripts/python.exe scripts/kaggle_remote/remote_panel.py status sem4a; .venv/Scripts/python.exe scripts/kaggle_remote/remote_panel.py status sem4b; Start-Sleep -Seconds 180 }",
+   "fetch": "fetchcmd sem4a; fetchcmd sem4b (same env prefix)",
+   "report": ".venv/Scripts/python.exe scripts/lead_sem4.py report   -> results/fresh/lead_sem4_20260925/report.md (gap to leader per arm with 95% CI and n, all / clean worlds; T-T0 (exact removals), S-T, S-S0, S0-T, D-S, D+-D; team means; removals table; per quadrant; work ledger; per world)"},
+  {"name": "3 optional (after step 2, when a session is free): D4 and Snr over the 48 worlds (96 games, one kernel)",
+   "bash": "KGR_DATASET=yiyangxudmm/kaggriculture-panel-bundle-sem4 KGR_STAGE=results/fresh/kaggle_remote_sem4 .venv/Scripts/python.exe scripts/kaggle_remote/remote_panel.py pushcmd sem4c \"scripts/lead_sem4.py run --arms D4,Snr --worlds results/fresh/lead_sem4_20260925/worlds.json --workers 4\" \"results/fresh/lead_sem4_20260925/*/*.json,results/fresh/lead_sem4_20260925/manifest_*.json\"",
+   "report": "lead_sem4.py report picks up D4 / Snr automatically (pairs D4-D, S-Snr)"}
+ ],
+ "notes": [
+  "push errors 'Maximum batch CPU session count of 5 reached' = the shared account is full: wait and retry, never exceed 2 sem4 kernels",
+  "expected wall: ~23 s per game per worker on Kaggle's 4 CPUs (G1 history) -> ~3 min for step 1, ~17 min per 168-game kernel in step 2, + ~75 s pip each",
+  "fetchcmd copies only files missing locally: before re-fetching a re-run, delete the local results/fresh/lead_sem4_20260925/<arm><suffix>/ directories it replaces",
+  "no local games: lead_sem4.py run refuses off Kaggle unless --force-local, one game, >= 3 GB free",
+  "agents/mgt_lead_deploy.py is being edited by another thread (uncommitted cap_fix option at build time, default off): D / D+ use the committed 3f9798f version (agents/mgt_lead_semDx.py / agents/mgt_lead_semDp.py)"
+ ]
+}

@@ -1,0 +1,498 @@
+{
+  "decisions": 54,
+  "admission_and_selection_equal": true,
+  "reference_turns": 593660,
+  "simulated_turns": 437348,
+  "turn_reduction_fraction": 0.2633022268638615,
+  "pruned_candidates": 126,
+  "evidence": "Recorded full-forecast fixtures; selection equivalence and deterministic simulation work count, not new live-game or wall-clock evidence.",
+  "planner_sha256": "c18055517f29e16ddfd5c5b05dcffdebda3547b1e44a431f1a0087878aedeab6",
+  "records": [
+    {
+      "id": "0-v56",
+      "day": 12,
+      "selected": null,
+      "reference_turns": 12068,
+      "simulated_turns": 10416,
+      "rollouts": 25,
+      "pruned_rollouts": 1
+    },
+    {
+      "id": "0-v56",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 14360,
+      "simulated_turns": 11632,
+      "rollouts": 34,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "0-v56",
+      "day": 18,
+      "selected": 197,
+      "reference_turns": 11480,
+      "simulated_turns": 9328,
+      "rollouts": 34,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "1-v56",
+      "day": 12,
+      "selected": 38,
+      "reference_turns": 17240,
+      "simulated_turns": 17240,
+      "rollouts": 40,
+      "pruned_rollouts": 0
+    },
+    {
+      "id": "1-v56",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 12924,
+      "simulated_turns": 7468,
+      "rollouts": 24,
+      "pruned_rollouts": 4
+    },
+    {
+      "id": "1-v56",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 5740,
+      "simulated_turns": 2512,
+      "rollouts": 11,
+      "pruned_rollouts": 3
+    },
+    {
+      "id": "2-v56",
+      "day": 12,
+      "selected": null,
+      "reference_turns": 12068,
+      "simulated_turns": 10416,
+      "rollouts": 25,
+      "pruned_rollouts": 1
+    },
+    {
+      "id": "2-v56",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 10052,
+      "simulated_turns": 7324,
+      "rollouts": 22,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "2-v56",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 8036,
+      "simulated_turns": 3732,
+      "rollouts": 16,
+      "pruned_rollouts": 4
+    },
+    {
+      "id": "3-v56",
+      "day": 12,
+      "selected": 47,
+      "reference_turns": 17240,
+      "simulated_turns": 12284,
+      "rollouts": 31,
+      "pruned_rollouts": 3
+    },
+    {
+      "id": "3-v56",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 5744,
+      "simulated_turns": 4380,
+      "rollouts": 13,
+      "pruned_rollouts": 1
+    },
+    {
+      "id": "3-v56",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 6888,
+      "simulated_turns": 2584,
+      "rollouts": 12,
+      "pruned_rollouts": 4
+    },
+    {
+      "id": "4-v56",
+      "day": 12,
+      "selected": null,
+      "reference_turns": 12068,
+      "simulated_turns": 12068,
+      "rollouts": 28,
+      "pruned_rollouts": 0
+    },
+    {
+      "id": "4-v56",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 10052,
+      "simulated_turns": 7324,
+      "rollouts": 22,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "4-v56",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 8036,
+      "simulated_turns": 2656,
+      "rollouts": 13,
+      "pruned_rollouts": 5
+    },
+    {
+      "id": "5-v56",
+      "day": 12,
+      "selected": null,
+      "reference_turns": 12068,
+      "simulated_turns": 12068,
+      "rollouts": 28,
+      "pruned_rollouts": 0
+    },
+    {
+      "id": "5-v56",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 12924,
+      "simulated_turns": 10196,
+      "rollouts": 30,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "5-v56",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 8036,
+      "simulated_turns": 2656,
+      "rollouts": 13,
+      "pruned_rollouts": 5
+    },
+    {
+      "id": "0-sixday",
+      "day": 12,
+      "selected": null,
+      "reference_turns": 12068,
+      "simulated_turns": 10416,
+      "rollouts": 25,
+      "pruned_rollouts": 1
+    },
+    {
+      "id": "0-sixday",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 14360,
+      "simulated_turns": 11632,
+      "rollouts": 34,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "0-sixday",
+      "day": 18,
+      "selected": 197,
+      "reference_turns": 11480,
+      "simulated_turns": 9328,
+      "rollouts": 34,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "1-sixday",
+      "day": 12,
+      "selected": 38,
+      "reference_turns": 17240,
+      "simulated_turns": 17240,
+      "rollouts": 40,
+      "pruned_rollouts": 0
+    },
+    {
+      "id": "1-sixday",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 12924,
+      "simulated_turns": 7468,
+      "rollouts": 24,
+      "pruned_rollouts": 4
+    },
+    {
+      "id": "1-sixday",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 5740,
+      "simulated_turns": 2512,
+      "rollouts": 11,
+      "pruned_rollouts": 3
+    },
+    {
+      "id": "2-sixday",
+      "day": 12,
+      "selected": null,
+      "reference_turns": 12068,
+      "simulated_turns": 10416,
+      "rollouts": 25,
+      "pruned_rollouts": 1
+    },
+    {
+      "id": "2-sixday",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 10052,
+      "simulated_turns": 7324,
+      "rollouts": 22,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "2-sixday",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 8036,
+      "simulated_turns": 3732,
+      "rollouts": 16,
+      "pruned_rollouts": 4
+    },
+    {
+      "id": "3-sixday",
+      "day": 12,
+      "selected": 47,
+      "reference_turns": 17240,
+      "simulated_turns": 12284,
+      "rollouts": 31,
+      "pruned_rollouts": 3
+    },
+    {
+      "id": "3-sixday",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 5744,
+      "simulated_turns": 4380,
+      "rollouts": 13,
+      "pruned_rollouts": 1
+    },
+    {
+      "id": "3-sixday",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 6888,
+      "simulated_turns": 2584,
+      "rollouts": 12,
+      "pruned_rollouts": 4
+    },
+    {
+      "id": "4-sixday",
+      "day": 12,
+      "selected": null,
+      "reference_turns": 12068,
+      "simulated_turns": 12068,
+      "rollouts": 28,
+      "pruned_rollouts": 0
+    },
+    {
+      "id": "4-sixday",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 10052,
+      "simulated_turns": 7324,
+      "rollouts": 22,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "4-sixday",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 8036,
+      "simulated_turns": 2656,
+      "rollouts": 13,
+      "pruned_rollouts": 5
+    },
+    {
+      "id": "5-sixday",
+      "day": 12,
+      "selected": null,
+      "reference_turns": 15516,
+      "simulated_turns": 15516,
+      "rollouts": 36,
+      "pruned_rollouts": 0
+    },
+    {
+      "id": "5-sixday",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 12924,
+      "simulated_turns": 10196,
+      "rollouts": 30,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "5-sixday",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 8036,
+      "simulated_turns": 2656,
+      "rollouts": 13,
+      "pruned_rollouts": 5
+    },
+    {
+      "id": "0-pasture",
+      "day": 12,
+      "selected": null,
+      "reference_turns": 12068,
+      "simulated_turns": 10416,
+      "rollouts": 25,
+      "pruned_rollouts": 1
+    },
+    {
+      "id": "0-pasture",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 10052,
+      "simulated_turns": 7324,
+      "rollouts": 22,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "0-pasture",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 10332,
+      "simulated_turns": 8180,
+      "rollouts": 30,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "1-pasture",
+      "day": 12,
+      "selected": 38,
+      "reference_turns": 17240,
+      "simulated_turns": 17240,
+      "rollouts": 40,
+      "pruned_rollouts": 0
+    },
+    {
+      "id": "1-pasture",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 12924,
+      "simulated_turns": 7468,
+      "rollouts": 24,
+      "pruned_rollouts": 4
+    },
+    {
+      "id": "1-pasture",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 5740,
+      "simulated_turns": 2512,
+      "rollouts": 11,
+      "pruned_rollouts": 3
+    },
+    {
+      "id": "2-pasture",
+      "day": 12,
+      "selected": null,
+      "reference_turns": 12068,
+      "simulated_turns": 10416,
+      "rollouts": 25,
+      "pruned_rollouts": 1
+    },
+    {
+      "id": "2-pasture",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 10052,
+      "simulated_turns": 7324,
+      "rollouts": 22,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "2-pasture",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 8036,
+      "simulated_turns": 3732,
+      "rollouts": 16,
+      "pruned_rollouts": 4
+    },
+    {
+      "id": "3-pasture",
+      "day": 12,
+      "selected": 47,
+      "reference_turns": 15516,
+      "simulated_turns": 10560,
+      "rollouts": 27,
+      "pruned_rollouts": 3
+    },
+    {
+      "id": "3-pasture",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 8616,
+      "simulated_turns": 3160,
+      "rollouts": 12,
+      "pruned_rollouts": 4
+    },
+    {
+      "id": "3-pasture",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 6888,
+      "simulated_turns": 2584,
+      "rollouts": 12,
+      "pruned_rollouts": 4
+    },
+    {
+      "id": "4-pasture",
+      "day": 12,
+      "selected": null,
+      "reference_turns": 12068,
+      "simulated_turns": 12068,
+      "rollouts": 28,
+      "pruned_rollouts": 0
+    },
+    {
+      "id": "4-pasture",
+      "day": 15,
+      "selected": null,
+      "reference_turns": 10052,
+      "simulated_turns": 7324,
+      "rollouts": 22,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "4-pasture",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 8036,
+      "simulated_turns": 2656,
+      "rollouts": 13,
+      "pruned_rollouts": 5
+    },
+    {
+      "id": "5-pasture",
+      "day": 12,
+      "selected": null,
+      "reference_turns": 15516,
+      "simulated_turns": 15516,
+      "rollouts": 36,
+      "pruned_rollouts": 0
+    },
+    {
+      "id": "5-pasture",
+      "day": 15,
+      "selected": 23,
+      "reference_turns": 12924,
+      "simulated_turns": 10196,
+      "rollouts": 30,
+      "pruned_rollouts": 2
+    },
+    {
+      "id": "5-pasture",
+      "day": 18,
+      "selected": null,
+      "reference_turns": 8036,
+      "simulated_turns": 2656,
+      "rollouts": 13,
+      "pruned_rollouts": 5
+    }
+  ]
+}

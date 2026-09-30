@@ -1,0 +1,24 @@
+{
+  "reference": "strategy_v5_blocks100_finance",
+  "candidate": "strategy_v6_blocks100_recovery",
+  "reference_manifest_sha256": "fcf72e591c1f424a0c576c442087a63534d2d2c8b1c3f9ac146a290260843f2c",
+  "candidate_manifest_sha256": "549d3fa5fcbef01742bcadbbc4fc022741b3ed572dcce075da58ffc1723bbd03",
+  "source_differences": {
+    "agents/semantic_strategy_20260928.py": {
+      "v5": "e12e7b5e5e761ae27f3e757e0503bda98bdec593d957846f77a97753e04ae5be",
+      "current": "b3091b4b2bb40d72b268b980622202934326c814542c96a5175ecc905adfd50f"
+    },
+    "results/fresh/semantic_strategy_20260928/candidate_config.json": {
+      "v5": "2c5cebd9da9211960b1b031ce4b9729ff391270d634adf151bd012287c420699",
+      "current": "29c04e703394776d2c05fb243e8acd7892bd3c6104cad7c2802b2824d7ed2ec7"
+    }
+  },
+  "harness_differences": {},
+  "config_difference": {
+    "reactive_stock_shortfall": {
+      "v5": "absent/off",
+      "v6": true
+    }
+  },
+  "mechanism": "Optional observed-stock recovery D6-10 plus retirement guard on both stock and land reactive transitions; all model/policy/tile sources unchanged."
+}

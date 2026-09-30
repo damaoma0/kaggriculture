@@ -1,0 +1,32 @@
+{
+  "hashes": {
+    "scripts\\semantic_farm\\__init__.py": "f95fdd7530c93f4bc5ee0a436068be28512a64a5e45a7bfd34ba5efdd6b3daed",
+    "scripts\\semantic_farm\\care.py": "4883e2e505e3b5ffe828b4fc91b7cdd1c336e8040dfa8cd9fffac937b612571c",
+    "scripts\\semantic_farm\\common.py": "6b63a2d0bb1db152da4ddacc33ee2eff3e4aa3c3a2691fbd5d74f544b1fe9b16",
+    "scripts\\semantic_farm\\economics.py": "b57e15b208a946e79bbec0c5c5dbbca32e30192632eed8ecb4f3d68bdd2e34ab",
+    "scripts\\semantic_farm\\execution.py": "7e0f11a3c8e297bd4b4bba23f6d371479b55aa2951de706cfd46f2daed3bcbf1",
+    "scripts\\semantic_farm\\layout.py": "9b6f311ae3b439be827e0f5673aed915b4ad6acfdede062ecb7b0e644dbacde6",
+    "scripts\\semantic_farm\\model.py": "b28ca80e846abc5fee087842b240284496cb35d7e941c039ddc15a7e061d7c65",
+    "scripts\\semantic_farm\\policy.py": "fd900e1a093b1b8d3490628ef672d2693ddb5f2dc20c341c1e6bd2858b1623db",
+    "scripts\\semantic_strategy.py": "f45de97c58f8ebfb6c32e5c12accb26bd30618a9e90e7bb589f774970575acac",
+    "scripts\\run_semantic_farm.py": "552f01c624140b454dc22fbcdb5f6810052107ce071c3b4a43ddfaf997eeb44c",
+    "scripts\\cumulative_engine_profiles.py": "a89159fd9a810af514ad1b3fa6d67a61453c17428331ebab9bcb2b1fd2715c86",
+    "data\\semantic_farm\\model.json": "620a890caf36e474459c0ef9c628c4844ff2c0a69241e0824b63d1d3b95ee76d",
+    "data\\kaggriculture.py": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "agents\\semantic_farm_v1.py": "0bf67af57dd0c1ae99a8b12c024392b300bac1446170de2eecc00633bb3e9cd1",
+    "scripts\\fragments\\continuation_executor.py": "09646e1d8a8c09d5351f062213a4306dc9ec08584512c3b5a29b488afaed497a",
+    "scripts\\fragments\\continuation_projection.py": "95642d2ca34fb4f83da6e7f84c0cec0183f2bc2fe033c4fb36713db414a4ab61",
+    "scripts\\fragments\\segment_job_executor_v3.py": "9c33139c077fb5e57e6eab6cff339688c6651363efbc86210839219c7993ff26"
+  },
+  "args": {
+    "out": "results/fresh/semantic_architecture_20260924/integration_v5",
+    "arms": "semantic",
+    "opponent": "pass",
+    "seeds": "924601",
+    "seats": "0",
+    "stop": 168,
+    "panel_limit": 0,
+    "panel_offset": 0
+  },
+  "created": "2026-09-24T15:24:40.224478+00:00"
+}

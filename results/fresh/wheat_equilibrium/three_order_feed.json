@@ -1,0 +1,28 @@
+{
+  "label": "three_order_feed",
+  "strategies": 101,
+  "terminal_inventory_range": [
+    5,
+    5
+  ],
+  "support": [
+    {
+      "index": 0,
+      "orders": [
+        5
+      ],
+      "probability": 1.0
+    }
+  ],
+  "value": -0.0,
+  "max_unilateral_margin_gain": 0.0,
+  "symmetric_pure_own_cash_equilibria": [
+    {
+      "orders": [
+        5
+      ],
+      "cash": 2864
+    }
+  ],
+  "probes": []
+}

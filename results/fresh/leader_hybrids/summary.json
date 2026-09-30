@@ -1,0 +1,357 @@
+{
+  "discovery_choice": "berries",
+  "selected": "baseline",
+  "sha256": "e17a059569bb69326337002a2198c60343f8b06fbd2aa24ed761bf1b47b0c7b5",
+  "source_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+  "gates": {
+    "positive_margin": false,
+    "nonnegative_each_rival": false,
+    "six_positive_seeds": false,
+    "no_fewer_wins": false,
+    "cash_floor": true,
+    "no_errors": true,
+    "max_call_below_one_second": true
+  },
+  "comparisons": {
+    "screen/berries/all": {
+      "games": 32,
+      "margin_gain": -3827.9375,
+      "cash_gain": 679.9375,
+      "candidate_wins": 12,
+      "baseline_wins": 31,
+      "candidate_ties": 0,
+      "baseline_ties": 0,
+      "seed_gains": {
+        "149000": -2443.5,
+        "149001": -7512.5,
+        "149002": -2518.5,
+        "149003": -2365.5,
+        "149004": -2723.5,
+        "149005": -7124.0,
+        "149006": -3896.0,
+        "149007": -2040.0
+      }
+    },
+    "screen/berries/twocoins": {
+      "games": 16,
+      "margin_gain": -3975.9375,
+      "cash_gain": 546.25,
+      "candidate_wins": 12,
+      "baseline_wins": 16,
+      "candidate_ties": 0,
+      "baseline_ties": 0,
+      "seed_gains": {
+        "149000": -2772.0,
+        "149001": -7384.5,
+        "149002": -2650.0,
+        "149003": -2434.0,
+        "149004": -3222.0,
+        "149005": -7661.0,
+        "149006": -3885.0,
+        "149007": -1799.0
+      }
+    },
+    "screen/berries/v45": {
+      "games": 16,
+      "margin_gain": -3679.9375,
+      "cash_gain": 813.625,
+      "candidate_wins": 0,
+      "baseline_wins": 15,
+      "candidate_ties": 0,
+      "baseline_ties": 0,
+      "seed_gains": {
+        "149000": -2115.0,
+        "149001": -7640.5,
+        "149002": -2387.0,
+        "149003": -2297.0,
+        "149004": -2225.0,
+        "149005": -6587.0,
+        "149006": -3907.0,
+        "149007": -2281.0
+      }
+    },
+    "screen/herd/all": {
+      "games": 32,
+      "margin_gain": -5644.65625,
+      "cash_gain": -887.34375,
+      "candidate_wins": 12,
+      "baseline_wins": 31,
+      "candidate_ties": 0,
+      "baseline_ties": 0,
+      "seed_gains": {
+        "149000": -3636.5,
+        "149001": -13039.75,
+        "149002": -3498.0,
+        "149003": -447.0,
+        "149004": -1930.5,
+        "149005": -13366.0,
+        "149006": -5537.5,
+        "149007": -3702.0
+      }
+    },
+    "screen/herd/twocoins": {
+      "games": 16,
+      "margin_gain": -5880.625,
+      "cash_gain": -763.8125,
+      "candidate_wins": 12,
+      "baseline_wins": 16,
+      "candidate_ties": 0,
+      "baseline_ties": 0,
+      "seed_gains": {
+        "149000": -4447.5,
+        "149001": -13198.5,
+        "149002": -3987.0,
+        "149003": -182.0,
+        "149004": -1804.0,
+        "149005": -14037.0,
+        "149006": -5752.0,
+        "149007": -3637.0
+      }
+    },
+    "screen/herd/v45": {
+      "games": 16,
+      "margin_gain": -5408.6875,
+      "cash_gain": -1010.875,
+      "candidate_wins": 0,
+      "baseline_wins": 15,
+      "candidate_ties": 0,
+      "baseline_ties": 0,
+      "seed_gains": {
+        "149000": -2825.5,
+        "149001": -12881.0,
+        "149002": -3009.0,
+        "149003": -712.0,
+        "149004": -2057.0,
+        "149005": -12695.0,
+        "149006": -5323.0,
+        "149007": -3767.0
+      }
+    },
+    "screen/both/all": {
+      "games": 32,
+      "margin_gain": -5670.46875,
+      "cash_gain": -883.9375,
+      "candidate_wins": 12,
+      "baseline_wins": 31,
+      "candidate_ties": 0,
+      "baseline_ties": 0,
+      "seed_gains": {
+        "149000": -3659.75,
+        "149001": -13309.0,
+        "149002": -3643.5,
+        "149003": -513.5,
+        "149004": -1763.0,
+        "149005": -13504.5,
+        "149006": -5409.5,
+        "149007": -3561.0
+      }
+    },
+    "screen/both/twocoins": {
+      "games": 16,
+      "margin_gain": -5916.6875,
+      "cash_gain": -769.0,
+      "candidate_wins": 12,
+      "baseline_wins": 16,
+      "candidate_ties": 0,
+      "baseline_ties": 0,
+      "seed_gains": {
+        "149000": -4463.0,
+        "149001": -13462.5,
+        "149002": -4138.0,
+        "149003": -255.0,
+        "149004": -1743.0,
+        "149005": -14170.0,
+        "149006": -5631.0,
+        "149007": -3471.0
+      }
+    },
+    "screen/both/v45": {
+      "games": 16,
+      "margin_gain": -5424.25,
+      "cash_gain": -998.875,
+      "candidate_wins": 0,
+      "baseline_wins": 15,
+      "candidate_ties": 0,
+      "baseline_ties": 0,
+      "seed_gains": {
+        "149000": -2856.5,
+        "149001": -13155.5,
+        "149002": -3149.0,
+        "149003": -772.0,
+        "149004": -1783.0,
+        "149005": -12839.0,
+        "149006": -5188.0,
+        "149007": -3651.0
+      }
+    },
+    "confirmation/berries/all": {
+      "games": 48,
+      "margin_gain": -2009.2916666666667,
+      "cash_gain": -145.29166666666666,
+      "candidate_wins": 29,
+      "baseline_wins": 46,
+      "candidate_ties": 0,
+      "baseline_ties": 0,
+      "seed_gains": {
+        "150000": -700.6666666666666,
+        "150001": -3628.0,
+        "150002": -4245.333333333333,
+        "150003": -1489.3333333333333,
+        "150004": -4132.666666666667,
+        "150005": -679.6666666666666,
+        "150006": -1651.3333333333333,
+        "150007": 452.6666666666667
+      }
+    },
+    "confirmation/berries/farmingv5": {
+      "games": 16,
+      "margin_gain": 431.625,
+      "cash_gain": 81.0,
+      "candidate_wins": 16,
+      "baseline_wins": 15,
+      "candidate_ties": 0,
+      "baseline_ties": 0,
+      "seed_gains": {
+        "150000": 470.0,
+        "150001": 700.0,
+        "150002": -353.0,
+        "150003": 324.0,
+        "150004": 416.0,
+        "150005": 223.0,
+        "150006": 260.0,
+        "150007": 1413.0
+      }
+    },
+    "confirmation/berries/twocoins": {
+      "games": 16,
+      "margin_gain": -3601.625,
+      "cash_gain": -467.125,
+      "candidate_wins": 12,
+      "baseline_wins": 16,
+      "candidate_ties": 0,
+      "baseline_ties": 0,
+      "seed_gains": {
+        "150000": -1764.0,
+        "150001": -5780.0,
+        "150002": -6787.0,
+        "150003": -2404.0,
+        "150004": -6509.0,
+        "150005": -1210.0,
+        "150006": -3112.0,
+        "150007": -1247.0
+      }
+    },
+    "confirmation/berries/v45": {
+      "games": 16,
+      "margin_gain": -2857.875,
+      "cash_gain": -49.75,
+      "candidate_wins": 1,
+      "baseline_wins": 15,
+      "candidate_ties": 0,
+      "baseline_ties": 0,
+      "seed_gains": {
+        "150000": -808.0,
+        "150001": -5804.0,
+        "150002": -5596.0,
+        "150003": -2388.0,
+        "150004": -6305.0,
+        "150005": -1052.0,
+        "150006": -2102.0,
+        "150007": 1192.0
+      }
+    }
+  },
+  "boards": {
+    "screen/baseline": {
+      "cash": 805.375,
+      "cows": 4,
+      "sheep": 2,
+      "early_berries": 0,
+      "confirmed": 0,
+      "lost": 0
+    },
+    "screen/berries": {
+      "cash": 1022.375,
+      "cows": 3,
+      "sheep": 2,
+      "early_berries": 2,
+      "confirmed": 2,
+      "lost": 0
+    },
+    "screen/herd": {
+      "cash": 922.375,
+      "cows": 2,
+      "sheep": 3,
+      "early_berries": 0,
+      "confirmed": 0,
+      "lost": 0
+    },
+    "screen/both": {
+      "cash": 922.375,
+      "cows": 2,
+      "sheep": 3,
+      "early_berries": 1,
+      "confirmed": 1,
+      "lost": 0
+    },
+    "confirmation/baseline": {
+      "cash": 815.4791666666666,
+      "cows": 3.9583333333333335,
+      "sheep": 2,
+      "early_berries": 0,
+      "confirmed": 0,
+      "lost": 0
+    },
+    "confirmation/berries": {
+      "cash": 972.2708333333334,
+      "cows": 3.3125,
+      "sheep": 2,
+      "early_berries": 2,
+      "confirmed": 2,
+      "lost": 0
+    }
+  },
+  "own_sold_unit_changes": {
+    "WHEAT": 1.7708333333333333,
+    "FERTILIZER": -13.5625,
+    "WOOL": 0.5416666666666666,
+    "MILK": -16.541666666666668,
+    "MELON": 0.0,
+    "EGG": 0.6666666666666666,
+    "STRAWBERRY": -5.020833333333333,
+    "CARROT": -0.14583333333333334
+  },
+  "opponent_revenue_changes": {
+    "WHEAT": -65.0,
+    "FERTILIZER": 352.1666666666667,
+    "WOOL": -69.95833333333333,
+    "MILK": 1825.4375,
+    "MELON": 0.0,
+    "EGG": 1.9166666666666667,
+    "STRAWBERRY": -136.29166666666666,
+    "CARROT": -9.791666666666666
+  },
+  "accounting": {
+    "revenue:WHEAT": 70.29166666666667,
+    "revenue:FERTILIZER": -286.0833333333333,
+    "revenue:WOOL": -0.6458333333333334,
+    "revenue:MILK": -303.8958333333333,
+    "revenue:MELON": 0.0,
+    "revenue:EGG": 33.75,
+    "revenue:STRAWBERRY": 49.125,
+    "revenue:CARROT": -10.229166666666666,
+    "cost:BUY_PRODUCT:WHEAT": 7.875,
+    "cost:HIRE": -81.54166666666667,
+    "cost:BUY_ANIMAL:COW": -275.0,
+    "cost:BUY_ANIMAL:SHEEP": 20.833333333333332,
+    "cost:BUY_SEED:MELON": 0.0,
+    "cost:BUY_SEED:WHEAT": 0.0,
+    "cost:BUY_SEED:STRAWBERRY": 0.0,
+    "cost:BUY_LAND": 0.0,
+    "cost:BUY_ANIMAL:GOOSE": 0.0,
+    "cost:BUY_PRODUCT:FERTILIZER": 25.4375,
+    "cost:BUY_SEED:CARROT": 0.0
+  },
+  "errors": [],
+  "max_seconds": 0.29723170000943355
+}

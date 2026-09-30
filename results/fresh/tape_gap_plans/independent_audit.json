@@ -1,0 +1,204 @@
+{
+  "scope": "Read-only audit; no ranking/replay/model artifact changed.",
+  "rows": 430,
+  "missing_ordered_prefix_rows": 422,
+  "primary_games": 86,
+  "identity": {
+    "all_compact_hash_and_reward_match": true,
+    "checked_games": 86
+  },
+  "production": {
+    "all_prior_cumulative_and_physical_output_consistent": true,
+    "checked_checkpoint_rows": 430
+  },
+  "continuation_logic": {
+    "residual_identity_exact": true,
+    "current_checkpoint_donor_day_and_self_exclusion": true,
+    "mechanical_profile_source_check": "research_nearest_continuation.tile_profile simulates to min(day+6,30) and sums day..day+2; no end=day+3 mechanical call."
+  },
+  "ranking_labels": {
+    "primary_candidate_count": 5160,
+    "compact_empty_tokens": {
+      " .": 10120,
+      " L": 73025
+    },
+    "finding": "Canonical compact encoding uses two-character tokens; empty is \" .\" and locked is \" L\", matching own_tiles. Productive comparison uses WH/CA/TO/ST/ME/co/go/sh."
+  },
+  "paired_episode_bootstrap": {
+    "missing_ordered_prefix": [
+      {
+        "n_rows": 422,
+        "n_episodes": 86,
+        "baseline": "donor_output",
+        "transfer": "transferred_target",
+        "mae_reduction": 5.631911532385466,
+        "bootstrap95": [
+          5.1841869625043,
+          6.096863417901984
+        ],
+        "bootstrap_draws": 10000,
+        "seed": 20260922
+      },
+      {
+        "n_rows": 422,
+        "n_episodes": 86,
+        "baseline": "frozen_forecast",
+        "transfer": "transferred_target",
+        "mae_reduction": 0.21292775308841208,
+        "bootstrap95": [
+          0.056432060611934905,
+          0.3698809843504
+        ],
+        "bootstrap_draws": 10000,
+        "seed": 20260922
+      }
+    ],
+    "by_day": {
+      "12": [
+        {
+          "n_rows": 79,
+          "n_episodes": 79,
+          "baseline": "donor_output",
+          "transfer": "transferred_target",
+          "mae_reduction": 1.0196905766526019,
+          "bootstrap95": [
+            0.7243319268635724,
+            1.3530239099859354
+          ],
+          "bootstrap_draws": 10000,
+          "seed": 20260922
+        },
+        {
+          "n_rows": 79,
+          "n_episodes": 79,
+          "baseline": "frozen_forecast",
+          "transfer": "transferred_target",
+          "mae_reduction": 0.3627522311631536,
+          "bootstrap95": [
+            0.17488873165287994,
+            0.5538275692791198
+          ],
+          "bootstrap_draws": 10000,
+          "seed": 20260922
+        }
+      ],
+      "15": [
+        {
+          "n_rows": 85,
+          "n_episodes": 85,
+          "baseline": "donor_output",
+          "transfer": "transferred_target",
+          "mae_reduction": 3.6209150326797386,
+          "bootstrap95": [
+            2.8601307189542484,
+            4.437973856209149
+          ],
+          "bootstrap_draws": 10000,
+          "seed": 20260922
+        },
+        {
+          "n_rows": 85,
+          "n_episodes": 85,
+          "baseline": "frozen_forecast",
+          "transfer": "transferred_target",
+          "mae_reduction": 0.2565299036527201,
+          "bootstrap95": [
+            0.013368041825688525,
+            0.514002478271634
+          ],
+          "bootstrap_draws": 10000,
+          "seed": 20260922
+        }
+      ],
+      "18": [
+        {
+          "n_rows": 86,
+          "n_episodes": 86,
+          "baseline": "donor_output",
+          "transfer": "transferred_target",
+          "mae_reduction": 6.0852713178294575,
+          "bootstrap95": [
+            5.443152454780362,
+            6.768766149870801
+          ],
+          "bootstrap_draws": 10000,
+          "seed": 20260922
+        },
+        {
+          "n_rows": 86,
+          "n_episodes": 86,
+          "baseline": "frozen_forecast",
+          "transfer": "transferred_target",
+          "mae_reduction": 0.25304934672514895,
+          "bootstrap95": [
+            -0.043539254866023995,
+            0.5635345351586407
+          ],
+          "bootstrap_draws": 10000,
+          "seed": 20260922
+        }
+      ],
+      "21": [
+        {
+          "n_rows": 86,
+          "n_episodes": 86,
+          "baseline": "donor_output",
+          "transfer": "transferred_target",
+          "mae_reduction": 8.196382428940568,
+          "bootstrap95": [
+            7.306169250645993,
+            9.139534883720929
+          ],
+          "bootstrap_draws": 10000,
+          "seed": 20260922
+        },
+        {
+          "n_rows": 86,
+          "n_episodes": 86,
+          "baseline": "frozen_forecast",
+          "transfer": "transferred_target",
+          "mae_reduction": 0.080368135186849,
+          "bootstrap95": [
+            -0.24381475008387263,
+            0.39127651992350604
+          ],
+          "bootstrap_draws": 10000,
+          "seed": 20260922
+        }
+      ],
+      "24": [
+        {
+          "n_rows": 86,
+          "n_episodes": 86,
+          "baseline": "donor_output",
+          "transfer": "transferred_target",
+          "mae_reduction": 8.838501291989663,
+          "bootstrap95": [
+            7.665374677002585,
+            9.98846899224806
+          ],
+          "bootstrap_draws": 10000,
+          "seed": 20260922
+        },
+        {
+          "n_rows": 86,
+          "n_episodes": 86,
+          "baseline": "frozen_forecast",
+          "transfer": "transferred_target",
+          "mae_reduction": 0.12464116612218275,
+          "bootstrap95": [
+            -0.2689413727105551,
+            0.5131398644104038
+          ],
+          "bootstrap_draws": 10000,
+          "seed": 20260922
+        }
+      ]
+    }
+  },
+  "important_findings": [
+    "The reported transfer is a target diagnostic, not a continuation action; it uses donor next3 as a label after current-state ranking.",
+    "The donor library includes UMG train and already-exposed test episodes. Its UMG diagnostic is therefore a falsification check, not a new blind result.",
+    "Simulator explicitly forces each tape\u2019s observed daily shop path; the equality assertion is a consistency check, not independent RNG/shop-path validation."
+  ]
+}

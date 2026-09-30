@@ -1,0 +1,252 @@
+{
+  "arm": "mgt_micro_wool_upturn",
+  "episode": 111461796,
+  "completed": true,
+  "source_sha256": "12f91b4bdd3970a397f16a1b39d1bbcaad99a74e794c14c640f9b476bbaf7c1e",
+  "seed": 383076948,
+  "seat": 1,
+  "cash": 131026.0,
+  "opponent_cash": 141707.0,
+  "margin": -10681.0,
+  "recorded": [
+    141894.0,
+    130932.0
+  ],
+  "action_changes": 54,
+  "first_change": 482,
+  "economics": [
+    {
+      "revenue": {
+        "FERTILIZER": 11926,
+        "WHEAT": 11929,
+        "WOOL": 19963,
+        "MILK": 41259,
+        "MELON": 14852,
+        "EGG": 4028,
+        "STRAWBERRY": 37527,
+        "CARROT": 10014,
+        "TOMATO": 9854
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 8174,
+        "HIRE": 7141.0,
+        "BUY_ANIMAL:COW": 4000,
+        "BUY_ANIMAL:SHEEP": 2000,
+        "BUY_SEED:MELON": 1040,
+        "BUY_SEED:WHEAT": 1040,
+        "BUY_SEED:CARROT": 1560,
+        "BUY_SEED:STRAWBERRY": 2600,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 1071,
+        "BUY_ANIMAL:GOOSE": 900,
+        "BUY_SEED:TOMATO": 800
+      },
+      "units": {
+        "FERTILIZER": 193,
+        "WHEAT": 304,
+        "WOOL": 104,
+        "MILK": 251,
+        "MELON": 78,
+        "EGG": 91,
+        "STRAWBERRY": 205,
+        "CARROT": 256,
+        "TOMATO": 121
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 14060,
+        "FERTILIZER": 16889,
+        "WOOL": 27082,
+        "MILK": 42858,
+        "MELON": 14267,
+        "EGG": 4028,
+        "STRAWBERRY": 44920,
+        "CARROT": 3089
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4765,
+        "HIRE": 4075.0,
+        "BUY_ANIMAL:COW": 3600,
+        "BUY_ANIMAL:SHEEP": 2500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:WHEAT": 1630,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 3136,
+        "BUY_ANIMAL:GOOSE": 900,
+        "BUY_SEED:CARROT": 620
+      },
+      "units": {
+        "WHEAT": 359,
+        "FERTILIZER": 336,
+        "WOOL": 139,
+        "MILK": 266,
+        "MELON": 72,
+        "EGG": 93,
+        "STRAWBERRY": 247,
+        "CARROT": 95
+      }
+    }
+  ],
+  "overlay": {
+    "evals": [
+      [
+        6,
+        4,
+        2,
+        6,
+        -2
+      ],
+      [
+        7,
+        4,
+        2,
+        6,
+        -2
+      ],
+      [
+        8,
+        4,
+        4,
+        8,
+        -4
+      ],
+      [
+        9,
+        4,
+        4,
+        4,
+        0
+      ],
+      [
+        10,
+        4,
+        4,
+        4,
+        0
+      ],
+      [
+        11,
+        4,
+        4,
+        4,
+        0
+      ],
+      [
+        12,
+        6,
+        4,
+        4,
+        2,
+        2,
+        -559,
+        6820,
+        164
+      ],
+      [
+        13,
+        6,
+        4,
+        4,
+        2,
+        2,
+        -202,
+        6919,
+        154
+      ],
+      [
+        14,
+        6,
+        4,
+        4,
+        2,
+        2,
+        -710,
+        5935,
+        187
+      ],
+      [
+        15,
+        6,
+        4,
+        4,
+        2,
+        2,
+        -1124,
+        5127,
+        167
+      ],
+      [
+        16,
+        6,
+        4,
+        4,
+        2,
+        2,
+        -391,
+        5604,
+        179
+      ],
+      [
+        17,
+        6,
+        4,
+        4,
+        2,
+        2,
+        -1256,
+        4264,
+        192
+      ],
+      [
+        18,
+        6,
+        4,
+        4,
+        2,
+        2,
+        -894,
+        4305,
+        199
+      ],
+      [
+        19,
+        6,
+        4,
+        4,
+        2,
+        2,
+        -777,
+        4057,
+        189
+      ]
+    ],
+    "declined_hire_cash": 1,
+    "guard_wheat": 1,
+    "hire_guard_fired": 1,
+    "hire_guard_sold": 3,
+    "wool_upturn_quotes": 25,
+    "declined_profit": 8,
+    "hand_days": 18,
+    "topup_tasks": 75,
+    "ops_feed": 52,
+    "ops_care": 67,
+    "orphan_days": 5,
+    "ops_harvest": 3,
+    "sold_wool": 7,
+    "sold_milk": 2
+  },
+  "router": {
+    "switches": 4,
+    "router_errors": 0,
+    "hamming_max": 5,
+    "dist_d6": -0.02,
+    "dist_d12": 6.98,
+    "dist_d18": 30.98,
+    "dist_d24": 45.98
+  },
+  "max_action_seconds": 0.011727600009180605,
+  "actions_over_1s": 0,
+  "ledger_verified": true
+}

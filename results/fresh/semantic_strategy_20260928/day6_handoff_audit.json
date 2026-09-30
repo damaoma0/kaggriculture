@@ -1,0 +1,652 @@
+{
+  "snapshot": "smoke_v1",
+  "cases": [
+    {
+      "episode": 111777242,
+      "seat": 0,
+      "retained_initial_cohorts": 25,
+      "compile_seconds": 0.04813719994854182,
+      "warnings": [],
+      "requested_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 10,
+          "WHEAT": 5
+        },
+        "animal_add_counts": {
+          "COW": 3,
+          "GOOSE": 4
+        },
+        "animal_retire_counts": {},
+        "target_animals": {
+          "COW": 5,
+          "SHEEP": 3,
+          "GOOSE": 4
+        },
+        "target_crop_counts": {
+          "MELON": 10,
+          "STRAWBERRY": 20,
+          "WHEAT": 5
+        },
+        "build_counts": {
+          "PASTURE": 3,
+          "COOP": 4
+        },
+        "remove_structure_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "target_land_count": 2,
+        "estimated_work_p95": 201.84,
+        "estimated_capital_cost": 4350.0,
+        "modeled_free_tiles": 3
+      },
+      "compiled_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 10,
+          "WHEAT": 5
+        },
+        "build_counts": {
+          "PASTURE": 3,
+          "COOP": 4
+        },
+        "remove_structure_counts": {},
+        "animal_add_counts": {
+          "COW": 3,
+          "GOOSE": 4
+        },
+        "animal_exit_counts": {},
+        "animal_retire_counts": {},
+        "crop_end_counts": {},
+        "crop_remove_counts": {},
+        "crop_disappear_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "end_occupancy_counts": {
+          "crops": {
+            "STRAWBERRY": 20,
+            "MELON": 10,
+            "WHEAT": 5
+          },
+          "structures": {
+            "PASTURE": 8,
+            "COOP": 4
+          },
+          "animals": {
+            "COW": 5,
+            "SHEEP": 3,
+            "GOOSE": 4
+          },
+          "empty_structures": {},
+          "locked": 50,
+          "empty_or_weed": 3
+        }
+      }
+    },
+    {
+      "episode": 111777242,
+      "seat": 1,
+      "retained_initial_cohorts": 25,
+      "compile_seconds": 0.025237200083211064,
+      "warnings": [],
+      "requested_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 10,
+          "WHEAT": 5
+        },
+        "animal_add_counts": {
+          "COW": 3,
+          "GOOSE": 4
+        },
+        "animal_retire_counts": {},
+        "target_animals": {
+          "COW": 5,
+          "SHEEP": 3,
+          "GOOSE": 4
+        },
+        "target_crop_counts": {
+          "MELON": 10,
+          "STRAWBERRY": 20,
+          "WHEAT": 5
+        },
+        "build_counts": {
+          "PASTURE": 3,
+          "COOP": 4
+        },
+        "remove_structure_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "target_land_count": 2,
+        "estimated_work_p95": 201.84,
+        "estimated_capital_cost": 4350.0,
+        "modeled_free_tiles": 3
+      },
+      "compiled_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 10,
+          "WHEAT": 5
+        },
+        "build_counts": {
+          "PASTURE": 3,
+          "COOP": 4
+        },
+        "remove_structure_counts": {},
+        "animal_add_counts": {
+          "COW": 3,
+          "GOOSE": 4
+        },
+        "animal_exit_counts": {},
+        "animal_retire_counts": {},
+        "crop_end_counts": {},
+        "crop_remove_counts": {},
+        "crop_disappear_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "end_occupancy_counts": {
+          "crops": {
+            "STRAWBERRY": 20,
+            "MELON": 10,
+            "WHEAT": 5
+          },
+          "structures": {
+            "PASTURE": 8,
+            "COOP": 4
+          },
+          "animals": {
+            "COW": 5,
+            "SHEEP": 3,
+            "GOOSE": 4
+          },
+          "empty_structures": {},
+          "locked": 50,
+          "empty_or_weed": 3
+        }
+      }
+    },
+    {
+      "episode": 111780698,
+      "seat": 1,
+      "retained_initial_cohorts": 25,
+      "compile_seconds": 0.041685700067318976,
+      "warnings": [],
+      "requested_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 15,
+          "WHEAT": 1
+        },
+        "animal_add_counts": {
+          "COW": 3,
+          "GOOSE": 4
+        },
+        "animal_retire_counts": {},
+        "target_animals": {
+          "COW": 5,
+          "SHEEP": 3,
+          "GOOSE": 4
+        },
+        "target_crop_counts": {
+          "MELON": 10,
+          "STRAWBERRY": 25,
+          "WHEAT": 1
+        },
+        "build_counts": {
+          "PASTURE": 3,
+          "COOP": 4
+        },
+        "remove_structure_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "target_land_count": 2,
+        "estimated_work_p95": 206.64,
+        "estimated_capital_cost": 4810.0,
+        "modeled_free_tiles": 2
+      },
+      "compiled_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 15,
+          "WHEAT": 1
+        },
+        "build_counts": {
+          "PASTURE": 3,
+          "COOP": 4
+        },
+        "remove_structure_counts": {},
+        "animal_add_counts": {
+          "COW": 3,
+          "GOOSE": 4
+        },
+        "animal_exit_counts": {},
+        "animal_retire_counts": {},
+        "crop_end_counts": {},
+        "crop_remove_counts": {},
+        "crop_disappear_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "end_occupancy_counts": {
+          "crops": {
+            "STRAWBERRY": 25,
+            "MELON": 10,
+            "WHEAT": 1
+          },
+          "structures": {
+            "PASTURE": 8,
+            "COOP": 4
+          },
+          "animals": {
+            "COW": 5,
+            "SHEEP": 3,
+            "GOOSE": 4
+          },
+          "empty_structures": {},
+          "locked": 50,
+          "empty_or_weed": 2
+        }
+      }
+    },
+    {
+      "episode": 111781818,
+      "seat": 1,
+      "retained_initial_cohorts": 25,
+      "compile_seconds": 0.06422780000139028,
+      "warnings": [],
+      "requested_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 2,
+          "WHEAT": 8
+        },
+        "animal_add_counts": {
+          "SHEEP": 6,
+          "COW": 2
+        },
+        "animal_retire_counts": {},
+        "target_animals": {
+          "COW": 4,
+          "SHEEP": 9
+        },
+        "target_crop_counts": {
+          "MELON": 10,
+          "STRAWBERRY": 12,
+          "WHEAT": 8
+        },
+        "build_counts": {
+          "PASTURE": 8
+        },
+        "remove_structure_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "target_land_count": 2,
+        "estimated_work_p95": 188.76,
+        "estimated_capital_cost": 4980.0,
+        "modeled_free_tiles": 7
+      },
+      "compiled_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 2,
+          "WHEAT": 8
+        },
+        "build_counts": {
+          "PASTURE": 8
+        },
+        "remove_structure_counts": {},
+        "animal_add_counts": {
+          "COW": 2,
+          "SHEEP": 6
+        },
+        "animal_exit_counts": {},
+        "animal_retire_counts": {},
+        "crop_end_counts": {},
+        "crop_remove_counts": {},
+        "crop_disappear_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "end_occupancy_counts": {
+          "crops": {
+            "STRAWBERRY": 12,
+            "MELON": 10,
+            "WHEAT": 8
+          },
+          "structures": {
+            "PASTURE": 13
+          },
+          "animals": {
+            "COW": 4,
+            "SHEEP": 9
+          },
+          "empty_structures": {},
+          "locked": 50,
+          "empty_or_weed": 7
+        }
+      }
+    },
+    {
+      "episode": 111782912,
+      "seat": 1,
+      "retained_initial_cohorts": 25,
+      "compile_seconds": 0.0265283000189811,
+      "warnings": [],
+      "requested_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 11,
+          "WHEAT": 5
+        },
+        "animal_add_counts": {
+          "COW": 3,
+          "GOOSE": 4
+        },
+        "animal_retire_counts": {},
+        "target_animals": {
+          "COW": 5,
+          "SHEEP": 3,
+          "GOOSE": 4
+        },
+        "target_crop_counts": {
+          "MELON": 11,
+          "STRAWBERRY": 20,
+          "WHEAT": 5
+        },
+        "build_counts": {
+          "PASTURE": 3,
+          "COOP": 4
+        },
+        "remove_structure_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "target_land_count": 2,
+        "estimated_work_p95": 206.64,
+        "estimated_capital_cost": 4450.0,
+        "modeled_free_tiles": 2
+      },
+      "compiled_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 11,
+          "WHEAT": 5
+        },
+        "build_counts": {
+          "PASTURE": 3,
+          "COOP": 4
+        },
+        "remove_structure_counts": {},
+        "animal_add_counts": {
+          "COW": 3,
+          "GOOSE": 4
+        },
+        "animal_exit_counts": {},
+        "animal_retire_counts": {},
+        "crop_end_counts": {},
+        "crop_remove_counts": {},
+        "crop_disappear_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "end_occupancy_counts": {
+          "crops": {
+            "STRAWBERRY": 20,
+            "MELON": 11,
+            "WHEAT": 5
+          },
+          "structures": {
+            "PASTURE": 8,
+            "COOP": 4
+          },
+          "animals": {
+            "COW": 5,
+            "SHEEP": 3,
+            "GOOSE": 4
+          },
+          "empty_structures": {},
+          "locked": 50,
+          "empty_or_weed": 2
+        }
+      }
+    },
+    {
+      "episode": 111784038,
+      "seat": 1,
+      "retained_initial_cohorts": 25,
+      "compile_seconds": 0.06873449997510761,
+      "warnings": [],
+      "requested_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 13,
+          "WHEAT": 1
+        },
+        "animal_add_counts": {
+          "COW": 5,
+          "GOOSE": 2
+        },
+        "animal_retire_counts": {},
+        "target_animals": {
+          "COW": 7,
+          "SHEEP": 3,
+          "GOOSE": 2
+        },
+        "target_crop_counts": {
+          "MELON": 10,
+          "STRAWBERRY": 23,
+          "WHEAT": 1
+        },
+        "build_counts": {
+          "PASTURE": 5,
+          "COOP": 2
+        },
+        "remove_structure_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "target_land_count": 2,
+        "estimated_work_p95": 197.04,
+        "estimated_capital_cost": 4810.0,
+        "modeled_free_tiles": 4
+      },
+      "compiled_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 13,
+          "WHEAT": 1
+        },
+        "build_counts": {
+          "PASTURE": 5,
+          "COOP": 2
+        },
+        "remove_structure_counts": {},
+        "animal_add_counts": {
+          "COW": 5,
+          "GOOSE": 2
+        },
+        "animal_exit_counts": {},
+        "animal_retire_counts": {},
+        "crop_end_counts": {},
+        "crop_remove_counts": {},
+        "crop_disappear_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "end_occupancy_counts": {
+          "crops": {
+            "STRAWBERRY": 23,
+            "MELON": 10,
+            "WHEAT": 1
+          },
+          "structures": {
+            "PASTURE": 10,
+            "COOP": 2
+          },
+          "animals": {
+            "COW": 7,
+            "SHEEP": 3,
+            "GOOSE": 2
+          },
+          "empty_structures": {},
+          "locked": 50,
+          "empty_or_weed": 4
+        }
+      }
+    },
+    {
+      "episode": 111785152,
+      "seat": 0,
+      "retained_initial_cohorts": 25,
+      "compile_seconds": 0.04969120002351701,
+      "warnings": [],
+      "requested_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 9,
+          "WHEAT": 5
+        },
+        "animal_add_counts": {
+          "COW": 7
+        },
+        "animal_retire_counts": {},
+        "target_animals": {
+          "COW": 9,
+          "SHEEP": 3
+        },
+        "target_crop_counts": {
+          "MELON": 11,
+          "STRAWBERRY": 18,
+          "WHEAT": 5
+        },
+        "build_counts": {
+          "PASTURE": 7
+        },
+        "remove_structure_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "target_land_count": 2,
+        "estimated_work_p95": 197.04,
+        "estimated_capital_cost": 4550.0,
+        "modeled_free_tiles": 4
+      },
+      "compiled_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 9,
+          "WHEAT": 5
+        },
+        "build_counts": {
+          "PASTURE": 7
+        },
+        "remove_structure_counts": {},
+        "animal_add_counts": {
+          "COW": 7
+        },
+        "animal_exit_counts": {},
+        "animal_retire_counts": {},
+        "crop_end_counts": {},
+        "crop_remove_counts": {},
+        "crop_disappear_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "end_occupancy_counts": {
+          "crops": {
+            "STRAWBERRY": 18,
+            "MELON": 11,
+            "WHEAT": 5
+          },
+          "structures": {
+            "PASTURE": 12
+          },
+          "animals": {
+            "COW": 9,
+            "SHEEP": 3
+          },
+          "empty_structures": {},
+          "locked": 50,
+          "empty_or_weed": 4
+        }
+      }
+    },
+    {
+      "episode": 111786260,
+      "seat": 0,
+      "retained_initial_cohorts": 25,
+      "compile_seconds": 0.024870900087989867,
+      "warnings": [],
+      "requested_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 7,
+          "WHEAT": 5
+        },
+        "animal_add_counts": {
+          "COW": 3,
+          "SHEEP": 4
+        },
+        "animal_retire_counts": {},
+        "target_animals": {
+          "COW": 5,
+          "SHEEP": 7
+        },
+        "target_crop_counts": {
+          "MELON": 11,
+          "STRAWBERRY": 16,
+          "WHEAT": 5
+        },
+        "build_counts": {
+          "PASTURE": 7
+        },
+        "remove_structure_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "target_land_count": 2,
+        "estimated_work_p95": 187.44,
+        "estimated_capital_cost": 4850.0,
+        "modeled_free_tiles": 6
+      },
+      "compiled_day6": {
+        "day": 6,
+        "plant_counts": {
+          "STRAWBERRY": 7,
+          "WHEAT": 5
+        },
+        "build_counts": {
+          "PASTURE": 7
+        },
+        "remove_structure_counts": {},
+        "animal_add_counts": {
+          "COW": 3,
+          "SHEEP": 4
+        },
+        "animal_exit_counts": {},
+        "animal_retire_counts": {},
+        "crop_end_counts": {},
+        "crop_remove_counts": {},
+        "crop_disappear_counts": {},
+        "hands": 8,
+        "land_add_count": 1,
+        "end_occupancy_counts": {
+          "crops": {
+            "STRAWBERRY": 16,
+            "MELON": 11,
+            "WHEAT": 5
+          },
+          "structures": {
+            "PASTURE": 12
+          },
+          "animals": {
+            "COW": 5,
+            "SHEEP": 7
+          },
+          "empty_structures": {},
+          "locked": 50,
+          "empty_or_weed": 6
+        }
+      }
+    }
+  ],
+  "checks_passed": 8,
+  "games_executed": 0,
+  "checks": [
+    "Every live initial crop birth has an observed prefix planting event.",
+    "Day6 board equals actual current observation, not a donor board.",
+    "All initial cohorts retain tile/type/birth through these day6 compilations.",
+    "Opening planting prefix copied exactly; observations remain unchanged."
+  ]
+}

@@ -1,0 +1,76 @@
+{
+  "model_file": "block_model_dsmc.json",
+  "reactive_land_unlock": true,
+  "policy": {
+    "land_limit": 4,
+    "economics_weight": 0,
+    "release_age": {
+      "WHEAT": 3,
+      "CARROT": 3,
+      "MELON": 10,
+      "TOMATO": 12,
+      "STRAWBERRY": 17
+    }
+  },
+  "tiles": {
+    "release_age": {
+      "WHEAT": 3,
+      "CARROT": 3,
+      "MELON": 10,
+      "TOMATO": 12,
+      "STRAWBERRY": 17
+    }
+  },
+  "early_financing": {
+    "enabled": true
+  },
+  "policy_kind": "three_day_budget",
+  "executor": {
+    "sd_tier_wheat_retry": 1,
+    "sd_polish_harvest_exchange": 1,
+    "sd_tier_unfunded_build_guard": 1,
+    "sd_tier_wheat_priority": 1,
+    "sd_market_carried_actual": 2,
+    "sd_tier_wheat_buy_live": 1,
+    "sd_melon_rush": 1,
+    "sd_place_feed": 1,
+    "sd_mel_greedy": 1,
+    "sd_mel_last": 13,
+    "sd_books_reserve": 1,
+    "sd_tier_dawn_cash": [
+      6,
+      10
+    ],
+    "sd_tier_dawn_cash_dist": 3,
+    "sd_tier_dawn_cash_by": 8,
+    "sd_books_sell": [
+      "STRAWBERRY",
+      "MILK",
+      "EGG",
+      "TOMATO",
+      "CARROT",
+      "FERTILIZER",
+      "WHEAT"
+    ],
+    "sd_tier_water_first": 2
+  },
+  "opening": "mgt_file",
+  "opening_source": "agents/mgt_dsm_ch.py",
+  "cassette": {
+    "file": "dsm_cassette.json",
+    "until_day": 12
+  },
+  "fill_free": {
+    "from_day": 8,
+    "to_day": 26,
+    "crops": [
+      "WHEAT",
+      "CARROT"
+    ]
+  },
+  "plant_extra": {
+    "18": {
+      "TOMATO": 10
+    }
+  }
+}

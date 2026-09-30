@@ -1,0 +1,22 @@
+{
+  "source_sha256": "d6769c6994a9445f96a34e6c517e4fdee8d3bd3160d349e7d480bdc89871452b",
+  "base_sha256": "5c2dfb70eaf68e1b415fe14fd6414774b467afa81b4f66f9d170e792e0dfe833",
+  "changed_functions_vs_routefix_fast": [
+    "_tier_eval",
+    "_tier_search"
+  ],
+  "added_functions": [
+    "_tier_eval_reference"
+  ],
+  "review_pass": true,
+  "reviewer": "cloud_harness",
+  "tests_rerun_pass": 6,
+  "findings": [
+    "Scalar evaluator removes only counters unused by returned scalar costs; pickup timing, fertilizer shortages and mandatory lateness preserved.",
+    "Hour queries retain the original evaluator. Feed-harvest credits and dynamic globals remain read per call.",
+    "Search cache keys use segment identity plus ordered route IDs; catalog, segment inputs and scoring globals remain unchanged during a call. Cache is fresh per search and bounded16384.",
+    "Wall-clock search termination remains timing-sensitive. Component parity does not establish whole-game byte equality or budget compliance."
+  ],
+  "benchmark_sha256": "0909a46417ad5bc081cd3bb3d07b8df817513c93ef1ae59f58bd12798473e28f",
+  "no_policy_retirement_bank_or_harvest_change": true
+}

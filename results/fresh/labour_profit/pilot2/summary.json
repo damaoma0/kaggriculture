@@ -1,0 +1,105 @@
+{
+  "episodes": 4,
+  "blocks": 52,
+  "selectors": {
+    "wage": {
+      "mean_opportunity": 1.25,
+      "median": 0.0,
+      "minimum": 0.0,
+      "maximum": 5.0,
+      "episode_bootstrap_95": [
+        0.0,
+        3.75
+      ],
+      "wage": 1.25,
+      "revenue": 0,
+      "positive_blocks": 1,
+      "negative_blocks": 0,
+      "chained": {
+        "n": 4,
+        "mean_gain": 1.25,
+        "min_gain": 0.0,
+        "max_gain": 5.0,
+        "final_contract_failures": 0
+      }
+    },
+    "early": {
+      "mean_opportunity": -2046.5,
+      "median": -1845.5,
+      "minimum": -3639.0,
+      "maximum": -856.0,
+      "episode_bootstrap_95": [
+        -3098.0,
+        -1165.5
+      ],
+      "wage": 0.0,
+      "revenue": -2059.5,
+      "positive_blocks": 0,
+      "negative_blocks": 32
+    },
+    "forecast": {
+      "mean_opportunity": -359.25,
+      "median": -185.5,
+      "minimum": -1068.0,
+      "maximum": 2.0,
+      "episode_bootstrap_95": [
+        -845.25,
+        -47.0
+      ],
+      "wage": 1.25,
+      "revenue": -361,
+      "positive_blocks": 3,
+      "negative_blocks": 9,
+      "chained": {
+        "n": 4,
+        "mean_gain": -359.25,
+        "min_gain": -1068.0,
+        "max_gain": 2.0,
+        "final_contract_failures": 0
+      }
+    },
+    "robust": {
+      "mean_opportunity": -30.5,
+      "median": 0.0,
+      "minimum": -127.0,
+      "maximum": 5.0,
+      "episode_bootstrap_95": [
+        -95.25,
+        3.75
+      ],
+      "wage": 1.25,
+      "revenue": -31.75,
+      "positive_blocks": 1,
+      "negative_blocks": 1
+    },
+    "oracle": {
+      "mean_opportunity": 2.75,
+      "median": 3.0,
+      "minimum": 0.0,
+      "maximum": 5.0,
+      "episode_bootstrap_95": [
+        1.0,
+        4.5
+      ],
+      "wage": 1.25,
+      "revenue": 1.5,
+      "positive_blocks": 3,
+      "negative_blocks": 0,
+      "chained": {
+        "n": 4,
+        "mean_gain": 2.75,
+        "min_gain": 0.0,
+        "max_gain": 5.0,
+        "final_contract_failures": 0
+      }
+    }
+  },
+  "rejections": {
+    "farm": 25,
+    "private": 13,
+    "route_over_24": 102,
+    "market": 10
+  },
+  "valid_candidates": 134,
+  "total_seconds": 37.78119790001074
+}

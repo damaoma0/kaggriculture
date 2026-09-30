@@ -1,0 +1,85 @@
+{
+  "episode": 109611734,
+  "opponent": "Napster Y",
+  "policy": "selected",
+  "seat": 0,
+  "cash": 108333.0,
+  "opponent_cash": 112815.0,
+  "margin": -4482.0,
+  "ledger": [
+    {
+      "revenue": {
+        "WHEAT": 21100,
+        "FERTILIZER": 14321,
+        "WOOL": 56974,
+        "MILK": 18550,
+        "MELON": 14278,
+        "STRAWBERRY": 15027,
+        "CARROT": 588
+      },
+      "sold_units": {
+        "WHEAT": 568,
+        "FERTILIZER": 334,
+        "WOOL": 247,
+        "MILK": 215,
+        "MELON": 72,
+        "STRAWBERRY": 256,
+        "CARROT": 18
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 10945,
+        "BUY_SEED:WHEAT": 1970,
+        "HIRE": 5400.0,
+        "BUY_ANIMAL:COW": 2800,
+        "BUY_ANIMAL:SHEEP": 5000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:CARROT": 180,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 1950
+      }
+    },
+    {
+      "revenue": {
+        "FERTILIZER": 13196,
+        "WHEAT": 11089,
+        "WOOL": 64417,
+        "MILK": 17572,
+        "MELON": 14231,
+        "STRAWBERRY": 14750,
+        "CARROT": 2720
+      },
+      "sold_units": {
+        "FERTILIZER": 310,
+        "WHEAT": 263,
+        "WOOL": 278,
+        "MILK": 191,
+        "MELON": 72,
+        "STRAWBERRY": 246,
+        "CARROT": 91
+      },
+      "spend": {
+        "BUY_ANIMAL:COW": 2400,
+        "HIRE": 4942.0,
+        "BUY_ANIMAL:SHEEP": 5500,
+        "BUY_PRODUCT:WHEAT": 5330,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:WHEAT": 1570,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 418,
+        "BUY_SEED:CARROT": 740
+      }
+    }
+  ],
+  "shops": [
+    "YARN_STORE",
+    "PIZZA_SHOP",
+    "BRUNCH_SPOT",
+    "ICE_CREAM_SHOP",
+    "YARN_STORE",
+    "BAKERY",
+    "PIZZA_SHOP",
+    "ICE_CREAM_SHOP"
+  ]
+}

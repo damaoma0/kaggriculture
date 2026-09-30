@@ -1,0 +1,445 @@
+{
+  "schema_version": 2,
+  "snapshot_day": 12,
+  "season_days": 30,
+  "aggregate_feasible": false,
+  "routing_feasible": null,
+  "routing_note": "No coordinates, worker positions, or route order were solved.",
+  "target_deviations": [
+    {
+      "target": {
+        "day": 15,
+        "product": "MELON",
+        "units": 6
+      },
+      "requested_remaining_units": 6,
+      "planned_remaining_units": 0,
+      "under": 6,
+      "over": 0
+    },
+    {
+      "target": {
+        "day": 24,
+        "product": "MELON",
+        "units": 12
+      },
+      "requested_remaining_units": 12,
+      "planned_remaining_units": 12,
+      "under": 0,
+      "over": 0
+    }
+  ],
+  "selections": [
+    {
+      "decision": "plant_MELON_d12_harvest12",
+      "quantity": 2
+    }
+  ],
+  "daily": {
+    "12": {
+      "plant": {
+        "MELON": 2
+      },
+      "buy_animal": {},
+      "actions": {
+        "water": 2
+      },
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 2,
+      "workload": 4,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "13": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {},
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 2,
+      "workload": 0,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "14": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {
+        "water": 2
+      },
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 2,
+      "workload": 2,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "15": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {},
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 2,
+      "workload": 0,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "16": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {
+        "water": 2
+      },
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 2,
+      "workload": 2,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "17": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {},
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 2,
+      "workload": 0,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "18": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {
+        "water": 2
+      },
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 2,
+      "workload": 2,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "19": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {
+        "water": 2
+      },
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 2,
+      "workload": 2,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "20": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {
+        "water": 2
+      },
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 2,
+      "workload": 2,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "21": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {
+        "water": 2
+      },
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 2,
+      "workload": 2,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "22": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {
+        "water": 2,
+        "harvest": 2
+      },
+      "expected_output": {
+        "MELON": 12
+      },
+      "expected_inputs": {},
+      "land_used": 2,
+      "workload": 4,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "23": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {},
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 0,
+      "workload": 0,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "24": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {},
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 0,
+      "workload": 0,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "25": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {},
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 0,
+      "workload": 0,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "26": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {},
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 0,
+      "workload": 0,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "27": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {},
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 0,
+      "workload": 0,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "28": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {},
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 0,
+      "workload": 0,
+      "action_capacity_after_travel": 16,
+      "routing_status": "unresolved: aggregate action count only"
+    },
+    "29": {
+      "plant": {},
+      "buy_animal": {},
+      "actions": {},
+      "expected_output": {},
+      "expected_inputs": {},
+      "land_used": 0,
+      "workload": 0,
+      "action_capacity_after_travel": 15,
+      "routing_status": "unresolved: aggregate action count only"
+    }
+  },
+  "three_day_output": [
+    {
+      "days": [
+        12,
+        15
+      ],
+      "output": {}
+    },
+    {
+      "days": [
+        15,
+        18
+      ],
+      "output": {}
+    },
+    {
+      "days": [
+        18,
+        21
+      ],
+      "output": {}
+    },
+    {
+      "days": [
+        21,
+        24
+      ],
+      "output": {
+        "MELON": 12
+      }
+    },
+    {
+      "days": [
+        24,
+        27
+      ],
+      "output": {}
+    },
+    {
+      "days": [
+        27,
+        30
+      ],
+      "output": {}
+    }
+  ],
+  "labor": {
+    "daily": [
+      {
+        "day": 12,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 13,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 14,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 15,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 16,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 17,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 18,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 19,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 20,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 21,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 22,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 23,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 24,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 25,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 26,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 27,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 28,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 24
+      },
+      {
+        "day": 29,
+        "planned_hires": 0,
+        "hire_cost": 0,
+        "raw_action_capacity": 23
+      }
+    ],
+    "total_hire_cost": 0,
+    "hire_cash_budget": null,
+    "funding_status": "not_checked",
+    "note": "Hires reset nightly; costs are per-day Fibonacci 1,1,2,3,... and use an explicit schedule."
+  },
+  "resource_funding": {
+    "cash_budget": null,
+    "future_sales_credited": false,
+    "quote_source": "resource_prices or engine base price",
+    "conditional": "Purchases and shed transfer are aggregate constraints; routes/orders are not proven."
+  },
+  "assumptions": [
+    "Crop and animal profiles are engine-rule calendars, not observed routed actions.",
+    "Existing productive assets are frozen unless an explicit retirement compiler replaces this constraint.",
+    "Resource stock flow is aggregate and assumes same-day collection/harvest can be staged; routing and shed transfer remain unresolved.",
+    "Purchases use supplied caps/prices and are conditional on the declared cash reserve; no future sales or prices are credited."
+  ],
+  "procurement": {
+    "WHEAT": 0,
+    "FERTILIZER": 0
+  },
+  "solver": {
+    "status": 0,
+    "message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+    "objective": 60002.0002,
+    "mip_gap": 0.0,
+    "dual_bound": 60002.0002,
+    "optimal": true
+  }
+}

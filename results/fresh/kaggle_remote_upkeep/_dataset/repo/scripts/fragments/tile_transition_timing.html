@@ -1,0 +1,46 @@
+<div id="tile-transition-timing">
+  <style>
+    #tile-transition-timing {color:var(--foreground);}
+    #tile-transition-timing .panels {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;}
+    #tile-transition-timing .legend {display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:12px 0;}
+    #tile-transition-timing .ramp {width:120px;height:12px;background:linear-gradient(to right,color-mix(in srgb,var(--viz-series-1) 3%,transparent),color-mix(in srgb,var(--viz-series-1) 65%,transparent));}
+    #tile-transition-timing .timing-chart {width:100%;display:block;}
+    #tile-transition-timing .timing-chart text {fill:var(--foreground);font-size:12px;}
+    #tile-transition-timing .timing-chart .domain,#tile-transition-timing .timing-chart .tick line {stroke:var(--border);}
+    @media(max-width:800px){#tile-transition-timing .panels {grid-template-columns:1fr;}}
+  </style>
+  <h2>When production types change</h2>
+  <div class="text-small text-muted">Common transitions and the strawberry → tomato branch · planting/placement action day</div>
+  <div class="legend text-small"><span>0</span><span class="ramp" aria-hidden="true"></span><span id="timing-max"></span><span>Shared scale</span></div>
+  <div class="panels">
+    <section><h3>DSM · 108 games</h3><div id="timing-dsm"></div></section>
+    <section><h3>UMG · 105 games</h3><div id="timing-umg"></div></section>
+  </div>
+  <div class="text-small text-muted">DSM 56444344 · historical UMG 56266758 · all replacement timestamps confirmed by recorded PLANT or PLACE commands</div>
+  <script id="timing-data" type="application/json">__DATA__</script>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+  <script>
+  (()=>{
+    const root=document.getElementById('tile-transition-timing'),data=JSON.parse(root.querySelector('#timing-data').textContent);
+    const max=d3.max(data.leaders.flatMap(g=>g.rows.flatMap(r=>r.byDay.map(n=>n/g.n))));
+    root.querySelector('#timing-max').textContent=max.toFixed(1)+' changes / game / day';
+    const nice=s=>s.toLowerCase().replace(/^./,x=>x.toUpperCase());
+    function draw(g){
+      const box=root.querySelector('#timing-'+g.leader.toLowerCase()),w=box.getBoundingClientRect().width,p={l:146,r:8,t:30,b:48},h=data.pairs.length*35+p.t+p.b;
+      const x=d3.scaleBand().domain(d3.range(30)).range([p.l,w-p.r]).paddingInner(.09),y=d3.scaleBand().domain(data.pairs).range([p.t,h-p.b]).paddingInner(.15);
+      const svg=d3.select(box).selectAll('svg').data([g]).join('svg').attr('class','timing-chart').attr('viewBox',`0 0 ${w} ${h}`).attr('height',h).attr('role','img').attr('aria-label',g.leader+' transition counts by action day, averaged over '+g.n+' games');svg.selectAll('*').remove();
+      svg.append('rect').attr('data-chart-frame','').attr('x',p.l).attr('y',p.t).attr('width',w-p.l-p.r).attr('height',h-p.t-p.b).attr('fill','none').attr('stroke','var(--border)');
+      const marks=g.rows.flatMap(r=>r.byDay.map((count,day)=>({transition:r.transition,day,count,value:count/g.n})));
+      svg.selectAll('rect.cell').data(marks).join('rect').attr('class','cell').attr('x',d=>x(d.day)).attr('y',d=>y(d.transition)).attr('width',x.bandwidth()).attr('height',y.bandwidth())
+        .attr('fill',d=>`color-mix(in srgb,var(--viz-series-1) ${3+62*d.value/max}%,transparent)`)
+        .attr('data-tooltip',d=>`${g.leader}: ${nice(d.transition)}, day ${d.day}: ${d.value.toFixed(2)} changes/game (${d.count} changes in ${g.n} games).`);
+      svg.append('g').attr('transform',`translate(0,${h-p.b})`).call(d3.axisBottom(x).tickValues(w<420?[0,10,20,29]:[0,6,12,18,24,29]).tickSize(3));
+      svg.append('g').attr('transform',`translate(${p.l},0)`).call(d3.axisLeft(y).tickFormat(nice).tickSize(0).tickPadding(8)).select('.domain').remove();
+      svg.append('text').attr('class','axis-title').attr('data-axis','x').attr('x',(p.l+w-p.r)/2).attr('y',h-7).attr('text-anchor','middle').text('Game day (0–29)');
+      svg.append('text').attr('class','axis-title').attr('data-axis','y').attr('x',0).attr('y',14).text('Type change');
+      svg.append('text').attr('x',p.l).attr('y',14).text('New type established');
+    }
+    const observer=new ResizeObserver(()=>data.leaders.forEach(draw));data.leaders.forEach(g=>observer.observe(root.querySelector('#timing-'+g.leader.toLowerCase())));data.leaders.forEach(draw);
+  })();
+  </script>
+</div>

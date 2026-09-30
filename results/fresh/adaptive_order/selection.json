@@ -1,0 +1,61 @@
+{
+  "mode": "static",
+  "scores": {
+    "available": 332.725,
+    "static": 1456.9125,
+    "clock": 882.13125,
+    "visible": 1084.59375
+  },
+  "eligible": [
+    "available",
+    "static",
+    "clock",
+    "visible"
+  ],
+  "rule": {
+    "candidates": [
+      "available",
+      "static",
+      "clock",
+      "visible"
+    ],
+    "control": "fixed",
+    "discovery_seeds": [
+      124000,
+      124001,
+      124002,
+      124003
+    ],
+    "controlled_shop_seeds": [
+      125000,
+      125001,
+      125002,
+      125003,
+      125004,
+      125005,
+      125006,
+      125007
+    ],
+    "confirmation_seeds": [
+      126000,
+      126001,
+      126002,
+      126003,
+      126004,
+      126005,
+      126006,
+      126007
+    ],
+    "eligibility": "Positive average match-margin improvement in both discovery panels; no fewer aggregate discovery wins than fixed.",
+    "ranking": "Equal-weight average of natural and controlled-panel margin improvements. Prefer the simpler candidate within 50 margin units of the best eligible score, in static, clock, visible order.",
+    "promotion": "On untouched confirmation seeds require positive average margin improvement, no fewer total wins than fixed, and more wins than losses in direct matches against fixed.",
+    "reason": "Freeze selection before inspecting discovery outcomes; do not retune models on these panels.",
+    "amendment": {
+      "reason": "Post-hoc attribution control prompted by discovery seed 124000 turn 517: planned MILK sale had no executed units, while STRAWBERRY traded. Earlier automatic liquidation can leave stale tape orders.",
+      "additional_control": "available: move empty SELL orders behind available ones; preserve relative order within each group.",
+      "selection": "Apply the original eligibility and equal-panel scoring rule to available, static, clock, visible, with that simplicity order and the original 50-unit tolerance.",
+      "confirmation": "Use the original eight untouched seeds. If another policy is selected, include availability as a third confirmation policy. Require selection to improve mean confirmation margin over availability as well as passing original gates.",
+      "disclosure": "The control was added after inspecting partial discovery logs; original four policy implementations and frozen manifests remain unchanged."
+    }
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "scope": "INDEPENDENT_STATIC_AND_PURE_FEATURE_CHECK_NO_GAMES",
+  "result": "PASS",
+  "checks": {
+    "default_off": true,
+    "baseline_hash_link": true,
+    "baseline_dictionary_equal": true,
+    "selected_columns_exact": true,
+    "source_sha_preserved": true,
+    "unchanged_nonselected_coefficients_6": true,
+    "unchanged_schedule_caps_6": true,
+    "original_scaling_6": true,
+    "unchanged_nonselected_coefficients_9": true,
+    "unchanged_schedule_caps_9": true,
+    "original_scaling_9": true,
+    "unchanged_nonselected_coefficients_12": true,
+    "unchanged_schedule_caps_12": true,
+    "original_scaling_12": true,
+    "unchanged_nonselected_coefficients_15": true,
+    "unchanged_schedule_caps_15": true,
+    "original_scaling_15": true,
+    "unchanged_nonselected_coefficients_18": true,
+    "unchanged_schedule_caps_18": true,
+    "original_scaling_18": true,
+    "unchanged_nonselected_coefficients_21": true,
+    "unchanged_schedule_caps_21": true,
+    "original_scaling_21": true,
+    "unchanged_nonselected_coefficients_24": true,
+    "unchanged_schedule_caps_24": true,
+    "original_scaling_24": true,
+    "unchanged_nonselected_coefficients_27": true,
+    "unchanged_schedule_caps_27": true,
+    "original_scaling_27": true,
+    "24_day_visible_index_and_future_expectation_probes": true,
+    "same_composition_different_latest_feature": true
+  },
+  "dimensions": [
+    {
+      "block": 6,
+      "old_features": 15,
+      "new_features": 23
+    },
+    {
+      "block": 9,
+      "old_features": 15,
+      "new_features": 23
+    },
+    {
+      "block": 12,
+      "old_features": 15,
+      "new_features": 23
+    },
+    {
+      "block": 15,
+      "old_features": 15,
+      "new_features": 23
+    },
+    {
+      "block": 18,
+      "old_features": 15,
+      "new_features": 23
+    },
+    {
+      "block": 21,
+      "old_features": 15,
+      "new_features": 23
+    },
+    {
+      "block": 24,
+      "old_features": 15,
+      "new_features": 23
+    },
+    {
+      "block": 27,
+      "old_features": 15,
+      "new_features": 23
+    }
+  ],
+  "model_sha256": "a4a1ec12b60c1d37e2ceded1441dc6741a3d00669950edad7193622b08457e72",
+  "source_sha256": "125e32b4aff0cb4e7c12a825b03bbbdef6c55f525dcb15772a993861f3f4b5ec",
+  "script_sha256": "9d49d6fbab82346fae4b1acd5415c8096e28e72eb92a750cead1c0e0206b6136",
+  "frozen_baseline_sha256": "6ff0140191eb8d451bfe178d758fe6eee53abd432786c7f0bf67bdacaefd5426",
+  "limitations": [
+    "Exploratory fit selected on development diagnostics, not independent performance evidence.",
+    "Feature changes current shop identity only. It does not add rival state or market data to block generation.",
+    "Admission may change other accepted species when the selected SHEEP/STRAWBERRY budgets compete for capacity.",
+    "D6 opening retrieval bypasses regression features; future unknown reveal uses uniform expectation."
+  ]
+}

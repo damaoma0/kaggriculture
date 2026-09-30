@@ -1,0 +1,101 @@
+{
+  "fixed_species": "sheep",
+  "development_means": {
+    "original": 86390.25,
+    "cow": 86500.25,
+    "sheep": 105950.875,
+    "dp": 86500.25
+  },
+  "ranking_agreement": 0,
+  "comparable_pairs": 6,
+  "pairs": [
+    {
+      "seed": 111000,
+      "seat": 0,
+      "actual_sheep_minus_cow": 44817.0,
+      "predicted_sheep_minus_cow": -4772,
+      "feasible": [
+        "COW",
+        "SHEEP"
+      ],
+      "selected": "COW"
+    },
+    {
+      "seed": 111000,
+      "seat": 1,
+      "actual_sheep_minus_cow": 44817.0,
+      "predicted_sheep_minus_cow": -4772,
+      "feasible": [
+        "COW",
+        "SHEEP"
+      ],
+      "selected": "COW"
+    },
+    {
+      "seed": 111001,
+      "seat": 0,
+      "actual_sheep_minus_cow": 21968.0,
+      "predicted_sheep_minus_cow": -4772,
+      "feasible": [
+        "COW",
+        "SHEEP"
+      ],
+      "selected": "COW"
+    },
+    {
+      "seed": 111001,
+      "seat": 1,
+      "actual_sheep_minus_cow": 39499.0,
+      "predicted_sheep_minus_cow": -4772,
+      "feasible": [
+        "COW",
+        "SHEEP"
+      ],
+      "selected": "COW"
+    },
+    {
+      "seed": 111002,
+      "seat": 0,
+      "actual_sheep_minus_cow": 0.0,
+      "predicted_sheep_minus_cow": -4104,
+      "feasible": [
+        "COW"
+      ],
+      "selected": "COW"
+    },
+    {
+      "seed": 111002,
+      "seat": 1,
+      "actual_sheep_minus_cow": 0.0,
+      "predicted_sheep_minus_cow": -4104,
+      "feasible": [
+        "COW"
+      ],
+      "selected": "COW"
+    },
+    {
+      "seed": 111003,
+      "seat": 0,
+      "actual_sheep_minus_cow": 2252.0,
+      "predicted_sheep_minus_cow": -1202,
+      "feasible": [
+        "COW",
+        "SHEEP"
+      ],
+      "selected": "COW"
+    },
+    {
+      "seed": 111003,
+      "seat": 1,
+      "actual_sheep_minus_cow": 2252.0,
+      "predicted_sheep_minus_cow": -1202,
+      "feasible": [
+        "COW",
+        "SHEEP"
+      ],
+      "selected": "COW"
+    }
+  ],
+  "placement_failures": 0,
+  "criterion": "Higher average final cash on development seeds; keep both DP forecast variants as predeclared diagnostic comparators."
+}

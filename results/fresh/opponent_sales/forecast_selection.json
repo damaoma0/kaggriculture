@@ -1,0 +1,119 @@
+{
+  "method": "visible",
+  "criterion": "Lowest 12-turn opponent-delivery MAE when current price exceeds floor, on training seeds only",
+  "metrics": [
+    {
+      "method": "recent",
+      "horizon": 6,
+      "mae": 3.4078125,
+      "above_floor_mae": 3.706117021276596,
+      "by_opponent": {
+        "pasture": 2.0984375,
+        "prompt": 5.63046875,
+        "sixday": 4.45234375,
+        "stockpiler": 1.45
+      }
+    },
+    {
+      "method": "recent",
+      "horizon": 12,
+      "mae": 4.46796875,
+      "above_floor_mae": 4.74468085106383,
+      "by_opponent": {
+        "pasture": 3.8,
+        "prompt": 5.8265625,
+        "sixday": 5.6078125,
+        "stockpiler": 2.6375
+      }
+    },
+    {
+      "method": "recent",
+      "horizon": 24,
+      "mae": 4.7875,
+      "above_floor_mae": 4.948581560283688,
+      "by_opponent": {
+        "pasture": 4.91875,
+        "prompt": 5.503125,
+        "sixday": 5.365625,
+        "stockpiler": 3.3625
+      }
+    },
+    {
+      "method": "clock",
+      "horizon": 6,
+      "mae": 2.988828125,
+      "above_floor_mae": 3.196276595744681,
+      "by_opponent": {
+        "pasture": 2.1496875,
+        "prompt": 4.51640625,
+        "sixday": 3.97921875,
+        "stockpiler": 1.31
+      }
+    },
+    {
+      "method": "clock",
+      "horizon": 12,
+      "mae": 3.88140625,
+      "above_floor_mae": 4.090425531914893,
+      "by_opponent": {
+        "pasture": 3.69,
+        "prompt": 5.0171875,
+        "sixday": 4.8409375,
+        "stockpiler": 1.9775
+      }
+    },
+    {
+      "method": "clock",
+      "horizon": 24,
+      "mae": 4.7875,
+      "above_floor_mae": 4.948581560283688,
+      "by_opponent": {
+        "pasture": 4.91875,
+        "prompt": 5.503125,
+        "sixday": 5.365625,
+        "stockpiler": 3.3625
+      }
+    },
+    {
+      "method": "visible",
+      "horizon": 6,
+      "mae": 2.913409815389278,
+      "above_floor_mae": 3.0649004860413087,
+      "by_opponent": {
+        "pasture": 2.181776871990378,
+        "prompt": 4.079232622524183,
+        "sixday": 3.9644813731346225,
+        "stockpiler": 1.4281483939079296
+      }
+    },
+    {
+      "method": "visible",
+      "horizon": 12,
+      "mae": 3.486125390827261,
+      "above_floor_mae": 3.6011052257094645,
+      "by_opponent": {
+        "pasture": 3.3731514808971648,
+        "prompt": 4.261427409004555,
+        "sixday": 4.286173022263913,
+        "stockpiler": 2.0237496511434117
+      }
+    },
+    {
+      "method": "visible",
+      "horizon": 24,
+      "mae": 3.904480655949298,
+      "above_floor_mae": 3.9022578431306756,
+      "by_opponent": {
+        "pasture": 3.8440419630705938,
+        "prompt": 4.415467083535155,
+        "sixday": 4.416437326682203,
+        "stockpiler": 2.9419762505092395
+      }
+    }
+  ],
+  "inference": {
+    "identifiable_turns": 20908,
+    "total_product_turns": 22976,
+    "known_mae": 0.012148459919647981
+  }
+}

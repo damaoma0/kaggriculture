@@ -1,0 +1,549 @@
+{
+  "comparisons": {
+    "development/v44/order": {
+      "games": 12,
+      "margin_gain": 102.5,
+      "cash_gain": 42.833333333333336,
+      "seed_gains": {
+        "140000": 22.0,
+        "140001": 228.0,
+        "140002": 57.5
+      },
+      "opponents": {
+        "farmingv5": {
+          "margin_gain": 152.66666666666666,
+          "cash_gain": 56.5
+        },
+        "twocoins": {
+          "margin_gain": 52.333333333333336,
+          "cash_gain": 29.166666666666668
+        }
+      },
+      "baseline_wtl": [
+        12,
+        0,
+        0
+      ],
+      "candidate_wtl": [
+        12,
+        0,
+        0
+      ],
+      "mean_liquidated_units": 0,
+      "mean_priority_calls": 229.25,
+      "max_seconds": 0.17432299999927636,
+      "accounting_delta": {
+        "revenue:WHEAT": 1.8333333333333333,
+        "revenue:FERTILIZER": 39.5,
+        "revenue:WOOL": -14.5,
+        "revenue:MILK": 1.5,
+        "revenue:MELON": 0.0,
+        "revenue:EGG": 0.8333333333333334,
+        "revenue:STRAWBERRY": 13.583333333333334,
+        "revenue:CARROT": 0.0,
+        "sold_units:WHEAT": 0.0,
+        "sold_units:FERTILIZER": 0.0,
+        "sold_units:WOOL": 0.0,
+        "sold_units:MILK": 0.0,
+        "sold_units:MELON": 0.0,
+        "sold_units:EGG": 0.0,
+        "sold_units:STRAWBERRY": 0.0,
+        "sold_units:CARROT": 0.0,
+        "cost:BUY_PRODUCT:WHEAT": 0.0,
+        "cost:HIRE": 0.0,
+        "cost:BUY_ANIMAL:COW": 0.0,
+        "cost:BUY_ANIMAL:SHEEP": 0.0,
+        "cost:BUY_SEED:MELON": 0.0,
+        "cost:BUY_SEED:WHEAT": 0.0,
+        "cost:BUY_SEED:STRAWBERRY": 0.0,
+        "cost:BUY_LAND": 0.0,
+        "cost:BUY_PRODUCT:FERTILIZER": -0.08333333333333333,
+        "cost:BUY_ANIMAL:GOOSE": 0.0,
+        "cost:BUY_SEED:CARROT": 0.0
+      }
+    },
+    "development/v44/liquid": {
+      "games": 12,
+      "margin_gain": -1499.6666666666667,
+      "cash_gain": -1611.5833333333333,
+      "seed_gains": {
+        "140000": -483.5,
+        "140001": -2466.0,
+        "140002": -1549.5
+      },
+      "opponents": {
+        "farmingv5": {
+          "margin_gain": -1309.5,
+          "cash_gain": -1601.0
+        },
+        "twocoins": {
+          "margin_gain": -1689.8333333333333,
+          "cash_gain": -1622.1666666666667
+        }
+      },
+      "baseline_wtl": [
+        12,
+        0,
+        0
+      ],
+      "candidate_wtl": [
+        12,
+        0,
+        0
+      ],
+      "mean_liquidated_units": 120.58333333333333,
+      "mean_priority_calls": 0,
+      "max_seconds": 0.15200880000338657,
+      "accounting_delta": {
+        "revenue:WHEAT": 95.25,
+        "revenue:FERTILIZER": -12.25,
+        "revenue:WOOL": -644.0,
+        "revenue:MILK": -917.6666666666666,
+        "revenue:MELON": 0.0,
+        "revenue:EGG": -26.666666666666668,
+        "revenue:STRAWBERRY": -102.16666666666667,
+        "revenue:CARROT": -1.1666666666666667,
+        "sold_units:WHEAT": 2.3333333333333335,
+        "sold_units:FERTILIZER": 0.0,
+        "sold_units:WOOL": 0.16666666666666666,
+        "sold_units:MILK": -3.0,
+        "sold_units:MELON": 0.0,
+        "sold_units:EGG": -0.5,
+        "sold_units:STRAWBERRY": -0.8333333333333334,
+        "sold_units:CARROT": 0.0,
+        "cost:BUY_PRODUCT:WHEAT": 0.0,
+        "cost:HIRE": 0.0,
+        "cost:BUY_ANIMAL:COW": 0.0,
+        "cost:BUY_ANIMAL:SHEEP": 0.0,
+        "cost:BUY_SEED:MELON": 0.0,
+        "cost:BUY_SEED:WHEAT": 0.0,
+        "cost:BUY_SEED:STRAWBERRY": 0.0,
+        "cost:BUY_LAND": 0.0,
+        "cost:BUY_PRODUCT:FERTILIZER": 2.9166666666666665,
+        "cost:BUY_ANIMAL:GOOSE": 0.0,
+        "cost:BUY_SEED:CARROT": 0.0
+      }
+    },
+    "development/v44/both": {
+      "games": 12,
+      "margin_gain": -1417.8333333333333,
+      "cash_gain": -1570.5,
+      "seed_gains": {
+        "140000": -414.0,
+        "140001": -2382.5,
+        "140002": -1457.0
+      },
+      "opponents": {
+        "farmingv5": {
+          "margin_gain": -1221.5,
+          "cash_gain": -1560.5
+        },
+        "twocoins": {
+          "margin_gain": -1614.1666666666667,
+          "cash_gain": -1580.5
+        }
+      },
+      "baseline_wtl": [
+        12,
+        0,
+        0
+      ],
+      "candidate_wtl": [
+        12,
+        0,
+        0
+      ],
+      "mean_liquidated_units": 120.58333333333333,
+      "mean_priority_calls": 211.5,
+      "max_seconds": 0.30604200000379933,
+      "accounting_delta": {
+        "revenue:WHEAT": 96.08333333333333,
+        "revenue:FERTILIZER": 34.083333333333336,
+        "revenue:WOOL": -651.8333333333334,
+        "revenue:MILK": -915.1666666666666,
+        "revenue:MELON": 0.0,
+        "revenue:EGG": -26.666666666666668,
+        "revenue:STRAWBERRY": -102.5,
+        "revenue:CARROT": -1.6666666666666667,
+        "sold_units:WHEAT": 2.3333333333333335,
+        "sold_units:FERTILIZER": 0.0,
+        "sold_units:WOOL": 0.16666666666666666,
+        "sold_units:MILK": -3.0,
+        "sold_units:MELON": 0.0,
+        "sold_units:EGG": -0.5,
+        "sold_units:STRAWBERRY": -0.8333333333333334,
+        "sold_units:CARROT": 0.0,
+        "cost:BUY_PRODUCT:WHEAT": 0.0,
+        "cost:HIRE": 0.0,
+        "cost:BUY_ANIMAL:COW": 0.0,
+        "cost:BUY_ANIMAL:SHEEP": 0.0,
+        "cost:BUY_SEED:MELON": 0.0,
+        "cost:BUY_SEED:WHEAT": 0.0,
+        "cost:BUY_SEED:STRAWBERRY": 0.0,
+        "cost:BUY_LAND": 0.0,
+        "cost:BUY_PRODUCT:FERTILIZER": 2.8333333333333335,
+        "cost:BUY_ANIMAL:GOOSE": 0.0,
+        "cost:BUY_SEED:CARROT": 0.0
+      }
+    },
+    "development/v45/order": {
+      "games": 12,
+      "margin_gain": 102.5,
+      "cash_gain": 42.833333333333336,
+      "seed_gains": {
+        "140000": 22.0,
+        "140001": 228.0,
+        "140002": 57.5
+      },
+      "opponents": {
+        "farmingv5": {
+          "margin_gain": 152.66666666666666,
+          "cash_gain": 56.5
+        },
+        "twocoins": {
+          "margin_gain": 52.333333333333336,
+          "cash_gain": 29.166666666666668
+        }
+      },
+      "baseline_wtl": [
+        12,
+        0,
+        0
+      ],
+      "candidate_wtl": [
+        12,
+        0,
+        0
+      ],
+      "mean_liquidated_units": 0,
+      "mean_priority_calls": 229.25,
+      "max_seconds": 0.14473390000057407,
+      "accounting_delta": {
+        "revenue:WHEAT": 1.8333333333333333,
+        "revenue:FERTILIZER": 39.5,
+        "revenue:WOOL": -14.5,
+        "revenue:MILK": 1.5,
+        "revenue:MELON": 0.0,
+        "revenue:EGG": 0.8333333333333334,
+        "revenue:STRAWBERRY": 13.583333333333334,
+        "revenue:CARROT": 0.0,
+        "sold_units:WHEAT": 0.0,
+        "sold_units:FERTILIZER": 0.0,
+        "sold_units:WOOL": 0.0,
+        "sold_units:MILK": 0.0,
+        "sold_units:MELON": 0.0,
+        "sold_units:EGG": 0.0,
+        "sold_units:STRAWBERRY": 0.0,
+        "sold_units:CARROT": 0.0,
+        "cost:BUY_PRODUCT:WHEAT": 0.0,
+        "cost:HIRE": 0.0,
+        "cost:BUY_ANIMAL:COW": 0.0,
+        "cost:BUY_ANIMAL:SHEEP": 0.0,
+        "cost:BUY_SEED:MELON": 0.0,
+        "cost:BUY_SEED:WHEAT": 0.0,
+        "cost:BUY_SEED:STRAWBERRY": 0.0,
+        "cost:BUY_LAND": 0.0,
+        "cost:BUY_PRODUCT:FERTILIZER": -0.08333333333333333,
+        "cost:BUY_ANIMAL:GOOSE": 0.0,
+        "cost:BUY_SEED:CARROT": 0.0
+      }
+    },
+    "development/v45/liquid": {
+      "games": 12,
+      "margin_gain": -1499.6666666666667,
+      "cash_gain": -1611.5833333333333,
+      "seed_gains": {
+        "140000": -483.5,
+        "140001": -2466.0,
+        "140002": -1549.5
+      },
+      "opponents": {
+        "farmingv5": {
+          "margin_gain": -1309.5,
+          "cash_gain": -1601.0
+        },
+        "twocoins": {
+          "margin_gain": -1689.8333333333333,
+          "cash_gain": -1622.1666666666667
+        }
+      },
+      "baseline_wtl": [
+        12,
+        0,
+        0
+      ],
+      "candidate_wtl": [
+        12,
+        0,
+        0
+      ],
+      "mean_liquidated_units": 120.58333333333333,
+      "mean_priority_calls": 0,
+      "max_seconds": 0.2730347999968217,
+      "accounting_delta": {
+        "revenue:WHEAT": 95.25,
+        "revenue:FERTILIZER": -12.25,
+        "revenue:WOOL": -644.0,
+        "revenue:MILK": -917.6666666666666,
+        "revenue:MELON": 0.0,
+        "revenue:EGG": -26.666666666666668,
+        "revenue:STRAWBERRY": -102.16666666666667,
+        "revenue:CARROT": -1.1666666666666667,
+        "sold_units:WHEAT": 2.3333333333333335,
+        "sold_units:FERTILIZER": 0.0,
+        "sold_units:WOOL": 0.16666666666666666,
+        "sold_units:MILK": -3.0,
+        "sold_units:MELON": 0.0,
+        "sold_units:EGG": -0.5,
+        "sold_units:STRAWBERRY": -0.8333333333333334,
+        "sold_units:CARROT": 0.0,
+        "cost:BUY_PRODUCT:WHEAT": 0.0,
+        "cost:HIRE": 0.0,
+        "cost:BUY_ANIMAL:COW": 0.0,
+        "cost:BUY_ANIMAL:SHEEP": 0.0,
+        "cost:BUY_SEED:MELON": 0.0,
+        "cost:BUY_SEED:WHEAT": 0.0,
+        "cost:BUY_SEED:STRAWBERRY": 0.0,
+        "cost:BUY_LAND": 0.0,
+        "cost:BUY_PRODUCT:FERTILIZER": 2.9166666666666665,
+        "cost:BUY_ANIMAL:GOOSE": 0.0,
+        "cost:BUY_SEED:CARROT": 0.0
+      }
+    },
+    "development/v45/both": {
+      "games": 12,
+      "margin_gain": -1417.8333333333333,
+      "cash_gain": -1570.5,
+      "seed_gains": {
+        "140000": -414.0,
+        "140001": -2382.5,
+        "140002": -1457.0
+      },
+      "opponents": {
+        "farmingv5": {
+          "margin_gain": -1221.5,
+          "cash_gain": -1560.5
+        },
+        "twocoins": {
+          "margin_gain": -1614.1666666666667,
+          "cash_gain": -1580.5
+        }
+      },
+      "baseline_wtl": [
+        12,
+        0,
+        0
+      ],
+      "candidate_wtl": [
+        12,
+        0,
+        0
+      ],
+      "mean_liquidated_units": 120.58333333333333,
+      "mean_priority_calls": 211.5,
+      "max_seconds": 0.19307470000057947,
+      "accounting_delta": {
+        "revenue:WHEAT": 96.08333333333333,
+        "revenue:FERTILIZER": 34.083333333333336,
+        "revenue:WOOL": -651.8333333333334,
+        "revenue:MILK": -915.1666666666666,
+        "revenue:MELON": 0.0,
+        "revenue:EGG": -26.666666666666668,
+        "revenue:STRAWBERRY": -102.5,
+        "revenue:CARROT": -1.6666666666666667,
+        "sold_units:WHEAT": 2.3333333333333335,
+        "sold_units:FERTILIZER": 0.0,
+        "sold_units:WOOL": 0.16666666666666666,
+        "sold_units:MILK": -3.0,
+        "sold_units:MELON": 0.0,
+        "sold_units:EGG": -0.5,
+        "sold_units:STRAWBERRY": -0.8333333333333334,
+        "sold_units:CARROT": 0.0,
+        "cost:BUY_PRODUCT:WHEAT": 0.0,
+        "cost:HIRE": 0.0,
+        "cost:BUY_ANIMAL:COW": 0.0,
+        "cost:BUY_ANIMAL:SHEEP": 0.0,
+        "cost:BUY_SEED:MELON": 0.0,
+        "cost:BUY_SEED:WHEAT": 0.0,
+        "cost:BUY_SEED:STRAWBERRY": 0.0,
+        "cost:BUY_LAND": 0.0,
+        "cost:BUY_PRODUCT:FERTILIZER": 2.8333333333333335,
+        "cost:BUY_ANIMAL:GOOSE": 0.0,
+        "cost:BUY_SEED:CARROT": 0.0
+      }
+    },
+    "confirmation/v44/order": {
+      "games": 48,
+      "margin_gain": 137.375,
+      "cash_gain": 60.708333333333336,
+      "seed_gains": {
+        "141000": 65.33333333333333,
+        "141001": 52.0,
+        "141002": 85.66666666666667,
+        "141003": 338.3333333333333,
+        "141004": 96.0,
+        "141005": 83.33333333333333,
+        "141006": 19.333333333333332,
+        "141007": 359.0
+      },
+      "opponents": {
+        "farmingv5": {
+          "margin_gain": 132.625,
+          "cash_gain": 49.875
+        },
+        "twocoins": {
+          "margin_gain": 139.5,
+          "cash_gain": 73.0
+        },
+        "v45": {
+          "margin_gain": 140.0,
+          "cash_gain": 59.25
+        }
+      },
+      "baseline_wtl": [
+        32,
+        0,
+        16
+      ],
+      "candidate_wtl": [
+        32,
+        0,
+        16
+      ],
+      "mean_liquidated_units": 0,
+      "mean_priority_calls": 213.66666666666666,
+      "max_seconds": 0.36024869999528164,
+      "accounting_delta": {
+        "revenue:WHEAT": 0.08333333333333333,
+        "revenue:FERTILIZER": 34.416666666666664,
+        "revenue:WOOL": 4.083333333333333,
+        "revenue:MILK": -4.916666666666667,
+        "revenue:MELON": 0.0,
+        "revenue:EGG": 1.0,
+        "revenue:STRAWBERRY": 18.666666666666668,
+        "revenue:CARROT": 7.416666666666667,
+        "sold_units:WHEAT": 0.0,
+        "sold_units:FERTILIZER": 0.0,
+        "sold_units:WOOL": 0.0,
+        "sold_units:MILK": 0.0,
+        "sold_units:MELON": 0.0,
+        "sold_units:EGG": 0.0,
+        "sold_units:STRAWBERRY": 0.0,
+        "sold_units:CARROT": 0.0,
+        "cost:BUY_PRODUCT:WHEAT": 0.0,
+        "cost:HIRE": 0.0,
+        "cost:BUY_ANIMAL:COW": 0.0,
+        "cost:BUY_ANIMAL:SHEEP": 0.0,
+        "cost:BUY_SEED:MELON": 0.0,
+        "cost:BUY_SEED:WHEAT": 0.0,
+        "cost:BUY_SEED:STRAWBERRY": 0.0,
+        "cost:BUY_LAND": 0.0,
+        "cost:BUY_PRODUCT:FERTILIZER": 0.041666666666666664,
+        "cost:BUY_ANIMAL:GOOSE": 0.0,
+        "cost:BUY_SEED:CARROT": 0.0
+      }
+    },
+    "confirmation/v45/order": {
+      "games": 48,
+      "margin_gain": 137.375,
+      "cash_gain": 60.708333333333336,
+      "seed_gains": {
+        "141000": 65.33333333333333,
+        "141001": 52.0,
+        "141002": 85.66666666666667,
+        "141003": 338.3333333333333,
+        "141004": 96.0,
+        "141005": 83.33333333333333,
+        "141006": 19.333333333333332,
+        "141007": 359.0
+      },
+      "opponents": {
+        "farmingv5": {
+          "margin_gain": 132.625,
+          "cash_gain": 49.875
+        },
+        "twocoins": {
+          "margin_gain": 139.5,
+          "cash_gain": 73.0
+        },
+        "v44": {
+          "margin_gain": 140.0,
+          "cash_gain": 59.25
+        }
+      },
+      "baseline_wtl": [
+        48,
+        0,
+        0
+      ],
+      "candidate_wtl": [
+        48,
+        0,
+        0
+      ],
+      "mean_liquidated_units": 0,
+      "mean_priority_calls": 213.66666666666666,
+      "max_seconds": 0.22448240000085207,
+      "accounting_delta": {
+        "revenue:WHEAT": 0.08333333333333333,
+        "revenue:FERTILIZER": 34.416666666666664,
+        "revenue:WOOL": 4.083333333333333,
+        "revenue:MILK": -4.916666666666667,
+        "revenue:MELON": 0.0,
+        "revenue:EGG": 1.0,
+        "revenue:STRAWBERRY": 18.666666666666668,
+        "revenue:CARROT": 7.416666666666667,
+        "sold_units:WHEAT": 0.0,
+        "sold_units:FERTILIZER": 0.0,
+        "sold_units:WOOL": 0.0,
+        "sold_units:MILK": 0.0,
+        "sold_units:MELON": 0.0,
+        "sold_units:EGG": 0.0,
+        "sold_units:STRAWBERRY": 0.0,
+        "sold_units:CARROT": 0.0,
+        "cost:BUY_PRODUCT:WHEAT": 0.0,
+        "cost:HIRE": 0.0,
+        "cost:BUY_ANIMAL:COW": 0.0,
+        "cost:BUY_ANIMAL:SHEEP": 0.0,
+        "cost:BUY_SEED:MELON": 0.0,
+        "cost:BUY_SEED:WHEAT": 0.0,
+        "cost:BUY_SEED:STRAWBERRY": 0.0,
+        "cost:BUY_LAND": 0.0,
+        "cost:BUY_PRODUCT:FERTILIZER": 0.041666666666666664,
+        "cost:BUY_ANIMAL:GOOSE": 0.0,
+        "cost:BUY_SEED:CARROT": 0.0
+      }
+    }
+  },
+  "selections": {
+    "v44": {
+      "screened_mode": "order",
+      "selected_mode": "order",
+      "gates": {
+        "positive_mean": true,
+        "nonnegative_each_rival": true,
+        "six_positive_seeds": true,
+        "no_fewer_wins": true,
+        "no_errors": true,
+        "under_one_second": true
+      },
+      "path": "agents\\v44_our_selected.py",
+      "sha256": "51076eb6d7af20c70c613bcd502523f7113e7cf8738b27e9665a7c39842ba872"
+    },
+    "v45": {
+      "screened_mode": "order",
+      "selected_mode": "order",
+      "gates": {
+        "positive_mean": true,
+        "nonnegative_each_rival": true,
+        "six_positive_seeds": true,
+        "no_fewer_wins": true,
+        "no_errors": true,
+        "under_one_second": true
+      },
+      "path": "agents\\v45_our_selected.py",
+      "sha256": "88cb37b9a35434f4edb89a6dfa7c51a2681d21c12ebaa94c3a2dd5ad18650059"
+    }
+  },
+  "errors": []
+}

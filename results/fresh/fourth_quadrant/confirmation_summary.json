@@ -1,0 +1,290 @@
+[
+  {
+    "configuration": "tomato2_r0",
+    "mode": "native",
+    "pairs": 4,
+    "committed": 0,
+    "cash_delta": 0.0,
+    "margin_delta": 0.0,
+    "positive_margin": 0,
+    "min_margin_delta": 0.0,
+    "max_margin_delta": 0.0,
+    "labor_delta": 0.0,
+    "feature_prices": {
+      "TOMATO": 71,
+      "WOOL": 5,
+      "WHEAT": 41.5,
+      "FERTILIZER": 39.5
+    }
+  },
+  {
+    "configuration": "tomato2_r0",
+    "mode": "tomato",
+    "pairs": 4,
+    "committed": 4,
+    "cash_delta": -2285.0,
+    "margin_delta": -2551.5,
+    "positive_margin": 0,
+    "min_margin_delta": -2841.0,
+    "max_margin_delta": -2262.0,
+    "labor_delta": 3986.0,
+    "feature_prices": {
+      "TOMATO": 71,
+      "WOOL": 5,
+      "WHEAT": 41.5,
+      "FERTILIZER": 39.5
+    }
+  },
+  {
+    "configuration": "tomato2_r1",
+    "mode": "native",
+    "pairs": 4,
+    "committed": 0,
+    "cash_delta": 0.0,
+    "margin_delta": 0.0,
+    "positive_margin": 0,
+    "min_margin_delta": 0.0,
+    "max_margin_delta": 0.0,
+    "labor_delta": 0.0,
+    "feature_prices": {
+      "TOMATO": 75,
+      "WOOL": 1,
+      "WHEAT": 43,
+      "FERTILIZER": 39.5
+    }
+  },
+  {
+    "configuration": "tomato2_r1",
+    "mode": "tomato",
+    "pairs": 4,
+    "committed": 4,
+    "cash_delta": -1440.5,
+    "margin_delta": -1633.5,
+    "positive_margin": 0,
+    "min_margin_delta": -1635.0,
+    "max_margin_delta": -1632.0,
+    "labor_delta": 3687.5,
+    "feature_prices": {
+      "TOMATO": 75,
+      "WOOL": 1,
+      "WHEAT": 43,
+      "FERTILIZER": 39.5
+    }
+  },
+  {
+    "configuration": "tomato3_r0",
+    "mode": "native",
+    "pairs": 4,
+    "committed": 4,
+    "cash_delta": -1243.5,
+    "margin_delta": 1129.0,
+    "positive_margin": 4,
+    "min_margin_delta": 756.0,
+    "max_margin_delta": 1502.0,
+    "labor_delta": 3465.0,
+    "feature_prices": {
+      "TOMATO": 75,
+      "WOOL": 148,
+      "WHEAT": 39,
+      "FERTILIZER": 39.5
+    }
+  },
+  {
+    "configuration": "tomato3_r0",
+    "mode": "tomato",
+    "pairs": 4,
+    "committed": 4,
+    "cash_delta": -1243.5,
+    "margin_delta": 1129.0,
+    "positive_margin": 4,
+    "min_margin_delta": 756.0,
+    "max_margin_delta": 1502.0,
+    "labor_delta": 3465.0,
+    "feature_prices": {
+      "TOMATO": 75,
+      "WOOL": 148,
+      "WHEAT": 39,
+      "FERTILIZER": 39.5
+    }
+  },
+  {
+    "configuration": "tomato3_r1",
+    "mode": "native",
+    "pairs": 4,
+    "committed": 0,
+    "cash_delta": 0.0,
+    "margin_delta": 0.0,
+    "positive_margin": 0,
+    "min_margin_delta": 0.0,
+    "max_margin_delta": 0.0,
+    "labor_delta": 0.0,
+    "feature_prices": {
+      "TOMATO": 69,
+      "WOOL": 5,
+      "WHEAT": 41,
+      "FERTILIZER": 39.5
+    }
+  },
+  {
+    "configuration": "tomato3_r1",
+    "mode": "tomato",
+    "pairs": 4,
+    "committed": 4,
+    "cash_delta": -1508.5,
+    "margin_delta": -1634.5,
+    "positive_margin": 0,
+    "min_margin_delta": -1665.0,
+    "max_margin_delta": -1604.0,
+    "labor_delta": 3420.5,
+    "feature_prices": {
+      "TOMATO": 69,
+      "WOOL": 5,
+      "WHEAT": 41,
+      "FERTILIZER": 39.5
+    }
+  },
+  {
+    "configuration": "yarn2_r0",
+    "mode": "native",
+    "pairs": 4,
+    "committed": 4,
+    "cash_delta": -11860.5,
+    "margin_delta": 4346.5,
+    "positive_margin": 4,
+    "min_margin_delta": 3404.0,
+    "max_margin_delta": 5289.0,
+    "labor_delta": 6011.0,
+    "feature_prices": {
+      "TOMATO": 69,
+      "WOOL": 238,
+      "WHEAT": 39.5,
+      "FERTILIZER": 29
+    }
+  },
+  {
+    "configuration": "yarn2_r0",
+    "mode": "sheep",
+    "pairs": 4,
+    "committed": 4,
+    "cash_delta": -11860.5,
+    "margin_delta": 4346.5,
+    "positive_margin": 4,
+    "min_margin_delta": 3404.0,
+    "max_margin_delta": 5289.0,
+    "labor_delta": 6011.0,
+    "feature_prices": {
+      "TOMATO": 64,
+      "WOOL": 238,
+      "WHEAT": 39,
+      "FERTILIZER": 71
+    }
+  },
+  {
+    "configuration": "yarn2_r1",
+    "mode": "native",
+    "pairs": 4,
+    "committed": 4,
+    "cash_delta": -11682.0,
+    "margin_delta": 4257.0,
+    "positive_margin": 4,
+    "min_margin_delta": 2839.0,
+    "max_margin_delta": 5675.0,
+    "labor_delta": 6316.0,
+    "feature_prices": {
+      "TOMATO": 62,
+      "WOOL": 236,
+      "WHEAT": 38.5,
+      "FERTILIZER": 31
+    }
+  },
+  {
+    "configuration": "yarn2_r1",
+    "mode": "sheep",
+    "pairs": 4,
+    "committed": 4,
+    "cash_delta": -11682.0,
+    "margin_delta": 4257.0,
+    "positive_margin": 4,
+    "min_margin_delta": 2839.0,
+    "max_margin_delta": 5675.0,
+    "labor_delta": 6316.0,
+    "feature_prices": {
+      "TOMATO": 61,
+      "WOOL": 233,
+      "WHEAT": 36,
+      "FERTILIZER": 70
+    }
+  },
+  {
+    "configuration": "yarn3_r0",
+    "mode": "native",
+    "pairs": 4,
+    "committed": 4,
+    "cash_delta": 7971.5,
+    "margin_delta": 9365.5,
+    "positive_margin": 4,
+    "min_margin_delta": 8781.0,
+    "max_margin_delta": 9950.0,
+    "labor_delta": 5617.0,
+    "feature_prices": {
+      "TOMATO": 62,
+      "WOOL": 245,
+      "WHEAT": 41.5,
+      "FERTILIZER": 31
+    }
+  },
+  {
+    "configuration": "yarn3_r0",
+    "mode": "sheep",
+    "pairs": 4,
+    "committed": 4,
+    "cash_delta": 7971.5,
+    "margin_delta": 9365.5,
+    "positive_margin": 4,
+    "min_margin_delta": 8781.0,
+    "max_margin_delta": 9950.0,
+    "labor_delta": 5617.0,
+    "feature_prices": {
+      "TOMATO": 61,
+      "WOOL": 241,
+      "WHEAT": 37,
+      "FERTILIZER": 71
+    }
+  },
+  {
+    "configuration": "yarn3_r1",
+    "mode": "native",
+    "pairs": 4,
+    "committed": 4,
+    "cash_delta": 9212.0,
+    "margin_delta": 9615.5,
+    "positive_margin": 4,
+    "min_margin_delta": 9256.0,
+    "max_margin_delta": 9975.0,
+    "labor_delta": 5778.0,
+    "feature_prices": {
+      "TOMATO": 62,
+      "WOOL": 246,
+      "WHEAT": 39,
+      "FERTILIZER": 31
+    }
+  },
+  {
+    "configuration": "yarn3_r1",
+    "mode": "sheep",
+    "pairs": 4,
+    "committed": 4,
+    "cash_delta": 9212.0,
+    "margin_delta": 9615.5,
+    "positive_margin": 4,
+    "min_margin_delta": 9256.0,
+    "max_margin_delta": 9975.0,
+    "labor_delta": 5778.0,
+    "feature_prices": {
+      "TOMATO": 61,
+      "WOOL": 243,
+      "WHEAT": 39,
+      "FERTILIZER": 72
+    }
+  }
+]

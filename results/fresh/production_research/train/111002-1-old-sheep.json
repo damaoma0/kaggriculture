@@ -1,0 +1,488 @@
+{
+  "seed": 111002,
+  "seat": 1,
+  "opponent": "old",
+  "mode": "sheep",
+  "cash": 88142.0,
+  "opponent_cash": 77991.0,
+  "ledger": [
+    {
+      "revenue": {
+        "WHEAT": 11861,
+        "FERTILIZER": 13098,
+        "WOOL": 5518,
+        "MILK": 9900,
+        "MELON": 14267,
+        "EGG": 3339,
+        "STRAWBERRY": 27874,
+        "CARROT": 16480
+      },
+      "sold_units": {
+        "WHEAT": 321,
+        "FERTILIZER": 257,
+        "WOOL": 105,
+        "MILK": 169,
+        "MELON": 72,
+        "EGG": 75,
+        "STRAWBERRY": 240,
+        "CARROT": 85
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4046,
+        "BUY_SEED:WHEAT": 1830,
+        "BUY_SEED:MELON": 960,
+        "HIRE": 5554.0,
+        "BUY_ANIMAL:COW": 2800,
+        "BUY_ANIMAL:SHEEP": 2000,
+        "BUY_SEED:CARROT": 620,
+        "BUY_SEED:STRAWBERRY": 3200,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2436,
+        "BUY_ANIMAL:GOOSE": 900
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 14392,
+        "FERTILIZER": 16775,
+        "WOOL": 5533,
+        "MILK": 13288,
+        "MELON": 14267,
+        "EGG": 3400,
+        "STRAWBERRY": 28065,
+        "CARROT": 24972
+      },
+      "sold_units": {
+        "WHEAT": 428,
+        "FERTILIZER": 315,
+        "WOOL": 138,
+        "MILK": 240,
+        "MELON": 72,
+        "EGG": 76,
+        "STRAWBERRY": 249,
+        "CARROT": 113
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 10805,
+        "BUY_SEED:WHEAT": 1640,
+        "HIRE": 5400.0,
+        "BUY_ANIMAL:COW": 3200,
+        "BUY_ANIMAL:SHEEP": 2500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:CARROT": 1060,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2485,
+        "BUY_ANIMAL:GOOSE": 1200
+      }
+    }
+  ],
+  "decision": {
+    "step": 169,
+    "original": "COW",
+    "selected": "SHEEP",
+    "scores": {
+      "COW": {
+        "value": 6910,
+        "feed_plan": {
+          "7": false,
+          "8": true,
+          "9": true,
+          "10": true,
+          "11": false,
+          "12": true,
+          "13": true,
+          "14": true,
+          "15": true,
+          "16": true,
+          "17": true,
+          "18": true,
+          "19": true,
+          "20": true,
+          "21": true,
+          "22": true,
+          "23": true,
+          "24": true,
+          "25": true,
+          "26": true,
+          "27": true,
+          "28": true,
+          "29": false
+        },
+        "states": 465
+      },
+      "SHEEP": {
+        "value": 685,
+        "feed_plan": {
+          "7": false,
+          "8": true,
+          "9": false,
+          "10": true,
+          "11": false,
+          "12": true,
+          "13": false,
+          "14": true,
+          "15": false,
+          "16": true,
+          "17": false,
+          "18": true,
+          "19": false,
+          "20": true,
+          "21": false,
+          "22": true,
+          "23": false,
+          "24": true,
+          "25": true,
+          "26": true,
+          "27": true,
+          "28": false,
+          "29": false
+        },
+        "states": 174
+      }
+    },
+    "calendar": {
+      "position": [
+        6,
+        4
+      ],
+      "placed": 177,
+      "events": {
+        "7": [
+          [
+            178,
+            "CARE"
+          ]
+        ],
+        "8": [
+          [
+            208,
+            "FEED"
+          ],
+          [
+            209,
+            "CARE"
+          ],
+          [
+            210,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "9": [
+          [
+            223,
+            "FEED"
+          ],
+          [
+            224,
+            "CARE"
+          ],
+          [
+            225,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "10": [
+          [
+            255,
+            "FEED"
+          ],
+          [
+            256,
+            "CARE"
+          ],
+          [
+            257,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "11": [
+          [
+            285,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            286,
+            "CARE"
+          ]
+        ],
+        "12": [
+          [
+            297,
+            "FEED"
+          ],
+          [
+            298,
+            "CARE"
+          ],
+          [
+            299,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "13": [
+          [
+            326,
+            "FEED"
+          ],
+          [
+            327,
+            "CARE"
+          ],
+          [
+            328,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "14": [
+          [
+            341,
+            "FEED"
+          ],
+          [
+            342,
+            "CARE"
+          ],
+          [
+            343,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "15": [
+          [
+            365,
+            "FEED"
+          ],
+          [
+            366,
+            "CARE"
+          ],
+          [
+            367,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            373,
+            "HARVEST"
+          ]
+        ],
+        "16": [
+          [
+            398,
+            "FEED"
+          ],
+          [
+            399,
+            "CARE"
+          ],
+          [
+            400,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "17": [
+          [
+            413,
+            "FEED"
+          ],
+          [
+            414,
+            "CARE"
+          ],
+          [
+            415,
+            "HARVEST"
+          ],
+          [
+            415,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "18": [
+          [
+            449,
+            "FEED"
+          ],
+          [
+            450,
+            "CARE"
+          ],
+          [
+            451,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "19": [
+          [
+            470,
+            "FEED"
+          ],
+          [
+            471,
+            "CARE"
+          ],
+          [
+            472,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            473,
+            "HARVEST"
+          ]
+        ],
+        "20": [
+          [
+            483,
+            "FEED"
+          ],
+          [
+            484,
+            "CARE"
+          ],
+          [
+            485,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "21": [
+          [
+            523,
+            "FEED"
+          ],
+          [
+            524,
+            "CARE"
+          ],
+          [
+            525,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            526,
+            "HARVEST"
+          ]
+        ],
+        "22": [
+          [
+            544,
+            "FEED"
+          ],
+          [
+            545,
+            "CARE"
+          ],
+          [
+            546,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "23": [
+          [
+            556,
+            "FEED"
+          ],
+          [
+            557,
+            "CARE"
+          ],
+          [
+            558,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            559,
+            "HARVEST"
+          ]
+        ],
+        "24": [
+          [
+            579,
+            "FEED"
+          ],
+          [
+            580,
+            "CARE"
+          ],
+          [
+            581,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "25": [
+          [
+            603,
+            "FEED"
+          ],
+          [
+            604,
+            "CARE"
+          ],
+          [
+            605,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            606,
+            "HARVEST"
+          ]
+        ],
+        "26": [
+          [
+            628,
+            "FEED"
+          ],
+          [
+            629,
+            "CARE"
+          ],
+          [
+            630,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "27": [
+          [
+            667,
+            "FEED"
+          ],
+          [
+            668,
+            "CARE"
+          ],
+          [
+            669,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            670,
+            "HARVEST"
+          ]
+        ],
+        "28": [
+          [
+            675,
+            "FEED"
+          ]
+        ],
+        "29": [
+          [
+            715,
+            "HARVEST"
+          ]
+        ]
+      }
+    }
+  },
+  "stats": {
+    "changed_turns": 11,
+    "decisions": 1,
+    "placement_overdue": 501,
+    "liquidation_blocked": 16
+  },
+  "target": null,
+  "snapshots": [],
+  "placement_failed": true,
+  "max_action_seconds": 0.0682433999973,
+  "seconds": 12.157140999996045,
+  "predecision_hash": "5c55db4599102f81997ab6af232e51ef955a9a05e5977f8cca3259ca9130caf2"
+}

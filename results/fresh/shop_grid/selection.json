@@ -1,0 +1,33 @@
+{
+  "name": "shop-adaptive",
+  "config": {
+    "default": "router",
+    "by_shop": {
+      "BAKERY": {
+        "COW": 4,
+        "SHEEP": 8,
+        "crop": "STRAWBERRY",
+        "hands": 8
+      },
+      "BRUNCH_SPOT": "router",
+      "FARMERS_MARKET": "router",
+      "ICE_CREAM_SHOP": "router",
+      "PET_CAFE": "router",
+      "PIZZA_SHOP": "router",
+      "SMOOTHIE_SHOP": "router",
+      "YARN_STORE": {
+        "COW": 4,
+        "SHEEP": 8,
+        "crop": "STRAWBERRY",
+        "hands": 8
+      }
+    }
+  },
+  "validation_mean_margins": {
+    "public-router": 0.0,
+    "growth-control": -18956.03125,
+    "shop-fixed": 0.0,
+    "shop-adaptive": 44.96875
+  },
+  "criterion": "Highest validation mean final cash margin; test panel not inspected"
+}

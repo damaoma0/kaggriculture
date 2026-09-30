@@ -1,0 +1,194 @@
+{
+  "protocol": "Post-hoc public-score admission ablation on the frozen development branches.\n\nRemove only the own-cash-positive gate for fully evaluated ordinary donors.\nRetain physical, margin-risk, downside gates and the current R3 repair choice.\nThis is a checkpoint ablation, not a complete newly qualified playing agent.\n",
+  "rows": [
+    {
+      "case": "random-24-v56",
+      "current": null,
+      "ablated": null,
+      "changed": false,
+      "margin_delta": 0.0,
+      "predicted": 0.0,
+      "predicted_own": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "case": "random-02-v56",
+      "current": null,
+      "ablated": null,
+      "changed": false,
+      "margin_delta": 0.0,
+      "predicted": 0.0,
+      "predicted_own": [
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "case": "random-00-v56",
+      "current": null,
+      "ablated": null,
+      "changed": false,
+      "margin_delta": 0.0,
+      "predicted": 0.0,
+      "predicted_own": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "case": "fresh-22-v56",
+      "current": null,
+      "ablated": 496,
+      "changed": true,
+      "margin_delta": 8054.0,
+      "predicted": 6193.25,
+      "predicted_own": [
+        2227.0,
+        2496.0,
+        443.0,
+        -717.0,
+        -1876.0,
+        -2658.0,
+        -1426.0,
+        -4138.0
+      ]
+    },
+    {
+      "case": "random-06-v56",
+      "current": null,
+      "ablated": null,
+      "changed": false,
+      "margin_delta": 0.0,
+      "predicted": 0.0,
+      "predicted_own": [
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "case": "fresh-12-v56",
+      "current": 47,
+      "ablated": 47,
+      "changed": false,
+      "margin_delta": 0.0,
+      "predicted": 4841.5,
+      "predicted_own": [
+        -697.0,
+        4522.0,
+        -458.0,
+        6923.0,
+        2758.0,
+        6306.0,
+        4749.0,
+        6597.0
+      ]
+    },
+    {
+      "case": "random-11-v56",
+      "current": [
+        582,
+        [
+          [
+            6,
+            2,
+            "SHEEP",
+            8
+          ]
+        ]
+      ],
+      "ablated": [
+        582,
+        [
+          [
+            6,
+            2,
+            "SHEEP",
+            8
+          ]
+        ]
+      ],
+      "changed": false,
+      "margin_delta": 0.0,
+      "predicted": 3431.0,
+      "predicted_own": [
+        2389.0,
+        6045.0,
+        465.0,
+        -1684.0,
+        5208.0,
+        1913.0,
+        -209.0,
+        -931.0
+      ]
+    },
+    {
+      "case": "fresh-11-original_m1",
+      "current": [
+        422,
+        [
+          [
+            7,
+            4,
+            "SHEEP",
+            8
+          ],
+          [
+            8,
+            2,
+            "STRAWBERRY",
+            6
+          ]
+        ]
+      ],
+      "ablated": [
+        422,
+        [
+          [
+            7,
+            4,
+            "SHEEP",
+            8
+          ],
+          [
+            8,
+            2,
+            "STRAWBERRY",
+            6
+          ]
+        ]
+      ],
+      "changed": false,
+      "margin_delta": 0.0,
+      "predicted": 1791.875,
+      "predicted_own": [
+        -1009.0,
+        248.0,
+        707.0,
+        -98.0,
+        128.0,
+        241.0,
+        -207.0,
+        212.0
+      ]
+    }
+  ],
+  "mean_delta": 1006.75
+}

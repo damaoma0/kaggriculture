@@ -1,0 +1,89 @@
+{
+  "mgt_pm_forced": {
+    "games": 16,
+    "wins": 16,
+    "mean_cash_delta": 979.375,
+    "mean_margin_delta": 1939.5,
+    "better": 4,
+    "worse": 12,
+    "equal": 0,
+    "same_actions": 0,
+    "same_shops": 16,
+    "telemetry": {
+      "committed": 32,
+      "errors": 0,
+      "mismatches": 0,
+      "displaced_wheat": 32,
+      "unused_seed": 0,
+      "router_pins": 3280,
+      "movement_mutations": 0,
+      "hire_mutations": 0,
+      "calendar_build": 864,
+      "rejected_future_plant": 100,
+      "seed_buys": 32,
+      "plant_requested": 32,
+      "plant_confirmed": 32,
+      "harvest_issued": 32,
+      "harvest_confirmed": 32,
+      "closed": 20,
+      "delivered": 32,
+      "sales": 64,
+      "sale": 32,
+      "rejected_care_proof": 20
+    },
+    "seed_clusters": 4,
+    "seed_cluster_bootstrap_95": [
+      -1037.875,
+      7100.625
+    ],
+    "opponents": {
+      "v48": {
+        "games": 8,
+        "margin_delta": 1961.5
+      },
+      "v50": {
+        "games": 8,
+        "margin_delta": 1917.5
+      }
+    }
+  },
+  "mgt_pm_pin": {
+    "games": 16,
+    "wins": 16,
+    "mean_cash_delta": 1411.625,
+    "mean_margin_delta": 2443.875,
+    "better": 4,
+    "worse": 0,
+    "equal": 12,
+    "same_actions": 12,
+    "same_shops": 16,
+    "telemetry": {
+      "committed": 32,
+      "errors": 0,
+      "mismatches": 0,
+      "displaced_wheat": 32,
+      "unused_seed": 0,
+      "router_pins": 3280,
+      "movement_mutations": 0,
+      "hire_mutations": 0,
+      "calendar_build": 864,
+      "rejected_future_plant": 100,
+      "rejected_care_proof": 20
+    },
+    "seed_clusters": 4,
+    "seed_cluster_bootstrap_95": [
+      0.0,
+      7331.625
+    ],
+    "opponents": {
+      "v48": {
+        "games": 8,
+        "margin_delta": 2444.25
+      },
+      "v50": {
+        "games": 8,
+        "margin_delta": 2443.5
+      }
+    }
+  }
+}

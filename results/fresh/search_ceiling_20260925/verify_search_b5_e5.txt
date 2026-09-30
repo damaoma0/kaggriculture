@@ -1,0 +1,15 @@
+VERIFY 3/4: own ILS search, budget 5 s/day, 4 games per side (every 5. day)
+  ours: report rows for the same days: model 1248 -> 1 s 1077 (-13.7%)
+  ours: report long run, same days: model 1248 -> 5 s 1048 (-16.0%)
+  ours [report]: actual 1382, model 1248 (-9.7% vs actual), own search 1049 (model->search -15.9%, actual->search -24.1%); travel 589 -> 417 (-29.3%); frozen unit-days 2; solution check: 113 order pairs, violations {'over_cap_frozen': 2}; secs mean 5.00, t95 mean 2.35
+     per game: 110937191: 1241->1044 (-15.9%) [report 1241->1068 (-13.9%)], 111554912: 1210->1033 (-14.6%) [report 1210->1066 (-11.9%)], 111688786: 1257->1049 (-16.5%) [report 1257->1069 (-15.0%)], 111941962: 1283->1071 (-16.5%) [report 1283->1105 (-13.9%)]
+     per day by range: d0-2: actual 31 model 30 search 23 (-23.3%); d3-11: actual 46 model 40 search 31 (-22.1%); d12-17: actual 48 model 43 search 36 (-15.5%); d18-23: actual 49 model 45 search 39 (-12.9%); d24-29: actual 49 model 46 search 42 (-8.8%)
+  leader: report rows for the same days: model 1271 -> 1 s 1222 (-3.9%)
+  leader: report long run, same days: model 1271 -> 5 s 1207 (-5.0%)
+  leader [report]: actual 1378, model 1271 (-7.7% vs actual), own search 1211 (model->search -4.7%, actual->search -12.1%); travel 503 -> 458 (-9.0%); frozen unit-days 11; solution check: 177 order pairs, violations {'over_cap_frozen': 11}; secs mean 5.00, t95 mean 1.59
+     per game: 112444381: 1213->1122 (-7.5%) [report 1213->1147 (-5.4%)], 112655730: 1296->1252 (-3.4%) [report 1296->1261 (-2.7%)], 112667461: 1321->1273 (-3.6%) [report 1321->1271 (-3.8%)], 112714050: 1255->1198 (-4.5%) [report 1255->1209 (-3.7%)]
+     per day by range: d0-2: actual 37 model 33 search 30 (-9.1%); d3-11: actual 46 model 39 search 35 (-10.1%); d12-17: actual 47 model 44 search 43 (-3.0%); d18-23: actual 47 model 47 search 46 (-1.4%); d24-29: actual 47 model 46 search 46 (-1.3%)
+  ours dropped jobs (tracer, 24 days): 29.8 jobs / 2,271 a game; already executed that day (same tile+cmd) 0.0; fit into our routes in the model 17.0 / 1,302; after own search 27.8 / 2,234; append-only real timing 1.0 / 84; after-last-command unit-steps 153
+     report rows, same days: dropped 29.8, fit_actual 17.0 / 1,302, fit_search 27.2 / 2,206
+     by command dropped -> fit after own search: WATER 8.5->8.5, FERTILIZE 7.0->6.0, COLLECT_FERTILIZER 5.2->4.2, CARE 3.8->3.8, FEED 2.2->2.2, HARVEST 3.0->3.0
+     solution check after insertion: {'over_cap_frozen': 2}

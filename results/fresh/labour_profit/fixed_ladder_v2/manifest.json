@@ -1,0 +1,29 @@
+{
+  "arguments": {
+    "count": 12,
+    "offset": 0,
+    "rounds": 80,
+    "days": null,
+    "chain": true,
+    "tag": "fixed_ladder_v2",
+    "workers": 4,
+    "panel": "results/fresh/labour_profit/fixed_ladder"
+  },
+  "paths": [
+    "results\\fresh\\labour_profit\\fixed_ladder\\plans\\110676097.json.gz",
+    "results\\fresh\\labour_profit\\fixed_ladder\\plans\\110951483.json.gz",
+    "results\\fresh\\labour_profit\\fixed_ladder\\plans\\110845047.json.gz",
+    "results\\fresh\\labour_profit\\fixed_ladder\\plans\\111017649.json.gz",
+    "results\\fresh\\labour_profit\\fixed_ladder\\plans\\110972443.json.gz",
+    "results\\fresh\\labour_profit\\fixed_ladder\\plans\\110940524.json.gz",
+    "results\\fresh\\labour_profit\\fixed_ladder\\plans\\110947924.json.gz",
+    "results\\fresh\\labour_profit\\fixed_ladder\\plans\\111240681.json.gz",
+    "results\\fresh\\labour_profit\\fixed_ladder\\plans\\110645152.json.gz",
+    "results\\fresh\\labour_profit\\fixed_ladder\\plans\\111266227.json.gz",
+    "results\\fresh\\labour_profit\\fixed_ladder\\plans\\110615310.json.gz",
+    "results\\fresh\\labour_profit\\fixed_ladder\\plans\\110838385.json.gz"
+  ],
+  "script_sha256": "06b457c9efeceefe58eb235aaacf69e812aecc64c4351896614c65988be949bc",
+  "engine_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+  "information": "Fixed hindsight daily production jobs; all selectors use hindsight feasibility validation. Only oracle ranks by future realized profit."
+}

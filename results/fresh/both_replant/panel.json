@@ -1,0 +1,682 @@
+[
+  {
+    "name": "small-herd",
+    "config": {
+      "cows": 4,
+      "sheep": 4,
+      "initial_animals": 4,
+      "grow_day": 2,
+      "grow_every": 1,
+      "melons": 12,
+      "strawberries": 18,
+      "strawberry_day": 3,
+      "land_day": 3,
+      "land_buffer": 100,
+      "hands": 8,
+      "late_hands": 10,
+      "late_hands_day": 5,
+      "cash_crop": "WHEAT",
+      "harvest_age": 4
+    },
+    "seed": 86302,
+    "future_seed": 96302,
+    "seat": 0,
+    "tail_losses": {
+      "premature_crop": 4
+    },
+    "opponent_continuation": "replant",
+    "continuation": "replant",
+    "day9": {
+      "cash": 186.0,
+      "shed_sale_value_no_other_trades": 2228,
+      "crops": {
+        "STRAWBERRY": 10,
+        "MELON": 12,
+        "WHEAT": 3
+      },
+      "animals": {
+        "COW": 4,
+        "SHEEP": 4
+      },
+      "land_tiles": 50
+    },
+    "opening_losses": {
+      "crop": 0,
+      "animal": 0
+    },
+    "our_final": 78323.0,
+    "router_final": 116161.0,
+    "margin": -37838.0,
+    "max_opening_ms": 0.6385000015143305,
+    "checkpoints": {
+      "3": {
+        "ours": 241.0,
+        "router": 154.0
+      },
+      "6": {
+        "ours": 146.0,
+        "router": 225.0
+      },
+      "9": {
+        "ours": 186.0,
+        "router": 987.0
+      },
+      "12": {
+        "ours": 18824.0,
+        "router": 19720.0
+      },
+      "15": {
+        "ours": 24367.0,
+        "router": 27042.0
+      },
+      "20": {
+        "ours": 41069.0,
+        "router": 55624.0
+      },
+      "25": {
+        "ours": 60745.0,
+        "router": 85168.0
+      },
+      "29": {
+        "ours": 72979.0,
+        "router": 109747.0
+      }
+    },
+    "seconds": 4.485939899997902
+  },
+  {
+    "name": "small-herd",
+    "config": {
+      "cows": 4,
+      "sheep": 4,
+      "initial_animals": 4,
+      "grow_day": 2,
+      "grow_every": 1,
+      "melons": 12,
+      "strawberries": 18,
+      "strawberry_day": 3,
+      "land_day": 3,
+      "land_buffer": 100,
+      "hands": 8,
+      "late_hands": 10,
+      "late_hands_day": 5,
+      "cash_crop": "WHEAT",
+      "harvest_age": 4
+    },
+    "seed": 86301,
+    "future_seed": 96301,
+    "seat": 1,
+    "tail_losses": {
+      "premature_crop": 5
+    },
+    "opponent_continuation": "replant",
+    "continuation": "replant",
+    "day9": {
+      "cash": 769.0,
+      "shed_sale_value_no_other_trades": 844,
+      "crops": {
+        "STRAWBERRY": 10,
+        "MELON": 12,
+        "WHEAT": 3
+      },
+      "animals": {
+        "COW": 4,
+        "SHEEP": 4
+      },
+      "land_tiles": 50
+    },
+    "opening_losses": {
+      "crop": 0,
+      "animal": 0
+    },
+    "our_final": 66014.0,
+    "router_final": 102602.0,
+    "margin": -36588.0,
+    "max_opening_ms": 0.7906000028015114,
+    "checkpoints": {
+      "3": {
+        "ours": 241.0,
+        "router": 154.0
+      },
+      "6": {
+        "ours": 146.0,
+        "router": 225.0
+      },
+      "9": {
+        "ours": 769.0,
+        "router": 987.0
+      },
+      "12": {
+        "ours": 18048.0,
+        "router": 19753.0
+      },
+      "15": {
+        "ours": 23501.0,
+        "router": 26919.0
+      },
+      "20": {
+        "ours": 38557.0,
+        "router": 52935.0
+      },
+      "25": {
+        "ours": 52663.0,
+        "router": 77846.0
+      },
+      "29": {
+        "ours": 62062.0,
+        "router": 97072.0
+      }
+    },
+    "seconds": 4.486758500002907
+  },
+  {
+    "name": "small-herd",
+    "config": {
+      "cows": 4,
+      "sheep": 4,
+      "initial_animals": 4,
+      "grow_day": 2,
+      "grow_every": 1,
+      "melons": 12,
+      "strawberries": 18,
+      "strawberry_day": 3,
+      "land_day": 3,
+      "land_buffer": 100,
+      "hands": 8,
+      "late_hands": 10,
+      "late_hands_day": 5,
+      "cash_crop": "WHEAT",
+      "harvest_age": 4
+    },
+    "seed": 86301,
+    "future_seed": 96301,
+    "seat": 0,
+    "tail_losses": {
+      "premature_crop": 4
+    },
+    "opponent_continuation": "replant",
+    "continuation": "replant",
+    "day9": {
+      "cash": 59.0,
+      "shed_sale_value_no_other_trades": 2205,
+      "crops": {
+        "STRAWBERRY": 10,
+        "MELON": 12,
+        "WHEAT": 4
+      },
+      "animals": {
+        "COW": 4,
+        "SHEEP": 4
+      },
+      "land_tiles": 50
+    },
+    "opening_losses": {
+      "crop": 0,
+      "animal": 0
+    },
+    "our_final": 58272.0,
+    "router_final": 83758.0,
+    "margin": -25486.0,
+    "max_opening_ms": 0.7483000008505769,
+    "checkpoints": {
+      "3": {
+        "ours": 241.0,
+        "router": 154.0
+      },
+      "6": {
+        "ours": 146.0,
+        "router": 225.0
+      },
+      "9": {
+        "ours": 59.0,
+        "router": 881.0
+      },
+      "12": {
+        "ours": 18505.0,
+        "router": 19267.0
+      },
+      "15": {
+        "ours": 24045.0,
+        "router": 25904.0
+      },
+      "20": {
+        "ours": 36576.0,
+        "router": 47203.0
+      },
+      "25": {
+        "ours": 47204.0,
+        "router": 64320.0
+      },
+      "29": {
+        "ours": 55170.0,
+        "router": 79004.0
+      }
+    },
+    "seconds": 4.5275293000013335
+  },
+  {
+    "name": "small-herd",
+    "config": {
+      "cows": 4,
+      "sheep": 4,
+      "initial_animals": 4,
+      "grow_day": 2,
+      "grow_every": 1,
+      "melons": 12,
+      "strawberries": 18,
+      "strawberry_day": 3,
+      "land_day": 3,
+      "land_buffer": 100,
+      "hands": 8,
+      "late_hands": 10,
+      "late_hands_day": 5,
+      "cash_crop": "WHEAT",
+      "harvest_age": 4
+    },
+    "seed": 86302,
+    "future_seed": 96302,
+    "seat": 1,
+    "tail_losses": {
+      "premature_crop": 4
+    },
+    "opponent_continuation": "replant",
+    "continuation": "replant",
+    "day9": {
+      "cash": 186.0,
+      "shed_sale_value_no_other_trades": 2228,
+      "crops": {
+        "STRAWBERRY": 10,
+        "MELON": 12,
+        "WHEAT": 3
+      },
+      "animals": {
+        "COW": 4,
+        "SHEEP": 4
+      },
+      "land_tiles": 50
+    },
+    "opening_losses": {
+      "crop": 0,
+      "animal": 0
+    },
+    "our_final": 77242.0,
+    "router_final": 113772.0,
+    "margin": -36530.0,
+    "max_opening_ms": 0.7494999954360537,
+    "checkpoints": {
+      "3": {
+        "ours": 241.0,
+        "router": 154.0
+      },
+      "6": {
+        "ours": 146.0,
+        "router": 225.0
+      },
+      "9": {
+        "ours": 186.0,
+        "router": 987.0
+      },
+      "12": {
+        "ours": 18824.0,
+        "router": 19720.0
+      },
+      "15": {
+        "ours": 24367.0,
+        "router": 27042.0
+      },
+      "20": {
+        "ours": 41060.0,
+        "router": 55592.0
+      },
+      "25": {
+        "ours": 60410.0,
+        "router": 84532.0
+      },
+      "29": {
+        "ours": 72169.0,
+        "router": 107715.0
+      }
+    },
+    "seconds": 4.72035880000476
+  },
+  {
+    "name": "small-herd",
+    "config": {
+      "cows": 4,
+      "sheep": 4,
+      "initial_animals": 4,
+      "grow_day": 2,
+      "grow_every": 1,
+      "melons": 12,
+      "strawberries": 18,
+      "strawberry_day": 3,
+      "land_day": 3,
+      "land_buffer": 100,
+      "hands": 8,
+      "late_hands": 10,
+      "late_hands_day": 5,
+      "cash_crop": "WHEAT",
+      "harvest_age": 4
+    },
+    "seed": 86303,
+    "future_seed": 96303,
+    "seat": 0,
+    "tail_losses": {
+      "premature_crop": 7
+    },
+    "opponent_continuation": "replant",
+    "continuation": "replant",
+    "day9": {
+      "cash": 91.0,
+      "shed_sale_value_no_other_trades": 2067,
+      "crops": {
+        "STRAWBERRY": 9,
+        "MELON": 12,
+        "WHEAT": 5
+      },
+      "animals": {
+        "COW": 4,
+        "SHEEP": 4
+      },
+      "land_tiles": 50
+    },
+    "opening_losses": {
+      "crop": 0,
+      "animal": 0
+    },
+    "our_final": 78764.0,
+    "router_final": 107867.0,
+    "margin": -29103.0,
+    "max_opening_ms": 0.5590000000665896,
+    "checkpoints": {
+      "3": {
+        "ours": 241.0,
+        "router": 154.0
+      },
+      "6": {
+        "ours": 153.0,
+        "router": 224.0
+      },
+      "9": {
+        "ours": 91.0,
+        "router": 710.0
+      },
+      "12": {
+        "ours": 19084.0,
+        "router": 18117.0
+      },
+      "15": {
+        "ours": 26051.0,
+        "router": 24888.0
+      },
+      "20": {
+        "ours": 42835.0,
+        "router": 52853.0
+      },
+      "25": {
+        "ours": 60849.0,
+        "router": 80366.0
+      },
+      "29": {
+        "ours": 75043.0,
+        "router": 100037.0
+      }
+    },
+    "seconds": 4.492850399998133
+  },
+  {
+    "name": "small-herd",
+    "config": {
+      "cows": 4,
+      "sheep": 4,
+      "initial_animals": 4,
+      "grow_day": 2,
+      "grow_every": 1,
+      "melons": 12,
+      "strawberries": 18,
+      "strawberry_day": 3,
+      "land_day": 3,
+      "land_buffer": 100,
+      "hands": 8,
+      "late_hands": 10,
+      "late_hands_day": 5,
+      "cash_crop": "WHEAT",
+      "harvest_age": 4
+    },
+    "seed": 86303,
+    "future_seed": 96303,
+    "seat": 1,
+    "tail_losses": {
+      "premature_crop": 7
+    },
+    "opponent_continuation": "replant",
+    "continuation": "replant",
+    "day9": {
+      "cash": 91.0,
+      "shed_sale_value_no_other_trades": 2067,
+      "crops": {
+        "STRAWBERRY": 9,
+        "MELON": 12,
+        "WHEAT": 5
+      },
+      "animals": {
+        "COW": 4,
+        "SHEEP": 4
+      },
+      "land_tiles": 50
+    },
+    "opening_losses": {
+      "crop": 0,
+      "animal": 0
+    },
+    "our_final": 78572.0,
+    "router_final": 104432.0,
+    "margin": -25860.0,
+    "max_opening_ms": 0.5911999978707172,
+    "checkpoints": {
+      "3": {
+        "ours": 241.0,
+        "router": 154.0
+      },
+      "6": {
+        "ours": 153.0,
+        "router": 224.0
+      },
+      "9": {
+        "ours": 91.0,
+        "router": 710.0
+      },
+      "12": {
+        "ours": 19084.0,
+        "router": 18117.0
+      },
+      "15": {
+        "ours": 26051.0,
+        "router": 24888.0
+      },
+      "20": {
+        "ours": 42890.0,
+        "router": 52768.0
+      },
+      "25": {
+        "ours": 60869.0,
+        "router": 78036.0
+      },
+      "29": {
+        "ours": 74979.0,
+        "router": 99078.0
+      }
+    },
+    "seconds": 4.493150100002822
+  },
+  {
+    "name": "small-herd",
+    "config": {
+      "cows": 4,
+      "sheep": 4,
+      "initial_animals": 4,
+      "grow_day": 2,
+      "grow_every": 1,
+      "melons": 12,
+      "strawberries": 18,
+      "strawberry_day": 3,
+      "land_day": 3,
+      "land_buffer": 100,
+      "hands": 8,
+      "late_hands": 10,
+      "late_hands_day": 5,
+      "cash_crop": "WHEAT",
+      "harvest_age": 4
+    },
+    "seed": 86304,
+    "future_seed": 96304,
+    "seat": 0,
+    "tail_losses": {
+      "premature_crop": 5
+    },
+    "opponent_continuation": "replant",
+    "continuation": "replant",
+    "day9": {
+      "cash": 99.0,
+      "shed_sale_value_no_other_trades": 1806,
+      "crops": {
+        "STRAWBERRY": 11,
+        "MELON": 12,
+        "WHEAT": 4
+      },
+      "animals": {
+        "COW": 4,
+        "SHEEP": 4
+      },
+      "land_tiles": 50
+    },
+    "opening_losses": {
+      "crop": 0,
+      "animal": 0
+    },
+    "our_final": 66955.0,
+    "router_final": 70969.0,
+    "margin": -4014.0,
+    "max_opening_ms": 2.063399995677173,
+    "checkpoints": {
+      "3": {
+        "ours": 241.0,
+        "router": 154.0
+      },
+      "6": {
+        "ours": 153.0,
+        "router": 224.0
+      },
+      "9": {
+        "ours": 99.0,
+        "router": 756.0
+      },
+      "12": {
+        "ours": 19058.0,
+        "router": 17453.0
+      },
+      "15": {
+        "ours": 26495.0,
+        "router": 22952.0
+      },
+      "20": {
+        "ours": 40749.0,
+        "router": 42410.0
+      },
+      "25": {
+        "ours": 53069.0,
+        "router": 55841.0
+      },
+      "29": {
+        "ours": 64163.0,
+        "router": 66942.0
+      }
+    },
+    "seconds": 4.4073566000006394
+  },
+  {
+    "name": "small-herd",
+    "config": {
+      "cows": 4,
+      "sheep": 4,
+      "initial_animals": 4,
+      "grow_day": 2,
+      "grow_every": 1,
+      "melons": 12,
+      "strawberries": 18,
+      "strawberry_day": 3,
+      "land_day": 3,
+      "land_buffer": 100,
+      "hands": 8,
+      "late_hands": 10,
+      "late_hands_day": 5,
+      "cash_crop": "WHEAT",
+      "harvest_age": 4
+    },
+    "seed": 86304,
+    "future_seed": 96304,
+    "seat": 1,
+    "tail_losses": {
+      "premature_crop": 5
+    },
+    "opponent_continuation": "replant",
+    "continuation": "replant",
+    "day9": {
+      "cash": 99.0,
+      "shed_sale_value_no_other_trades": 1806,
+      "crops": {
+        "STRAWBERRY": 11,
+        "MELON": 12,
+        "WHEAT": 4
+      },
+      "animals": {
+        "COW": 4,
+        "SHEEP": 4
+      },
+      "land_tiles": 50
+    },
+    "opening_losses": {
+      "crop": 0,
+      "animal": 0
+    },
+    "our_final": 66955.0,
+    "router_final": 70969.0,
+    "margin": -4014.0,
+    "max_opening_ms": 0.7248999972944148,
+    "checkpoints": {
+      "3": {
+        "ours": 241.0,
+        "router": 154.0
+      },
+      "6": {
+        "ours": 153.0,
+        "router": 224.0
+      },
+      "9": {
+        "ours": 99.0,
+        "router": 756.0
+      },
+      "12": {
+        "ours": 19058.0,
+        "router": 17453.0
+      },
+      "15": {
+        "ours": 26495.0,
+        "router": 22952.0
+      },
+      "20": {
+        "ours": 40749.0,
+        "router": 42410.0
+      },
+      "25": {
+        "ours": 53069.0,
+        "router": 55841.0
+      },
+      "29": {
+        "ours": 64163.0,
+        "router": 66942.0
+      }
+    },
+    "seconds": 4.22966269999597
+  }
+]

@@ -1,0 +1,52 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/path_trial.py",
+   "--spec",
+   "results/fresh/path_trial_20260927/spec.json",
+   "--arms",
+   "PP0,PP1,PP2,PP3,PP4,PP5",
+   "--games",
+   "16732748:112602061,16732748:112604454",
+   "--out",
+   "results/fresh/path_trial_20260927",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/path_trial_20260927/**/*",
+   "results/fresh/sector_20260925/multi/PP*/*.json",
+   "results/fresh/day12_viz/pp*_streams/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 28,
+ "pip_seconds": 55.33783936500549,
+ "run_seconds": 319.8316330909729,
+ "returncode": 1,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "games done in 316s"
+ ],
+ "stderr_tail": [
+  "Traceback (most recent call last):",
+  "  File \"/tmp/repo/scripts/path_trial.py\", line 147, in <module>",
+  "    main()",
+  "  File \"/tmp/repo/scripts/path_trial.py\", line 134, in main",
+  "    import season_gap  # noqa: F401  (engine recorders installed before the fork)",
+  "    ^^^^^^^^^^^^^^^^^",
+  "  File \"/tmp/repo/scripts/season_gap.py\", line 16, in <module>",
+  "    E = UE.engine()",
+  "        ^^^^^^^^^^^",
+  "  File \"/tmp/repo/scripts/upkeep_engine.py\", line 68, in engine",
+  "    spec.loader.exec_module(E)",
+  "  File \"/tmp/repo/.venv/Lib/site-packages/kaggle_environments/envs/kaggriculture/kaggriculture.py\", line 1011, in <module>",
+  "    with open(json_path) as json_file:",
+  "         ^^^^^^^^^^^^^^^",
+  "FileNotFoundError: [Errno 2] No such file or directory: '/tmp/repo/.venv/Lib/site-packages/kaggle_environments/envs/kaggriculture/kaggriculture.json'"
+ ]
+}

@@ -1,0 +1,95 @@
+{
+  "candidates": {
+    "control-sheep6": null,
+    "c6s4-m0": {
+      "cows": 6,
+      "sheep": 4,
+      "melons": 0
+    },
+    "c6s4-m8": {
+      "cows": 6,
+      "sheep": 4,
+      "melons": 8
+    },
+    "c6s4-m12": {
+      "cows": 6,
+      "sheep": 4,
+      "melons": 12
+    },
+    "c8s4-m0": {
+      "cows": 8,
+      "sheep": 4,
+      "melons": 0
+    },
+    "c8s4-m8": {
+      "cows": 8,
+      "sheep": 4,
+      "melons": 8
+    },
+    "c8s4-m12": {
+      "cows": 8,
+      "sheep": 4,
+      "melons": 12
+    },
+    "c10s2-m0": {
+      "cows": 10,
+      "sheep": 2,
+      "melons": 0
+    },
+    "c10s2-m8": {
+      "cows": 10,
+      "sheep": 2,
+      "melons": 8
+    },
+    "c10s2-m12": {
+      "cows": 10,
+      "sheep": 2,
+      "melons": 12
+    },
+    "c6s6-m0": {
+      "cows": 6,
+      "sheep": 6,
+      "melons": 0
+    },
+    "c6s6-m8": {
+      "cows": 6,
+      "sheep": 6,
+      "melons": 8
+    },
+    "c6s6-m12": {
+      "cows": 6,
+      "sheep": 6,
+      "melons": 12
+    },
+    "early-straw": {
+      "melons": 8,
+      "strawberry_day": 1,
+      "land_day": 1
+    },
+    "early-land": {
+      "land_day": 1
+    },
+    "lean-crew": {
+      "hands": 6,
+      "late_hands": 8
+    },
+    "large-crew": {
+      "hands": 10,
+      "late_hands": 12
+    },
+    "slow-herd": {
+      "grow_day": 3,
+      "grow_every": 2
+    },
+    "small-herd": {
+      "cows": 4,
+      "sheep": 4
+    }
+  },
+  "hashes": {
+    "agents\\opening_v2.py": "19da6834182bebfc03bf43edda5277d9f44354096266a1165746952fc01f66b9",
+    "agents\\opening_v1.py": "0d8c5440a25e1194abf27801f4c6142ffbc81de0bdffbc656c1711ef378566a6",
+    "scripts\\evaluate_boards.py": "97185ed95cedcd1e6f1d5c3072e47ad788be01457c531c6d7daf6a6fa302d170",
+    "scripts\\search_growth_openings.py": "8456fa2004892537eb973c943be212867ac368533ac485d9b1c7ee2ea27ce75b"
+  }
+}

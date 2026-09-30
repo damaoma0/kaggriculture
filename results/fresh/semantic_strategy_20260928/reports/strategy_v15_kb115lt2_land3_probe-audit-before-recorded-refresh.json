@@ -1,0 +1,87 @@
+{
+  "candidate": "strategy_v15_kb115lt2_land3_probe",
+  "candidate_manifest_sha256": "932c98ecfbcacb1084c942790d44f798023673ea4b81222ccb14aa2e969bc358",
+  "independent_of_runner": true,
+  "audit_pass": true,
+  "errors": [],
+  "inputs": {
+    "training_episodes": 243,
+    "model_episodes": 100,
+    "opening_episodes": 111,
+    "model_file": "block_model_modern100.json",
+    "recorded_panel_and_reserve_episodes": 183,
+    "live_seeds": 48,
+    "model_feature_keys": [
+      "CARROT",
+      "EGG",
+      "MILK",
+      "STRAWBERRY",
+      "TOMATO",
+      "WHEAT",
+      "WOOL"
+    ],
+    "opening_permitted_steps": [
+      0,
+      143
+    ],
+    "pooled_pace_training_episodes": 40,
+    "pooled_pace_heldout_overlap": [],
+    "training_heldout_overlap": [],
+    "opening_heldout_overlap": []
+  },
+  "results": {
+    "development/live": {
+      "expected": 8,
+      "recorded": 0,
+      "valid": 0,
+      "gate_complete": false,
+      "eligible_wins": 0,
+      "mean_valid_margin": null,
+      "invalid": [],
+      "max_measured_overage_seconds": null,
+      "max_reported_executor_errors": null,
+      "diagnostic_private_omitted_cases": []
+    },
+    "development/recorded": {
+      "expected": 8,
+      "recorded": 0,
+      "valid": 0,
+      "gate_complete": false,
+      "eligible_wins": 0,
+      "mean_valid_margin": null,
+      "invalid": [],
+      "max_measured_overage_seconds": null,
+      "max_reported_executor_errors": null,
+      "diagnostic_private_omitted_cases": []
+    },
+    "qualification/live": {
+      "expected": 40,
+      "recorded": 0,
+      "valid": 0,
+      "gate_complete": false,
+      "eligible_wins": 0,
+      "mean_valid_margin": null,
+      "invalid": [],
+      "max_measured_overage_seconds": null,
+      "max_reported_executor_errors": null,
+      "diagnostic_private_omitted_cases": []
+    },
+    "qualification/recorded": {
+      "expected": 40,
+      "recorded": 0,
+      "valid": 0,
+      "gate_complete": false,
+      "eligible_wins": 0,
+      "mean_valid_margin": null,
+      "invalid": [],
+      "max_measured_overage_seconds": null,
+      "max_reported_executor_errors": null,
+      "diagnostic_private_omitted_cases": []
+    }
+  },
+  "limitations": [
+    "Static feature-key/source checks complement the causal-input code review; they do not prove absence of every possible hidden data path.",
+    "smoke_v1 omitted the separately stored obs.private from diagnostic snapshots; gameplay received the full observation.",
+    "Recorded opponents cannot react to changed prices, even when the failed-command screen passes."
+  ]
+}

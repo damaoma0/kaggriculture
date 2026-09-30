@@ -1,0 +1,28 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/sector_run.py",
+   "trace",
+   "Mship,M_idleship",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/sector_20260925/trace/*/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 84,
+ "pip_seconds": 66.7731568813324,
+ "run_seconds": 365.8309886455536,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "completed 84 games in 366s, errors (FAILED) 0"
+ ],
+ "stderr_tail": []
+}

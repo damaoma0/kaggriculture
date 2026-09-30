@@ -1,0 +1,29 @@
+{
+  "original_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+  "corrected_file": "agents\\v45_event_entrypoint_fixed.py",
+  "sha256": "e17a059569bb69326337002a2198c60343f8b06fbd2aa24ed761bf1b47b0c7b5",
+  "named_entry_line": 3688,
+  "original_loaded_entry_line": 3599,
+  "original_event_model_initialized": false,
+  "original_event_stats": {
+    "calls": 23,
+    "changed": 0,
+    "valued_lots": 0,
+    "unchanged_lots": 105,
+    "errors": 17
+  },
+  "fixed_event_stats": {
+    "calls": 23,
+    "changed": 0,
+    "valued_lots": 78,
+    "unchanged_lots": 211,
+    "errors": 0
+  },
+  "parity_actions": 719,
+  "steps": 720,
+  "cash": [
+    99513.0,
+    101228.0
+  ],
+  "conclusion": "Original file selects the parent wrapper, bypassing event-model initialization. The corrected export matches all named-agent research actions. No resubmission performed."
+}

@@ -1,0 +1,222 @@
+{
+  "root": "sheep6-seed20261201-seat0",
+  "root_step": 216,
+  "future_seed": 84001,
+  "modes": [
+    "expand",
+    "expand"
+  ],
+  "crew_cap": 10,
+  "seconds": 4.38,
+  "root_features": [
+    {
+      "cash": 9307.0,
+      "shed_sale_value_no_other_trades": 1757,
+      "crops": {
+        "WHEAT": 17
+      },
+      "animals": {
+        "SHEEP": 6
+      },
+      "land_tiles": 25
+    },
+    {
+      "cash": 902.0,
+      "shed_sale_value_no_other_trades": 1203,
+      "crops": {
+        "WHEAT": 5,
+        "STRAWBERRY": 20,
+        "MELON": 12
+      },
+      "animals": {
+        "COW": 9,
+        "SHEEP": 4
+      },
+      "land_tiles": 50
+    }
+  ],
+  "final_cash": [
+    60791.0,
+    118130.0
+  ],
+  "margin": -57339.0,
+  "ledger": [
+    {
+      "revenue": {
+        "WHEAT": 19220,
+        "FERTILIZER": 5864,
+        "WOOL": 36480
+      },
+      "sold_units": {
+        "WHEAT": 748,
+        "FERTILIZER": 131,
+        "WOOL": 170
+      },
+      "spend": {
+        "HIRE": 2492.0,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:WHEAT": 2358,
+        "BUY_SEED:WHEAT": 2230
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 8490,
+        "FERTILIZER": 11450,
+        "WOOL": 19942,
+        "MILK": 65328,
+        "MELON": 14342,
+        "STRAWBERRY": 9023
+      },
+      "sold_units": {
+        "WHEAT": 342,
+        "FERTILIZER": 267,
+        "WOOL": 96,
+        "MILK": 258,
+        "MELON": 58,
+        "STRAWBERRY": 40
+      },
+      "spend": {
+        "HIRE": 2715.0,
+        "BUY_PRODUCT:WHEAT": 5312,
+        "BUY_LAND": 2000.0,
+        "BUY_SEED:WHEAT": 1320
+      }
+    }
+  ],
+  "diagnostics": [
+    {
+      "PICKUP": 111,
+      "zero_cash_states": 0,
+      "FEED": 126,
+      "HARVEST": 253,
+      "WEST": 793,
+      "DROP": 50,
+      "NORTH": 618,
+      "CARE": 126,
+      "COLLECT_FERTILIZER": 126,
+      "WATER": 724,
+      "PLANT": 204,
+      "EAST": 516,
+      "SOUTH": 371,
+      "PASS": 42,
+      "crop_transitions_to_weed": 7,
+      "premature_crop_losses": 7,
+      "DIG": 1
+    },
+    {
+      "PICKUP": 200,
+      "zero_cash_states": 0,
+      "FEED": 270,
+      "CARE": 268,
+      "COLLECT_FERTILIZER": 267,
+      "NORTH": 700,
+      "DROP": 105,
+      "WEST": 671,
+      "EAST": 580,
+      "HARVEST": 265,
+      "WATER": 509,
+      "SOUTH": 252,
+      "PASS": 45,
+      "PLANT": 113,
+      "crop_transitions_to_weed": 29,
+      "premature_crop_losses": 18,
+      "DIG": 16
+    }
+  ],
+  "terminal_inventory": [
+    {
+      "shed": {
+        "WHEAT": 0,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 0,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "carried": [
+        {},
+        {},
+        {},
+        {}
+      ],
+      "seeds": {
+        "WHEAT": 21,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0
+      }
+    },
+    {
+      "shed": {
+        "WHEAT": 0,
+        "CARROT": 0,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0,
+        "EGG": 0,
+        "MILK": 0,
+        "WOOL": 0,
+        "FERTILIZER": 0,
+        "GOOSE": 0,
+        "COW": 0,
+        "SHEEP": 0
+      },
+      "carried": [
+        {
+          "FERTILIZER": 1
+        },
+        {},
+        {
+          "WOOL": 4
+        },
+        {
+          "WOOL": 4
+        },
+        {},
+        {},
+        {}
+      ],
+      "seeds": {
+        "WHEAT": 28,
+        "CARROT": 4,
+        "TOMATO": 0,
+        "STRAWBERRY": 0,
+        "MELON": 0
+      }
+    }
+  ],
+  "cash_path": {
+    "9": [
+      9307.0,
+      902.0
+    ],
+    "12": [
+      13922.0,
+      18108.0
+    ],
+    "15": [
+      20625.0,
+      27258.0
+    ],
+    "20": [
+      36577.0,
+      59759.0
+    ],
+    "25": [
+      47054.0,
+      88550.0
+    ],
+    "29": [
+      58495.0,
+      110761.0
+    ]
+  }
+}

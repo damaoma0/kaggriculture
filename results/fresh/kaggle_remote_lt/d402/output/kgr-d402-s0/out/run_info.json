@@ -1,0 +1,43 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/kgr_check_run.py",
+   "b0928062320",
+   "scripts/path_trial.py",
+   "--spec",
+   "results/fresh/threads_20260928/animal/spec.json",
+   "--arms",
+   "KB115LTD2,KB115LTD2H3",
+   "--games",
+   "16732748:112592389,16732748:112593664,16732748:112594857,16732748:112596061,16732748:112597248,16732748:112598450,16732748:112599653,16732748:112600855,16732748:112602061,16732748:112603263",
+   "--out",
+   "results/fresh/kaggle_lt/d402",
+   "--workers",
+   "4",
+   "--no_vitals",
+   "--no_gap"
+  ],
+  "collect": [
+   "results/fresh/kaggle_lt/d402/**/*",
+   "results/fresh/sector_20260925/multi/KB115LTD2/*.json",
+   "results/fresh/day12_viz/kb115ltd2_streams/*.json",
+   "results/fresh/sector_20260925/multi/KB115LTD2H3/*.json",
+   "results/fresh/day12_viz/kb115ltd2h3_streams/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 41,
+ "pip_seconds": 54.96778583526611,
+ "run_seconds": 815.9737434387207,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "games done in 812s",
+  "completed"
+ ],
+ "stderr_tail": []
+}

@@ -1,0 +1,587 @@
+{
+  "completed": 256,
+  "failures": [],
+  "comparisons": {
+    "latest_vs_baseline": {
+      "n": 64,
+      "worlds": 32,
+      "mean_cash_delta": -18926.265625,
+      "median_cash_delta": -15235.0,
+      "mean_margin_delta": -28924.390625,
+      "cash_ci95_world_bootstrap": [
+        -22533.859375,
+        -15720.65625
+      ],
+      "margin_ci95_world_bootstrap": [
+        -33329.0,
+        -24726.671875
+      ],
+      "better": 5,
+      "same": 0,
+      "worse": 59,
+      "wins": 5,
+      "ties": 0,
+      "reference_wins": 23,
+      "reference_ties": 27,
+      "worst": {
+        "id": "w14-mgt_m1",
+        "world": "w14",
+        "opponent": "mgt_m1",
+        "first_shop": "ICE_CREAM_SHOP",
+        "reference": "baseline",
+        "arm": "latest",
+        "cash_delta": -74780,
+        "margin_delta": -98988,
+        "cash": 83783,
+        "margin": -98988,
+        "baseline_cash": 158563,
+        "baseline_margin": 0
+      },
+      "best": {
+        "id": "w19-v56",
+        "world": "w19",
+        "opponent": "v56",
+        "first_shop": "PET_CAFE",
+        "reference": "baseline",
+        "arm": "latest",
+        "cash_delta": 9568,
+        "margin_delta": 14406,
+        "cash": 102326,
+        "margin": 17301,
+        "baseline_cash": 92758,
+        "baseline_margin": 2895
+      },
+      "opponents": {
+        "mgt_m1": {
+          "n": 32,
+          "cash_delta": -27559.71875,
+          "margin_delta": -45282.09375
+        },
+        "v56": {
+          "n": 32,
+          "cash_delta": -10292.8125,
+          "margin_delta": -12566.6875
+        }
+      }
+    },
+    "semantic_bank_vs_baseline": {
+      "n": 64,
+      "worlds": 32,
+      "mean_cash_delta": -5235.1875,
+      "median_cash_delta": -3459.5,
+      "mean_margin_delta": -2240.078125,
+      "cash_ci95_world_bootstrap": [
+        -9633.703125,
+        -1312.484375
+      ],
+      "margin_ci95_world_bootstrap": [
+        -7465.421875,
+        2296.015625
+      ],
+      "better": 23,
+      "same": 0,
+      "worse": 41,
+      "wins": 37,
+      "ties": 0,
+      "reference_wins": 23,
+      "reference_ties": 27,
+      "worst": {
+        "id": "w08-mgt_m1",
+        "world": "w08",
+        "opponent": "mgt_m1",
+        "first_shop": "FARMERS_MARKET",
+        "reference": "baseline",
+        "arm": "semantic_bank",
+        "cash_delta": -49690,
+        "margin_delta": -50043,
+        "cash": 88293,
+        "margin": -50043,
+        "baseline_cash": 137983,
+        "baseline_margin": 0
+      },
+      "best": {
+        "id": "w11-v56",
+        "world": "w11",
+        "opponent": "v56",
+        "first_shop": "FARMERS_MARKET",
+        "reference": "baseline",
+        "arm": "semantic_bank",
+        "cash_delta": 16691,
+        "margin_delta": -2802,
+        "cash": 144496,
+        "margin": -2355,
+        "baseline_cash": 127805,
+        "baseline_margin": 447
+      },
+      "opponents": {
+        "mgt_m1": {
+          "n": 32,
+          "cash_delta": -5536.3125,
+          "margin_delta": -3406.8125
+        },
+        "v56": {
+          "n": 32,
+          "cash_delta": -4934.0625,
+          "margin_delta": -1073.34375
+        }
+      }
+    },
+    "semantic_inputs_vs_baseline": {
+      "n": 64,
+      "worlds": 32,
+      "mean_cash_delta": -4626.4375,
+      "median_cash_delta": -3693.0,
+      "mean_margin_delta": -2047.46875,
+      "cash_ci95_world_bootstrap": [
+        -9005.9375,
+        -708.578125
+      ],
+      "margin_ci95_world_bootstrap": [
+        -7173.390625,
+        2409.84375
+      ],
+      "better": 23,
+      "same": 0,
+      "worse": 41,
+      "wins": 36,
+      "ties": 0,
+      "reference_wins": 23,
+      "reference_ties": 27,
+      "worst": {
+        "id": "w08-mgt_m1",
+        "world": "w08",
+        "opponent": "mgt_m1",
+        "first_shop": "FARMERS_MARKET",
+        "reference": "baseline",
+        "arm": "semantic_inputs",
+        "cash_delta": -49901,
+        "margin_delta": -50536,
+        "cash": 88082,
+        "margin": -50536,
+        "baseline_cash": 137983,
+        "baseline_margin": 0
+      },
+      "best": {
+        "id": "w11-v56",
+        "world": "w11",
+        "opponent": "v56",
+        "first_shop": "FARMERS_MARKET",
+        "reference": "baseline",
+        "arm": "semantic_inputs",
+        "cash_delta": 16938,
+        "margin_delta": -2947,
+        "cash": 144743,
+        "margin": -2500,
+        "baseline_cash": 127805,
+        "baseline_margin": 447
+      },
+      "opponents": {
+        "mgt_m1": {
+          "n": 32,
+          "cash_delta": -4657.46875,
+          "margin_delta": -2949.78125
+        },
+        "v56": {
+          "n": 32,
+          "cash_delta": -4595.40625,
+          "margin_delta": -1145.15625
+        }
+      }
+    },
+    "baseline_vs_latest": {
+      "n": 64,
+      "worlds": 32,
+      "mean_cash_delta": 18926.265625,
+      "median_cash_delta": 15235.0,
+      "mean_margin_delta": 28924.390625,
+      "cash_ci95_world_bootstrap": [
+        15720.65625,
+        22533.859375
+      ],
+      "margin_ci95_world_bootstrap": [
+        24726.671875,
+        33329.0
+      ],
+      "better": 59,
+      "same": 0,
+      "worse": 5,
+      "wins": 23,
+      "ties": 27,
+      "reference_wins": 5,
+      "reference_ties": 0,
+      "worst": {
+        "id": "w19-v56",
+        "world": "w19",
+        "opponent": "v56",
+        "first_shop": "PET_CAFE",
+        "reference": "latest",
+        "arm": "baseline",
+        "cash_delta": -9568,
+        "margin_delta": -14406,
+        "cash": 92758,
+        "margin": 2895,
+        "baseline_cash": 102326,
+        "baseline_margin": 17301
+      },
+      "best": {
+        "id": "w14-mgt_m1",
+        "world": "w14",
+        "opponent": "mgt_m1",
+        "first_shop": "ICE_CREAM_SHOP",
+        "reference": "latest",
+        "arm": "baseline",
+        "cash_delta": 74780,
+        "margin_delta": 98988,
+        "cash": 158563,
+        "margin": 0,
+        "baseline_cash": 83783,
+        "baseline_margin": -98988
+      },
+      "opponents": {
+        "mgt_m1": {
+          "n": 32,
+          "cash_delta": 27559.71875,
+          "margin_delta": 45282.09375
+        },
+        "v56": {
+          "n": 32,
+          "cash_delta": 10292.8125,
+          "margin_delta": 12566.6875
+        }
+      }
+    },
+    "semantic_bank_vs_latest": {
+      "n": 64,
+      "worlds": 32,
+      "mean_cash_delta": 13691.078125,
+      "median_cash_delta": 9879.0,
+      "mean_margin_delta": 26684.3125,
+      "cash_ci95_world_bootstrap": [
+        9892.9375,
+        17266.25
+      ],
+      "margin_ci95_world_bootstrap": [
+        21386.390625,
+        31431.375
+      ],
+      "better": 58,
+      "same": 0,
+      "worse": 6,
+      "wins": 37,
+      "ties": 0,
+      "reference_wins": 5,
+      "reference_ties": 0,
+      "worst": {
+        "id": "w26-v56",
+        "world": "w26",
+        "opponent": "v56",
+        "first_shop": "SMOOTHIE_SHOP",
+        "reference": "latest",
+        "arm": "semantic_bank",
+        "cash_delta": -25678,
+        "margin_delta": -22516,
+        "cash": 78468,
+        "margin": -32968,
+        "baseline_cash": 104146,
+        "baseline_margin": -10452
+      },
+      "best": {
+        "id": "w14-mgt_m1",
+        "world": "w14",
+        "opponent": "mgt_m1",
+        "first_shop": "ICE_CREAM_SHOP",
+        "reference": "latest",
+        "arm": "semantic_bank",
+        "cash_delta": 70549,
+        "margin_delta": 95955,
+        "cash": 154332,
+        "margin": -3033,
+        "baseline_cash": 83783,
+        "baseline_margin": -98988
+      },
+      "opponents": {
+        "mgt_m1": {
+          "n": 32,
+          "cash_delta": 22023.40625,
+          "margin_delta": 41875.28125
+        },
+        "v56": {
+          "n": 32,
+          "cash_delta": 5358.75,
+          "margin_delta": 11493.34375
+        }
+      }
+    },
+    "semantic_inputs_vs_latest": {
+      "n": 64,
+      "worlds": 32,
+      "mean_cash_delta": 14299.828125,
+      "median_cash_delta": 8091.0,
+      "mean_margin_delta": 26876.921875,
+      "cash_ci95_world_bootstrap": [
+        11104.40625,
+        17597.421875
+      ],
+      "margin_ci95_world_bootstrap": [
+        22103.0625,
+        31697.9375
+      ],
+      "better": 59,
+      "same": 0,
+      "worse": 5,
+      "wins": 36,
+      "ties": 0,
+      "reference_wins": 5,
+      "reference_ties": 0,
+      "worst": {
+        "id": "w06-v56",
+        "world": "w06",
+        "opponent": "v56",
+        "first_shop": "BRUNCH_SPOT",
+        "reference": "latest",
+        "arm": "semantic_inputs",
+        "cash_delta": -15770,
+        "margin_delta": -15569,
+        "cash": 89217,
+        "margin": -33765,
+        "baseline_cash": 104987,
+        "baseline_margin": -18196
+      },
+      "best": {
+        "id": "w14-mgt_m1",
+        "world": "w14",
+        "opponent": "mgt_m1",
+        "first_shop": "ICE_CREAM_SHOP",
+        "reference": "latest",
+        "arm": "semantic_inputs",
+        "cash_delta": 70549,
+        "margin_delta": 95955,
+        "cash": 154332,
+        "margin": -3033,
+        "baseline_cash": 83783,
+        "baseline_margin": -98988
+      },
+      "opponents": {
+        "mgt_m1": {
+          "n": 32,
+          "cash_delta": 22902.25,
+          "margin_delta": 42332.3125
+        },
+        "v56": {
+          "n": 32,
+          "cash_delta": 5697.40625,
+          "margin_delta": 11421.53125
+        }
+      }
+    },
+    "baseline_vs_semantic_inputs": {
+      "n": 64,
+      "worlds": 32,
+      "mean_cash_delta": 4626.4375,
+      "median_cash_delta": 3693.0,
+      "mean_margin_delta": 2047.46875,
+      "cash_ci95_world_bootstrap": [
+        708.578125,
+        9005.9375
+      ],
+      "margin_ci95_world_bootstrap": [
+        -2409.84375,
+        7173.390625
+      ],
+      "better": 41,
+      "same": 0,
+      "worse": 23,
+      "wins": 23,
+      "ties": 27,
+      "reference_wins": 36,
+      "reference_ties": 0,
+      "worst": {
+        "id": "w11-v56",
+        "world": "w11",
+        "opponent": "v56",
+        "first_shop": "FARMERS_MARKET",
+        "reference": "semantic_inputs",
+        "arm": "baseline",
+        "cash_delta": -16938,
+        "margin_delta": 2947,
+        "cash": 127805,
+        "margin": 447,
+        "baseline_cash": 144743,
+        "baseline_margin": -2500
+      },
+      "best": {
+        "id": "w08-mgt_m1",
+        "world": "w08",
+        "opponent": "mgt_m1",
+        "first_shop": "FARMERS_MARKET",
+        "reference": "semantic_inputs",
+        "arm": "baseline",
+        "cash_delta": 49901,
+        "margin_delta": 50536,
+        "cash": 137983,
+        "margin": 0,
+        "baseline_cash": 88082,
+        "baseline_margin": -50536
+      },
+      "opponents": {
+        "mgt_m1": {
+          "n": 32,
+          "cash_delta": 4657.46875,
+          "margin_delta": 2949.78125
+        },
+        "v56": {
+          "n": 32,
+          "cash_delta": 4595.40625,
+          "margin_delta": 1145.15625
+        }
+      }
+    },
+    "latest_vs_semantic_inputs": {
+      "n": 64,
+      "worlds": 32,
+      "mean_cash_delta": -14299.828125,
+      "median_cash_delta": -8091.0,
+      "mean_margin_delta": -26876.921875,
+      "cash_ci95_world_bootstrap": [
+        -17597.421875,
+        -11104.40625
+      ],
+      "margin_ci95_world_bootstrap": [
+        -31697.9375,
+        -22103.0625
+      ],
+      "better": 5,
+      "same": 0,
+      "worse": 59,
+      "wins": 5,
+      "ties": 0,
+      "reference_wins": 36,
+      "reference_ties": 0,
+      "worst": {
+        "id": "w14-mgt_m1",
+        "world": "w14",
+        "opponent": "mgt_m1",
+        "first_shop": "ICE_CREAM_SHOP",
+        "reference": "semantic_inputs",
+        "arm": "latest",
+        "cash_delta": -70549,
+        "margin_delta": -95955,
+        "cash": 83783,
+        "margin": -98988,
+        "baseline_cash": 154332,
+        "baseline_margin": -3033
+      },
+      "best": {
+        "id": "w06-v56",
+        "world": "w06",
+        "opponent": "v56",
+        "first_shop": "BRUNCH_SPOT",
+        "reference": "semantic_inputs",
+        "arm": "latest",
+        "cash_delta": 15770,
+        "margin_delta": 15569,
+        "cash": 104987,
+        "margin": -18196,
+        "baseline_cash": 89217,
+        "baseline_margin": -33765
+      },
+      "opponents": {
+        "mgt_m1": {
+          "n": 32,
+          "cash_delta": -22902.25,
+          "margin_delta": -42332.3125
+        },
+        "v56": {
+          "n": 32,
+          "cash_delta": -5697.40625,
+          "margin_delta": -11421.53125
+        }
+      }
+    },
+    "semantic_bank_vs_semantic_inputs": {
+      "n": 64,
+      "worlds": 32,
+      "mean_cash_delta": -608.75,
+      "median_cash_delta": 0.0,
+      "mean_margin_delta": -192.609375,
+      "cash_ci95_world_bootstrap": [
+        -3069.5625,
+        1307.65625
+      ],
+      "margin_ci95_world_bootstrap": [
+        -2462.46875,
+        1567.265625
+      ],
+      "better": 8,
+      "same": 48,
+      "worse": 8,
+      "wins": 37,
+      "ties": 0,
+      "reference_wins": 36,
+      "reference_ties": 0,
+      "worst": {
+        "id": "w26-v56",
+        "world": "w26",
+        "opponent": "v56",
+        "first_shop": "SMOOTHIE_SHOP",
+        "reference": "semantic_inputs",
+        "arm": "semantic_bank",
+        "cash_delta": -29536,
+        "margin_delta": -28843,
+        "cash": 78468,
+        "margin": -32968,
+        "baseline_cash": 108004,
+        "baseline_margin": -4125
+      },
+      "best": {
+        "id": "w08-v56",
+        "world": "w08",
+        "opponent": "v56",
+        "first_shop": "FARMERS_MARKET",
+        "reference": "semantic_inputs",
+        "arm": "semantic_bank",
+        "cash_delta": 24060,
+        "margin_delta": 26653,
+        "cash": 108372,
+        "margin": -22313,
+        "baseline_cash": 84312,
+        "baseline_margin": -48966
+      },
+      "opponents": {
+        "mgt_m1": {
+          "n": 32,
+          "cash_delta": -878.84375,
+          "margin_delta": -457.03125
+        },
+        "v56": {
+          "n": 32,
+          "cash_delta": -338.65625,
+          "margin_delta": 71.8125
+        }
+      }
+    }
+  },
+  "runtime": {
+    "baseline": {
+      "games": 64,
+      "mean_game_seconds": 5.314338634383603,
+      "max_action_seconds": 2.2754430999048054
+    },
+    "latest": {
+      "games": 64,
+      "mean_game_seconds": 5.987095140633755,
+      "max_action_seconds": 0.011471200035884976
+    },
+    "semantic_bank": {
+      "games": 64,
+      "mean_game_seconds": 6.745469112500359,
+      "max_action_seconds": 1.2103206999599934
+    },
+    "semantic_inputs": {
+      "games": 64,
+      "mean_game_seconds": 5.630949492186119,
+      "max_action_seconds": 1.1723858000477776
+    }
+  },
+  "caution": "Development is used for tuning. World bootstrap groups both opponents; small-panel intervals are exploratory."
+}

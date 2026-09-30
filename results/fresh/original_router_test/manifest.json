@@ -1,0 +1,46 @@
+{
+  "engine": "1.32.7",
+  "panels": {
+    "natural": [
+      127000,
+      127001,
+      127002,
+      127003,
+      127004,
+      127005,
+      127006,
+      127007,
+      127008,
+      127009,
+      127010,
+      127011,
+      127012,
+      127013,
+      127014,
+      127015
+    ],
+    "shops": [
+      128000,
+      128001,
+      128002,
+      128003,
+      128004,
+      128005,
+      128006,
+      128007
+    ]
+  },
+  "seats": [
+    0,
+    1
+  ],
+  "selected": "agents\\market_impact_selected.py",
+  "opponent": "agents\\public\\tschinkel_router_v31.py",
+  "sources": {
+    "agents\\market_impact_selected.py": "216ed6a3857187cbd7803e50e033069af0c6bdb88ddf4ffbc879b4b49cbb4c6b",
+    "agents\\public\\tschinkel_router_v31.py": "e50d3c7b54c051b880fd7b68ed2aa8f954331d6f892b8fb5dca788223b27c24c",
+    "scripts\\test_original_router.py": "02f7fe91e6d0105e4ebd82b96172feff04c9375e7e75861e400818294ba0f531"
+  },
+  "purpose": "Direct comparison with the original public router; no policy tuning or selection.",
+  "shop_control": "Natural panel uses the unmodified engine. Shops panel covers every first shop once, both seats; later draws fixed and hidden until revealed."
+}

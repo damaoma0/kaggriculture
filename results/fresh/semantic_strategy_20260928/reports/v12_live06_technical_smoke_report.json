@@ -1,0 +1,366 @@
+{
+  "scope": "ONE_NORMAL_BUDGET_TECHNICAL_SMOKE_NOT_STRENGTH_PANEL",
+  "candidate": "strategy_v12_kb115lt2_runtime_fast",
+  "source_sha256": {
+    "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v8_kb115lt2_readiness\\development\\live\\live-06.json": "53328e1a554c7d65052f13ce9321af0e08b43e95bd65f930a3b82e34e5361095",
+    "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v12_kb115lt2_runtime_fast\\development\\live\\live-06.json": "3ce31c119350261d49c42182038e6616914fd623d63af7f8d65d25d62a7ec150"
+  },
+  "action_sha256": {
+    "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v8_kb115lt2_readiness\\development\\live\\live-06.actions.json": "ee58b280ac7f7dcb8eb8a92e03996ced076d102474b800f60b5b81c7aba14c13",
+    "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v12_kb115lt2_runtime_fast\\development\\live\\live-06.actions.json": "16b17a2ee531877ce7703880d1cbeba5e4e776513c4449e5da617a8ef4dc1600"
+  },
+  "candidate_manifest_sha256": "aafa32c48bc4b32627855bd0f0bf18bf93f4f982c496f5ec5f7411dc43a938a1",
+  "completed": true,
+  "eligible": true,
+  "technical_pass": true,
+  "cash": 118555.0,
+  "rival_cash": 121946.0,
+  "margin": -3391.0,
+  "engine_audit": {
+    "statuses": [
+      "DONE",
+      "DONE"
+    ],
+    "steps": 720,
+    "final_step": 719,
+    "act_timeout": 1,
+    "remaining_overage": [
+      11.53791300000001,
+      52.81934
+    ]
+  },
+  "measured_overage": [
+    48.459546200116165,
+    7.180229200050235
+  ],
+  "reference_measured_overage": [
+    19.390259899781086,
+    2.512926199939102
+  ],
+  "max_call": 6.0984016000293195,
+  "action_counts": [
+    719,
+    719
+  ],
+  "cash_equal": true,
+  "complete_ledgers_equal": true,
+  "shops_equal": true,
+  "action_differences": [
+    {
+      "seat": 0,
+      "step": 429,
+      "physical_equal": true,
+      "distinct_sell_permutation_only": true,
+      "original_market": [
+        [
+          "SELL",
+          "MILK",
+          1
+        ],
+        [
+          "SELL",
+          "TOMATO",
+          2
+        ],
+        [
+          "SELL",
+          "EGG",
+          13
+        ],
+        [
+          "SELL",
+          "WHEAT",
+          1
+        ],
+        [
+          "SELL",
+          "CARROT",
+          3
+        ],
+        [
+          "SELL",
+          "WOOL",
+          2
+        ]
+      ],
+      "candidate_market": [
+        [
+          "SELL",
+          "MILK",
+          1
+        ],
+        [
+          "SELL",
+          "TOMATO",
+          2
+        ],
+        [
+          "SELL",
+          "EGG",
+          13
+        ],
+        [
+          "SELL",
+          "CARROT",
+          3
+        ],
+        [
+          "SELL",
+          "WHEAT",
+          1
+        ],
+        [
+          "SELL",
+          "WOOL",
+          2
+        ]
+      ]
+    },
+    {
+      "seat": 0,
+      "step": 525,
+      "physical_equal": true,
+      "distinct_sell_permutation_only": true,
+      "original_market": [
+        [
+          "SELL",
+          "STRAWBERRY",
+          1
+        ],
+        [
+          "SELL",
+          "TOMATO",
+          4
+        ],
+        [
+          "SELL",
+          "WHEAT",
+          1
+        ],
+        [
+          "SELL",
+          "CARROT",
+          3
+        ],
+        [
+          "SELL",
+          "MILK",
+          3
+        ],
+        [
+          "SELL",
+          "EGG",
+          14
+        ]
+      ],
+      "candidate_market": [
+        [
+          "SELL",
+          "STRAWBERRY",
+          1
+        ],
+        [
+          "SELL",
+          "TOMATO",
+          4
+        ],
+        [
+          "SELL",
+          "CARROT",
+          3
+        ],
+        [
+          "SELL",
+          "WHEAT",
+          1
+        ],
+        [
+          "SELL",
+          "MILK",
+          3
+        ],
+        [
+          "SELL",
+          "EGG",
+          14
+        ]
+      ]
+    }
+  ],
+  "all_physical_actions_equal": true,
+  "all_byte_actions_equal": false,
+  "executor_errors": 0,
+  "opponent_health": {
+    "1": {
+      "policy": "packaged_v9lite",
+      "errors": 0,
+      "switches": 0,
+      "seconds": [
+        6.77,
+        0.86,
+        0.65
+      ],
+      "budgets": [
+        30.0,
+        20.0,
+        20.0
+      ],
+      "warm": []
+    }
+  },
+  "source_module_audit": {
+    "__main__": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\technical_smokes\\strategy_v12_kb115lt2_runtime_fast\\run_semantic_v12_technical_smoke_20260928.py",
+    "__mp_main__": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\technical_smokes\\strategy_v12_kb115lt2_runtime_fast\\run_semantic_v12_technical_smoke_20260928.py",
+    "semantic_strategy_gate_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v12_kb115lt2_runtime_fast\\harness\\semantic_strategy_gate_20260928.py",
+    "evaluate_boards": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v12_kb115lt2_runtime_fast\\harness\\evaluate_boards.py",
+    "market_corpus": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v12_kb115lt2_runtime_fast\\harness\\market_corpus.py",
+    "analyze_efficiency": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v12_kb115lt2_runtime_fast\\harness\\analyze_efficiency.py",
+    "tape_vs_bench": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v12_kb115lt2_runtime_fast\\harness\\tape_vs_bench.py",
+    "semantic_strategy_policy_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v12_kb115lt2_runtime_fast\\project\\scripts\\semantic_strategy_policy_20260928.py",
+    "semantic_tile_planner_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v12_kb115lt2_runtime_fast\\project\\scripts\\semantic_tile_planner_20260928.py",
+    "semantic_tile_lifetimes_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v12_kb115lt2_runtime_fast\\project\\scripts\\semantic_tile_lifetimes_20260928.py",
+    "semantic_strategy_tiles_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v12_kb115lt2_runtime_fast\\project\\scripts\\semantic_strategy_tiles_20260928.py",
+    "semantic_strategy_financing_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v12_kb115lt2_runtime_fast\\project\\scripts\\semantic_strategy_financing_20260928.py",
+    "research_labour_profit": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\opponent\\pkg\\scripts\\research_labour_profit.py",
+    "cumulative_engine_profiles": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\opponent\\pkg\\scripts\\cumulative_engine_profiles.py",
+    "test_labour_selfplay": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\opponent\\pkg\\scripts\\test_labour_selfplay.py",
+    "value_tape_search": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\opponent\\pkg\\scripts\\value_tape_search.py",
+    "rival_trajectory_model": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\opponent\\pkg\\scripts\\rival_trajectory_model.py",
+    "rival_trajectory_model_v3": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\opponent\\pkg\\scripts\\rival_trajectory_model_v3.py",
+    "value_tape_search_v2": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\opponent\\pkg\\scripts\\value_tape_search_v2.py",
+    "value_tape_search_v3": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\opponent\\pkg\\scripts\\value_tape_search_v3.py",
+    "value_tape_search_v5": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\opponent\\pkg\\scripts\\value_tape_search_v5.py",
+    "value_tape_search_v6": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\opponent\\pkg\\scripts\\value_tape_search_v6.py",
+    "value_tape_search_v7": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\opponent\\pkg\\scripts\\value_tape_search_v7.py",
+    "value_tape_search_v8": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\opponent\\pkg\\scripts\\value_tape_search_v8.py",
+    "value_tape_search_v9": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\opponent\\pkg\\scripts\\value_tape_search_v9.py",
+    "value_tape_search_lite": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\opponent\\pkg\\scripts\\value_tape_search_lite.py",
+    "semantic_strategy_opening_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v12_kb115lt2_runtime_fast\\project\\scripts\\semantic_strategy_opening_20260928.py",
+    "semantic_strategy_blocks_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v12_kb115lt2_runtime_fast\\project\\scripts\\semantic_strategy_blocks_20260928.py",
+    "semantic_tile_allocator_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v12_kb115lt2_runtime_fast\\project\\scripts\\semantic_tile_allocator_20260928.py"
+  },
+  "day_dawn_seconds": [
+    {
+      "day": 6,
+      "reference": 0.4638356000650674,
+      "candidate": 0.46831939998082817
+    },
+    {
+      "day": 7,
+      "reference": 0.5648292999248952,
+      "candidate": 0.8122808000771329
+    },
+    {
+      "day": 8,
+      "reference": 0.70441090001259,
+      "candidate": 1.0744534999830648
+    },
+    {
+      "day": 9,
+      "reference": 0.805319199920632,
+      "candidate": 0.8929807000095025
+    },
+    {
+      "day": 10,
+      "reference": 1.4448841999983415,
+      "candidate": 2.208882699953392
+    },
+    {
+      "day": 11,
+      "reference": 1.4384610999841243,
+      "candidate": 1.6018622000701725
+    },
+    {
+      "day": 12,
+      "reference": 1.6761857999954373,
+      "candidate": 2.8141382000176236
+    },
+    {
+      "day": 13,
+      "reference": 2.014775500050746,
+      "candidate": 3.2252825000323355
+    },
+    {
+      "day": 14,
+      "reference": 2.5728696000296623,
+      "candidate": 5.312117900000885
+    },
+    {
+      "day": 15,
+      "reference": 1.962176499888301,
+      "candidate": 3.9862927000503987
+    },
+    {
+      "day": 16,
+      "reference": 1.8930416000075638,
+      "candidate": 3.5268169000046328
+    },
+    {
+      "day": 17,
+      "reference": 2.46941160003189,
+      "candidate": 5.480761499959044
+    },
+    {
+      "day": 18,
+      "reference": 1.4191367999883369,
+      "candidate": 4.497748299967498
+    },
+    {
+      "day": 19,
+      "reference": 2.749565300066024,
+      "candidate": 6.0984016000293195
+    },
+    {
+      "day": 20,
+      "reference": 1.322475399938412,
+      "candidate": 1.8273181000258774
+    },
+    {
+      "day": 21,
+      "reference": 2.5375678999116644,
+      "candidate": 5.089615999953821
+    },
+    {
+      "day": 22,
+      "reference": 2.759548499947414,
+      "candidate": 2.3184833000414073
+    },
+    {
+      "day": 23,
+      "reference": 2.0654788999818265,
+      "candidate": 1.485847800038755
+    },
+    {
+      "day": 24,
+      "reference": 2.491565700038336,
+      "candidate": 3.4168855000752956
+    },
+    {
+      "day": 25,
+      "reference": 2.555064499960281,
+      "candidate": 4.912898299982771
+    },
+    {
+      "day": 26,
+      "reference": 1.7082423999672756,
+      "candidate": 3.2978283000411466
+    },
+    {
+      "day": 27,
+      "reference": 1.7520443999674171,
+      "candidate": 3.519935699994676
+    },
+    {
+      "day": 28,
+      "reference": 1.557764200028032,
+      "candidate": 2.7639751998940483
+    },
+    {
+      "day": 29,
+      "reference": 0.00928670004941523,
+      "candidate": 0.023327399976551533
+    }
+  ],
+  "limitation": "Single technical case passes; no full-panel strength or paired speed claim. Root-authorized remaining live8 dispatch reuses this exact outcome and will stop on invalidity or unattainable6wins.",
+  "script_sha256": "f3a0237239683a8993169197e08a72b91e8b100c999a747dc6fcf22fd6be8d45"
+}

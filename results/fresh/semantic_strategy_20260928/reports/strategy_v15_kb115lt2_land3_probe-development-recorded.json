@@ -1,0 +1,18 @@
+{
+  "candidate": "strategy_v15_kb115lt2_land3_probe",
+  "split": "development",
+  "mode": "recorded",
+  "expected": 8,
+  "recorded": 8,
+  "valid": 5,
+  "gate_complete": false,
+  "eligible_wins": 1,
+  "invalid_cases": [
+    "recorded-112476470",
+    "recorded-112610631",
+    "recorded-112612822"
+  ],
+  "missing_cases": [],
+  "mean_valid_margin": -6482.6,
+  "warning": "No success claim from an incomplete gate; invalid cases are not removed from its planned denominator."
+}

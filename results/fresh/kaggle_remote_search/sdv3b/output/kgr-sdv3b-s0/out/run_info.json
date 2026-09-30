@@ -1,0 +1,31 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/search_dispatch_run.py",
+   "--arms",
+   "V3sh,V3a12m0",
+   "--g1",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/search_dispatch_20260925/lead_worlds/*/*.json",
+   "results/fresh/search_dispatch_20260925/lead_worlds/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 25,
+ "pip_seconds": 51.0168559551239,
+ "run_seconds": 707.7955493927002,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "24 jobs: arms ['V3sh', 'V3a12m0'] x 12 games, workers 4, cfg {}",
+  "completed 24 games in 708s, errors (FAILED) 0"
+ ],
+ "stderr_tail": []
+}

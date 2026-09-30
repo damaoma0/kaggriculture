@@ -83,6 +83,11 @@ Care rules:
 - Only WHEAT and FERTILIZER can be bought back (BUY_PRODUCT). Everything can be sold.
 - Orders resolved one unit at a time, interleaved across players. Buy price quoted post-buy,
   sell price pre-sell. Price floor $1 (at floor, sold units are not added to inventory).
+  Interleaving is by ORDER-LIST INDEX (`_process_market`, engine 1.32.7): order i of player 0 and order i of player 1
+  run together in per-unit lockstep (both quoted at the same pre-commit inventory, then committed player 0 first);
+  HIRE / BUY_LAND are atomic at their index. So a sell at a lower index than the rival's sell of the same product runs
+  entirely before it (the rival meets the lowered price); at the same index the two share prices unit by unit, and
+  the side with more units sells its extra units last, at the lowest prices (2026-09-28, KB115 vs KB115PF50 wool d27 h5).
 - Town center consumes 1 of every product (not fertilizer) every 24 turns, flat all season.
 - Shops unlock every 3 days, random with replacement, max 8 instances. Each consumes 1 of each
   demanded product every 4 turns (single-product shops consume 2x). Visible in obs["town"]["unlocked_shops"].
@@ -178,8 +183,12 @@ but our valuation code did not use them; any value model must.
 - **Animals**: a production pays 1 + the banked care bonus only if fed that day (else 1 and the bank is lost); a fed +
   cared day banks +1; unfed two days in a row -> the animal escapes (the structure stays). COLLECT_FERTILIZER gives 1
   per animal per day (does not accumulate).
-- **Shed**: capacity 100 items INCLUDING animals bought and waiting there. Overflow is deleted both at midnight (all
-  units' inventories are dumped into the shed) AND on any DROP / PLACE at the shed (items that don't fit are lost).
+- **Shed**: capacity 100 items INCLUDING animals bought and waiting there. Overflow is deleted (a) at the day's end
+  only (after the hour-23 step, `(step+1) % 24 == 0`: every unit's inventory is dumped into the shed up to the room,
+  the rest discarded) and (b) at any tick on a DROP at the shed (each item goes in up to the room, the rest of that item
+  is discarded). A PLACE item n at the shed moves only what fits and the rest STAYS in hand - never deleted (corrected
+  2026-09-29; earlier text said PLACE deletes too). BUY_PRODUCT / BUY_ANIMAL into a full shed simply fail (no money
+  spent). Unit inventories have no capacity limit during the day. Nothing is deleted at other tick ends.
 - **Units**: HIRE cost = fib(n) for the n-th hire of the day (1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377...);
   a hand spawns on the least-occupied shed-access tile and acts from the next turn; all hands vanish at midnight and
   the farmer returns to (4,4). BUILD_COOP / BUILD_PASTURE are free but need an empty tile. If a turn's PLANT requests

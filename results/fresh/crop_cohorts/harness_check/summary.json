@@ -1,0 +1,67 @@
+{
+  "candidates": {
+    "candidate-v45_cohort_carrot_batch-6004cf95f8": {
+      "by_opponent": {
+        "twocoins": {
+          "candidate_win_tie_loss_by_seed_cluster": {
+            "losses": 0,
+            "ties": 0,
+            "wins": 1
+          },
+          "complete_seed_clusters": 1,
+          "incomplete_seeds": [],
+          "paired_delta_by_seed_cluster": {
+            "candidate_better_tie_worse": {
+              "losses": 1,
+              "ties": 0,
+              "wins": 0
+            },
+            "mean_cash": -40.0,
+            "mean_margin": -40.0
+          },
+          "seed_clusters": [
+            {
+              "identical_realized_shops_both_seats": true,
+              "mean_baseline_margin": 3196.0,
+              "mean_candidate_margin": 3156.0,
+              "mean_cash_delta": -40.0,
+              "mean_margin_delta": -40.0,
+              "seat_pairs": [
+                {
+                  "baseline_margin": 3196.0,
+                  "candidate_margin": 3156.0,
+                  "cash_delta": -40.0,
+                  "margin_delta": -40.0,
+                  "same_realized_shops": true,
+                  "seat": 0
+                },
+                {
+                  "baseline_margin": 3196.0,
+                  "candidate_margin": 3156.0,
+                  "cash_delta": -40.0,
+                  "margin_delta": -40.0,
+                  "same_realized_shops": true,
+                  "seat": 1
+                }
+              ],
+              "seed": 157001
+            }
+          ],
+          "worst_seed": {
+            "mean_candidate_margin": 3156.0,
+            "mean_margin_delta": -40.0,
+            "seed": 157001
+          }
+        }
+      },
+      "path": "C:\\Users\\xyygl\\Documents\\kaggriculture\\agents\\v45_cohort_carrot_batch.py",
+      "sha256": "6004cf95f82b4667da0a016f8c81e0ae43692526b821cdffd1bcf94a231209af"
+    }
+  },
+  "failed_or_missing_games": 0,
+  "failures": [],
+  "shop_note": "Controlled shops use the same independently seeded hidden schedule for paired games.",
+  "statistical_unit": "seed cluster; the two seat replicates are averaged, not treated as independent",
+  "status": "complete",
+  "valid_games": 4
+}

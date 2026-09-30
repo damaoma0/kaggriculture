@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "check": "visible_initial_state_and_future_information_isolation",
+      "passed": true,
+      "decision": "baseline",
+      "decision_output_sha256": "840404d80af255b3bc2067921e6f87c2e617cbdbd07e3ce9b6bccfea927c9ba7"
+    },
+    {
+      "check": "independent_official_framework_replay",
+      "episode": 110676097,
+      "mode": "wage",
+      "seat": 0,
+      "transitions": 719,
+      "passed": true
+    },
+    {
+      "check": "independent_official_framework_replay",
+      "episode": 110676097,
+      "mode": "wage",
+      "seat": 1,
+      "transitions": 719,
+      "passed": true
+    },
+    {
+      "check": "independent_official_framework_replay",
+      "episode": 110676097,
+      "mode": "forecast",
+      "seat": 0,
+      "transitions": 719,
+      "passed": true
+    },
+    {
+      "check": "independent_official_framework_replay",
+      "episode": 110676097,
+      "mode": "forecast",
+      "seat": 1,
+      "transitions": 719,
+      "passed": true
+    },
+    {
+      "check": "all_source_and_executed_schedule_hashes",
+      "passed": true,
+      "worlds": 1
+    }
+  ]
+}

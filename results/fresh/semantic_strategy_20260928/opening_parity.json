@@ -1,0 +1,75 @@
+{
+  "source_contract_sha256": "f213b2b91be941e05b0f06307a61230af5e4ad502d144407ebefc6df648b16ab",
+  "cases": [
+    {
+      "episode": 111777242,
+      "seat": 0,
+      "comparisons": 144,
+      "mismatches": [],
+      "max_action_seconds": 0.0019162000389769673,
+      "mean_action_seconds": 0.00025551944579799764
+    },
+    {
+      "episode": 111777242,
+      "seat": 1,
+      "comparisons": 144,
+      "mismatches": [],
+      "max_action_seconds": 0.0010112000163644552,
+      "mean_action_seconds": 0.00021444652116365937
+    },
+    {
+      "episode": 111780698,
+      "seat": 1,
+      "comparisons": 144,
+      "mismatches": [],
+      "max_action_seconds": 0.0015626000240445137,
+      "mean_action_seconds": 0.0002165555650006152
+    },
+    {
+      "episode": 111781818,
+      "seat": 1,
+      "comparisons": 144,
+      "mismatches": [],
+      "max_action_seconds": 0.0016521000070497394,
+      "mean_action_seconds": 0.00022758263286151405
+    },
+    {
+      "episode": 111782912,
+      "seat": 1,
+      "comparisons": 144,
+      "mismatches": [],
+      "max_action_seconds": 0.001875300076790154,
+      "mean_action_seconds": 0.00025515624777957174
+    },
+    {
+      "episode": 111784038,
+      "seat": 1,
+      "comparisons": 144,
+      "mismatches": [],
+      "max_action_seconds": 0.0016989000141620636,
+      "mean_action_seconds": 0.0002319263916837776
+    },
+    {
+      "episode": 111785152,
+      "seat": 0,
+      "comparisons": 144,
+      "mismatches": [],
+      "max_action_seconds": 0.0017191000515595078,
+      "mean_action_seconds": 0.00023077639181994728
+    },
+    {
+      "episode": 111786260,
+      "seat": 0,
+      "comparisons": 144,
+      "mismatches": [],
+      "max_action_seconds": 0.0016317000845447183,
+      "mean_action_seconds": 0.0002166812385742863
+    }
+  ],
+  "comparisons": 1152,
+  "mismatches": 0,
+  "cold_initialization_seconds": 0.24795069999527186,
+  "rejects_day6": true,
+  "shared_contract_unchanged": true,
+  "games_executed": 0
+}

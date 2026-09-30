@@ -1,0 +1,36 @@
+{
+  "hashes": {
+    "scripts\\semantic_farm\\__init__.py": "f95fdd7530c93f4bc5ee0a436068be28512a64a5e45a7bfd34ba5efdd6b3daed",
+    "scripts\\semantic_farm\\care.py": "4883e2e505e3b5ffe828b4fc91b7cdd1c336e8040dfa8cd9fffac937b612571c",
+    "scripts\\semantic_farm\\common.py": "6b63a2d0bb1db152da4ddacc33ee2eff3e4aa3c3a2691fbd5d74f544b1fe9b16",
+    "scripts\\semantic_farm\\economics.py": "b57e15b208a946e79bbec0c5c5dbbca32e30192632eed8ecb4f3d68bdd2e34ab",
+    "scripts\\semantic_farm\\execution.py": "7e0f11a3c8e297bd4b4bba23f6d371479b55aa2951de706cfd46f2daed3bcbf1",
+    "scripts\\semantic_farm\\layout.py": "9b6f311ae3b439be827e0f5673aed915b4ad6acfdede062ecb7b0e644dbacde6",
+    "scripts\\semantic_farm\\model.py": "36469ca43532dc39eedfb5e7cfc04da849b391a126af936f4b3442bbe3386cc1",
+    "scripts\\semantic_farm\\policy.py": "c27307f577a2596c2c7262694204936fb710d6a245cf7d239a2edab58602958f",
+    "scripts\\semantic_strategy.py": "f45de97c58f8ebfb6c32e5c12accb26bd30618a9e90e7bb589f774970575acac",
+    "scripts\\run_semantic_farm.py": "1b7492e3e552ab2f4605f02bcb13aee6fda52c0f51bbc755b2a98552138fccc8",
+    "scripts\\cumulative_engine_profiles.py": "a89159fd9a810af514ad1b3fa6d67a61453c17428331ebab9bcb2b1fd2715c86",
+    "data\\semantic_farm\\model.json": "5862ff6178de285af7442d593230791b41c563dcfc791448665a811e74999b41",
+    "data\\kaggriculture.py": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+    "agents\\semantic_farm_v1.py": "0bf67af57dd0c1ae99a8b12c024392b300bac1446170de2eecc00633bb3e9cd1",
+    "scripts\\fragments\\continuation_executor.py": "09646e1d8a8c09d5351f062213a4306dc9ec08584512c3b5a29b488afaed497a",
+    "scripts\\fragments\\continuation_projection.py": "95642d2ca34fb4f83da6e7f84c0cec0183f2bc2fe033c4fb36713db414a4ab61",
+    "scripts\\fragments\\segment_job_executor_v3.py": "9c33139c077fb5e57e6eab6cff339688c6651363efbc86210839219c7993ff26",
+    "agents\\mgt_m1.py": "1152ef2e12c4535dbc381b9c54ac7d7a0b1a9ad3d0a8018a7567dcf5c4a52470",
+    "agents\\mgt_y3.py": "416ab6977af12644c39ba26b269cecc261c47daffe35997fb51e4cf5fbbb7073",
+    "agents\\mgt_v9lite.py": "f2455f3ebc5c8355008fd5aa9ff54ec4430e987e21b3123feb50de6ad32998b4",
+    "data\\router_refresh_20260922\\v56\\main.py": "a1ad0fd1d174477ee2cbdd561a812bcb7029647ce34599e79d6b79e9057eff6c"
+  },
+  "args": {
+    "out": "results/fresh/semantic_architecture_20260924/panel_final",
+    "arms": "semantic,m1,y3,v9lite",
+    "opponent": "v56",
+    "seeds": "924601",
+    "seats": "0,1",
+    "stop": 719,
+    "panel_limit": 16,
+    "panel_offset": 0
+  },
+  "created": "2026-09-24T15:38:29.240601+00:00"
+}

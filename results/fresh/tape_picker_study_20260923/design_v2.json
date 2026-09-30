@@ -1,0 +1,44 @@
+{
+  "created_utc": "2026-09-23T13:32:22.0190014Z",
+  "seeds": [
+    1133322569,
+    1372536912,
+    1654257144,
+    1450661918,
+    1455108354,
+    1044176004,
+    1752852809,
+    1165248943,
+    1159688068,
+    1145016615,
+    1238278410,
+    1116428429,
+    1870288176,
+    1563661006,
+    1193304479,
+    1637562181
+  ],
+  "candidate": "mgt_t10_reveal_safe",
+  "candidate_sha256": "e95fa1cf793ff49a6352023adcb8696edabf6c14eaea9fec634783c64115ac10",
+  "design": "Independent random-seed confirmation of a risk-conditioned recent-shop tape picker, fixed after the first picker failed on its holdout. Both seats; natural shops; live V56 and direct controls.",
+  "development_seeds": [
+    1193211086,
+    1071336464,
+    1409228036,
+    1122876899,
+    1487392635,
+    1131174619,
+    1271106486,
+    1262356764
+  ],
+  "additional_candidate": "mgt_m1_reveal_safe",
+  "additional_candidate_sha256": "6a3a3c3bb0266e6efc2f194481ebcfd62b2f2984990ae04c5e68d15027a0336e",
+  "amended_utc": "2026-09-23T13:36:55.9169787Z",
+  "selection_rule": "On eight development seeds, require positive direct mean margin versus mgt_m1 and greater V56 mean margin than mgt_m1; among eligible candidates pick highest V56 mean margin. Then run the pre-frozen 16 confirmation seeds unchanged.",
+  "corrected_candidates": {
+    "mgt_t10_reveal_safe2": "e05249b22dadf80ad75e21279cd046689f016b349e2b481f928ed63606215335",
+    "mgt_m1_reveal_safe2": "9261dd69e62d0eb99f39c5e214133d06184f6f5821acccea23d7c8f381ca3031"
+  },
+  "correction_utc": "2026-09-23T13:38:34.5506394Z",
+  "correction_reason": "The first safety variants counted ignored overlay tiles in incumbent Hamming but excluded them for candidates. Corrected variants use the same distance formula for both. Earlier v2 development results are diagnostic only."
+}

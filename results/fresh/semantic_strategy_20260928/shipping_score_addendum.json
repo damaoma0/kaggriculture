@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "created_utc": "2026-09-28T05:06:48.394591+00:00",
+  "scope": "PROSPECTIVE_QUALIFICATION_SCORING",
+  "original_protocol_sha256": "43ed18af7564e376ba6651881f8c7ca3937f1204ce60c8b3cca939b731606a42",
+  "document": "docs/semantic_strategy_shipping_addendum_20260928.md",
+  "document_sha256": "38550f6bf3e352eb3dd95abf224815c2dee7fc542412448ada2385632c9968eb",
+  "qualification_unreleased": true,
+  "qualification_outcomes_present": false,
+  "required_panels": [
+    "live",
+    "recorded"
+  ],
+  "required_games_per_panel": 40,
+  "required_wins_per_panel": 30,
+  "tie_counts_as_win": false,
+  "same_frozen_candidate": true,
+  "original_strict_screen_preserved": true,
+  "scripted_command_breaks": "Report alongside both scores; alone they do not invalidate the scripted-engine score. No case replacement or denominator removal.",
+  "technical_validity": "Unchanged: source cash reproduction, correct worlds, complete engine/actions, reconciled ledgers, normal engine/runtime budgets, frozen source/import provenance and no software errors.",
+  "known_development_evidence": {
+    "candidate": "strategy_v5_blocks100_finance",
+    "games": 8,
+    "actual_wins": 4,
+    "strict_wins": 3,
+    "strict_ineligible": 3,
+    "proof_case": "recorded-112612822",
+    "other_immediate_causes_unproven": true
+  },
+  "release_requirement": "Bind this addendum hash, original protocol hash and the single candidate manifest hash before qualification dispatch."
+}

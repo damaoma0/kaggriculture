@@ -1,0 +1,19 @@
+{
+  "refine-sell10": {
+    "extra_cows": 0,
+    "extra_sheep": 0,
+    "hands_cap": 14,
+    "fertilizer": "apply",
+    "sell_floor": 10
+  },
+  "adaptive": {
+    "yarn": {
+      "name": "router",
+      "config": {}
+    },
+    "other": {
+      "name": "router",
+      "config": {}
+    }
+  }
+}

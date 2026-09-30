@@ -1,0 +1,22 @@
+{
+  "experiment": "nearest_shops_v2",
+  "candidate": "strategy_v2_unlock",
+  "mode": "live_fixed",
+  "scope": "DEVELOPMENT_ONLY",
+  "expected": 8,
+  "recorded": 8,
+  "valid": 8,
+  "reference_reproductions": 6,
+  "valid_forced_references": 8,
+  "native_reproduction_divergences": [
+    "live-03",
+    "live-05"
+  ],
+  "gate_complete": true,
+  "eligible_wins": 1,
+  "mean_valid_margin": -4078.25,
+  "invalid_or_missing_cases": [],
+  "mean_paired_margin_delta": 3063.625,
+  "reference_outcomes": "Newly executed forced reference in every pair; natural results never reused.",
+  "warning": "Separate development fixed-shop evidence; never pool with natural or qualification results. Invalid forced reference leaves the planned denominator incomplete; timing-driven native reproduction differences are reported, not silently excluded."
+}

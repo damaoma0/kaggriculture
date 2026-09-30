@@ -1,0 +1,2 @@
+[{"kind": "push", "run": "pvs4", "agents": "mgt_lpv_base4,mgt_lpv_um1", "submission": "p2750", "episodes": "110937191,111374151,111376633,111416249,111554912,111577649,111681195,111688786,111871547,111902048,111916514,111941962", "shards": 1, "workers": 4},
+ {"kind": "pushcmd", "run": "g1c", "cmd": "scripts/lead_ablation.py run E2base4,E2um1 --workers 4", "collect": "results/fresh/lead_agent_20260924/abl_E2*/*.json"}]

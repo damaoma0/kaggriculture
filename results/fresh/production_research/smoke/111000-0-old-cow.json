@@ -1,0 +1,87 @@
+{
+  "seed": 111000,
+  "seat": 0,
+  "opponent": "old",
+  "mode": "cow",
+  "cash": 95658.0,
+  "opponent_cash": 91678.0,
+  "ledger": [
+    {
+      "revenue": {
+        "WHEAT": 20633,
+        "FERTILIZER": 17034,
+        "WOOL": 30046,
+        "MILK": 17462,
+        "MELON": 14267,
+        "EGG": 4881,
+        "STRAWBERRY": 23243,
+        "CARROT": 648
+      },
+      "sold_units": {
+        "WHEAT": 564,
+        "FERTILIZER": 332,
+        "WOOL": 138,
+        "MILK": 261,
+        "MELON": 72,
+        "EGG": 79,
+        "STRAWBERRY": 260,
+        "CARROT": 18
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 11110,
+        "BUY_SEED:WHEAT": 1970,
+        "HIRE": 5400.0,
+        "BUY_ANIMAL:COW": 3600,
+        "BUY_ANIMAL:SHEEP": 2500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:CARROT": 180,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2336,
+        "BUY_ANIMAL:GOOSE": 1200
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 16192,
+        "FERTILIZER": 12897,
+        "WOOL": 37891,
+        "MILK": 12436,
+        "MELON": 14267,
+        "STRAWBERRY": 22649,
+        "CARROT": 331
+      },
+      "sold_units": {
+        "WHEAT": 402,
+        "FERTILIZER": 262,
+        "WOOL": 173,
+        "MILK": 168,
+        "MELON": 72,
+        "STRAWBERRY": 241,
+        "CARROT": 9
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4210,
+        "BUY_SEED:WHEAT": 1840,
+        "BUY_SEED:MELON": 960,
+        "HIRE": 5808.0,
+        "BUY_ANIMAL:COW": 2800,
+        "BUY_ANIMAL:SHEEP": 3500,
+        "BUY_SEED:CARROT": 100,
+        "BUY_SEED:STRAWBERRY": 3200,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2567
+      }
+    }
+  ],
+  "decision": null,
+  "stats": {
+    "changed_turns": 10,
+    "liquidation_blocked": 17
+  },
+  "target": null,
+  "snapshots": [],
+  "max_action_seconds": 0.0049549999966984615,
+  "seconds": 7.633164800005034,
+  "predecision_hash": "d3f5ab893865aa5d9cc22b22eaf31dec5b3439c007806bd4f386f1e60d1ab019"
+}

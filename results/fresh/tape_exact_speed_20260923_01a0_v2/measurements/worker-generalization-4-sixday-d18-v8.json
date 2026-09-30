@@ -1,0 +1,109 @@
+{
+  "rows": [
+    {
+      "board_cache": null,
+      "case": "generalization-4-sixday-d18",
+      "cpu_seconds": 8.140625,
+      "forecasts": {
+        "107": [],
+        "136": [],
+        "137": [
+          "304a6b083e4446c52f440c2ceeb35dc9320b4df629e53807af90c0623fa9300a",
+          "1a0b365f230b7d297d441dee637db9d35a69653ddb855540dbb53b31361e5a86",
+          "09dd483d6bb5309a416d8c4a2f81656a913c87bd7bdc72261ecf1d2a118e3b8b",
+          "b89ceea612c4f4bbbba563a76f0f31d4690a507359d3d2ec35f9eb098b20932d"
+        ],
+        "466": [],
+        "515": [],
+        "77": [],
+        "None": [
+          "304a6b083e4446c52f440c2ceeb35dc9320b4df629e53807af90c0623fa9300a",
+          "1a0b365f230b7d297d441dee637db9d35a69653ddb855540dbb53b31361e5a86",
+          "09dd483d6bb5309a416d8c4a2f81656a913c87bd7bdc72261ecf1d2a118e3b8b",
+          "b89ceea612c4f4bbbba563a76f0f31d4690a507359d3d2ec35f9eb098b20932d"
+        ]
+      },
+      "historical_forecasts_equal": 8,
+      "phase": "cold",
+      "policy": "v8",
+      "repeat": 0,
+      "rollouts": 13,
+      "selected": null,
+      "semantic_sha256": "8507d28763119ca3ff090a010577e0b93fb02408ae2fc52d4936893af2c4dd6d",
+      "simulated_turns": 2656,
+      "wall_seconds": 8.140191800019238,
+      "world_board_evaluations": null,
+      "world_profile_evaluations": null
+    },
+    {
+      "board_cache": null,
+      "case": "generalization-4-sixday-d18",
+      "cpu_seconds": 6.078125,
+      "forecasts": {
+        "107": [],
+        "136": [],
+        "137": [
+          "304a6b083e4446c52f440c2ceeb35dc9320b4df629e53807af90c0623fa9300a",
+          "1a0b365f230b7d297d441dee637db9d35a69653ddb855540dbb53b31361e5a86",
+          "09dd483d6bb5309a416d8c4a2f81656a913c87bd7bdc72261ecf1d2a118e3b8b",
+          "b89ceea612c4f4bbbba563a76f0f31d4690a507359d3d2ec35f9eb098b20932d"
+        ],
+        "466": [],
+        "515": [],
+        "77": [],
+        "None": [
+          "304a6b083e4446c52f440c2ceeb35dc9320b4df629e53807af90c0623fa9300a",
+          "1a0b365f230b7d297d441dee637db9d35a69653ddb855540dbb53b31361e5a86",
+          "09dd483d6bb5309a416d8c4a2f81656a913c87bd7bdc72261ecf1d2a118e3b8b",
+          "b89ceea612c4f4bbbba563a76f0f31d4690a507359d3d2ec35f9eb098b20932d"
+        ]
+      },
+      "historical_forecasts_equal": 8,
+      "phase": "warm",
+      "policy": "v8",
+      "repeat": 1,
+      "rollouts": 13,
+      "selected": null,
+      "semantic_sha256": "8507d28763119ca3ff090a010577e0b93fb02408ae2fc52d4936893af2c4dd6d",
+      "simulated_turns": 2656,
+      "wall_seconds": 6.136255800025538,
+      "world_board_evaluations": null,
+      "world_profile_evaluations": null
+    },
+    {
+      "board_cache": null,
+      "case": "generalization-4-sixday-d18",
+      "cpu_seconds": 6.046875,
+      "forecasts": {
+        "107": [],
+        "136": [],
+        "137": [
+          "304a6b083e4446c52f440c2ceeb35dc9320b4df629e53807af90c0623fa9300a",
+          "1a0b365f230b7d297d441dee637db9d35a69653ddb855540dbb53b31361e5a86",
+          "09dd483d6bb5309a416d8c4a2f81656a913c87bd7bdc72261ecf1d2a118e3b8b",
+          "b89ceea612c4f4bbbba563a76f0f31d4690a507359d3d2ec35f9eb098b20932d"
+        ],
+        "466": [],
+        "515": [],
+        "77": [],
+        "None": [
+          "304a6b083e4446c52f440c2ceeb35dc9320b4df629e53807af90c0623fa9300a",
+          "1a0b365f230b7d297d441dee637db9d35a69653ddb855540dbb53b31361e5a86",
+          "09dd483d6bb5309a416d8c4a2f81656a913c87bd7bdc72261ecf1d2a118e3b8b",
+          "b89ceea612c4f4bbbba563a76f0f31d4690a507359d3d2ec35f9eb098b20932d"
+        ]
+      },
+      "historical_forecasts_equal": 8,
+      "phase": "warm",
+      "policy": "v8",
+      "repeat": 2,
+      "rollouts": 13,
+      "selected": null,
+      "semantic_sha256": "8507d28763119ca3ff090a010577e0b93fb02408ae2fc52d4936893af2c4dd6d",
+      "simulated_turns": 2656,
+      "wall_seconds": 6.102624999999534,
+      "world_board_evaluations": null,
+      "world_profile_evaluations": null
+    }
+  ]
+}

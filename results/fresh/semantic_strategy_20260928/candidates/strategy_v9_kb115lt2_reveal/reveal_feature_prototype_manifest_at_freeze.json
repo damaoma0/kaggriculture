@@ -1,0 +1,57 @@
+{
+  "created_utc": "2026-09-28T07:25:26.984835+00:00",
+  "status": "ready_for_prospective_KB115LT2_development_ablation_not_gameplay_validated",
+  "selected_outputs": [
+    "SHEEP",
+    "STRAWBERRY"
+  ],
+  "default_enabled": false,
+  "config": {
+    "policy_kind": "three_day_reveal",
+    "model_file": "block_model_reveal_modern100.json",
+    "reveal_features": true
+  },
+  "runtime_class": "semantic_strategy_blocks_reveal_20260928.SemanticRevealBlockPolicy",
+  "runtime_additional_files": [
+    "scripts/semantic_strategy_blocks_reveal_20260928.py",
+    "results/fresh/semantic_strategy_20260928/block_model_reveal_modern100.json",
+    "results/fresh/semantic_strategy_20260928/block_model_reveal_modern100_training_manifest.json"
+  ],
+  "dependency_note": "Subclass imports unchanged existing block/base policy. Offline builder alone requires numpy.",
+  "provenance_note": "Wrapper class selector and compact policy_input_memory diagnostics are integrated separately by root and must be frozen/disclosed separately.",
+  "validation": {
+    "new_unit_tests_passed": 7,
+    "static_dawns": 192,
+    "off_full_proposal_equal": 192,
+    "d6_today_memory_equal": 8,
+    "changed_dawns_enabled": 15,
+    "current_retirement_equal": 192,
+    "training_episodes": 100,
+    "reserved_episodes": 183,
+    "training_reserved_overlap": [],
+    "new_games": 0
+  },
+  "limitations": [
+    "Selected columns were chosen using modern100 leave-episode-out diagnostics, so this is development selection.",
+    "All other fitted columns are preserved exactly; shared constraints and later own states may still change other realized decisions.",
+    "Late sheep D21 LOO worsens .06 to.13 units.",
+    "No performance claim on KB115LT2, qualification, or profit from static imitation metrics."
+  ],
+  "files": {
+    "scripts/semantic_strategy_blocks_reveal_20260928.py": "125e32b4aff0cb4e7c12a825b03bbbdef6c55f525dcb15772a993861f3f4b5ec",
+    "scripts/build_semantic_reveal_model_20260928.py": "e228431e3fd8ec96d5d2270e2ca2b7cbcfe65019557a2e3a7e0b39d7868feb5e",
+    "scripts/semantic_strategy_blocks_20260928.py": "7c8b954806e2a413f915b1caf95e74e153710e23807dff81de7edff57b425dda",
+    "scripts/semantic_strategy_policy_20260928.py": "8e414b8cc82cc67598d71a24a254bbb1f2d56fb009a08e2a42bcc90e0c566a00",
+    "scripts/diagnose_semantic_strategy_v5_20260928.py": "01bb3de40ba9216f5ff90e7fc445743607f2a9e9a20093caf7df1eade70ebbf7",
+    "scripts/check_semantic_reveal_static_20260928.py": "e636517e8806736fdaf151e6f2b4e87f749cf5c53314bc34f2112d8ecc4966ce",
+    "tests/test_semantic_strategy_blocks_reveal_20260928.py": "371955477b20aa4be00a0c5bae3228799e18a99dd9f16c4ff9dd7c6d7089c972",
+    "docs/semantic_strategy_v5_what_when_20260928.md": "52dcb8072d0ce9c99e2c2694b3f47dd53eafc70c8e23409c9a39d39d3a686768",
+    "results/fresh/semantic_strategy_20260928/block_model_reveal_modern100.json": "a4a1ec12b60c1d37e2ceded1441dc6741a3d00669950edad7193622b08457e72",
+    "results/fresh/semantic_strategy_20260928/block_model_reveal_modern100_training_manifest.json": "1ef9fa80d284c5d82d255a46e240d538780e766c6fa49c0647c452d4fc4c1e7d",
+    "results/fresh/semantic_strategy_20260928/block_model_modern100.json": "6ff0140191eb8d451bfe178d758fe6eee53abd432786c7f0bf67bdacaefd5426",
+    "results/fresh/semantic_strategy_20260928/causal_daily_rows_modern100.json": "48a2940a0a7aa23285b046ceb9d203fa255301a7cff390223b94bfda852778d3",
+    "results/fresh/semantic_strategy_20260928/strategic_v5_what_when_diagnostic.json": "409261d5e3b8f3b49314c76d4c2c4195ec2697c724f1d500dd85a454a74a69d8",
+    "results/fresh/semantic_strategy_20260928/reveal_feature_static_audit.json": "9df6e6034517258b39c171dad8862b968e0dd613675d32d5d5f64d65666975a1"
+  },
+  "protocol_sha256": "43ed18af7564e376ba6651881f8c7ca3937f1204ce60c8b3cca939b731606a42"
+}

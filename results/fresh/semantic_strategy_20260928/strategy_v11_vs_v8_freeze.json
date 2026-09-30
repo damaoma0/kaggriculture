@@ -1,0 +1,22 @@
+{
+  "candidate": "strategy_v11_kb115lt2_routefix_fast",
+  "manifest_sha256": "241ca05709bf8e122b7d84f00639b149152b45a714e80b193405140a46b4e9b9",
+  "reference_manifest_sha256": "f5133c24fdf845874c4fb3ba66760dfb3fe4eee3ee30a64b07fcc28364c56f5f",
+  "source_differences": {
+    "results/fresh/semantic_strategy_20260928/candidate_config.json": {
+      "v8": "2c5cebd9da9211960b1b031ce4b9729ff391270d634adf151bd012287c420699",
+      "v11": "2d380887ff57e07496e6fe7203816851c545ff42e1ef101be3b392744960dac8"
+    },
+    "results/fresh/semantic_strategy_20260928/runtime/agents/mgt_lead_kb115lt.py": {
+      "v8": "527d4c48b5d6bbef7854d430797e8691858724242d50eeec1e1636665ee124e7",
+      "v11": "5c2dfb70eaf68e1b415fe14fd6414774b467afa81b4f66f9d170e792e0dfe833"
+    }
+  },
+  "config_changes": {
+    "executor.sd_tier_wheat_retry": 1
+  },
+  "recipe_difference": {},
+  "harness_differences": {},
+  "semantic_policy_and_tile_sources_unchanged": true,
+  "engine_dispatch_requires_targeted_diagnostics": true
+}

@@ -1,0 +1,19 @@
+VERIFY 3/4: own ILS search, budget 1 s/day, 4 games per side (all 30 days each)
+  ours: report rows for the same days: model 6401 -> 1 s 5527 (-13.6%)
+  ours [report]: actual 7143, model 6401 (-10.4% vs actual), own search 5538 (model->search -13.5%, actual->search -22.5%); travel 3065 -> 2342 (-23.6%); frozen unit-days 12; solution check: 518 order pairs, violations {'over_cap_frozen': 12}; secs mean 1.00, t95 mean 0.56
+     per game: 110937191: 6354->5541 (-12.8%) [report 6354->5519 (-13.1%)], 111554912: 6319->5456 (-13.7%) [report 6319->5427 (-14.1%)], 111688786: 6454->5543 (-14.1%) [report 6454->5529 (-14.3%)], 111941962: 6476->5612 (-13.3%) [report 6476->5634 (-13.0%)]
+     per day by range: d0-2: actual 92 model 89 search 62 (-30.2%); d3-11: actual 199 model 178 search 144 (-19.2%); d12-17: actual 291 model 260 search 234 (-9.9%); d18-23: actual 294 model 265 search 242 (-8.5%); d24-29: actual 262 model 230 search 199 (-13.4%)
+  ours [robust]: actual 7143, model 6414 (-10.2% vs actual), own search 5544 (model->search -13.6%, actual->search -22.4%); travel 3080 -> 2358 (-23.4%); frozen unit-days 7; solution check: 540 order pairs, violations {'over_cap_frozen': 7}; secs mean 1.00, t95 mean 0.51
+     per game: 110937191: 6365->5581 (-12.3%), 111554912: 6330->5448 (-13.9%), 111688786: 6461->5515 (-14.6%), 111941962: 6502->5630 (-13.4%)
+     per day by range: d0-2: actual 92 model 89 search 62 (-29.9%); d3-11: actual 199 model 178 search 144 (-19.4%); d12-17: actual 291 model 261 search 235 (-10.0%); d18-23: actual 294 model 266 search 242 (-8.9%); d24-29: actual 262 model 230 search 200 (-13.2%)
+  leader: report rows for the same days: model 6763 -> 1 s 6465 (-4.4%)
+  leader [report]: actual 7367, model 6763 (-8.2% vs actual), own search 6456 (model->search -4.5%, actual->search -12.4%); travel 2669 -> 2452 (-8.1%); frozen unit-days 61; solution check: 938 order pairs, violations {'over_cap_frozen': 61}; secs mean 1.00, t95 mean 0.39
+     per game: 112444381: 6509->6143 (-5.6%) [report 6509->6155 (-5.4%)], 112655730: 6911->6611 (-4.3%) [report 6911->6623 (-4.2%)], 112667461: 6904->6623 (-4.1%) [report 6904->6613 (-4.2%)], 112714050: 6728->6447 (-4.2%) [report 6728->6468 (-3.9%)]
+     per day by range: d0-2: actual 124 model 93 search 77 (-17.5%); d3-11: actual 212 model 175 search 159 (-9.6%); d12-17: actual 283 model 271 search 266 (-2.0%); d18-23: actual 290 model 283 search 280 (-1.1%); d24-29: actual 275 model 263 search 254 (-3.5%)
+  leader [robust]: actual 7367, model 6764 (-8.2% vs actual), own search 6445 (model->search -4.7%, actual->search -12.5%); travel 2690 -> 2473 (-8.1%); frozen unit-days 10; solution check: 1031 order pairs, violations {'over_cap_frozen': 10}; secs mean 1.00, t95 mean 0.50
+     per game: 112444381: 6518->6150 (-5.6%), 112655730: 6910->6586 (-4.7%), 112667461: 6903->6599 (-4.4%), 112714050: 6724->6444 (-4.2%)
+     per day by range: d0-2: actual 124 model 95 search 77 (-18.8%); d3-11: actual 212 model 177 search 160 (-9.2%); d12-17: actual 283 model 270 search 264 (-2.2%); d18-23: actual 290 model 282 search 277 (-1.6%); d24-29: actual 275 model 263 search 253 (-3.7%)
+  ours dropped jobs (tracer, 116 days): 131.5 jobs / 12,817 a game; already executed that day (same tile+cmd) 0.0; fit into our routes in the model 83.5 / 8,420; after own search 121.2 / 12,409; append-only real timing 6.8 / 492; after-last-command unit-steps 710
+     report rows, same days: dropped 131.5, fit_actual 83.5 / 8,420, fit_search 124.5 / 12,535
+     by command dropped -> fit after own search: WATER 34.0->32.5, FERTILIZE 32.0->26.8, COLLECT_FERTILIZER 20.0->17.8, CARE 20.8->20.2, FEED 14.2->13.5, HARVEST 10.5->10.5
+     solution check after insertion: {'over_cap_frozen': 11}

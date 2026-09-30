@@ -1,0 +1,168 @@
+{
+ "benchmark": "agents\\benchmark_frozen_56280048.py",
+ "benchmark_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+ "variants": {
+  "leaderlike_v2": {
+   "path": "agents\\leaderlike_v2.py",
+   "entry_line": 3973,
+   "sha256": "c534402bd48d12072fc88bb87b3ed619e60e150b22591025b5373a6574a56f5c",
+   "description": "Imitation v2: marginal-unit test for every crop decision (stock on hand plus scheduled productions versus absorption), leader crop calendar, no fourth quadrant.",
+   "config": {
+    "mode": "units",
+    "straw_floor": 12,
+    "straw_min": 8,
+    "straw_max": 40,
+    "carrot_max": 45,
+    "straw_swap_days": [
+     12,
+     16
+    ],
+    "carrot_swap_days": [
+     18,
+     26
+    ],
+    "max_straw_swaps": 10,
+    "max_carrot_swaps": 24,
+    "description": "Imitation v2: marginal-unit test for every crop decision (stock on hand plus scheduled productions versus absorption), leader crop calendar, no fourth quadrant.",
+    "do_straw_cap": "True",
+    "do_swaps": "True",
+    "do_no_quad4": "True"
+   }
+  },
+  "leaderlike_v2cap": {
+   "path": "agents\\leaderlike_v2cap.py",
+   "entry_line": 3961,
+   "sha256": "bec9ff0f090a0aad6c5174766614c23347ca6c5c576ce6abef25ccf15a4ceb5b",
+   "description": "Imitation v2 ablation: marginal-unit strawberry cap only.",
+   "config": {
+    "mode": "units",
+    "straw_floor": 12,
+    "straw_min": 8,
+    "straw_max": 40,
+    "carrot_max": 45,
+    "straw_swap_days": [
+     12,
+     16
+    ],
+    "carrot_swap_days": [
+     18,
+     26
+    ],
+    "max_straw_swaps": 10,
+    "max_carrot_swaps": 24,
+    "description": "Imitation v2 ablation: marginal-unit strawberry cap only.",
+    "do_straw_cap": "True",
+    "do_swaps": "False",
+    "do_no_quad4": "False"
+   }
+  },
+  "leaderlike_v2swaps": {
+   "path": "agents\\leaderlike_v2swaps.py",
+   "entry_line": 3961,
+   "sha256": "5936daf1b3d6715c6cd3895a508a7052cd693c6283dcf5bd3d2c3f3f78a8b63c",
+   "description": "Imitation v2 ablation: leader crop calendar only.",
+   "config": {
+    "mode": "units",
+    "straw_floor": 12,
+    "straw_min": 8,
+    "straw_max": 40,
+    "carrot_max": 45,
+    "straw_swap_days": [
+     12,
+     16
+    ],
+    "carrot_swap_days": [
+     18,
+     26
+    ],
+    "max_straw_swaps": 10,
+    "max_carrot_swaps": 24,
+    "description": "Imitation v2 ablation: leader crop calendar only.",
+    "do_straw_cap": "False",
+    "do_swaps": "True",
+    "do_no_quad4": "False"
+   }
+  },
+  "leaderlike_v1": {
+   "path": "agents\\leaderlike_v1.py",
+   "entry_line": 3973,
+   "sha256": "d2992b77ac27804692cd28de5027786a277084cc161784b66863acca1a0d332a",
+   "description": "Full imitation: demand-conditioned strawberry cap, strawberry top-ups to day 16, carrot ramp from day 18, no fourth quadrant.",
+   "config": {
+    "mode": "count",
+    "straw_floor": 12,
+    "straw_min": 8,
+    "straw_max": 40,
+    "carrot_max": 45,
+    "straw_swap_days": [
+     12,
+     16
+    ],
+    "carrot_swap_days": [
+     18,
+     26
+    ],
+    "max_straw_swaps": 10,
+    "max_carrot_swaps": 24,
+    "description": "Full imitation: demand-conditioned strawberry cap, strawberry top-ups to day 16, carrot ramp from day 18, no fourth quadrant.",
+    "do_straw_cap": "True",
+    "do_swaps": "True",
+    "do_no_quad4": "True"
+   }
+  },
+  "leaderlike_cap": {
+   "path": "agents\\leaderlike_cap.py",
+   "entry_line": 3961,
+   "sha256": "3466eb098735bfc945cf171a4a0f2498143a62b32e2ec6d3449092716cde8b1b",
+   "description": "Ablation: demand-conditioned strawberry cap only.",
+   "config": {
+    "mode": "count",
+    "straw_floor": 12,
+    "straw_min": 8,
+    "straw_max": 40,
+    "carrot_max": 45,
+    "straw_swap_days": [
+     12,
+     16
+    ],
+    "carrot_swap_days": [
+     18,
+     26
+    ],
+    "max_straw_swaps": 10,
+    "max_carrot_swaps": 24,
+    "description": "Ablation: demand-conditioned strawberry cap only.",
+    "do_straw_cap": "True",
+    "do_swaps": "False",
+    "do_no_quad4": "False"
+   }
+  },
+  "leaderlike_swaps": {
+   "path": "agents\\leaderlike_swaps.py",
+   "entry_line": 3961,
+   "sha256": "deace52b38d5a36950d479d11441dcd4832b19a8c489a7d667de66f467c6618c",
+   "description": "Ablation: leader crop calendar only (strawberry top-ups, carrot ramp from day 18).",
+   "config": {
+    "mode": "count",
+    "straw_floor": 12,
+    "straw_min": 8,
+    "straw_max": 40,
+    "carrot_max": 45,
+    "straw_swap_days": [
+     12,
+     16
+    ],
+    "carrot_swap_days": [
+     18,
+     26
+    ],
+    "max_straw_swaps": 10,
+    "max_carrot_swaps": 24,
+    "description": "Ablation: leader crop calendar only (strawberry top-ups, carrot ramp from day 18).",
+    "do_straw_cap": "False",
+    "do_swaps": "True",
+    "do_no_quad4": "False"
+   }
+  }
+ }
+}

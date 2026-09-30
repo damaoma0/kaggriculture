@@ -1,0 +1,17 @@
+{
+  "arguments": {
+    "count": 1,
+    "offset": 0,
+    "rounds": 80,
+    "days": "11",
+    "chain": false,
+    "tag": "smoke1",
+    "workers": 1
+  },
+  "paths": [
+    "data\\ladder_panel\\56368334\\110944913.json.gz"
+  ],
+  "script_sha256": "eea51243f720f337137547509f62cceed2cbda815b1236f109665f898cc74938",
+  "engine_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+  "information": "Fixed hindsight daily production jobs; all selectors use hindsight feasibility validation. Only oracle ranks by future realized profit."
+}

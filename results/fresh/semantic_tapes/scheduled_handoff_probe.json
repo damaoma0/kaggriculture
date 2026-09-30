@@ -1,0 +1,104 @@
+{
+  "rows": [
+    {
+      "episode": 111239585,
+      "day": 15,
+      "seat": 0,
+      "selector": {
+        "name": "distance_minus2:recorded",
+        "gain": 144.0,
+        "wage": 144.0,
+        "fallback": null,
+        "seconds": 1.2980513999937102,
+        "candidates": 26
+      },
+      "action_changes": 24,
+      "cash_before": 51215.0,
+      "cash_after": 51359.0,
+      "cash_delta": 144.0,
+      "assets_equal": true,
+      "sales_equal": true
+    },
+    {
+      "episode": 111240681,
+      "day": 12,
+      "seat": 0,
+      "selector": {
+        "name": "minus1:recorded",
+        "gain": 89.0,
+        "wage": 89.0,
+        "fallback": null,
+        "seconds": 0.6180900000035763,
+        "candidates": 9
+      },
+      "action_changes": 24,
+      "cash_before": 27307.0,
+      "cash_after": 27396.0,
+      "cash_delta": 89.0,
+      "assets_equal": true,
+      "sales_equal": true
+    },
+    {
+      "episode": 111246145,
+      "day": 12,
+      "seat": 1,
+      "selector": {
+        "name": "minus1:recorded",
+        "gain": 89.0,
+        "wage": 89.0,
+        "fallback": null,
+        "seconds": 0.6333537999889813,
+        "candidates": 9
+      },
+      "action_changes": 24,
+      "cash_before": 21778.0,
+      "cash_after": 21867.0,
+      "cash_delta": 89.0,
+      "assets_equal": true,
+      "sales_equal": true
+    },
+    {
+      "episode": 111257192,
+      "day": 12,
+      "seat": 1,
+      "selector": {
+        "name": "minus1:recorded",
+        "gain": 89.0,
+        "wage": 89.0,
+        "fallback": null,
+        "seconds": 0.5865133000188507,
+        "candidates": 9
+      },
+      "action_changes": 24,
+      "cash_before": 22732.0,
+      "cash_after": 22821.0,
+      "cash_delta": 89.0,
+      "assets_equal": true,
+      "sales_equal": true
+    },
+    {
+      "episode": 111260602,
+      "day": 12,
+      "seat": 0,
+      "selector": {
+        "name": "minus1:recorded",
+        "gain": 89.0,
+        "wage": 89.0,
+        "fallback": null,
+        "seconds": 0.6309779000002891,
+        "candidates": 10
+      },
+      "action_changes": 24,
+      "cash_before": 22903.0,
+      "cash_after": 22992.0,
+      "cash_delta": 89.0,
+      "assets_equal": true,
+      "sales_equal": true
+    }
+  ],
+  "summary": {
+    "cases": 5,
+    "changed": 5,
+    "mean_cash_delta": 100.0
+  }
+}

@@ -1,0 +1,115 @@
+{
+  "status": "diagnostic_improvement",
+  "pairs": [
+    {
+      "episode": 111678108,
+      "own_cash_delta": 314.0,
+      "opponent_cash_delta": 226.0,
+      "margin_delta": 88.0,
+      "before_margin": -10424.0,
+      "after_margin": -10336.0,
+      "economy_delta": {
+        "revenue": {
+          "MILK": 84,
+          "WOOL": 230
+        },
+        "spend": {},
+        "units": {
+          "MILK": -3,
+          "WOOL": 1
+        }
+      },
+      "harvest_delta": {
+        "MILK": -3,
+        "WOOL": 1
+      },
+      "decisions": [
+        {
+          "day": 15,
+          "milk": 42.0,
+          "wool": 1.0,
+          "reason": "price_condition"
+        },
+        {
+          "day": 17,
+          "milk": 9.0,
+          "wool": 37.0,
+          "reason": "applied"
+        },
+        {
+          "day": 19,
+          "milk": 7.0,
+          "wool": 158.0,
+          "reason": "applied"
+        },
+        {
+          "day": 21,
+          "milk": 1.0,
+          "wool": 221.0,
+          "reason": "applied"
+        },
+        {
+          "day": 23,
+          "milk": 17.0,
+          "wool": 232.0,
+          "reason": "retirement_before_harvest"
+        }
+      ],
+      "changed_action_steps": 38
+    },
+    {
+      "episode": 111261836,
+      "own_cash_delta": 0.0,
+      "opponent_cash_delta": 0.0,
+      "margin_delta": 0.0,
+      "before_margin": -8636.0,
+      "after_margin": -8636.0,
+      "economy_delta": {
+        "revenue": {},
+        "spend": {},
+        "units": {}
+      },
+      "harvest_delta": {},
+      "decisions": [],
+      "changed_action_steps": 0
+    },
+    {
+      "episode": 111743130,
+      "own_cash_delta": 0.0,
+      "opponent_cash_delta": 0.0,
+      "margin_delta": 0.0,
+      "before_margin": -9081.0,
+      "after_margin": -9081.0,
+      "economy_delta": {
+        "revenue": {},
+        "spend": {},
+        "units": {}
+      },
+      "harvest_delta": {},
+      "decisions": [],
+      "changed_action_steps": 0
+    },
+    {
+      "episode": 111262874,
+      "own_cash_delta": 0.0,
+      "opponent_cash_delta": 0.0,
+      "margin_delta": 0.0,
+      "before_margin": -12585.0,
+      "after_margin": -12585.0,
+      "economy_delta": {
+        "revenue": {},
+        "spend": {},
+        "units": {}
+      },
+      "harvest_delta": {},
+      "decisions": [],
+      "changed_action_steps": 0
+    }
+  ],
+  "engine_executions": 8,
+  "limitations": [
+    "The edited case was selected after failure analysis and is not independent confirmation.",
+    "The three other-donor controls show inactivity, not general effectiveness.",
+    "Fixed opponent commands do not adapt; both opponents still receive changed market prices."
+  ]
+}

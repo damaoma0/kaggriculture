@@ -1,0 +1,16 @@
+{
+  "candidate": "strategy_v10_kb115lt2_polishcache",
+  "manifest_sha256": "e090953d631b8433829bd6cc4e703875382591e09671984a14d65635070f6180",
+  "reference_manifest_sha256": "f5133c24fdf845874c4fb3ba66760dfb3fe4eee3ee30a64b07fcc28364c56f5f",
+  "source_differences": {
+    "results/fresh/semantic_strategy_20260928/runtime/agents/mgt_lead_kb115lt.py": {
+      "v8": "527d4c48b5d6bbef7854d430797e8691858724242d50eeec1e1636665ee124e7",
+      "v10": "cb85837fea85848092feb9e935f9a43d8758135163eb29785d682d57a24ae8aa"
+    }
+  },
+  "config_difference": {},
+  "recipe_difference": {},
+  "harness_differences": {},
+  "changed_function": "_tier_polish",
+  "technical_smoke_only": "live-06"
+}

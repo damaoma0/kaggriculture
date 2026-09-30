@@ -1,0 +1,35 @@
+{
+  "source_url": "https://www.kaggle.com/code/ahmedberatozer/kaggriculture-v56-smarter-seeds-and-fertilizer",
+  "ref": "ahmedberatozer/kaggriculture-v56-smarter-seeds-and-fertilizer",
+  "title": "Kaggriculture V56 — Smarter Seeds and Fertilizer",
+  "author": "Ahmed Berat Özer",
+  "kernel_id_no": 135260056,
+  "last_known_run_from_listing": "2026-09-21T15:28:15.713000",
+  "downloaded_files": {
+    "notebook": "kaggriculture-v56-smarter-seeds-and-fertilizer.ipynb",
+    "notebook_sha256": "de231713ca88ebb780560c01425344bca978f931df34b7ecf0e92a78b5aa9cce",
+    "notebook_bytes": 786573,
+    "extracted_main": "main.py",
+    "extracted_main_sha256": "a1ad0fd1d174477ee2cbdd561a812bcb7029647ce34599e79d6b79e9057eff6c",
+    "extracted_main_bytes": 1056142
+  },
+  "extraction": {
+    "method": "Static AST extraction of cell 2 SOURCE_BLOB; base85 decode then zlib decompress; declared EXPECTED_MAIN_SHA256 matched. Notebook cells were not executed.",
+    "source_pattern": "SOURCE_BLOB plus EXPECTED_MAIN_SHA256; no MAIN_B64 or writefile needed.",
+    "static_audit": {
+      "imports": [
+        "base64",
+        "copy",
+        "itertools",
+        "json",
+        "math",
+        "random",
+        "zlib"
+      ],
+      "direct_open_calls": "one dead path guarded by path=None",
+      "direct_network_or_process_imports": false,
+      "exec_calls": "two embedded static source blocks at lines 1020 and 1022; no downloaded code execution performed during audit"
+    },
+    "notes": "Extracted source contains internal aliases named request/opening, but static inspection found no requests/socket/subprocess imports or active network calls. The open call is unreachable because path is None. This is a frozen public-source snapshot only; no agent baseline or submission was modified."
+  }
+}

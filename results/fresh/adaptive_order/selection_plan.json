@@ -1,0 +1,38 @@
+{
+  "candidates": [
+    "static",
+    "clock",
+    "visible"
+  ],
+  "control": "fixed",
+  "discovery_seeds": [
+    124000,
+    124001,
+    124002,
+    124003
+  ],
+  "controlled_shop_seeds": [
+    125000,
+    125001,
+    125002,
+    125003,
+    125004,
+    125005,
+    125006,
+    125007
+  ],
+  "confirmation_seeds": [
+    126000,
+    126001,
+    126002,
+    126003,
+    126004,
+    126005,
+    126006,
+    126007
+  ],
+  "eligibility": "Positive average match-margin improvement in both discovery panels; no fewer aggregate discovery wins than fixed.",
+  "ranking": "Equal-weight average of natural and controlled-panel margin improvements. Prefer the simpler candidate within 50 margin units of the best eligible score, in static, clock, visible order.",
+  "promotion": "On untouched confirmation seeds require positive average margin improvement, no fewer total wins than fixed, and more wins than losses in direct matches against fixed.",
+  "reason": "Freeze selection before inspecting discovery outcomes; do not retune models on these panels."
+}

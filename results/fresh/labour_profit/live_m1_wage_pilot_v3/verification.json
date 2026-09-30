@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "hash_checked_games": 3,
+  "checks": [
+    {
+      "seed": 226220,
+      "treatment": -1,
+      "cash": [
+        108931.0,
+        108931.0
+      ],
+      "check": "normal_live_loader_parity",
+      "passed": true
+    },
+    {
+      "seed": 226220,
+      "treatment": 0,
+      "cash": [
+        109203.0,
+        108931.0
+      ],
+      "check": "official_framework_schedule_replay",
+      "passed": true
+    },
+    {
+      "seed": 226220,
+      "treatment": 1,
+      "cash": [
+        108931.0,
+        109203.0
+      ],
+      "check": "official_framework_schedule_replay",
+      "passed": true
+    }
+  ]
+}

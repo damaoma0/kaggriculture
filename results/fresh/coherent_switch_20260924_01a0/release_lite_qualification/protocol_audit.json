@@ -1,0 +1,76 @@
+{
+  "phase": "preliminary qualification harness/source/protocol audit; no profit/outcome JSON read",
+  "inspection_scope": [
+    "qualification driver source and persisted design metadata",
+    "frozen package entry/helpers",
+    "research simulator ledger-hook implementation",
+    "environment manifest metadata only"
+  ],
+  "not_done": [
+    "no qualification outcome inspection",
+    "no games launched by this audit",
+    "final records/ledger/prefix/action parity audit pending parent notification"
+  ],
+  "frozen_artifact": {
+    "archive_sha256": "6f5e2c2781325a91525b56343dd6fb73f6aeba2fabde63e55cfeae9fdb390f3b",
+    "package_main_sha256": "04e4a5e89d801b6fd6fcabd3f420782e1c3aabd822068a2367d9b88420176114",
+    "manifest_file_hashes_checked_by_driver": true
+  },
+  "sources": {
+    "qualification_driver_sha256": "20a22b2b1c6cc68be4b4cfad73b3c0a61226a4dd2106414f90c1ac69818ba670",
+    "research_simulator_sha256": "06b457c9efeceefe58eb235aaacf69e812aecc64c4351896614c65988be949bc",
+    "research_simulator_package_exists": true,
+    "research_simulator_worktree_equals_package": true,
+    "research_simulator_sha256_pkg": "06b457c9efeceefe58eb235aaacf69e812aecc64c4351896614c65988be949bc",
+    "module_byte_parity": {
+      "scripts/value_tape_search.py": {
+        "worktree_sha256": "68e93b41b10545bfcc426295eb4ec1b2c80a02d33dc31cd62e363f189155a116",
+        "frozen_package_sha256": "68e93b41b10545bfcc426295eb4ec1b2c80a02d33dc31cd62e363f189155a116",
+        "byte_equal": true
+      },
+      "scripts/value_tape_search_v8.py": {
+        "worktree_sha256": "3ea7c2573ca8ed562f3dae99564ab10de8e79ace242e6f53f7a0c3fa302a1313",
+        "frozen_package_sha256": "3ea7c2573ca8ed562f3dae99564ab10de8e79ace242e6f53f7a0c3fa302a1313",
+        "byte_equal": true
+      },
+      "scripts/value_tape_search_v9.py": {
+        "worktree_sha256": "8000532c486725a5af0235c7f8df8d2fc6915a5b60f8dbb0530ddf0b488ba11b",
+        "frozen_package_sha256": "8000532c486725a5af0235c7f8df8d2fc6915a5b60f8dbb0530ddf0b488ba11b",
+        "byte_equal": true
+      },
+      "scripts/value_tape_search_lite.py": {
+        "worktree_sha256": "5e06663e57b5a84e7ff806eaac30aac4edd5dc6136db2e02194e112be09403ae",
+        "frozen_package_sha256": "5e06663e57b5a84e7ff806eaac30aac4edd5dc6136db2e02194e112be09403ae",
+        "byte_equal": true
+      },
+      "scripts/rival_trajectory_model_v3.py": {
+        "worktree_sha256": "e143cf6e41c45ffcf0aa77345644586ede39c93863ae46efede917bbc475b517",
+        "frozen_package_sha256": "e143cf6e41c45ffcf0aa77345644586ede39c93863ae46efede917bbc475b517",
+        "byte_equal": true
+      }
+    }
+  },
+  "checks": {
+    "candidate_load": "get_last_callable(source.read_text(), path=str(source)); source selected from frozen OUT/package/{agents/mgt_m1.py,agents/mgt_y3.py,main.py}; pkg appended to sys.path and v9lite root discovery scans sys.path in reverse",
+    "input_boundary": "candidate invoked with deepcopy of its current observation plus its own remainingOverageTime; no seed or future-shop specification passed; opponent receives its own observation/private state",
+    "shop_schedule": "persisted eight-shop worlds; empty at step0; sequence prefix unlocked at end of days 3,6,...,24 and asserted before each policy call; future shops are not passed to policy; V9 rollout forecasts draw independently from scenario RNG given only currently visible shops",
+    "engine_hook_isolation": "real-game ledger uses outer research Simulator hooks on the imported engine; V9 rollout isolated_engine() execs official engine source into a distinct ModuleType and restores its own _commit_unit/_apply_unit_action/_do_hire hooks in finally",
+    "ledger": "research Simulator records only successful commits plus successful HIRE/BUY_LAND cash movements; driver asserts initial 3000 + revenue - spend equals final cash for both seats",
+    "time": "candidate get_last_callable source-evaluation/load duration is added to first policy-call duration; bank subtracts max(0,elapsed-1s), fails below zero; rival wall time is not counted in candidate bank",
+    "pairing": "64 persisted distinct seeds; 2 opponents crossed per world; 3 arms each launched as a fresh subprocess; each world uses seat i%2, yielding 32 worlds per seat within each opponent; arm rows are paired on same world/opponent/seat",
+    "archive": "driver verifies source archive digest against package manifest, validates all frozen package files against manifest, copies verified package and archive to output once, then checks frozen package files and archive digest",
+    "entrypoint": "v9lite_agent is final callable in frozen main.py, consistent with get_last_callable"
+  },
+  "environment_manifest": {
+    "path": "environment_manifest.json",
+    "sha256": "a1aeb30ba3202d7862a29e4a3bd4dfd81c5628e56865f961fc9c7b14845c4ba7",
+    "framework_distribution_version": "1.32.7",
+    "files_pinned": 16,
+    "timing_caveat": "Recorded after the first evaluation worlds, before inspecting profit outcomes. This pins the observed environment, not a retroactive proof of earlier process imports."
+  },
+  "caveats": [
+    "Per-case child mode does not independently revalidate manifest driver hashes; outer driver validates at batch start and end, so mid-batch edits could mix source versions. Avoid source changes until the batch completes.",
+    "Environment manifest was recorded after initial evaluation worlds; it pins the observed environment now, but cannot retroactively prove the first processes loaded identical files. Parent will recheck at end.",
+    "Daily records in this qualification driver contain cash and attempt H.asset_counts, which is absent in run_coherent_opening_study.py; therefore own_assets serializes as null. They do not provide full daily private inventory, tile counts, or hires. Final game records retain full ledgers and action/prefix hashes."
+  ]
+}

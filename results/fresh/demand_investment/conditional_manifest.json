@@ -1,0 +1,22 @@
+{
+  "engine": "1.32.7",
+  "seeds": [
+    132001,
+    132005,
+    132009,
+    132012,
+    132013,
+    132015,
+    132018,
+    132023
+  ],
+  "rule": {
+    "feature": "MILK_demand",
+    "threshold": 1.5,
+    "left": "SHEEP",
+    "right": "COW"
+  },
+  "selection": "First eight seeds >=132000 with at least two milk shops among the first three draws; selection uses no outcomes. Remaining draws stay independent and hidden.",
+  "purpose": "Resolve sparse trigger coverage. Original natural-panel promotion gate remains unchanged. This enriched panel cannot estimate average natural-game gains.",
+  "source_sha256": "a45c4ebab21bdfadb8d44c08827f6b970d112b6a2525154b726fbe9a8d74b0f9"
+}

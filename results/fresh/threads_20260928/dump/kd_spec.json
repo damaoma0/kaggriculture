@@ -1,0 +1,98 @@
+{
+  "KD0": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {},
+    "label": "KD0: K5b unchanged, private instrumented copy (regression / diagnostic baseline)"
+  },
+  "KD1": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_deliver_keep_exact": 1},
+    "label": "KD1: K5b + fix kept-product (MILK) accounting bug in _tier_deliver"
+  },
+  "KD2": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_room_shed": 1},
+    "label": "KD2: K5b + room estimate reserves kept product already sitting in the shed at hour 0"
+  },
+  "KD3": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_topup": 1},
+    "label": "KD3: K5b + late runtime top-up (hour 23, idle hand already at shed)"
+  },
+  "KD4": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_deliver_keep_exact": 1, "sd_tier_room_shed": 1, "sd_tier_topup": 1},
+    "label": "KD4: K5b + KD1 + KD2 + KD3 combined"
+  },
+  "KD5": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_deliver_keep_exact": 1, "sd_tier_room_shed": 1, "sd_tier_topup": 1, "sd_tier_room_margin": 10.0},
+    "label": "KD5: KD4 + 10-unit room margin"
+  },
+  "KD7": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_deliver_trim_max": 8},
+    "label": "KD7: K5b + more trim attempts (8) before a delivery candidate is given up on"
+  },
+  "KD8": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_deliver_trim_max": 12},
+    "label": "KD8: K5b + more trim attempts (12)"
+  },
+  "KD9": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_deliver_keep_exact": 1, "sd_tier_room_shed": 1, "sd_tier_topup": 1, "sd_tier_deliver_trim_max": 8},
+    "label": "KD9: KD4 + 8 trim attempts (best combo candidate)"
+  },
+  "KD10": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_deliver_keep_room": 1},
+    "label": "KD10: K5b + corrected kept-product room accounting (keeps reorder-priority benefit KD1 lost)"
+  },
+  "KD11": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_deliver_keep_room": 1, "sd_tier_room_shed": 1},
+    "label": "KD11: KD10 + room reserves kept product already in the shed at hour 0"
+  },
+  "KD12": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_deliver_keep_room": 1, "sd_tier_room_shed": 1, "sd_tier_topup": 1},
+    "label": "KD12: KD11 + late runtime top-up"
+  },
+  "KD13": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_deliver_keep_room": 1, "sd_tier_room_shed": 1, "sd_tier_topup": 1, "sd_tier_deliver_trim_max": 8},
+    "label": "KD13: KD12 + 8 trim attempts"
+  },
+  "KD14": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_room_const": 8.0},
+    "label": "KD14: K5b + empirical flat room constant (8, season_shed.py) instead of n_anim*wheat_days, isolated"
+  },
+  "KD15": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_deliver_keep_room": 1, "sd_tier_room_shed": 1, "sd_tier_topup": 1, "sd_tier_room_const": 8.0},
+    "label": "KD15: KD12 + empirical flat room constant (8)"
+  },
+  "KD16": {
+    "agent": "agents/mgt_lead_sector_dump.py",
+    "base": "K5b",
+    "cfg": {"sd_tier_deliver_keep_room": 1, "sd_tier_room_shed": 1, "sd_tier_topup": 1, "sd_tier_room_const": 15.0},
+    "label": "KD16: KD12 + empirical flat room constant (15)"
+  }
+}

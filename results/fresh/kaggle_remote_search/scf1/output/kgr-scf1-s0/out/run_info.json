@@ -1,0 +1,30 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/sector_run.py",
+   "full",
+   "N0,N11,N12",
+   "--worlds",
+   "all",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/sector_20260925/full/*/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 0,
+ "pip_seconds": 49.823988914489746,
+ "run_seconds": 0.10222172737121582,
+ "returncode": 2,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [],
+ "stderr_tail": [
+  "/usr/bin/python3: can't open file '/tmp/repo/scripts/sector_run.py': [Errno 2] No such file or directory"
+ ]
+}

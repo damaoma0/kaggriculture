@@ -1,0 +1,37 @@
+{
+  "label": "two_order_keep_five",
+  "strategies": 84,
+  "terminal_inventory_range": [
+    5,
+    5
+  ],
+  "support": [
+    {
+      "index": 1,
+      "orders": [
+        6,
+        -1
+      ],
+      "probability": 1.0
+    }
+  ],
+  "value": -0.0,
+  "max_unilateral_margin_gain": 0.0,
+  "symmetric_pure_own_cash_equilibria": [
+    {
+      "orders": [
+        5,
+        0
+      ],
+      "cash": 2864
+    },
+    {
+      "orders": [
+        6,
+        -1
+      ],
+      "cash": 2864
+    }
+  ],
+  "probes": []
+}

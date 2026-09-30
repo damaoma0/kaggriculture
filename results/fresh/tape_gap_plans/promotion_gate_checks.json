@@ -1,0 +1,17 @@
+{
+  "passed": true,
+  "synthetic_only": true,
+  "gameplay_evidence": false,
+  "checks": [
+    "complete synthetic overwhelming improvement passes",
+    "missing game cannot pass",
+    "duplicate game cannot inflate results",
+    "mixed candidate build rejected",
+    "failed candidate game not silently excluded",
+    "winning without outperforming controls fails",
+    "untimed diagnostic cannot qualify",
+    "synthetic all-win result clears 3000 numeric gate",
+    "synthetic 78.125% V56 score clears v1 numeric gate but fails 3000 gate",
+    "synthetic 84.375% V56 score fails v2 lower-CI threshold despite clearing its mean"
+  ]
+}

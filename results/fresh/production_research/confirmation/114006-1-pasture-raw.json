@@ -1,0 +1,89 @@
+{
+  "seed": 114006,
+  "seat": 1,
+  "opponent": "pasture",
+  "mode": "raw",
+  "cash": 72210.0,
+  "opponent_cash": 65895.0,
+  "ledger": [
+    {
+      "revenue": {
+        "WHEAT": 15741,
+        "FERTILIZER": 14395,
+        "WOOL": 5504,
+        "MILK": 36563,
+        "MELON": 14108,
+        "STRAWBERRY": 6055,
+        "CARROT": 732
+      },
+      "sold_units": {
+        "WHEAT": 368,
+        "FERTILIZER": 321,
+        "WOOL": 117,
+        "MILK": 270,
+        "MELON": 72,
+        "STRAWBERRY": 269,
+        "CARROT": 12
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4866,
+        "BUY_SEED:WHEAT": 1870,
+        "BUY_SEED:MELON": 960,
+        "HIRE": 6387.0,
+        "BUY_ANIMAL:COW": 4400,
+        "BUY_ANIMAL:SHEEP": 2000,
+        "BUY_SEED:STRAWBERRY": 3800,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2800,
+        "BUY_SEED:CARROT": 120
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 15311,
+        "FERTILIZER": 15757,
+        "WOOL": 5454,
+        "MILK": 35961,
+        "MELON": 14389,
+        "EGG": 4176,
+        "STRAWBERRY": 6734,
+        "CARROT": 6879
+      },
+      "sold_units": {
+        "WHEAT": 425,
+        "FERTILIZER": 332,
+        "WOOL": 138,
+        "MILK": 267,
+        "MELON": 72,
+        "EGG": 79,
+        "STRAWBERRY": 261,
+        "CARROT": 116
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 10847,
+        "BUY_SEED:WHEAT": 1640,
+        "HIRE": 5400.0,
+        "BUY_ANIMAL:COW": 3600,
+        "BUY_ANIMAL:SHEEP": 2500,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:CARROT": 1060,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2244,
+        "BUY_ANIMAL:GOOSE": 900
+      }
+    }
+  ],
+  "max_action_seconds": 0.00016899999900488183,
+  "parity_actions": 0,
+  "shops": [
+    "PET_CAFE",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP",
+    "BAKERY",
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "ICE_CREAM_SHOP",
+    "FARMERS_MARKET"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "retained_mechanism_games": 264,
+  "paired_main_games": 256,
+  "retained_calendar_trials": 12,
+  "physical_plans": 32,
+  "calendar_results": [
+    {
+      "crop": "WHEAT",
+      "games": 4,
+      "cash_delta": -9585.0,
+      "margin_delta": -9407.5,
+      "harvest_units": 170,
+      "extra_hire_cost": 10230,
+      "hires": 31
+    },
+    {
+      "crop": "CARROT",
+      "games": 4,
+      "cash_delta": -12331.0,
+      "margin_delta": -6828.5,
+      "harvest_units": 150,
+      "extra_hire_cost": 13845.5,
+      "hires": 36
+    },
+    {
+      "crop": "TOMATO",
+      "games": 4,
+      "cash_delta": -478.5,
+      "margin_delta": 2774.0,
+      "harvest_units": 80,
+      "extra_hire_cost": 6498,
+      "hires": 28
+    }
+  ],
+  "max_agent_seconds": 0.28119139999034815,
+  "forecast_errors": 0,
+  "source_sha256": {
+    "scripts\\research_fourth_quadrant.py": "3c0b49990b1ebb9b39d7fb92c99883979e3578107ec2912638bf8bd4dba5b71b",
+    "scripts\\confirm_fourth_quadrant.py": "a13092590e7aa4ccf9b6866ccfc96ab7470dfd6c7245f4c5c9a42e0c4dedc453",
+    "scripts\\crop_plan_evaluator.py": "8ac5b528e861e6cfd5a25e8c3a7c7cf44e14a827732e21354f0b35f2dfe6c113",
+    "scripts\\trial_calendar_expansion.py": "47ac2acc530268af2ee310dbb6ff2aa7adf4ec92585657eaecd03cc956fecaa7",
+    "scripts\\report_fourth_quadrant.py": "59d9b42a3b3f4b259bc992135cf20e9eded27e2082fdaa6829293f4425d607f5",
+    "scripts\\finalize_fourth_quadrant.py": "d0572a19066468a3d5f17f05371d1c87ae0695842d6974a696caf4b5644dcb00",
+    "agents\\v45_event_opening_fixed.py": "e512d755d45fb3cee6602493a9af799131fb3b2dd3707f927e744e4b7a6cd7a3"
+  },
+  "notes": "No policy promoted or submitted. Rejected calendar debug versions remain only in logs; retained calendar JSON is adapter version3. Grid cells are deliberately stratified and not natural-frequency samples. Seats share a seed and are not independent worlds."
+}

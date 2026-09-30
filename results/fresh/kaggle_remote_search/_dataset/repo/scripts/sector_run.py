@@ -1,0 +1,302 @@
+"""Planner-on-day-11 and sector tests in the day-11 exact-start worlds (thread "search dispatch", 2026-09-25).
+
+Uses scripts/xfix_run.py READ-ONLY (the day-11 agent owns it): its trace / full modes are called with this module's arms
+injected into xfix_run.ARMS in memory and its output directory redirected to results/fresh/sector_20260925 (the 42-world
+list is still read from results/fresh/xfix_20260925/worlds42.json).
+
+  trace  day 11 from the leader's exact morning state (leader actions through step 263, then the arm), per-unit per-step
+         records + opponent cash at the day-11 / day-12 mornings -> OUT/trace/<arm>/<ep>.json (42 worlds)
+  full   full games, the arm from step 0, --worlds g1 | sem4 | all (all = the 52 G1 + sem4 worlds) -> OUT/full/<arm>/<ep>.json
+
+Arms (agents/mgt_lead_search2.py = mgt_lead.py at git f8b48ef, the current T, + the planner block; agents/mgt_lead_sector.py
+= the same + the sector term):
+  N0    planner off (= the current T)
+  N11   planner days 11-23, the shipping settings (v1 + survival fallback, deterministic budgets)
+  N12   planner days 12-23, the shipping settings (= the deploy candidate's window)
+  S0 / S11  the sector copy with the sector term off (must equal N0 / N11)
+  S11f  the day-11 planner + the seed fix (sd_seed_fix); the S11w.. arms all include it
+  (arm names must differ case-insensitively: Windows merges result folders)
+  S11w / S11h / S11wh / S11wh2  day-11 planner + sectors (sd_sector_w 40) / contiguity (sd_hop_w 20) / both / both x2
+Offline measurement: the wall-clock caps are raised (2 / 1 / 3 s) so the deterministic evaluation budgets decide even
+under the harness's instrumentation (on Kaggle's runner the shipping caps 0.75 / 0.6 / 0.8 s essentially never fire).
+
+  both   trace (42 worlds) + stream: the viewer's days-11-12 streams of the 12 G1 worlds -> results/fresh/day12_viz/<arm>_streams/
+usage: sector_run.py trace|both|full <arm,...> [--worlds all] [--games ep,...] [--workers 4]
+"""
+import json
+import os
+import sys
+import time
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / 'scripts'))
+import xfix_run as X  # noqa: E402
+
+OUT = ROOT / 'results/fresh/sector_20260925'
+SHIP = dict(sd_surv_fb=20, sd_evals0=24000, sd_evals=8000, sd_budget0=2.0, sd_budget=1.0, sd_step_cap=3.0)
+S2, SEC = 'agents/mgt_lead_search2.py', 'agents/mgt_lead_sector.py'
+DVC_M = {'MELON': [[0, 0.0], [6, 53.8], [12, 3.1], [18, 8.6], [24, 0.5]],
+         'WOOL': [[0, 0.0], [6, 26.4], [12, 9.3], [18, 7.1], [24, 5.8]],
+         'MILK': [[0, 0.0], [6, 13.4], [12, 7.2], [18, 0.8], [24, 0.0]],
+         'STRAWBERRY': [[0, 0.0], [6, 0.0], [12, 2.9], [18, 4.8], [24, 0.0]]}
+HVM = {'decay': {'bonus': 500.0}, 'MELON': {'bonus': 80.0, 'full': 1, 'by_hour': 8, 'hour_w': 20.0}}
+HVM_MEL = {'MELON': HVM['MELON']}          # M: the melon part only (audit items 1-3; the decay item 8 stays off)
+ARMS = {
+    'N0': (S2, dict(dispatch_search='off')),
+    'N11': (S2, dict(dispatch_search='active', sd_days=[11, 23], **SHIP)),
+    'N12': (S2, dict(dispatch_search='active', sd_days=[12, 23], **SHIP)),
+    'S0': (SEC, dict(dispatch_search='off')),                                        # must equal N0
+    'S11': (SEC, dict(dispatch_search='active', sd_days=[11, 23], **SHIP)),          # must equal N11 (sector off)
+    'S11f': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, **SHIP)),          # seed fix only
+    'S11w': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, **SHIP)),       # + sectors
+    'S11h': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_hop_w=20.0, **SHIP)),          # + contiguity
+    'S11wh': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0, **SHIP)),
+    # the measured same-day credit (coordinator table: melon 53.8 a unit on days 6-11, wool 26.4, milk 13.4, ...) + the
+    # final delivery trip: v1 carried the day-11 melons to midnight (17.2 melons in the shed next morning vs 5.7)
+    'S11c': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1, **SHIP)),
+    'S11ca': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                        sd_early_animal=1, **SHIP)),
+    'S11caw': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_sector_w=40.0, sd_hop_w=20.0, **SHIP)),
+    # round 3 (base = S11ca + the water-before-harvest fix): spawn steering / hires by demand / both
+    'S11cf': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                        sd_early_animal=1, sd_water_first=1, **SHIP)),
+    'S11cfs': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_spawn_steer=1, **SHIP)),
+    'S11cfd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_hire_demand=1, **SHIP)),
+    'S11cfsd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                          sd_early_animal=1, sd_water_first=1, sd_spawn_steer=1, sd_hire_demand=1, **SHIP)),
+    # round 3b (parity audit): base S11cf + the melon harvest tendency in the planner (sd_hv_pref melon + decay), the
+    # executor's harvest_policy values (sd_hp_parity), the coop build split from the goose placement (sd_split_place)
+    'S11cg': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                        sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_split_place=1, **SHIP)),
+    'S11cgs': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_split_place=1,
+                         sd_spawn_steer=1, **SHIP)),
+    'S11cgd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_split_place=1,
+                         sd_hire_demand=1, **SHIP)),
+    'S11cgsd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                          sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_split_place=1,
+                          sd_spawn_steer=1, sd_hire_demand=1, **SHIP)),
+    # round 4 (user design): the BUILD + animal bundle, one hand, the animal bought at hour 0, instead of the split
+    'S11cb': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                        sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1, **SHIP)),
+    'S11cbs': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
+                         sd_spawn_steer=1, **SHIP)),
+    'S11cbd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
+                         sd_hire_demand=1, **SHIP)),
+    'S11cbsd': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                          sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
+                          sd_spawn_steer=1, sd_hire_demand=1, **SHIP)),
+    # round 5: the bundle base + idle fill (waters worth tomorrow's labour, idle fertilizer delivered) + radial corridors
+    'S11ci': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                        sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
+                        sd_water_tomorrow=40.0, sd_idle_fert=1, **SHIP)),
+    'S11cr': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                        sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
+                        sd_water_tomorrow=40.0, sd_idle_fert=1, sd_corr_w=40.0, sd_rad_in=20.0, sd_rad_side=10.0, **SHIP)),
+    'S11cr2': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
+                         sd_water_tomorrow=40.0, sd_idle_fert=1, sd_corr_w=80.0, sd_rad_in=40.0, sd_rad_side=20.0, **SHIP)),
+    'S11crr': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_dv_coins=DVC_M, sd_final_trip=1,
+                         sd_early_animal=1, sd_water_first=1, sd_hv_pref=HVM, sd_hp_parity=1, sd_bundle_build=1,
+                         sd_water_tomorrow=40.0, sd_idle_fert=1, sd_rad_in=20.0, sd_rad_side=10.0, **SHIP)),
+    # main branch M (user, 2026-09-26): S11wh (sector homes 40 + patch contiguity 20) + melon prioritization (sd_hv_pref
+    # melon full-yield bonus by hour 8, no decay item, sd_hp_parity: melon harvest in the leaders' window and window water) + the
+    # melon sale fix (measured credit + final trip) + water before harvest + the coop / goose pair job (goose bought at h0,
+    # must land by the day end, any hour); M_idle = M + idle fill. Streams carry "plan" (each hand's job tiles).
+    'M': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                    sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                    sd_hv_pref=HVM_MEL, sd_hp_parity=1, **SHIP)),
+    'M_idle': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                         sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                         sd_hv_pref=HVM_MEL, sd_hp_parity=1,
+                         sd_water_tomorrow=40.0, sd_idle_fert=1, **SHIP)),
+    # M2 (fix after the M run): M + the place-now rule in hook 3 (every unit, survival-fallback ones too) + the pair's
+    # PLACE hard deadline at h19 (slack before the survival fallback; the day end once h19 has passed); M2a: rule only
+    'M2': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                     sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                     sd_hv_pref=HVM_MEL, sd_hp_parity=1, sd_coop_place=1, sd_coop_by=19, **SHIP)),
+    'M2a': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                      sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                      sd_hv_pref=HVM_MEL, sd_hp_parity=1, sd_coop_place=1, **SHIP)),
+    # M2i: M2 + idle fill v2 (empty-route hands only, no values: same-day delivery, then the nearest dry plant at home)
+    'M2i': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                      sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                      sd_hv_pref=HVM_MEL, sd_hp_parity=1, sd_coop_place=1, sd_coop_by=19, sd_idle_v2=1, **SHIP)),
+    # the same two arms under the shipping build's wall-clock caps (0.75 / 0.6 / 0.8 s; evaluation budgets unchanged)
+    'Mship': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                        sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                        sd_hv_pref=HVM_MEL, sd_hp_parity=1, **dict(SHIP, sd_budget0=0.75, sd_budget=0.6, sd_step_cap=0.8))),
+    'M_idleship': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=40.0, sd_hop_w=20.0,
+                             sd_dv_coins=DVC_M, sd_final_trip=1, sd_water_first=1, sd_coop_pair=2, sd_plan_log=1,
+                             sd_hv_pref=HVM_MEL, sd_hp_parity=1, sd_water_tomorrow=40.0, sd_idle_fert=1,
+                             **dict(SHIP, sd_budget0=0.75, sd_budget=0.6, sd_step_cap=0.8))),
+    'S11a': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_early_animal=1, **SHIP)),      # + early animal
+    'S11wh2': (SEC, dict(dispatch_search='active', sd_days=[11, 23], sd_seed_fix=1, sd_sector_w=80.0, sd_hop_w=40.0, **SHIP)),
+}
+
+
+LABEL = {
+    'N0': 'N0: current T (mgt_lead.py f8b48ef: melon 8 AM + replant_leader), greedy dispatcher',
+    'N11': 'N11: route-search planner on days 11-23 (v1 + survival fallback, deterministic budgets)',
+    'N12': 'N12: route-search planner on days 12-23 (the deploy candidate window)',
+    'S11f': 'S11f: N11 + seed over-commit repair',
+    'S11w': 'S11w: S11f + sectors (home quadrant = spawn quadrant, 40 coins an op outside home, rebalanced at 1/8/14h)',
+    'S11h': 'S11h: S11f + contiguity (20 coins per extra step of a hop between job tiles)',
+    'S11wh': 'S11wh: S11f + sectors 40 + contiguity 20',
+    'S11wh2': 'S11wh2: S11f + sectors 80 + contiguity 40',
+    'S11a': 'S11a: S11f + the goose bought before the melon harvest on its coop tile (sd_early_animal)',
+    'S11c': 'S11c: S11f + the measured same-day delivery credit (melon 53.8 a unit on days 6-11) + final delivery trip',
+    'S11ca': 'S11ca: S11c + sd_early_animal',
+    'S11caw': 'S11caw: S11ca + sectors 40 + contiguity 20',
+    'S11cf': 'S11cf: S11ca + water before harvesting a one-time crop in its window (the coop-tile melon fix)',
+    'S11cfs': 'S11cfs: S11cf + spawn steering (farmer hour-0 stand, hour-0 / hour-1 hire split)',
+    'S11cfd': 'S11cfd: S11cf + hires by demand (planned value vs fib wage at hour 0)',
+    'S11cfsd': 'S11cfsd: S11cf + spawn steering + hires by demand',
+    'S11cg': 'S11cg: S11cf + melon harvest tendency in the planner (early, full) + executor harvest values + coop split from goose',
+    'S11cgs': 'S11cgs: S11cg + spawn steering',
+    'S11cgd': 'S11cgd: S11cg + hires by demand',
+    'S11cgsd': 'S11cgsd: S11cg + spawn steering + hires by demand',
+    'S11cb': 'S11cb: S11cf + melon tendency + executor harvest values + the BUILD+animal bundle (one hand: water, harvest, coop, goose, feed, care)',
+    'S11cbs': 'S11cbs: S11cb + spawn steering',
+    'S11cbd': 'S11cbd: S11cb + hires by demand',
+    'S11cbsd': 'S11cbsd: S11cb + spawn steering + hires by demand',
+    'M': 'M: sectors 40 + contiguity 20 + melon priority (full yield by 8h, leader window) + same-day melon credit + final trip + water before harvest + coop/goose 2-hour job (goose bought h0, must land by day end)',
+    'M_idle': 'M_idle: M + idle fill (a water on a dry plant worth 40, idle hands deliver fertilizer)',
+    'M2': 'M2: M + any hand on its empty coop with the goose places it + the coop/goose job due by h19 (then by day end)',
+    'M2a': 'M2a: M + any hand on its empty coop with the goose places it',
+    'M2i': 'M2i: M2 + idle fill v2 (idle hands only: same-day delivery, then the nearest dry plant in the home quadrant)',
+    'Mship': 'Mship: M under the shipping wall-clock caps 0.75 / 0.6 / 0.8 s',
+    'M_idleship': 'M_idleship: M_idle under the shipping wall-clock caps 0.75 / 0.6 / 0.8 s',
+    'S11ci': 'S11ci: S11cb + idle fill (a water on a dry plant worth 40, tomorrow labour saved; idle hands deliver fertilizer)',
+    'S11cr': 'S11cr: S11ci + radial corridors (40 an op outside the corridor; 20 an inward, 10 a sideways step between job tiles)',
+    'S11cr2': 'S11cr2: S11ci + radial corridors x2 (80 / 40 / 20)',
+    'S11crr': 'S11crr: S11ci + radial steps only (20 inward, 10 sideways; no corridors)',
+}
+
+
+_MODS = []
+
+
+def _load_module_rec(path, tag):
+    m = _ORIG_LM(path, tag)
+    _MODS.append(m)
+    return m
+
+
+_ORIG_LM = X.load_module
+
+
+def stream_job(args):
+    """the viewer's stream of one G1 world: leader tape for t < 264, the arm for 264..311, {} after (xfix_run's stream
+    format) -> results/fresh/day12_viz/<arm>_streams/<ep>.json with a one-line label in "arm"."""
+    import traceback
+    _, game, arm = args
+    try:
+        del _MODS[:]
+        r = X.ledger_play(game, arm, 'stream')
+        r['arm'] = LABEL.get(arm, arm)
+        cfg = ARMS.get(arm, (None, {}))[1]
+        if cfg.get('sd_corr_w') and _MODS:       # the viewer's corridor overlay: each hand's corridor tiles by day
+            L_ = (getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}
+            r['corridors'] = {d: v for d, v in (L_.get('corridor_log') or {}).items() if d in ('11', '12')}
+        if cfg.get('sd_sector_w') and _MODS:     # the viewer's sector overlay: homes by day, rebalancing changes
+            L_ = (getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}
+            r['sectors'] = {d: v for d, v in (L_.get('sector_log') or {}).items() if d in ('11', '12')}
+            r['sector_changes'] = [c for c in (L_.get('sector_changes') or []) if 264 <= c[0] < 312]
+        if cfg.get('sd_plan_log') and _MODS:     # the viewer's plan overlay: each hand's planned job tiles on every change
+            L_ = (getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}
+            r['plan'] = {s_: v for s_, v in (L_.get('plan_log') or {}).items() if 264 <= int(s_) < 312}
+        d = ROOT / 'results/fresh/day12_viz' / (arm.lower() + '_streams')
+        d.mkdir(parents=True, exist_ok=True)
+        (d / f"{game.split(':')[1]}.json").write_text(json.dumps(r, default=str), encoding='utf-8')
+        return 'stream', game, arm, (r.get('cash') or [None])[-1], None
+    except Exception as exc:
+        return 'stream', game, arm, None, f'{type(exc).__name__}: {exc} ' + traceback.format_exc()[-2000:]
+
+
+def run_one(j):
+    if j[0] == 'stream':
+        return stream_job(j)
+    del _MODS[:]
+    res = X.job(j)
+    if j[0] == 'trace' and res[4] is None and _MODS:   # the planner's own counters: time caps, evals, plan ms per step
+        try:
+            st_ = ((getattr(_MODS[-1], '_S', None) or {}).get('sd') or {}).get('st') or {}
+            f = X.OUT / 'trace' / j[2] / f"{j[1].split(':')[1]}.json"
+            r = json.loads(f.read_text(encoding='utf-8'))
+            r['sd_st'] = {k: st_.get(k) for k in ('steps', 'time_capped', 'evals', 'plan_ms', 'plan_ms_first', 'step_ms',
+                                                   'coop_pair', 'coop_wait', 'pair_buy', 'pair_place_now', 'water_first',
+                                                   'errors', 'last_error', 'planned_hard_unplanned')}
+            r['sd_cfg'] = {k: getattr(_MODS[-1], 'CFG', {}).get(k) for k in ('sd_evals0', 'sd_evals', 'sd_budget0',
+                                                                              'sd_budget', 'sd_step_cap')}
+            f.write_text(json.dumps(r, default=str), encoding='utf-8')
+        except Exception:
+            pass
+    return res
+
+
+def setup():
+    X.OUT = OUT
+    wl = json.loads((ROOT / 'results/fresh/xfix_20260925/worlds42.json').read_text(encoding='utf-8'))
+    X.load_worlds = lambda: wl
+    X.ARMS.update(ARMS)
+    X.load_module = _load_module_rec
+
+
+def main():
+    argv = sys.argv[1:]
+    mode, arms = argv[0], argv[1].split(',')
+    sel, spec, workers = None, 'all', int(os.environ.get('LP_WORKERS', 4))
+    extra_streams = []
+    i = 2
+    while i < len(argv):
+        if argv[i] == '--games':
+            sel = argv[i + 1].split(','); i += 2
+        elif argv[i] == '--worlds':
+            spec = argv[i + 1]; i += 2
+        elif argv[i] == '--streams':
+            extra_streams = argv[i + 1].split(','); i += 2
+        elif argv[i] == '--workers':
+            workers = int(argv[i + 1]); i += 2
+        else:
+            i += 1
+    setup()
+    import lead_g1
+    if mode == 'full':
+        games = list(lead_g1.GAMES) if spec in ('g1', 'all') else []
+        if spec in ('sem4', 'all'):
+            w = json.loads((ROOT / 'results/fresh/lead_sem4_20260925/worlds.json').read_text(encoding='utf-8'))['worlds']
+            games += [x['game'] for x in w if x['game'] not in games]
+    else:
+        games = [w['game'] for w in X.load_worlds()['worlds']]
+    if sel:
+        games = [g for g in games if g.split(':')[1] in sel]
+    if mode == 'stream':
+        jobs = [('stream', g, a) for a in arms if a != 'LEADER' for g in lead_g1.GAMES]
+    elif mode == 'both':                                 # day-11 traces (42 worlds) + the viewer streams (12 G1 worlds)
+        jobs = [('trace', g, a) for a in arms for g in games]
+        jobs += [('stream', g, a) for a in arms if a != 'LEADER' for g in lead_g1.GAMES]
+    else:
+        jobs = [(mode, g, a) for a in arms for g in games]
+    jobs += [('stream', g, a) for a in extra_streams for g in lead_g1.GAMES]    # streams only (e.g. sector overlays)
+    print(len(jobs), 'jobs', flush=True)
+    t0 = time.time()
+    errs = 0
+    from concurrent.futures import ProcessPoolExecutor, as_completed
+    with ProcessPoolExecutor(max_workers=workers) as pool:
+        for f in as_completed([pool.submit(run_one, j) for j in jobs]):
+            m, g, a, fin, err = f.result()
+            errs += bool(err)
+            print(time.strftime('%H:%M:%S'), m, a, g, ('FAILED ' + err) if err else f'{fin}', flush=True)
+    print(f'completed {len(jobs)} games in {time.time() - t0:.0f}s, errors (FAILED) {errs}', flush=True)
+
+
+if __name__ == '__main__':
+    main()

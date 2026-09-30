@@ -1,0 +1,183 @@
+{
+ "gate": {
+  "sp_flip0": {
+   "wins": 0,
+   "ties": 32,
+   "losses": 0,
+   "margin": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "own": 0.0,
+   "own_ci": [
+    0.0,
+    0.0
+   ],
+   "bench": 0.0,
+   "bench_ci": [
+    0.0,
+    0.0
+   ],
+   "n": 32
+  },
+  "sp_flip5": {
+   "wins": 32,
+   "ties": 0,
+   "losses": 0,
+   "margin": 233.5625,
+   "ci": [
+    230.625,
+    236.78125
+   ],
+   "own": -4593.3125,
+   "own_ci": [
+    -11583.96875,
+    2633.90625
+   ],
+   "bench": -4826.875,
+   "bench_ci": [
+    -11818.59375,
+    2399.875
+   ],
+   "n": 32
+  },
+  "sp_flip35": {
+   "wins": 32,
+   "ties": 0,
+   "losses": 0,
+   "margin": 1374.8125,
+   "ci": [
+    1366.90625,
+    1386.65625
+   ],
+   "own": -293.1875,
+   "own_ci": [
+    -8015.65625,
+    7536.53125
+   ],
+   "bench": -1668.0,
+   "bench_ci": [
+    -9390.46875,
+    6161.71875
+   ],
+   "n": 32
+  },
+  "sp_flip70": {
+   "wins": 0,
+   "ties": 32,
+   "losses": 0,
+   "margin": 0.0,
+   "ci": [
+    0.0,
+    0.0
+   ],
+   "own": 0.0,
+   "own_ci": [
+    0.0,
+    0.0
+   ],
+   "bench": 0.0,
+   "bench_ci": [
+    0.0,
+    0.0
+   ],
+   "n": 32
+  },
+  "sp_nash5": {
+   "wins": 32,
+   "ties": 0,
+   "losses": 0,
+   "margin": 1.0,
+   "ci": [
+    1.0,
+    1.0
+   ],
+   "own": 0.0,
+   "own_ci": [
+    0.0,
+    0.0
+   ],
+   "bench": -1.0,
+   "bench_ci": [
+    -1.0,
+    -1.0
+   ],
+   "n": 32
+  }
+ },
+ "tape": {
+  "sp_flip70 (frozen benchmark)": {
+   "n": 30,
+   "mg_margin": -17961.8,
+   "ci": [
+    -25791.166666666668,
+    -11216.6
+   ],
+   "day0_net_wheat_cost": 173,
+   "hire_fail_games": 30,
+   "exact_games": 0,
+   "coherent_games": 0
+  },
+  "sp_flip0": {
+   "n": 30,
+   "mg_margin": 12656.6,
+   "ci": [
+    10374.9,
+    15144.8
+   ],
+   "day0_net_wheat_cost": 135,
+   "hire_fail_games": 0,
+   "exact_games": 26,
+   "coherent_games": 30
+  },
+  "sp_flip5": {
+   "n": 30,
+   "mg_margin": 12458.2,
+   "ci": [
+    10212.866666666667,
+    14921.966666666667
+   ],
+   "day0_net_wheat_cost": 144,
+   "hire_fail_games": 0,
+   "exact_games": 11,
+   "coherent_games": 30
+  },
+  "sp_flip35": {
+   "n": 30,
+   "mg_margin": -17805.666666666668,
+   "ci": [
+    -25729.966666666667,
+    -11057.4
+   ],
+   "day0_net_wheat_cost": 163,
+   "hire_fail_games": 30,
+   "exact_games": 0,
+   "coherent_games": 0
+  },
+  "sp_nash5": {
+   "n": 30,
+   "mg_margin": 12709.9,
+   "ci": [
+    10417.633333333333,
+    15218.366666666667
+   ],
+   "day0_net_wheat_cost": 136,
+   "hire_fail_games": 0,
+   "exact_games": 27,
+   "coherent_games": 30
+  },
+  "sp_nash5, cushion 40": {
+   "n": 30,
+   "mg_margin": 12817.966666666667,
+   "ci": [
+    10559.633333333333,
+    15278.233333333334
+   ],
+   "day0_net_wheat_cost": 136,
+   "hire_fail_games": 0,
+   "exact_games": 26,
+   "coherent_games": 30
+  }
+ }
+}

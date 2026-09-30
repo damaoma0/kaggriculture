@@ -1,0 +1,34 @@
+{
+  "scope": "Compatibility audit of optional reveal policy against exact frozen V8 base.",
+  "source_hashes": {
+    "results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v8_kb115lt2_readiness\\project\\scripts\\semantic_strategy_blocks_20260928.py": "d568c8064e555a377e813412606c7a1f56f98f94fa9a5307682bf1849f2a12a5",
+    "results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v8_kb115lt2_readiness\\project\\scripts\\semantic_strategy_policy_20260928.py": "8e414b8cc82cc67598d71a24a254bbb1f2d56fb009a08e2a42bcc90e0c566a00",
+    "scripts\\semantic_strategy_blocks_reveal_20260928.py": "125e32b4aff0cb4e7c12a825b03bbbdef6c55f525dcb15772a993861f3f4b5ec",
+    "results\\fresh\\semantic_strategy_20260928\\block_model_reveal_modern100.json": "a4a1ec12b60c1d37e2ceded1441dc6741a3d00669950edad7193622b08457e72"
+  },
+  "input_hashes": {
+    "results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v5_blocks100_finance\\development\\live\\live-00.json": "77a2283a3f345a2ade614dbaf9649c1158d69087eb4891a7f363ef68d6352336",
+    "results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v5_blocks100_finance\\development\\live\\live-01.json": "4c5f7c3a687bc4f10eb0f591bdf2474c80c655684f061540765a5ebb32348415",
+    "results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v5_blocks100_finance\\development\\live\\live-02.json": "9a8ab2f36e124b53524ddf04792d4ad841d78597f17156ee5bd4f117aae088f5",
+    "results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v5_blocks100_finance\\development\\live\\live-03.json": "ebe532f0323c8f76949a616f18dee9c76abaae6c793edb94568b470f82a25281",
+    "results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v5_blocks100_finance\\development\\live\\live-04.json": "66806145a740ac5bb4baa0d0bb15511cf7f2debb906006d28663d25a718204b1",
+    "results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v5_blocks100_finance\\development\\live\\live-05.json": "5f1243a16e677396dbf4f5f216d7c23f1cc985abfd11d630144b7f02733789f9",
+    "results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v5_blocks100_finance\\development\\live\\live-06.json": "c7265b3b643af74cdee8ddc56329b4e4c488b9c98ed17e6103871990c1ad5ab0",
+    "results\\fresh\\semantic_strategy_20260928\\runs\\strategy_v5_blocks100_finance\\development\\live\\live-07.json": "46ccdf5b40d5f749dc01f9dae30242fad73fd7a882e68e432198d9235ab8f0df"
+  },
+  "cases": [
+    "live-00",
+    "live-01",
+    "live-02",
+    "live-03",
+    "live-04",
+    "live-05",
+    "live-06",
+    "live-07"
+  ],
+  "off_full_proposals_equal": 192,
+  "enabled_editable_vs_frozen_full_proposals_equal": 192,
+  "d6_today_memory_equal": 8,
+  "new_games": 0,
+  "note": "FrozenV8 block d568c806 is compatible. Its byte-identical base policy is verified. New reveal module requires no symbols from optional market/labor edits."
+}

@@ -1,0 +1,95 @@
+{
+  "games": 16,
+  "labels": [
+    "V45",
+    "selected"
+  ],
+  "per_game": [
+    {
+      "harvest_actions": 161.125,
+      "units": 584.625
+    },
+    {
+      "harvest_actions": 169.875,
+      "units": 538.25
+    }
+  ],
+  "harvest_age_counts": [
+    {
+      "2": 576,
+      "3": 866,
+      "4": 1136
+    },
+    {
+      "2": 552,
+      "3": 1104,
+      "4": 1062
+    }
+  ],
+  "yield_per_harvest_counts": [
+    {
+      "2": 568,
+      "3": 788,
+      "4": 664,
+      "5": 150,
+      "6": 408
+    },
+    {
+      "2": 552,
+      "3": 1156,
+      "4": 1010
+    }
+  ],
+  "phases_per_game": {
+    "0-5": [
+      {
+        "harvest_actions": 14.0,
+        "units": 32.0
+      },
+      {
+        "harvest_actions": 14.0,
+        "units": 32.0
+      }
+    ],
+    "6-11": [
+      {
+        "harvest_actions": 15.0,
+        "units": 31.0
+      },
+      {
+        "harvest_actions": 15.0,
+        "units": 31.0
+      }
+    ],
+    "12-17": [
+      {
+        "harvest_actions": 38.0,
+        "units": 124.5
+      },
+      {
+        "harvest_actions": 38.0,
+        "units": 121.0
+      }
+    ],
+    "18-23": [
+      {
+        "harvest_actions": 39.0,
+        "units": 155.0
+      },
+      {
+        "harvest_actions": 39.0,
+        "units": 140.0
+      }
+    ],
+    "24-29": [
+      {
+        "harvest_actions": 55.125,
+        "units": 242.125
+      },
+      {
+        "harvest_actions": 63.875,
+        "units": 214.25
+      }
+    ]
+  }
+}

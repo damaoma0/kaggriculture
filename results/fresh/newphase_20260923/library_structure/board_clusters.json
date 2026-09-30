@@ -1,0 +1,299 @@
+{
+ "6": {
+  "day": 6,
+  "shops_known": 2,
+  "distinct_boards": 25,
+  "compatible_other_tapes": {
+   "median": 583.0,
+   "mean": 583.0,
+   "p10": 583.0,
+   "p90": 583.0,
+   "isolated": 0
+  },
+  "single_linkage_components": 1,
+  "largest_component": 584,
+  "singleton_components": 0,
+  "greedy_radius8_clusters": 1,
+  "largest_greedy_cluster": 584,
+  "greedy_clusters_for_50pct": 1,
+  "greedy_clusters_for_90pct": 1,
+  "greedy_singletons": 0,
+  "greedy_cluster_sizes_top10": [
+   584
+  ],
+  "median_pairwise_hamming": 0.0,
+  "greedy_centers_ep_top10": [
+   109529802
+  ]
+ },
+ "9": {
+  "day": 9,
+  "shops_known": 3,
+  "distinct_boards": 137,
+  "compatible_other_tapes": {
+   "median": 474.0,
+   "mean": 400.68150684931504,
+   "p10": 165.0,
+   "p90": 483.0,
+   "isolated": 19
+  },
+  "single_linkage_components": 20,
+  "largest_component": 565,
+  "singleton_components": 19,
+  "greedy_radius8_clusters": 33,
+  "largest_greedy_cluster": 522,
+  "greedy_clusters_for_50pct": 1,
+  "greedy_clusters_for_90pct": 2,
+  "greedy_singletons": 26,
+  "greedy_cluster_sizes_top10": [
+   522,
+   22,
+   5,
+   3,
+   2,
+   2,
+   2,
+   1,
+   1,
+   1
+  ],
+  "median_pairwise_hamming": 6.0,
+  "greedy_centers_ep_top10": [
+   109836677,
+   109569892,
+   109540812,
+   109545263,
+   109882683,
+   109893101,
+   109639424,
+   109530921,
+   109536622,
+   109544018
+  ]
+ },
+ "12": {
+  "day": 12,
+  "shops_known": 4,
+  "distinct_boards": 253,
+  "compatible_other_tapes": {
+   "median": 261.0,
+   "mean": 210.07876712328766,
+   "p10": 4.0,
+   "p90": 362.0,
+   "isolated": 43
+  },
+  "single_linkage_components": 48,
+  "largest_component": 517,
+  "singleton_components": 43,
+  "greedy_radius8_clusters": 64,
+  "largest_greedy_cluster": 378,
+  "greedy_clusters_for_50pct": 1,
+  "greedy_clusters_for_90pct": 11,
+  "greedy_singletons": 49,
+  "greedy_cluster_sizes_top10": [
+   378,
+   65,
+   18,
+   16,
+   14,
+   13,
+   7,
+   6,
+   4,
+   3
+  ],
+  "median_pairwise_hamming": 11.0,
+  "greedy_centers_ep_top10": [
+   109835621,
+   109916552,
+   110332585,
+   109858181,
+   109532024,
+   109635716,
+   109667256,
+   109539721,
+   109541211,
+   109600481
+  ]
+ },
+ "15": {
+  "day": 15,
+  "shops_known": 5,
+  "distinct_boards": 563,
+  "compatible_other_tapes": {
+   "median": 8.0,
+   "mean": 17.455479452054796,
+   "p10": 0.0,
+   "p90": 52.700000000000045,
+   "isolated": 160
+  },
+  "single_linkage_components": 169,
+  "largest_component": 404,
+  "singleton_components": 160,
+  "greedy_radius8_clusters": 225,
+  "largest_greedy_cluster": 84,
+  "greedy_clusters_for_50pct": 12,
+  "greedy_clusters_for_90pct": 167,
+  "greedy_singletons": 177,
+  "greedy_cluster_sizes_top10": [
+   84,
+   71,
+   28,
+   21,
+   16,
+   15,
+   14,
+   13,
+   11,
+   9
+  ],
+  "median_pairwise_hamming": 22.0,
+  "greedy_centers_ep_top10": [
+   109644324,
+   110338107,
+   109910379,
+   109642043,
+   109654928,
+   109660393,
+   109904802,
+   109746029,
+   109589312,
+   110062190
+  ]
+ },
+ "18": {
+  "day": 18,
+  "shops_known": 6,
+  "distinct_boards": 580,
+  "compatible_other_tapes": {
+   "median": 0.0,
+   "mean": 3.3972602739726026,
+   "p10": 0.0,
+   "p90": 11.0,
+   "isolated": 294
+  },
+  "single_linkage_components": 316,
+  "largest_component": 231,
+  "singleton_components": 294,
+  "greedy_radius8_clusters": 365,
+  "largest_greedy_cluster": 37,
+  "greedy_clusters_for_50pct": 73,
+  "greedy_clusters_for_90pct": 307,
+  "greedy_singletons": 311,
+  "greedy_cluster_sizes_top10": [
+   37,
+   22,
+   16,
+   15,
+   13,
+   11,
+   10,
+   10,
+   9,
+   8
+  ],
+  "median_pairwise_hamming": 26.0,
+  "greedy_centers_ep_top10": [
+   109802918,
+   109551627,
+   110128655,
+   110016022,
+   110299087,
+   110320804,
+   109964680,
+   110120902,
+   109872768,
+   109535415
+  ]
+ },
+ "21": {
+  "day": 21,
+  "shops_known": 7,
+  "distinct_boards": 583,
+  "compatible_other_tapes": {
+   "median": 0.0,
+   "mean": 1.4657534246575343,
+   "p10": 0.0,
+   "p90": 5.0,
+   "isolated": 357
+  },
+  "single_linkage_components": 378,
+  "largest_component": 154,
+  "singleton_components": 357,
+  "greedy_radius8_clusters": 426,
+  "largest_greedy_cluster": 23,
+  "greedy_clusters_for_50pct": 134,
+  "greedy_clusters_for_90pct": 368,
+  "greedy_singletons": 379,
+  "greedy_cluster_sizes_top10": [
+   23,
+   14,
+   9,
+   9,
+   8,
+   8,
+   7,
+   7,
+   6,
+   6
+  ],
+  "median_pairwise_hamming": 28.0,
+  "greedy_centers_ep_top10": [
+   110396388,
+   109551627,
+   110066141,
+   110266476,
+   110180238,
+   109832334,
+   110299087,
+   109888030,
+   110072552,
+   110378189
+  ]
+ },
+ "24": {
+  "day": 24,
+  "shops_known": 8,
+  "distinct_boards": 583,
+  "compatible_other_tapes": {
+   "median": 0.0,
+   "mean": 0.6095890410958904,
+   "p10": 0.0,
+   "p90": 2.0,
+   "isolated": 488
+  },
+  "single_linkage_components": 498,
+  "largest_component": 56,
+  "singleton_components": 488,
+  "greedy_radius8_clusters": 514,
+  "largest_greedy_cluster": 21,
+  "greedy_clusters_for_50pct": 222,
+  "greedy_clusters_for_90pct": 456,
+  "greedy_singletons": 495,
+  "greedy_cluster_sizes_top10": [
+   21,
+   10,
+   7,
+   6,
+   6,
+   5,
+   4,
+   4,
+   3,
+   3
+  ],
+  "median_pairwise_hamming": 35.0,
+  "greedy_centers_ep_top10": [
+   109826300,
+   109551627,
+   110175658,
+   109820515,
+   109933928,
+   109578550,
+   109831275,
+   110003096,
+   109720982,
+   110040780
+  ]
+ }
+}

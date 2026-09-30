@@ -1,0 +1,71 @@
+{
+  "spec": {
+    "id": "anchor-112158883",
+    "world": 112158883,
+    "kind": "replay",
+    "anchored": true,
+    "episode": 112158883,
+    "seat": 0,
+    "opponent": "Xiangyu Liu",
+    "submission": 56419383,
+    "rating": 2757.4
+  },
+  "completed": true,
+  "baseline_margin": 6180.0,
+  "candidate_margin": 6405.0,
+  "baseline_cash": 106979.0,
+  "candidate_cash": 107114.0,
+  "baseline_rival_cash": 100799.0,
+  "candidate_rival_cash": 100709.0,
+  "margin_delta": 225.0,
+  "cash_delta": 135.0,
+  "rival_delta": -90.0,
+  "selected": [
+    413,
+    null,
+    null
+  ],
+  "intervened": true,
+  "actions_changed": true,
+  "baseline_bank": 59.589440599957015,
+  "candidate_bank": 54.17966960009653,
+  "baseline_divergence": {
+    "first_board_difference": null,
+    "first_private_difference": null,
+    "extra_failed_commands": 0,
+    "recorded_cash": 100799.0,
+    "counterfactual_cash": 100799.0,
+    "sold_units_delta": {
+      "WHEAT": 0,
+      "CARROT": 0,
+      "TOMATO": 0,
+      "STRAWBERRY": 0,
+      "MELON": 0,
+      "EGG": 0,
+      "MILK": 0,
+      "WOOL": 0,
+      "FERTILIZER": 0
+    },
+    "material_command_break": false
+  },
+  "candidate_divergence": {
+    "first_board_difference": null,
+    "first_private_difference": null,
+    "extra_failed_commands": 0,
+    "recorded_cash": 100799.0,
+    "counterfactual_cash": 100709.0,
+    "sold_units_delta": {
+      "WHEAT": 0,
+      "CARROT": 0,
+      "TOMATO": 0,
+      "STRAWBERRY": 0,
+      "MELON": 0,
+      "EGG": 0,
+      "MILK": 0,
+      "WOOL": 0,
+      "FERTILIZER": 0
+    },
+    "material_command_break": false
+  },
+  "control_exact": true
+}

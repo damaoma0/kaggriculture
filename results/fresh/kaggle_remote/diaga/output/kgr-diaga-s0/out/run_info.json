@@ -1,0 +1,60 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/ladder_panel.py",
+   "run",
+   "mgt_v9lite_diag",
+   "56368334",
+   "110938272,110939392,110945556,110963585,110963800,110969160,110981235,110986740,111069352,111079531,111159575,111239951,111247986,111362566,111381831,111408302,111481434,111487242,111529802,111536131,111616117,111638607,111697188,111721810,111828437,111858516,111965197,112123353,112134828,112171785,112187400,112282761"
+  ],
+  "collect": [
+   "results/fresh/ladder_panel/mgt_v9lite_diag/*"
+  ],
+  "workers": 4
+ },
+ "games": 32,
+ "pip_seconds": 56.1942093372345,
+ "run_seconds": 425.96137714385986,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "32 games, 4 workers (32.6 GB free)",
+  "mgt_v9lite_diag 110938272 margin   +16,055 (recorded   +15,844)",
+  "mgt_v9lite_diag 110945556 margin    +6,134 (recorded    +2,012)",
+  "mgt_v9lite_diag 110939392 margin    -3,269 (recorded    -4,780)",
+  "mgt_v9lite_diag 110963585 margin   +12,766 (recorded   +15,751)",
+  "mgt_v9lite_diag 110981235 margin   +12,871 (recorded   +11,841)",
+  "mgt_v9lite_diag 110969160 margin    +2,702 (recorded       +38)",
+  "mgt_v9lite_diag 110963800 margin    +7,144 (recorded    -2,771)",
+  "mgt_v9lite_diag 110986740 margin    +4,961 (recorded    +3,253)",
+  "mgt_v9lite_diag 111069352 margin    +7,921 (recorded      -415)",
+  "mgt_v9lite_diag 111159575 margin    +2,795 (recorded    +5,873)",
+  "mgt_v9lite_diag 111239951 margin   +27,642 (recorded   +18,079)",
+  "mgt_v9lite_diag 111079531 margin    +1,546 (recorded    +2,276)",
+  "mgt_v9lite_diag 111247986 margin    +3,680 (recorded    +1,569)",
+  "mgt_v9lite_diag 111408302 margin   +18,563 (recorded    +9,459)",
+  "mgt_v9lite_diag 111381831 margin      -179 (recorded    -8,719)",
+  "mgt_v9lite_diag 111362566 margin   +22,339 (recorded    +9,862)",
+  "mgt_v9lite_diag 111529802 margin    +5,939 (recorded    +4,454)",
+  "mgt_v9lite_diag 111487242 margin   +24,339 (recorded   +20,821)",
+  "mgt_v9lite_diag 111536131 margin    +8,897 (recorded    +3,118)",
+  "mgt_v9lite_diag 111481434 margin   +11,430 (recorded    +6,917)",
+  "mgt_v9lite_diag 111616117 margin      +920 (recorded    +1,472)",
+  "mgt_v9lite_diag 111638607 margin      +221 (recorded    -6,162)",
+  "mgt_v9lite_diag 111697188 margin    +6,448 (recorded      +951)",
+  "mgt_v9lite_diag 111721810 margin    -5,570 (recorded   -16,004)",
+  "mgt_v9lite_diag 111828437 margin    +7,268 (recorded    +1,322)",
+  "mgt_v9lite_diag 112123353 margin    +9,605 (recorded    +3,817)",
+  "mgt_v9lite_diag 111858516 margin   +16,310 (recorded      +279)",
+  "mgt_v9lite_diag 111965197 margin   -11,820 (recorded   -17,032)",
+  "mgt_v9lite_diag 112134828 margin    -4,241 (recorded    -6,516)",
+  "mgt_v9lite_diag 112171785 margin      +783 (recorded      -599)",
+  "mgt_v9lite_diag 112187400 margin   +10,467 (recorded   +13,252)",
+  "mgt_v9lite_diag 112282761 margin      +702 (recorded    +3,219)"
+ ],
+ "stderr_tail": []
+}

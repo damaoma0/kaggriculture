@@ -1,0 +1,24 @@
+{
+  "candidate": "strategy_v10_kb115lt2_polishcache",
+  "split": "development",
+  "mode": "live",
+  "expected": 8,
+  "recorded": 1,
+  "valid": 0,
+  "gate_complete": false,
+  "eligible_wins": 0,
+  "invalid_cases": [
+    "live-06"
+  ],
+  "missing_cases": [
+    "live-00",
+    "live-01",
+    "live-02",
+    "live-03",
+    "live-04",
+    "live-05",
+    "live-07"
+  ],
+  "mean_valid_margin": null,
+  "warning": "No success claim from an incomplete gate; invalid cases are not removed from its planned denominator."
+}

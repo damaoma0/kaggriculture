@@ -1,0 +1,852 @@
+{
+  "seed": 113007,
+  "seat": 1,
+  "opponent": "sixday",
+  "mode": "sheep",
+  "cash": 111533.0,
+  "opponent_cash": 108195.0,
+  "ledger": [
+    {
+      "revenue": {
+        "WHEAT": 21161,
+        "FERTILIZER": 14680,
+        "WOOL": 34974,
+        "MILK": 5267,
+        "MELON": 14267,
+        "STRAWBERRY": 49551,
+        "CARROT": 1040
+      },
+      "sold_units": {
+        "WHEAT": 564,
+        "FERTILIZER": 334,
+        "WOOL": 247,
+        "MILK": 215,
+        "MELON": 72,
+        "STRAWBERRY": 255,
+        "CARROT": 19
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 11050,
+        "BUY_SEED:WHEAT": 1970,
+        "HIRE": 5400.0,
+        "BUY_ANIMAL:COW": 2800,
+        "BUY_ANIMAL:SHEEP": 5000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:CARROT": 180,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2085
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 21161,
+        "FERTILIZER": 14680,
+        "WOOL": 37069,
+        "MILK": 5154,
+        "MELON": 14267,
+        "STRAWBERRY": 50907,
+        "CARROT": 1040
+      },
+      "sold_units": {
+        "WHEAT": 564,
+        "FERTILIZER": 334,
+        "WOOL": 247,
+        "MILK": 215,
+        "MELON": 72,
+        "STRAWBERRY": 262,
+        "CARROT": 19
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 11050,
+        "BUY_SEED:WHEAT": 1970,
+        "HIRE": 5400.0,
+        "BUY_ANIMAL:COW": 2800,
+        "BUY_ANIMAL:SHEEP": 5000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:CARROT": 180,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2085
+      }
+    }
+  ],
+  "decision": {
+    "step": 169,
+    "original": "SHEEP",
+    "selected": "SHEEP",
+    "scores": {
+      "COW": {
+        "value": 959,
+        "feed_plan": {
+          "7": false,
+          "8": true,
+          "9": false,
+          "10": true,
+          "11": false,
+          "12": true,
+          "13": true,
+          "14": false,
+          "15": true,
+          "16": false,
+          "17": true,
+          "18": false,
+          "19": true,
+          "20": false,
+          "21": true,
+          "22": false,
+          "23": true,
+          "24": true,
+          "25": true,
+          "26": true,
+          "27": true,
+          "28": true,
+          "29": false
+        },
+        "states": 465
+      },
+      "SHEEP": {
+        "value": 5979,
+        "feed_plan": {
+          "7": false,
+          "8": true,
+          "9": true,
+          "10": true,
+          "11": false,
+          "12": true,
+          "13": true,
+          "14": true,
+          "15": true,
+          "16": true,
+          "17": true,
+          "18": true,
+          "19": true,
+          "20": true,
+          "21": true,
+          "22": true,
+          "23": true,
+          "24": true,
+          "25": true,
+          "26": true,
+          "27": true,
+          "28": false,
+          "29": false
+        },
+        "states": 453
+      }
+    },
+    "calendar": {
+      "position": [
+        6,
+        4
+      ],
+      "placed": 177,
+      "events": {
+        "7": [
+          [
+            178,
+            "CARE"
+          ]
+        ],
+        "8": [
+          [
+            208,
+            "FEED"
+          ],
+          [
+            209,
+            "CARE"
+          ],
+          [
+            210,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "9": [
+          [
+            223,
+            "FEED"
+          ],
+          [
+            224,
+            "CARE"
+          ],
+          [
+            225,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "10": [
+          [
+            255,
+            "FEED"
+          ],
+          [
+            256,
+            "CARE"
+          ],
+          [
+            257,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "11": [
+          [
+            285,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            286,
+            "CARE"
+          ]
+        ],
+        "12": [
+          [
+            297,
+            "FEED"
+          ],
+          [
+            298,
+            "CARE"
+          ],
+          [
+            299,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "13": [
+          [
+            326,
+            "FEED"
+          ],
+          [
+            327,
+            "CARE"
+          ],
+          [
+            328,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            330,
+            "HARVEST"
+          ]
+        ],
+        "14": [
+          [
+            341,
+            "FEED"
+          ],
+          [
+            342,
+            "CARE"
+          ],
+          [
+            343,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "15": [
+          [
+            368,
+            "FEED"
+          ],
+          [
+            369,
+            "CARE"
+          ],
+          [
+            370,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            371,
+            "HARVEST"
+          ]
+        ],
+        "16": [
+          [
+            388,
+            "FEED"
+          ],
+          [
+            389,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            407,
+            "CARE"
+          ]
+        ],
+        "17": [
+          [
+            412,
+            "FEED"
+          ],
+          [
+            413,
+            "CARE"
+          ],
+          [
+            414,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            415,
+            "HARVEST"
+          ]
+        ],
+        "18": [
+          [
+            437,
+            "FEED"
+          ],
+          [
+            438,
+            "CARE"
+          ],
+          [
+            439,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "19": [
+          [
+            460,
+            "FEED"
+          ],
+          [
+            461,
+            "CARE"
+          ],
+          [
+            462,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            463,
+            "HARVEST"
+          ]
+        ],
+        "20": [
+          [
+            496,
+            "FEED"
+          ],
+          [
+            497,
+            "CARE"
+          ],
+          [
+            498,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "21": [
+          [
+            507,
+            "FEED"
+          ],
+          [
+            508,
+            "CARE"
+          ],
+          [
+            509,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            510,
+            "HARVEST"
+          ]
+        ],
+        "22": [
+          [
+            532,
+            "FEED"
+          ],
+          [
+            533,
+            "CARE"
+          ],
+          [
+            534,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "23": [
+          [
+            557,
+            "FEED"
+          ],
+          [
+            558,
+            "CARE"
+          ],
+          [
+            559,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            560,
+            "HARVEST"
+          ]
+        ],
+        "24": [
+          [
+            579,
+            "FEED"
+          ],
+          [
+            580,
+            "CARE"
+          ],
+          [
+            581,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "25": [
+          [
+            603,
+            "FEED"
+          ],
+          [
+            604,
+            "CARE"
+          ],
+          [
+            605,
+            "COLLECT_FERTILIZER"
+          ],
+          [
+            606,
+            "HARVEST"
+          ]
+        ],
+        "26": [
+          [
+            628,
+            "FEED"
+          ],
+          [
+            629,
+            "CARE"
+          ],
+          [
+            630,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "27": [
+          [
+            655,
+            "FEED"
+          ],
+          [
+            655,
+            "HARVEST"
+          ],
+          [
+            656,
+            "CARE"
+          ],
+          [
+            657,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "28": [
+          [
+            692,
+            "HARVEST"
+          ],
+          [
+            693,
+            "FEED"
+          ],
+          [
+            694,
+            "CARE"
+          ],
+          [
+            695,
+            "COLLECT_FERTILIZER"
+          ]
+        ],
+        "29": [
+          [
+            709,
+            "HARVEST"
+          ],
+          [
+            716,
+            "COLLECT_FERTILIZER"
+          ]
+        ]
+      }
+    },
+    "feasible": [
+      "COW",
+      "SHEEP"
+    ],
+    "budget": 840.0
+  },
+  "stats": {
+    "changed_turns": 17,
+    "decisions": 1,
+    "placements": 1,
+    "feed_or_care_skipped": 2,
+    "liquidation_blocked": 21
+  },
+  "target": [
+    6,
+    4
+  ],
+  "snapshots": [
+    {
+      "step": 192,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 0,
+        "consecutive_unfed": 1,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 0
+      }
+    },
+    {
+      "step": 216,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 0,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 1
+      }
+    },
+    {
+      "step": 240,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 0,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 2
+      }
+    },
+    {
+      "step": 264,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 0,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 3
+      }
+    },
+    {
+      "step": 288,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 0,
+        "consecutive_unfed": 1,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 3
+      }
+    },
+    {
+      "step": 312,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 4,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 1
+      }
+    },
+    {
+      "step": 336,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 4,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 2
+      }
+    },
+    {
+      "step": 360,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 4,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 3
+      }
+    },
+    {
+      "step": 384,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 4,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 1
+      }
+    },
+    {
+      "step": 408,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 4,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 2
+      }
+    },
+    {
+      "step": 432,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 0,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 3
+      }
+    },
+    {
+      "step": 456,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 4,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 1
+      }
+    },
+    {
+      "step": 480,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 0,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 2
+      }
+    },
+    {
+      "step": 504,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 0,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 3
+      }
+    },
+    {
+      "step": 528,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 4,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 1
+      }
+    },
+    {
+      "step": 552,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 4,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 2
+      }
+    },
+    {
+      "step": 576,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 0,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 3
+      }
+    },
+    {
+      "step": 600,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 4,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 1
+      }
+    },
+    {
+      "step": 624,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 0,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 2
+      }
+    },
+    {
+      "step": 648,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 0,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 3
+      }
+    },
+    {
+      "step": 672,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 4,
+        "consecutive_unfed": 0,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 1
+      }
+    },
+    {
+      "step": 696,
+      "tile": {
+        "kind": "PASTURE",
+        "animal": "SHEEP",
+        "placed_day": 7,
+        "yield_units": 4,
+        "consecutive_unfed": 1,
+        "fed_today": false,
+        "cared_today": false,
+        "fertilizer_available": true,
+        "pending_care_bonus": 1
+      }
+    }
+  ],
+  "placement_failed": false,
+  "max_action_seconds": 0.04445560000021942,
+  "seconds": 9.440578699999605,
+  "branches": [
+    [
+      0,
+      0
+    ],
+    [
+      144,
+      4
+    ],
+    [
+      288,
+      0
+    ],
+    [
+      432,
+      0
+    ],
+    [
+      576,
+      3
+    ]
+  ],
+  "shops": [
+    "YARN_STORE",
+    "FARMERS_MARKET",
+    "BRUNCH_SPOT",
+    "FARMERS_MARKET",
+    "BRUNCH_SPOT",
+    "SMOOTHIE_SHOP",
+    "ICE_CREAM_SHOP",
+    "BAKERY"
+  ],
+  "predecision_hash": "6d0b912d1bad75bd70d37bc021aa93b7331bb3e46a45607466b0e9f9291bca93"
+}

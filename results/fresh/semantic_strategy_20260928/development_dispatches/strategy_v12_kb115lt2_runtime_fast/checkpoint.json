@@ -1,0 +1,151 @@
+{
+  "scope": "FROZEN_LIVE8_DEVELOPMENT_ONLY_STOP_ON_INVALID_OR_UNREACHABLE6",
+  "candidate": "strategy_v12_kb115lt2_runtime_fast",
+  "rows": [
+    {
+      "case": "live-06",
+      "result_sha256": "3ce31c119350261d49c42182038e6616914fd623d63af7f8d65d25d62a7ec150",
+      "actions_sha256": "16b17a2ee531877ce7703880d1cbeba5e4e776513c4449e5da617a8ef4dc1600",
+      "technical_valid": true,
+      "technical_errors": [],
+      "margin": -3391.0,
+      "win": false,
+      "measured_overage": [
+        48.459546200116165,
+        7.180229200050235
+      ],
+      "engine_remaining": [
+        11.53791300000001,
+        52.81934
+      ]
+    },
+    {
+      "case": "live-00",
+      "result_sha256": "4ccc8d5fcd1471946bb9a0b089723f0b277cedd5944a5058e6a5038a0bb5c245",
+      "actions_sha256": "f95f7e6b74cfb4eef84097927ebd983b8a4eb928e9acad676095e189bb8104f8",
+      "technical_valid": true,
+      "technical_errors": [],
+      "margin": 11163.0,
+      "win": true,
+      "measured_overage": [
+        18.66791249997914,
+        3.4476965999929234
+      ],
+      "engine_remaining": [
+        41.330828000000004,
+        56.552141000000006
+      ]
+    },
+    {
+      "case": "live-01",
+      "result_sha256": "ea54498356154a06c4ea0cd68bbd232efb3b90c372f09f5b4a9219fd7e2acfac",
+      "actions_sha256": "bda64442957d6236d8741c5bfb0052b9143b7da42d10d5b29fabd47e0f11fbef",
+      "technical_valid": true,
+      "technical_errors": [],
+      "margin": 6591.0,
+      "win": true,
+      "measured_overage": [
+        2.7312541999854147,
+        14.441513699828647
+      ],
+      "engine_remaining": [
+        57.268522,
+        45.557501
+      ]
+    },
+    {
+      "case": "live-02",
+      "result_sha256": "d2165f7c72e27db8f1b387dcbaa0c198b9e18a65881936231805521c3355d74e",
+      "actions_sha256": "0e1e2d32833c20f14469ba4d25e0f37b511ffaa853fa198b7216c1b6c877a4fd",
+      "technical_valid": true,
+      "technical_errors": [],
+      "margin": 1247.0,
+      "win": true,
+      "measured_overage": [
+        29.744125300087035,
+        2.9359651000704616
+      ],
+      "engine_remaining": [
+        30.254459999999998,
+        57.06384799999999
+      ]
+    },
+    {
+      "case": "live-03",
+      "result_sha256": "917889afdb64c2b98b1ddcd5bbd2252fc1d8e198733a68bd89084c7fd6690445",
+      "actions_sha256": "fd40e8b4980dceda8500fe48158baeab24b4bea9dabf36595a797b4b6308c246",
+      "technical_valid": true,
+      "technical_errors": [],
+      "margin": -1004.0,
+      "win": false,
+      "measured_overage": [
+        2.9387989001115784,
+        11.94170310033951
+      ],
+      "engine_remaining": [
+        57.06084800000001,
+        48.05741700000001
+      ]
+    },
+    {
+      "case": "live-04",
+      "result_sha256": "11c16399aecc9d6d6a6bbbb3294636ac00ceb66ca3354b75ff052fb5d0030d39",
+      "actions_sha256": "c0c985e2dddd15e44e3ae1b08fa88712f24cf2c2c03bbff2251907eb3fed777a",
+      "technical_valid": true,
+      "technical_errors": [],
+      "margin": 1855.0,
+      "win": true,
+      "measured_overage": [
+        24.70721050002612,
+        3.613098199944943
+      ],
+      "engine_remaining": [
+        35.291212999999985,
+        56.386720000000004
+      ]
+    },
+    {
+      "case": "live-05",
+      "result_sha256": "7681467ab3d1daf86cded897ca3e4b30259392c19cbec9f4dbf4bf3970409482",
+      "actions_sha256": "cf908091cc0ca9ec5e3f11c89b5e58cf752f758abf773cdb0103278d1d652146",
+      "technical_valid": true,
+      "technical_errors": [],
+      "margin": 1641.0,
+      "win": true,
+      "measured_overage": [
+        4.203939400031231,
+        29.45040570013225
+      ],
+      "engine_remaining": [
+        55.795857999999996,
+        30.547802000000004
+      ]
+    },
+    {
+      "case": "live-07",
+      "result_sha256": "92175a3267a1c73ef95895d148fbf6968f87a147082f4c081a4ad6a451b4b888",
+      "actions_sha256": "d2f37a129aa6995c8a40b10da75e287e8df53f30ff72a4d93f0a8062b2624000",
+      "technical_valid": true,
+      "technical_errors": [],
+      "margin": -2159.0,
+      "win": false,
+      "measured_overage": [
+        2.171560199931264,
+        20.752558499923907
+      ],
+      "engine_remaining": [
+        57.828221,
+        39.24632799999999
+      ]
+    }
+  ],
+  "planned_denominator": 8,
+  "wins": 5,
+  "remaining": [],
+  "stop_reason": null,
+  "complete": true,
+  "all_attempted_technical_valid": true,
+  "gate_pass": false,
+  "qualification_dispatched": false,
+  "recorded_dispatched": false
+}

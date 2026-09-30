@@ -1,0 +1,245 @@
+{
+  "scope": "CAPTURED_PURE_POLISH_CALLS_NOT_GAMEPLAY",
+  "capture_manifest_sha256": "c5c75c6359c6aaaa6e7581d25edb35c1cb97469a34a4f8e02a4e274934119d91",
+  "original_sha256": "527d4c48b5d6bbef7854d430797e8691858724242d50eeec1e1636665ee124e7",
+  "cached_sha256": "cb85837fea85848092feb9e935f9a43d8758135163eb29785d682d57a24ae8aa",
+  "script_sha256": "cc1335660bdc2b2c910bfdca1769d270d7e8803c8f2d5240e42e45eef6b3095a",
+  "original_unchanged": true,
+  "iterations_and_random_draws_unchanged": true,
+  "rows": [
+    {
+      "file": "d07-call00.pickle.gz",
+      "sha256": "8614a5dc22acba667ce8462c704bd6283dc4708c0a5c1e6766c28102444cc19a",
+      "day": 7,
+      "exact_output_checks": [
+        {
+          "implementation": "original",
+          "repeat": 0,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "cached",
+          "repeat": 0,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "cached",
+          "repeat": 1,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "original",
+          "repeat": 1,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "original",
+          "repeat": 2,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "cached",
+          "repeat": 2,
+          "values_equal": true,
+          "pickle_equal": false
+        }
+      ],
+      "seconds": {
+        "original": [
+          0.40248119994066656,
+          0.3967939999420196,
+          0.37735730002168566
+        ],
+        "cached": [
+          0.1755199000472203,
+          0.16879360005259514,
+          0.17144519998691976
+        ]
+      },
+      "original_median": 0.3967939999420196,
+      "cached_median": 0.17144519998691976,
+      "speed_ratio": 2.314407169009646
+    },
+    {
+      "file": "d12-call00.pickle.gz",
+      "sha256": "cc57ed6730324ba05ebfb33015a27237246b2483fcbd892273756abf1debe5ab",
+      "day": 12,
+      "exact_output_checks": [
+        {
+          "implementation": "original",
+          "repeat": 0,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "cached",
+          "repeat": 0,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "cached",
+          "repeat": 1,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "original",
+          "repeat": 1,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "original",
+          "repeat": 2,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "cached",
+          "repeat": 2,
+          "values_equal": true,
+          "pickle_equal": false
+        }
+      ],
+      "seconds": {
+        "original": [
+          0.5698327000718564,
+          0.586944599985145,
+          0.5557530000805855
+        ],
+        "cached": [
+          0.2344673000043258,
+          0.270840400015004,
+          0.2489496999187395
+        ]
+      },
+      "original_median": 0.5698327000718564,
+      "cached_median": 0.2489496999187395,
+      "speed_ratio": 2.2889471256959033
+    },
+    {
+      "file": "d18-call00.pickle.gz",
+      "sha256": "9090ed7d4d9f413144c4601d32e4dc9fc6c3cdde747bfbf62b0c0d3d7f5bb6a6",
+      "day": 18,
+      "exact_output_checks": [
+        {
+          "implementation": "original",
+          "repeat": 0,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "cached",
+          "repeat": 0,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "cached",
+          "repeat": 1,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "original",
+          "repeat": 1,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "original",
+          "repeat": 2,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "cached",
+          "repeat": 2,
+          "values_equal": true,
+          "pickle_equal": false
+        }
+      ],
+      "seconds": {
+        "original": [
+          0.5040502999909222,
+          0.5182042000815272,
+          0.5202315000351518
+        ],
+        "cached": [
+          0.29136999999172986,
+          0.26739910000469536,
+          0.26733790000434965
+        ]
+      },
+      "original_median": 0.5182042000815272,
+      "cached_median": 0.26739910000469536,
+      "speed_ratio": 1.9379429477228154
+    },
+    {
+      "file": "d26-call00.pickle.gz",
+      "sha256": "a4543071e1974eb48d6288b85516791d56d140b86fbeec80afcb1defefd16586",
+      "day": 26,
+      "exact_output_checks": [
+        {
+          "implementation": "original",
+          "repeat": 0,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "cached",
+          "repeat": 0,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "cached",
+          "repeat": 1,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "original",
+          "repeat": 1,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "original",
+          "repeat": 2,
+          "values_equal": true,
+          "pickle_equal": false
+        },
+        {
+          "implementation": "cached",
+          "repeat": 2,
+          "values_equal": true,
+          "pickle_equal": false
+        }
+      ],
+      "seconds": {
+        "original": [
+          0.5315885000163689,
+          0.6548219999531284,
+          0.5273544000228867
+        ],
+        "cached": [
+          0.2708613999420777,
+          0.26393910008482635,
+          0.2660156999481842
+        ]
+      },
+      "original_median": 0.5315885000163689,
+      "cached_median": 0.2660156999481842,
+      "speed_ratio": 1.998335061125769
+    }
+  ],
+  "all_outputs_equal": true,
+  "limitation": "Isolated call speed is not a full-game runtime or profit result."
+}

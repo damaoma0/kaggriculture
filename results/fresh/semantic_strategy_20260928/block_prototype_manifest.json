@@ -1,0 +1,20 @@
+{
+  "status": "prototype freeze-ready; no gameplay validation",
+  "files": {
+    "scripts/semantic_strategy_blocks_20260928.py": "d568c8064e555a377e813412606c7a1f56f98f94fa9a5307682bf1849f2a12a5",
+    "scripts/semantic_strategy_policy_20260928.py": "8e414b8cc82cc67598d71a24a254bbb1f2d56fb009a08e2a42bcc90e0c566a00",
+    "scripts/build_semantic_block_model_20260928.py": "ba5cb7a3bac65f2aa3c1196e613af5c15e0fd9ec0e743785a3385ee3e500e102",
+    "tests/test_semantic_strategy_blocks_20260928.py": "1e0bd1415a0868f416f4c361b222cfbc3b460ccdb502d854b10bb26b13bc97cd",
+    "results/fresh/semantic_strategy_20260928/block_model_modern100.json": "6ff0140191eb8d451bfe178d758fe6eee53abd432786c7f0bf67bdacaefd5426",
+    "results/fresh/semantic_strategy_20260928/block_model_modern100_training_manifest.json": "a18861ad9f347e919c2601bb8013357cf1939f2e4be4e955e5e32762ce109f7b"
+  },
+  "tests": "9 block-policy tests pass",
+  "runtime_entry": "semantic_strategy_blocks_20260928.SemanticBlockPolicy",
+  "configuration": {
+    "policy_kind": "three_day_budget",
+    "model_file": "block_model_modern100.json"
+  },
+  "source_data": "causal_daily_rows_modern100.json",
+  "stage1_dsm40": "now stage2 training; not an independent test of this candidate",
+  "report": "docs/semantic_strategy_block_policy_20260928.md"
+}

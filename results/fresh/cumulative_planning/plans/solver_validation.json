@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "engine_profile_checks": 13,
+  "regression_checks": [
+    "exclusive maturity deadline",
+    "existing early harvest",
+    "no free animal retirement/feed",
+    "no unfunded hires",
+    "hire batch capacities11and21",
+    "horizon:end API",
+    "no fertilizer-only new herd"
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "cases": 30,
+  "plan_variants": 90,
+  "table": [
+    {
+      "day": 12,
+      "mode": "forecast_end_only",
+      "n": 10,
+      "solved": 10,
+      "optimal": 10,
+      "exact_targets": 0,
+      "mean_timed_mae_to_forecast": 5.062962962962963,
+      "mean_timed_mae_to_realized": 12.885185185185188,
+      "mean_end_mae_to_forecast": 3.611111111111111,
+      "mean_solve_seconds": 2.0217000000004193
+    },
+    {
+      "day": 12,
+      "mode": "forecast_timed",
+      "n": 10,
+      "solved": 10,
+      "optimal": 10,
+      "exact_targets": 0,
+      "mean_timed_mae_to_forecast": 2.1555555555555554,
+      "mean_timed_mae_to_realized": 10.60740740740741,
+      "mean_end_mae_to_forecast": 4.2,
+      "mean_solve_seconds": 1.5220000000146683
+    },
+    {
+      "day": 12,
+      "mode": "realized_timed_oracle",
+      "n": 10,
+      "solved": 10,
+      "optimal": 10,
+      "exact_targets": 0,
+      "mean_timed_mae_to_forecast": 10.529629629629628,
+      "mean_timed_mae_to_realized": 1.922222222222222,
+      "mean_end_mae_to_forecast": 27.18888888888889,
+      "mean_solve_seconds": 1.1436999999859836
+    },
+    {
+      "day": 18,
+      "mode": "forecast_end_only",
+      "n": 10,
+      "solved": 10,
+      "optimal": 10,
+      "exact_targets": 0,
+      "mean_timed_mae_to_forecast": 4.992592592592592,
+      "mean_timed_mae_to_realized": 10.455555555555556,
+      "mean_end_mae_to_forecast": 3.588888888888889,
+      "mean_solve_seconds": 0.914000000001397
+    },
+    {
+      "day": 18,
+      "mode": "forecast_timed",
+      "n": 10,
+      "solved": 10,
+      "optimal": 10,
+      "exact_targets": 0,
+      "mean_timed_mae_to_forecast": 2.7333333333333334,
+      "mean_timed_mae_to_realized": 8.655555555555555,
+      "mean_end_mae_to_forecast": 4.955555555555556,
+      "mean_solve_seconds": 0.1845000000030268
+    },
+    {
+      "day": 18,
+      "mode": "realized_timed_oracle",
+      "n": 10,
+      "solved": 10,
+      "optimal": 10,
+      "exact_targets": 0,
+      "mean_timed_mae_to_forecast": 7.948148148148148,
+      "mean_timed_mae_to_realized": 2.6037037037037036,
+      "mean_end_mae_to_forecast": 15.88888888888889,
+      "mean_solve_seconds": 0.16850000000558793
+    },
+    {
+      "day": 24,
+      "mode": "forecast_end_only",
+      "n": 10,
+      "solved": 10,
+      "optimal": 10,
+      "exact_targets": 0,
+      "mean_timed_mae_to_forecast": 3.233333333333333,
+      "mean_timed_mae_to_realized": 6.41111111111111,
+      "mean_end_mae_to_forecast": 1.5,
+      "mean_solve_seconds": 0.4529999999969732
+    },
+    {
+      "day": 24,
+      "mode": "forecast_timed",
+      "n": 10,
+      "solved": 10,
+      "optimal": 10,
+      "exact_targets": 0,
+      "mean_timed_mae_to_forecast": 2.216666666666667,
+      "mean_timed_mae_to_realized": 5.572222222222222,
+      "mean_end_mae_to_forecast": 2.1222222222222222,
+      "mean_solve_seconds": 0.09710000000777655
+    },
+    {
+      "day": 24,
+      "mode": "realized_timed_oracle",
+      "n": 10,
+      "solved": 10,
+      "optimal": 10,
+      "exact_targets": 0,
+      "mean_timed_mae_to_forecast": 5.988888888888889,
+      "mean_timed_mae_to_realized": 1.6555555555555554,
+      "mean_end_mae_to_forecast": 8.2,
+      "mean_solve_seconds": 0.08109999999287539
+    }
+  ],
+  "errors": [],
+  "tile_assignments_checked": 90,
+  "paired_timed_target_error_reduction": 0.46530100334448155,
+  "episode_bootstrap95_reduction": [
+    0.4259126427597571,
+    0.5075097051287762
+  ],
+  "interpretation": "These errors measure schedule fidelity to production targets under the aggregate model; they are not economic profit or leaderboard performance."
+}

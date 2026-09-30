@@ -1,0 +1,286 @@
+{
+  "scope": "SAVED_ACTION_REPLAY_AND_NONCONTROLLING_SHADOW_NOT_GATE",
+  "case": {
+    "id": "live-01",
+    "seed": 869148193,
+    "seat": 1
+  },
+  "source_result_sha256": "9f6ba5bfc5ee89011b4fb144045b02df7dd156cbc4384e18d518b3852c86059e",
+  "source_actions_sha256": "61973333923622df2be37edffdda7fc9eb0717a4d6807885fec2bb30dce5adf1",
+  "candidate_manifest_sha256": "f5133c24fdf845874c4fb3ba66760dfb3fe4eee3ee30a64b07fcc28364c56f5f",
+  "script_sha256": "59ad9050c402c08309d47b80569e699842f66c03b127b57b8edb3511bbf2b069",
+  "memory_available_before_GiB": 4.015922546386719,
+  "loading_seconds": 0.0042863000417128205,
+  "elapsed_seconds": 69.67590849997941,
+  "replay_cash_equal": true,
+  "replay_complete_ledgers_equal": true,
+  "dawn_checks": [
+    {
+      "day": 0,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 1,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 2,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 3,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 4,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 5,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 6,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 7,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 8,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 9,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 10,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 11,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 12,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 13,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 14,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 15,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 16,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 17,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 18,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 19,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 20,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 21,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 22,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 23,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 24,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 25,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 26,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 27,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 28,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    },
+    {
+      "day": 29,
+      "own_farm": true,
+      "private": true,
+      "market": true,
+      "town": true
+    }
+  ],
+  "shadow_calls": 648,
+  "shadow_mismatches": [],
+  "fixtures": [
+    {
+      "file": "d07-call00.pickle.gz",
+      "sha256": "8614a5dc22acba667ce8462c704bd6283dc4708c0a5c1e6766c28102444cc19a",
+      "day": 7,
+      "step": 168,
+      "shadow_prefix_equal_before_call": true,
+      "original_polish_seconds": 1.2890898999758065,
+      "input_pickle_seconds": 0.0020300999749451876,
+      "output_pickle_seconds": 0.0005460999673232436,
+      "input_pickle_bytes": 60798,
+      "output_pickle_bytes": 29772
+    },
+    {
+      "file": "d12-call00.pickle.gz",
+      "sha256": "cc57ed6730324ba05ebfb33015a27237246b2483fcbd892273756abf1debe5ab",
+      "day": 12,
+      "step": 288,
+      "shadow_prefix_equal_before_call": true,
+      "original_polish_seconds": 0.5619740000693128,
+      "input_pickle_seconds": 0.0015030999202281237,
+      "output_pickle_seconds": 0.0016382000176236033,
+      "input_pickle_bytes": 155897,
+      "output_pickle_bytes": 124875
+    },
+    {
+      "file": "d18-call00.pickle.gz",
+      "sha256": "9090ed7d4d9f413144c4601d32e4dc9fc6c3cdde747bfbf62b0c0d3d7f5bb6a6",
+      "day": 18,
+      "step": 432,
+      "shadow_prefix_equal_before_call": true,
+      "original_polish_seconds": 0.5000450001098216,
+      "input_pickle_seconds": 0.002650400041602552,
+      "output_pickle_seconds": 0.00259869999717921,
+      "input_pickle_bytes": 276057,
+      "output_pickle_bytes": 244791
+    },
+    {
+      "file": "d26-call00.pickle.gz",
+      "sha256": "a4543071e1974eb48d6288b85516791d56d140b86fbeec80afcb1defefd16586",
+      "day": 26,
+      "step": 624,
+      "shadow_prefix_equal_before_call": true,
+      "original_polish_seconds": 0.5377539000473917,
+      "input_pickle_seconds": 0.005755499936640263,
+      "output_pickle_seconds": 0.005325700039975345,
+      "input_pickle_bytes": 426627,
+      "output_pickle_bytes": 395560
+    }
+  ],
+  "live_opponent_calls": 0,
+  "shadow_actions_executed": false,
+  "pickle_loading": "Load frozen executor as _strategy_kb115lt first; outer gzip pickle contains input_pickle bytes with {args,globals}; reference_output_pickle bytes contain tuple(S,segs,rest,tiles,day,st).",
+  "instrumentation_note": "Original-polish timing excludes both argument snapshots and file writing. Shadow instrumentation is not a gate runtime measurement.",
+  "verified": true
+}

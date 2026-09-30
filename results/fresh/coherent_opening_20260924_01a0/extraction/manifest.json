@@ -1,0 +1,23 @@
+{
+  "schema_version": 2,
+  "scope": "full replay through min(719, recorded transitions)",
+  "order_index": "engine parser invocation index, zero-based market queue position; successful jobs carry that slot",
+  "daily": "full end-of-day farm and private observation, plus public unlocked shops",
+  "engine_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+  "episodes": [
+    {
+      "episode": 112785833,
+      "seat": 0,
+      "path": "trace-112785833-seat0.json.gz",
+      "source_sha256": "e73f1c711768f205f7dc93e59d108c36551ccecd89e70ed8315842f9e67dab4f",
+      "transitions": 719
+    },
+    {
+      "episode": 112785833,
+      "seat": 1,
+      "path": "trace-112785833-seat1.json.gz",
+      "source_sha256": "e73f1c711768f205f7dc93e59d108c36551ccecd89e70ed8315842f9e67dab4f",
+      "transitions": 719
+    }
+  ]
+}

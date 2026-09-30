@@ -1,0 +1,106 @@
+{
+  "candidate": "smoke_v1",
+  "candidate_manifest_sha256": "2077d95bd54150d740b3488e6034c4f01c58827e9e2083eb0421573772f82ac6",
+  "independent_of_runner": true,
+  "audit_pass": true,
+  "errors": [],
+  "inputs": {
+    "training_episodes": 143,
+    "model_episodes": 143,
+    "opening_episodes": 111,
+    "recorded_panel_and_reserve_episodes": 183,
+    "live_seeds": 48,
+    "model_feature_keys": [
+      "cash",
+      "hands",
+      "inventories",
+      "opponent_animal_cohorts",
+      "opponent_crop_cohorts",
+      "own_animal_cohorts",
+      "own_crop_cohorts",
+      "own_structures",
+      "owned_quadrants",
+      "prices",
+      "seeds",
+      "shed",
+      "shops_prefix"
+    ],
+    "opening_permitted_steps": [
+      0,
+      143
+    ],
+    "pooled_pace_training_episodes": 40,
+    "pooled_pace_heldout_overlap": [],
+    "training_heldout_overlap": [],
+    "opening_heldout_overlap": []
+  },
+  "results": {
+    "development/live": {
+      "expected": 8,
+      "recorded": 8,
+      "valid": 8,
+      "gate_complete": true,
+      "eligible_wins": 1,
+      "mean_valid_margin": -6592.75,
+      "invalid": [],
+      "max_measured_overage_seconds": 14.485835499828681,
+      "diagnostic_private_omitted_cases": [
+        "live-00",
+        "live-01",
+        "live-02",
+        "live-03",
+        "live-04",
+        "live-05",
+        "live-06",
+        "live-07"
+      ]
+    },
+    "development/recorded": {
+      "expected": 8,
+      "recorded": 8,
+      "valid": 8,
+      "gate_complete": true,
+      "eligible_wins": 1,
+      "mean_valid_margin": -7240.0,
+      "invalid": [],
+      "max_measured_overage_seconds": 9.703073699842207,
+      "diagnostic_private_omitted_cases": [
+        "recorded-111681195",
+        "recorded-111871547",
+        "recorded-111902048",
+        "recorded-112181121",
+        "recorded-112476470",
+        "recorded-112610631",
+        "recorded-112612822",
+        "recorded-112615422"
+      ]
+    },
+    "qualification/live": {
+      "expected": 40,
+      "recorded": 0,
+      "valid": 0,
+      "gate_complete": false,
+      "eligible_wins": 0,
+      "mean_valid_margin": null,
+      "invalid": [],
+      "max_measured_overage_seconds": null,
+      "diagnostic_private_omitted_cases": []
+    },
+    "qualification/recorded": {
+      "expected": 40,
+      "recorded": 0,
+      "valid": 0,
+      "gate_complete": false,
+      "eligible_wins": 0,
+      "mean_valid_margin": null,
+      "invalid": [],
+      "max_measured_overage_seconds": null,
+      "diagnostic_private_omitted_cases": []
+    }
+  },
+  "limitations": [
+    "Static feature-key/source checks complement the causal-input code review; they do not prove absence of every possible hidden data path.",
+    "smoke_v1 omitted the separately stored obs.private from diagnostic snapshots; gameplay received the full observation.",
+    "Recorded opponents cannot react to changed prices, even when the failed-command screen passes."
+  ]
+}

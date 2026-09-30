@@ -1,0 +1,114 @@
+{
+ "benchmark": "agents\\benchmark_frozen_56280048.py",
+ "benchmark_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+ "candidates": {
+  "sp_null": {
+   "path": "agents\\sp_null.py",
+   "sha256": "bb63423139f8090e6dbb08f678fe6d1660ad261f33a7a401730d6c5606de981b",
+   "entry_line": 3724,
+   "description": "Control: no behavioural change."
+  },
+  "sp_flip0": {
+   "path": "agents\\sp_flip0.py",
+   "sha256": "4e26e82b89711dade95bb3044301caddf1fd83e6dd2bb24d01b00bf615704dfd",
+   "entry_line": 3727,
+   "description": "Opening flip: no turn-0 wheat orders."
+  },
+  "sp_flip5": {
+   "path": "agents\\sp_flip5.py",
+   "sha256": "cdf00f4abfa6a14d8862537f59241c60224374c5aa0c77c76b19d52eb57d98a5",
+   "entry_line": 3727,
+   "description": "Opening flip: BUY 5 / SELL 5 on turn 0."
+  },
+  "sp_flip35": {
+   "path": "agents\\sp_flip35.py",
+   "sha256": "d1b23b6afa1f3016695faaf8cc0fcde192299800b2a0e385a9b4a6797ecffd3e",
+   "entry_line": 3727,
+   "description": "Opening flip: BUY 35 / SELL 35 on turn 0."
+  },
+  "sp_flip6": {
+   "path": "agents\\sp_flip6.py",
+   "sha256": "4d6e8debf4effc96282a47fbc13b8fa0e5fc349493d3c837efae3096e965f6e5",
+   "entry_line": 3727,
+   "description": "Opening flip: BUY 6 / SELL 6 on turn 0."
+  },
+  "sp_flip7": {
+   "path": "agents\\sp_flip7.py",
+   "sha256": "192bf819d4d1f93e9441221828294f1037064bee3966aadeebc1ddb1762d7820",
+   "entry_line": 3727,
+   "description": "Opening flip: BUY 7 / SELL 7 on turn 0."
+  },
+  "sp_flip8": {
+   "path": "agents\\sp_flip8.py",
+   "sha256": "5200f1e20a090abb491b200ced633581faf75c81733e2a0513fd3390ea2d733e",
+   "entry_line": 3727,
+   "description": "Opening flip: BUY 8 / SELL 8 on turn 0."
+  },
+  "sp_flip10": {
+   "path": "agents\\sp_flip10.py",
+   "sha256": "a745561a8d063cd7c9fa96e5686f0f398db685e3ed8920de71fb658502700762",
+   "entry_line": 3727,
+   "description": "Opening flip: BUY 10 / SELL 10 on turn 0."
+  },
+  "sp_flip70": {
+   "path": "agents\\sp_flip70.py",
+   "sha256": "9cefb3b2aa1d84488e4e37eceb130fb768378d019adae0f2417ad7fb4009d3a6",
+   "entry_line": 3727,
+   "description": "Opening flip: BUY 70 / SELL 70 (identity check)."
+  },
+  "sp_nash5": {
+   "path": "agents\\sp_nash5.py",
+   "sha256": "0a35b503defdeff8484be38772ec7e23a0a4927757986d9661b4bfc470c61d73",
+   "entry_line": 3727,
+   "description": "Opening: buy 5 feed wheat on turn 0 and keep them (certified Nash)."
+  },
+  "sp_hirecap11": {
+   "path": "agents\\sp_hirecap11.py",
+   "sha256": "699486692d6ecdbe435048129cf0f6a8892a0bf8125e057d865f3767c215389c",
+   "entry_line": 3727,
+   "description": "Item 3: cap hires at 11/day, the rate both leaders never exceed."
+  },
+  "sp_hirecap12": {
+   "path": "agents\\sp_hirecap12.py",
+   "sha256": "017c2a3a1faecd4a64a68e30b9c1f3f739469d72c4ee66196de93e3bf0310959",
+   "entry_line": 3727,
+   "description": "Item 3 variant: cap hires at 12/day (drops only the 233-cost 13th hand)."
+  },
+  "sp_hirecap13": {
+   "path": "agents\\sp_hirecap13.py",
+   "sha256": "584fbc1cdeff414853103733c2757a511fc3474e7193559f219a72e313a46d51",
+   "entry_line": 3727,
+   "description": "Item 3 variant: cap hires at 13/day."
+  },
+  "sp_strawdemand": {
+   "path": "agents\\sp_strawdemand.py",
+   "sha256": "028b93658fb0c44232da6d446ab6f77ce49e92be2229fbf87bc25f168b239366",
+   "entry_line": 3776,
+   "description": "Item 1: strawberry count from projected town absorption."
+  },
+  "sp_strawcut24": {
+   "path": "agents\\sp_strawcut24.py",
+   "sha256": "d3d4507e7be4253e8c40c2335b6a8b48700a9a1439d720d178b1840465ca111c",
+   "entry_line": 3776,
+   "description": "Item 1 control: flat cap of 24 strawberries, no conditioning."
+  },
+  "sp_strawcut16": {
+   "path": "agents\\sp_strawcut16.py",
+   "sha256": "104a78277947582c538b65bfa41c6739ec2535bd33da61d2fce1719cbf025670",
+   "entry_line": 3776,
+   "description": "Item 1 control: flat cap of 16 strawberries, no conditioning."
+  },
+  "sp_noquad4": {
+   "path": "agents\\sp_noquad4.py",
+   "sha256": "f721a4bb7de8dc62ced2e52a25e5a2cfca3b2e76d51becd433ecf48291ba20cf",
+   "entry_line": 3737,
+   "description": "Item 5: never buy the fourth quadrant (both leaders, 60/60 games)."
+  },
+  "sp_fertretain": {
+   "path": "agents\\sp_fertretain.py",
+   "sha256": "de65aa4531e1e5a732dadef46447c7ed627c5fd9edd7500a024809c220e35c60",
+   "entry_line": 3734,
+   "description": "Item 4: stop the fertilizer round trip (no purchases, retain a floor)."
+  }
+ }
+}

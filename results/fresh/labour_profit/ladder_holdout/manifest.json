@@ -1,0 +1,29 @@
+{
+  "arguments": {
+    "count": 12,
+    "offset": 4,
+    "rounds": 80,
+    "days": null,
+    "chain": true,
+    "tag": "ladder_holdout",
+    "workers": 4,
+    "panel": "data/ladder_panel"
+  },
+  "paths": [
+    "data\\ladder_panel\\56341683\\110838385.json.gz",
+    "data\\ladder_panel\\56395605\\111240681.json.gz",
+    "data\\ladder_panel\\56368334\\110951483.json.gz",
+    "data\\ladder_panel\\56368334\\111017649.json.gz",
+    "data\\ladder_panel\\56368334\\110940524.json.gz",
+    "data\\ladder_panel\\56341683\\110845047.json.gz",
+    "data\\ladder_panel\\56395605\\111266227.json.gz",
+    "data\\ladder_panel\\56368334\\110972443.json.gz",
+    "data\\ladder_panel\\56341683\\110615310.json.gz",
+    "data\\ladder_panel\\56341683\\110645152.json.gz",
+    "data\\ladder_panel\\56341683\\110947924.json.gz",
+    "data\\ladder_panel\\56341683\\110676097.json.gz"
+  ],
+  "script_sha256": "4a40adcfdc92285ea12adee3d8a5037f8c02e0653591b985f404595ed7bfa6fe",
+  "engine_sha256": "bc8a54879ef02c7ea64b8b333d6a976f0ea65c4949149d01f463f23bccee653e",
+  "information": "Fixed hindsight daily production jobs; all selectors use hindsight feasibility validation. Only oracle ranks by future realized profit."
+}

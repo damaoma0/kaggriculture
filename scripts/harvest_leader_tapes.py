@@ -46,7 +46,9 @@ def handle(job):
         seat = next((i for i, n in enumerate(names) if team.lower() in (n or '').lower()), None)
         if seat is None:
             return 'team not in replay'
-        g = dict(episode=eid, seat=seat, seed=r['info']['seed'], names=names, rewards=r['rewards'],
+        quads = [[len((steps[min(719, d * 24)][0]['observation']['farms'][p_] or {}).get('unlocked_quadrants') or [])
+                  for p_ in (0, 1)] for d in range(31)]      # 2026-09-30: both seats' owned quadrants at each dawn
+        g = dict(episode=eid, seat=seat, seed=r['info']['seed'], names=names, rewards=r['rewards'], quadrants_by_day=quads,
                  shops=shop_seq([steps[min(719, d * 24)][0]['observation']['town']['unlocked_shops'] for d in range(31)]),
                  actions=[steps[t + 1][seat].get('action') or {} for t in range(719)],
                  opp_actions=[steps[t + 1][1 - seat].get('action') or {} for t in range(719)])
@@ -64,6 +66,9 @@ def main():
     team_ids = [int(x) for x in sys.argv[1].split(',')]
     K = int(sys.argv[2]) if len(sys.argv) > 2 else 40
     lb = {r['team_id']: r for r in json.loads((ROOT / 'results/fresh/newphase_20260923/leaderboard_full.json').read_text(encoding='utf-8'))}
+    new_lb = ROOT / 'results/fresh/ladder_live_20260930/leaderboard_20260930.json'   # 2026-09-30: current names first
+    if new_lb.exists():
+        lb.update({r['team_id']: r for r in json.loads(new_lb.read_text(encoding='utf-8')) if r.get('team_id')})
     for tid in team_ids:
         team = lb.get(tid, {}).get('team', str(tid))
         subs = api.competition_team_submissions(tid)

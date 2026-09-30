@@ -1,0 +1,235 @@
+{
+  "arm": "mgt_micro_wool_upturn",
+  "episode": 111248338,
+  "completed": true,
+  "source_sha256": "12f91b4bdd3970a397f16a1b39d1bbcaad99a74e794c14c640f9b476bbaf7c1e",
+  "seed": 260528649,
+  "seat": 1,
+  "cash": 89243.0,
+  "opponent_cash": 85317.0,
+  "margin": 3926.0,
+  "recorded": [
+    85708.0,
+    88068.0
+  ],
+  "action_changes": 72,
+  "first_change": 386,
+  "economics": [
+    {
+      "revenue": {
+        "FERTILIZER": 11592,
+        "WHEAT": 15351,
+        "WOOL": 12387,
+        "MILK": 16443,
+        "MELON": 15243,
+        "EGG": 8892,
+        "STRAWBERRY": 14587,
+        "CARROT": 11210,
+        "TOMATO": 8936
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 5155,
+        "HIRE": 6010.0,
+        "BUY_ANIMAL:COW": 2800,
+        "BUY_ANIMAL:SHEEP": 2000,
+        "BUY_SEED:MELON": 1120,
+        "BUY_SEED:WHEAT": 1480,
+        "BUY_SEED:CARROT": 1020,
+        "BUY_SEED:STRAWBERRY": 2400,
+        "BUY_LAND": 3000.0,
+        "BUY_ANIMAL:GOOSE": 1800,
+        "BUY_PRODUCT:FERTILIZER": 863,
+        "BUY_SEED:TOMATO": 750
+      },
+      "units": {
+        "FERTILIZER": 195,
+        "WHEAT": 393,
+        "WOOL": 76,
+        "MILK": 209,
+        "MELON": 83,
+        "EGG": 208,
+        "STRAWBERRY": 171,
+        "CARROT": 170,
+        "TOMATO": 106
+      }
+    },
+    {
+      "revenue": {
+        "FERTILIZER": 16068,
+        "WHEAT": 12376,
+        "WOOL": 20811,
+        "MILK": 18540,
+        "MELON": 14231,
+        "EGG": 4176,
+        "STRAWBERRY": 19461,
+        "CARROT": 4548
+      },
+      "spend": {
+        "BUY_ANIMAL:COW": 3200,
+        "HIRE": 5002.0,
+        "BUY_ANIMAL:SHEEP": 3000,
+        "BUY_PRODUCT:WHEAT": 4546,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:WHEAT": 1650,
+        "BUY_SEED:CARROT": 580,
+        "BUY_SEED:STRAWBERRY": 3200,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 1856,
+        "BUY_ANIMAL:GOOSE": 900
+      },
+      "units": {
+        "FERTILIZER": 327,
+        "WHEAT": 313,
+        "WOOL": 137,
+        "MILK": 246,
+        "MELON": 72,
+        "EGG": 99,
+        "STRAWBERRY": 244,
+        "CARROT": 69
+      }
+    }
+  ],
+  "overlay": {
+    "evals": [
+      [
+        6,
+        4,
+        2,
+        7,
+        -3
+      ],
+      [
+        7,
+        4,
+        2,
+        7,
+        -3
+      ],
+      [
+        8,
+        4,
+        4,
+        9,
+        -5
+      ],
+      [
+        9,
+        4,
+        4,
+        6,
+        -2
+      ],
+      [
+        10,
+        4,
+        4,
+        6,
+        -2
+      ],
+      [
+        11,
+        4,
+        4,
+        6,
+        -2
+      ],
+      [
+        12,
+        4,
+        4,
+        4,
+        0
+      ],
+      [
+        13,
+        4,
+        4,
+        4,
+        0
+      ],
+      [
+        14,
+        4,
+        4,
+        4,
+        0
+      ],
+      [
+        15,
+        6,
+        4,
+        4,
+        2,
+        1,
+        -3372,
+        477,
+        18
+      ],
+      [
+        16,
+        6,
+        4,
+        4,
+        2,
+        1,
+        -2289,
+        1440,
+        55
+      ],
+      [
+        17,
+        6,
+        4,
+        4,
+        2,
+        1,
+        -2101,
+        1449,
+        112
+      ],
+      [
+        18,
+        6,
+        4,
+        4,
+        2,
+        1,
+        -2028,
+        1257,
+        116
+      ],
+      [
+        19,
+        6,
+        4,
+        4,
+        2,
+        1,
+        -1554,
+        1537,
+        125
+      ]
+    ],
+    "hand_days": 10,
+    "topup_tasks": 30,
+    "ops_feed": 20,
+    "ops_care": 26,
+    "wool_upturn_quotes": 19,
+    "declined_profit": 5,
+    "orphan_days": 3,
+    "ops_harvest": 1,
+    "sold_wool": 3
+  },
+  "router": {
+    "switches": 4,
+    "router_errors": 0,
+    "hamming_max": 3,
+    "dist_d6": -0.02,
+    "dist_d12": 0.5,
+    "dist_d18": 22.0,
+    "dist_d24": 42.0
+  },
+  "max_action_seconds": 0.011133599968161434,
+  "actions_over_1s": 0,
+  "ledger_verified": true
+}

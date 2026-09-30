@@ -1,0 +1,25 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/lead_cycles.py",
+   "run",
+   "mgt_lpv_cur5",
+   "112594170,112601882,112610455,112610620,112611793,112612822,112612877,112613940,112614245,112614774,112615133,112615140,112616124,112616172,112616218,112616230,112617393,112617600,112617840,112618817"
+  ],
+  "collect": [
+   "results/fresh/lead_cycles/mgt_lpv_cur5/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 20,
+ "pip_seconds": 56.49865221977234,
+ "run_seconds": 312.2861409187317,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [],
+ "stderr_tail": []
+}

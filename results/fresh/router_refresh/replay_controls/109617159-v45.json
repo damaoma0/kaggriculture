@@ -1,0 +1,91 @@
+{
+  "episode": 109617159,
+  "opponent": "ruizhichen",
+  "policy": "v45",
+  "seat": 1,
+  "cash": 108724.0,
+  "opponent_cash": 92733.0,
+  "margin": 15991.0,
+  "ledger": [
+    {
+      "revenue": {
+        "WHEAT": 12512,
+        "FERTILIZER": 12878,
+        "WOOL": 46069,
+        "MILK": 15460,
+        "MELON": 14267,
+        "STRAWBERRY": 14083,
+        "EGG": 1036,
+        "CARROT": 2877
+      },
+      "sold_units": {
+        "WHEAT": 299,
+        "FERTILIZER": 336,
+        "WOOL": 204,
+        "MILK": 208,
+        "MELON": 72,
+        "STRAWBERRY": 234,
+        "EGG": 19,
+        "CARROT": 78
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 5731,
+        "HIRE": 5086.0,
+        "BUY_ANIMAL:COW": 3200,
+        "BUY_ANIMAL:SHEEP": 4000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:WHEAT": 1610,
+        "BUY_SEED:STRAWBERRY": 3200,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 1742,
+        "BUY_ANIMAL:GOOSE": 300,
+        "BUY_SEED:CARROT": 620
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 18143,
+        "FERTILIZER": 16049,
+        "WOOL": 61490,
+        "MILK": 18371,
+        "MELON": 14267,
+        "EGG": 4533,
+        "STRAWBERRY": 16134,
+        "CARROT": 3279
+      },
+      "sold_units": {
+        "WHEAT": 434,
+        "FERTILIZER": 440,
+        "WOOL": 269,
+        "MILK": 214,
+        "MELON": 72,
+        "EGG": 83,
+        "STRAWBERRY": 249,
+        "CARROT": 91
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 11234,
+        "HIRE": 9730.0,
+        "BUY_ANIMAL:COW": 3200,
+        "BUY_ANIMAL:SHEEP": 6000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:WHEAT": 1630,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 7000.0,
+        "BUY_PRODUCT:FERTILIZER": 1968,
+        "BUY_ANIMAL:GOOSE": 900,
+        "BUY_SEED:CARROT": 620
+      }
+    }
+  ],
+  "shops": [
+    "PIZZA_SHOP",
+    "BRUNCH_SPOT",
+    "YARN_STORE",
+    "YARN_STORE",
+    "FARMERS_MARKET",
+    "PIZZA_SHOP",
+    "PIZZA_SHOP",
+    "ICE_CREAM_SHOP"
+  ]
+}

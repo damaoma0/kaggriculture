@@ -259,6 +259,20 @@ CFG = {
     "sd_tier_relief_slack": 2, # hours a hand must have free at the end of its day to take a tile
     "sd_tier_straw_water": None,  # value of an extra (not survival) WATER on a strawberry (None: the job list's own)
     "sd_tier_wheat": 0,       # 1: the day's feeds are bought at hour 0 when the shed lacks the wheat (first order); pickups wait for it
+    # KW thread (wheat trading, 2026-09-28): the _market() WHEAT reserve holds today's remaining feed demand PLUS a
+    # whole extra day (n_anim*wheat_days) every hour, which (combined with sd_tier_wheat's exact hour-0 buy-first
+    # and the tier's own pending-pickup floor just below) double-books the herd's feed and blocks nearly all WHEAT
+    # selling. These flags let that reserve shrink without weakening either safety net; both default OFF (None/0),
+    # reproducing the unmodified K5b formula exactly.
+    "sd_wheat_tmrw_frac": None,   # multiplies the reserve's tomorrow-feed buffer (n_anim*wheat_days); None = 1.0 (unchanged, K5b); 0 removes it
+    "sd_wheat_today_off": 0,     # 1: also drop the reserve's today's-remaining-demand term (demand-carried); the tier's own pending-pickup floor (below) still protects today's feeds exactly
+    "sd_wheat_daily_buy": 0,     # 1: each morning (hour<=2), buy back up to n_anim WHEAT (like the leader) if the shed+carried is short of it, funded the same way as the existing feed buy
+    # KWd (user, 2026-09-28): BUY_PRODUCT is quoted at the post-buy inventory (a round trip against an unchanged
+    # market nets zero, no spread), so sell everything at h23 (frees shed room before the midnight dump too) and
+    # let the existing sd_tier_wheat hour-0 buy-first replace it the next morning. Default OFF (unchanged K5b).
+    "sd_wheat_h23_sell": 0,       # 1: at hour 23 (non-endgame), sell every WHEAT unit in the shed, ignoring every reserve/quota; the morning's sd_tier_wheat buy is capped to the shed's free room (logged if capped) so BUY_PRODUCT never fails on a full shed
+    "sd_wheat_h23_buy_room": 0,   # 1 (coordinator fix, needs sd_wheat_h23_sell=1): instead of just capping a full-shed morning buy, sell other deliverable goods first (ahead of the buy in the order list) to make room, then buy the full amount; retries any leftover at hour 1
+    "sd_wheat_h23_pickup_room": 0,  # 1 (user option, needs sd_wheat_h23_sell=1): if the hour-0 farmer would otherwise PASS (sd_tier_farmer_hold), have him PICKUP the largest non-WHEAT shed pile instead (frees room for the same-turn wheat buy without a market-order slot; not dropped back mid-route, rides to the midnight dump)
     "sd_tier_deliver": 0,     # 1: when the projected midnight dump will not fit the shed, the hands with the most valuable loads end their day at the shed (DROP, sold at once)
     "sd_tier_dump_buffer": 5,
     "sd_tier_deliver_check": 0,   # 1: a planned delivery is skipped when shed + everything carried already fits at that hour
@@ -2567,8 +2581,10 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
     # reserves: wheat for today's remaining feeding, fertilizer for pending fertilize
     reserve = Counter()
     n_anim = sum(1 for r in farm["tiles"] for t in r if _animal(t))
-    reserve["WHEAT"] = max(0, demand.get("WHEAT", 0) - carried.get("WHEAT", 0)
-                           + (n_anim * CFG["wheat_days"] if day < last_day - 1 else 0))
+    _wheat_tmrw_days = CFG["wheat_days"] if CFG["sd_wheat_tmrw_frac"] is None else CFG["sd_wheat_tmrw_frac"]
+    _wheat_today_gap = 0 if CFG["sd_wheat_today_off"] else (demand.get("WHEAT", 0) - carried.get("WHEAT", 0))
+    reserve["WHEAT"] = max(0, _wheat_today_gap
+                           + (n_anim * _wheat_tmrw_days if day < last_day - 1 else 0))
     n_plants = sum(1 for r in farm["tiles"] for t in r if _is_plant(t))
     tomorrow = min(len(T.fert[d + 1]) if d + 1 < T.n else 0, n_plants)
     if CFG["fert_release"] and not CFG.get("fert_follow"):
@@ -2601,8 +2617,17 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
         reserve["WHEAT"] = max(reserve["WHEAT"], left_)
     if endgame:
         reserve = Counter()
+    _wheat_h23_sell = CFG["sd_wheat_h23_sell"] and hour == 23 and not endgame
     # sell following the target's cumulative sold units
     for p in PRODUCTS:
+        if _wheat_h23_sell and p == "WHEAT":
+            # KWd: h23 clears the whole shed regardless of reserve/quota, freeing room before the midnight dump;
+            # the next morning's sd_tier_wheat hour-0 buy (below) replaces it (no reserve is carried overnight)
+            n = shed.get("WHEAT", 0)
+            if n > 0:
+                sells.append(["SELL", "WHEAT", int(n)])
+                S["log"]["wheat_h23_sold"] += int(n)
+            continue
         have = shed.get(p, 0) - reserve.get(p, 0)
         if have <= 0:
             continue
@@ -2728,6 +2753,19 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
         if k > 0:
             wheat_buy.append(["BUY_PRODUCT", "WHEAT", int(k)])
             cash -= k * (pw + 1)
+    # sd_wheat_daily_buy (KW thread): buy back toward one day's feed (n_anim) each morning, mirroring the leader's
+    # habitual daily wheat buy, independent of the tier's exact today-shortfall computed above
+    if CFG["sd_wheat_daily_buy"] and not endgame and hour <= 2:
+        have_w2 = shed.get("WHEAT", 0) + carried.get("WHEAT", 0) + sum(o[2] for o in wheat_buy if o[1] == "WHEAT")
+        k2 = n_anim - have_w2
+        pw2 = max(1, prices.get("WHEAT", 25))
+        k2 = min(k2, int(cash // (pw2 + 2)))
+        if k2 > 0:
+            if wheat_buy and wheat_buy[0][1] == "WHEAT":
+                wheat_buy[0][2] = int(wheat_buy[0][2]) + int(k2)
+            else:
+                wheat_buy.append(["BUY_PRODUCT", "WHEAT", int(k2)])
+            cash -= k2 * (pw2 + 1)
     # hires
     if not endgame and hour <= 12 and not CFG["hires_first"]:
         want = T.hands[d] + CFG["hire_extra"]
@@ -2843,12 +2881,60 @@ def _market(S, obs, day, hour, money, shed, seeds, carried, invs, tasks, jobs, d
         orders = ds_ + [o for o in orders if not (o[0] == "SELL" and o[1] in TPd_["dsell"])][:max(0, 10 - len(ds_))]
         TPd_["dsell"] = Counter()
     if TPw_ and TPw_.get("day") == day and TPw_.get("wheat_buy") and not TPw_.get("wheat_bought") and hour <= 1:
-        k_ = int(TPw_["wheat_buy"])
-        pw_ = max(1, prices.get("WHEAT", 25))
-        k_ = min(k_, int(money // (pw_ + 2)))
-        if k_ > 0:                                 # first in the list: it lands before the hour-1 pickups
-            orders = [["BUY_PRODUCT", "WHEAT", k_]] + [o for o in orders if not (o[0] == "BUY_PRODUCT" and o[1] == "WHEAT")][:9]
-        TPw_["wheat_bought"] = True
+        if CFG["sd_wheat_h23_buy_room"]:
+            # KWd fix (coordinator, 2026-09-28): the plain cap above silently starves the buy on a full shed
+            # instead of making room. Sell other deliverable goods (largest shed stock first) BEFORE the wheat buy
+            # in the order list (orders resolve in list order within our own turn) so their sales free room first;
+            # only cap what's genuinely unsellable, and retry any leftover at hour 1 (pickups already wait <= 2h).
+            k_ = int(TPw_.get("wheat_buy_left", TPw_["wheat_buy"]))
+            pw_ = max(1, prices.get("WHEAT", 25))
+            k_ = min(k_, int(money // (pw_ + 2)))
+            room_sells_ = []
+            if CFG["sd_wheat_h23_sell"]:
+                room_ = 100 - sum(shed.values())
+                if CFG["sd_wheat_h23_pickup_room"] and hour == 0:
+                    room_ += int(TPw_.get("h23_pickup_freed", 0) or 0)
+                if k_ > room_:
+                    need_ = k_ - room_
+                    for p_ in sorted((q for q in PRODUCTS if q != "WHEAT"), key=lambda q: -shed.get(q, 0)):
+                        if need_ <= 0:
+                            break
+                        already_ = sum(o[2] for o in sells if o[1] == p_) + sum(o[2] for o in room_sells_ if o[1] == p_)
+                        can_ = shed.get(p_, 0) - already_
+                        q_ = min(can_, need_)
+                        if q_ > 0:
+                            room_sells_.append(["SELL", p_, int(q_)])
+                            need_ -= q_
+                    if room_sells_:
+                        room_ += sum(o[2] for o in room_sells_)
+                        S["log"]["wheat_h23_room_sold"] += sum(o[2] for o in room_sells_)
+                if k_ > room_:
+                    S["log"]["wheat_h23_buy_capped"] += k_ - max(0, room_)
+                    k_ = max(0, room_)
+            if k_ > 0 or room_sells_:
+                orders = room_sells_ + ([["BUY_PRODUCT", "WHEAT", k_]] if k_ > 0 else []) + [
+                    o for o in orders if not (o[0] == "BUY_PRODUCT" and o[1] == "WHEAT")]
+                orders = orders[:10]
+            left_ = int(TPw_.get("wheat_buy_left", TPw_["wheat_buy"])) - k_
+            TPw_["wheat_buy_left"] = left_
+            if left_ <= 0 or hour >= 1:
+                TPw_["wheat_bought"] = True
+        else:
+            k_ = int(TPw_["wheat_buy"])
+            pw_ = max(1, prices.get("WHEAT", 25))
+            k_ = min(k_, int(money // (pw_ + 2)))
+            if CFG["sd_wheat_h23_sell"]:
+                # KWd: BUY_PRODUCT fails outright on a full shed (possible right after the midnight dump, since this
+                # order is forced first, before any of this hour's own sells could free room) -- cap and log instead
+                room_ = 100 - sum(shed.values())
+                if CFG["sd_wheat_h23_pickup_room"] and hour == 0:
+                    room_ += int(TPw_.get("h23_pickup_freed", 0) or 0)
+                if k_ > room_:
+                    S["log"]["wheat_h23_buy_capped"] += k_ - max(0, room_)
+                    k_ = max(0, room_)
+            if k_ > 0:                                 # first in the list: it lands before the hour-1 pickups
+                orders = [["BUY_PRODUCT", "WHEAT", k_]] + [o for o in orders if not (o[0] == "BUY_PRODUCT" and o[1] == "WHEAT")][:9]
+            TPw_["wheat_bought"] = True
     for o in orders:
         if o[0] == "SELL":
             S["sold"][o[1]] += o[2]
@@ -6762,6 +6848,35 @@ def _tier_override(S, obs, step, day, hour, tiles, pos, invs, actions, seeds, sh
         inv = invs[u] if u < len(invs) else {}
         actions[u] = _tier_cmd(TP, R, u, tuple(pos[u]), inv, tiles, day, hour, step, seeds_left, shed_left)
         snap[str(u)] = [it["tile"] for it in R["items"][R["k"]:] if it["kind"] == "stop"]
+    if (CFG["sd_wheat_h23_pickup_room"] and CFG["sd_wheat_h23_sell"] and hour == 0 and len(pos) == 1
+            and TP.get("wheat_buy") and not TP.get("h23_pickup_done")):
+        # KWd pickup option (user, 2026-09-28): at hour 0 only the farmer is on the board and he can PICKUP; the
+        # engine resolves this step's unit actions BEFORE its market orders, so a PICKUP here frees shed room for
+        # this same step's wheat buy without spending a market-order slot. Only used when the farmer would
+        # otherwise PASS this hour (sd_tier_farmer_hold holding for the hires' spawn) -- zero opportunity cost.
+        # Simplification: the picked-up pile is not dropped back mid-route; it rides to the midnight dump like any
+        # other unsold inventory (the "drop on return" refinement was not implemented -- see the report).
+        TP["h23_pickup_done"] = True
+        room0_ = 100 - sum(shed.values())
+        need0_ = int(TP["wheat_buy"]) - room0_
+        if need0_ > 0 and actions and actions[0] == ["PASS"]:
+            best_p_, best_n_ = None, 0
+            for p_ in PRODUCTS:
+                if p_ == "WHEAT":
+                    continue
+                v_ = shed.get(p_, 0)
+                if v_ > best_n_:
+                    best_p_, best_n_ = p_, v_
+            if best_p_ and best_n_ > 0:
+                take_ = int(min(best_n_, need0_))
+                actions[0] = ["PICKUP", best_p_, take_]
+                TP["h23_pickup_freed"] = take_
+                S["log"]["wheat_h23_pickup_room"] += take_
+                S["log"]["wheat_h23_pickup_item_" + best_p_] += 1
+            else:
+                S["log"]["wheat_h23_pickup_unavailable"] += 1
+        elif need0_ > 0:
+            S["log"]["wheat_h23_pickup_farmer_busy"] += 1
     if CFG["sd_plan_log"] and snap != L.get("plan_last"):
         L.setdefault("plan_log", {})[str(step)] = snap
         L["plan_last"] = snap

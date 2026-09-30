@@ -1,0 +1,49 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/lead_multi_run.py",
+   "scripts/lead_sem4.py",
+   "run",
+   "--arms",
+   "T0Lr",
+   "--cfg",
+   "p1_min_value=30;release_stale_d=true;fert_hold=1",
+   "--suffix",
+   "_e1b",
+   "--workers",
+   "4",
+   "::",
+   "scripts/lead_sem4.py",
+   "run",
+   "--arms",
+   "T0Lr",
+   "--cfg",
+   "p1_min_value=30;release_stale_d=true;fert_hold=1;cap_fix=1",
+   "--suffix",
+   "_e1cf",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/lead_sem4_20260925/T0Lr_e1b/*.json",
+   "results/fresh/lead_sem4_20260925/T0Lr_e1cf/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 96,
+ "pip_seconds": 57.44932961463928,
+ "run_seconds": 774.5788624286652,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "48 jobs: arms ['T0Lr'] x 48 games, workers 4, cfg {'p1_min_value': 30, 'release_stale_d': True, 'fert_hold': 1}",
+  "completed 48 games in 384s, errors (FAILED) 0",
+  "48 jobs: arms ['T0Lr'] x 48 games, workers 4, cfg {'p1_min_value': 30, 'release_stale_d': True, 'fert_hold': 1, 'cap_fix': 1}",
+  "completed 48 games in 390s, errors (FAILED) 0"
+ ],
+ "stderr_tail": []
+}

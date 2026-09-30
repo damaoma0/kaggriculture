@@ -1,0 +1,7 @@
+{
+  "frozen_before_ordered_metrics": true,
+  "reason": "Counts plus exposure is lossy across prefix lengths: x=8 can collapse early-shop composition. It is retained as a secondary compressed ablation, not interpreted as a marginal late-shop curve.",
+  "primary_feature_schema": "ordered position one-hot: for every revealed position 1..x, one 8-category shop identity block; extending x appends a block and preserves all earlier features",
+  "fixed_protocol": "same separate corpora, first-four-unordered SHA256 five-fold grouping, inner-only per-product alpha selection, alpha grid, target, and bootstrap as compressed study; no outer-score feature selection",
+  "interpretation": "The primary curve describes held-out predictive association from nested information prefixes. It is not a causal percent of cumulative output explained by shops."
+}

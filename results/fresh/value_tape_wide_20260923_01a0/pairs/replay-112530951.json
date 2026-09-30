@@ -1,0 +1,69 @@
+{
+  "spec": {
+    "id": "replay-112530951",
+    "world": 112530951,
+    "kind": "replay",
+    "episode": 112530951,
+    "seat": 0,
+    "opponent": "TheEggman",
+    "submission": 56498825,
+    "rating": 2885.0
+  },
+  "completed": true,
+  "baseline_margin": 15013.0,
+  "candidate_margin": 24499.0,
+  "baseline_cash": 88823.0,
+  "candidate_cash": 97870.0,
+  "baseline_rival_cash": 73810.0,
+  "candidate_rival_cash": 73371.0,
+  "margin_delta": 9486.0,
+  "cash_delta": 9047.0,
+  "rival_delta": -439.0,
+  "selected": [
+    137,
+    null,
+    null
+  ],
+  "intervened": true,
+  "actions_changed": true,
+  "baseline_bank": 59.59938799997326,
+  "candidate_bank": 53.88045560003957,
+  "baseline_divergence": {
+    "first_board_difference": 25,
+    "first_private_difference": 25,
+    "extra_failed_commands": 834,
+    "recorded_cash": 93173.0,
+    "counterfactual_cash": 73810.0,
+    "sold_units_delta": {
+      "WHEAT": -165,
+      "CARROT": -12,
+      "TOMATO": -45,
+      "STRAWBERRY": -13,
+      "MELON": -18,
+      "EGG": -84,
+      "MILK": -41,
+      "WOOL": -4,
+      "FERTILIZER": -21
+    },
+    "material_command_break": true
+  },
+  "candidate_divergence": {
+    "first_board_difference": 25,
+    "first_private_difference": 25,
+    "extra_failed_commands": 834,
+    "recorded_cash": 93173.0,
+    "counterfactual_cash": 73371.0,
+    "sold_units_delta": {
+      "WHEAT": -165,
+      "CARROT": -12,
+      "TOMATO": -45,
+      "STRAWBERRY": -13,
+      "MELON": -18,
+      "EGG": -84,
+      "MILK": -41,
+      "WOOL": -4,
+      "FERTILIZER": -21
+    },
+    "material_command_break": true
+  }
+}

@@ -1,0 +1,215 @@
+[
+  {
+    "case": "fresh-11-original_m1",
+    "spec": {
+      "id": "fresh-11-original_m1",
+      "world": 11,
+      "seed": 3685372307,
+      "seat": 1,
+      "shops": [
+        "PET_CAFE",
+        "SMOOTHIE_SHOP",
+        "PET_CAFE",
+        "PET_CAFE",
+        "FARMERS_MARKET",
+        "PET_CAFE",
+        "FARMERS_MARKET",
+        "YARN_STORE"
+      ],
+      "kind": "live",
+      "opponent": "original_m1"
+    },
+    "day": 18,
+    "selection": [
+      422,
+      [
+        [
+          7,
+          4,
+          "SHEEP",
+          8
+        ],
+        [
+          8,
+          2,
+          "STRAWBERRY",
+          6
+        ]
+      ]
+    ],
+    "actual_margin_delta": 1016.0,
+    "forecast": {
+      "mean_margin": 1542.8125,
+      "risk_score": 1045.6603534332398,
+      "minimum_margin": -62.0,
+      "stress_minimum_margin": 149.0,
+      "loss_budget": 500,
+      "cash_deltas": [
+        -1009.0,
+        248.0,
+        707.0,
+        -98.0,
+        128.0,
+        241.0,
+        -207.0,
+        212.0,
+        372.0,
+        284.0,
+        -132.0,
+        251.0,
+        392.0,
+        -288.0,
+        -510.0,
+        1187.0
+      ]
+    },
+    "economics": {
+      "own": {
+        "revenue": {
+          "CARROT": 5235,
+          "EGG": 246,
+          "FERTILIZER": -564,
+          "MELON": -41,
+          "MILK": -73,
+          "STRAWBERRY": -1355,
+          "TOMATO": -609,
+          "WHEAT": -2479,
+          "WOOL": -641
+        },
+        "spend": {
+          "BUY_PRODUCT:FERTILIZER": -34,
+          "BUY_PRODUCT:WHEAT": 380,
+          "BUY_SEED:CARROT": 560,
+          "BUY_SEED:WHEAT": -160,
+          "HIRE": 233.0
+        },
+        "units": {
+          "CARROT": 73,
+          "EGG": 6,
+          "FERTILIZER": -17,
+          "MILK": -10,
+          "STRAWBERRY": 17,
+          "TOMATO": -12,
+          "WHEAT": -93,
+          "WOOL": -4
+        },
+        "cash": -1260.0
+      },
+      "rival": {
+        "revenue": {
+          "CARROT": -860,
+          "EGG": -5,
+          "FERTILIZER": 101,
+          "MELON": 42,
+          "MILK": -45,
+          "STRAWBERRY": -2448,
+          "TOMATO": 183,
+          "WHEAT": 787,
+          "WOOL": 7
+        },
+        "spend": {
+          "BUY_PRODUCT:FERTILIZER": 2,
+          "BUY_PRODUCT:WHEAT": 36
+        },
+        "units": {},
+        "cash": -2276
+      }
+    }
+  },
+  {
+    "case": "fresh-12-v56",
+    "spec": {
+      "id": "fresh-12-v56",
+      "world": 12,
+      "seed": 1895503985,
+      "seat": 0,
+      "shops": [
+        "YARN_STORE",
+        "PIZZA_SHOP",
+        "SMOOTHIE_SHOP",
+        "BRUNCH_SPOT",
+        "ICE_CREAM_SHOP",
+        "ICE_CREAM_SHOP",
+        "YARN_STORE",
+        "SMOOTHIE_SHOP"
+      ],
+      "kind": "live",
+      "opponent": "v56"
+    },
+    "day": 12,
+    "selection": 47,
+    "actual_margin_delta": -2530.0,
+    "forecast": {
+      "mean_margin": 4841.5,
+      "risk_score": 3535.4760482671077,
+      "minimum_margin": 1140.0,
+      "stress_minimum_margin": null,
+      "loss_budget": 1210.375,
+      "cash_deltas": [
+        -697.0,
+        4522.0,
+        -458.0,
+        6923.0,
+        2758.0,
+        6306.0,
+        4749.0,
+        6597.0
+      ]
+    },
+    "economics": {
+      "own": {
+        "revenue": {
+          "CARROT": 163,
+          "FERTILIZER": -608,
+          "MILK": -2383,
+          "STRAWBERRY": -220,
+          "TOMATO": 2763,
+          "WHEAT": 7,
+          "WOOL": -653
+        },
+        "spend": {
+          "BUY_ANIMAL:COW": -400,
+          "BUY_ANIMAL:SHEEP": -500,
+          "BUY_PRODUCT:WHEAT": -1264,
+          "BUY_SEED:CARROT": -20,
+          "BUY_SEED:STRAWBERRY": -100,
+          "BUY_SEED:TOMATO": 350,
+          "BUY_SEED:WHEAT": -100,
+          "HIRE": -665.0
+        },
+        "units": {
+          "CARROT": 8,
+          "FERTILIZER": -35,
+          "MILK": -18,
+          "STRAWBERRY": 7,
+          "TOMATO": 46,
+          "WHEAT": 7,
+          "WOOL": -44
+        },
+        "cash": 1768.0
+      },
+      "rival": {
+        "revenue": {
+          "CARROT": -24,
+          "FERTILIZER": 471,
+          "MILK": 821,
+          "STRAWBERRY": -2820,
+          "WHEAT": -1360,
+          "WOOL": 6674
+        },
+        "spend": {
+          "BUY_PRODUCT:FERTILIZER": -119,
+          "BUY_PRODUCT:WHEAT": -40,
+          "HIRE": -377.0
+        },
+        "units": {
+          "CARROT": -2,
+          "FERTILIZER": -1,
+          "WHEAT": -31,
+          "WOOL": 4
+        },
+        "cash": 4298.0
+      }
+    }
+  }
+]

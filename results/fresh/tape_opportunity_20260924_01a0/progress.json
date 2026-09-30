@@ -1,0 +1,503 @@
+{
+  "completed": 133,
+  "cases": [
+    {
+      "case": "random-24-v56",
+      "n": 17,
+      "expected": 17,
+      "baseline": -11047.0,
+      "best": 1372.0,
+      "route": 204,
+      "group": "original",
+      "original": 1372.0,
+      "oldset": 1372.0,
+      "selected": 0.0,
+      "prednegative": [
+        "c04",
+        "c07"
+      ],
+      "fails": 6,
+      "confirms": [
+        {
+          "id": "c00",
+          "route": null,
+          "margin": -11047.0,
+          "delta_vs_no_switch_with_replanning": 0.0,
+          "delta_vs_native": 0.0,
+          "later_choices": [
+            null
+          ],
+          "own_delta_vs_native": 0.0,
+          "rival_delta_vs_native": 0.0
+        },
+        {
+          "id": "c04",
+          "route": 204,
+          "margin": -9675.0,
+          "delta_vs_no_switch_with_replanning": 1372.0,
+          "delta_vs_native": 1372.0,
+          "later_choices": [
+            null
+          ],
+          "own_delta_vs_native": 459.0,
+          "rival_delta_vs_native": -913.0
+        },
+        {
+          "id": "c07",
+          "route": [
+            337,
+            [
+              [
+                4,
+                5,
+                "SHEEP",
+                12
+              ]
+            ]
+          ],
+          "margin": -10375.0,
+          "delta_vs_no_switch_with_replanning": 672.0,
+          "delta_vs_native": 672.0,
+          "later_choices": [
+            null
+          ],
+          "own_delta_vs_native": 1881.0,
+          "rival_delta_vs_native": 1209.0
+        }
+      ]
+    },
+    {
+      "case": "random-02-v56",
+      "n": 17,
+      "expected": 17,
+      "baseline": -9979.0,
+      "best": 9839.0,
+      "route": 93,
+      "group": "original",
+      "original": 9839.0,
+      "oldset": 9839.0,
+      "selected": 0.0,
+      "prednegative": [
+        "c03",
+        "c05",
+        "c07",
+        "c10",
+        "c14"
+      ],
+      "fails": 4,
+      "confirms": [
+        {
+          "id": "c00",
+          "route": null,
+          "margin": -9979.0,
+          "delta_vs_no_switch_with_replanning": 0.0,
+          "delta_vs_native": 0.0,
+          "later_choices": [
+            null
+          ],
+          "own_delta_vs_native": 0.0,
+          "rival_delta_vs_native": 0.0
+        },
+        {
+          "id": "c03",
+          "route": 93,
+          "margin": -140.0,
+          "delta_vs_no_switch_with_replanning": 9839.0,
+          "delta_vs_native": 9839.0,
+          "later_choices": [
+            null
+          ],
+          "own_delta_vs_native": 7195.0,
+          "rival_delta_vs_native": -2644.0
+        },
+        {
+          "id": "c10",
+          "route": 11,
+          "margin": -2926.0,
+          "delta_vs_no_switch_with_replanning": 7053.0,
+          "delta_vs_native": 7053.0,
+          "later_choices": [
+            null
+          ],
+          "own_delta_vs_native": 5511.0,
+          "rival_delta_vs_native": -1542.0
+        }
+      ]
+    },
+    {
+      "case": "random-00-v56",
+      "n": 19,
+      "expected": 19,
+      "baseline": -9432.0,
+      "best": 5185.0,
+      "route": 197,
+      "group": "original",
+      "original": 5185.0,
+      "oldset": 5185.0,
+      "selected": 0.0,
+      "prednegative": [
+        "c03",
+        "c09",
+        "c14",
+        "c16"
+      ],
+      "fails": 7,
+      "confirms": [
+        {
+          "id": "c00",
+          "route": null,
+          "margin": -9432.0,
+          "delta_vs_no_switch_with_replanning": 0.0,
+          "delta_vs_native": 0.0,
+          "later_choices": [
+            null
+          ],
+          "own_delta_vs_native": 0.0,
+          "rival_delta_vs_native": 0.0
+        },
+        {
+          "id": "c03",
+          "route": 197,
+          "margin": -4247.0,
+          "delta_vs_no_switch_with_replanning": 5185.0,
+          "delta_vs_native": 5185.0,
+          "later_choices": [
+            null
+          ],
+          "own_delta_vs_native": 4581.0,
+          "rival_delta_vs_native": -604.0
+        },
+        {
+          "id": "c09",
+          "route": 104,
+          "margin": -7331.0,
+          "delta_vs_no_switch_with_replanning": 2101.0,
+          "delta_vs_native": 2101.0,
+          "later_choices": [
+            null
+          ],
+          "own_delta_vs_native": 2322.0,
+          "rival_delta_vs_native": 221.0
+        }
+      ]
+    },
+    {
+      "case": "fresh-22-v56",
+      "n": 14,
+      "expected": 14,
+      "baseline": -8908.0,
+      "best": 8054.0,
+      "route": 496,
+      "group": "original",
+      "original": 8054.0,
+      "oldset": 8054.0,
+      "selected": 0.0,
+      "prednegative": [],
+      "fails": 1,
+      "confirms": [
+        {
+          "id": "c00",
+          "route": null,
+          "margin": -8908.0,
+          "delta_vs_no_switch_with_replanning": 0.0,
+          "delta_vs_native": 0.0,
+          "later_choices": [
+            null
+          ],
+          "own_delta_vs_native": 0.0,
+          "rival_delta_vs_native": 0.0
+        },
+        {
+          "id": "c01",
+          "route": 496,
+          "margin": -854.0,
+          "delta_vs_no_switch_with_replanning": 8054.0,
+          "delta_vs_native": 8054.0,
+          "later_choices": [
+            null
+          ],
+          "own_delta_vs_native": -571.0,
+          "rival_delta_vs_native": -8625.0
+        },
+        {
+          "id": "c09",
+          "route": 213,
+          "margin": -1095.0,
+          "delta_vs_no_switch_with_replanning": 7813.0,
+          "delta_vs_native": 7813.0,
+          "later_choices": [
+            null
+          ],
+          "own_delta_vs_native": -638.0,
+          "rival_delta_vs_native": -8451.0
+        }
+      ]
+    },
+    {
+      "case": "random-06-v56",
+      "n": 18,
+      "expected": 18,
+      "baseline": -8897.0,
+      "best": 0.0,
+      "route": null,
+      "group": "original",
+      "original": 0.0,
+      "oldset": 0.0,
+      "selected": 0.0,
+      "prednegative": [],
+      "fails": 6,
+      "confirms": [
+        {
+          "id": "c00",
+          "route": null,
+          "margin": -8897.0,
+          "delta_vs_no_switch_with_replanning": 0.0,
+          "delta_vs_native": 0.0,
+          "later_choices": [
+            null
+          ],
+          "own_delta_vs_native": 0.0,
+          "rival_delta_vs_native": 0.0
+        },
+        {
+          "id": "c01",
+          "route": 256,
+          "margin": -8897.0,
+          "delta_vs_no_switch_with_replanning": 0.0,
+          "delta_vs_native": 0.0,
+          "later_choices": [
+            null
+          ],
+          "own_delta_vs_native": 0.0,
+          "rival_delta_vs_native": 0.0
+        }
+      ]
+    },
+    {
+      "case": "fresh-12-v56",
+      "n": 15,
+      "expected": 15,
+      "baseline": 1692.0,
+      "best": 1366.0,
+      "route": 377,
+      "group": "original",
+      "original": 1366.0,
+      "oldset": 1366.0,
+      "selected": -2530.0,
+      "prednegative": [
+        "c06"
+      ],
+      "fails": 2,
+      "confirms": [
+        {
+          "id": "c00",
+          "route": null,
+          "margin": 1692.0,
+          "delta_vs_no_switch_with_replanning": 0.0,
+          "delta_vs_native": 0.0,
+          "later_choices": [
+            null,
+            null
+          ],
+          "own_delta_vs_native": 0.0,
+          "rival_delta_vs_native": 0.0
+        },
+        {
+          "id": "c02",
+          "route": 181,
+          "margin": 1692.0,
+          "delta_vs_no_switch_with_replanning": 0.0,
+          "delta_vs_native": 0.0,
+          "later_choices": [
+            null,
+            null
+          ],
+          "own_delta_vs_native": 0.0,
+          "rival_delta_vs_native": 0.0
+        },
+        {
+          "id": "c04",
+          "route": 47,
+          "margin": -838.0,
+          "delta_vs_no_switch_with_replanning": -2530.0,
+          "delta_vs_native": -2530.0,
+          "later_choices": [
+            null,
+            null
+          ],
+          "own_delta_vs_native": 1768.0,
+          "rival_delta_vs_native": 4298.0
+        },
+        {
+          "id": "c06",
+          "route": 377,
+          "margin": 3058.0,
+          "delta_vs_no_switch_with_replanning": 1366.0,
+          "delta_vs_native": 1366.0,
+          "later_choices": [
+            null,
+            null
+          ],
+          "own_delta_vs_native": 458.0,
+          "rival_delta_vs_native": -908.0
+        }
+      ]
+    },
+    {
+      "case": "random-11-v56",
+      "n": 16,
+      "expected": 16,
+      "baseline": -1667.0,
+      "best": 6726.0,
+      "route": 414,
+      "group": "original",
+      "original": 6726.0,
+      "oldset": 6726.0,
+      "selected": 5135.0,
+      "prednegative": [],
+      "fails": 3,
+      "confirms": [
+        {
+          "id": "c00",
+          "route": null,
+          "margin": 763.0,
+          "delta_vs_no_switch_with_replanning": 0.0,
+          "delta_vs_native": 2430.0,
+          "later_choices": [
+            null,
+            289
+          ],
+          "own_delta_vs_native": 2068.0,
+          "rival_delta_vs_native": -362.0
+        },
+        {
+          "id": "c01",
+          "route": 414,
+          "margin": 5059.0,
+          "delta_vs_no_switch_with_replanning": 4296.0,
+          "delta_vs_native": 6726.0,
+          "later_choices": [
+            null,
+            null
+          ],
+          "own_delta_vs_native": 4449.0,
+          "rival_delta_vs_native": -2277.0
+        },
+        {
+          "id": "c07",
+          "route": [
+            582,
+            [
+              [
+                6,
+                2,
+                "SHEEP",
+                8
+              ]
+            ]
+          ],
+          "margin": 3468.0,
+          "delta_vs_no_switch_with_replanning": 2705.0,
+          "delta_vs_native": 5135.0,
+          "later_choices": [
+            null,
+            null
+          ],
+          "own_delta_vs_native": 1777.0,
+          "rival_delta_vs_native": -3358.0
+        },
+        {
+          "id": "c09",
+          "route": 413,
+          "margin": 4956.0,
+          "delta_vs_no_switch_with_replanning": 4193.0,
+          "delta_vs_native": 6623.0,
+          "later_choices": [
+            null,
+            null
+          ],
+          "own_delta_vs_native": 4336.0,
+          "rival_delta_vs_native": -2287.0
+        }
+      ]
+    },
+    {
+      "case": "fresh-11-original_m1",
+      "n": 17,
+      "expected": 17,
+      "baseline": 0.0,
+      "best": 1016.0,
+      "route": [
+        422,
+        [
+          [
+            7,
+            4,
+            "SHEEP",
+            8
+          ],
+          [
+            8,
+            2,
+            "STRAWBERRY",
+            6
+          ]
+        ]
+      ],
+      "group": "repair",
+      "original": 0.0,
+      "oldset": 1016.0,
+      "selected": 1016.0,
+      "prednegative": [],
+      "fails": 9,
+      "confirms": [
+        {
+          "id": "c00",
+          "route": null,
+          "margin": 0.0,
+          "delta_vs_no_switch_with_replanning": 0.0,
+          "delta_vs_native": 0.0,
+          "later_choices": [],
+          "own_delta_vs_native": 0.0,
+          "rival_delta_vs_native": 0.0
+        },
+        {
+          "id": "c01",
+          "route": 436,
+          "margin": 0.0,
+          "delta_vs_no_switch_with_replanning": 0.0,
+          "delta_vs_native": 0.0,
+          "later_choices": [],
+          "own_delta_vs_native": 0.0,
+          "rival_delta_vs_native": 0.0
+        },
+        {
+          "id": "c07",
+          "route": [
+            422,
+            [
+              [
+                7,
+                4,
+                "SHEEP",
+                8
+              ],
+              [
+                8,
+                2,
+                "STRAWBERRY",
+                6
+              ]
+            ]
+          ],
+          "margin": 1016.0,
+          "delta_vs_no_switch_with_replanning": 1016.0,
+          "delta_vs_native": 1016.0,
+          "later_choices": [],
+          "own_delta_vs_native": -1260.0,
+          "rival_delta_vs_native": -2276.0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,301 @@
+{
+  "scope": "STATIC_SOURCE_AND_PURE_FUNCTION_COMPATIBILITY_NO_GAME",
+  "source_files": [
+    {
+      "path": "results/fresh/semantic_strategy_20260928/runtime/agents/mgt_lead_kb115lt.py",
+      "sha256": "2ebe94ece8ef48bf0058e620b5803c11050de7e663a63f4f41522f0758186ee0"
+    },
+    {
+      "path": "agents/mgt_lead_kb115lt2.py",
+      "sha256": "527d4c48b5d6bbef7854d430797e8691858724242d50eeec1e1636665ee124e7"
+    }
+  ],
+  "changed_existing_definitions": [
+    "_tier_cmd",
+    "_tier_core",
+    "_tier_pre"
+  ],
+  "added_definitions": [
+    "_tier_idle_work",
+    "_tier_polish"
+  ],
+  "removed_definitions": [],
+  "unchanged_relevant": {
+    "_market": true,
+    "_sd_build": true,
+    "_sd_eval": true,
+    "_sd_eval1": true,
+    "_sd_pre": true,
+    "_sd_act": true,
+    "_sd_step": true,
+    "_tier_override": true,
+    "_exact_retire": true,
+    "_own_retire": true,
+    "_dawn_shape": true,
+    "TilePlanView": true
+  },
+  "signatures_equal": true,
+  "changed_signatures": [],
+  "config_changes": {
+    "sd_collect_at_floor": {
+      "old": "MISSING",
+      "new": 0
+    },
+    "sd_polish": {
+      "old": "MISSING",
+      "new": 0
+    },
+    "sd_polish_final": {
+      "old": "MISSING",
+      "new": 0
+    },
+    "sd_polish_seed": {
+      "old": "MISSING",
+      "new": 1
+    },
+    "sd_polish_step_w": {
+      "old": "MISSING",
+      "new": 0.2
+    },
+    "sd_polish_water_c": {
+      "old": "MISSING",
+      "new": 10.0
+    },
+    "sd_polish_xch": {
+      "old": "MISSING",
+      "new": 0.0
+    },
+    "sd_tier_idle_work": {
+      "old": "MISSING",
+      "new": 0
+    },
+    "sd_tier_idle_work_minv": {
+      "old": "MISSING",
+      "new": 5.0
+    },
+    "sd_tier_idle_work_wc": {
+      "old": "MISSING",
+      "new": 10.0
+    }
+  },
+  "canonical_overrides": {
+    "sd_collect_at_floor": 1,
+    "sd_polish": 3000,
+    "sd_polish_final": 1,
+    "sd_polish_xch": 0.2,
+    "sd_polish_water_c": 20,
+    "sd_tier_dawn_shape": "learned2",
+    "sd_tier_anim_harv_frac": 0.3
+  },
+  "new_function_source_audit": {
+    "_tier_idle_work": {
+      "forbidden_source_names": [],
+      "calls": [
+        "_animal",
+        "_is_plant",
+        "_step_toward",
+        "_tile",
+        "abs",
+        "any",
+        "enumerate",
+        "float",
+        "int",
+        "isinstance",
+        "max",
+        "min",
+        "pr",
+        "range",
+        "set"
+      ]
+    },
+    "_tier_polish": {
+      "forbidden_source_names": [],
+      "calls": [
+        "Counter",
+        "_animal",
+        "_is_plant",
+        "_tier_eval",
+        "_tier_load",
+        "_tile",
+        "all",
+        "anim_prod",
+        "any",
+        "cpx",
+        "dict",
+        "enumerate",
+        "fert_gain",
+        "float",
+        "int",
+        "isinstance",
+        "len",
+        "list",
+        "lo",
+        "max",
+        "min",
+        "movable",
+        "mv_ok",
+        "near_segs",
+        "next",
+        "pr",
+        "prod_night",
+        "range",
+        "round",
+        "seg_eval",
+        "set",
+        "sorted",
+        "spots",
+        "stop_val",
+        "sum",
+        "total",
+        "try_set",
+        "units"
+      ]
+    }
+  },
+  "exact_retirement_filter_ast_identical": true,
+  "tier_pickup_execution_prefix_ast_identical": true,
+  "learned2_poison_source_calls": [],
+  "learned2_pure_current_board_result": {
+    "18": [
+      [
+        0,
+        0,
+        44,
+        [
+          [
+            44,
+            "SHEEP"
+          ]
+        ],
+        44
+      ],
+      [
+        1,
+        1,
+        45,
+        [
+          [
+            45,
+            "SHEEP"
+          ]
+        ],
+        45
+      ],
+      [
+        2,
+        1,
+        54,
+        [
+          [
+            54,
+            "SHEEP"
+          ]
+        ],
+        54
+      ],
+      [
+        3,
+        1,
+        44,
+        [
+          [
+            34,
+            "SHEEP"
+          ],
+          [
+            33,
+            "SHEEP"
+          ]
+        ],
+        44
+      ],
+      [
+        4,
+        1,
+        45,
+        [
+          [
+            35,
+            "SHEEP"
+          ]
+        ],
+        45
+      ],
+      [
+        5,
+        1,
+        44,
+        [
+          [
+            43,
+            "SHEEP"
+          ]
+        ],
+        44
+      ],
+      [
+        6,
+        1,
+        54,
+        [
+          [
+            53,
+            "SHEEP"
+          ]
+        ],
+        54
+      ]
+    ]
+  },
+  "conclusions": {
+    "rolling_wheat_stall_fixed": false,
+    "tier_partial_pickup_fixed": false,
+    "clean_interface_new_source_read_found": false,
+    "new_retirement_bypass_found": false
+  },
+  "scope_limit": "Static and pure-function evidence. Enabled polish may change allocations and runtime; frozen V8 gameplay and leak counters remain necessary.",
+  "script_sha256": "ee79291f9cf4266f0f0d8ee0f7a722cebc56f09a20649dac308988898ced00d9",
+  "frozen_candidate_audit": {
+    "candidate": "strategy_v8_kb115lt2_readiness",
+    "manifest_sha256": "f5133c24fdf845874c4fb3ba66760dfb3fe4eee3ee30a64b07fcc28364c56f5f",
+    "prior_manifest_sha256": "6b155e1e44e370a87fa1197c1cd6076de1f1e016ba4a849bdbbf4b6837ecdb4e",
+    "checks": {
+      "project_files_match": true,
+      "harness_files_match": true,
+      "only_executor_and_recipe_changed": true,
+      "canonical_recipe_changes": true,
+      "executor_is_selected_source": true,
+      "harness_unchanged": true,
+      "config_unchanged": true,
+      "entry_unchanged": true,
+      "training_episodes_unchanged": true,
+      "model_provenance_unchanged": true,
+      "prior_manifest_link_correct": true,
+      "protocol_hash_correct": true,
+      "no_reserved_training_episode_overlap": true
+    },
+    "changed_files": {
+      "results/fresh/semantic_strategy_20260928/executor_recipe_online.json": {
+        "old": "5152565508925c2180f9282662d08ea5b8112b69772612488aa1ab6d31202b76",
+        "new": "5af4adb91963b040dab6ce0b521fad21fd979669e5015d4cedec167b8ce3a4cc"
+      },
+      "results/fresh/semantic_strategy_20260928/runtime/agents/mgt_lead_kb115lt.py": {
+        "old": "2ebe94ece8ef48bf0058e620b5803c11050de7e663a63f4f41522f0758186ee0",
+        "new": "527d4c48b5d6bbef7854d430797e8691858724242d50eeec1e1636665ee124e7"
+      }
+    },
+    "recipe_changes": {
+      "sd_tier_dawn_shape": "learned2",
+      "sd_polish": 3000,
+      "sd_collect_at_floor": 1,
+      "sd_polish_final": 1,
+      "sd_polish_xch": 0.2,
+      "sd_tier_anim_harv_frac": 0.3,
+      "sd_polish_water_c": 20
+    },
+    "training_episodes": 243,
+    "reserved_episodes": 183,
+    "reserved_training_overlap": [],
+    "result": "PASS"
+  }
+}

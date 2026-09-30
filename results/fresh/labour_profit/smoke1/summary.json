@@ -1,0 +1,81 @@
+{
+  "episodes": 1,
+  "blocks": 1,
+  "selectors": {
+    "wage": {
+      "mean_opportunity": 89.0,
+      "median": 89.0,
+      "minimum": 89.0,
+      "maximum": 89.0,
+      "episode_bootstrap_95": [
+        89.0,
+        89.0
+      ],
+      "wage": 89.0,
+      "revenue": 0,
+      "positive_blocks": 1,
+      "negative_blocks": 0
+    },
+    "early": {
+      "mean_opportunity": -175.0,
+      "median": -175.0,
+      "minimum": -175.0,
+      "maximum": -175.0,
+      "episode_bootstrap_95": [
+        -175.0,
+        -175.0
+      ],
+      "wage": 0.0,
+      "revenue": -175,
+      "positive_blocks": 0,
+      "negative_blocks": 1
+    },
+    "forecast": {
+      "mean_opportunity": 89.0,
+      "median": 89.0,
+      "minimum": 89.0,
+      "maximum": 89.0,
+      "episode_bootstrap_95": [
+        89.0,
+        89.0
+      ],
+      "wage": 89.0,
+      "revenue": 0,
+      "positive_blocks": 1,
+      "negative_blocks": 0
+    },
+    "robust": {
+      "mean_opportunity": 89.0,
+      "median": 89.0,
+      "minimum": 89.0,
+      "maximum": 89.0,
+      "episode_bootstrap_95": [
+        89.0,
+        89.0
+      ],
+      "wage": 89.0,
+      "revenue": 0,
+      "positive_blocks": 1,
+      "negative_blocks": 0
+    },
+    "oracle": {
+      "mean_opportunity": 89.0,
+      "median": 89.0,
+      "minimum": 89.0,
+      "maximum": 89.0,
+      "episode_bootstrap_95": [
+        89.0,
+        89.0
+      ],
+      "wage": 89.0,
+      "revenue": 0,
+      "positive_blocks": 1,
+      "negative_blocks": 0
+    }
+  },
+  "rejections": {
+    "route_over_24": 4
+  },
+  "valid_candidates": 6,
+  "total_seconds": 0.9132607000065036
+}

@@ -1,0 +1,35 @@
+const fs=require('node:fs'),path=require('node:path');
+const root=path.resolve(__dirname,'..'),dir=path.join(root,'results/fresh/tile_transition_timing'),target=process.argv[2];
+if(!target||!path.isAbsolute(target))throw Error('Supply an absolute visualization path.');
+const summary=JSON.parse(fs.readFileSync(path.join(dir,'summary.json')));
+const clock=step=>{const s=Math.round(step);return `D${Math.floor(s/24)} ${String(s%24).padStart(2,'0')}:00`;};
+const counts={};for(const g of summary.leaders)for(const r of g.pairRows)counts[r.transition]=(counts[r.transition]||0)+r.n;
+const pairs=Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,8).map(([k])=>k);
+pairs.push('STRAWBERRY → TOMATO');
+const visual={pairs,leaders:summary.leaders.map(g=>({leader:g.leader,n:g.n,rows:pairs.map(transition=>g.pairRows.find(r=>r.transition===transition)||{transition,byDay:Array(30).fill(0)})}))};
+const html=fs.readFileSync(path.join(root,'scripts/fragments/tile_transition_timing.html'),'utf8').replace('__DATA__',JSON.stringify(visual).replaceAll('<','\\u003c'));
+fs.writeFileSync(target,html);
+let report='# Tile production changes and their timestamps\n\n';
+report+='108 DSM games from submission 56444344 and 105 historical UMG games from submission 56266758. All use full hourly recorded states. The samples are different worlds, so differences are descriptive.\n\n';
+report+='## Definitions and verification\n\n';
+report+='A switch is a change between consecutive nonempty crop/animal identities. Empty tiles, weeds, locked tiles and empty buildings are skipped. Same-type replanting and initial establishment are recorded separately. The action timestamp is the observation from which PLANT/PLACE was issued; the new type first appears one frame later. Days and hours are zero-based.\n\n';
+report+='All 17,462 switches match a PLANT or PLACE command for the new type by a worker standing on that tile. Full-season totals reproduce the earlier maps exactly (DSM 9,595; UMG 7,867). The extractor also passes synthetic checks for empty intervals, same-type replanting, direct replacements and a switch across the day-12 boundary.\n\n';
+report+='For each switch the ledger retains coordinates, both timestamps, source cohort birth day and age, last productive frame, first nonproductive frame, intervening empty hours, commands at release and establishment, current prices, cash and revealed shops. The recorded release commands are evidence, not a general causal attribution: several workers can occupy the same tile.\n\n';
+report+='## Main findings\n\n';
+report+='The most conspicuous difference is the earlier DSM strawberry rotation: wheat-to-strawberry changes concentrate on days 2–3 in DSM and days 5 and 8 in UMG. DSM subsequently records 325 strawberry-to-tomato changes (3.01/game), 299 on days 18–19. UMG records only five (0.048/game). This is a candidate strategy difference, not evidence that the DSM choice earns more in the same world.\n\n';
+for(const g of summary.leaders){
+  const runs=JSON.parse(fs.readFileSync(path.join(dir,g.leader.toLowerCase()+'-events.json'))),events=runs.flatMap(r=>r.events);
+  const sourceTypes=['MELON','STRAWBERRY','TOMATO'];
+  report+=`### ${g.leader}\n\n${g.events.toLocaleString()} type switches (${(g.events/g.n).toFixed(1)}/game), plus ${g.sameTypeReplants.toLocaleString()} same-type replantings. Median vacancy between old and new type: ${g.emptyHours.median} hour; ${(100*g.fractionAtMost3EmptyHours).toFixed(1)}% of switches have at most three nonproductive hourly states.\n\n`;
+  for(const type of sourceTypes){const list=events.filter(e=>e.from===type),ages={};for(const e of list)ages[e.previousAgeDays]=(ages[e.previousAgeDays]||0)+1;const mode=Object.entries(ages).sort((a,b)=>b[1]-a[1])[0];report+=`- ${type.toLowerCase()}: ${list.length} replacements; ${(100*mode[1]/list.length).toFixed(1)}% leave the old type at age ${mode[0]} days. ${list.filter(e=>e.previousTile.yield_units===0).length}/${list.length} have zero stored yield in the last old-type state.\n`;}
+  report+='\n| Transition | Events / games containing it | Median replacement action | Middle 80% of timestamps | Median source age at release | Median vacant hours |\n|---|---:|---|---|---:|---:|\n';
+  for(const r of g.pairRows.slice(0,12))report+=`| ${r.transition} | ${r.n} / ${r.games} | ${clock(r.actionTime.median)} | ${clock(r.actionTime.p10)}–${clock(r.actionTime.p90)} | ${r.ageDays.median} | ${r.emptyHours.median} |\n`;
+  report+='\nThese are event-weighted descriptive quantiles; they are not confidence intervals. Wide or multimodal distributions should not be reduced to a single fixed replacement day.\n\n';
+  const t=g.tiles[0];report+=`Tile (0,0): ${t.changedGames}/${t.productiveGames} games change type. Most common path: **${t.paths[0][0]}**, in ${t.paths[0][1]} games. Among games that change, the first switch's middle 80% is ${clock(t.firstChangeTime.p10)}–${clock(t.firstChangeTime.p90)}.\n\n`;
+}
+report+='## Interpretation for the planner\n\nThe source lifecycle gives a strong candidate clock for when a tile can change. Destination type is a separate decision, conditioned on remaining season, visible demand, prices, existing farm output and feasible worker visits. The data do not yet establish which of those variables causes the observed choices.\n\nBoth policies commonly harvest a short crop or clear an exhausted long-lived crop and establish its replacement one hour later. This suggests transferring a complete release-and-replant appointment with its following maintenance and delivery commitments. Crop age is often more stable than calendar day; exact tile coordinates differ between leaders.\n\nA useful next dataset treats same-type replantings as competing choices, rather than learning only from type switches. This audit already retains them, along with initial establishments and terminal vacancies. Policy evaluation must additionally include waiting/retaining a crop, input feasibility, output and profits; imitation frequencies alone are not optimization evidence.\n\n';
+report+='## Day-12 boundary correction\n\n';
+report+='The earlier heatmaps restarted each tile history at day 12. This event audit instead follows source identity across the boundary and dates the actual replacement action. Thus it includes replacements after day 12 of tiles whose old type disappeared before day 12. The resulting late counts are DSM 7,206 and UMG 5,961; applying the earlier within-window convention reproduces 7,176 and 5,777 exactly. This is a definition difference, not new games or a failed reconciliation.\n\n';
+report+='## Reproduction\n\nRun `node scripts/investigate_tile_transitions.cjs`, then `node scripts/report_tile_transition_timing.cjs <absolute-visualization-path>`. Event ledgers and summaries are in `results/fresh/tile_transition_timing/`. No agent policy was changed.\n';
+fs.writeFileSync(path.join(root,'docs/tile_transition_timing.md'),report);
+console.log(JSON.stringify({visualization:target,bytes:Buffer.byteLength(html),report:'docs/tile_transition_timing.md',pairs}));

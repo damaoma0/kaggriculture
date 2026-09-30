@@ -1,0 +1,49 @@
+[
+  {
+    "name": "v49",
+    "notebook_sha256": "bbe94a8020307916025fbe48ee948112429822d702d15c6712f3f502addbb031",
+    "source_sha256": "ed89be8cd96fe58ea5ca96c91bbeda28d928a5192ed926639fe6c43aea39b368",
+    "bytes": 437804,
+    "imports": [
+      "from __future__ import annotations",
+      "import copy",
+      "import base64",
+      "import json",
+      "import zlib",
+      "import math",
+      "from itertools import permutations as _r53_permutations",
+      "import itertools as _v44y_it",
+      "import copy as _y_copy",
+      "import collections as _e342_collections"
+    ],
+    "review_calls": [
+      "_hd2_rewrite",
+      "exec",
+      "{'PLANT': 'plant_requests', 'WATER': 'water_requests', 'FERTILIZE': 'fertilize_requests', 'HARVEST': 'harvest_requests', 'DROP': 'drop_requests'}.get"
+    ]
+  },
+  {
+    "name": "v50",
+    "notebook_sha256": "8dd24ea45602d4de8534260cc2436c1aeeaf81b9150916c5c183391f52db0ebf",
+    "source_sha256": "044a26601be23816d397c51c22c4d86b938f8bac4b914f9bea1fbe38bac1e8a5",
+    "bytes": 453739,
+    "imports": [
+      "from __future__ import annotations",
+      "import copy",
+      "import base64",
+      "import json",
+      "import zlib",
+      "import math",
+      "from itertools import permutations as _r53_permutations",
+      "import itertools as _v44y_it",
+      "import copy as _y_copy",
+      "import collections as _e342_collections",
+      "import collections as _e343_collections"
+    ],
+    "review_calls": [
+      "_hd2_rewrite",
+      "exec",
+      "{'PLANT': 'plant_requests', 'WATER': 'water_requests', 'FERTILIZE': 'fertilize_requests', 'HARVEST': 'harvest_requests', 'DROP': 'drop_requests'}.get"
+    ]
+  }
+]

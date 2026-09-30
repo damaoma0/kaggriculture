@@ -1,0 +1,738 @@
+{
+  "agent": "mgt_pm_value",
+  "seed": 172003,
+  "seat": 1,
+  "opponent": "v50",
+  "sha256": "8d87742368326d1624bfb87166a4f979ca03f8a9b723dece49662b756da90b28",
+  "opponent_sha256": "044a26601be23816d397c51c22c4d86b938f8bac4b914f9bea1fbe38bac1e8a5",
+  "cash": 95364.0,
+  "opponent_cash": 81808.0,
+  "margin": 13556.0,
+  "action_sha256": "93a3fa10da0aaefd7b90c369aa810b0cd80daba6fc3547b832e92d5cedbd3066",
+  "ledger": {
+    "revenue": {
+      "FERTILIZER": 12578,
+      "WHEAT": 8670,
+      "WOOL": 35365,
+      "MILK": 5966,
+      "MELON": 14837,
+      "EGG": 2932,
+      "STRAWBERRY": 14711,
+      "CARROT": 21664,
+      "TOMATO": 6702
+    },
+    "spend": {
+      "BUY_PRODUCT:WHEAT": 6687,
+      "HIRE": 4858.0,
+      "BUY_ANIMAL:COW": 1600,
+      "BUY_ANIMAL:SHEEP": 6500,
+      "BUY_SEED:MELON": 1120,
+      "BUY_SEED:WHEAT": 1080,
+      "BUY_SEED:CARROT": 1760,
+      "BUY_SEED:STRAWBERRY": 2300,
+      "BUY_LAND": 3000.0,
+      "BUY_PRODUCT:FERTILIZER": 856,
+      "BUY_ANIMAL:GOOSE": 600,
+      "BUY_SEED:TOMATO": 700
+    },
+    "sold_units": {
+      "FERTILIZER": 249,
+      "WHEAT": 249,
+      "WOOL": 309,
+      "MILK": 95,
+      "MELON": 78,
+      "EGG": 62,
+      "STRAWBERRY": 140,
+      "CARROT": 306,
+      "TOMATO": 96
+    }
+  },
+  "physical": {
+    "commands": 7087,
+    "commands_farmer": 719,
+    "op:PASS": 847,
+    "op:NORTH": 944,
+    "moves": 2830,
+    "op:SOUTH": 472,
+    "commands_hand": 6368,
+    "op:PICKUP": 214,
+    "effective": 3410,
+    "op:BUILD_PASTURE": 19,
+    "op:PLACE": 104,
+    "op:WEST": 880,
+    "op:CARE": 344,
+    "op:PLANT": 246,
+    "op:WATER": 1015,
+    "op:FEED": 353,
+    "op:COLLECT_FERTILIZER": 401,
+    "produced:FERTILIZER": 401,
+    "op:EAST": 534,
+    "op:DROP": 42,
+    "op:HARVEST": 462,
+    "produced:WHEAT": 411,
+    "produced:WOOL": 309,
+    "produced:MILK": 95,
+    "op:DIG": 45,
+    "produced:MELON": 78,
+    "op:BUILD_COOP": 3,
+    "op:FERTILIZE": 162,
+    "produced:EGG": 62,
+    "produced:STRAWBERRY": 140,
+    "produced:CARROT": 310,
+    "produced:TOMATO": 99
+  },
+  "opponent_physical": {
+    "commands": 7097,
+    "commands_farmer": 719,
+    "op:PASS": 638,
+    "op:NORTH": 968,
+    "moves": 3107,
+    "op:SOUTH": 571,
+    "commands_hand": 6378,
+    "op:PICKUP": 154,
+    "effective": 3232,
+    "op:BUILD_PASTURE": 17,
+    "op:PLACE": 108,
+    "op:WEST": 909,
+    "op:CARE": 397,
+    "op:PLANT": 238,
+    "op:WATER": 1089,
+    "op:FEED": 315,
+    "op:COLLECT_FERTILIZER": 382,
+    "produced:FERTILIZER": 357,
+    "op:EAST": 659,
+    "op:HARVEST": 487,
+    "produced:WHEAT": 453,
+    "no_effect": 120,
+    "no_effect:CARE": 23,
+    "no_effect:COLLECT_FERTILIZER": 25,
+    "op:DROP": 32,
+    "no_effect:WATER": 12,
+    "produced:WOOL": 225,
+    "produced:MILK": 161,
+    "produced:MELON": 72,
+    "no_effect:PICKUP": 1,
+    "op:BUILD_COOP": 2,
+    "no_effect:PLACE": 4,
+    "no_effect:FEED": 18,
+    "op:FERTILIZE": 96,
+    "no_effect:HARVEST": 35,
+    "produced:STRAWBERRY": 247,
+    "op:DIG": 35,
+    "no_effect:DIG": 1,
+    "produced:CARROT": 173,
+    "no_effect:FERTILIZE": 1
+  },
+  "daily_cash": [
+    3000.0,
+    22.0,
+    147.0,
+    141.0,
+    124.0,
+    146.0,
+    212.0,
+    618.0,
+    106.0,
+    756.0,
+    2320.0,
+    13626.0,
+    13880.0,
+    18802.0,
+    20496.0,
+    25494.0,
+    30806.0,
+    37310.0,
+    44389.0,
+    51069.0,
+    55836.0,
+    61028.0,
+    65637.0,
+    68360.0,
+    69760.0,
+    73009.0,
+    74800.0,
+    78352.0,
+    81815.0,
+    87478.0,
+    95364.0
+  ],
+  "telemetry": {
+    "events": [
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 434
+      },
+      {
+        "kind": "rejected_future_plant",
+        "tile": [
+          1,
+          7
+        ],
+        "step": 450
+      },
+      {
+        "kind": "rejected_future_plant",
+        "tile": [
+          0,
+          9
+        ],
+        "step": 450
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 456
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 457
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 458
+      },
+      {
+        "kind": "rejected_value_gate",
+        "tile": [
+          2,
+          1
+        ],
+        "step": 473
+      },
+      {
+        "kind": "rejected_future_plant",
+        "tile": [
+          3,
+          1
+        ],
+        "step": 474
+      },
+      {
+        "kind": "rejected_care_proof",
+        "tile": [
+          1,
+          0
+        ],
+        "step": 476
+      },
+      {
+        "kind": "rejected_care_proof",
+        "tile": [
+          8,
+          0
+        ],
+        "step": 477
+      },
+      {
+        "kind": "rejected_future_plant",
+        "tile": [
+          0,
+          1
+        ],
+        "step": 477
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 480
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 481
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 482
+      },
+      {
+        "kind": "rejected_future_plant",
+        "tile": [
+          7,
+          0
+        ],
+        "step": 499
+      },
+      {
+        "kind": "rejected_care_proof",
+        "tile": [
+          0,
+          0
+        ],
+        "step": 502
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 504
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 505
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 506
+      },
+      {
+        "kind": "rejected_future_plant",
+        "tile": [
+          8,
+          1
+        ],
+        "step": 519
+      },
+      {
+        "kind": "rejected_future_plant",
+        "tile": [
+          9,
+          0
+        ],
+        "step": 524
+      },
+      {
+        "kind": "rejected_care_proof",
+        "tile": [
+          0,
+          9
+        ],
+        "step": 524
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 528
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 529
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 530
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          6,
+          1
+        ],
+        "step": 545
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          8,
+          2
+        ],
+        "step": 547
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          7,
+          2
+        ],
+        "step": 548
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          3,
+          1
+        ],
+        "step": 548
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          0,
+          1
+        ],
+        "step": 549
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 552
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 553
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 554
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          7,
+          0
+        ],
+        "step": 570
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          9,
+          1
+        ],
+        "step": 570
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          0,
+          7
+        ],
+        "step": 571
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 576
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 577
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 578
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          7,
+          1
+        ],
+        "step": 589
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          8,
+          1
+        ],
+        "step": 590
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          3,
+          9
+        ],
+        "step": 590
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          1,
+          8
+        ],
+        "step": 592
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          1,
+          1
+        ],
+        "step": 593
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          0,
+          3
+        ],
+        "step": 593
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          8,
+          0
+        ],
+        "step": 593
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          2,
+          1
+        ],
+        "step": 594
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          2,
+          9
+        ],
+        "step": 594
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          1,
+          0
+        ],
+        "step": 596
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          0,
+          8
+        ],
+        "step": 596
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          0,
+          0
+        ],
+        "step": 596
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          9,
+          0
+        ],
+        "step": 598
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 600
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 601
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 602
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          1,
+          9
+        ],
+        "step": 615
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          3,
+          1
+        ],
+        "step": 617
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          4,
+          0
+        ],
+        "step": 618
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          0,
+          9
+        ],
+        "step": 619
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          0,
+          1
+        ],
+        "step": 619
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 624
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 625
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 626
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          5,
+          1
+        ],
+        "step": 634
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          4,
+          9
+        ],
+        "step": 640
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          9,
+          3
+        ],
+        "step": 642
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          1,
+          3
+        ],
+        "step": 644
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          0,
+          0
+        ],
+        "step": 644
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          2,
+          8
+        ],
+        "step": 646
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 648
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 649
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 650
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          7,
+          0
+        ],
+        "step": 665
+      },
+      {
+        "kind": "rejected_outside_window",
+        "tile": [
+          1,
+          7
+        ],
+        "step": 666
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 672
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 673
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 674
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 696
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 697
+      },
+      {
+        "kind": "calendar_build",
+        "route": 298,
+        "step": 698
+      }
+    ],
+    "committed": 0,
+    "errors": 0,
+    "mismatches": 0,
+    "displaced_wheat": 0,
+    "unused_seed": 0,
+    "router_pins": 0,
+    "movement_mutations": 0,
+    "hire_mutations": 0,
+    "active": {},
+    "calendar_build": 54,
+    "rejected_future_plant": 17,
+    "rejected_care_proof": 5,
+    "rejected_value_gate": 6,
+    "rejected_outside_window": 34
+  },
+  "native_telemetry": {
+    "declined_cash": 2,
+    "declined_hire_cash": 1,
+    "hire_guard_fired": 3,
+    "hire_guard_sold": 2,
+    "hire_guard_unfunded": 2
+  },
+  "events": [],
+  "shops": [
+    "YARN_STORE",
+    "FARMERS_MARKET",
+    "PET_CAFE",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP",
+    "PET_CAFE",
+    "SMOOTHIE_SHOP",
+    "FARMERS_MARKET"
+  ],
+  "statuses": [
+    "DONE",
+    "DONE"
+  ],
+  "actions": 719
+}

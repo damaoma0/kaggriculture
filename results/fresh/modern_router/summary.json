@@ -1,0 +1,226 @@
+{
+  "comparisons": {
+    "development/farmingv5": {
+      "games": 8,
+      "baseline_wins": 8,
+      "candidate_wins": 8,
+      "baseline_ties": 0,
+      "candidate_ties": 0,
+      "margin_gain": -161.0,
+      "cash_gain": -71.0,
+      "baseline_margin": 3118.25,
+      "candidate_margin": 2957.25,
+      "seed_gains": {
+        "137000": 102.0,
+        "137001": 0.0,
+        "137002": -746.0,
+        "137003": 0.0
+      }
+    },
+    "development/twocoins": {
+      "games": 8,
+      "baseline_wins": 8,
+      "candidate_wins": 8,
+      "baseline_ties": 0,
+      "candidate_ties": 0,
+      "margin_gain": -107.25,
+      "cash_gain": -94.25,
+      "baseline_margin": 4873.5,
+      "candidate_margin": 4766.25,
+      "seed_gains": {
+        "137000": -221.0,
+        "137001": 0.0,
+        "137002": -208.0,
+        "137003": 0.0
+      }
+    },
+    "development/v44": {
+      "games": 8,
+      "baseline_wins": 8,
+      "candidate_wins": 8,
+      "baseline_ties": 0,
+      "candidate_ties": 0,
+      "margin_gain": 83.75,
+      "cash_gain": 36.0,
+      "baseline_margin": 1300.0,
+      "candidate_margin": 1383.75,
+      "seed_gains": {
+        "137000": 156.0,
+        "137001": 0.0,
+        "137002": 179.0,
+        "137003": 0.0
+      }
+    },
+    "confirmation/farmingv5": {
+      "games": 16,
+      "baseline_wins": 14,
+      "candidate_wins": 14,
+      "baseline_ties": 0,
+      "candidate_ties": 0,
+      "margin_gain": -116.75,
+      "cash_gain": -1.5,
+      "baseline_margin": 2481.0,
+      "candidate_margin": 2364.25,
+      "seed_gains": {
+        "138000": -312.0,
+        "138001": -408.0,
+        "138002": -793.0,
+        "138003": 0.0,
+        "138004": -329.0,
+        "138005": 346.0,
+        "138006": 23.0,
+        "138007": 539.0
+      }
+    },
+    "confirmation/twocoins": {
+      "games": 16,
+      "baseline_wins": 16,
+      "candidate_wins": 16,
+      "baseline_ties": 0,
+      "candidate_ties": 0,
+      "margin_gain": 0.25,
+      "cash_gain": 39.125,
+      "baseline_margin": 7596.625,
+      "candidate_margin": 7596.875,
+      "seed_gains": {
+        "138000": -287.0,
+        "138001": -216.0,
+        "138002": 700.0,
+        "138003": 0.0,
+        "138004": -309.0,
+        "138005": 320.0,
+        "138006": -27.0,
+        "138007": -179.0
+      }
+    },
+    "confirmation/v44": {
+      "games": 16,
+      "baseline_wins": 14,
+      "candidate_wins": 14,
+      "baseline_ties": 0,
+      "candidate_ties": 0,
+      "margin_gain": 38.5,
+      "cash_gain": 85.0,
+      "baseline_margin": 1032.875,
+      "candidate_margin": 1071.375,
+      "seed_gains": {
+        "138000": 0.0,
+        "138001": 224.0,
+        "138002": 40.0,
+        "138003": 0.0,
+        "138004": -326.0,
+        "138005": 346.0,
+        "138006": 29.0,
+        "138007": -5.0
+      }
+    },
+    "confirmation/v45": {
+      "games": 16,
+      "baseline_wins": 0,
+      "candidate_wins": 6,
+      "baseline_ties": 16,
+      "candidate_ties": 6,
+      "margin_gain": -4.75,
+      "cash_gain": 43.75,
+      "baseline_margin": 0.0,
+      "candidate_margin": -4.75,
+      "seed_gains": {
+        "138000": 0.0,
+        "138001": 224.0,
+        "138002": 40.0,
+        "138003": 0.0,
+        "138004": -326.0,
+        "138005": 0.0,
+        "138006": 29.0,
+        "138007": -5.0
+      }
+    }
+  },
+  "selection": {
+    "chosen": "baseline",
+    "sha256": "2536d41ed5a00c75204b6350f1c76c54259c774cb065ba2a3a0072eedf210d94",
+    "gates": {
+      "positive_mean_margin": false,
+      "nonnegative_each_rival": false,
+      "six_positive_seeds": false,
+      "no_fewer_wins": true,
+      "own_cash_floor": true,
+      "no_errors_or_fallbacks": true,
+      "action_time_below_one_second": true
+    },
+    "confirmation_margin_gain": -20.6875,
+    "confirmation_cash_gain": 41.59375,
+    "seed_gains": {
+      "138000": -149.75,
+      "138001": -44.0,
+      "138002": -3.25,
+      "138003": 0.0,
+      "138004": -322.5,
+      "138005": 253.0,
+      "138006": 13.5,
+      "138007": 87.5
+    },
+    "max_candidate_seconds": 0.36458649999985937,
+    "mean_changed_calls": 1.21875,
+    "note": "Local working baseline only. Existing Kaggle submission and historical selected agent unchanged."
+  },
+  "errors": [],
+  "accounting": {
+    "development": {
+      "revenue:WHEAT": 83.91666666666667,
+      "revenue:FERTILIZER": 37.75,
+      "revenue:WOOL": 3.6666666666666665,
+      "revenue:MILK": -15.916666666666666,
+      "revenue:MELON": 0.0,
+      "revenue:EGG": -23.5,
+      "revenue:STRAWBERRY": -22.333333333333332,
+      "revenue:CARROT": 7.75,
+      "cost:BUY_PRODUCT:WHEAT": 0.0,
+      "cost:HIRE": 48.0,
+      "cost:BUY_ANIMAL:COW": 0.0,
+      "cost:BUY_ANIMAL:SHEEP": 0.0,
+      "cost:BUY_SEED:MELON": 0.0,
+      "cost:BUY_SEED:WHEAT": 0.0,
+      "cost:BUY_SEED:STRAWBERRY": 0.0,
+      "cost:BUY_LAND": 0.0,
+      "cost:BUY_PRODUCT:FERTILIZER": 66.41666666666667,
+      "cost:BUY_ANIMAL:GOOSE": 0.0,
+      "cost:BUY_SEED:CARROT": 0.0,
+      "input_confirmed_hires": 0.3333333333333333,
+      "input_confirmed_applications": 2.0833333333333335,
+      "input_forecast_wheat": 3.6666666666666665,
+      "input_forecast_carrot": 0.25,
+      "actual_wheat_harvest": 2.6666666666666665,
+      "revenue:TOMATO": 0.0,
+      "cost:BUY_SEED:TOMATO": 0.0
+    },
+    "confirmation": {
+      "revenue:WHEAT": 201.8125,
+      "revenue:FERTILIZER": 68.1875,
+      "revenue:WOOL": 3.3125,
+      "revenue:MILK": 5.0,
+      "revenue:MELON": 0.0,
+      "revenue:EGG": 0.375,
+      "revenue:STRAWBERRY": 24.6875,
+      "revenue:CARROT": 14.15625,
+      "cost:BUY_PRODUCT:WHEAT": -0.4375,
+      "cost:HIRE": 136.875,
+      "cost:BUY_ANIMAL:COW": 0.0,
+      "cost:BUY_ANIMAL:SHEEP": 0.0,
+      "cost:BUY_SEED:MELON": 0.0,
+      "cost:BUY_SEED:WHEAT": 0.0,
+      "cost:BUY_SEED:STRAWBERRY": 0.0,
+      "cost:BUY_LAND": 0.0,
+      "cost:BUY_PRODUCT:FERTILIZER": 139.5,
+      "cost:BUY_ANIMAL:GOOSE": 0.0,
+      "cost:BUY_SEED:CARROT": 0.0,
+      "input_confirmed_hires": 0.71875,
+      "input_confirmed_applications": 4.375,
+      "input_forecast_wheat": 9.125,
+      "input_forecast_carrot": 0.34375,
+      "actual_wheat_harvest": 5.875,
+      "revenue:TOMATO": 0.0,
+      "cost:BUY_SEED:TOMATO": 0.0
+    }
+  }
+}

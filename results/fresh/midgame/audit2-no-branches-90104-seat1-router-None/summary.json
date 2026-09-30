@@ -1,0 +1,139 @@
+{
+  "name": "no-branches",
+  "config": {},
+  "seed": 90104,
+  "shops": [
+    "PET_CAFE",
+    "YARN_STORE",
+    "BAKERY"
+  ],
+  "yarn": true,
+  "seat": 1,
+  "opponent": "router",
+  "end_day": null,
+  "cash": 70869.0,
+  "opponent_cash": 77906.0,
+  "margin": -7037.0,
+  "ledger": [
+    {
+      "revenue": {
+        "FERTILIZER": 10243,
+        "WOOL": 40573,
+        "WHEAT": 12033,
+        "MELON": 14267,
+        "MILK": 3465,
+        "STRAWBERRY": 8744,
+        "CARROT": 5255
+      },
+      "sold_units": {
+        "FERTILIZER": 275,
+        "WOOL": 184,
+        "WHEAT": 296,
+        "MELON": 72,
+        "MILK": 195,
+        "STRAWBERRY": 258,
+        "CARROT": 93
+      },
+      "spend": {
+        "BUY_SEED:WHEAT": 1520,
+        "BUY_SEED:STRAWBERRY": 1300,
+        "HIRE": 5236.0,
+        "BUY_PRODUCT:FERTILIZER": 1890,
+        "BUY_PRODUCT:WHEAT": 2842,
+        "BUY_ANIMAL:SHEEP": 2000,
+        "BUY_SEED:CARROT": 540,
+        "BUY_LAND": 2000.0
+      }
+    },
+    {
+      "revenue": {
+        "FERTILIZER": 10242,
+        "WOOL": 26245,
+        "WHEAT": 10407,
+        "MELON": 14267,
+        "MILK": 6738,
+        "EGG": 4439,
+        "STRAWBERRY": 9595,
+        "CARROT": 5002
+      },
+      "sold_units": {
+        "FERTILIZER": 301,
+        "WOOL": 119,
+        "WHEAT": 260,
+        "MELON": 72,
+        "MILK": 249,
+        "EGG": 79,
+        "STRAWBERRY": 262,
+        "CARROT": 93
+      },
+      "spend": {
+        "BUY_SEED:WHEAT": 1520,
+        "BUY_SEED:STRAWBERRY": 1300,
+        "HIRE": 5270.0,
+        "BUY_PRODUCT:FERTILIZER": 1848,
+        "BUY_PRODUCT:WHEAT": 2842,
+        "BUY_ANIMAL:GOOSE": 900,
+        "BUY_SEED:CARROT": 540,
+        "BUY_LAND": 2000.0,
+        "BUY_ANIMAL:SHEEP": 500
+      }
+    }
+  ],
+  "diagnostics": [
+    {
+      "actions:WEST": 750,
+      "actions:NORTH": 763,
+      "actions:PICKUP": 121,
+      "actions:EAST": 556,
+      "actions:FEED": 275,
+      "actions:CARE": 293,
+      "no_effect:PICKUP": 1,
+      "actions:COLLECT_FERTILIZER": 327,
+      "actions:PLACE": 69,
+      "actions:WATER": 912,
+      "actions:HARVEST": 440,
+      "no_effect:PLACE": 6,
+      "actions:SOUTH": 473,
+      "actions:PLANT": 181,
+      "actions:PASS": 399,
+      "night_overflow": 4,
+      "actions:BUILD_PASTURE": 4,
+      "actions:BUILD_COOP": 1,
+      "no_effect:HARVEST": 20,
+      "actions:FERTILIZE": 98,
+      "actions:DIG": 35,
+      "actions:DROP": 12,
+      "no_effect:WATER": 11,
+      "no_effect:COLLECT_FERTILIZER": 29,
+      "premature_crop_losses": 1,
+      "animal_losses": 9
+    },
+    {
+      "actions:WEST": 753,
+      "actions:NORTH": 766,
+      "actions:PICKUP": 122,
+      "actions:EAST": 559,
+      "actions:FEED": 311,
+      "actions:CARE": 311,
+      "no_effect:PICKUP": 1,
+      "actions:COLLECT_FERTILIZER": 335,
+      "actions:PLACE": 69,
+      "actions:WATER": 912,
+      "actions:HARVEST": 455,
+      "no_effect:PLACE": 8,
+      "actions:SOUTH": 475,
+      "actions:PLANT": 181,
+      "actions:PASS": 331,
+      "night_overflow": 0,
+      "actions:BUILD_PASTURE": 1,
+      "actions:BUILD_COOP": 4,
+      "no_effect:HARVEST": 5,
+      "actions:FERTILIZE": 98,
+      "actions:DIG": 35,
+      "actions:DROP": 13,
+      "no_effect:WATER": 11,
+      "no_effect:COLLECT_FERTILIZER": 2,
+      "premature_crop_losses": 1
+    }
+  ]
+}

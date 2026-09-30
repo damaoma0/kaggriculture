@@ -1,0 +1,51 @@
+{
+ "tag": "flip_vs_v48",
+ "started": "2026-09-18 21:30:43",
+ "benchmark_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+ "rival": "v48_public",
+ "rival_sha256": "4b5402888feeb4170dce38f34bebe56788b62ca287139fce7db72df8eb89bb96",
+ "seeds": [
+  174000,
+  174001,
+  174002,
+  174003,
+  174004,
+  174005,
+  174006,
+  174007,
+  174008,
+  174009,
+  174010,
+  174011,
+  174012,
+  174013,
+  174014,
+  174015,
+  174016,
+  174017,
+  174018,
+  174019,
+  174020,
+  174021,
+  174022,
+  174023,
+  174024,
+  174025,
+  174026,
+  174027,
+  174028,
+  174029,
+  174030,
+  174031
+ ],
+ "candidates": [
+  "mg6_flip5",
+  "mg6_nash5"
+ ],
+ "seed_base": 174000,
+ "design": "Paired seeds and both seats against the frozen uploaded agent. Natural engine RNG for shops and weeds. Seed-clustered bootstrap intervals. No tuning on these seeds.",
+ "sources": {
+  "agents/mg6_flip5.py": "521edf58e43a5ab4e2e3d9a8e05cb71c0a04e548cadde29663503e0d8e4ab1d9",
+  "agents/mg6_nash5.py": "2450a98206896608818853dd027dde5d878dc168af486f23edc70937504df30e"
+ }
+}

@@ -1,0 +1,156 @@
+{
+  "design": "Ten deliberately chosen shop configurations, both seats, two adaptive source opponents, paired four-policy interventions. Different config cells have different seeds; within-cell comparisons have identical shops. Future shops remain hidden from agents. A diagnostic stress grid, not the natural-frequency ladder distribution.",
+  "base_sha256": "e512d755d45fb3cee6602493a9af799131fb3b2dd3707f927e744e4b7a6cd7a3",
+  "opponents": {
+    "v45": "2536d41ed5a00c75204b6350f1c76c54259c774cb065ba2a3a0072eedf210d94",
+    "twocoins": "495bfa4825c9e58638e804aeeb62a9537826f6d4d869222815e1bbeefd84d3dc"
+  },
+  "configs": {
+    "no_tomato": [
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "BRUNCH_SPOT"
+    ],
+    "tomato1": [
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY"
+    ],
+    "tomato2": [
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP",
+      "FARMERS_MARKET",
+      "ICE_CREAM_SHOP",
+      "BAKERY"
+    ],
+    "tomato3": [
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "PIZZA_SHOP",
+      "FARMERS_MARKET",
+      "PIZZA_SHOP",
+      "BAKERY"
+    ],
+    "tomato4": [
+      "ICE_CREAM_SHOP",
+      "PIZZA_SHOP",
+      "PIZZA_SHOP",
+      "FARMERS_MARKET",
+      "PIZZA_SHOP",
+      "BAKERY"
+    ],
+    "tomato6": [
+      "PIZZA_SHOP",
+      "FARMERS_MARKET",
+      "PIZZA_SHOP",
+      "FARMERS_MARKET",
+      "PIZZA_SHOP",
+      "FARMERS_MARKET"
+    ],
+    "yarn1": [
+      "YARN_STORE",
+      "BAKERY",
+      "BRUNCH_SPOT",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "BRUNCH_SPOT"
+    ],
+    "yarn2": [
+      "YARN_STORE",
+      "BAKERY",
+      "YARN_STORE",
+      "ICE_CREAM_SHOP",
+      "BAKERY",
+      "BRUNCH_SPOT"
+    ],
+    "yarn4": [
+      "YARN_STORE",
+      "BAKERY",
+      "YARN_STORE",
+      "YARN_STORE",
+      "ICE_CREAM_SHOP",
+      "YARN_STORE"
+    ],
+    "carrot": [
+      "PET_CAFE",
+      "BRUNCH_SPOT",
+      "PET_CAFE",
+      "ICE_CREAM_SHOP",
+      "PET_CAFE",
+      "BAKERY"
+    ]
+  },
+  "jobs": [
+    [
+      "smoke",
+      155900,
+      "no_tomato",
+      0,
+      "v45",
+      "none"
+    ],
+    [
+      "smoke",
+      155900,
+      "no_tomato",
+      0,
+      "v45",
+      "native"
+    ],
+    [
+      "smoke",
+      155900,
+      "no_tomato",
+      0,
+      "v45",
+      "tomato"
+    ],
+    [
+      "smoke",
+      155900,
+      "no_tomato",
+      0,
+      "v45",
+      "sheep"
+    ],
+    [
+      "smoke",
+      155905,
+      "tomato6",
+      0,
+      "v45",
+      "none"
+    ],
+    [
+      "smoke",
+      155905,
+      "tomato6",
+      0,
+      "v45",
+      "native"
+    ],
+    [
+      "smoke",
+      155905,
+      "tomato6",
+      0,
+      "v45",
+      "tomato"
+    ],
+    [
+      "smoke",
+      155905,
+      "tomato6",
+      0,
+      "v45",
+      "sheep"
+    ]
+  ]
+}

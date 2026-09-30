@@ -1,0 +1,6 @@
+{
+  "candidate": "mgt_exp_hold",
+  "development_mean_paired_margin_delta": 564.0,
+  "selected_utc": "2026-09-22T17:36:39.850357+00:00",
+  "rule": "Largest development mean paired margin improvement versus unchanged mgt_m1 against V56, among completed error-free variants within the 1-second action limit. Validate that one unchanged candidate on all 32 held-out seeds, both seats, against V56 and directly against mgt_m1. A discovery requires positive held-out paired mean margin with a seed-cluster bootstrap 95% interval above zero, positive cash delta, and positive direct head-to-head mean margin. If no development arm improves, stop and report no improvement found."
+}

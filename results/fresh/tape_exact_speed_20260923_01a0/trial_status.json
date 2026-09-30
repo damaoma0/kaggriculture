@@ -1,0 +1,6 @@
+{
+  "status": "stopped_after_observed_packed_cache_regression",
+  "reason": "8192 entries cannot retain the full rollout's tape-board working set. First checkpoint has 70956 encoding misses per warm decision and runs slower than V8. Completed raw samples are retained; no aggregate completion is claimed.",
+  "next_experiment": "../tape_exact_speed_20260923_01a0_v2",
+  "next_change": "Increase the bounded content-addressed board cache to 32768 entries; keep all algorithm semantics unchanged."
+}

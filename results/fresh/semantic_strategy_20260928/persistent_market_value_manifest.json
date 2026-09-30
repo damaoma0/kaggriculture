@@ -1,0 +1,21 @@
+{
+  "status": "research only, OFF by default, no games",
+  "files": {
+    "scripts/semantic_strategy_persistent_value_20260928.py": "e8117d5fea8fb6bde5571a6f3e55826eea4f14cc494cc7712546c015820ce024",
+    "scripts/semantic_strategy_market_admission_20260928.py": "21dc67e3f6ba3de13bb59f639b4579583e5efda1332938f73fad1fe1796aec9b",
+    "scripts/check_semantic_persistent_value_20260928.py": "4c684313bf965416ac85586874172397f28d4f4b3fd83b302e356ee62fd8d07b",
+    "scripts/check_semantic_market_admission_20260928.py": "328a7757c25c607f2960aee87b7abeea371f0d245b386104ee6b2f3c19db4c68",
+    "tests/test_semantic_strategy_persistent_value_20260928.py": "9c3b0460243058f5addf607e1bf98ad59b54dbaf65e7a9d876a62bd92f7eeec1",
+    "tests/test_semantic_strategy_market_admission_20260928.py": "e65eeb14bcb4af0a67caf87138fbda0df72c9b5ec8e648479e9ccfe027906abe"
+  },
+  "artifacts": {
+    "persistent_market_value_diagnostic.json": "c476727129ec3dfc79cd2d7d87bb7edf656e623f85ff33fb778c7adb035b9796",
+    "market_admission_persistent_static_audit.json": "1f9e644c9d97b3e24ce5dee4412b950c597b07b79c091bac7c231a1cddb8f91c"
+  },
+  "targeted_tests_pass": 11,
+  "old_evidence_preserved": [
+    "market_admission_static_audit.json",
+    "market_admission_prototype_manifest.json",
+    "research_snapshots/market_admission_v1/"
+  ]
+}

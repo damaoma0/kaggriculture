@@ -1,0 +1,114 @@
+{
+  "reference": "strategy_v5_blocks100_finance",
+  "candidate": "strategy_v7_blocks100_readiness",
+  "scope": "DEVELOPMENT_NATURAL_LIVE",
+  "expected": 8,
+  "valid": 8,
+  "paired_mean": -1076.625,
+  "bootstrap95": [
+    -3735.75,
+    1268.0
+  ],
+  "better": 4,
+  "worse": 4,
+  "same_shops": 0,
+  "cases": [
+    {
+      "case": "live-00",
+      "reference_margin": 5053.0,
+      "candidate_margin": 6155.0,
+      "margin_delta": 1102.0,
+      "own_cash_delta": 7786.0,
+      "rival_cash_delta": 6684.0,
+      "same_final_shops": false,
+      "reference_sha256": "77a2283a3f345a2ade614dbaf9649c1158d69087eb4891a7f363ef68d6352336",
+      "candidate_sha256": "316f7d4ee0b25bc98b1e6bf9750543a165b3bf2bdd93213c3aff1a121ce95432",
+      "candidate_v9_errors": 0
+    },
+    {
+      "case": "live-01",
+      "reference_margin": 1602.0,
+      "candidate_margin": 592.0,
+      "margin_delta": -1010.0,
+      "own_cash_delta": 3249.0,
+      "rival_cash_delta": 4259.0,
+      "same_final_shops": false,
+      "reference_sha256": "4c5f7c3a687bc4f10eb0f591bdf2474c80c655684f061540765a5ebb32348415",
+      "candidate_sha256": "6311334005d465ef84f4322455e57a13eec53d7b9049363ea545709eda9da95d",
+      "candidate_v9_errors": 0
+    },
+    {
+      "case": "live-02",
+      "reference_margin": -2495.0,
+      "candidate_margin": -986.0,
+      "margin_delta": 1509.0,
+      "own_cash_delta": -5765.0,
+      "rival_cash_delta": -7274.0,
+      "same_final_shops": false,
+      "reference_sha256": "9a8ab2f36e124b53524ddf04792d4ad841d78597f17156ee5bd4f117aae088f5",
+      "candidate_sha256": "7a552a63558d54499374ad95c65b87c878c28660019ae17883fd1098d6d102a8",
+      "candidate_v9_errors": 0
+    },
+    {
+      "case": "live-03",
+      "reference_margin": -999.0,
+      "candidate_margin": -2124.0,
+      "margin_delta": -1125.0,
+      "own_cash_delta": -2300.0,
+      "rival_cash_delta": -1175.0,
+      "same_final_shops": false,
+      "reference_sha256": "ebe532f0323c8f76949a616f18dee9c76abaae6c793edb94568b470f82a25281",
+      "candidate_sha256": "5e47d89df6761e5936d34bf1c4747753b86614669e87d56dd77022566965bed6",
+      "candidate_v9_errors": 0
+    },
+    {
+      "case": "live-04",
+      "reference_margin": 9084.0,
+      "candidate_margin": 2166.0,
+      "margin_delta": -6918.0,
+      "own_cash_delta": -15481.0,
+      "rival_cash_delta": -8563.0,
+      "same_final_shops": false,
+      "reference_sha256": "66806145a740ac5bb4baa0d0bb15511cf7f2debb906006d28663d25a718204b1",
+      "candidate_sha256": "d4c31911ff9d61fac552eb778b052867e863f9b53267558f4bec571e5877e149",
+      "candidate_v9_errors": 0
+    },
+    {
+      "case": "live-05",
+      "reference_margin": 6630.0,
+      "candidate_margin": -375.0,
+      "margin_delta": -7005.0,
+      "own_cash_delta": 15904.0,
+      "rival_cash_delta": 22909.0,
+      "same_final_shops": false,
+      "reference_sha256": "5f1243a16e677396dbf4f5f216d7c23f1cc985abfd11d630144b7f02733789f9",
+      "candidate_sha256": "978f1b1ce55535c4c730d0c7ec67f6ad5bf4bba569d0c2c78844077a5529a5a9",
+      "candidate_v9_errors": 0
+    },
+    {
+      "case": "live-06",
+      "reference_margin": -8893.0,
+      "candidate_margin": -5593.0,
+      "margin_delta": 3300.0,
+      "own_cash_delta": 4718.0,
+      "rival_cash_delta": 1418.0,
+      "same_final_shops": false,
+      "reference_sha256": "c7265b3b643af74cdee8ddc56329b4e4c488b9c98ed17e6103871990c1ad5ab0",
+      "candidate_sha256": "8bf8e9fe167f8e534f32214ee24de10f632f23cb8b6af573844e44976a72ab18",
+      "candidate_v9_errors": 0
+    },
+    {
+      "case": "live-07",
+      "reference_margin": -8043.0,
+      "candidate_margin": -6509.0,
+      "margin_delta": 1534.0,
+      "own_cash_delta": 2236.0,
+      "rival_cash_delta": 702.0,
+      "same_final_shops": false,
+      "reference_sha256": "46ccdf5b40d5f749dc01f9dae30242fad73fd7a882e68e432198d9235ab8f0df",
+      "candidate_sha256": "24f70d07db9f28d51d4d984a3e96603ac699344a6d31c69b669bd522f50fc80e",
+      "candidate_v9_errors": 0
+    }
+  ],
+  "warning": "Natural shops can change with policy actions; this is not an isolated same-shop mechanism effect or qualification."
+}

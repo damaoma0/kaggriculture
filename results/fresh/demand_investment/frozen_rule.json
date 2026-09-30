@@ -1,0 +1,37 @@
+{
+  "rule": {
+    "feature": "MILK_demand",
+    "threshold": 1.5,
+    "left": "SHEEP",
+    "right": "COW"
+  },
+  "training_cases": 16,
+  "candidates": 12,
+  "selection": "One decision stump maximizing mean final cash margin; only public turn-265 state. First candidate wins ties.",
+  "sources": {
+    "agents\\market_impact_selected.py": "216ed6a3857187cbd7803e50e033069af0c6bdb88ddf4ffbc879b4b49cbb4c6b",
+    "scripts\\research_demand_investment.py": "311c4d122db0f13d6d1488c3aa2a57febf19a9490d3007c2ecebfb0aa15d5af0",
+    "scripts\\report_demand_investment.py": "ec93a41f2fc7a723f46b5bb29b9843dd7cdff5b54592ad765805322533477e9c"
+  },
+  "heldout_seeds": [
+    130000,
+    130001,
+    130002,
+    130003,
+    130004,
+    130005,
+    130006,
+    130007
+  ],
+  "stress_seeds": [
+    131000,
+    131001,
+    131002,
+    131003,
+    131004,
+    131005,
+    131006,
+    131007
+  ],
+  "promotion_gate": "Require positive mean margin gain over sheep on each held-out opponent, and positive gain on at least 6/8 held-out seed means. Otherwise retain current selected agent. Stress results diagnostic only."
+}

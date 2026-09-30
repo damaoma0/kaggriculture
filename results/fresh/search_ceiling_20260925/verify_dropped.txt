@@ -1,0 +1,6 @@
+VERIFY 6: tracer dropped jobs (ours, 12 games, per game)
+  dropped 123.1 jobs / 11,866; deadline != 23: 0; never in the task list 1.0; first opened after hour 0 4.8; no idle pass while open 35%
+  kinds: bank 23.1, bonus 53.3, endoflife 2.6, harvest 7.8, production 36.0, survival 0.2
+  on a tile some unit already worked that day: 54.3 of 123.1
+  FERTILIZE dropped 30.8; covered by fertilizer the day had (sold + shed_mid + carried_mid) 30.8; days with more dropped FERTILIZE than that: 0 []
+  largest single-day dropped totals: 7375 (5.2% of all) ep 111577649 d10 top [('FEED', 'survival', 'COW', 6991.6, 27), ('CARE', 'bank', 'COW', 227.0, 1), ('HARVEST', 'harvest', 'WHEAT', 156.0, 4)]; 4806 (3.4% of all) ep 111688786 d13 top [('FEED', 'production', 'SHEEP', 1339.8, 6), ('FEED', 'production', 'SHEEP', 1108.8, 5), ('CARE', 'bank', 'SHEEP', 231.0, 1)]; 3331 (2.3% of all) ep 110937191 d17 top [('FEED', 'survival', 'COW', 2587.2, 15), ('CARE', 'bank', 'COW', 147.0, 1), ('WATER', 'bonus', 'WHEAT', 66.0, 2)]

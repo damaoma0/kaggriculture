@@ -1,0 +1,16 @@
+{
+  "competition": "kaggriculture",
+  "label": "mgt_v9lite_y3_iofix",
+  "submission_id": null,
+  "submitted_at_utc": "2026-09-24T15:26:20Z",
+  "status": "Pending",
+  "status_observed_at_utc": "2026-09-24T15:30:09Z",
+  "url": "https://www.kaggle.com/competitions/kaggriculture/submissions",
+  "archive": "submission.tar.gz",
+  "sha256": "372237589610a204abd156db65f865a41f9c0535744ff2cfe251e94438961c9e",
+  "parent_sha256": "6f5e2c2781325a91525b56343dd6fb73f6aeba2fabde63e55cfeae9fdb390f3b",
+  "description": "mgt_v9lite_y3_iofix: reveal-time tape value search + late-Yarn repair. Policy qualified on 64 fresh worlds vs live m1/V56 (384 games): +914 mean margin vs m1, 95% CI +413..+1477; zero search errors. Output-capture race fixed; both-seat isolated loader checks passed. SHA37223758.",
+  "qualification_root": "results/fresh/coherent_switch_20260924_01a0/release_lite_qualification",
+  "evidence": ["final_audit.json", "io_fix_audit.json", "isolated/iofix_seat0/result.json", "isolated/iofix_seat1_gunzip/result.json"],
+  "scope_note": "384-game economic qualification applies directly to parent archive. Submitted derivative changes only output redirection, supported by structural/state parity and two isolated official-loader games."
+}

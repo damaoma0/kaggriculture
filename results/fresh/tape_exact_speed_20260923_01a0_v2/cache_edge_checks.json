@@ -1,0 +1,23 @@
+{
+  "alternating_input_isolation": true,
+  "bounded_cache": true,
+  "deadline_probes": [
+    {
+      "budget": 0.0,
+      "rollouts": 0,
+      "selected": null,
+      "timed_out": true,
+      "wall_seconds": 0.2613417000393383
+    },
+    {
+      "budget": 0.8,
+      "rollouts": 1,
+      "selected": null,
+      "timed_out": true,
+      "wall_seconds": 0.8116720999823883
+    }
+  ],
+  "input_and_hooks_restored": true,
+  "packed_lane_and_mutation_checks": 3100,
+  "post_cancellation_full_decisions_equal": true
+}

@@ -1,0 +1,521 @@
+{
+  "scope": "DEVELOPMENT_RECORDED_INTEGRITY_DIAGNOSTIC",
+  "disposition": "All3 remain invalid in8 denominator; no replacements or threshold changes",
+  "cases": [
+    {
+      "case": {
+        "id": "recorded-112476470",
+        "episode": "112476470",
+        "seed": 1002810954,
+        "seat": 1,
+        "file": "recordings/112476470.json.gz",
+        "sha256": "f8158c7f46ba01ca515de1f36927b23d5dec32de8aca9f93d8862a05f9eae95e",
+        "opponent": "Otter Vibe",
+        "opponent_team_id": 16760569,
+        "historical_rating": 2889.6
+      },
+      "engine": {
+        "statuses": [
+          "DONE",
+          "DONE"
+        ],
+        "steps": 720,
+        "final_step": 719,
+        "act_timeout": 1,
+        "remaining_overage": [
+          60,
+          53.49533100000001
+        ]
+      },
+      "ledger_verified": true,
+      "eligible": false,
+      "margin": -6881.0,
+      "rival_audit": {
+        "additional_failed_commands": 120,
+        "material_command_break": true,
+        "control_sha256": "ae188106ddb961139ab5879868072d7f9cd92bf0f7f95d6d1654421fc2071252",
+        "additional_missing_worker_commands": 0,
+        "failures_by_day": [
+          0,
+          0,
+          0,
+          0,
+          1,
+          0,
+          5,
+          3,
+          5,
+          4,
+          5,
+          5,
+          7,
+          7,
+          7,
+          6,
+          4,
+          4,
+          5,
+          5,
+          5,
+          4,
+          4,
+          4,
+          5,
+          9,
+          7,
+          4,
+          3,
+          2
+        ],
+        "note": "Frozen commands cannot react to counterfactual prices. Passing this necessary screen is not proof of live policy equivalence."
+      },
+      "physical_delta": {
+        "effective": -121,
+        "no_effect": 120,
+        "no_effect:CARE": 22,
+        "no_effect:COLLECT_FERTILIZER": 23,
+        "no_effect:DROP": 1,
+        "no_effect:FEED": 23,
+        "no_effect:FERTILIZE": 10,
+        "no_effect:HARVEST": 21,
+        "no_effect:PICKUP": 10,
+        "no_effect:PLACE": 1,
+        "no_effect:WATER": 9,
+        "op:PASS": 1,
+        "op:PLANT": -1,
+        "produced:CARROT": -2,
+        "produced:EGG": -42,
+        "produced:FERTILIZER": -23,
+        "produced:MELON": -6,
+        "produced:STRAWBERRY": -4,
+        "produced:TOMATO": -3,
+        "produced:WHEAT": -10
+      },
+      "spend_delta": {
+        "BUY_ANIMAL:GOOSE": -300,
+        "BUY_PRODUCT:FERTILIZER": 884,
+        "BUY_PRODUCT:WHEAT": -216,
+        "BUY_SEED:MELON": -80
+      },
+      "revenue_delta": {
+        "CARROT": -2647,
+        "EGG": -1861,
+        "FERTILIZER": 632,
+        "MELON": 1779,
+        "MILK": 8900,
+        "STRAWBERRY": -4863,
+        "TOMATO": -815,
+        "WHEAT": -2186,
+        "WOOL": -458
+      },
+      "sold_units_delta": {
+        "CARROT": -2,
+        "EGG": -44,
+        "FERTILIZER": -15,
+        "MELON": -6,
+        "MILK": -2,
+        "STRAWBERRY": -4,
+        "TOMATO": -3
+      },
+      "tile_hours_delta": {
+        "animal:GOOSE": -555,
+        "crop:MELON": -235,
+        "empty": 235,
+        "structure_empty": 555
+      },
+      "phase": [
+        {
+          "days_inclusive": [
+            0,
+            8
+          ],
+          "additional_failures_by_type": {
+            "no_effect:CARE": 3,
+            "no_effect:COLLECT_FERTILIZER": 2,
+            "no_effect:DROP": 1,
+            "no_effect:FEED": 3,
+            "no_effect:PICKUP": 1,
+            "no_effect:PLACE": 1,
+            "no_effect:WATER": 3
+          },
+          "rival_cash_delta_at_end": 96.0
+        },
+        {
+          "days_inclusive": [
+            9,
+            11
+          ],
+          "additional_failures_by_type": {
+            "no_effect:CARE": 3,
+            "no_effect:COLLECT_FERTILIZER": 3,
+            "no_effect:FEED": 3,
+            "no_effect:HARVEST": 2,
+            "no_effect:WATER": 3
+          },
+          "rival_cash_delta_at_end": 869.0
+        },
+        {
+          "days_inclusive": [
+            12,
+            17
+          ],
+          "additional_failures_by_type": {
+            "no_effect:CARE": 6,
+            "no_effect:COLLECT_FERTILIZER": 6,
+            "no_effect:FEED": 6,
+            "no_effect:FERTILIZE": 4,
+            "no_effect:HARVEST": 7,
+            "no_effect:PICKUP": 3,
+            "no_effect:WATER": 3
+          },
+          "rival_cash_delta_at_end": 408.0
+        },
+        {
+          "days_inclusive": [
+            18,
+            29
+          ],
+          "additional_failures_by_type": {
+            "no_effect:CARE": 10,
+            "no_effect:COLLECT_FERTILIZER": 12,
+            "no_effect:FEED": 11,
+            "no_effect:FERTILIZE": 6,
+            "no_effect:HARVEST": 12,
+            "no_effect:PICKUP": 6
+          },
+          "rival_cash_delta_at_end": -1807.0
+        }
+      ],
+      "candidate_sha256": "00c3f92c4c2aa13f07566c840c334ae981f132a7c5a95210bd7e95e2f651322c",
+      "source_sha256": "ae188106ddb961139ab5879868072d7f9cd92bf0f7f95d6d1654421fc2071252"
+    },
+    {
+      "case": {
+        "id": "recorded-112610631",
+        "episode": "112610631",
+        "seed": 275782180,
+        "seat": 0,
+        "file": "recordings/112610631.json.gz",
+        "sha256": "89d38860acd1e8c15d9c73e9a31041526baa2ae876fe88b7466ca8055a29684e",
+        "opponent": "RS Turley",
+        "opponent_team_id": 16672709,
+        "historical_rating": 2866.1
+      },
+      "engine": {
+        "statuses": [
+          "DONE",
+          "DONE"
+        ],
+        "steps": 720,
+        "final_step": 719,
+        "act_timeout": 1,
+        "remaining_overage": [
+          52.30374100000001,
+          60
+        ]
+      },
+      "ledger_verified": true,
+      "eligible": false,
+      "margin": 2652.0,
+      "rival_audit": {
+        "additional_failed_commands": 47,
+        "material_command_break": true,
+        "control_sha256": "7d72f4f1715f3b0a298caf9a2a8ece149c10df504b8bb48c660e8efcf15732da",
+        "additional_missing_worker_commands": 22,
+        "failures_by_day": [
+          6,
+          4,
+          8,
+          5,
+          7,
+          2,
+          8,
+          15,
+          28,
+          3,
+          7,
+          8,
+          3,
+          3,
+          3,
+          3,
+          2,
+          4,
+          2,
+          3,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "note": "Frozen commands cannot react to counterfactual prices. Passing this necessary screen is not proof of live policy equivalence."
+      },
+      "physical_delta": {
+        "commands": -22,
+        "commands_hand": -22,
+        "effective": -33,
+        "missing_worker_commands": 22,
+        "moves": -14,
+        "no_effect": 25,
+        "no_effect:DROP": 1,
+        "no_effect:FEED": 1,
+        "no_effect:FERTILIZE": 4,
+        "no_effect:HARVEST": 8,
+        "no_effect:PICKUP": 1,
+        "no_effect:WATER": 10,
+        "op:EAST": -1,
+        "op:NORTH": -5,
+        "op:SOUTH": -4,
+        "op:WATER": -8,
+        "op:WEST": -4,
+        "produced:MELON": -3,
+        "produced:MILK": -3,
+        "produced:STRAWBERRY": -16
+      },
+      "spend_delta": {
+        "BUY_PRODUCT:FERTILIZER": 1312,
+        "BUY_PRODUCT:WHEAT": -661,
+        "HIRE": -34.0
+      },
+      "revenue_delta": {
+        "CARROT": -99,
+        "EGG": -676,
+        "FERTILIZER": 2148,
+        "MELON": 1905,
+        "MILK": 3531,
+        "STRAWBERRY": -4965,
+        "TOMATO": -1213,
+        "WHEAT": -769,
+        "WOOL": -584
+      },
+      "sold_units_delta": {
+        "CARROT": -1,
+        "FERTILIZER": 1,
+        "MELON": -3,
+        "MILK": -3,
+        "STRAWBERRY": -18,
+        "TOMATO": -2,
+        "WHEAT": -7
+      },
+      "tile_hours_delta": {
+        "crop:STRAWBERRY": -479,
+        "weed": 479
+      },
+      "phase": [
+        {
+          "days_inclusive": [
+            0,
+            8
+          ],
+          "additional_failures_by_type": {
+            "missing_worker_commands": 22,
+            "no_effect:WATER": -3
+          },
+          "rival_cash_delta_at_end": 22.0
+        },
+        {
+          "days_inclusive": [
+            9,
+            11
+          ],
+          "additional_failures_by_type": {
+            "no_effect:FEED": 1,
+            "no_effect:PICKUP": 1,
+            "no_effect:WATER": 4
+          },
+          "rival_cash_delta_at_end": 495.0
+        },
+        {
+          "days_inclusive": [
+            12,
+            17
+          ],
+          "additional_failures_by_type": {
+            "no_effect:FERTILIZE": 4,
+            "no_effect:HARVEST": 5,
+            "no_effect:WATER": 7
+          },
+          "rival_cash_delta_at_end": 1961.0
+        },
+        {
+          "days_inclusive": [
+            18,
+            29
+          ],
+          "additional_failures_by_type": {
+            "no_effect:DROP": 1,
+            "no_effect:HARVEST": 3,
+            "no_effect:WATER": 2
+          },
+          "rival_cash_delta_at_end": -1339.0
+        }
+      ],
+      "candidate_sha256": "271847ec35691848a2a542bfebda1ef64cbe30701db0847cb2e31f01872007cb",
+      "source_sha256": "7d72f4f1715f3b0a298caf9a2a8ece149c10df504b8bb48c660e8efcf15732da"
+    },
+    {
+      "case": {
+        "id": "recorded-112612822",
+        "episode": "112612822",
+        "seed": 1867075363,
+        "seat": 0,
+        "file": "recordings/112612822.json.gz",
+        "sha256": "ec1652c7f7f098d8e1549463cd598cb491731cfec0e9d6e9a201dd39009e5cdd",
+        "opponent": "chungkuangwen",
+        "opponent_team_id": 16690763,
+        "historical_rating": 2814.4
+      },
+      "engine": {
+        "statuses": [
+          "DONE",
+          "DONE"
+        ],
+        "steps": 720,
+        "final_step": 719,
+        "act_timeout": 1,
+        "remaining_overage": [
+          53.34162,
+          60
+        ]
+      },
+      "ledger_verified": true,
+      "eligible": false,
+      "margin": -1600.0,
+      "rival_audit": {
+        "additional_failed_commands": 63,
+        "material_command_break": true,
+        "control_sha256": "2e65bfbec1d921757886b489256365576fbb21419f8d4f1a58711bb7b9b65e43",
+        "additional_missing_worker_commands": 0,
+        "failures_by_day": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          4,
+          3,
+          4,
+          4,
+          4,
+          0,
+          2,
+          3,
+          2,
+          3,
+          5,
+          3,
+          4,
+          4,
+          4,
+          4,
+          4,
+          3,
+          2
+        ],
+        "note": "Frozen commands cannot react to counterfactual prices. Passing this necessary screen is not proof of live policy equivalence."
+      },
+      "physical_delta": {
+        "effective": -63,
+        "no_effect": 63,
+        "no_effect:CARE": 12,
+        "no_effect:COLLECT_FERTILIZER": 17,
+        "no_effect:FEED": 15,
+        "no_effect:FERTILIZE": 12,
+        "no_effect:HARVEST": 4,
+        "no_effect:PICKUP": 2,
+        "no_effect:PLACE": 1,
+        "produced:FERTILIZER": -17,
+        "produced:MILK": -15,
+        "produced:WHEAT": -20
+      },
+      "spend_delta": {
+        "BUY_ANIMAL:COW": -400,
+        "BUY_PRODUCT:WHEAT": 75
+      },
+      "revenue_delta": {
+        "CARROT": 135,
+        "EGG": -1527,
+        "FERTILIZER": -247,
+        "MELON": -125,
+        "MILK": 9290,
+        "STRAWBERRY": 10452,
+        "TOMATO": -283,
+        "WHEAT": 1084,
+        "WOOL": -837
+      },
+      "sold_units_delta": {
+        "FERTILIZER": -5,
+        "MILK": -15,
+        "WHEAT": -6
+      },
+      "tile_hours_delta": {
+        "animal:COW": -450,
+        "structure_empty": 450
+      },
+      "phase": [
+        {
+          "days_inclusive": [
+            0,
+            8
+          ],
+          "additional_failures_by_type": {},
+          "rival_cash_delta_at_end": 182.0
+        },
+        {
+          "days_inclusive": [
+            9,
+            11
+          ],
+          "additional_failures_by_type": {
+            "no_effect:CARE": 1,
+            "no_effect:FEED": 1,
+            "no_effect:PICKUP": 2,
+            "no_effect:PLACE": 1
+          },
+          "rival_cash_delta_at_end": 102.0
+        },
+        {
+          "days_inclusive": [
+            12,
+            17
+          ],
+          "additional_failures_by_type": {
+            "no_effect:CARE": 4,
+            "no_effect:COLLECT_FERTILIZER": 5,
+            "no_effect:FEED": 5,
+            "no_effect:FERTILIZE": 3
+          },
+          "rival_cash_delta_at_end": 1798.0
+        },
+        {
+          "days_inclusive": [
+            18,
+            29
+          ],
+          "additional_failures_by_type": {
+            "no_effect:CARE": 7,
+            "no_effect:COLLECT_FERTILIZER": 12,
+            "no_effect:FEED": 9,
+            "no_effect:FERTILIZE": 9,
+            "no_effect:HARVEST": 4
+          },
+          "rival_cash_delta_at_end": 18267.0
+        }
+      ],
+      "candidate_sha256": "7169c13f3729bc5a1905e600323c4d14a1a5553f9d1a102df017ccc972993f58",
+      "source_sha256": "2e65bfbec1d921757886b489256365576fbb21419f8d4f1a58711bb7b9b65e43"
+    }
+  ]
+}

@@ -1,0 +1,101 @@
+[
+  {
+    "name": "farmingv5",
+    "notebook_sha256": "894a912d69ea76bd279c4c606776ede4323f96a1536c97cfdaa2ccb94c4571fd",
+    "source_sha256": "6e29435651cf3e39da3cd2fb9c14cae0c6e34333556728ab029881a042b6448b",
+    "bytes": 343926,
+    "imports": [
+      "from __future__ import annotations",
+      "import copy",
+      "import base64",
+      "import json",
+      "import zlib",
+      "import math",
+      "from itertools import permutations as _r53_permutations"
+    ],
+    "review_calls": [
+      "exec",
+      "{'PLANT': 'plant_requests', 'WATER': 'water_requests', 'FERTILIZE': 'fertilize_requests', 'HARVEST': 'harvest_requests', 'DROP': 'drop_requests'}.get"
+    ]
+  },
+  {
+    "name": "pasture2700",
+    "notebook_sha256": "a6027339030e6204e512ccf7cc3641cb158531d8924717d089638c276b94744f",
+    "source_sha256": "2b97e2c653018ac4aeffb8463ec91c8f26b097b4cef81289acc25ccdbc68f916",
+    "bytes": 44665,
+    "imports": [
+      "import base64",
+      "import json",
+      "import zlib"
+    ],
+    "review_calls": []
+  },
+  {
+    "name": "sixday_latest",
+    "notebook_sha256": "f66c0937857d03358961e12f06c3ee2fddfa07708a517869d5f2dd04732c6c83",
+    "source_sha256": "b87a27ed614a33329be85f1b662e51cf4078a019fee937afcebbbbf2f51f8522",
+    "bytes": 69295,
+    "imports": [
+      "import base64",
+      "import json",
+      "import zlib",
+      "import sys"
+    ],
+    "review_calls": []
+  },
+  {
+    "name": "twocoins",
+    "notebook_sha256": "fa8ea18646dfb82668dce461db51b9f37cca50d4c267b29eb8ba7f5c10874fcb",
+    "source_sha256": "495bfa4825c9e58638e804aeeb62a9537826f6d4d869222815e1bbeefd84d3dc",
+    "bytes": 1083,
+    "imports": [
+      "import hashlib",
+      "import importlib.util",
+      "import json",
+      "from pathlib import Path",
+      "import sys"
+    ],
+    "review_calls": [
+      "(_root / 'settings.json').open",
+      "_spec.loader.exec_module"
+    ]
+  },
+  {
+    "name": "v44",
+    "notebook_sha256": "8f6e2685f32c481ee96eacca7fcde9bff7c45a025778ae81b7bf0def430963cd",
+    "source_sha256": "797d9bca309d481e18cdbb675ce6d6de9967d266cbafb4c2352c68fb10264e2f",
+    "bytes": 327314,
+    "imports": [
+      "from __future__ import annotations",
+      "import copy",
+      "import base64",
+      "import json",
+      "import zlib",
+      "import math",
+      "from itertools import permutations as _r53_permutations"
+    ],
+    "review_calls": [
+      "exec",
+      "{'PLANT': 'plant_requests', 'WATER': 'water_requests', 'FERTILIZE': 'fertilize_requests', 'HARVEST': 'harvest_requests', 'DROP': 'drop_requests'}.get"
+    ]
+  },
+  {
+    "name": "v45",
+    "notebook_sha256": "bcf5fb11f302e23980d5e2922e568af48558e9e3be37d7872eaaf563c2fcbf14",
+    "source_sha256": "2536d41ed5a00c75204b6350f1c76c54259c774cb065ba2a3a0072eedf210d94",
+    "bytes": 329112,
+    "imports": [
+      "from __future__ import annotations",
+      "import copy",
+      "import base64",
+      "import json",
+      "import zlib",
+      "import math",
+      "from itertools import permutations as _r53_permutations"
+    ],
+    "review_calls": [
+      "exec",
+      "{'PLANT': 'plant_requests', 'WATER': 'water_requests', 'FERTILIZE': 'fertilize_requests', 'HARVEST': 'harvest_requests', 'DROP': 'drop_requests'}.get"
+    ]
+  }
+]

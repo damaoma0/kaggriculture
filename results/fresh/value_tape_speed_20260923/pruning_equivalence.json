@@ -1,0 +1,35 @@
+{
+  "rows": [
+    {
+      "case": "wool",
+      "selected": 0,
+      "seconds": 37.6720512000029,
+      "cpu_seconds": 37.25,
+      "rollouts": 37,
+      "pruned_rollouts": 1,
+      "simulated_turns": 12996,
+      "reference_turns": 14360
+    },
+    {
+      "case": "111262874",
+      "selected": 184,
+      "seconds": 20.463504199986346,
+      "cpu_seconds": 20.390625,
+      "rollouts": 27,
+      "pruned_rollouts": 3,
+      "simulated_turns": 10560,
+      "reference_turns": 15516
+    },
+    {
+      "case": "111287532",
+      "selected": null,
+      "seconds": 33.727466300013475,
+      "cpu_seconds": 33.484375,
+      "rollouts": 40,
+      "pruned_rollouts": 0,
+      "simulated_turns": 17240,
+      "reference_turns": 17240
+    }
+  ],
+  "planner_sha256": "c18055517f29e16ddfd5c5b05dcffdebda3547b1e44a431f1a0087878aedeab6"
+}

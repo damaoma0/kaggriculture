@@ -1,0 +1,25 @@
+n18s = semantic stack n18 + 3-step time-bank guard. SUBMITTED 2026-09-28 19:56 UTC as Kaggle ref 56651013 (user approval "Yes, let's ship")
+Build: scripts/sem_arms_20260929.py make n18s --base n18 --bank-guard (config below), then
+       scripts/package_semantic_ship_20260929.py n18s results/fresh/ship_20260929/n18s -> 22 files, 2.88 MB
+       archive sha256 82d320e29f2b4a5176575b65a0435dd22e3be848c942823f1acd68c1a9316555 (MANIFEST.json has every file).
+Entry: main.py (package root from sys.path / /kaggle_simulations/agent / cwd; entry semantic_ship_agent, defined last)
+  -> agents/semantic_strategy_20260928.py.
+Stack: days 0-5 = DSM's CURRENT opening (submission 56619023, rated 3027) as a tape router (agents/mgt_dsm_c.py, 106
+  recorded games, --normalize-hires); days 6-29 = semantic policy (three_day_budget, block_model_modern100) -> tile
+  compiler -> KB115LT2 executor chain V13 + coop guard + wheat priority + market fixes + melon rush / greedy melon
+  assignment + V18 opening patch (placement-day feed etc.).
+Guard (config bank_guard): counts the official 60 s overage bank (own call times over 1 s, and the runner's
+  remainingOverageTime); at a day start: lean at 32 s used (search 1,000 iterations, polish 1,000, no spawn re-plans),
+  lean2 at 46 s (search 300, no polish, one spawn pass), greedy hourly dispatcher at 57 s. Simulated on 56 measured n18
+  games: official speed bank end ~32 s median, lean never in the median game (earliest day 25).
+Local / Kaggle evidence (fixed shops unless noted; opponent MGT = packaged mgt_v9lite):
+  vs MGT, 40 new random worlds (research mode, no time limit): n18 38/40 (95%, Wilson 84-99), mean +9,705
+    (+7,856..+11,642); n17 36/40. fresh8 / dev panels: n18 6/8 + 7/8.
+  official runner, Kaggle CPU, one game at a time, empty dirs: n17 (no guard) 8/8 DONE, 35-44 s bank used, 6/8 wins;
+    n17g (guard at 25 s) 8/8 DONE, 26-28 s used, 6/8 wins. n18s itself: local official-runner check DONE (won +7,172,
+    bank 52.7 s left on the laptop, no repository module loaded); Kaggle official panel r17 still running at upload.
+  vs the leaders (recorded DSM / MMPQ games, recorded weeds): lower bound (old credit mode) n18 DSM 2/16 (-8,356),
+    MMPQ 1/16 (-14,363); upper bound DSM 7/16 (+6,098). 0 wins in games where the leader plays its real game. The
+    corrected (exact-credit) lower bound is running (r18). Against MGT the win is largely milk / wool market denial;
+    against the leaders n18 is about v17g's level. Iterate on ladder results (user).
+Retires: the older of the two active submissions (mgt_m1 56395605) under the two-active rule; mgt_v9lite_y3_iofix stays.

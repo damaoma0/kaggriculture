@@ -1,0 +1,19 @@
+{
+  "status": "optional gate ready; OFF by default; no gameplay evaluation",
+  "files": {
+    "scripts\\semantic_strategy_blocks_20260928.py": "b829abf1258502494431b1db4a7353bdad614ac50b2d1bc4929ec22ea69c0096",
+    "scripts\\semantic_strategy_market_admission_20260928.py": "a99bb8b448891b9dc157a20ea336f98df5fffcf70a17218922c49a89c7bb1f53",
+    "scripts\\semantic_strategy_policy_20260928.py": "8e414b8cc82cc67598d71a24a254bbb1f2d56fb009a08e2a42bcc90e0c566a00",
+    "results\\fresh\\semantic_strategy_20260928\\block_model_modern100.json": "6ff0140191eb8d451bfe178d758fe6eee53abd432786c7f0bf67bdacaefd5426"
+  },
+  "static_audit_sha256": "3e86988cfa58125bf926316683d4cf8514f7990b400b6c780078f593ef77f813",
+  "default_equivalence_decisions": 384,
+  "new_tests_passed": 6,
+  "full_discovery": {
+    "passed": 77,
+    "total": 78,
+    "unrelated_error": "test_corrected_oracle_d6_preserves_locks_until_purchase:112585076 D6 retire GOOSE need1 available0"
+  },
+  "qualification_accessed": false,
+  "games_run": 0
+}

@@ -1,0 +1,114 @@
+{
+  "stress": {
+    "cases": 5151,
+    "minimum_cash_after_complete_day1": 22.0,
+    "maximum_cash_after_complete_day1": 25.0,
+    "scope": "Opponent one initial wheat buy (0..100) followed by sale (0..bought); default rules. Not arbitrary order queues."
+  },
+  "games": 32,
+  "pairs": [
+    {
+      "seed": 153000,
+      "opponent": "small_flip",
+      "cash_delta": 207.0,
+      "margin_delta": 326.0
+    },
+    {
+      "seed": 153000,
+      "opponent": "v45",
+      "cash_delta": 0.0,
+      "margin_delta": 1.0
+    },
+    {
+      "seed": 153001,
+      "opponent": "v45",
+      "cash_delta": 0.0,
+      "margin_delta": 1.0
+    },
+    {
+      "seed": 153001,
+      "opponent": "small_flip",
+      "cash_delta": 56.0,
+      "margin_delta": 336.0
+    },
+    {
+      "seed": 153002,
+      "opponent": "v45",
+      "cash_delta": 0.0,
+      "margin_delta": 1.0
+    },
+    {
+      "seed": 153002,
+      "opponent": "small_flip",
+      "cash_delta": 176.0,
+      "margin_delta": 311.0
+    },
+    {
+      "seed": 153003,
+      "opponent": "v45",
+      "cash_delta": 0.0,
+      "margin_delta": 1.0
+    },
+    {
+      "seed": 153003,
+      "opponent": "small_flip",
+      "cash_delta": 159.0,
+      "margin_delta": 308.0
+    },
+    {
+      "seed": 153004,
+      "opponent": "v45",
+      "cash_delta": 0.0,
+      "margin_delta": 1.0
+    },
+    {
+      "seed": 153004,
+      "opponent": "small_flip",
+      "cash_delta": 150.0,
+      "margin_delta": 308.0
+    },
+    {
+      "seed": 153005,
+      "opponent": "v45",
+      "cash_delta": 0.0,
+      "margin_delta": 1.0
+    },
+    {
+      "seed": 153005,
+      "opponent": "small_flip",
+      "cash_delta": 177.0,
+      "margin_delta": 306.0
+    },
+    {
+      "seed": 153006,
+      "opponent": "v45",
+      "cash_delta": 0.0,
+      "margin_delta": 1.0
+    },
+    {
+      "seed": 153006,
+      "opponent": "small_flip",
+      "cash_delta": 160.0,
+      "margin_delta": 298.0
+    },
+    {
+      "seed": 153007,
+      "opponent": "v45",
+      "cash_delta": 0.0,
+      "margin_delta": 1.0
+    },
+    {
+      "seed": 153007,
+      "opponent": "small_flip",
+      "cash_delta": 252.0,
+      "margin_delta": 306.0
+    }
+  ],
+  "mean_margin_delta": 156.6875,
+  "mean_cash_delta": 83.5625,
+  "positive_pairs": 16,
+  "wins": {
+    "original": 8,
+    "fixed": 16
+  }
+}

@@ -1,0 +1,35 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/lead_sem4.py",
+   "run",
+   "--arms",
+   "T0r,T0Lr,T0ffr,Tc0r,Tc,T0,T,S,S0,D,Dp,LEADER",
+   "--games",
+   "16732748:112655730,16770421:112714050",
+   "--suffix",
+   "_r",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/lead_sem4_20260925/*/*.json",
+   "results/fresh/lead_sem4_20260925/manifest_*.json"
+  ],
+  "workers": 4
+ },
+ "games": 25,
+ "pip_seconds": 49.43602442741394,
+ "run_seconds": 211.97869634628296,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "24 jobs: arms ['T0r', 'T0Lr', 'T0ffr', 'Tc0r', 'Tc', 'T0', 'T', 'S', 'S0', 'D', 'Dp', 'LEADER'] x 2 games, workers 4, cfg {}",
+  "completed 24 games in 212s, errors (FAILED) 0"
+ ],
+ "stderr_tail": []
+}

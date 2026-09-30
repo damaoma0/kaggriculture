@@ -1,0 +1,29 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/sector_run.py",
+   "both",
+   "S11wh,S11wh2",
+   "--workers",
+   "4"
+  ],
+  "collect": [
+   "results/fresh/sector_20260925/trace/*/*.json",
+   "results/fresh/day12_viz/*_streams/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 108,
+ "pip_seconds": 38.324493169784546,
+ "run_seconds": 290.71874475479126,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "AMD EPYC 7B12",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "completed 108 games in 291s, errors (FAILED) 0"
+ ],
+ "stderr_tail": []
+}

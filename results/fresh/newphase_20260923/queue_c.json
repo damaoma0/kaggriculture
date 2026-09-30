@@ -1,0 +1,28 @@
+[
+ {
+  "kind": "pushcmd",
+  "run": "loadchk",
+  "cmd": "scripts/kaggle_load_check.py results/fresh/newphase_20260923/y3_load_check_kaggle.json agents/mgt_y3pkg.py data/router_refresh_20260922/v56/main.py 2 agents/mgt_m1.py",
+  "collect": "results/fresh/newphase_20260923/y3_load_check_kaggle.json"
+ },
+ {
+  "kind": "push",
+  "run": "r3pb2",
+  "agents": "mgt_r3,mgt_r3y3",
+  "submission": "p2750",
+  "episodes": "111376633,111577649,111871547,111941962,112021872,112093957,112117326,112158883,112181990,112204835,112254899,112285759,112336696,112364883,112395209,112408419,112424741,112446707,112463244,112474911,112480041,112496304,112512725,112543662,112583218,112600049,112608187,112610475,112611706,112611956,112612703,112612821,112612877,112612954,112612971,112613630,112613947,112614040,112614526,112614872,112615104,112615140,112615422,112615688,112615774,112616124,112616172,112616221,112616238,112616251,112616410,112616560,112616871,112617101,112617268,112617395,112617511,112617565,112617602,112617649,112617854",
+  "shards": 1
+ },
+ {
+  "kind": "pushcmd",
+  "run": "v56v9b",
+  "cmd": "scripts/benchmark_random_v56_paired.py --agents mgt_v9,mgt_v9y3 --n-seeds 20 --workers 2",
+  "collect": "results/fresh/newphase_20260923/y3/v56_paired/games/mgt_v9*"
+ },
+ {
+  "kind": "pushcmd",
+  "run": "v56r3b",
+  "cmd": "scripts/benchmark_random_v56_paired.py --agents mgt_r3,mgt_r3y3 --n-seeds 20 --workers 2",
+  "collect": "results/fresh/newphase_20260923/y3/v56_paired/games/mgt_r3*"
+ }
+]

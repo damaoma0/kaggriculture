@@ -1,0 +1,116 @@
+{
+  "jobs": [
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86301,
+      96301,
+      0,
+      "replant",
+      "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\both_replant\\seed86301-seat0",
+      "replant"
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86301,
+      96301,
+      1,
+      "replant",
+      "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\both_replant\\seed86301-seat1",
+      "replant"
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86302,
+      96302,
+      0,
+      "replant",
+      null,
+      "replant"
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86302,
+      96302,
+      1,
+      "replant",
+      null,
+      "replant"
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86303,
+      96303,
+      0,
+      "replant",
+      null,
+      "replant"
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86303,
+      96303,
+      1,
+      "replant",
+      null,
+      "replant"
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86304,
+      96304,
+      0,
+      "replant",
+      null,
+      "replant"
+    ],
+    [
+      "small-herd",
+      {
+        "cows": 4,
+        "sheep": 4
+      },
+      86304,
+      96304,
+      1,
+      "replant",
+      null,
+      "replant"
+    ]
+  ],
+  "hashes": {
+    "scripts/test_both_replant.py": "7554bff050705f1cd25a4acfa9ddd829f760246d8bfe9eceee5cd0a4872a5c30",
+    "scripts/search_growth_openings.py": "a7e283e1eaad57d2a1c4e36bedc7168b13d491b368ba7ec9c0b1974f2eb788a1",
+    "scripts/evaluate_boards.py": "97185ed95cedcd1e6f1d5c3072e47ad788be01457c531c6d7daf6a6fa302d170",
+    "agents/opening_v1.py": "0d8c5440a25e1194abf27801f4c6142ffbc81de0bdffbc656c1711ef378566a6",
+    "agents/opening_v2.py": "15e59c7e01cced2f7923ec20b74f8fab62a936e0c57a6633a6a3a4b960a2771b",
+    "agents/public/tschinkel_router_v31.py": "e50d3c7b54c051b880fd7b68ed2aa8f954331d6f892b8fb5dca788223b27c24c"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "normal": {
+    "mean_cash": {
+      "router": 79441.28571428571,
+      "scheduler": 79441.28571428571,
+      "allocator": 79441.28571428571
+    },
+    "delta_mean": 0.0,
+    "wins": 0,
+    "ties": 14,
+    "losses": 0,
+    "delta_range": [
+      0.0,
+      0.0
+    ]
+  },
+  "displaced": {
+    "mean_cash": {
+      "router": 79576.14285714286,
+      "scheduler": 79285.14285714286,
+      "allocator": 79285.14285714286
+    },
+    "delta_mean": 0.0,
+    "wins": 0,
+    "ties": 14,
+    "losses": 0,
+    "delta_range": [
+      0.0,
+      0.0
+    ]
+  },
+  "permuted": {
+    "mean_cash": {
+      "router": 75550.71428571429,
+      "scheduler": 78010.42857142857,
+      "allocator": 79441.28571428571
+    },
+    "delta_mean": 1430.857142857143,
+    "wins": 6,
+    "ties": 0,
+    "losses": 8,
+    "delta_range": [
+      -13574.0,
+      29600.0
+    ]
+  }
+}

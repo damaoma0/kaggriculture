@@ -1,0 +1,19 @@
+{
+  "candidate": "strategy_v7_blocks100_readiness",
+  "manifest_sha256": "6b155e1e44e370a87fa1197c1cd6076de1f1e016ba4a849bdbbf4b6837ecdb4e",
+  "reference_manifest_sha256": "fcf72e591c1f424a0c576c442087a63534d2d2c8b1c3f9ac146a290260843f2c",
+  "source_differences": {
+    "scripts/semantic_strategy_tiles_20260928.py": {
+      "v5": "4e777ed5ecb8a2f95e2930c1dd661ec6ceefdbe11c9f3c0847a6ebd97401a391",
+      "v7": "18f7042d78ae3fc268aaf1bdb77809ae30a96e548748e9de63a5ebd8385af34e"
+    },
+    "scripts/semantic_tile_planner_20260928.py": {
+      "v5": "fc2b4160f6ef04aa3c64b8e064146f92fd7f34c9aaf3a2739d3d46b5769d220a",
+      "v7": "e53474e53ec8f3335fb2711245e00700295b1b52b1a8ae2106bace083ae44dac"
+    }
+  },
+  "harness_differences": {},
+  "config_difference": {},
+  "recovery_enabled": false,
+  "hand_bonus_enabled": false
+}

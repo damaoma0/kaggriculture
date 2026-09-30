@@ -1,0 +1,65 @@
+{
+  "candidate": "strategy_v15_kb115lt2_land3_probe",
+  "manifest_sha256": "932c98ecfbcacb1084c942790d44f798023673ea4b81222ccb14aa2e969bc358",
+  "reference_manifest_sha256": "82d5d5a2a3acc181705540a4acf2ed0a764294bba964122d888ec3634cbb0550",
+  "status": "PREPARED_UNRELEASED",
+  "engine_dispatched": false,
+  "game_dispatch_authorization": false,
+  "source_differences": {
+    "results/fresh/semantic_strategy_20260928/candidate_config.json": {
+      "v13": "600450cd9433fcde527005468c8032c3132ce81882f4210521a106c39669b728",
+      "v15": "52d845651c37dd8fb621054c429cd5074118a182c5105d1ecf5b4d342270d794"
+    }
+  },
+  "config_changes": {
+    "policy.land_limit": {
+      "before": 4,
+      "after": 3
+    }
+  },
+  "harness_differences": {},
+  "entry_import_and_static_initialization_pass": true,
+  "module_origins": {
+    "semantic_strategy_policy_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v15_kb115lt2_land3_probe\\project\\scripts\\semantic_strategy_policy_20260928.py",
+    "semantic_strategy_blocks_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v15_kb115lt2_land3_probe\\project\\scripts\\semantic_strategy_blocks_20260928.py",
+    "semantic_strategy_tiles_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v15_kb115lt2_land3_probe\\project\\scripts\\semantic_strategy_tiles_20260928.py"
+  },
+  "static_checks": {
+    "opening_branch_before144_unchanged": true,
+    "opening_receives_no_policy_config": true,
+    "synthetic_three_quadrants": {
+      "target": 3,
+      "land_add": 0,
+      "plants": {
+        "WHEAT": 75
+      }
+    },
+    "synthetic_four_already_owned": {
+      "target": 4,
+      "land_add": 0,
+      "plants": {
+        "WHEAT": 90
+      }
+    },
+    "spatial_cases": [
+      {
+        "observed_quadrants": 3,
+        "locked_cells": 25,
+        "new_land_requested": 0,
+        "fourth_quadrant_retained": false
+      },
+      {
+        "observed_quadrants": 4,
+        "locked_cells": 0,
+        "new_land_requested": 0,
+        "fourth_quadrant_retained": true
+      }
+    ],
+    "engines_invoked": 0,
+    "full_policy_recomputations": 0
+  },
+  "validator_sha256": "82c61ff0180fcf0ac2facf7f18ff9af0c8fac7d2102f2d28e473a4f0738ab218",
+  "prior_preflight_fixture_failure": true,
+  "validator_snapshot": "evidence/preflight_driver_v2.py",
+  "prior_failure_sha256": "d007dc6167f9e3d6a16389909dbf0780eb1a5251810167f1c173d65e5762516b"
+}

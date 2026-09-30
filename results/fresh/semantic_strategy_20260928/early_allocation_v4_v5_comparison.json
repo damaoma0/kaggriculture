@@ -1,0 +1,423 @@
+{
+  "cases": [
+    {
+      "case": "live-00",
+      "v4": {
+        "early_plants": 52,
+        "early_paid_crop_backlog": 11,
+        "early_paid_animal_backlog": 4,
+        "d10_hands": 14,
+        "d10_pass_before23": 0,
+        "d10_post_unlock": {
+          "COLLECT_FERTILIZER": 13,
+          "SOUTH": 11,
+          "WATER": 32,
+          "WEST": 20,
+          "FEED": 4,
+          "HARVEST": 8,
+          "NORTH": 21,
+          "EAST": 19,
+          "CARE": 7,
+          "PLANT": 14,
+          "DROP": 1,
+          "FERTILIZE": 3,
+          "PICKUP": 2,
+          "BUILD_COOP": 2,
+          "PLACE": 2,
+          "PASS": 6
+        }
+      },
+      "v5": {
+        "early_plants": 52,
+        "early_paid_crop_backlog": 10,
+        "early_paid_animal_backlog": 4,
+        "d10_hands": 12,
+        "d10_pass_before23": 2,
+        "d10_post_unlock": {
+          "DROP": 1,
+          "PICKUP": 1,
+          "COLLECT_FERTILIZER": 12,
+          "SOUTH": 21,
+          "WATER": 33,
+          "FEED": 10,
+          "NORTH": 10,
+          "HARVEST": 7,
+          "PLANT": 20,
+          "EAST": 15,
+          "WEST": 12,
+          "CARE": 8,
+          "PASS": 6
+        }
+      }
+    },
+    {
+      "case": "live-01",
+      "v4": {
+        "early_plants": 36,
+        "early_paid_crop_backlog": 15,
+        "early_paid_animal_backlog": 6,
+        "d10_hands": 11,
+        "d10_pass_before23": 0,
+        "d10_post_unlock": {
+          "CARE": 6,
+          "WEST": 12,
+          "COLLECT_FERTILIZER": 10,
+          "HARVEST": 9,
+          "DROP": 1,
+          "WATER": 23,
+          "NORTH": 13,
+          "PICKUP": 3,
+          "PLANT": 12,
+          "FEED": 4,
+          "EAST": 14,
+          "SOUTH": 14,
+          "BUILD_COOP": 1,
+          "FERTILIZE": 1,
+          "PLACE": 2,
+          "BUILD_PASTURE": 1,
+          "PASS": 6
+        }
+      },
+      "v5": {
+        "early_plants": 40,
+        "early_paid_crop_backlog": 13,
+        "early_paid_animal_backlog": 3,
+        "d10_hands": 12,
+        "d10_pass_before23": 21,
+        "d10_post_unlock": {
+          "DROP": 1,
+          "PASS": 27,
+          "COLLECT_FERTILIZER": 9,
+          "NORTH": 10,
+          "WEST": 14,
+          "SOUTH": 17,
+          "WATER": 26,
+          "EAST": 11,
+          "PICKUP": 1,
+          "FEED": 6,
+          "HARVEST": 8,
+          "FERTILIZE": 3,
+          "CARE": 5,
+          "PLANT": 14,
+          "BUILD_COOP": 2,
+          "PLACE": 2
+        }
+      }
+    },
+    {
+      "case": "live-02",
+      "v4": {
+        "early_plants": 41,
+        "early_paid_crop_backlog": 18,
+        "early_paid_animal_backlog": 4,
+        "d10_hands": 12,
+        "d10_pass_before23": 1,
+        "d10_post_unlock": {
+          "HARVEST": 6,
+          "COLLECT_FERTILIZER": 9,
+          "PICKUP": 4,
+          "WATER": 23,
+          "NORTH": 6,
+          "EAST": 30,
+          "DROP": 1,
+          "WEST": 7,
+          "SOUTH": 20,
+          "CARE": 4,
+          "FEED": 4,
+          "PLANT": 11,
+          "BUILD_COOP": 4,
+          "PLACE": 6,
+          "BUILD_PASTURE": 2,
+          "PASS": 6
+        }
+      },
+      "v5": {
+        "early_plants": 46,
+        "early_paid_crop_backlog": 17,
+        "early_paid_animal_backlog": 7,
+        "d10_hands": 13,
+        "d10_pass_before23": 12,
+        "d10_post_unlock": {
+          "PICKUP": 4,
+          "DROP": 1,
+          "SOUTH": 24,
+          "EAST": 14,
+          "WEST": 11,
+          "WATER": 26,
+          "PLACE": 3,
+          "FEED": 5,
+          "COLLECT_FERTILIZER": 12,
+          "PLANT": 8,
+          "CARE": 7,
+          "PASS": 16,
+          "NORTH": 18,
+          "BUILD_COOP": 2,
+          "HARVEST": 1,
+          "FERTILIZE": 2
+        }
+      }
+    },
+    {
+      "case": "live-03",
+      "v4": {
+        "early_plants": 43,
+        "early_paid_crop_backlog": 13,
+        "early_paid_animal_backlog": 1,
+        "d10_hands": 11,
+        "d10_pass_before23": 3,
+        "d10_post_unlock": {
+          "DROP": 1,
+          "COLLECT_FERTILIZER": 12,
+          "CARE": 6,
+          "EAST": 21,
+          "WEST": 18,
+          "FEED": 3,
+          "PICKUP": 2,
+          "PLANT": 9,
+          "SOUTH": 12,
+          "WATER": 24,
+          "NORTH": 19,
+          "BUILD_PASTURE": 2,
+          "PLACE": 2,
+          "FERTILIZE": 2,
+          "PASS": 9,
+          "HARVEST": 2
+        }
+      },
+      "v5": {
+        "early_plants": 45,
+        "early_paid_crop_backlog": 20,
+        "early_paid_animal_backlog": 5,
+        "d10_hands": 13,
+        "d10_pass_before23": 4,
+        "d10_post_unlock": {
+          "PICKUP": 4,
+          "CARE": 5,
+          "SOUTH": 13,
+          "EAST": 21,
+          "NORTH": 14,
+          "WATER": 32,
+          "WEST": 13,
+          "COLLECT_FERTILIZER": 11,
+          "PLANT": 14,
+          "FEED": 2,
+          "HARVEST": 6,
+          "FERTILIZE": 2,
+          "BUILD_COOP": 1,
+          "BUILD_PASTURE": 1,
+          "PLACE": 2,
+          "PASS": 13
+        }
+      }
+    },
+    {
+      "case": "live-04",
+      "v4": {
+        "early_plants": 41,
+        "early_paid_crop_backlog": 12,
+        "early_paid_animal_backlog": 3,
+        "d10_hands": 11,
+        "d10_pass_before23": 1,
+        "d10_post_unlock": {
+          "HARVEST": 2,
+          "COLLECT_FERTILIZER": 14,
+          "EAST": 19,
+          "FEED": 5,
+          "WATER": 24,
+          "CARE": 7,
+          "DROP": 2,
+          "WEST": 13,
+          "PICKUP": 2,
+          "NORTH": 11,
+          "SOUTH": 12,
+          "BUILD_COOP": 2,
+          "PLACE": 2,
+          "PLANT": 8,
+          "FERTILIZE": 2,
+          "PASS": 7
+        }
+      },
+      "v5": {
+        "early_plants": 45,
+        "early_paid_crop_backlog": 11,
+        "early_paid_animal_backlog": 4,
+        "d10_hands": 12,
+        "d10_pass_before23": 0,
+        "d10_post_unlock": {
+          "PICKUP": 4,
+          "COLLECT_FERTILIZER": 12,
+          "CARE": 7,
+          "EAST": 20,
+          "WEST": 14,
+          "WATER": 28,
+          "HARVEST": 3,
+          "SOUTH": 20,
+          "NORTH": 6,
+          "PLANT": 15,
+          "FEED": 4,
+          "FERTILIZE": 1,
+          "BUILD_COOP": 1,
+          "PLACE": 2,
+          "PASS": 6
+        }
+      }
+    },
+    {
+      "case": "live-05",
+      "v4": {
+        "early_plants": 40,
+        "early_paid_crop_backlog": 15,
+        "early_paid_animal_backlog": 2,
+        "d10_hands": 11,
+        "d10_pass_before23": 2,
+        "d10_post_unlock": {
+          "DROP": 3,
+          "HARVEST": 4,
+          "COLLECT_FERTILIZER": 15,
+          "WEST": 17,
+          "EAST": 19,
+          "WATER": 26,
+          "SOUTH": 13,
+          "NORTH": 15,
+          "CARE": 7,
+          "PLANT": 11,
+          "PICKUP": 2,
+          "FEED": 4,
+          "BUILD_PASTURE": 1,
+          "PASS": 6,
+          "PLACE": 1
+        }
+      },
+      "v5": {
+        "early_plants": 43,
+        "early_paid_crop_backlog": 14,
+        "early_paid_animal_backlog": 4,
+        "d10_hands": 12,
+        "d10_pass_before23": 1,
+        "d10_post_unlock": {
+          "PICKUP": 4,
+          "COLLECT_FERTILIZER": 10,
+          "CARE": 11,
+          "FEED": 7,
+          "WEST": 9,
+          "EAST": 26,
+          "NORTH": 13,
+          "PLANT": 10,
+          "WATER": 20,
+          "SOUTH": 16,
+          "HARVEST": 2,
+          "DROP": 1,
+          "PASS": 7,
+          "PLACE": 3,
+          "FERTILIZE": 2,
+          "BUILD_COOP": 2
+        }
+      }
+    },
+    {
+      "case": "live-06",
+      "v4": {
+        "early_plants": 33,
+        "early_paid_crop_backlog": 22,
+        "early_paid_animal_backlog": 8,
+        "d10_hands": 12,
+        "d10_pass_before23": 0,
+        "d10_post_unlock": {
+          "WEST": 24,
+          "NORTH": 11,
+          "PICKUP": 3,
+          "FEED": 4,
+          "HARVEST": 8,
+          "WATER": 23,
+          "COLLECT_FERTILIZER": 9,
+          "EAST": 26,
+          "CARE": 4,
+          "DROP": 1,
+          "SOUTH": 10,
+          "BUILD_COOP": 4,
+          "PLACE": 5,
+          "PLANT": 4,
+          "PASS": 7
+        }
+      },
+      "v5": {
+        "early_plants": 44,
+        "early_paid_crop_backlog": 22,
+        "early_paid_animal_backlog": 7,
+        "d10_hands": 13,
+        "d10_pass_before23": 1,
+        "d10_post_unlock": {
+          "PICKUP": 2,
+          "COLLECT_FERTILIZER": 12,
+          "EAST": 21,
+          "SOUTH": 25,
+          "WEST": 9,
+          "WATER": 26,
+          "BUILD_PASTURE": 1,
+          "HARVEST": 5,
+          "NORTH": 12,
+          "PLACE": 3,
+          "PASS": 6,
+          "FERTILIZE": 2,
+          "PLANT": 14,
+          "FEED": 7,
+          "CARE": 7,
+          "BUILD_COOP": 1,
+          "DROP": 1
+        }
+      }
+    },
+    {
+      "case": "live-07",
+      "v4": {
+        "early_plants": 38,
+        "early_paid_crop_backlog": 15,
+        "early_paid_animal_backlog": 4,
+        "d10_hands": 11,
+        "d10_pass_before23": 0,
+        "d10_post_unlock": {
+          "WEST": 14,
+          "NORTH": 18,
+          "COLLECT_FERTILIZER": 15,
+          "WATER": 18,
+          "FEED": 7,
+          "SOUTH": 17,
+          "PLANT": 6,
+          "EAST": 9,
+          "CARE": 8,
+          "HARVEST": 7,
+          "PICKUP": 2,
+          "BUILD_COOP": 3,
+          "PLACE": 4,
+          "PASS": 4
+        }
+      },
+      "v5": {
+        "early_plants": 48,
+        "early_paid_crop_backlog": 6,
+        "early_paid_animal_backlog": 6,
+        "d10_hands": 12,
+        "d10_pass_before23": 2,
+        "d10_post_unlock": {
+          "DROP": 1,
+          "WEST": 8,
+          "NORTH": 11,
+          "SOUTH": 17,
+          "PLANT": 19,
+          "PICKUP": 3,
+          "EAST": 20,
+          "FEED": 4,
+          "CARE": 7,
+          "COLLECT_FERTILIZER": 8,
+          "WATER": 38,
+          "FERTILIZE": 3,
+          "HARVEST": 8,
+          "BUILD_COOP": 1,
+          "PASS": 7,
+          "PLACE": 1
+        }
+      }
+    }
+  ],
+  "note": "Paired development seeds; natural shops may diverge; descriptive execution comparison, not isolated profit effect."
+}

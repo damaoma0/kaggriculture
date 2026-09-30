@@ -1,0 +1,263 @@
+{
+  "panel": "v9-lite fresh release qualification",
+  "design_file": "results\\fresh\\coherent_switch_20260924_01a0\\release_lite_qualification\\design.json",
+  "expected_games": 384,
+  "completed_games": 384,
+  "world_count": 64,
+  "opponents": [
+    "mgt_m1",
+    "v56"
+  ],
+  "arms": [
+    "baseline",
+    "y3",
+    "v9lite"
+  ],
+  "all_game_ledgers_reconcile_exactly": true,
+  "candidate_search_error_count": 0,
+  "all_candidate_remaining_banks_positive": true,
+  "candidate_y3_pre288_prefix_parity": {
+    "checked_specs": 128,
+    "all_equal": true
+  },
+  "candidate_no_switch_full_action_and_cash_parity_with_y3": {
+    "checked_specs": 103,
+    "all_equal": true,
+    "spec_ids": [
+      "r00-mgt_m1",
+      "r02-mgt_m1",
+      "r02-v56",
+      "r03-mgt_m1",
+      "r03-v56",
+      "r04-mgt_m1",
+      "r04-v56",
+      "r05-mgt_m1",
+      "r05-v56",
+      "r06-mgt_m1",
+      "r06-v56",
+      "r07-mgt_m1",
+      "r07-v56",
+      "r08-mgt_m1",
+      "r08-v56",
+      "r09-mgt_m1",
+      "r09-v56",
+      "r10-mgt_m1",
+      "r10-v56",
+      "r11-mgt_m1",
+      "r11-v56",
+      "r12-mgt_m1",
+      "r12-v56",
+      "r13-v56",
+      "r16-mgt_m1",
+      "r16-v56",
+      "r18-mgt_m1",
+      "r18-v56",
+      "r19-mgt_m1",
+      "r19-v56",
+      "r20-mgt_m1",
+      "r22-v56",
+      "r23-mgt_m1",
+      "r23-v56",
+      "r24-mgt_m1",
+      "r24-v56",
+      "r25-mgt_m1",
+      "r25-v56",
+      "r26-mgt_m1",
+      "r26-v56",
+      "r27-mgt_m1",
+      "r27-v56",
+      "r28-mgt_m1",
+      "r28-v56",
+      "r29-mgt_m1",
+      "r29-v56",
+      "r30-mgt_m1",
+      "r30-v56",
+      "r31-mgt_m1",
+      "r31-v56",
+      "r32-mgt_m1",
+      "r32-v56",
+      "r33-mgt_m1",
+      "r33-v56",
+      "r34-mgt_m1",
+      "r34-v56",
+      "r35-mgt_m1",
+      "r35-v56",
+      "r38-mgt_m1",
+      "r38-v56",
+      "r39-mgt_m1",
+      "r39-v56",
+      "r40-mgt_m1",
+      "r40-v56",
+      "r41-mgt_m1",
+      "r41-v56",
+      "r42-v56",
+      "r43-mgt_m1",
+      "r43-v56",
+      "r45-mgt_m1",
+      "r45-v56",
+      "r46-mgt_m1",
+      "r47-mgt_m1",
+      "r47-v56",
+      "r48-mgt_m1",
+      "r48-v56",
+      "r49-mgt_m1",
+      "r49-v56",
+      "r50-mgt_m1",
+      "r50-v56",
+      "r51-mgt_m1",
+      "r52-mgt_m1",
+      "r52-v56",
+      "r53-mgt_m1",
+      "r53-v56",
+      "r54-mgt_m1",
+      "r55-mgt_m1",
+      "r55-v56",
+      "r56-mgt_m1",
+      "r56-v56",
+      "r57-mgt_m1",
+      "r57-v56",
+      "r58-mgt_m1",
+      "r58-v56",
+      "r59-mgt_m1",
+      "r59-v56",
+      "r60-v56",
+      "r61-mgt_m1",
+      "r61-v56",
+      "r62-mgt_m1",
+      "r62-v56",
+      "r63-mgt_m1",
+      "r63-v56"
+    ]
+  },
+  "actual_game_outcomes_by_arm": {
+    "baseline": {
+      "pooled": {
+        "n": 128,
+        "wins": 52,
+        "ties": 52,
+        "losses": 24,
+        "win_rate_ties_half": 0.609375
+      },
+      "mgt_m1": {
+        "n": 64,
+        "wins": 5,
+        "ties": 52,
+        "losses": 7,
+        "win_rate_ties_half": 0.484375
+      },
+      "v56": {
+        "n": 64,
+        "wins": 47,
+        "ties": 0,
+        "losses": 17,
+        "win_rate_ties_half": 0.734375
+      }
+    },
+    "y3": {
+      "pooled": {
+        "n": 128,
+        "wins": 71,
+        "ties": 32,
+        "losses": 25,
+        "win_rate_ties_half": 0.6796875
+      },
+      "mgt_m1": {
+        "n": 64,
+        "wins": 23,
+        "ties": 32,
+        "losses": 9,
+        "win_rate_ties_half": 0.609375
+      },
+      "v56": {
+        "n": 64,
+        "wins": 48,
+        "ties": 0,
+        "losses": 16,
+        "win_rate_ties_half": 0.75
+      }
+    },
+    "v9lite": {
+      "pooled": {
+        "n": 128,
+        "wins": 80,
+        "ties": 28,
+        "losses": 20,
+        "win_rate_ties_half": 0.734375
+      },
+      "mgt_m1": {
+        "n": 64,
+        "wins": 29,
+        "ties": 28,
+        "losses": 7,
+        "win_rate_ties_half": 0.671875
+      },
+      "v56": {
+        "n": 64,
+        "wins": 51,
+        "ties": 0,
+        "losses": 13,
+        "win_rate_ties_half": 0.796875
+      }
+    }
+  },
+  "arm_summaries": {
+    "baseline": {
+      "games": 128,
+      "mean_own_cash": 105550,
+      "mean_competitive_margin": 1836.1640625,
+      "mean_game_runtime_seconds": 2.0055226341983143,
+      "max_game_runtime_seconds": 6.118967997725122,
+      "mean_max_action_seconds": 1.7404706867155255,
+      "worst_max_action_seconds": 3.658986800001003,
+      "largest_own_call_time_game_id": "r41-mgt_m1",
+      "mean_remaining_bank_seconds": 59.2490633000034,
+      "minimum_remaining_bank_seconds": 56.73685149999801,
+      "tightest_bank_game_id": "r41-mgt_m1",
+      "candidate_search": null
+    },
+    "y3": {
+      "games": 128,
+      "mean_own_cash": 105670.828125,
+      "mean_competitive_margin": 2145.5,
+      "mean_game_runtime_seconds": 2.001319296959082,
+      "max_game_runtime_seconds": 5.988327999948524,
+      "mean_max_action_seconds": 1.739793921877208,
+      "worst_max_action_seconds": 3.648388499976136,
+      "largest_own_call_time_game_id": "r41-mgt_m1",
+      "mean_remaining_bank_seconds": 59.249047499998596,
+      "minimum_remaining_bank_seconds": 56.74115800007712,
+      "tightest_bank_game_id": "r41-mgt_m1",
+      "candidate_search": null
+    },
+    "v9lite": {
+      "games": 128,
+      "mean_own_cash": 106088.4296875,
+      "mean_competitive_margin": 2749.9921875,
+      "mean_game_runtime_seconds": 8.399219068091952,
+      "max_game_runtime_seconds": 34.58296670054551,
+      "mean_max_action_seconds": 3.6691325273359325,
+      "worst_max_action_seconds": 13.791177599923685,
+      "largest_own_call_time_game_id": "r01-mgt_m1",
+      "mean_remaining_bank_seconds": 55.55541499453739,
+      "minimum_remaining_bank_seconds": 31.29706950020045,
+      "tightest_bank_game_id": "r01-mgt_m1",
+      "candidate_search": {
+        "report_errors": 0,
+        "search_decisions": 384,
+        "reported_switches": 26,
+        "search_seconds_total": 586.25,
+        "search_seconds_max": 13.79,
+        "mean_search_budget_seconds": 23.274765625,
+        "warm_events": {
+          "runtime": 128
+        },
+        "warm_errors": 0
+      }
+    }
+  },
+  "notes": [
+    "Own cash is the final cash of spec.seat.",
+    "Competitive margin is own final cash minus rival final cash; game wins/ties/losses compare this margin with zero, with a tie counting as half a win.",
+    "Paired better/tie/worse counts in paired.json classify signed arm-to-arm deltas, not game outcomes."
+  ]
+}

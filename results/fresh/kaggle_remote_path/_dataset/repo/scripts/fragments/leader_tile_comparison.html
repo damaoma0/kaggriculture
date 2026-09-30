@@ -1,0 +1,22 @@
+<div id="leader-tile-comparison">
+  <style>
+    #leader-tile-comparison {color:var(--foreground);}
+    #leader-tile-comparison .panels {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px;}
+    #leader-tile-comparison .map {display:grid;grid-template-columns:20px repeat(10,minmax(0,1fr));gap:3px;margin:12px 0;}
+    #leader-tile-comparison .mark {aspect-ratio:1;display:flex;align-items:center;justify-content:center;color:var(--foreground);font-variant-numeric:tabular-nums;}
+    #leader-tile-comparison .axis {display:flex;align-items:center;justify-content:center;color:var(--muted-foreground);}
+    #leader-tile-comparison .legend {display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:12px 0;}
+    #leader-tile-comparison .scale {width:130px;height:12px;background:linear-gradient(to right,color-mix(in srgb,var(--viz-series-1) 8%,transparent),color-mix(in srgb,var(--viz-series-1) 62%,transparent));}
+    @media(max-width:680px){#leader-tile-comparison .panels {grid-template-columns:1fr;}}
+  </style>
+  <h2>Production-type changes · DSM and UMG</h2>
+  <div class="text-small text-muted">Mean switches per tile per game · hourly recorded states · x across, y down</div>
+  <div class="legend text-small"><span>0</span><span class="scale" aria-hidden="true"></span><span>__MAX__ changes/game · shared scale</span><span>— Never productive in this window</span></div>
+  <div class="panels">
+    <section><h3>DSM · days 12–29</h3><div class="text-small text-muted">__META0__</div><div class="map text-small" role="img" aria-label="DSM production type changes from day 12 through the end of the season">__MAP0__</div></section>
+    <section><h3>UMG · days 12–29</h3><div class="text-small text-muted">__META1__</div><div class="map text-small" role="img" aria-label="UMG production type changes from day 12 through the end of the season">__MAP1__</div></section>
+    <section><h3>DSM · full season</h3><div class="text-small text-muted">__META2__</div><div class="map text-small" role="img" aria-label="DSM production type changes over the full season">__MAP2__</div></section>
+    <section><h3>UMG · full season</h3><div class="text-small text-muted">__META3__</div><div class="map text-small" role="img" aria-label="UMG production type changes over the full season">__MAP3__</div></section>
+  </div>
+  <div class="text-small text-muted">DSM submission 56444344 · UMG submission 56266758 · unchanged = one crop/animal type within the window, excluding never-productive tile/game pairs</div>
+</div>

@@ -1,0 +1,736 @@
+{
+  "passed": true,
+  "mechanics_functions_match_installed_engine": [
+    "_apply_unit_action",
+    "_daily_refresh_plants",
+    "_daily_refresh_animals",
+    "_decay_plants",
+    "_new_plant",
+    "_new_animal"
+  ],
+  "profile_check_count": 13,
+  "aggregate_certificates_checked": 90,
+  "certificates": [
+    {
+      "case": "109530921-d12.json",
+      "mode": "forecast_end_only",
+      "cost": 8946,
+      "cash": 13337.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.782608695652174
+    },
+    {
+      "case": "109530921-d12.json",
+      "mode": "forecast_timed",
+      "cost": 8966,
+      "cash": 13337.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.8043478260869565
+    },
+    {
+      "case": "109530921-d12.json",
+      "mode": "realized_timed_oracle",
+      "cost": 6886,
+      "cash": 13337.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.8031088082901554
+    },
+    {
+      "case": "109530921-d18.json",
+      "mode": "forecast_end_only",
+      "cost": 5794,
+      "cash": 28147.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.8290155440414507
+    },
+    {
+      "case": "109530921-d18.json",
+      "mode": "forecast_timed",
+      "cost": 3644,
+      "cash": 28147.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.7927461139896373
+    },
+    {
+      "case": "109530921-d18.json",
+      "mode": "realized_timed_oracle",
+      "cost": 3774,
+      "cash": 28147.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.7616580310880829
+    },
+    {
+      "case": "109530921-d24.json",
+      "mode": "forecast_end_only",
+      "cost": 3362,
+      "cash": 67726.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8134715025906736
+    },
+    {
+      "case": "109530921-d24.json",
+      "mode": "forecast_timed",
+      "cost": 1892,
+      "cash": 67726.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.844559585492228
+    },
+    {
+      "case": "109530921-d24.json",
+      "mode": "realized_timed_oracle",
+      "cost": 1992,
+      "cash": 67726.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8652849740932642
+    },
+    {
+      "case": "109780145-d12.json",
+      "mode": "forecast_end_only",
+      "cost": 7366,
+      "cash": 16073.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.7875647668393783
+    },
+    {
+      "case": "109780145-d12.json",
+      "mode": "forecast_timed",
+      "cost": 7366,
+      "cash": 16073.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.8031088082901554
+    },
+    {
+      "case": "109780145-d12.json",
+      "mode": "realized_timed_oracle",
+      "cost": 7366,
+      "cash": 16073.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.8186528497409327
+    },
+    {
+      "case": "109780145-d18.json",
+      "mode": "forecast_end_only",
+      "cost": 5534,
+      "cash": 37962.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8601036269430051
+    },
+    {
+      "case": "109780145-d18.json",
+      "mode": "forecast_timed",
+      "cost": 3674,
+      "cash": 37962.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8341968911917098
+    },
+    {
+      "case": "109780145-d18.json",
+      "mode": "realized_timed_oracle",
+      "cost": 3664,
+      "cash": 37962.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8704663212435233
+    },
+    {
+      "case": "109780145-d24.json",
+      "mode": "forecast_end_only",
+      "cost": 1992,
+      "cash": 72334.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.7772020725388601
+    },
+    {
+      "case": "109780145-d24.json",
+      "mode": "forecast_timed",
+      "cost": 1982,
+      "cash": 72334.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8031088082901554
+    },
+    {
+      "case": "109780145-d24.json",
+      "mode": "realized_timed_oracle",
+      "cost": 2952,
+      "cash": 72334.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8186528497409327
+    },
+    {
+      "case": "109789754-d12.json",
+      "mode": "forecast_end_only",
+      "cost": 8976,
+      "cash": 15332.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.8601036269430051
+    },
+    {
+      "case": "109789754-d12.json",
+      "mode": "forecast_timed",
+      "cost": 7026,
+      "cash": 15332.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.8808290155440415
+    },
+    {
+      "case": "109789754-d12.json",
+      "mode": "realized_timed_oracle",
+      "cost": 7296,
+      "cash": 15332.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.8963730569948186
+    },
+    {
+      "case": "109789754-d18.json",
+      "mode": "forecast_end_only",
+      "cost": 6844,
+      "cash": 42817.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.9510869565217391
+    },
+    {
+      "case": "109789754-d18.json",
+      "mode": "forecast_timed",
+      "cost": 4864,
+      "cash": 42817.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.9430051813471503
+    },
+    {
+      "case": "109789754-d18.json",
+      "mode": "realized_timed_oracle",
+      "cost": 4884,
+      "cash": 42817.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8858695652173914
+    },
+    {
+      "case": "109789754-d24.json",
+      "mode": "forecast_end_only",
+      "cost": 4687,
+      "cash": 57182.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.8549222797927462
+    },
+    {
+      "case": "109789754-d24.json",
+      "mode": "forecast_timed",
+      "cost": 3227,
+      "cash": 57182.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.9067357512953368
+    },
+    {
+      "case": "109789754-d24.json",
+      "mode": "realized_timed_oracle",
+      "cost": 3167,
+      "cash": 57182.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.8756476683937824
+    },
+    {
+      "case": "109817724-d12.json",
+      "mode": "forecast_end_only",
+      "cost": 6906,
+      "cash": 14738.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.8097826086956522
+    },
+    {
+      "case": "109817724-d12.json",
+      "mode": "forecast_timed",
+      "cost": 6926,
+      "cash": 14738.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.8290155440414507
+    },
+    {
+      "case": "109817724-d12.json",
+      "mode": "realized_timed_oracle",
+      "cost": 6566,
+      "cash": 14738.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.7616580310880829
+    },
+    {
+      "case": "109817724-d18.json",
+      "mode": "forecast_end_only",
+      "cost": 5474,
+      "cash": 30164.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.7668393782383419
+    },
+    {
+      "case": "109817724-d18.json",
+      "mode": "forecast_timed",
+      "cost": 3844,
+      "cash": 30164.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.7668393782383419
+    },
+    {
+      "case": "109817724-d18.json",
+      "mode": "realized_timed_oracle",
+      "cost": 3736,
+      "cash": 30164.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.8134715025906736
+    },
+    {
+      "case": "109817724-d24.json",
+      "mode": "forecast_end_only",
+      "cost": 3368,
+      "cash": 69926.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.7772020725388601
+    },
+    {
+      "case": "109817724-d24.json",
+      "mode": "forecast_timed",
+      "cost": 2448,
+      "cash": 69926.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8341968911917098
+    },
+    {
+      "case": "109817724-d24.json",
+      "mode": "realized_timed_oracle",
+      "cost": 2132,
+      "cash": 69926.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8601036269430051
+    },
+    {
+      "case": "109835616-d12.json",
+      "mode": "forecast_end_only",
+      "cost": 8196,
+      "cash": 16304.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.8290155440414507
+    },
+    {
+      "case": "109835616-d12.json",
+      "mode": "forecast_timed",
+      "cost": 8266,
+      "cash": 16304.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.8808290155440415
+    },
+    {
+      "case": "109835616-d12.json",
+      "mode": "realized_timed_oracle",
+      "cost": 8836,
+      "cash": 16304.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.9130434782608695
+    },
+    {
+      "case": "109835616-d18.json",
+      "mode": "forecast_end_only",
+      "cost": 6474,
+      "cash": 48393.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8911917098445595
+    },
+    {
+      "case": "109835616-d18.json",
+      "mode": "forecast_timed",
+      "cost": 4724,
+      "cash": 48393.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.9015544041450777
+    },
+    {
+      "case": "109835616-d18.json",
+      "mode": "realized_timed_oracle",
+      "cost": 4844,
+      "cash": 48393.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8860103626943006
+    },
+    {
+      "case": "109835616-d24.json",
+      "mode": "forecast_end_only",
+      "cost": 4536,
+      "cash": 73445.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8497409326424871
+    },
+    {
+      "case": "109835616-d24.json",
+      "mode": "forecast_timed",
+      "cost": 3130,
+      "cash": 73445.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8186528497409327
+    },
+    {
+      "case": "109835616-d24.json",
+      "mode": "realized_timed_oracle",
+      "cost": 3621,
+      "cash": 73445.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8601036269430051
+    },
+    {
+      "case": "109839895-d12.json",
+      "mode": "forecast_end_only",
+      "cost": 9256,
+      "cash": 16236.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.9222797927461139
+    },
+    {
+      "case": "109839895-d12.json",
+      "mode": "forecast_timed",
+      "cost": 8026,
+      "cash": 16236.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.842391304347826
+    },
+    {
+      "case": "109839895-d12.json",
+      "mode": "realized_timed_oracle",
+      "cost": 7856,
+      "cash": 16236.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.8652849740932642
+    },
+    {
+      "case": "109839895-d18.json",
+      "mode": "forecast_end_only",
+      "cost": 4564,
+      "cash": 44865.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8315217391304348
+    },
+    {
+      "case": "109839895-d18.json",
+      "mode": "forecast_timed",
+      "cost": 4314,
+      "cash": 44865.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8393782383419689
+    },
+    {
+      "case": "109839895-d18.json",
+      "mode": "realized_timed_oracle",
+      "cost": 3954,
+      "cash": 44865.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8497409326424871
+    },
+    {
+      "case": "109839895-d24.json",
+      "mode": "forecast_end_only",
+      "cost": 2102,
+      "cash": 72683.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.8290155440414507
+    },
+    {
+      "case": "109839895-d24.json",
+      "mode": "forecast_timed",
+      "cost": 2082,
+      "cash": 72683.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.8808290155440415
+    },
+    {
+      "case": "109839895-d24.json",
+      "mode": "realized_timed_oracle",
+      "cost": 2032,
+      "cash": 72683.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.8238341968911918
+    },
+    {
+      "case": "110059839-d12.json",
+      "mode": "forecast_end_only",
+      "cost": 8976,
+      "cash": 16654.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.7823834196891192
+    },
+    {
+      "case": "110059839-d12.json",
+      "mode": "forecast_timed",
+      "cost": 7816,
+      "cash": 16654.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.8031088082901554
+    },
+    {
+      "case": "110059839-d12.json",
+      "mode": "realized_timed_oracle",
+      "cost": 7326,
+      "cash": 16654.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.8031088082901554
+    },
+    {
+      "case": "110059839-d18.json",
+      "mode": "forecast_end_only",
+      "cost": 3654,
+      "cash": 41376.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.7979274611398963
+    },
+    {
+      "case": "110059839-d18.json",
+      "mode": "forecast_timed",
+      "cost": 3644,
+      "cash": 41376.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8808290155440415
+    },
+    {
+      "case": "110059839-d18.json",
+      "mode": "realized_timed_oracle",
+      "cost": 3564,
+      "cash": 41376.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.9119170984455959
+    },
+    {
+      "case": "110059839-d24.json",
+      "mode": "forecast_end_only",
+      "cost": 2712,
+      "cash": 83818.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.7772020725388601
+    },
+    {
+      "case": "110059839-d24.json",
+      "mode": "forecast_timed",
+      "cost": 1872,
+      "cash": 83818.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8704663212435233
+    },
+    {
+      "case": "110059839-d24.json",
+      "mode": "realized_timed_oracle",
+      "cost": 2772,
+      "cash": 83818.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8756476683937824
+    },
+    {
+      "case": "110271825-d12.json",
+      "mode": "forecast_end_only",
+      "cost": 8746,
+      "cash": 17030.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.8082901554404145
+    },
+    {
+      "case": "110271825-d12.json",
+      "mode": "forecast_timed",
+      "cost": 7056,
+      "cash": 17030.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.8756476683937824
+    },
+    {
+      "case": "110271825-d12.json",
+      "mode": "realized_timed_oracle",
+      "cost": 6456,
+      "cash": 17030.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.8652849740932642
+    },
+    {
+      "case": "110271825-d18.json",
+      "mode": "forecast_end_only",
+      "cost": 5694,
+      "cash": 41574.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8808290155440415
+    },
+    {
+      "case": "110271825-d18.json",
+      "mode": "forecast_timed",
+      "cost": 3694,
+      "cash": 41574.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.7927461139896373
+    },
+    {
+      "case": "110271825-d18.json",
+      "mode": "realized_timed_oracle",
+      "cost": 3594,
+      "cash": 41574.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.7927461139896373
+    },
+    {
+      "case": "110271825-d24.json",
+      "mode": "forecast_end_only",
+      "cost": 3602,
+      "cash": 72992.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.7875647668393783
+    },
+    {
+      "case": "110271825-d24.json",
+      "mode": "forecast_timed",
+      "cost": 1942,
+      "cash": 72992.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8549222797927462
+    },
+    {
+      "case": "110271825-d24.json",
+      "mode": "realized_timed_oracle",
+      "cost": 2692,
+      "cash": 72992.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8704663212435233
+    },
+    {
+      "case": "110344290-d12.json",
+      "mode": "forecast_end_only",
+      "cost": 7626,
+      "cash": 15711.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.8290155440414507
+    },
+    {
+      "case": "110344290-d12.json",
+      "mode": "forecast_timed",
+      "cost": 9086,
+      "cash": 15711.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.9119170984455959
+    },
+    {
+      "case": "110344290-d12.json",
+      "mode": "realized_timed_oracle",
+      "cost": 8776,
+      "cash": 15711.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.9222797927461139
+    },
+    {
+      "case": "110344290-d18.json",
+      "mode": "forecast_end_only",
+      "cost": 4054,
+      "cash": 42012.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8031088082901554
+    },
+    {
+      "case": "110344290-d18.json",
+      "mode": "forecast_timed",
+      "cost": 3954,
+      "cash": 42012.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.7927461139896373
+    },
+    {
+      "case": "110344290-d18.json",
+      "mode": "realized_timed_oracle",
+      "cost": 4194,
+      "cash": 42012.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.7823834196891192
+    },
+    {
+      "case": "110344290-d24.json",
+      "mode": "forecast_end_only",
+      "cost": 2632,
+      "cash": 55426.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8393782383419689
+    },
+    {
+      "case": "110344290-d24.json",
+      "mode": "forecast_timed",
+      "cost": 2142,
+      "cash": 55426.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8756476683937824
+    },
+    {
+      "case": "110344290-d24.json",
+      "mode": "realized_timed_oracle",
+      "cost": 2212,
+      "cash": 55426.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8652849740932642
+    },
+    {
+      "case": "110366273-d12.json",
+      "mode": "forecast_end_only",
+      "cost": 6816,
+      "cash": 15385.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.9067357512953368
+    },
+    {
+      "case": "110366273-d12.json",
+      "mode": "forecast_timed",
+      "cost": 6916,
+      "cash": 15385.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.917098445595855
+    },
+    {
+      "case": "110366273-d12.json",
+      "mode": "realized_timed_oracle",
+      "cost": 8966,
+      "cash": 15385.0,
+      "max_land": 73,
+      "highest_workload_ratio": 0.9740932642487047
+    },
+    {
+      "case": "110366273-d18.json",
+      "mode": "forecast_end_only",
+      "cost": 4984,
+      "cash": 33494.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8860103626943006
+    },
+    {
+      "case": "110366273-d18.json",
+      "mode": "forecast_timed",
+      "cost": 5280,
+      "cash": 33494.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8860103626943006
+    },
+    {
+      "case": "110366273-d18.json",
+      "mode": "realized_timed_oracle",
+      "cost": 5498,
+      "cash": 33494.0,
+      "max_land": 75,
+      "highest_workload_ratio": 0.8704663212435233
+    },
+    {
+      "case": "110366273-d24.json",
+      "mode": "forecast_end_only",
+      "cost": 2662,
+      "cash": 60584.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.9015544041450777
+    },
+    {
+      "case": "110366273-d24.json",
+      "mode": "forecast_timed",
+      "cost": 1962,
+      "cash": 60584.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.8497409326424871
+    },
+    {
+      "case": "110366273-d24.json",
+      "mode": "realized_timed_oracle",
+      "cost": 2012,
+      "cash": 60584.0,
+      "max_land": 74,
+      "highest_workload_ratio": 0.8652849740932642
+    }
+  ],
+  "scope": "Arithmetic verification of stated aggregate constraints. Does not certify orders, movement, shed space, weeds or actual paths."
+}

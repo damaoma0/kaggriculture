@@ -1,0 +1,45 @@
+{
+  "experiment": "d6_exact_vs_retile_v3",
+  "scope": "COMPONENT_DIAGNOSTIC_NOT_POLICY",
+  "independent_of_runner": true,
+  "audit_pass": false,
+  "errors": [
+    "112575429 observed locked cells are missing from semantic state",
+    "112575429 retile has 33 placements before land purchase",
+    "112588791 observed locked cells are missing from semantic state",
+    "112588791 retile has 40 placements before land purchase",
+    "112626851 observed locked cells are missing from semantic state",
+    "112626851 retile has 43 placements before land purchase",
+    "112616236 observed locked cells are missing from semantic state",
+    "112616236 retile has 41 placements before land purchase",
+    "112587591 observed locked cells are missing from semantic state",
+    "112587591 retile has 39 placements before land purchase",
+    "112593664 observed locked cells are missing from semantic state",
+    "112593664 retile has 45 placements before land purchase",
+    "112596061 observed locked cells are missing from semantic state",
+    "112596061 retile has 41 placements before land purchase",
+    "112573049 observed locked cells are missing from semantic state",
+    "112573049 retile has 42 placements before land purchase"
+  ],
+  "valid_source_controls": 8,
+  "results": {
+    "exact": {
+      "expected": 8,
+      "recorded": 4,
+      "valid": 4,
+      "complete": false,
+      "wins": 2,
+      "mean_margin": -4098.5
+    },
+    "retile": {
+      "expected": 8,
+      "recorded": 0,
+      "valid": 0,
+      "complete": false,
+      "wins": 0,
+      "mean_margin": null
+    }
+  },
+  "paired": [],
+  "note": "Old training/development worlds with future oracle intent; no causal policy or qualification claim."
+}

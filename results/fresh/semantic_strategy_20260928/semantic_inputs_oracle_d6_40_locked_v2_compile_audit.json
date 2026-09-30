@@ -1,0 +1,391 @@
+{
+  "worlds": 40,
+  "compiled_worlds": 40,
+  "games_executed": 0,
+  "only_change": "Restore observed handoff locked cells",
+  "original_input_sha256": "775b435ec293a950f212da49636134c8e78abe9ab0690fff6752cedecd7441fa",
+  "corrected_input_sha256": "71f84f1f9a58782b92fe2c46d5332d5eebf62b3f56d3e36baf67dd531bb4c760",
+  "source_sha256": {
+    "semantic_tile_inputs_20260928.py": "a0e4616f31a9e3395d76fe31d27f53701f0bcb2948d237e1955f891a721cd542",
+    "semantic_tile_planner_20260928.py": "4794d7ce15c2bf7c3ed717b1f7f4241d55f4da2b4daf8e03964cea441d7ba0e3",
+    "semantic_tile_allocator_20260928.py": "cabc9bcf818aa00ffa3e5ffbd3f9798643f60b7a59deb4a384dd8ebce889d0ae",
+    "semantic_tile_lifetimes_20260928.py": "8fc6df1c01016b85614933247346011b18e16923dc35635e20386fc7c1be6959",
+    "audit_semantic_oracle_d6_locks_20260928.py": "1d89c0ee978828ec101618b0e19e44d8b23edab96fd239784e907ca3c40c29bb"
+  },
+  "selected_episodes": [
+    "112575429",
+    "112588791",
+    "112626851",
+    "112616236",
+    "112587591",
+    "112593664",
+    "112596061",
+    "112573049"
+  ],
+  "selection_manifest_sha256": "97f290030ff1fb078cba378d92cd9b9752ae2442aa9d490cc5b4093380ec111c",
+  "selected_checks_passed": true,
+  "all_checks_passed": true,
+  "compile_failures": {},
+  "worlds_checked": {
+    "112570602": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1241,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112570782": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1099,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112571815": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1087,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112573049": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1180,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112574236": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1225,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112575429": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1151,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112576658": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1133,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112577829": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1522,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112579036": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1123,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112580238": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1236,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112581436": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1101,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112582639": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1119,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112583842": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1198,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112585076": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1148,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112586293": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1197,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112587591": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1138,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112588103": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1425,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112588791": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1244,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112589990": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1364,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112591190": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1279,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112592389": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1376,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112593664": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1388,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112594857": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1129,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112596061": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1214,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112597248": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1130,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112598450": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1186,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112599653": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1304,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112600855": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1223,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112602061": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1526,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112603263": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1143,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112604454": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1215,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112605661": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1273,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112605939": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1230,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112606801": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1420,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112608021": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1220,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112610623": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1107,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112616236": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1183,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112621294": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1046,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112621356": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1234,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    },
+    "112626851": {
+      "locked_at_handoff": 75,
+      "checked_placement_entries": 1221,
+      "planned_purchase_days": {
+        "NE": 6,
+        "SW": 9,
+        "SE": 10
+      }
+    }
+  }
+}

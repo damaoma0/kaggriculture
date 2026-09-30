@@ -1,0 +1,4 @@
+[
+ {"kind": "pushcmd", "run": "v56cs", "cmd": "scripts/benchmark_random_v56_paired.py --agents mgt_y3c1,mgt_y3c3 --n-seeds 20 --workers 4",
+  "collect": "results/fresh/newphase_20260923/y3/v56_paired/games/mgt_y3c*"}
+]

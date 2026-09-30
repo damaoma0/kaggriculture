@@ -1,0 +1,233 @@
+{
+  "arm": "mgt_micro_wool_upturn",
+  "episode": 111462655,
+  "completed": true,
+  "source_sha256": "12f91b4bdd3970a397f16a1b39d1bbcaad99a74e794c14c640f9b476bbaf7c1e",
+  "seed": 231716414,
+  "seat": 0,
+  "cash": 88688.0,
+  "opponent_cash": 92988.0,
+  "margin": -4300.0,
+  "recorded": [
+    87765.0,
+    93042.0
+  ],
+  "action_changes": 50,
+  "first_change": 458,
+  "economics": [
+    {
+      "revenue": {
+        "FERTILIZER": 11650,
+        "WHEAT": 15637,
+        "WOOL": 14066,
+        "MILK": 11254,
+        "MELON": 15220,
+        "EGG": 9222,
+        "STRAWBERRY": 16192,
+        "CARROT": 9085,
+        "TOMATO": 10854
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4702,
+        "HIRE": 5599.0,
+        "BUY_ANIMAL:COW": 2800,
+        "BUY_ANIMAL:SHEEP": 2000,
+        "BUY_SEED:MELON": 1120,
+        "BUY_SEED:WHEAT": 1390,
+        "BUY_SEED:CARROT": 1000,
+        "BUY_SEED:STRAWBERRY": 2200,
+        "BUY_LAND": 3000.0,
+        "BUY_ANIMAL:GOOSE": 1800,
+        "BUY_PRODUCT:FERTILIZER": 881,
+        "BUY_SEED:TOMATO": 1000
+      },
+      "units": {
+        "FERTILIZER": 198,
+        "WHEAT": 413,
+        "WOOL": 81,
+        "MILK": 154,
+        "MELON": 83,
+        "EGG": 204,
+        "STRAWBERRY": 164,
+        "CARROT": 159,
+        "TOMATO": 128
+      }
+    },
+    {
+      "revenue": {
+        "WHEAT": 13188,
+        "FERTILIZER": 16965,
+        "WOOL": 25954,
+        "MILK": 13226,
+        "MELON": 14267,
+        "EGG": 4093,
+        "STRAWBERRY": 23363,
+        "CARROT": 7687
+      },
+      "spend": {
+        "BUY_PRODUCT:WHEAT": 4860,
+        "HIRE": 3986.0,
+        "BUY_ANIMAL:COW": 3200,
+        "BUY_ANIMAL:SHEEP": 3000,
+        "BUY_SEED:MELON": 960,
+        "BUY_SEED:WHEAT": 1510,
+        "BUY_SEED:STRAWBERRY": 3300,
+        "BUY_LAND": 3000.0,
+        "BUY_PRODUCT:FERTILIZER": 2939,
+        "BUY_ANIMAL:GOOSE": 900,
+        "BUY_SEED:CARROT": 1100
+      },
+      "units": {
+        "WHEAT": 349,
+        "FERTILIZER": 336,
+        "WOOL": 155,
+        "MILK": 204,
+        "MELON": 72,
+        "EGG": 93,
+        "STRAWBERRY": 247,
+        "CARROT": 137
+      }
+    }
+  ],
+  "overlay": {
+    "evals": [
+      [
+        6,
+        4,
+        2,
+        7,
+        -3
+      ],
+      [
+        7,
+        4,
+        2,
+        7,
+        -3
+      ],
+      [
+        8,
+        4,
+        4,
+        9,
+        -5
+      ],
+      [
+        9,
+        4,
+        4,
+        6,
+        -2
+      ],
+      [
+        10,
+        4,
+        4,
+        6,
+        -2
+      ],
+      [
+        11,
+        4,
+        4,
+        6,
+        -2
+      ],
+      [
+        12,
+        4,
+        4,
+        4,
+        0
+      ],
+      [
+        13,
+        4,
+        4,
+        4,
+        0
+      ],
+      [
+        14,
+        4,
+        4,
+        4,
+        0
+      ],
+      [
+        15,
+        6,
+        4,
+        4,
+        2,
+        1,
+        -3317,
+        477,
+        18
+      ],
+      [
+        16,
+        6,
+        4,
+        4,
+        2,
+        1,
+        -2507,
+        1118,
+        31
+      ],
+      [
+        17,
+        6,
+        4,
+        4,
+        2,
+        1,
+        -2408,
+        994,
+        55
+      ],
+      [
+        18,
+        6,
+        4,
+        4,
+        2,
+        1,
+        -2168,
+        1001,
+        93
+      ],
+      [
+        19,
+        6,
+        4,
+        4,
+        2,
+        1,
+        -1511,
+        1499,
+        121
+      ]
+    ],
+    "wool_upturn_quotes": 20,
+    "declined_profit": 5,
+    "hand_days": 7,
+    "topup_tasks": 22,
+    "ops_care": 22,
+    "ops_feed": 12,
+    "orphan_days": 2
+  },
+  "router": {
+    "switches": 4,
+    "router_errors": 0,
+    "hamming_max": 3,
+    "dist_d6": -0.02,
+    "dist_d12": -0.02,
+    "dist_d18": 15.98,
+    "dist_d24": 32.48
+  },
+  "max_action_seconds": 0.011624400038272142,
+  "actions_over_1s": 0,
+  "ledger_verified": true
+}

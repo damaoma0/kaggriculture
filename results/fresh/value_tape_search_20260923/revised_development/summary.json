@@ -1,0 +1,83 @@
+{
+  "games": 7,
+  "completed": 7,
+  "changed": 1,
+  "mean_margin_delta": 1433.4285714285713,
+  "total_margin_delta": 10034.0,
+  "better": 1,
+  "worse": 0,
+  "worst": 0.0,
+  "best": 10034.0,
+  "cases": [
+    {
+      "episode": 111261836,
+      "day": 18,
+      "selected": null,
+      "baseline_margin": -8636.0,
+      "margin_delta": 0.0,
+      "cash_delta": 0.0,
+      "hindsight_best_margin_delta": 0.0,
+      "error": null
+    },
+    {
+      "episode": 111262874,
+      "day": 12,
+      "selected": null,
+      "baseline_margin": -12585.0,
+      "margin_delta": 0.0,
+      "cash_delta": 0.0,
+      "hindsight_best_margin_delta": 18449.0,
+      "error": null
+    },
+    {
+      "episode": 111269605,
+      "day": 15,
+      "selected": 0,
+      "baseline_margin": -11836.0,
+      "margin_delta": 10034.0,
+      "cash_delta": 9716.0,
+      "hindsight_best_margin_delta": 10034.0,
+      "error": null
+    },
+    {
+      "episode": 111284610,
+      "day": 15,
+      "selected": null,
+      "baseline_margin": -8732.0,
+      "margin_delta": 0.0,
+      "cash_delta": 0.0,
+      "hindsight_best_margin_delta": 0.0,
+      "error": null
+    },
+    {
+      "episode": 111287532,
+      "day": 12,
+      "selected": null,
+      "baseline_margin": -6063.0,
+      "margin_delta": 0.0,
+      "cash_delta": 0.0,
+      "hindsight_best_margin_delta": 6594.0,
+      "error": null
+    },
+    {
+      "episode": 111324547,
+      "day": 15,
+      "selected": null,
+      "baseline_margin": -9571.0,
+      "margin_delta": 0.0,
+      "cash_delta": 0.0,
+      "hindsight_best_margin_delta": 1718.0,
+      "error": null
+    },
+    {
+      "episode": 111337545,
+      "day": 15,
+      "selected": null,
+      "baseline_margin": -10336.0,
+      "margin_delta": 0.0,
+      "cash_delta": 0.0,
+      "hindsight_best_margin_delta": 3160.0,
+      "error": null
+    }
+  ]
+}

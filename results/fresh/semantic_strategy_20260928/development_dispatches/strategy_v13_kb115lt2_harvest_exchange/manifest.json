@@ -1,0 +1,60 @@
+{
+  "scope": "EIGHT_NATIVE_LIVE_DEVELOPMENT_CASES_PAIRED_INCREMENTAL_SCREEN",
+  "created_utc": "2026-09-28T09:10:56.051233+00:00",
+  "study": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928",
+  "candidate": "strategy_v13_kb115lt2_harvest_exchange",
+  "candidate_manifest_sha256": "82d5d5a2a3acc181705540a4acf2ed0a764294bba964122d888ec3634cbb0550",
+  "protocol_sha256": "43ed18af7564e376ba6651881f8c7ca3937f1204ce60c8b3cca939b731606a42",
+  "files": {
+    "run_semantic_v13_development_20260928.py": "7b47082c027df5107fcc12522d2b743bc16412b625b1a984b51d15a32be473ae"
+  },
+  "cases": [
+    {
+      "id": "live-00",
+      "seed": 3968666082,
+      "seat": 0
+    },
+    {
+      "id": "live-01",
+      "seed": 869148193,
+      "seat": 1
+    },
+    {
+      "id": "live-02",
+      "seed": 4182452395,
+      "seat": 0
+    },
+    {
+      "id": "live-03",
+      "seed": 378183888,
+      "seat": 1
+    },
+    {
+      "id": "live-04",
+      "seed": 552902341,
+      "seat": 0
+    },
+    {
+      "id": "live-05",
+      "seed": 779294796,
+      "seat": 1
+    },
+    {
+      "id": "live-06",
+      "seed": 474976220,
+      "seat": 0
+    },
+    {
+      "id": "live-07",
+      "seed": 2629053427,
+      "seat": 1
+    }
+  ],
+  "reference_candidate": "strategy_v12_kb115lt2_runtime_fast",
+  "reference_manifest_sha256": "aafa32c48bc4b32627855bd0f0bf18bf93f4f982c496f5ec5f7411dc43a938a1",
+  "minimum_free_gib": 3.3,
+  "stop_on_any_invalid": true,
+  "absolute_win_threshold": null,
+  "dispatch_authorization": "User waived the absolute6/8 rule before freeze. Complete development8 if technically valid; assess paired regression and mechanisms versus V12. No automatic forty-world or recorded dispatch.",
+  "diagnostic_extension": "Read-only copy of existing daily polish.harvest_exchange into diagnostic rows, within normal dawn callback budget; candidate, frozen base harness, RNG and observations unchanged."
+}

@@ -1,0 +1,31 @@
+{
+  "phase": "shops",
+  "seeds": [
+    113000,
+    113001,
+    113002,
+    113003,
+    113004,
+    113005,
+    113006,
+    113007
+  ],
+  "modes": [
+    "original",
+    "sheep"
+  ],
+  "opponents": [
+    "sixday",
+    "pasture"
+  ],
+  "engine": "1.32.7",
+  "policy_sha": "19c2a912e5e1a85f44b5c203d121c0690b8f19df257058e93d613c2b434b9955",
+  "forecast_sha": "3afc6b2b7b48ee3a3be57cb01f4105a2e4cb476c2babf09846053ce212afa74f",
+  "sources": {
+    "old": "e50d3c7b54c051b880fd7b68ed2aa8f954331d6f892b8fb5dca788223b27c24c",
+    "sixday": "91772fda544e2d5768afff819e2de75ecb7a12db8acb40a48ee9edcf76aca434",
+    "pasture": "2c603fd6f9bf978d7e8eef78a34647bd379d0e89963ada0cbb1c52c39b0f4b3f"
+  },
+  "scope": "First unambiguous single pasture purchase during turns144..288; fixed movement/service route. Milk/wool liquidation adapter common to all non-raw candidates.",
+  "shop_control": "First shop stratified across all eight types in sorted order; remaining draws sampled with Random(seed XOR 0x4A27F). Only revealed shops visible to policies. Natural weed evolution retained."
+}

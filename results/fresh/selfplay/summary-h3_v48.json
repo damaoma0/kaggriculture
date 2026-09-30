@@ -1,0 +1,119 @@
+{
+ "manifest": {
+  "tag": "h3_v48",
+  "started": "2026-09-18 23:51:19",
+  "benchmark_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+  "rival": "v48_public",
+  "rival_sha256": "4b5402888feeb4170dce38f34bebe56788b62ca287139fce7db72df8eb89bb96",
+  "seeds": [
+   174000,
+   174001,
+   174002,
+   174003,
+   174004,
+   174005,
+   174006,
+   174007,
+   174008,
+   174009,
+   174010,
+   174011,
+   174012,
+   174013,
+   174014,
+   174015,
+   174016,
+   174017,
+   174018,
+   174019,
+   174020,
+   174021,
+   174022,
+   174023,
+   174024,
+   174025,
+   174026,
+   174027,
+   174028,
+   174029,
+   174030,
+   174031
+  ],
+  "candidates": [
+   "mg11_econ2"
+  ],
+  "seed_base": 174000,
+  "design": "Paired seeds and both seats against the frozen uploaded agent. Natural engine RNG for shops and weeds. Seed-clustered bootstrap intervals. No tuning on these seeds.",
+  "sources": {
+   "agents/mg11_econ2.py": "8723628a2b1831a39a4111ed2dad299434143acba4b2e0d28f77857a252379fa"
+  }
+ },
+ "failures": [],
+ "candidates": {
+  "mg11_econ2": {
+   "label": "mg11_econ2",
+   "build_sha256": "8723628a2b1831a39a4111ed2dad299434143acba4b2e0d28f77857a252379fa",
+   "games": 64,
+   "seeds": 32,
+   "wins": 28,
+   "ties": 0,
+   "losses": 36,
+   "win_rate": 43.8,
+   "win_rate_ci95": [
+    28.1,
+    60.9
+   ],
+   "mean_margin": -766.8,
+   "margin_ci95": [
+    -1618.4,
+    25.1
+   ],
+   "median_margin": -528.5,
+   "mean_cash": 103697,
+   "mean_bench_cash": 104464,
+   "seeds_positive": 14,
+   "per_seed_margin": {
+    "174000": 3226,
+    "174001": 1180,
+    "174002": -756,
+    "174003": -144,
+    "174004": 1132,
+    "174005": -3695,
+    "174006": -1024,
+    "174007": 14,
+    "174008": -3932,
+    "174009": -3598,
+    "174010": 369,
+    "174011": -1922,
+    "174012": -2474,
+    "174013": 861,
+    "174014": 957,
+    "174015": -2025,
+    "174016": 1891,
+    "174017": 219,
+    "174018": -1175,
+    "174019": 54,
+    "174020": -3322,
+    "174021": -2001,
+    "174022": 497,
+    "174023": 4254,
+    "174024": -301,
+    "174025": 1944,
+    "174026": 8,
+    "174027": -1441,
+    "174028": -1230,
+    "174029": -989,
+    "174030": -8584,
+    "174031": -2533
+   },
+   "telemetry": {},
+   "parent_diagnostics": {
+    "overflow_contract_errors": 4,
+    "parent_input_capacity_declines": 12,
+    "sheep_capacity_declines": 2,
+    "supply_budget_declines": 73
+   },
+   "max_seconds": 0.324
+  }
+ }
+}

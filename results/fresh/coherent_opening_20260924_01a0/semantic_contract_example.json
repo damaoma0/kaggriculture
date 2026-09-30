@@ -1,0 +1,423 @@
+{
+  "episode": 112802103,
+  "seat": 1,
+  "semantics": "Verified source outcomes; service omissions are not inferred intentions. Physical positions and dates retained. These jobs are data for an executor, not a new scheduler.",
+  "days": [
+    {
+      "day": 0,
+      "new_plants": {
+        "MELON": 6,
+        "WHEAT": 9
+      },
+      "new_animals": {
+        "COW": 2,
+        "SHEEP": 3
+      },
+      "successful_work": {
+        "BUILD_PASTURE": 5,
+        "PLACE": 5,
+        "FEED": 4,
+        "CARE": 4,
+        "PLANT": 15,
+        "WATER": 15
+      },
+      "establishment_jobs": [
+        {
+          "step": 3,
+          "tile": [
+            4,
+            4
+          ],
+          "operation": "PLACE",
+          "item": "COW"
+        },
+        {
+          "step": 5,
+          "tile": [
+            3,
+            4
+          ],
+          "operation": "PLACE",
+          "item": "SHEEP"
+        },
+        {
+          "step": 6,
+          "tile": [
+            4,
+            3
+          ],
+          "operation": "PLACE",
+          "item": "SHEEP"
+        },
+        {
+          "step": 7,
+          "tile": [
+            2,
+            4
+          ],
+          "operation": "PLACE",
+          "item": "SHEEP"
+        },
+        {
+          "step": 9,
+          "tile": [
+            4,
+            2
+          ],
+          "operation": "PLACE",
+          "item": "COW"
+        },
+        {
+          "step": 10,
+          "tile": [
+            1,
+            3
+          ],
+          "operation": "PLANT",
+          "item": "MELON"
+        },
+        {
+          "step": 11,
+          "tile": [
+            4,
+            1
+          ],
+          "operation": "PLANT",
+          "item": "MELON"
+        },
+        {
+          "step": 12,
+          "tile": [
+            1,
+            4
+          ],
+          "operation": "PLANT",
+          "item": "MELON"
+        },
+        {
+          "step": 13,
+          "tile": [
+            1,
+            2
+          ],
+          "operation": "PLANT",
+          "item": "MELON"
+        },
+        {
+          "step": 13,
+          "tile": [
+            1,
+            1
+          ],
+          "operation": "PLANT",
+          "item": "WHEAT"
+        },
+        {
+          "step": 14,
+          "tile": [
+            3,
+            1
+          ],
+          "operation": "PLANT",
+          "item": "MELON"
+        },
+        {
+          "step": 15,
+          "tile": [
+            3,
+            2
+          ],
+          "operation": "PLANT",
+          "item": "MELON"
+        },
+        {
+          "step": 16,
+          "tile": [
+            1,
+            0
+          ],
+          "operation": "PLANT",
+          "item": "WHEAT"
+        },
+        {
+          "step": 17,
+          "tile": [
+            0,
+            1
+          ],
+          "operation": "PLANT",
+          "item": "WHEAT"
+        },
+        {
+          "step": 17,
+          "tile": [
+            2,
+            1
+          ],
+          "operation": "PLANT",
+          "item": "WHEAT"
+        },
+        {
+          "step": 18,
+          "tile": [
+            2,
+            2
+          ],
+          "operation": "PLANT",
+          "item": "WHEAT"
+        },
+        {
+          "step": 19,
+          "tile": [
+            0,
+            0
+          ],
+          "operation": "PLANT",
+          "item": "WHEAT"
+        },
+        {
+          "step": 20,
+          "tile": [
+            0,
+            4
+          ],
+          "operation": "PLANT",
+          "item": "WHEAT"
+        },
+        {
+          "step": 20,
+          "tile": [
+            0,
+            2
+          ],
+          "operation": "PLANT",
+          "item": "WHEAT"
+        },
+        {
+          "step": 20,
+          "tile": [
+            2,
+            0
+          ],
+          "operation": "PLANT",
+          "item": "WHEAT"
+        }
+      ]
+    },
+    {
+      "day": 1,
+      "new_plants": {
+        "MELON": 4,
+        "WHEAT": 1
+      },
+      "new_animals": {},
+      "successful_work": {
+        "COLLECT_FERTILIZER": 5,
+        "CARE": 5,
+        "FEED": 5,
+        "PLACE": 3,
+        "PLANT": 5,
+        "WATER": 5
+      },
+      "establishment_jobs": [
+        {
+          "step": 38,
+          "tile": [
+            4,
+            0
+          ],
+          "operation": "PLANT",
+          "item": "MELON"
+        },
+        {
+          "step": 40,
+          "tile": [
+            3,
+            3
+          ],
+          "operation": "PLANT",
+          "item": "MELON"
+        },
+        {
+          "step": 41,
+          "tile": [
+            3,
+            0
+          ],
+          "operation": "PLANT",
+          "item": "MELON"
+        },
+        {
+          "step": 42,
+          "tile": [
+            2,
+            3
+          ],
+          "operation": "PLANT",
+          "item": "MELON"
+        },
+        {
+          "step": 45,
+          "tile": [
+            0,
+            3
+          ],
+          "operation": "PLANT",
+          "item": "WHEAT"
+        }
+      ]
+    },
+    {
+      "day": 2,
+      "new_plants": {
+        "STRAWBERRY": 4
+      },
+      "new_animals": {},
+      "successful_work": {
+        "COLLECT_FERTILIZER": 5,
+        "CARE": 5,
+        "WATER": 19,
+        "FEED": 3,
+        "PLACE": 3,
+        "HARVEST": 6,
+        "PLANT": 4
+      },
+      "establishment_jobs": [
+        {
+          "step": 62,
+          "tile": [
+            0,
+            4
+          ],
+          "operation": "PLANT",
+          "item": "STRAWBERRY"
+        },
+        {
+          "step": 64,
+          "tile": [
+            0,
+            0
+          ],
+          "operation": "PLANT",
+          "item": "STRAWBERRY"
+        },
+        {
+          "step": 66,
+          "tile": [
+            1,
+            1
+          ],
+          "operation": "PLANT",
+          "item": "STRAWBERRY"
+        },
+        {
+          "step": 70,
+          "tile": [
+            0,
+            1
+          ],
+          "operation": "PLANT",
+          "item": "STRAWBERRY"
+        }
+      ]
+    },
+    {
+      "day": 3,
+      "new_plants": {
+        "STRAWBERRY": 6
+      },
+      "new_animals": {},
+      "successful_work": {
+        "COLLECT_FERTILIZER": 5,
+        "CARE": 5,
+        "PLACE": 4,
+        "FEED": 5,
+        "WATER": 15,
+        "HARVEST": 4,
+        "PLANT": 6
+      },
+      "establishment_jobs": [
+        {
+          "step": 81,
+          "tile": [
+            0,
+            3
+          ],
+          "operation": "PLANT",
+          "item": "STRAWBERRY"
+        },
+        {
+          "step": 84,
+          "tile": [
+            2,
+            0
+          ],
+          "operation": "PLANT",
+          "item": "STRAWBERRY"
+        },
+        {
+          "step": 86,
+          "tile": [
+            0,
+            2
+          ],
+          "operation": "PLANT",
+          "item": "STRAWBERRY"
+        },
+        {
+          "step": 87,
+          "tile": [
+            1,
+            0
+          ],
+          "operation": "PLANT",
+          "item": "STRAWBERRY"
+        },
+        {
+          "step": 93,
+          "tile": [
+            2,
+            1
+          ],
+          "operation": "PLANT",
+          "item": "STRAWBERRY"
+        },
+        {
+          "step": 94,
+          "tile": [
+            2,
+            2
+          ],
+          "operation": "PLANT",
+          "item": "STRAWBERRY"
+        }
+      ]
+    },
+    {
+      "day": 4,
+      "new_plants": {},
+      "new_animals": {},
+      "successful_work": {
+        "COLLECT_FERTILIZER": 5,
+        "CARE": 5,
+        "PLACE": 3,
+        "FEED": 5,
+        "WATER": 9
+      },
+      "establishment_jobs": []
+    },
+    {
+      "day": 5,
+      "new_plants": {},
+      "new_animals": {},
+      "successful_work": {
+        "COLLECT_FERTILIZER": 5,
+        "CARE": 5,
+        "PLACE": 4,
+        "FEED": 5,
+        "WATER": 11
+      },
+      "establishment_jobs": []
+    }
+  ]
+}

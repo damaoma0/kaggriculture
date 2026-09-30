@@ -1,0 +1,42 @@
+{
+  "candidate": "strategy_v14_kb115lt2_fertilizer_net",
+  "manifest_sha256": "777116e0c9ac309d9481eac1e1da5621c926b380214e73a7c2aaac8b02024b5d",
+  "reference_manifest_sha256": "82d5d5a2a3acc181705540a4acf2ed0a764294bba964122d888ec3634cbb0550",
+  "status": "PREPARED_UNRELEASED",
+  "engine_dispatched": false,
+  "source_differences": {
+    "results/fresh/semantic_strategy_20260928/candidate_config.json": {
+      "v13": "600450cd9433fcde527005468c8032c3132ce81882f4210521a106c39669b728",
+      "v14": "b254e8c20dd995479707d1d803d63de91bf5e05cf856d29652b7ef97feaefe54"
+    },
+    "scripts/semantic_strategy_blocks_20260928.py": {
+      "v13": "d568c8064e555a377e813412606c7a1f56f98f94fa9a5307682bf1849f2a12a5",
+      "v14": "88b5fd1e83125dc727b02b138e48977b0706f0dc7af2735bb3117915559ac80b"
+    },
+    "scripts/semantic_strategy_policy_20260928.py": {
+      "v13": "8e414b8cc82cc67598d71a24a254bbb1f2d56fb009a08e2a42bcc90e0c566a00",
+      "v14": "e1117b7ee8011c5b5d415983aea1077b2adff1e49ee7f8ab6984f10c68ec83f0"
+    },
+    "scripts/semantic_strategy_fertilizer_net_20260928.py": {
+      "v13": null,
+      "v14": "e0cd64a9d35ec3f6e2b0ba30aebb406634c59b5cd019f2a920b7466721a42e2f"
+    }
+  },
+  "config_changes": {
+    "policy.forecast_fertilizer_net": true
+  },
+  "harness_differences": {},
+  "entry_import_and_static_initialization_pass": true,
+  "module_origins": {
+    "semantic_strategy_policy_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v14_kb115lt2_fertilizer_net\\project\\scripts\\semantic_strategy_policy_20260928.py",
+    "semantic_strategy_blocks_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v14_kb115lt2_fertilizer_net\\project\\scripts\\semantic_strategy_blocks_20260928.py",
+    "semantic_strategy_tiles_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v14_kb115lt2_fertilizer_net\\project\\scripts\\semantic_strategy_tiles_20260928.py",
+    "semantic_strategy_fertilizer_net_20260928": "C:\\Users\\xyygl\\Documents\\kaggriculture\\results\\fresh\\semantic_strategy_20260928\\candidates\\strategy_v14_kb115lt2_fertilizer_net\\project\\scripts\\semantic_strategy_fertilizer_net_20260928.py"
+  },
+  "off_equivalence_to_v8_and_byte_identical_v13_policy": {
+    "full_proposals": 192,
+    "public_states": 192
+  },
+  "pure_tests_passed": 14,
+  "game_dispatch_authorization": false
+}

@@ -1,0 +1,77 @@
+{
+  "complete": true,
+  "expected": 32,
+  "received": 32,
+  "errors": [],
+  "missing": [],
+  "matchups": {
+    "mgt_continuation_dev vs v56": {
+      "games": 16,
+      "wins": 8,
+      "ties": 0,
+      "losses": 8,
+      "mean_margin": -4215.75,
+      "mean_cash": 85935.0625,
+      "worst_margin": -31494.0,
+      "worst_decile_mean": -31479.5,
+      "losses_below_minus10000": 6,
+      "mean_margin_seed_ci": [
+        -16155.203125,
+        6953.375
+      ],
+      "max_action_seconds": 0.6201463000033982,
+      "calls_over_1s": 0,
+      "active_games": 4,
+      "activations": 8,
+      "emergency_steps": 0,
+      "maintenance_planned_days": 48,
+      "maintenance_rejections": {},
+      "recovery_reasons": {},
+      "rejection_reasons": {
+        "day_capacity_exceeded": 46,
+        "planning_budget": 24,
+        "unfulfilled_job": 2,
+        "terminal_upkeep_infeasible": 10,
+        "delivery_capacity_exceeded": 6
+      }
+    },
+    "mgt_m1 vs v56": {
+      "games": 16,
+      "wins": 10,
+      "ties": 0,
+      "losses": 6,
+      "mean_margin": 2943.0625,
+      "mean_cash": 90485.5625,
+      "worst_margin": -10095.0,
+      "worst_decile_mean": -10095.0,
+      "losses_below_minus10000": 2,
+      "mean_margin_seed_ci": [
+        -3112.0859375,
+        9222.634374999967
+      ],
+      "max_action_seconds": 0.01485169999068603,
+      "calls_over_1s": 0,
+      "active_games": 0,
+      "activations": 0,
+      "emergency_steps": 0,
+      "maintenance_planned_days": 0,
+      "maintenance_rejections": {},
+      "recovery_reasons": {},
+      "rejection_reasons": {}
+    }
+  },
+  "paired": {
+    "mgt_continuation_dev vs v56": {
+      "margin_delta": -7158.8125,
+      "seed_ci": [
+        -16726.75,
+        0.0
+      ],
+      "cash_delta": -4550.5,
+      "better_seeds": 0,
+      "unchanged_seeds": 6,
+      "worse_seeds": 2,
+      "same_shop_path_games": 12
+    }
+  }
+}

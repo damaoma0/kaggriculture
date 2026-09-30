@@ -1,0 +1,77 @@
+{
+  "method": "Rank rich current-own v10 snapshots against UMG compact board donors; no rewards, outputs, or future shops used.",
+  "checkpoints": [
+    12,
+    15,
+    18,
+    21,
+    24
+  ],
+  "own": {
+    "56395605": {
+      "label": "m1_primary",
+      "compact_tapes": 86,
+      "fields": [
+        "created",
+        "episode",
+        "names",
+        "opp_actions",
+        "opponent",
+        "our_actions",
+        "rewards",
+        "seat",
+        "seed",
+        "shops",
+        "submission"
+      ],
+      "full_board_checkpoints": 0,
+      "availability": "compact actions/shops only; replay required for exact checkpoints"
+    },
+    "56368334": {
+      "label": "t10_secondary",
+      "compact_tapes": 141,
+      "fields": [
+        "created",
+        "episode",
+        "names",
+        "opp_actions",
+        "opponent",
+        "our_actions",
+        "rewards",
+        "seat",
+        "seed",
+        "shops",
+        "submission"
+      ],
+      "full_board_checkpoints": 0,
+      "availability": "compact actions/shops only; replay required for exact checkpoints"
+    }
+  },
+  "umg": {
+    "56266758": {
+      "compact_tapes": 310,
+      "availability": "daily compact board strings, shops and actions"
+    },
+    "56266899": {
+      "compact_tapes": 274,
+      "availability": "daily compact board strings, shops and actions"
+    }
+  },
+  "rich_current_own": {
+    "source": "results/fresh/cumulative_planning/domain/dataset.json",
+    "games": 16,
+    "checkpoint_states": 80,
+    "availability": "full farm/private/market/town checkpoint state"
+  },
+  "ranking_key": [
+    "unordered visible-shop replacement count",
+    "asset count L1 / 2",
+    "crop+animal tile-label mismatch",
+    "visible reveal-order difference"
+  ],
+  "limitations": [
+    "Compact own panel tapes have no board/checkpoint state and are inventory only until replayed.",
+    "UMG compact board labels omit private state and crop ages; ranks are retrieval candidates, not feasible continuations.",
+    "UMG submissions are retained as donor-version labels and never pooled into an estimated policy."
+  ]
+}

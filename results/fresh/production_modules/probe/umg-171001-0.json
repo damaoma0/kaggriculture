@@ -1,0 +1,82 @@
+{
+  "config": "umg",
+  "seed": 171001,
+  "seat": 0,
+  "expected": {
+    "CARROT": 16
+  },
+  "actual": {
+    "CARROT": 16
+  },
+  "successful_plants": {},
+  "cash": 3183.0,
+  "spend": {
+    "BUY_SEED:CARROT": 80,
+    "BUY_PRODUCT:FERTILIZER": 316
+  },
+  "revenue": {
+    "CARROT": 579
+  },
+  "report": {
+    "days": [
+      {
+        "day": 12,
+        "commands": 21,
+        "order": [
+          0,
+          2,
+          1,
+          3
+        ],
+        "permutations": 24
+      },
+      {
+        "day": 14,
+        "commands": 22,
+        "order": [
+          0,
+          2,
+          1,
+          3
+        ],
+        "permutations": 24
+      },
+      {
+        "day": 15,
+        "commands": 21,
+        "order": [
+          0,
+          2,
+          1,
+          3
+        ],
+        "permutations": 24
+      }
+    ],
+    "rejections": [],
+    "missing_inputs": []
+  },
+  "missing_workers": 0,
+  "per_tile": {
+    "(2, 3)": {
+      "plants": 1,
+      "harvest": 4
+    },
+    "(3, 2)": {
+      "plants": 1,
+      "harvest": 4
+    },
+    "(1, 3)": {
+      "plants": 1,
+      "harvest": 4
+    },
+    "(3, 1)": {
+      "plants": 1,
+      "harvest": 4
+    }
+  },
+  "per_tile_passed": true,
+  "source_sha256": "2fcfff2b5bee588d8e1b2b761da10836ff031291f95e3f3a83623b27faace284",
+  "opponent_sha256": "044a26601be23816d397c51c22c4d86b938f8bac4b914f9bea1fbe38bac1e8a5",
+  "passed": true
+}

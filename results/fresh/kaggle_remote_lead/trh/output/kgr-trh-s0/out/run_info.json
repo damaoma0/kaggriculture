@@ -1,0 +1,41 @@
+{
+ "shard": {
+  "cmd": [
+   "scripts/ladder_panel.py",
+   "run",
+   "mgt_lpv_trh",
+   "p2750",
+   "110937191,111374151,111376633,111416249,111554912,111577649,111681195,111688786,111871547,111902048,111916514,111941962"
+  ],
+  "collect": [
+   "results/fresh/lead_idle/smoke_hs1/*.jsonl",
+   "results/fresh/ladder_panel/mgt_lpv_trh/*.json"
+  ],
+  "workers": 4
+ },
+ "games": 24,
+ "pip_seconds": 57.99688935279846,
+ "run_seconds": 119.61645936965942,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "12 games, 4 workers (32.7 GB free)",
+  "mgt_lpv_trh 111416249 margin    -1,578 (recorded    -9,726)",
+  "mgt_lpv_trh 110937191 margin    +8,822 (recorded    +6,275)",
+  "mgt_lpv_trh 111374151 margin    -3,335 (recorded    +9,311)",
+  "mgt_lpv_trh 111376633 margin   -16,815 (recorded    +4,158)",
+  "mgt_lpv_trh 111577649 margin   -20,854 (recorded    +4,794)",
+  "mgt_lpv_trh 111554912 margin   -12,278 (recorded    -1,356)",
+  "mgt_lpv_trh 111688786 margin   -15,541 (recorded    +4,007)",
+  "mgt_lpv_trh 111681195 margin   -20,337 (recorded    +6,142)",
+  "mgt_lpv_trh 111871547 margin   -19,654 (recorded      -372)",
+  "mgt_lpv_trh 111902048 margin    -4,908 (recorded    +6,763)",
+  "mgt_lpv_trh 111941962 margin    +2,343 (recorded   +22,041)",
+  "mgt_lpv_trh 111916514 margin   -18,205 (recorded    -7,004)"
+ ],
+ "stderr_tail": []
+}

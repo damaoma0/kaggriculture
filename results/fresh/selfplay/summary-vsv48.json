@@ -1,0 +1,241 @@
+{
+ "manifest": {
+  "tag": "vsv48",
+  "started": "2026-09-18 12:09:44",
+  "benchmark_sha256": "07c313e53d390ab6e1dd563fa2059dd1ea78988af4e0df3f8bbe1c6d8085ea4f",
+  "rival": "v48_public",
+  "rival_sha256": "4b5402888feeb4170dce38f34bebe56788b62ca287139fce7db72df8eb89bb96",
+  "seeds": [
+   173000,
+   173001,
+   173002,
+   173003,
+   173004,
+   173005,
+   173006,
+   173007,
+   173008,
+   173009,
+   173010,
+   173011,
+   173012,
+   173013,
+   173014,
+   173015
+  ],
+  "candidates": [
+   "sp_null",
+   "sp_nash5",
+   "sp_flip5",
+   "sp_flip35"
+  ],
+  "seed_base": 173000,
+  "design": "Paired seeds and both seats against the frozen uploaded agent. Natural engine RNG for shops and weeds. Seed-clustered bootstrap intervals. No tuning on these seeds.",
+  "sources": {
+   "agents/sp_null.py": "bb63423139f8090e6dbb08f678fe6d1660ad261f33a7a401730d6c5606de981b",
+   "agents/sp_nash5.py": "0a35b503defdeff8484be38772ec7e23a0a4927757986d9661b4bfc470c61d73",
+   "agents/sp_flip5.py": "cdf00f4abfa6a14d8862537f59241c60224374c5aa0c77c76b19d52eb57d98a5",
+   "agents/sp_flip35.py": "d1b23b6afa1f3016695faaf8cc0fcde192299800b2a0e385a9b4a6797ecffd3e"
+  }
+ },
+ "failures": [],
+ "candidates": {
+  "sp_null": {
+   "label": "sp_null",
+   "build_sha256": "bb63423139f8090e6dbb08f678fe6d1660ad261f33a7a401730d6c5606de981b",
+   "games": 32,
+   "seeds": 16,
+   "wins": 0,
+   "ties": 0,
+   "losses": 32,
+   "win_rate": 0.0,
+   "win_rate_ci95": [
+    0.0,
+    0.0
+   ],
+   "mean_margin": -1753.1,
+   "margin_ci95": [
+    -2114.8,
+    -1391.2
+   ],
+   "median_margin": -1703.0,
+   "mean_cash": 94867,
+   "mean_bench_cash": 96620,
+   "seeds_positive": 0,
+   "per_seed_margin": {
+    "173000": -1687,
+    "173001": -2549,
+    "173002": -1562,
+    "173003": -2976,
+    "173004": -615,
+    "173005": -3249,
+    "173006": -1486,
+    "173007": -460,
+    "173008": -1422,
+    "173009": -1940,
+    "173010": -732,
+    "173011": -2112,
+    "173012": -1764,
+    "173013": -1713,
+    "173014": -2090,
+    "173015": -1693
+   },
+   "telemetry": {
+    "calls": 23008
+   },
+   "parent_diagnostics": {
+    "supply_budget_declines": 52,
+    "parent_input_capacity_declines": 2
+   },
+   "max_seconds": 0.37
+  },
+  "sp_nash5": {
+   "label": "sp_nash5",
+   "build_sha256": "0a35b503defdeff8484be38772ec7e23a0a4927757986d9661b4bfc470c61d73",
+   "games": 32,
+   "seeds": 16,
+   "wins": 0,
+   "ties": 0,
+   "losses": 32,
+   "win_rate": 0.0,
+   "win_rate_ci95": [
+    0.0,
+    0.0
+   ],
+   "mean_margin": -2032.7,
+   "margin_ci95": [
+    -2894.4,
+    -1360.2
+   ],
+   "median_margin": -1609.5,
+   "mean_cash": 96669,
+   "mean_bench_cash": 98701,
+   "seeds_positive": 0,
+   "per_seed_margin": {
+    "173000": -2129,
+    "173001": -2469,
+    "173002": -994,
+    "173003": -2819,
+    "173004": -472,
+    "173005": -2571,
+    "173006": -6721,
+    "173007": -309,
+    "173008": -1638,
+    "173009": -1259,
+    "173010": -1044,
+    "173011": -4465,
+    "173012": -1138,
+    "173013": -1581,
+    "173014": -1912,
+    "173015": -1002
+   },
+   "telemetry": {
+    "opening_replaced": 32,
+    "turn1_trimmed": 32
+   },
+   "parent_diagnostics": {
+    "supply_budget_declines": 42,
+    "parent_input_capacity_declines": 2
+   },
+   "max_seconds": 0.372
+  },
+  "sp_flip5": {
+   "label": "sp_flip5",
+   "build_sha256": "cdf00f4abfa6a14d8862537f59241c60224374c5aa0c77c76b19d52eb57d98a5",
+   "games": 32,
+   "seeds": 16,
+   "wins": 0,
+   "ties": 0,
+   "losses": 32,
+   "win_rate": 0.0,
+   "win_rate_ci95": [
+    0.0,
+    0.0
+   ],
+   "mean_margin": -2009.3,
+   "margin_ci95": [
+    -2788.1,
+    -1354.0
+   ],
+   "median_margin": -1657.0,
+   "mean_cash": 96710,
+   "mean_bench_cash": 98719,
+   "seeds_positive": 0,
+   "per_seed_margin": {
+    "173000": -2170,
+    "173001": -2436,
+    "173002": -1035,
+    "173003": -2860,
+    "173004": -513,
+    "173005": -3136,
+    "173006": -5962,
+    "173007": -350,
+    "173008": -1693,
+    "173009": -1300,
+    "173010": -425,
+    "173011": -4432,
+    "173012": -1181,
+    "173013": -1621,
+    "173014": -1993,
+    "173015": -1042
+   },
+   "telemetry": {
+    "opening_replaced": 32
+   },
+   "parent_diagnostics": {
+    "supply_budget_declines": 42,
+    "parent_input_capacity_declines": 2
+   },
+   "max_seconds": 0.351
+  },
+  "sp_flip35": {
+   "label": "sp_flip35",
+   "build_sha256": "d1b23b6afa1f3016695faaf8cc0fcde192299800b2a0e385a9b4a6797ecffd3e",
+   "games": 32,
+   "seeds": 16,
+   "wins": 0,
+   "ties": 0,
+   "losses": 32,
+   "win_rate": 0.0,
+   "win_rate_ci95": [
+    0.0,
+    0.0
+   ],
+   "mean_margin": -1741.1,
+   "margin_ci95": [
+    -2110.9,
+    -1377.6
+   ],
+   "median_margin": -1691.0,
+   "mean_cash": 94873,
+   "mean_bench_cash": 96614,
+   "seeds_positive": 0,
+   "per_seed_margin": {
+    "173000": -1675,
+    "173001": -2537,
+    "173002": -1550,
+    "173003": -2964,
+    "173004": -603,
+    "173005": -3237,
+    "173006": -1474,
+    "173007": -448,
+    "173008": -1410,
+    "173009": -1928,
+    "173010": -720,
+    "173011": -2100,
+    "173012": -1752,
+    "173013": -1701,
+    "173014": -2078,
+    "173015": -1681
+   },
+   "telemetry": {
+    "opening_replaced": 32
+   },
+   "parent_diagnostics": {
+    "supply_budget_declines": 52,
+    "parent_input_capacity_declines": 2
+   },
+   "max_seconds": 0.353
+  }
+ }
+}

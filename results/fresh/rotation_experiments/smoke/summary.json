@@ -1,0 +1,303 @@
+{
+  "stage": "smoke",
+  "expected": 20,
+  "present": 20,
+  "completed": 20,
+  "arms": {
+    "mgt_m1": {
+      "games": 4,
+      "completed": 4,
+      "wins": 2,
+      "ties": 0,
+      "losses": 2,
+      "mean_margin": 1331.0,
+      "mean_cash": 112607.5,
+      "max_action_seconds": 0.01702809997368604,
+      "actions_over_1s": 0,
+      "runtime_errors": 0,
+      "events": {},
+      "event_units": {}
+    },
+    "mgt_exp_dsm": {
+      "games": 4,
+      "completed": 4,
+      "wins": 0,
+      "ties": 0,
+      "losses": 4,
+      "mean_margin": -10332.0,
+      "mean_cash": 100011.0,
+      "max_action_seconds": 0.01164979999884963,
+      "actions_over_1s": 0,
+      "runtime_errors": 0,
+      "events": {},
+      "event_units": {},
+      "paired_seeds": 2,
+      "mean_paired_margin_delta": -11663.0,
+      "margin_delta_seed_bootstrap_95": [
+        -19556.0,
+        -3770.0
+      ],
+      "mean_paired_cash_delta": -12596.5,
+      "better_seeds": 0,
+      "worse_seeds": 2,
+      "equal_seeds": 0,
+      "unchanged_action_games": 0,
+      "same_shop_games": 0,
+      "mean_ledger_delta": {
+        "revenue": {
+          "STRAWBERRY": -13191.5,
+          "MELON": -4342.0,
+          "EGG": 1735.5,
+          "FERTILIZER": -130.0,
+          "TOMATO": 6308.5,
+          "WOOL": -21320.0,
+          "WHEAT": 2440.5,
+          "MILK": 16410.0,
+          "CARROT": 2152.0
+        },
+        "spend": {
+          "BUY_PRODUCT:WHEAT": 2511.5,
+          "BUY_ANIMAL:GOOSE": 900.0,
+          "BUY_ANIMAL:SHEEP": -1750.0,
+          "BUY_SEED:TOMATO": 475.0,
+          "BUY_PRODUCT:FERTILIZER": -873.0,
+          "BUY_SEED:STRAWBERRY": -550.0,
+          "BUY_SEED:WHEAT": -75.0,
+          "BUY_SEED:CARROT": 160.0,
+          "BUY_SEED:MELON": -280.0,
+          "HIRE": 741.0,
+          "BUY_ANIMAL:COW": 1400.0
+        },
+        "sold_units": {
+          "STRAWBERRY": -99.0,
+          "MELON": -25.0,
+          "EGG": 54.5,
+          "FERTILIZER": 3.5,
+          "TOMATO": 72.5,
+          "WOOL": -77.5,
+          "WHEAT": 67.0,
+          "MILK": 71.5,
+          "CARROT": 53.0
+        },
+        "physical": {
+          "op:WEST": 66.5,
+          "moves": 522.5,
+          "commands_hand": 345.0,
+          "op:NORTH": 95.5,
+          "op:COLLECT_FERTILIZER": 72.0,
+          "no_effect:HARVEST": 46.0,
+          "produced:WHEAT": 14.5,
+          "produced:STRAWBERRY": -100.0,
+          "op:PLANT": 10.5,
+          "op:FEED": 44.0,
+          "op:PICKUP": -13.0,
+          "no_effect:PLANT": -0.5,
+          "commands": 345.0,
+          "no_effect:CARE": 34.0,
+          "effective": 178.5,
+          "produced:EGG": 56.0,
+          "produced:CARROT": 53.0,
+          "produced:WOOL": -78.0,
+          "op:PLACE": -1.5,
+          "op:DROP": 21.5,
+          "op:DIG": 11.0,
+          "op:WATER": 115.5,
+          "no_effect:PICKUP": 18.0,
+          "no_effect": 250.5,
+          "no_effect:PLACE": 2.5,
+          "op:CARE": 75.5,
+          "no_effect:FEED": 30.5,
+          "no_effect:WATER": 69.5,
+          "op:BUILD_PASTURE": -1.0,
+          "produced:FERTILIZER": 39.0,
+          "no_effect:COLLECT_FERTILIZER": 33.0,
+          "no_effect:FERTILIZE": 15.0,
+          "produced:MELON": -25.0,
+          "op:PASS": -606.5,
+          "op:EAST": 109.0,
+          "op:BUILD_COOP": 1.5,
+          "op:FERTILIZE": 38.5,
+          "op:HARVEST": 54.5,
+          "op:SOUTH": 251.5,
+          "produced:TOMATO": 72.5,
+          "produced:MILK": 71.5,
+          "no_effect:DIG": 2.5,
+          "moves_blocked": 1.0
+        }
+      },
+      "per_seed_margin_deltas": {
+        "1520919422": -3770.0,
+        "1527053949": -19556.0
+      }
+    },
+    "mgt_exp_cohort": {
+      "games": 4,
+      "completed": 4,
+      "wins": 2,
+      "ties": 0,
+      "losses": 2,
+      "mean_margin": 1331.0,
+      "mean_cash": 112607.5,
+      "max_action_seconds": 0.03295809996780008,
+      "actions_over_1s": 0,
+      "runtime_errors": 0,
+      "events": {
+        "evaluations": 19220,
+        "age_penalty_sum": 5213.600000000031
+      },
+      "event_units": {},
+      "paired_seeds": 2,
+      "mean_paired_margin_delta": 0.0,
+      "margin_delta_seed_bootstrap_95": [
+        0.0,
+        0.0
+      ],
+      "mean_paired_cash_delta": 0.0,
+      "better_seeds": 0,
+      "worse_seeds": 0,
+      "equal_seeds": 2,
+      "unchanged_action_games": 4,
+      "same_shop_games": 4,
+      "mean_ledger_delta": {
+        "revenue": {},
+        "spend": {},
+        "sold_units": {},
+        "physical": {}
+      },
+      "per_seed_margin_deltas": {
+        "1520919422": 0.0,
+        "1527053949": 0.0
+      }
+    },
+    "mgt_exp_rotate": {
+      "games": 4,
+      "completed": 4,
+      "wins": 2,
+      "ties": 0,
+      "losses": 2,
+      "mean_margin": 1408.0,
+      "mean_cash": 111024.5,
+      "max_action_seconds": 0.019409500004258007,
+      "actions_over_1s": 0,
+      "runtime_errors": 0,
+      "events": {
+        "committed": 8,
+        "errors": 0,
+        "reject_calendar": 2,
+        "plant_confirmed": 8,
+        "harvest_requested": 8,
+        "harvest_confirmed": 8,
+        "delivered": 8,
+        "sold": 4
+      },
+      "event_units": {
+        "committed": 0,
+        "plant_confirmed": 0,
+        "harvest_requested": 32,
+        "harvest_confirmed": 32,
+        "delivered": 32,
+        "sold": 32
+      },
+      "paired_seeds": 2,
+      "mean_paired_margin_delta": 77.0,
+      "margin_delta_seed_bootstrap_95": [
+        -130.0,
+        284.0
+      ],
+      "mean_paired_cash_delta": -1583.0,
+      "better_seeds": 1,
+      "worse_seeds": 1,
+      "equal_seeds": 0,
+      "unchanged_action_games": 0,
+      "same_shop_games": 2,
+      "mean_ledger_delta": {
+        "revenue": {
+          "STRAWBERRY": -401.0,
+          "FERTILIZER": 145.5,
+          "TOMATO": 491.5,
+          "WOOL": 52.0,
+          "WHEAT": -1123.5,
+          "MILK": -681.0,
+          "CARROT": 76.5
+        },
+        "spend": {
+          "BUY_PRODUCT:WHEAT": 44.5,
+          "BUY_SEED:TOMATO": 100.0,
+          "BUY_PRODUCT:FERTILIZER": -1.5
+        },
+        "sold_units": {
+          "FERTILIZER": 6.5,
+          "TOMATO": 8.0,
+          "WHEAT": -36.0
+        },
+        "physical": {
+          "op:DIG": 2.0,
+          "op:WATER": -7.0,
+          "no_effect": 3.0,
+          "no_effect:WATER": 1.5,
+          "no_effect:HARVEST": 1.5,
+          "produced:WHEAT": -35.5,
+          "op:PLANT": -5.5,
+          "op:PASS": 21.0,
+          "op:FERTILIZE": -6.5,
+          "op:HARVEST": -4.0,
+          "produced:TOMATO": 8.0,
+          "effective": -24.0
+        }
+      },
+      "per_seed_margin_deltas": {
+        "1520919422": -130.0,
+        "1527053949": 284.0
+      }
+    },
+    "mgt_exp_hold": {
+      "games": 4,
+      "completed": 4,
+      "wins": 2,
+      "ties": 0,
+      "losses": 2,
+      "mean_margin": 1331.0,
+      "mean_cash": 112607.5,
+      "max_action_seconds": 0.014891300001181662,
+      "actions_over_1s": 0,
+      "runtime_errors": 0,
+      "events": {
+        "committed": 8,
+        "errors": 0,
+        "reject_calendar": 2
+      },
+      "event_units": {
+        "committed": 0
+      },
+      "paired_seeds": 2,
+      "mean_paired_margin_delta": 0.0,
+      "margin_delta_seed_bootstrap_95": [
+        0.0,
+        0.0
+      ],
+      "mean_paired_cash_delta": 0.0,
+      "better_seeds": 0,
+      "worse_seeds": 0,
+      "equal_seeds": 2,
+      "unchanged_action_games": 4,
+      "same_shop_games": 4,
+      "mean_ledger_delta": {
+        "revenue": {},
+        "spend": {},
+        "sold_units": {},
+        "physical": {}
+      },
+      "per_seed_margin_deltas": {
+        "1520919422": 0.0,
+        "1527053949": 0.0
+      }
+    }
+  },
+  "rotation_vs_hold": {
+    "mean_margin_delta": 77.0,
+    "seed_bootstrap_95": [
+      -130.0,
+      284.0
+    ]
+  }
+}

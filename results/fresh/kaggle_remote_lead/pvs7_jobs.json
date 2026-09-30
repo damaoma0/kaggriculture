@@ -1,0 +1,3 @@
+[{"kind": "push", "run": "pvs7", "agents": "mgt_lpv_c27,mgt_lpv_c27f", "submission": "p2750", "episodes": "110937191,111374151,111376633,111416249,111554912,111577649,111681195,111688786,111871547,111902048,111916514,111941962", "shards": 1, "workers": 4},
+ {"kind": "pushcmd", "run": "g1f", "cmd": "scripts/lead_ablation.py run E2c27,E2c27f,Gc27,Gbase --workers 4", "collect": "results/fresh/lead_agent_20260924/abl_*/*.json"},
+ {"kind": "push", "run": "pfc27", "agents": "mgt_lpv_c27", "submission": "p2750", "episodes": "all", "shards": 3, "workers": 4}]

@@ -1,0 +1,102 @@
+{
+ "flow_per_game": {
+  "collect": 469.0275229357798,
+  "pick_units": 20.440366972477065,
+  "pick_ops": 7.422018348623853,
+  "applied": 231.88073394495413,
+  "dep_units": 82.03669724770643,
+  "dep_field": 81.21100917431193,
+  "fate_field_drop": 25.889908256880734,
+  "fate_field_place": 55.321100917431195,
+  "fate_field_autodump": 168.6697247706422,
+  "fate_field_applied_sametrip": 193.28440366972478,
+  "fate_field_applied_aftershed": 25.458715596330276,
+  "fate_shed_applied_aftershed": 13.137614678899082,
+  "fate_shed_autodump": 6.477064220183486,
+  "sell_req": 246.41284403669724,
+  "buy_req": 0.8073394495412844,
+  "net_resid": -236.11009174311926,
+  "moves": 3304.467889908257,
+  "unit_steps": 7293.972477064221,
+  "fate_shed_drop": 0.7155963302752294,
+  "fate_shed_place": 0.11009174311926606,
+  "autodump": 175.14678899082568
+ },
+ "fertilize": {
+  "n": 25275,
+  "field": 23843,
+  "shed": 1432,
+  "chain_direct": 21068,
+  "field_after_shed": 2775,
+  "fifo_field": 23477,
+  "homogeneous": 24904,
+  "lag_field_mean": 8.035607935243048,
+  "lag_chain_median": 6.0
+ },
+ "chains": {
+  "n": 21068,
+  "dshed_animal": 2.1179039301310043,
+  "dshed_crop": 4.77192899183596,
+  "animal_closer": 20676,
+  "equal": 283,
+  "on_shortest_path": 19255,
+  "geo_detour_mean": 0.13404214923106134,
+  "walk_AC_mean": 3.1067495728118475,
+  "man_AC_mean": 2.7880672109360165,
+  "walk_shedC_mean": 5.33629200683501,
+  "dshed_C_mean_for_walk": 4.77192899183596
+ },
+ "walking": {
+  "upper_per_game": 1433.9449541284403,
+  "trip_per_game": 961.0642201834862,
+  "moves_per_game": 3304.467889908257,
+  "trips_per_game": 144.30275229357798,
+  "upper_per_fert_mean": 7.418834250996772,
+  "trip_mean": 6.6600546760760375,
+  "stock_ge1_share": 25.71047110432958,
+  "stock_ge_need_share": 24.051115773412167
+ },
+ "fates": {
+  "field|drop": 25.889908256880734,
+  "field|place": 55.321100917431195,
+  "field|autodump": 168.6697247706422,
+  "field|applied_direct": 193.28440366972478,
+  "field|applied_aftershed": 25.458715596330276,
+  "shed|applied_aftershed": 13.137614678899082,
+  "shed|autodump": 6.477064220183486,
+  "shed|drop": 0.7155963302752294,
+  "shed|place": 0.11009174311926606
+ },
+ "layout": {
+  "crop": {
+   "8": 7175,
+   "7": 14379,
+   "6": 22252,
+   "5": 29765,
+   "4": 33997,
+   "3": 21915,
+   "2": 6020,
+   "1": 234,
+   "0": 34
+  },
+  "animal": {
+   "2": 16703,
+   "1": 15023,
+   "0": 7707,
+   "3": 8299,
+   "4": 3628,
+   "5": 104
+  },
+  "other": {
+   "2": 457,
+   "4": 197,
+   "3": 334,
+   "1": 412,
+   "0": 104,
+   "6": 79,
+   "8": 84,
+   "7": 105,
+   "5": 88
+  }
+ }
+}

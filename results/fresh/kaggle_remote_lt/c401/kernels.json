@@ -1,0 +1,7 @@
+{
+ "kernels": [
+  "kgr-c401-s0"
+ ],
+ "cmd": "scripts/kgr_check_run.py b0928044815 scripts/path_trial.py --spec results/fresh/threads_20260928/animal/spec.json --arms KB115LTk,KB115LTS1,KB115LTS4 --games 16732748:112581436,16732748:112582639,16732748:112583842,16732748:112585076,16732748:112586293,16732748:112587591,16732748:112588103,16732748:112588791,16732748:112589990,16732748:112591190 --out results/fresh/kaggle_lt/c401 --workers 4 --no_vitals --no_gap",
+ "pushed": 1790568570.6667392
+}

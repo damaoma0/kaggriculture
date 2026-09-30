@@ -1,0 +1,49 @@
+{
+ "shard": {
+  "agents": [
+   "mgt_v9",
+   "mgt_r3"
+  ],
+  "submission": "56395605",
+  "episodes": [
+   "112483478",
+   "112502033",
+   "112541371",
+   "112568738",
+   "112572245",
+   "112578547",
+   "112590511",
+   "112605999"
+  ],
+  "workers": 4
+ },
+ "games": 16,
+ "pip_seconds": 59.6795973777771,
+ "run_seconds": 277.89081478118896,
+ "returncode": 0,
+ "cpus": 4,
+ "python": "3.12.13",
+ "engine": "1.32.7",
+ "cpu_model": "Intel(R) Xeon(R) CPU @ 2.20GHz",
+ "mem_gb": 33.7,
+ "stdout_tail": [
+  "16 games, 4 workers (32.6 GB free)",
+  "mgt_v9     112483478 margin    +2,741 (recorded    +2,741)",
+  "mgt_v9     112502033 margin    +3,548 (recorded    +3,548)",
+  "mgt_r3     112483478 margin    +2,741 (recorded    +2,741)",
+  "mgt_r3     112502033 margin    +3,548 (recorded    +3,548)",
+  "mgt_v9     112541371 margin    -3,372 (recorded    -3,372)",
+  "mgt_r3     112541371 margin    -3,372 (recorded    -3,372)",
+  "mgt_v9     112568738 margin    +9,167 (recorded    +9,167)",
+  "mgt_r3     112568738 margin    +9,167 (recorded    +9,167)",
+  "mgt_v9     112572245 margin    -4,464 (recorded    -6,697)",
+  "mgt_v9     112578547 margin    +3,196 (recorded    +3,196)",
+  "mgt_r3     112572245 margin    -4,464 (recorded    -6,697)",
+  "mgt_r3     112578547 margin    +3,196 (recorded    +3,196)",
+  "mgt_v9     112590511 margin    +3,494 (recorded    +3,494)",
+  "mgt_r3     112590511 margin    +3,494 (recorded    +3,494)",
+  "mgt_v9     112605999 margin    +5,601 (recorded      -252)",
+  "mgt_r3     112605999 margin    +5,601 (recorded      -252)"
+ ],
+ "stderr_tail": []
+}

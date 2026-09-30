@@ -1,0 +1,69 @@
+{
+  "rows": [
+    {
+      "case": "wool",
+      "repeat": 0,
+      "selected": 0,
+      "seconds": 7.928893800009973,
+      "rollouts": 40,
+      "complete_forecast_equal": true,
+      "timings": {
+        "setup": 1.6576533999759704,
+        "worlds": 1.1756495999870822,
+        "agent_resets": 0.017315500183030963
+      }
+    },
+    {
+      "case": "wool",
+      "repeat": 1,
+      "selected": 0,
+      "seconds": 5.459459899982903,
+      "rollouts": 40,
+      "complete_forecast_equal": true,
+      "timings": {
+        "setup": 0.04618180001853034,
+        "worlds": 0.30108689999906346,
+        "agent_resets": 0.017560199950821698
+      }
+    },
+    {
+      "case": "wool",
+      "repeat": 2,
+      "selected": 0,
+      "seconds": 5.509444000024814,
+      "rollouts": 40,
+      "complete_forecast_equal": true,
+      "timings": {
+        "setup": 0.04498750000493601,
+        "worlds": 0.3073863000026904,
+        "agent_resets": 0.017789500125218183
+      }
+    },
+    {
+      "case": "111262874",
+      "selected": 184,
+      "seconds": 7.109672000049613,
+      "rollouts": 36,
+      "complete_forecast_equal": true,
+      "timings": {
+        "setup": 0.03953770000953227,
+        "worlds": 0.35484580002957955,
+        "agent_resets": 0.01893980015302077
+      }
+    },
+    {
+      "case": "111287532",
+      "selected": null,
+      "seconds": 7.591491199971642,
+      "rollouts": 40,
+      "complete_forecast_equal": true,
+      "timings": {
+        "setup": 0.03717769996728748,
+        "worlds": 0.33311599999433383,
+        "agent_resets": 0.023401700251270086
+      }
+    }
+  ],
+  "audited_turns": 2298,
+  "contract": "Every audited call left observations unchanged and retained no mutable observation aliases in agent memory or returned actions."
+}
