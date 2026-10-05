@@ -1,8 +1,8 @@
 # Kaggriculture — Planning, Scheduling & Evaluation
 
-An autonomous farming agent and experimental framework for [Kaggle's Kaggriculture competition](https://www.kaggle.com/competitions/kaggriculture), developed by **Yiyang Xu · Team Ghost Rule**.
+An autonomous farming agent and experimental framework for [Kaggle's Kaggriculture competition](https://www.kaggle.com/competitions/kaggriculture), developed by Yiyang Xu under team Ghost Rule.
 
-**Reached the public leaderboard's top 150 within two weeks of development, in a competition with 10,246 teams and a nine-week submission window.** This was my first Kaggle competition.
+Highest standing top 50, current standing on public leaderboard is top 150 out of 10246. 
 
 The project evolved from a public-router baseline and recorded-action selection into a **semantic planner → tiler → executor** architecture. The main research question became: how can a high-level economic plan be turned into feasible worker actions without losing its value over a full season? Parallel market and opponent-behaviour studies informed the economic assumptions and tested which signals were useful for decisions.
 
